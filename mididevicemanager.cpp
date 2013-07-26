@@ -1,0 +1,793 @@
+// Copyright (c) 2025 KMI Music, Inc.
+// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+// If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#include "mididevicemanager.h"
+#include "sysexMessages.h"
+
+#ifdef Q_OS_MAC
+MidiDeviceManager *callbackClassPointer;
+void midiSystemChanged(const MIDINotification *message, void *refCon);                          //Called when the system's MIDI has changed
+void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon);    //Called upon incoming midi from connected port
+void sysExComplete(MIDISysexSendRequest*);                                                      //Called when sysex event has been completely sent
+
+
+MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
+    QWidget(parent)
+{
+    inBootloader = false;
+    fwUpdateRequested = false;
+
+    //Load Firmware File into a byte array
+    firmware = new QFile(":firmware/resources/firmware/QuNexus_Firmware.syx");
+    firmware->open(QIODevice::ReadOnly);
+    firmwareByteArray = firmware->readAll();
+
+    //------------------------------------- Set Version Expectations & Initialize Found Strings
+    bootloaderVersion[0] = 0x01;
+    bootloaderVersion[1] = 0x00;
+    bootloaderVersion[2] = 0x00;
+
+    firmwareVersion[0] = 0x01;
+    firmwareVersion[1] = 0x00;
+    firmwareVersion[2] = 0x01;
+
+    versionSum = 0;
+
+    foundBootloaderVersion = QString("Found Bootloader Version: Not Connected\n");
+
+    foundFirmwwareVersion = QString("Found Firmware Version: Not Connected\n");
+
+    expectedBootloaderVersion = QString("Expected Bootloader Version: %1.%2.%3\n")
+            .arg(int(bootloaderVersion[0]))
+            .arg(int(bootloaderVersion[1]))
+            .arg(int(bootloaderVersion[2]));
+
+    expectedFirmwareVersion = QString("Expected Firmware Version: %1.%2.%3\n")
+            .arg(int(firmwareVersion[0]))
+            .arg(int(firmwareVersion[1]))
+            .arg(int(firmwareVersion[2]));
+
+    callbackClassPointer = this;
+
+    createAppMidiClient();
+
+
+}
+
+void MidiDeviceManager::createAppMidiClient()
+{
+    MIDIClientCreate(CFSTR("QuNexus MIDI Client"), midiSystemChanged, this, &appClientRef);
+    MIDIInputPortCreate(appClientRef, CFSTR("QuNexus MIDI Client In Port"), incomingMidi, this, &appInPortRef);
+    MIDIOutputPortCreate(appClientRef, CFSTR("QuNexus MIDI Client Out Port"), &appOutPortRef);
+}
+
+bool MidiDeviceManager::connectSource()
+{
+
+    if(getSource() != -1)
+    {
+        qDebug() << "connect source called";
+        //Connect Source
+        MIDIEndpointRef endpointRef = MIDIGetSource(getSource());
+        MIDIPortConnectSource(appInPortRef, endpointRef, &endpointRef);
+        //qDebug() << "Source Connected: " << sourceName;
+
+        queryReplied = false;
+        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
+        emit signalConnected(true);
+        return true;
+    }
+    else
+    {
+        foundBootloaderVersion = QString("Found Bootloader Version: Not Connected\n");
+        foundFirmwwareVersion = QString("Found Firmware Version: Not Connected\n");
+
+        //qDebug() << "Matching Source: " << sourceName << " NOT Found!";
+        emit signalConnected(false);
+        return false;
+    }
+}
+
+int MidiDeviceManager::getSource()
+{
+    //Returns index of first instance of SSCOM Port 1
+    for(int i=0; i<MIDIGetNumberOfSources(); i++)
+    {
+        if(getDisplayName(MIDIGetSource(i)).contains("SSCOM") && getDisplayName(MIDIGetSource(i)).contains("1"))
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int MidiDeviceManager::getDestination()
+{
+    //Returns index of first instance of SSCOM Port 1
+    for(int i=0; i<MIDIGetNumberOfDestinations(); i++)
+    {
+        if(getDisplayName(MIDIGetDestination(i)).contains("SSCOM") && getDisplayName(MIDIGetDestination(i)).contains("1"))
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+void MidiDeviceManager::slotRequestFirmwareUpdate()
+{
+
+    fwUpdateRequested = true;
+
+    if(inBootloader)
+    {
+        qDebug() << "Update Firmware Called from slot requested";
+        slotUpdateFirmware();
+    }
+    else
+    {
+        char sens[17] = { 0xF0 , 0x00 , 0x01 , 0x5F , 0x7A , 0x19 , 0x00 , 0x01 , 0x00 , 0x02 , 0x50 , 0x01 , 0x74 , 0x3E , 0x00 , 0x10 , 0xF7};
+        QByteArray sensitivitiesBA = QByteArray(sens, 17);
+
+        qDebug() << "enter bootloader called from firmware request" << "zero" << (int)firmwareVersion[0] << "two" << (int)firmwareVersion[2];
+
+        if(versionSum >= 101)
+        {
+            //slotSendSysEx("RequestPerKeySensitivities", sensitivitiesBA, "QuNexus Port 1");
+        }
+        else
+        {
+            slotEnterBootloader();
+        }
+    }
+}
+
+void MidiDeviceManager::slotEnterBootloader()
+{
+    //-------------- Enter Bootloader ---------------//
+    char bytes[] = {0xF0, 0x00, 0x01, 0x5F, 0x7A, 0x19, 0x00, 0x01,  0x00, 0x02, 0x11, 0x00, 0x5A, 0x62, 0x00, 0x30, 0xF7};
+    QByteArray byteArray(bytes, 17);
+
+    //slotSendSysEx("Enter Bootloader" , byteArray, "QuNexus Port 1");
+}
+
+void MidiDeviceManager::slotUpdateFirmware()
+{
+    qDebug() << "Send the firmware!" << firmwareByteArray;
+    emit signalProgressDialog("setup", firmwareByteArray.size());
+    //slotSendSysEx(firmwareByteArray, "QuNexus Port 1");
+}
+
+
+////////////////////////////////////////////////////////
+///////////////// Helper Funcitons /////////////////////
+////////////////////////////////////////////////////////
+QString MidiDeviceManager::getDisplayName(MIDIObjectRef object)
+{
+    // Returns the display name of a given MIDIObjectRef as an NSString
+    CFStringRef name = nil; //place holder for name
+
+    if(noErr != MIDIObjectGetStringProperty(object, kMIDIPropertyDisplayName, &name))
+    {//get the name using midi services function
+        return nil;
+    }
+
+    return QString(cFStringRefToQString(name)); //return the name
+}
+
+QString MidiDeviceManager::cFStringRefToQString(CFStringRef ref)
+{
+    //this function just translates a CFStringRef into a QString
+    CFRange range;
+    range.location = 0;
+    range.length = CFStringGetLength(ref);
+    QString result(range.length, QChar(0));
+
+    UniChar *chars = new UniChar[range.length];
+    CFStringGetCharacters(ref, range, chars);
+    //[nsstr getCharacters:chars range:range];
+    result = QString::fromUtf16(chars, range.length);
+    delete[] chars;
+    return result;
+}
+
+void MidiDeviceManager::slotSendSysEx(QString messageID,unsigned char* bytes, int len, QString destinationName)
+{
+    qDebug() << "==== Sed asdf asdf;ljasdf ";
+    if(int dest = getDestination())
+    {
+        //Creat char array to hold sysex bytes
+        //unsigned char* sysExCharData = new unsigned char(sysExMessageByteArray.size());
+
+        //Assign bytes to char array
+        //sysExCharData = (unsigned char*)sysExMessageByteArray.data();
+
+        //Create new sysex event/request
+        MIDISysexSendRequest* sysExMsgReq = new MIDISysexSendRequest;
+
+        //Set the message's fields
+        sysExMsgReq->destination = MIDIGetDestination(dest);
+        sysExMsgReq->data = (const Byte *)bytes;
+        sysExMsgReq->bytesToSend = len;
+        sysExMsgReq->complete = false;
+        sysExMsgReq->completionProc = &sysExComplete;
+        sysExMsgReq->completionRefCon = bytes;
+
+        //Send the message
+        MIDISendSysex(sysExMsgReq);
+
+        //Wait for entire message to be sent
+        int bytes = -1;
+
+        while(!sysExMsgReq->complete)
+        {
+            QApplication::processEvents();
+
+            if(bytes != sysExMsgReq->bytesToSend)
+            {
+                bytes = sysExMsgReq->bytesToSend;
+
+                if(messageID == "update firmware")
+                {
+                    emit signalFwBytesLeft(sysExMsgReq->bytesToSend);
+                }
+            }
+            //qDebug() << "sysEx msg bytes left:" << bytes;
+        }
+
+    }
+    else
+    {
+        qDebug() << "Matching Destination: " << destinationName << " NOT Found!";
+    }
+}
+
+void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
+{
+    //qDebug() << "sysex length" << sysExMessageByteArray.count();
+
+    if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 91 && !queryReplied)
+    {
+        qDebug() << "Got the reply" << sysExMessageByteArray.count();
+        queryReplied = true;
+
+        //qDebug() << foundBootloaderVersion;
+        //qDebug() << foundFirmwwareVersion;
+        //qDebug() << expectedBootloaderVersion;
+        //qDebug() << expectedFirmwareVersion;
+
+        //emit signalFirmwareOutOfDate(expectedBootloaderVersion,foundBootloaderVersion,expectedFirmwareVersion,foundFirmwwareVersion);
+        emit signalProcessFwQueryReply(sysExMessageByteArray);
+    }
+
+
+}
+
+
+
+////////////////////////////////////////////////////////
+////////////////Non-Class Callbacks ////////////////////
+////////////////////////////////////////////////////////
+void midiSystemChanged(const MIDINotification *message, void *refCon)
+{
+    if(message->messageID == kMIDIMsgObjectAdded)
+    {
+        MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
+
+        if(msg->childType == kMIDIObjectType_Source)
+        {
+            if(callbackClassPointer->getDisplayName(msg->child).contains("SSCOM") && callbackClassPointer->getDisplayName(msg->child).contains("1"))
+            {
+                callbackClassPointer->connectSource();
+            }
+        }
+    }
+
+    else if(message->messageID == kMIDIMsgObjectRemoved)
+    {
+        MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
+
+        if(msg->childType == kMIDIObjectType_Source)
+        {
+            if(callbackClassPointer->getDisplayName(msg->child).contains("SSCOM") && callbackClassPointer->getDisplayName(msg->child).contains("1"))
+            {
+                callbackClassPointer->connectSource();
+            }
+        }
+    }
+}
+
+void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon){
+
+    //iterate through midi packets and process according to type
+    const MIDIPacket *packet = &pktlist->packet[0];
+
+    //for number packets in packet list
+    for(int i =0; i < pktlist->numPackets; i++)
+    {
+        //for length of packet
+        for(int j = 0; j < packet->length; j++)
+        {
+            //If a SysEx Start Byte, set filter switch
+            if(packet->data[j] == 240)
+            {
+                callbackClassPointer->isSysEx = true;
+            }
+
+            //If a SysEx End Byte, set filter switch off and send last bytes
+            else if (packet->data[j] == 247)
+            {
+                callbackClassPointer->isSysEx = false;
+                callbackClassPointer->sysExMessage.append(packet->data[j]);
+                //qDebug() << "----- SysEx In ----- :" << packet->data[j];
+
+                callbackClassPointer->slotProcessSysEx(callbackClassPointer->sysExMessage);
+                callbackClassPointer->sysExMessage.clear();
+            }
+
+            //Processes SysEx
+            if(callbackClassPointer->isSysEx)
+            {
+                callbackClassPointer->sysExMessage.append(packet->data[j]);
+                //qDebug() << "----- SysEx In ----- :" << packet->data[j];
+            }
+            else if(packet->data[j] != 247)
+            {
+                qDebug() << "MIDI Channel Event: " << packet->data[j];
+            }
+        }
+
+        //advance packet in midi packet list
+        packet = MIDIPacketNext(packet);
+    }
+}
+
+void sysExComplete(MIDISysexSendRequest* request)
+{
+    qDebug() << "Sys Ex Sent";
+}
+#else
+
+MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
+    QWidget(parent)
+{
+
+    sysExType = "None";
+    globals.clear();
+
+    qDebug() <<"ERROR" << MMSYSERR_ALLOCATED;
+
+    inBootloader = false;
+    fwUpdateRequested = false;
+
+    //Load Firmware File into a byte array
+    firmware = new QFile(":firmware/resources/firmware/QuNexus_Firmware.syx");
+    firmware->open(QIODevice::ReadOnly);
+    firmwareByteArray = firmware->readAll();
+
+    //------------------------------------- Set Version Expectations & Initialize Found Strings
+    bootloaderVersion[0] = 0x01;
+    bootloaderVersion[1] = 0x00;
+    bootloaderVersion[2] = 0x00;
+
+    firmwareVersion[0] = 0x01;
+    firmwareVersion[1] = 0x01;
+    firmwareVersion[2] = 0x07;
+
+    versionSum = 0;
+
+    foundBootloaderVersion = QString("Found Bootloader Version: Not Connected\n");
+
+    foundFirmwwareVersion = QString("Found Firmware Version: Not Connected\n");
+
+    expectedBootloaderVersion = QString("Expected Bootloader Version: %1.%2.%3\n")
+            .arg(int(bootloaderVersion[0]))
+            .arg(int(bootloaderVersion[1]))
+            .arg(int(bootloaderVersion[2]));
+
+    expectedFirmwareVersion = QString("Expected Firmware Version: %1.%2.%3\n")
+            .arg(int(firmwareVersion[0]))
+            .arg(int(firmwareVersion[1]))
+            .arg(int(firmwareVersion[2]));
+
+    inHandle = NULL;
+    outHandle = NULL;
+    connected = false;
+    refreshDevices = true;
+
+    //------------------------------- Polling
+
+    //Devices
+    devicePoller = new QTimer(this);
+    connect(devicePoller, SIGNAL(timeout()), this, SLOT(slotPollDevices()));
+    devicePoller->start(1000);
+
+    //Version
+    versionPoller = new QTimer(this);
+    connect(versionPoller, SIGNAL(timeout()), this, SLOT(slotPollVersion()));
+    versionReply = false;
+}
+
+bool MidiDeviceManager::connectSource()
+{
+    if(getSource() != -1)
+    {
+        //Connect Source
+        slotCloseMidiIn();
+        slotCloseMidiOut();
+        slotOpenMidiIn(getSource());
+        slotOpenMidiOut(getDestination());
+        versionReply = false;
+        versionPoller->start(1000);
+        return true;
+    }
+    else
+    {
+        slotCloseMidiIn();
+        slotCloseMidiOut();
+        emit signalConnected(false);
+        return false;
+    }
+}
+
+void MidiDeviceManager::slotOpenMidiIn(int index){
+
+    DWORD   err;
+
+    /* Is it not yet open? */
+    if (!inHandle)
+    {
+        /* Open MIDI Input and set Windows to call my
+          midiInputEvt() callback function. You may prefer
+          to have something other than CALLBACK_FUNCTION. Also,
+          I open device 0. You may want to give the user a choice */
+        if (!(err = midiInOpen(&inHandle, index, (DWORD_PTR)MidiDeviceManager::midiInCallback, (DWORD_PTR)this, CALLBACK_FUNCTION)))
+        {
+            sysExInBuffer = GlobalAlloc(GHND, 500); //allocate sysex input buffer
+            if(sysExInBuffer)
+            { //if exists...
+                sysExInHdr.lpData = (LPSTR)GlobalLock(sysExInBuffer); //set pointer to our buffer in header struct
+                if(sysExInHdr.lpData)
+                { //if above pointer successfully set...
+                    sysExInHdr.dwBufferLength = 500; //allocate an input of 500 byte length
+                    sysExInHdr.dwFlags = 0; //no flags
+
+                    err = midiInPrepareHeader(inHandle, &sysExInHdr, sizeof(MIDIHDR)); //prepare the header (return MMRESULT err)
+                    if(err == MMSYSERR_NOERROR)
+                    { //if not error...
+                        err = midiInAddBuffer(inHandle, &sysExInHdr, sizeof(MIDIHDR)); //add the buffer to our current device
+                        if(err == MMSYSERR_NOERROR)
+                        { //if no error...
+                            err = midiInStart(inHandle); //start midi input***** (there's no midi out start)
+                            if(err != MMSYSERR_NOERROR)
+                            { //if error in starting...
+                                qDebug("couldn't open midi in"); //print error
+                            }
+                            else
+                            {
+                                qDebug("device open"); //if successful, print device open
+                            }
+                        }
+                    }
+                }
+            }
+
+            /* Start recording Midi and return if SUCCESS */
+            if (!(err = midiInStart(inHandle)))
+            {
+
+                //return(0);
+            }
+
+            /* ============== ERROR ============== */
+
+            /* Close MIDI In and zero handle */
+            //slotCloseMidiIn();
+
+
+        }
+
+        /* Return the error */
+        qDebug() << "OPEN MIDI IN ERR:"<< (err);
+
+    }
+}
+
+void MidiDeviceManager::slotOpenMidiOut(int index){
+
+    DWORD   err;
+
+    /* Is it not yet open? */
+    if (!outHandle)
+    {
+        /* Open MIDI Output. */
+        if (!(err = midiOutOpen(&outHandle, index, (DWORD_PTR)midiOutCallback, (DWORD_PTR)this, CALLBACK_FUNCTION)))
+        {
+            //return(0);
+        }
+
+        /* ============== ERROR ============== */
+    }
+
+    /* Return the error */
+    qDebug() << "OPEN MIDI OUT ERR:"<< (err);
+
+}
+
+void MidiDeviceManager::slotCloseMidiIn(){
+
+    DWORD   err;
+
+    /* Is the device open? */
+    if ((err = (DWORD)inHandle))
+    {
+        /* Unqueue any buffers we added. If you don't
+          input System Exclusive, you won't need this */
+        midiInReset(inHandle);
+
+        /* Close device */
+        if (!(err = midiInClose(inHandle)))
+        {
+            /* Clear handle so that it's safe to call closeMidiIn() anytime */
+            inHandle = 0;
+        }
+    }
+
+    qDebug() << "CLOSE MIDI IN ERR" << err;
+}
+
+void MidiDeviceManager::slotCloseMidiOut(){
+
+    qDebug() << "slot close OUT device";
+    DWORD   err;
+
+    /* Is the device open? */
+    if ((err = (DWORD)outHandle))
+    {
+        /* If you have any system exclusive buffers that
+                       you sent via midiOutLongMsg(), and which are still being output,
+                       you may need to wait for their MIDIERR_STILLPLAYING flags to be
+                       cleared before you close the device. Some drivers won't close with
+                       pending output, and will give an error. */
+
+        /* Close device */
+        if (!(err = midiOutClose(outHandle)))
+        {
+            /* Clear handle so that it's safe to call closeMidiOut() anytime */
+            outHandle = 0;
+        }
+    }
+
+
+    qDebug() << "CLOSE MIDI OUT ERR" << err;
+}
+
+int MidiDeviceManager::getSource()
+{
+    for(uint i =0; i<midiInGetNumDevs(); i++)
+    {
+        if(getDisplayName(i, "In") == "SSCOM")
+        {
+            qDebug() << i << getDisplayName(i, "In");
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int MidiDeviceManager::getDestination()
+{
+    for(uint i =0; i<midiOutGetNumDevs(); i++)
+    {
+        if(getDisplayName(i, "Out") == "SSCOM")
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+QString MidiDeviceManager::getDisplayName(int deviceIndex, QString inOrOut)
+{
+    if(inOrOut == "In")
+    {
+
+
+        MIDIINCAPS capabilities;
+
+        midiInGetDevCaps(deviceIndex, &capabilities, sizeof(MIDIINCAPS));
+
+        QString displayName;
+        uint charNum = 0;
+
+        //Make QString
+        while(capabilities.szPname[charNum] != '\0')
+        {
+            displayName.append(QChar(capabilities.szPname[charNum]));
+            charNum++;
+        }
+
+        return displayName;
+    }
+    else
+    {
+
+        MIDIOUTCAPS capabilities;
+
+        midiOutGetDevCaps(deviceIndex, &capabilities, sizeof(MIDIOUTCAPS));
+
+        QString displayName;
+        uint charNum = 0;
+
+        //Make QString
+        while(capabilities.szPname[charNum] != '\0')
+        {
+            displayName.append(QChar(capabilities.szPname[charNum]));
+            charNum++;
+        }
+
+        return displayName;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////// Slots //////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, int len, QString destinationName)
+{
+
+qDebug() << "sysex bytes" << len;
+    UINT err;
+
+    sysExOutBuffer = GlobalAlloc(GHND, len);
+    sysExOutHdr.lpData = (LPSTR)GlobalLock(sysExOutBuffer);
+    sysExOutHdr.dwBufferLength = len;
+    sysExOutHdr.dwFlags = 0;
+
+    err = midiOutPrepareHeader(outHandle, &sysExOutHdr, sizeof(MIDIHDR));
+
+    qDebug() << "errrrrrrR:" << err;
+
+    if(!err)
+    {
+        memcpy(sysExOutHdr.lpData, sysEx, len);
+
+        qDebug() << "flags" << sysExOutHdr.dwFlags << MHDR_DONE << MHDR_INQUEUE << MHDR_ISSTRM << MHDR_PREPARED;
+
+        err = midiOutLongMsg(outHandle, &sysExOutHdr, sizeof(MIDIHDR));
+
+        if(err)
+        {
+            char errMsg[120];
+            midiOutGetErrorText(err, (LPWSTR)errMsg, 120);
+            qDebug()<<"err:" << errMsg;
+        }
+
+
+        //midiOutUnprepareHeader(mda->outHandle, &mda->sysExOutHdr, sizeof(MIDIHDR));
+        //GlobalUnlock(sysExOutBuffer);
+        //GlobalFree(sysExOutBuffer);
+    }
+}
+
+void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
+{
+    qDebug() << "sysex length" << sysExMessageByteArray.count();
+
+    if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 91 && !versionReply)
+    {
+        qDebug() << "Got the reply" << sysExMessageByteArray.count();
+        versionReply = true;
+        emit signalProcessFwQueryReply(sysExMessageByteArray);
+    }
+}
+
+void MidiDeviceManager::slotPollDevices()
+{
+    static int numDevices = 0;
+
+    if(numDevices != midiInGetNumDevs())
+    {
+        numDevices = midiInGetNumDevs();
+        connectSource();
+    }
+}
+
+void MidiDeviceManager::slotPollVersion()
+{
+    if(!versionReply)
+    {
+        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
+        emit signalConnected(false);
+    }
+    else
+    {
+        qDebug() << "STOP";
+        emit signalConnected(true);
+        versionPoller->stop();
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////// Callbacks ////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void CALLBACK MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_PTR dwInstance,DWORD_PTR dwParam1,DWORD_PTR dwParam2)
+{
+    qDebug() << "midi in" << dwParam1 << dwParam2;
+
+    /*/qDebug() << MIM_DATA << uMsg;
+    //qDebug() << dwParam;
+    qDebug()    <<"status"<< ((dwParam) & 0xFF)
+                << "data1" << ((dwParam>>8) & 0xFF)
+                << "data2" << ((dwParam>>16) & 0xFF); //status byte*/
+
+    MidiDeviceManager *mdm = (MidiDeviceManager *) dwInstance;
+
+    switch(wMsg){
+    case MIM_OPEN:
+        qDebug("MMOPEN");
+        break;
+    case MIM_ERROR:
+        qDebug("MMERROR");
+        break;
+    case MIM_LONGERROR:
+        qDebug("MIM_LONGERROR");
+        break;
+    case MIM_MOREDATA:
+        qDebug("MIM_MOREDATA");
+        break;
+    case MIM_CLOSE:
+        qDebug("MIM_ClOSE");
+        break;
+    case MIM_DATA:
+        qDebug("MIM_DATA");
+        break;
+    case MIM_LONGDATA:
+    {
+        qDebug("MIM_LONGDATA");
+
+        LPMIDIHDR lpMidiHdr = (LPMIDIHDR) dwParam1;
+
+        if(lpMidiHdr->dwBytesRecorded){
+
+            qDebug() << "----------- Bytes Recorded -----------" << lpMidiHdr->dwBytesRecorded;
+
+            mdm->slotProcessSysEx(QByteArray(lpMidiHdr->lpData, lpMidiHdr->dwBytesRecorded));
+
+            midiInAddBuffer(hMidiIn, lpMidiHdr, sizeof(MIDIHDR));
+        }
+
+    }
+
+        break;
+    default:
+        qDebug("in callback");
+        break;
+    }
+}
+
+void CALLBACK MidiDeviceManager::midiOutCallback(HMIDIOUT handle, UINT uMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam, DWORD_PTR dwParam1)
+{
+    qDebug() <<  "msg type" << uMsg << MOM_DONE << MOM_CLOSE << MOM_OPEN;
+
+    MidiDeviceManager *mda = (MidiDeviceManager *) dwInstance;
+
+    if(uMsg == MOM_DONE){
+        midiOutUnprepareHeader(mda->outHandle, &mda->sysExOutHdr, sizeof(MIDIHDR));
+        GlobalUnlock(mda->sysExOutBuffer);
+        GlobalFree(mda->sysExOutBuffer);
+        qDebug() << "MEMORy DEALLOCATED";
+    }
+}
+
+#endif

@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>stylesheets/keyRadioButtonStylesheet.qss</file>
+        <file>images/KMi_Logo300_transparent.png</file>
+        <file>images/softSteplogo.png</file>
+        <file>doc.txt</file>
+        <file>easy.icns</file>
+        <file>easy.ico</file>
+        <file>images/softSteplogoTEST.png</file>
+    </qresource>
+</RCC>

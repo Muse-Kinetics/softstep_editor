@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FwUpdateCompleteForm</class>
+ <widget class="QWidget" name="FwUpdateCompleteForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>188</width>
+    <height>97</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QFrame" name="warningFrame">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>188</width>
+     <height>97</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame {
+		background-color: qlineargradient(spread: pan, 
+															x1:0, y1:0, x2:1, y2:1, 
+															stop:0 rgba(100,100, 100, 255), 
+															stop:0.5 rgba(70, 70,70, 255),
+															stop:1 rgba(100,100,100, 255)
+															);
+	border-bottom-left-radius:8.0;
+	border-bottom-right-radius:8.0;
+	border-top-left-radius:8.0;
+	border-top-right-radius:8.0;
+	border: 3px solid rgb(255, 70, 0);
+}</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QFrame" name="warningSubFrame">
+    <property name="geometry">
+     <rect>
+      <x>8</x>
+      <y>8</y>
+      <width>171</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame {
+	background:rgba(200, 200, 200, 255);
+	border-bottom-left-radius:4.0;
+	border-bottom-right-radius:4.0;
+	border-top-left-radius:4.0;
+	border-top-right-radius:4.0;
+	border:none;
+
+
+}
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="updateComplete">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>-1</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 7pt;</string>
+     </property>
+     <property name="text">
+      <string>Firmware Update Complete</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ok">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>37</y>
+       <width>71</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+	font-family: &quot;Arial&quot;;
+	font-size: 12px;
+	background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:1 rgb(0, 126, 126), stop:0 rgb(0, 187, 187));
+	border-style: outset;
+	border-radius: 4.0;
+	border-width: 1px;
+	border-color: rgb(50, 50, 50);
+	color: rgba(50,50,50);
+}
+
+QPushButton:pressed {
+	background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:0 rgb(0, 126, 126), stop:1 rgb(0, 187, 187));
+}</string>
+     </property>
+     <property name="text">
+      <string>Ok</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>keyForm</class>
+ <widget class="QWidget" name="keyForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>128</width>
+    <height>123</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background:		rgba(120, 120, 120, 0);
+	/*border:				3px solid rgb(0, 187, 187);*/
+	border-radius: 2px;
+	border-bottom-left-radius:8.0;
+	border-bottom-right-radius:8.0;
+	border-top-left-radius:8.0;
+	border-top-right-radius:8.0;
+}  
+
+QWidget:hover
+{
+	/*border:				3px solid rgb(0, 126, 126)*/
+}        
+
+/* ---------- QLabels ------------*/
+QLabel
+{
+	background:		rgba(0,0,0,0);
+	color: 				white;
+	font: 				7pt &quot;Arial&quot;;
+	border:				none;
+}
+
+QLabel:hover
+{
+	border:				none;
+}  
+
+/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font-family:&quot;Arial&quot;;
+	border-radius:4.0;
+	border-color:black;
+	background-color: rgba(67, 67, 67, 255);
+	font-size:9px;
+	color: rgb(108, 243, 255);;
+	padding:0, 0, 0, 0;
+	border: none;
+}
+
+QSpinBox:hover
+{
+	border:				none;
+}  
+
+/* ---------- QLineEdit ------------*/
+QLineEdit
+{
+	font: 9pt &quot;Courier&quot;;
+	border-radius:4.0;
+	border-color:black;
+	background-color: rgba(67, 67, 67, 255);;
+	/*color: rgb(108, 243, 255);*/
+	color: rgb(255, 70, 0);
+	padding-left: 2px;
+	border: none;
+}
+
+QLineEdit:hover
+{
+	border:				none;
+}  
+
+/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	font-family:&quot;Arial&quot;;
+	border-radius:4.0;
+	border-color:black;
+	background-color: rgba(67, 67, 67, 0);
+	font-size: 9px;
+	color: white;
+	padding:0, 3, 0, 0;
+	border: none;
+}
+
+QCheckBox:hover
+{
+	border:				none;
+} </string>
+  </property>
+  <widget class="QFrame" name="sourceFrame">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>23</y>
+     <width>117</width>
+     <height>92</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame {
+	background: rgba(120, 120, 120, 255);
+	border-bottom-left-radius:4.0;
+	border-bottom-right-radius:4.0;
+	border-top-left-radius:0;
+	border-top-right-radius:0;
+	border: none;
+}</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QCheckBox" name="xLive">
+    <property name="geometry">
+     <rect>
+      <x>47</x>
+      <y>66</y>
+      <width>24</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="toggleLabel">
+    <property name="geometry">
+     <rect>
+      <x>2</x>
+      <y>53</y>
+      <width>40</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>7</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Toggle</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="pressureLabel">
+    <property name="geometry">
+     <rect>
+      <x>2</x>
+      <y>25</y>
+      <width>40</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>7</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Pressure</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="yIncLabel">
+    <property name="geometry">
+     <rect>
+      <x>2</x>
+      <y>40</y>
+      <width>40</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>7</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Y Inc</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="toggle">
+    <property name="geometry">
+     <rect>
+      <x>47</x>
+      <y>52</y>
+      <width>24</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="footOnLabel">
+    <property name="geometry">
+     <rect>
+      <x>2</x>
+      <y>11</y>
+      <width>40</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>7</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Foot on</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="footOn">
+    <property name="geometry">
+     <rect>
+      <x>47</x>
+      <y>10</y>
+      <width>24</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="pressure">
+    <property name="geometry">
+     <rect>
+      <x>47</x>
+      <y>24</y>
+      <width>24</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="yInc">
+    <property name="geometry">
+     <rect>
+      <x>47</x>
+      <y>38</y>
+      <width>24</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="xLiveLabel">
+    <property name="geometry">
+     <rect>
+      <x>2</x>
+      <y>67</y>
+      <width>40</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>7</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>X Live</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="name">
+    <property name="geometry">
+     <rect>
+      <x>77</x>
+      <y>14</y>
+      <width>34</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>KEYS</string>
+    </property>
+    <property name="maxLength">
+     <number>4</number>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="cc">
+    <property name="geometry">
+     <rect>
+      <x>77</x>
+      <y>41</y>
+      <width>34</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="maximum">
+     <number>127</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="smooth">
+    <property name="geometry">
+     <rect>
+      <x>77</x>
+      <y>71</y>
+      <width>34</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="maximum">
+     <number>127</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="nameLabel">
+    <property name="geometry">
+     <rect>
+      <x>75</x>
+      <y>1</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>7</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Name</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ccLabel">
+    <property name="geometry">
+     <rect>
+      <x>77</x>
+      <y>26</y>
+      <width>34</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>7</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>cc</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="smoothLabel">
+    <property name="geometry">
+     <rect>
+      <x>75</x>
+      <y>56</y>
+      <width>35</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>7</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Smooth</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <zorder>xLive</zorder>
+   <zorder>toggleLabel</zorder>
+   <zorder>pressureLabel</zorder>
+   <zorder>yIncLabel</zorder>
+   <zorder>toggle</zorder>
+   <zorder>footOnLabel</zorder>
+   <zorder>footOn</zorder>
+   <zorder>pressure</zorder>
+   <zorder>yInc</zorder>
+   <zorder>xLiveLabel</zorder>
+   <zorder>nameLabel</zorder>
+   <zorder>ccLabel</zorder>
+   <zorder>smoothLabel</zorder>
+   <zorder>smooth</zorder>
+   <zorder>cc</zorder>
+   <zorder>name</zorder>
+  </widget>
+  <widget class="QLabel" name="instanceLabel">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>5</y>
+     <width>117</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame {
+	background:rgb(0, 126, 126);
+border-top-left-radius:4.0;
+border-top-right-radius:4.0;
+border-bottom-left-radius:0;
+border-bottom-right-radius:0;
+border: none;
+color: rgba(67, 67, 67, 255);
+}
+
+QToolTip {
+background: #006599;
+color: white;
+}</string>
+   </property>
+   <property name="text">
+    <string>Key 0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,113 @@
+QRadioButton::indicator
+{
+text-align: right;
+
+    /*height: 10px;*/
+    /*width: 10px;*/
+    }
+
+QRadioButton
+{
+text-align: right;
+border:none;
+
+    /*height: 10px;*/
+    /*width: 10px;*/
+    }
+
+QLabel
+{
+qproperty-alignment: AlignRight AlignCenter;
+font: 10pt;
+color: black;
+min-width: 50px;
+max-width: 100px;
+background: rgba(0,0,0,0);
+border: none;
+}
+
+QLineEdit
+{
+qproperty-alignment: AlignLeft AlignCenter;
+min-height: 18px;
+max-height: 18px;
+min-width: 36px;
+max-width: 36px;
+background: rgb(67, 67, 67);
+color: rgb(108, 243, 255);
+font: 10pt;
+border: none;
+border-radius: 4px;
+}
+
+QSpinBox
+{
+qproperty-alignment: AlignLeft AlignCenter;
+min-height: 18px;
+max-height: 18px;
+min-width: 36px;
+max-width: 36px;
+background: rgb(67, 67, 67);
+color: rgb(108, 243, 255);
+font: 10pt;
+border: none;
+border-radius: 4px;
+}
+
+QDoubleSpinBox
+{
+qproperty-alignment: AlignLeft AlignCenter;
+min-height: 18px;
+max-height: 18px;
+min-width: 36px;
+max-width: 36px;
+background: rgb(67, 67, 67);
+color: rgb(108, 243, 255);
+font: 10pt;
+border: none;
+border-radius: 4px;
+}
+
+QCheckBox
+{
+min-height: 18px;
+max-height: 18px;
+
+border: none;
+}
+
+QComboBox::drop-down
+{
+border-radius:0;
+border-left-color: darkgray;
+border-left-style: solid;
+margin: 0px;
+padding: 0px;
+background-color: rgb(121, 121,0 ,0);
+}
+
+QComboBox {
+font-family: "Arial";
+font-size: 10px;
+background: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(150, 150, 150, 255), stop:1 rgba(67, 67, 67, 255));
+padding: 2px 4px;
+border-style: outset;
+border-radius: 4px;
+border-width: 1px;
+border-color: black;
+color: white;
+}
+
+QComboBox::down-arrow
+{
+image: url(noimage);
+background-color: rgb(121, 121,0 ,0);
+}
+
+QPushButton
+{
+
+font: 10pt;
+min-width: 150px;
+
+}
