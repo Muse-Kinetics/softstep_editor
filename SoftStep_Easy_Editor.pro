@@ -16,7 +16,7 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     key.cpp \
     presetinterface.cpp \
-    atributemanager.cpp \
+    #atributemanager.cpp \
     mididevicemanager.cpp \
     sysexComposition/utils.c \
     sysexComposition/syxtx.c \
@@ -31,7 +31,7 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     key.h \
     presetinterface.h \
-    atributemanager.h \
+    #atributemanager.h \
     mididevicemanager.h \
     sysexComposition/utils.h \
     sysexComposition/syxtx.h \
