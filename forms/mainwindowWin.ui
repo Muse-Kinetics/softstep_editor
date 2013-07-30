@@ -634,6 +634,9 @@ color: rgba(50,50,50);
          <height>15</height>
         </rect>
        </property>
+       <property name="styleSheet">
+        <string notr="true">font: 11pt &quot;Consolas&quot;;</string>
+       </property>
        <property name="text">
         <string>EASY</string>
        </property>
@@ -752,7 +755,7 @@ color: rgba(50,50,50);
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="Resources.qrc">:/images/KMi_Logo300_transparent.png</pixmap>
+      <pixmap resource="../Resources.qrc">:/images/KMi_Logo300_transparent.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -774,7 +777,7 @@ color: rgba(50,50,50);
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="Resources.qrc">:/images/softSteplogo.png</pixmap>
+      <pixmap resource="../Resources.qrc">:/images/softSteplogo.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>false</bool>
@@ -838,7 +841,7 @@ border-radius:6;
   <tabstop>update</tabstop>
  </tabstops>
  <resources>
-  <include location="Resources.qrc"/>
+  <include location="../Resources.qrc"/>
  </resources>
  <connections/>
 </ui>

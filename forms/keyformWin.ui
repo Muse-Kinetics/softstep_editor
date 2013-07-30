@@ -338,7 +338,7 @@ QCheckBox:hover
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">font: 11pt &quot;Consolas&quot;;</string>
     </property>
     <property name="text">
      <string>KEYS</string>

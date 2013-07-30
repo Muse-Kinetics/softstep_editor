@@ -632,6 +632,18 @@ color: rgba(50,50,50);
          <height>16</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>Consolas</family>
+         <pointsize>11</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 11pt &quot;Consolas&quot;;</string>
+       </property>
        <property name="text">
         <string>EASY</string>
        </property>
@@ -752,7 +764,7 @@ QPushButton:pressed {
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="Resources.qrc">:/images/softSteplogo.png</pixmap>
+      <pixmap resource="../Resources.qrc">:/images/softSteplogo.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>false</bool>
@@ -777,7 +789,7 @@ QPushButton:pressed {
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="Resources.qrc">:/images/KMi_Logo300_transparent.png</pixmap>
+      <pixmap resource="../Resources.qrc">:/images/KMi_Logo300_transparent.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -841,7 +853,7 @@ border: none;</string>
   <tabstop>update</tabstop>
  </tabstops>
  <resources>
-  <include location="Resources.qrc"/>
+  <include location="../Resources.qrc"/>
  </resources>
  <connections/>
 </ui>
