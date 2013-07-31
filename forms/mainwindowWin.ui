@@ -635,7 +635,7 @@ color: rgba(50,50,50);
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 11pt &quot;Consolas&quot;;</string>
+        <string notr="true">font: 10pt &quot;Consolas&quot;;</string>
        </property>
        <property name="text">
         <string>EASY</string>
