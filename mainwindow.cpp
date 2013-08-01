@@ -126,6 +126,11 @@ void MainWindow::slotConnectInterfaces()
     connect(ui->backlight, SIGNAL(clicked()), presetInterface, SLOT(slotStoreGlobal()));
     connect(ui->sceneName, SIGNAL(textEdited(QString)), presetInterface, SLOT(slotStoreGlobal()));
 
+    ui->midiChannel->setContextMenuPolicy(Qt::PreventContextMenu);
+    ui->gain->setContextMenuPolicy(Qt::PreventContextMenu);
+    ui->pedalCC->setContextMenuPolicy(Qt::PreventContextMenu);
+    ui->sceneName->setContextMenuPolicy(Qt::PreventContextMenu);
+
     for(int i = 0; i < 10; i++)
     {
         connect(key[i], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));

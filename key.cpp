@@ -46,6 +46,9 @@ void Key::slotConnectElements()
     connect(keyForm.name, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
     connect(keyForm.cc, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(keyForm.smooth, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    keyForm.smooth->setContextMenuPolicy(Qt::PreventContextMenu);
+    keyForm.cc->setContextMenuPolicy(Qt::PreventContextMenu);
+    keyForm.name->setContextMenuPolicy(Qt::PreventContextMenu);
 }
 
 void Key::slotValueChanged()
