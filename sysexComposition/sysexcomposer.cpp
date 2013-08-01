@@ -195,8 +195,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset)
 
     //------------------------------------- Global Settings
     attribute(x,3,A_SYM,"set",A_SYM,"Key_Response",A_LONG,0l);
-    //attribute(x,3,A_SYM,"set",A_SYM,"Global_Gain",A_FLOAT,preset.value("Global_Gain").toFloat());   //-----
-    attribute(x,3,A_SYM,"set",A_SYM,"Global_Gain",A_FLOAT,1.00);   //-----
+    attribute(x,3,A_SYM,"set",A_SYM,"Global_Gain",A_FLOAT,preset.value("Global_Gain").toFloat());   //-----
     //attribute(x,0,A_SYM,"set",A_SYM,"Pedal_Table",A_GIMME,-1);
     attribute(x,4,A_SYM,"set",A_SYM,"pedalEdges",A_LONG,127l, A_LONG,0l);
     attribute(x,3,A_SYM,"set",A_SYM,"pedalHysteresis",A_LONG,7);
