@@ -281,6 +281,14 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset)
                 attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
                 attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("%1_Key_Smooth").arg(k)).toInt());
 
+                // Set gain to 127 for foot on source so that it goes from 0 to 127 instead of 0 to 1.
+                if(preset.value(QString("%1_Key_Source").arg(k)).toString() == "Foot_On"){
+                    attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,127.0000);
+                }
+                else{
+                    attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
+                }
+
                 // Led menu conditionals
                 if(preset.value(QString("%1_Key_Source").arg(k)).toString() == "Foot_On" && preset.value(QString("%1_Key_Table").arg(k)).toString() == "Toggle_127")
                 {
