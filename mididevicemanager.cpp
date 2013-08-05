@@ -566,27 +566,55 @@ void MidiDeviceManager::slotCloseMidiOut(){
 
 int MidiDeviceManager::getSource()
 {
-    for(uint i =0; i<midiInGetNumDevs(); i++)
+    if(QSysInfo::windowsVersion() == QSysInfo::WV_XP)
     {
-        if(getDisplayName(i, "In") == "SSCOM")
+        for(uint i =0; i<midiInGetNumDevs(); i++)
         {
-            qDebug() << i << getDisplayName(i, "In");
-            return i;
+            if(getDisplayName(i, "In") == "USB Audio Device")
+            {
+                qDebug() << i << getDisplayName(i, "In");
+                return i;
+            }
         }
     }
+    else
+    {
 
+        for(uint i =0; i<midiInGetNumDevs(); i++)
+        {
+            if(getDisplayName(i, "In") == "SSCOM")
+            {
+                qDebug() << i << getDisplayName(i, "In");
+                return i;
+            }
+        }
+    }
     return -1;
 }
 
 int MidiDeviceManager::getDestination()
 {
-    for(uint i =0; i<midiOutGetNumDevs(); i++)
+    if(QSysInfo::windowsVersion() == QSysInfo::WV_XP)
     {
-        if(getDisplayName(i, "Out") == "SSCOM")
+        for(uint i =0; i<midiOutGetNumDevs(); i++)
         {
-            return i;
+            if(getDisplayName(i, "Out") == "USB Audio Device")
+            {
+                return i;
+            }
         }
     }
+    else
+    {
+        for(uint i =0; i<midiOutGetNumDevs(); i++)
+        {
+            if(getDisplayName(i, "Out") == "SSCOM")
+            {
+                return i;
+            }
+        }
+    }
+
 
     return -1;
 }
