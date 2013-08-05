@@ -339,6 +339,65 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset)
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
                 attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"None");
             }
+            //repeat all the settings in modline 0 for modline 2 (modline 1 key 0 = pedal)
+            //except turn off Display_Linked (only one modline needed for display since they are the same)
+            //and set device to expander so that output is repeated there.
+            if(m == 2l)
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
+                attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,0l);
+                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("%1_Key_Source").arg(k)).toString().toUtf8().constData());
+                attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
+                attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
+                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, preset.value(QString("%1_Key_Table").arg(k)).toString().toUtf8().constData());
+                attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
+                attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
+                attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("%1_Key_Smooth").arg(k)).toInt());
+
+                // Set gain to 127 for foot on source so that it goes from 0 to 127 instead of 0 to 1.
+                if(preset.value(QString("%1_Key_Source").arg(k)).toString() == "Foot_On"){
+                    attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,127.0000);
+                }
+                else{
+                    attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
+                }
+
+                // Led menu conditionals
+                if(preset.value(QString("%1_Key_Source").arg(k)).toString() == "Foot_On" && preset.value(QString("%1_Key_Table").arg(k)).toString() == "Toggle_127")
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"True");
+                }
+                else
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
+                }
+
+                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"CC");
+                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,(long)preset.value("Global_Midi_Channel").toInt());
+                attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value(QString("%1_Key_CC").arg(k)).toInt());
+                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SoftStep_Expander");
+            }
+            //then repeat the pedal output on key 0 modline 3 and send it to the expander too turning off display_linked.
+            else if(k == 0 && m == 3l)
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
+                attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,0l);
+                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"Pedal");
+                attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
+                attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
+                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "1_Lin");
+                attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
+                attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
+                attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,0l);
+                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
+                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
+                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"CC");
+                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value("Global_Midi_Channel").toInt());
+                attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value("Global_Pedal_CC").toInt());
+                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SoftStep_Expander");
+            }
         }
     }
 
