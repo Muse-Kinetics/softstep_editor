@@ -47,6 +47,7 @@ public:
     MidiDeviceManager *mdm;
 
     bool connected;
+    bool updating;
 
     QWidget* fwoodDialogWidget;
     QWidget* fwProgressDialogWidget;
@@ -102,6 +103,7 @@ public slots:
     void slotUpdateFwProgressBar(int);
     void slotInitMenuBar();
     void slotOpenDocumentation();
+    void slotConnectDisconnectUpdate();
     
 private:
     Ui::MainWindow *ui;

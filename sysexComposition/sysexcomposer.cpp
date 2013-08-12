@@ -417,12 +417,15 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset)
     }
 
     emit signalSendSysEx(QString("standalone image"), image, imageLength, QString("SSCOM Port 1"));
+    qDebug("freeing image");
     free(image);
 
     emit signalSendSysEx(QString("standalone image"), settings, settingsLength, QString("SSCOM Port 1"));
+    qDebug("freeing settings");
     free(settings);
 
-
+    //sysex message complete
+    emit signalUpdateComplete();
 }
 
 void SysExComposer::slotGetConnectedVersion(QByteArray msg)

@@ -26,6 +26,7 @@ public:
 signals:
     void    signalSendSysEx(QString messageID, unsigned char* message, int messageLength, QString destinationName);
     void    signalSendBuildNums(int,QString, int, QString);
+    void    signalUpdateComplete();
     
 public slots:
     void    slotComposeAttributeListFromPreset(QVariantMap);
