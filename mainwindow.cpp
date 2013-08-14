@@ -214,7 +214,11 @@ void MainWindow::slotUpdateFirmware()
     QApplication::processEvents();
     fwProgressDialog->progressBar->setMinimum(0);
     QApplication::processEvents();
+    #ifdef Q_OS_MAC
     fwProgressDialog->progressBar->setMaximum(sysExComposer->fwFileSize);
+    #else
+    fwProgressDialog->progressBar->setMaximum(0);
+    #endif
     QApplication::processEvents();
     sysExComposer->slotUpdateFirmware();
 }
