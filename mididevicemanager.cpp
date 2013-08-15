@@ -671,7 +671,12 @@ QString MidiDeviceManager::getDisplayName(int deviceIndex, QString inOrOut)
 void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, int len, QString destinationName)
 {
 
-qDebug() << "sysex bytes" << len;
+    if(messageID == "update firmware")
+    {
+        fwUpdateRequested = true;
+    }
+
+    qDebug() << "sysex bytes" << len;
     UINT err;
 
     sysExOutBuffer = GlobalAlloc(GHND, len);
@@ -697,11 +702,6 @@ qDebug() << "sysex bytes" << len;
             midiOutGetErrorText(err, (LPWSTR)errMsg, 120);
             qDebug()<<"err:" << errMsg;
         }
-
-
-        //midiOutUnprepareHeader(mda->outHandle, &mda->sysExOutHdr, sizeof(MIDIHDR));
-        //GlobalUnlock(sysExOutBuffer);
-        //GlobalFree(sysExOutBuffer);
     }
 }
 
@@ -794,7 +794,6 @@ void CALLBACK MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_
 
             midiInAddBuffer(hMidiIn, lpMidiHdr, sizeof(MIDIHDR));
         }
-
     }
 
         break;
@@ -815,6 +814,12 @@ void CALLBACK MidiDeviceManager::midiOutCallback(HMIDIOUT handle, UINT uMsg, DWO
         GlobalUnlock(mda->sysExOutBuffer);
         GlobalFree(mda->sysExOutBuffer);
         qDebug() << "MEMORy DEALLOCATED";
+
+        if(mda->fwUpdateRequested == true)
+        {
+            mda->fwUpdateRequested = false;
+            emit mda->signalFwBytesLeft(0);
+        }
     }
 }
 
