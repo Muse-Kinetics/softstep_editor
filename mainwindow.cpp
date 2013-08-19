@@ -136,6 +136,12 @@ void MainWindow::slotConnectInterfaces()
         connect(key[i], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
     }
 
+    //Update Button
+    connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
+    connect(presetInterface, SIGNAL(signalUpdateStarted()), this, SLOT(slotDisconnectUpdate()));
+    connect(presetInterface, SIGNAL(signalAttributeFormatPreset(QVariantMap)), sysExComposer, SLOT(slotComposeAttributeListFromPreset(QVariantMap)));
+    connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectUpdate()));
+
     //Standalone Download
     connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
 
@@ -190,13 +196,6 @@ void MainWindow::slotConnected(bool connection)
     {
         ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(10,255,0);border-radius:6;");
         ui->connectedLabel->setText("Connected");
-
-        //Update Button
-        connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
-        connect(presetInterface, SIGNAL(signalUpdateStarted()), this, SLOT(slotConnectDisconnectUpdate()));
-        connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectDisconnectUpdate()));
-        updating = false;
-        connect(presetInterface, SIGNAL(signalAttributeFormatPreset(QVariantMap)), sysExComposer, SLOT(slotComposeAttributeListFromPreset(QVariantMap)));
     }
     else
     {
@@ -284,15 +283,13 @@ void MainWindow::closeEvent(QCloseEvent *)
     presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
 }
 
-void MainWindow::slotConnectDisconnectUpdate(){
-    if(updating){
-        qDebug("finished updating");
-        connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
-        updating = false;
-    }
-    else{
-        qDebug("starting update");
-        disconnect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
-        updating = true;
-    }
+void MainWindow::slotDisconnectUpdate(){
+    qDebug("download preset started");
+    disconnect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
+}
+
+
+void MainWindow::slotConnectUpdate(){
+    qDebug("download preset ended");
+    connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
 }
