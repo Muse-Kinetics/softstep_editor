@@ -401,7 +401,39 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset)
         }
     }
 
+    //set nav pad to modline mode instead of program change mode.
+    attribute(x,2,A_SYM,"key",A_LONG,11l);
+    attribute(x,3,A_SYM,"set",A_SYM,"Nav_Modline_Mode",A_LONG,1l);
 
+    //set nav pad key name to scene name and display to always so that the scene name will display when the nav pad is pressed.
+    attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM,preset.value("Global_Scene_Name").toString().toUtf8().constData());
+    attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,1l);
+
+    for(long m = 0l; m < 6l; m++){
+
+            //set all modlines to default parameters.
+            attribute(x,3,A_SYM,"set",A_SYM,"Modline",A_LONG,m+1);
+            attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"None");
+            attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
+            attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
+            attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM,"1_Lin");
+            attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,0l);
+            attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
+            attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
+            attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"None");
+
+            //turn on modline 1 only and link it to the display
+        if(m == 0l){
+            attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,1l);
+        }
+        else{
+            attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,0l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,0l);
+        }
+    }
 
     //=========================================================================================================//
     //================================================= Download ==============================================//
