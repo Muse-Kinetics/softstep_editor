@@ -161,6 +161,8 @@ public:
     QTimer* versionPoller;
     bool versionReply;
 
+    int numDevices;
+
 signals:
     void signalFirmwareOutOfDate(QString expectedBoot, QString foundBoot, QString expectedFirmware, QString foundFirmware);
     void signalProgressDialog(QString messageType, int val);

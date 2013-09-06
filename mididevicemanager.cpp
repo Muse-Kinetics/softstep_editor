@@ -354,6 +354,8 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     QWidget(parent)
 {
 
+    numDevices = 0;
+
     sysExType = "None";
     globals.clear();
 
@@ -402,7 +404,7 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     //Devices
     devicePoller = new QTimer(this);
     connect(devicePoller, SIGNAL(timeout()), this, SLOT(slotPollDevices()));
-    devicePoller->start(1000);
+    devicePoller->start(1);
 
     //Version
     versionPoller = new QTimer(this);
@@ -420,7 +422,7 @@ bool MidiDeviceManager::connectSource()
         slotOpenMidiIn(getSource());
         slotOpenMidiOut(getDestination());
         versionReply = false;
-        versionPoller->start(1000);
+        versionPoller->start(1);
         return true;
     }
     else
@@ -600,6 +602,7 @@ int MidiDeviceManager::getDestination()
         {
             if(getDisplayName(i, "Out") == "USB Audio Device")
             {
+                qDebug() << i << getDisplayName(i, "Out");
                 return i;
             }
         }
@@ -610,6 +613,7 @@ int MidiDeviceManager::getDestination()
         {
             if(getDisplayName(i, "Out") == "SSCOM")
             {
+                qDebug() << i << getDisplayName(i, "Out");
                 return i;
             }
         }
@@ -686,13 +690,13 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, i
 
     err = midiOutPrepareHeader(outHandle, &sysExOutHdr, sizeof(MIDIHDR));
 
-    qDebug() << "errrrrrrR:" << err;
+    qDebug() << "SysEx Out Prepare Header err: " << err;
 
     if(!err)
     {
         memcpy(sysExOutHdr.lpData, sysEx, len);
 
-        qDebug() << "flags" << sysExOutHdr.dwFlags << MHDR_DONE << MHDR_INQUEUE << MHDR_ISSTRM << MHDR_PREPARED;
+        qDebug() << "SysEx Out Header Flags: " << sysExOutHdr.dwFlags << MHDR_DONE << MHDR_INQUEUE << MHDR_ISSTRM << MHDR_PREPARED;
 
         err = midiOutLongMsg(outHandle, &sysExOutHdr, sizeof(MIDIHDR));
 
@@ -700,7 +704,7 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, i
         {
             char errMsg[120];
             midiOutGetErrorText(err, (LPWSTR)errMsg, 120);
-            qDebug()<<"err:" << errMsg;
+            qDebug()<<"Midi Out Long err:" << errMsg;
         }
     }
 }
@@ -719,7 +723,7 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
 
 void MidiDeviceManager::slotPollDevices()
 {
-    static int numDevices = 0;
+    //static int numDevices = 0;
 
     if(numDevices != midiInGetNumDevs())
     {
@@ -805,7 +809,24 @@ void CALLBACK MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_
 
 void CALLBACK MidiDeviceManager::midiOutCallback(HMIDIOUT handle, UINT uMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam, DWORD_PTR dwParam1)
 {
-    qDebug() <<  "msg type" << uMsg << MOM_DONE << MOM_CLOSE << MOM_OPEN;
+    //qDebug() <<  "msg type" << uMsg << MOM_DONE << MOM_CLOSE << MOM_OPEN;
+
+    switch(uMsg)
+    {
+    case MOM_DONE:
+        qDebug("MOM_DONE");
+        break;
+    case MOM_CLOSE:
+        qDebug("MOM_CLOSE");
+        break;
+    case MOM_OPEN:
+        qDebug("MOM_OPEN");
+        break;
+    default:
+        qDebug("out callback");
+        break;
+
+    }
 
     MidiDeviceManager *mda = (MidiDeviceManager *) dwInstance;
 
@@ -813,12 +834,16 @@ void CALLBACK MidiDeviceManager::midiOutCallback(HMIDIOUT handle, UINT uMsg, DWO
         midiOutUnprepareHeader(mda->outHandle, &mda->sysExOutHdr, sizeof(MIDIHDR));
         GlobalUnlock(mda->sysExOutBuffer);
         GlobalFree(mda->sysExOutBuffer);
-        qDebug() << "MEMORy DEALLOCATED";
+        //qDebug() << "MEMORy DEALLOCATED";
 
         if(mda->fwUpdateRequested == true)
         {
             mda->fwUpdateRequested = false;
             emit mda->signalFwBytesLeft(0);
+            //mda->slotCloseMidiIn();
+            //mda->slotCloseMidiIn();
+            mda->numDevices = 0; //Resets polling
+            //qDebug() << "Get Source" << mda->getSource();
         }
     }
 }
