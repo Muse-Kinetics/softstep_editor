@@ -1,11 +1,16 @@
 <RCC>
     <qresource prefix="/">
-        <file>stylesheets/keyRadioButtonStylesheet.qss</file>
-        <file>images/KMi_Logo300_transparent.png</file>
-        <file>images/softSteplogo.png</file>
-        <file>doc.txt</file>
-        <file>easy.icns</file>
-        <file>easy.ico</file>
-        <file>images/softSteplogoTEST.png</file>
+        <file>resources/keyRadioButtonStylesheet.qss</file>
+        <file>resources/KMi_Logo300_transparent.png</file>
+        <file>resources/softSteplogo.png</file>
+        <file>resources/softSteplogoTEST.png</file>
+        <file>resources/toggle_off.svg</file>
+        <file>resources/toggle_on.svg</file>
+        <file>resources/toggle_focus_off.svg</file>
+        <file>resources/toggle_focus_on.svg</file>
+        <file>resources/radio_focus_off.svg</file>
+        <file>resources/radio_off.svg</file>
+        <file>resources/radio_on.svg</file>
+        <file>resources/radio_focus_on.svg</file>
     </qresource>
 </RCC>

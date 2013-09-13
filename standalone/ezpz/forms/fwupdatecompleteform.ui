@@ -13,6 +13,112 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background:		rgba(35,31,32,255);
+	border: 6px solid rgba(0,174,239,255);
+}  
+
+QWidget:hover
+{
+	/*border:				3px solid rgb(0, 126, 126)*/
+}        
+
+/* ---------- QLabels ------------*/
+QLabel
+{
+	background:		rgba(0,0,0,0);
+	color: 				white;
+	font: 				10pt &quot;Futura&quot;;
+	border:				none;
+}
+
+QLabel:hover
+{
+	border:				none;
+}  
+
+/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 2px solid rgb(0,174,239);
+	background-color: rgba(0, 0, 0, 255);
+	color: white;
+	padding:0, 3, 0, 0;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+/* ---------- QLineEdit ------------*/
+QLineEdit
+{
+	font: 10pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 2px solid rgba(0,174,239,255);
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+QLineEdit:focus
+{
+	font: 10pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 2px solid white;
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	font: 10pt &quot;Futura&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 3, 0, 0;
+	border: none;
+}
+
+QCheckBox:focus
+{
+	background:rgba(0,174,239,0);
+}
+
+
+/* ------- QStackedWidget ---------*/
+QStackedWidget
+{
+border-top: 1px solid white;
+background: black;
+}
+
+/*---------- QPushButton ---------*/
+QPushButton
+{
+	border: 2px solid rgba(0,174,239,255);
+	font: 10pt &quot;Futura&quot;;
+	color: white;
+}
+
+QPushButton:pressed
+{
+	border: 2px solid white;
+	font: 9pt &quot;Futura&quot;;
+	background: rgba(0,174,239,255);
+	color: white;
+}
+
+</string>
+  </property>
   <widget class="QFrame" name="warningFrame">
    <property name="geometry">
     <rect>
@@ -22,20 +128,11 @@
      <height>97</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="styleSheet">
-    <string notr="true">QFrame {
-		background-color: qlineargradient(spread: pan, 
-															x1:0, y1:0, x2:1, y2:1, 
-															stop:0 rgba(100,100, 100, 255), 
-															stop:0.5 rgba(70, 70,70, 255),
-															stop:1 rgba(100,100,100, 255)
-															);
-	border-bottom-left-radius:8.0;
-	border-bottom-right-radius:8.0;
-	border-top-left-radius:8.0;
-	border-top-right-radius:8.0;
-	border: 3px solid rgb(255, 70, 0);
-}</string>
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -52,9 +149,12 @@
       <height>81</height>
      </rect>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="styleSheet">
      <string notr="true">QFrame {
-	background:rgba(200, 200, 200, 255);
+	background:rgba(200, 200, 200, 0);
 	border-bottom-left-radius:4.0;
 	border-bottom-right-radius:4.0;
 	border-top-left-radius:4.0;
@@ -80,6 +180,9 @@
        <height>31</height>
       </rect>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="styleSheet">
       <string notr="true">font: 10pt;</string>
      </property>
@@ -93,30 +196,20 @@
     <widget class="QPushButton" name="ok">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>37</y>
-       <width>71</width>
-       <height>31</height>
+       <x>66</x>
+       <y>50</y>
+       <width>40</width>
+       <height>20</height>
       </rect>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton {
-	font-family: &quot;Arial&quot;;
-	font-size: 12px;
-	background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:1 rgb(0, 126, 126), stop:0 rgb(0, 187, 187));
-	border-style: outset;
-	border-radius: 4.0;
-	border-width: 1px;
-	border-color: rgb(50, 50, 50);
-	color: rgba(50,50,50);
-}
-
-QPushButton:pressed {
-	background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:0 rgb(0, 126, 126), stop:1 rgb(0, 187, 187));
-}</string>
+      <string notr="true"/>
      </property>
      <property name="text">
-      <string>Ok</string>
+      <string>OK</string>
      </property>
     </widget>
    </widget>

@@ -4,71 +4,70 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT +=           core gui
 
-TARGET = "SoftStep Easy Editor"
-TEMPLATE = app
+TARGET =        "SoftStep Easy Editor"
+
+TEMPLATE =      app
 
 INCLUDEPATH +=  forms \
-                sysexComposition
+                resources \
+                ../../shared/sysexcomposition \
+                ../../shared \
+                ../../shared/images \
+                ../../shared/stylesheets \
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    key.cpp \
-    presetinterface.cpp \
-    #atributemanager.cpp \
-    mididevicemanager.cpp \
-    sysexComposition/utils.c \
-    sysexComposition/syxtx.c \
-    sysexComposition/syxrx.c \
-    sysexComposition/query.c \
-    sysexComposition/maxapi.c \
-    sysexComposition/download.c \
-    sysexComposition/attribute.c \
-    sysexComposition/mainsysex.c \
-    sysexComposition/sysexcomposer.cpp
+SOURCES +=      main.cpp\
+                mainwindow.cpp \
+                key.cpp \
+                presetinterface.cpp \
+                mididevicemanager.cpp \
+                ../../shared/sysexcomposition/utils.c \
+                ../../shared/sysexcomposition/syxtx.c \
+                ../../shared/sysexcomposition/syxrx.c \
+                ../../shared/sysexcomposition/query.c \
+                ../../shared/sysexcomposition/maxapi.c \
+                ../../shared/sysexcomposition/download.c \
+                ../../shared/sysexcomposition/attribute.c \
+                ../../shared/sysexcomposition/mainsysex.c \
+                ../../shared/sysexcomposition/sysexcomposer.cpp
 
-HEADERS  += mainwindow.h \
-    key.h \
-    presetinterface.h \
-    #atributemanager.h \
-    mididevicemanager.h \
-    sysexComposition/utils.h \
-    sysexComposition/syxtx.h \
-    sysexComposition/syxrx.h \
-    sysexComposition/syxformats.h \
-    sysexComposition/softstep.h \
-    sysexComposition/query.h \
-    sysexComposition/midi.h \
-    sysexComposition/maxapi.h \
-    sysexComposition/download.h \
-    sysexComposition/attribute.h \
-    sysexComposition/sysexcomposer.h \
-    sysexMessages.h
+HEADERS  +=     mainwindow.h \
+                key.h \
+                presetinterface.h \
+                mididevicemanager.h \
+                ../../shared/sysexcomposition/utils.h \
+                ../../shared/sysexcomposition/syxtx.h \
+                ../../shared/sysexcomposition/syxrx.h \
+                ../../shared/sysexcomposition/syxformats.h \
+                ../../shared/sysexcomposition/softstep.h \
+                ../../shared/sysexcomposition/query.h \
+                ../../shared/sysexcomposition/midi.h \
+                ../../shared/sysexcomposition/maxapi.h \
+                ../../shared/sysexcomposition/download.h \
+                ../../shared/sysexcomposition/attribute.h \
+                ../../shared/sysexcomposition/sysexcomposer.h \
+                ../../shared/sysexmessages.h
 
+FORMS    +=     forms/mainwindow.ui \
+                forms/keyform.ui \
+                forms/fwoodform.ui \
+                forms/fwprogressform.ui \
+                forms/fwupdatecompleteform.ui \
+                forms/updatefwform.ui \
+                forms/aboutform.ui \
+                forms/updatefwformWin.ui \
+                forms/mainwindowWin.ui \
+                forms/keyformWin.ui \
+                forms/fwupdatecompleteformWin.ui \
+                forms/fwprogressformWin.ui \
+                forms/fwoodformWin.ui \
+                forms/aboutformWin.ui
 
-FORMS    += \
-    forms/mainwindow.ui \
-    forms/keyform.ui \
-    forms/fwoodform.ui \
-    forms/fwprogressform.ui \
-    forms/fwupdatecompleteform.ui \
-    forms/updatefwform.ui \
-    forms/aboutform.ui \
-    forms/updatefwformWin.ui \
-    forms/mainwindowWin.ui \
-    forms/keyformWin.ui \
-    forms/fwupdatecompleteformWin.ui \
-    forms/fwprogressformWin.ui \
-    forms/fwoodformWin.ui \
-    forms/aboutformWin.ui
+OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
+                #doc.txt
 
-OTHER_FILES += \
-    stylesheets/keyRadioButtonStylesheet.qss \
-    doc.txt
-
-RESOURCES += \
-    Resources.qrc
+RESOURCES +=    Resources.qrc
 
 #-------------------QJson-------------------#
 #-------------------------------------------#
@@ -76,30 +75,31 @@ static{
 DEFINES += STATIC_BUILD
 }
 
-INCLUDEPATH += qjson/src
+INCLUDEPATH +=  ../../shared/qjson/src
 
-SOURCES += \
-  qjson/src/json_parser.cc \
-  qjson/src/json_scanner.cpp \
-  qjson/src/parser.cpp \
-  qjson/src/qobjecthelper.cpp \
-  qjson/src/serializer.cpp
+SOURCES +=      ../../shared/qjson/src/json_parser.cc \
+                ../../shared/qjson/src/json_scanner.cpp \
+                ../../shared/qjson/src/parser.cpp \
+                ../../shared/qjson/src/qobjecthelper.cpp \
+                ../../shared/qjson/src/serializer.cpp
 
-#-------------------Max/MSP-------------------#
+#---------------------LIBS--------------------#
 #---------------------------------------------#
 win32{
-LIBS += -lwinmm
+LIBS +=         -lwinmm
 }
 
 macx{
-LIBS += -framework CoreMIDI
-LIBS += -framework CoreFoundation
-LIBS += -framework Cocoa
-LIBS += -framework CoreServices
+LIBS +=         -framework CoreMIDI
+LIBS +=         -framework CoreFoundation
+LIBS +=         -framework Cocoa
+LIBS +=         -framework CoreServices
 }
 
+#--------------------Icons--------------------#
+#---------------------------------------------#
 win32{
-RC_FILE = softstepEasyIcon.rc.txt
+RC_FILE =       softstepezpzicon.rc.txt
 }
 
 macx{

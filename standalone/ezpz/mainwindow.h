@@ -53,6 +53,9 @@ public:
     QWidget* fwUpdateCompleteDialogWidget;
     QWidget* fwUpdateDialogWidget;
     QWidget* aboutFormWidget;
+    QWidget* keyTestWidget;
+
+    QWidget* disableWidget;
 
     QSettings *settings;
 
@@ -90,12 +93,13 @@ public:
     QPushButton *reloadFactoryScenes;
 
     void closeEvent(QCloseEvent *);
+    //bool eventFilter(QObject *, QEvent *);
+    void keyPressEvent(QKeyEvent *);
 
 
 public slots:
     void slotConnectInterfaces();
     void slotRecallPreset(QVariantMap preset);
-    void slotLoadTemplate(int tem);
     void slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion);
     void slotConnected(bool);
     void slotUpdateFirmware();
@@ -104,6 +108,9 @@ public slots:
     void slotOpenDocumentation();   
     void slotDisconnectUpdate();
     void slotConnectUpdate();
+
+    void slotShowDisableWindow();
+    void slotHideDisableWindow();
 
 private:
     Ui::MainWindow *ui;

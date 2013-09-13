@@ -8,94 +8,398 @@ Key::Key(QWidget *parent, int instanceNum) :
 {
     instance = instanceNum;
 
+    this->setObjectName(QString("%1_Key").arg(instanceNum));
+
     //---------------------------------------- Set Up Ui
     QWidget *formWidget = new QWidget(this);
 
     keyForm.setupUi(formWidget);
-    this->setFixedSize(161,129);
+    this->setFixedSize(157,157);
 
-    keyForm.instanceLabel->setText(QString("Key %1").arg((instanceNum + 1)%10));
+    keyForm.instanceLabel->setText(QString("%1").arg((instanceNum + 1)%10));
 
-     if(instanceNum < 5)
+    if(instanceNum < 5)
     {
-        this->setGeometry(1 + ((instanceNum)*123),117,150,150);
+        this->setGeometry(10 + ((instanceNum)*167),177,157,157);
     }
     else
     {
-        this->setGeometry(1 + ((instanceNum-5)*123),1,150,150);
+        this->setGeometry(10 + ((instanceNum - 5)*167),10,157,157);
     }
 
     //---------------------------------------- Populate Checkbox list
-    checkBoxes.append(keyForm.footOn);
-    checkBoxes.append(keyForm.pressure);
-    checkBoxes.append(keyForm.yInc);
-    checkBoxes.append(keyForm.toggle);
-    checkBoxes.append(keyForm.xLive);
+    checkBoxes.append(keyForm.sourceNote);
+    checkBoxes.append(keyForm.sourcePressure);
+    checkBoxes.append(keyForm.sourceToggle);
+    checkBoxes.append(keyForm.sourceXY);
+    checkBoxes.append(keyForm.sourceYInc);
+    checkBoxes.append(keyForm.sourceProgram);
+
+    keyForm.name->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.noteNum->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.noteToggle->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.noteVelocity->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.pressureCC->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.pressureSmooth->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.toggleCC->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.toggleHi->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.toggleLo->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.xyLatch->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.xyXCC->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.xyYCC->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.programBank->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.programNum->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     slotConnectElements();
+}
+
+void Key::keyPressEvent(QKeyEvent *keyEvent)
+{
+    if((keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return))
+    {
+        //------------ Toggles
+        if(keyForm.noteToggle->hasFocus())
+        {
+            keyForm.noteToggle->setChecked(!keyForm.noteToggle->isChecked());
+        }
+        else if(keyForm.xyLatch->hasFocus())
+        {
+            keyForm.xyLatch->setChecked(!keyForm.xyLatch->isChecked());
+        }
+
+        //------------ Checkboxes
+
+        //MIDI Note
+        else if(keyForm.sourceNote->hasFocus())
+        {
+            //Flip state
+            keyForm.sourceNote->setChecked(!keyForm.sourceNote->isChecked());
+
+            //Set Param Window, clear others if necessary
+            if(keyForm.sourceNote->isChecked())
+            {
+                for(int i = 0; i < checkBoxes.count(); i++)
+                {
+                    if(keyForm.sourceNote != checkBoxes.at(i))
+                    {
+                        checkBoxes.at(i)->setChecked(false);
+                    }
+                    else
+                    {
+                        keyForm.sourcesParams->setCurrentIndex(i);
+                    }
+                }
+            }
+        }
+
+        //Pressure
+        else if(keyForm.sourcePressure->hasFocus())
+        {
+            keyForm.sourcePressure->setChecked(!keyForm.sourcePressure->isChecked());
+
+            if(keyForm.sourcePressure->isChecked())
+            {
+                for(int i = 0; i < checkBoxes.count(); i++)
+                {
+                    if(keyForm.sourcePressure != checkBoxes.at(i))
+                    {
+                        checkBoxes.at(i)->setChecked(false);
+                    }
+                    else
+                    {
+                        keyForm.sourcesParams->setCurrentIndex(i);
+                    }
+                }
+            }
+        }
+
+        //Toggle
+        else if(keyForm.sourceToggle->hasFocus())
+        {
+            keyForm.sourceToggle->setChecked(!keyForm.sourceToggle->isChecked());
+
+            if(keyForm.sourceToggle->isChecked())
+            {
+                for(int i = 0; i < checkBoxes.count(); i++)
+                {
+                    if(keyForm.sourceToggle != checkBoxes.at(i))
+                    {
+                        checkBoxes.at(i)->setChecked(false);
+                    }
+                    else
+                    {
+                        keyForm.sourcesParams->setCurrentIndex(i);
+                    }
+                }
+            }
+        }
+
+        //XY
+        else if(keyForm.sourceXY->hasFocus())
+        {
+            keyForm.sourceXY->setChecked(!keyForm.sourceXY->isChecked());
+
+            if(keyForm.sourceXY->isChecked())
+            {
+                for(int i = 0; i < checkBoxes.count(); i++)
+                {
+                    if(keyForm.sourceXY != checkBoxes.at(i))
+                    {
+                        checkBoxes.at(i)->setChecked(false);
+                    }
+                    else
+                    {
+                        keyForm.sourcesParams->setCurrentIndex(i);
+                    }
+                }
+            }
+        }
+
+        //YInc
+        else if(keyForm.sourceYInc->hasFocus())
+        {
+            keyForm.sourceYInc->setChecked(!keyForm.sourceYInc->isChecked());
+
+            if(keyForm.sourceYInc->isChecked())
+            {
+                for(int i = 0; i < checkBoxes.count(); i++)
+                {
+                    if(keyForm.sourceYInc != checkBoxes.at(i))
+                    {
+                        checkBoxes.at(i)->setChecked(false);
+                    }
+                    else
+                    {
+                        keyForm.sourcesParams->setCurrentIndex(i);
+                    }
+                }
+            }
+        }
+
+        //Program
+        else if(keyForm.sourceProgram->hasFocus())
+        {
+            keyForm.sourceProgram->setChecked(!keyForm.sourceProgram->isChecked());
+
+            if(keyForm.sourceProgram->isChecked())
+            {
+                for(int i = 0; i < checkBoxes.count(); i++)
+                {
+                    if(keyForm.sourceProgram != checkBoxes.at(i))
+                    {
+                        checkBoxes.at(i)->setChecked(false);
+                    }
+                    else
+                    {
+                        keyForm.sourcesParams->setCurrentIndex(i);
+                    }
+                }
+            }
+        }
+
+        //Check if key is off
+        isKeyOff();
+
+        //Update JSON
+        slotValueChanged();
+    }
+}
+
+bool Key::isKeyOff()
+{
+    for(int i = 0; i < checkBoxes.count(); i++)
+    {
+        if(checkBoxes.at(i)->isChecked())
+        {
+            return false;
+        }
+    }
+
+    keyForm.sourcesParams->setCurrentIndex(6);
+    return true;
 }
 
 
 void Key::slotConnectElements()
 {
-    connect(keyForm.footOn, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
-    connect(keyForm.pressure, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
-    connect(keyForm.yInc, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
-    connect(keyForm.toggle, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
-    connect(keyForm.xLive, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+    //source
+    for(int i = 0; i < checkBoxes.size(); i++)
+    {
+        connect(checkBoxes.at(i), SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+    }
+
+    //name
     connect(keyForm.name, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
-    connect(keyForm.cc, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-    connect(keyForm.smooth, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-    keyForm.smooth->setContextMenuPolicy(Qt::PreventContextMenu);
-    keyForm.cc->setContextMenuPolicy(Qt::PreventContextMenu);
-    keyForm.name->setContextMenuPolicy(Qt::PreventContextMenu);
+
+    //noteNum
+    connect(keyForm.noteNum, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+
+    //noteVelocity
+    connect(keyForm.noteVelocity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+
+    //noteToggle
+    connect(keyForm.noteToggle, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+
+    //pressureCC
+    connect(keyForm.pressureCC, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+
+    //pressureSmooth
+    connect(keyForm.pressureSmooth, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+
+    //toggleCC
+    connect(keyForm.toggleCC, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+
+    //toggleLo
+    connect(keyForm.toggleLo, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+
+    //toggleHi
+    connect(keyForm.toggleHi, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+
+    //xyXCC
+    connect(keyForm.xyXCC, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+
+    //xyYCC
+    connect(keyForm.xyYCC, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+
+    //xyLatch
+    connect(keyForm.xyLatch, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+
+    //programNum
+    connect(keyForm.programNum, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+
+    //programBank
+    connect(keyForm.programBank, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 }
 
 void Key::slotValueChanged()
 {
+    //############### This is a rather bloated way of doing things, could be optimzed by referencing component name/type and using fewer condidtions
+    //############### though the app is small enough for it to barely make sense
 
-    QObject *sender = QObject::sender();
+    //If UIC was not manually altered by an event filter
+    if(QObject::sender())
+    {
+        QObject *sender = QObject::sender();
 
-    qDebug() << "sender" << sender->objectName() << "instance" << instance;
-
-    if(sender == keyForm.name)
-    {
-        emit signalStoreValue(QString("%1_Key_Key_Name").arg(instance), keyForm.name->text(), -1);
-    }
-    else if (sender == keyForm.cc)
-    {
-        emit signalStoreValue(QString("%1_Key_CC").arg(instance), keyForm.cc->value(), -1);
-    }
-    else if (sender == keyForm.smooth)
-    {
-        emit signalStoreValue(QString("%1_Key_Smooth").arg(instance), keyForm.smooth->value(), -1);
-    }
-
-    //Handle mutant radio button checkboxes
-    else
-    {
-        for(int i = 0; i < checkBoxes.count(); i++)
+        if(sender == keyForm.name)
         {
-            if(reinterpret_cast<QCheckBox *>(sender) != checkBoxes.at(i))
+            emit signalStoreValue(QString("%1_key_name").arg(instance), keyForm.name->text(), -1);
+        }
+
+        //note
+        else if(sender == keyForm.noteNum)
+        {
+            emit signalStoreValue(QString("%1_key_noteNum").arg(instance), keyForm.noteNum->value(), -1);
+        }
+        else if(sender == keyForm.noteVelocity)
+        {
+            emit signalStoreValue(QString("%1_key_noteVelocity").arg(instance), keyForm.noteVelocity->value(), -1);
+        }
+        else if(sender == keyForm.noteToggle)
+        {
+            emit signalStoreValue(QString("%1_key_noteToggle").arg(instance), int(keyForm.noteToggle->isChecked()), -1);
+        }
+
+        //pressure
+        else if(sender == keyForm.pressureCC)
+        {
+            emit signalStoreValue(QString("%1_key_pressureCC").arg(instance), keyForm.pressureCC->value(), -1);
+        }
+        else if(sender == keyForm.pressureSmooth)
+        {
+            emit signalStoreValue(QString("%1_key_pressureSmooth").arg(instance), keyForm.pressureSmooth->value(), -1);
+        }
+
+        //toggle
+        else if(sender == keyForm.toggleCC)
+        {
+            emit signalStoreValue(QString("%1_key_toggleCC").arg(instance), keyForm.toggleCC->value(), -1);
+        }
+
+        else if(sender == keyForm.toggleLo)
+        {
+            emit signalStoreValue(QString("%1_key_toggleLo").arg(instance), keyForm.toggleLo->value(), -1);
+        }
+
+        else if(sender == keyForm.toggleHi)
+        {
+            emit signalStoreValue(QString("%1_key_toggleHi").arg(instance), keyForm.toggleHi->value(), -1);
+        }
+
+        //xy
+        else if (sender == keyForm.xyXCC)
+        {
+            emit signalStoreValue(QString("%1_key_xyXCC").arg(instance), keyForm.xyXCC->value(), -1);
+        }
+        else if(sender == keyForm.xyYCC)
+        {
+            emit signalStoreValue(QString("%1_key_xyYCC").arg(instance), keyForm.xyYCC->value(), -1);
+        }
+        else if(sender == keyForm.xyLatch)
+        {
+            emit signalStoreValue(QString("%1_key_xyLatch").arg(instance), int(keyForm.xyLatch->isChecked()), -1);
+        }
+
+        //yInc
+        else if(sender == keyForm.yIncCC)
+        {
+            emit signalStoreValue(QString("%1_key_yIncCC").arg(instance), keyForm.yIncCC->value(), -1);
+        }
+
+        else if(sender == keyForm.yIncSpeed)
+        {
+            emit signalStoreValue(QString("%1_key_yIncSpeed").arg(instance), keyForm.yIncSpeed->value(), -1);
+        }
+
+        //program
+        else if(sender == keyForm.programNum)
+        {
+            emit signalStoreValue(QString("%1_key_programNum").arg(instance), keyForm.programNum->value(), -1);
+        }
+
+        else if(sender == keyForm.programBank)
+        {
+            emit signalStoreValue(QString("%1_key_programBank").arg(instance), keyForm.programBank->value(), -1);
+        }
+
+        //----- Handle mutant radio button / checkboxes (radios w. all off state)
+        else if(sender->objectName().contains("source"))
+        {
+            for(int i = 0; i < checkBoxes.count(); i++)
             {
-                checkBoxes.at(i)->setChecked(false);
+                if(reinterpret_cast<QCheckBox *>(sender) != checkBoxes.at(i))
+                {
+                    checkBoxes.at(i)->setChecked(false);
+
+                }
+                else
+                {
+                    keyForm.sourcesParams->setCurrentIndex(i);
+                }
             }
+
+            //Check if key is off
+            isKeyOff();
         }
     }
 
-    emit signalStoreValue(QString("%1_Key_Foot_On").arg(instance), int(keyForm.footOn->isChecked()), -1);
-    emit signalStoreValue(QString("%1_Key_Pressure_Live").arg(instance), int(keyForm.pressure->isChecked()), -1);
-    emit signalStoreValue(QString("%1_Key_Y_Increment").arg(instance), int(keyForm.yInc->isChecked()), -1);
-    emit signalStoreValue(QString("%1_Key_Toggle").arg(instance), int(keyForm.toggle->isChecked()), -1);
-    emit signalStoreValue(QString("%1_Key_X_Live").arg(instance), int(keyForm.xLive->isChecked()), -1);
+    //Store Check Boxes ############## may need to optimize here depending on UI response when editing rapidly ##########
+    for(int i = 0; i < checkBoxes.count(); i++)
+    {
+        if(checkBoxes.at(i)->isChecked())
+        {
+            //qDebug() << checkBoxes.at(i)->objectName();
+            emit signalStoreValue(QString("%1_key_source").arg(instance), checkBoxes.at(i)->objectName(), -1);
+            break;
+        }
+    }
 
     slotUpdateSourceAndTable();
-
 }
 
 void Key::slotUpdateSourceAndTable()
 {
-    if(keyForm.footOn->isChecked())
+    /*if(keyForm.footOn->isChecked())
     {
         source = "Foot_On";
         table = "1_Lin";
@@ -127,91 +431,56 @@ void Key::slotUpdateSourceAndTable()
     }
 
     emit signalStoreValue(QString("%1_Key_Source").arg(instance), source, -1);
-    emit signalStoreValue(QString("%1_Key_Table").arg(instance), table, -1);
+    emit signalStoreValue(QString("%1_Key_Table").arg(instance), table, -1);*/
 
 }
 
 void Key::slotRecallPreset(QVariantMap preset)
 {
-    qDebug() << "--------------------------------------- recall preset" << instance;
-    keyForm.footOn->setChecked(preset.value(QString("%1_Key_Foot_On").arg(instance)).toInt());
-    keyForm.pressure->setChecked(preset.value(QString("%1_Key_Pressure_Live").arg(instance)).toInt());
-    keyForm.yInc->setChecked(preset.value(QString("%1_Key_Y_Increment").arg(instance)).toInt());
-    keyForm.toggle->setChecked(preset.value(QString("%1_Key_Toggle").arg(instance)).toInt());
-    keyForm.xLive->setChecked(preset.value(QString("%1_Key_X_Live").arg(instance)).toInt());
+    qDebug() << "--------------------------------------- recall preset" << instance << preset.value(QString("%1_key_source").arg(instance)).toString();
 
-    keyForm.name->setText(preset.value(QString("%1_Key_Key_Name").arg(instance)).toString());
-    keyForm.cc->setValue(preset.value(QString("%1_Key_CC").arg(instance)).toInt());
-    keyForm.smooth->setValue(preset.value(QString("%1_Key_Smooth").arg(instance)).toInt());
-
-    source = preset.value(QString("%1_Key_Source").arg(instance)).toString();
-    table = preset.value(QString("%1_Key_Table").arg(instance)).toString();
-}
-
-void Key::slotLoadTemplate(int tem)
-{
-    if(tem == 0)
+    //Sources
+    for(int i =0; i < checkBoxes.size(); i++)
     {
-        if(instance < 5)
+        if(preset.value(QString("%1_key_source").arg(instance)).toString() == checkBoxes.at(i)->objectName())
         {
-            source = QString("Pressure_Live");
-            table = QString("1_Lin");
-
-            for(int i =0 ; i < checkBoxes.count(); i++)
-            {
-                checkBoxes.at(i)->setChecked(false);
-            }
-
-            keyForm.pressure->setChecked(true);
-
-            keyForm.name->setText(QString("PRS%1").arg((instance + 1)%10));
-            keyForm.cc->setValue((instance + 1)%10 + 20);
-            keyForm.smooth->setValue(0);
+            checkBoxes.at(i)->setChecked(true);
+            keyForm.sourcesParams->setCurrentIndex(i);
         }
         else
         {
-            source = QString("Foot_On");
-            table = QString("Toggle_127");
-
-            for(int i =0 ; i < checkBoxes.count(); i++)
-            {
-                checkBoxes.at(i)->setChecked(false);
-            }
-
-            keyForm.toggle->setChecked(true);
-
-            keyForm.name->setText(QString("TOG%1").arg((instance + 1)%10));
-            keyForm.cc->setValue((instance + 1) + 20);
-            keyForm.smooth->setValue(0);
-        }
-    }
-    else
-    {
-        source = QString("Y_INcrement");
-        table = QString("1_Lin");
-
-        for(int i =0 ; i < checkBoxes.count(); i++)
-        {
             checkBoxes.at(i)->setChecked(false);
         }
-
-        keyForm.yInc->setChecked(true);
-
-        keyForm.name->setText(QString("FAD%1").arg((instance + 1)%10));
-        keyForm.cc->setValue((instance + 1) + 80);
-        keyForm.smooth->setValue(0);
     }
 
-    emit signalStoreValue(QString("%1_Key_Foot_On").arg(instance), int(keyForm.footOn->isChecked()), -1);
-    emit signalStoreValue(QString("%1_Key_Pressure_Live").arg(instance), int(keyForm.pressure->isChecked()), -1);
-    emit signalStoreValue(QString("%1_Key_Y_Increment").arg(instance), int(keyForm.yInc->isChecked()), -1);
-    emit signalStoreValue(QString("%1_Key_Toggle").arg(instance), int(keyForm.toggle->isChecked()), -1);
-    emit signalStoreValue(QString("%1_Key_X_Live").arg(instance), int(keyForm.xLive->isChecked()), -1);
-    emit signalStoreValue(QString("%1_Key_Source").arg(instance), source, -1);
-    emit signalStoreValue(QString("%1_Key_Table").arg(instance), table, -1);
-    emit signalStoreValue(QString("%1_Key_Key_Name").arg(instance), keyForm.name->text(), -1);
-    emit signalStoreValue(QString("%1_Key_CC").arg(instance), keyForm.cc->value(), -1);
-    emit signalStoreValue(QString("%1_Key_Smooth").arg(instance), keyForm.smooth->value(), -1);
+    isKeyOff();
+
+    //Note
+    keyForm.noteNum->setValue(preset.value(QString("%1_key_noteNum").arg(instance)).toInt());
+    keyForm.noteVelocity->setValue(preset.value(QString("%1_key_noteVelocity").arg(instance)).toInt());
+    keyForm.noteToggle->setChecked(preset.value(QString("%1_key_noteToggle").arg(instance)).toBool());
+
+    //Pressure
+    keyForm.pressureCC->setValue(preset.value(QString("%1_key_pressureCC").arg(instance)).toInt());
+    keyForm.pressureSmooth->setValue(preset.value(QString("%1_key_pressureSmooth").arg(instance)).toInt());
+
+    //Toggle
+    keyForm.toggleCC->setValue(preset.value(QString("%1_key_toggleCC").arg(instance)).toInt());
+    keyForm.toggleLo->setValue(preset.value(QString("%1_key_toggleLo").arg(instance)).toInt());
+    keyForm.toggleHi->setValue(preset.value(QString("%1_key_toggleHi").arg(instance)).toInt());
+
+    //XY
+    keyForm.xyXCC->setValue(preset.value(QString("%1_key_xyXCC").arg(instance)).toInt());
+    keyForm.xyYCC->setValue(preset.value(QString("%1_key_xyYCC").arg(instance)).toInt());
+    keyForm.xyLatch->setChecked(preset.value(QString("%1_key_xyLatch").arg(instance)).toBool());
+
+    //YInc
+    keyForm.yIncCC->setValue(preset.value(QString("%1_key_yIncCC").arg(instance)).toInt());
+    keyForm.yIncSpeed->setValue(preset.value(QString("%1_key_yIncSpeed").arg(instance)).toInt());
+
+    //Program
+    keyForm.programNum->setValue(preset.value(QString("%1_key_programNum").arg(instance)).toInt());
+    keyForm.programBank->setValue(preset.value(QString("%1_key_programBank").arg(instance)).toInt());
 }
 
 

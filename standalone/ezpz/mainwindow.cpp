@@ -31,6 +31,12 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("SoftStep Easy Editor");
     ui->setupUi(this);
 
+    //Coverup
+    disableWidget = new QWidget(this);
+    disableWidget->hide();
+    disableWidget->resize(this->size());
+    disableWidget->setStyleSheet("QWidget{ background: rgba(0,0,0,200); }");
+
     //Child Dialogs
     fwoodDialogWidget = new QWidget(this);
     fwoodDialogWidget->hide();
@@ -62,17 +68,20 @@ MainWindow::MainWindow(QWidget *parent) :
     //Construct Keys
     for(int i = 0; i < 10; i++)
     {
-        key[i] = new Key(ui->keyFrame, i);
+        key[i] = new Key(this, i);
     }
 
+    this->installEventFilter(this);
 
     slotInitMenuBar();
 
     slotConnectInterfaces();
 
     //Load preset from last app session
-    presetInterface->slotRecallPreset(1);
+    //presetInterface->slotRecallPreset(1);
     //ui->scene->setValue(settings->value("lastPreset").toInt());
+    ui->currentPreset->setValue(settings->value("lastPreset").toInt());
+    ui->currentPreset->setFocus();
 
 #ifdef Q_OS_MAC
     mdm->connectSource();
@@ -88,6 +97,20 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
+{
+    if((keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return) && ui->backlight->hasFocus())
+    {
+        ui->backlight->setChecked(!ui->backlight->isChecked());
+    }
+}
+
+void MainWindow::closeEvent(QCloseEvent *)
+{
+    qDebug() << "closing...";
+    presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
+}
+
 void MainWindow::slotConnectInterfaces()
 {
     //Connected Indicator
@@ -95,23 +118,32 @@ void MainWindow::slotConnectInterfaces()
 
     //About Ok Button
     connect(aboutForm->ok, SIGNAL(clicked()), aboutFormWidget, SLOT(close()));
+    connect(aboutForm->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
 
     //SysEx
     connect(mdm, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
     connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString)), this, SLOT(slotReceiveVersions(int,QString, int, QString)));
 
-    //Firmware Update Dialog and Progress Bar
+    //----------------------------- Firmware Updating
+    //Firmware Out of Date Dialog
     connect(fwoodDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
-    connect(mdm, SIGNAL(signalFwBytesLeft(int)), this, SLOT(slotUpdateFwProgressBar(int)));
-    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), fwUpdateCompleteDialogWidget, SLOT(close()));
     connect(fwoodDialog->cancel, SIGNAL(clicked()), fwoodDialogWidget, SLOT(close()));
+
+    //Firmware Update Dialog
+    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
+    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
     connect(fwUpdateDialog->update, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
     connect(fwUpdateDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
 
-    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
+    //Firmware Progress Bar
+    connect(mdm, SIGNAL(signalFwBytesLeft(int)), this, SLOT(slotUpdateFwProgressBar(int)));
+
+    //Firmware Update Complete Dialog
+    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), fwUpdateCompleteDialogWidget, SLOT(close()));
+    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
 
     //Preset Recall
-    //connect(ui->scene, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
+    connect(ui->currentPreset, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
     connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap)), this, SLOT(slotRecallPreset(QVariantMap)));
 
     for(int i = 0; i < 10; i++)
@@ -121,15 +153,16 @@ void MainWindow::slotConnectInterfaces()
 
     //Preset Storage
     connect(ui->midiChannel, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotStoreGlobal()));
-    connect(ui->gain, SIGNAL(valueChanged(double)), presetInterface, SLOT(slotStoreGlobal()));
+    connect(ui->sensitivity, SIGNAL(valueChanged(double)), presetInterface, SLOT(slotStoreGlobal()));
     connect(ui->pedalCC, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotStoreGlobal()));
+    connect(ui->navPadCC, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotStoreGlobal()));
     connect(ui->backlight, SIGNAL(clicked()), presetInterface, SLOT(slotStoreGlobal()));
-    connect(ui->sceneName, SIGNAL(textEdited(QString)), presetInterface, SLOT(slotStoreGlobal()));
+    connect(ui->displayName, SIGNAL(textEdited(QString)), presetInterface, SLOT(slotStoreGlobal()));
 
     ui->midiChannel->setContextMenuPolicy(Qt::PreventContextMenu);
-    ui->gain->setContextMenuPolicy(Qt::PreventContextMenu);
+    ui->sensitivity->setContextMenuPolicy(Qt::PreventContextMenu);
     ui->pedalCC->setContextMenuPolicy(Qt::PreventContextMenu);
-    ui->sceneName->setContextMenuPolicy(Qt::PreventContextMenu);
+    ui->displayName->setContextMenuPolicy(Qt::PreventContextMenu);
 
     for(int i = 0; i < 10; i++)
     {
@@ -145,36 +178,24 @@ void MainWindow::slotConnectInterfaces()
     //Standalone Download
     connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
 
-    //Template Loading
-    connect(ui->template_2, SIGNAL(currentIndexChanged(int)), this, SLOT(slotLoadTemplate(int)));
-    for(int i = 0; i < 10; i++)
-    {
-        connect(ui->template_2, SIGNAL(currentIndexChanged(int)), key[i], SLOT(slotLoadTemplate(int)));
-    }
-}
-
-void MainWindow::slotLoadTemplate(int tem)
-{
-    if(tem)
-    {
-        ui->sceneName->setText("FADR");
-    }
-    else
-    {
-        ui->sceneName->setText("EASY");
-    }
-
-    presetInterface->slotStoreValue("Global_Scene_Name", ui->sceneName->text(), -1);
+    ui->backlight->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->sensitivity->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->midiChannel->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->navPadCC->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->pedalCC->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->currentPreset->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->displayName->setAttribute(Qt::WA_MacShowFocusRect, false);
 }
 
 void MainWindow::slotRecallPreset(QVariantMap preset)
 {
     //------------------------------------- Recalls/Sets Global Ui components
-    ui->midiChannel->setValue(preset.value(QString("Global_Midi_Channel")).toInt());
-    ui->gain->setValue(preset.value(QString("Global_Gain")).toDouble());
-    ui->pedalCC->setValue(preset.value(QString("Global_Pedal_CC")).toInt());
-    ui->backlight->setChecked(preset.value(QString("Global_Backlight")).toBool());
-    ui->sceneName->setText(preset.value(QString("Global_Scene_Name")).toString());
+    ui->midiChannel->setValue(preset.value(QString("midiChannel")).toInt());
+    ui->sensitivity->setValue(preset.value(QString("sensitivity")).toDouble());
+    ui->pedalCC->setValue(preset.value(QString("pedalCC")).toInt());
+    ui->navPadCC->setValue(preset.value(QString("navPadCC")).toInt());
+    ui->backlight->setChecked(preset.value(QString("backlight")).toInt());
+    ui->displayName->setText(preset.value(QString("displayName")).toString());
 }
 
 void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
@@ -194,13 +215,13 @@ void MainWindow::slotConnected(bool connection)
 {
     if(connection)
     {
-        ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(10,255,0);border-radius:6;");
-        ui->connectedLabel->setText("Connected");
+        //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(10,255,0);border-radius:6;");
+        //ui->connectedLabel->setText("Connected");
     }
     else
     {
-        ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
-        ui->connectedLabel->setText("Not Connected");
+        //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
+        //ui->connectedLabel->setText("Not Connected");
         aboutForm->found->setText("Not Connected");
     }
 }
@@ -213,11 +234,11 @@ void MainWindow::slotUpdateFirmware()
     QApplication::processEvents();
     fwProgressDialog->progressBar->setMinimum(0);
     QApplication::processEvents();
-    #ifdef Q_OS_MAC
+#ifdef Q_OS_MAC
     fwProgressDialog->progressBar->setMaximum(sysExComposer->fwFileSize);
-    #else
+#else
     fwProgressDialog->progressBar->setMaximum(0);
-    #endif
+#endif
     QApplication::processEvents();
     sysExComposer->slotUpdateFirmware();
 }
@@ -252,6 +273,7 @@ void MainWindow::slotInitMenuBar()
     //Hardware
     QMenu* hardware = new QMenu("Hardware");
     QAction* updatefw = new QAction("Update/Reload Firmware...", hardware);
+    connect(updatefw, SIGNAL(triggered()), disableWidget, SLOT(show()));
     connect(updatefw, SIGNAL(triggered()), fwUpdateDialogWidget, SLOT(show()));
     hardware->addAction(updatefw);
     menubar->addMenu(hardware);
@@ -259,12 +281,23 @@ void MainWindow::slotInitMenuBar()
     //Help
     QMenu* help = new QMenu("Help");
     QAction* about = new QAction("About SoftStep Easy Editor", help);
+    connect(about, SIGNAL(triggered()), disableWidget, SLOT(show()));
     connect(about, SIGNAL(triggered()), aboutFormWidget, SLOT(show()));
     help->addAction(about);
+
     QAction* doc = new QAction("Documentation...", help);
     connect(doc, SIGNAL(triggered()), this, SLOT(slotOpenDocumentation()));
     help->addAction(doc);
     menubar->addMenu(help);
+}
+
+void MainWindow::slotShowDisableWindow()
+{
+    qDebug() << "Show";
+}
+
+void MainWindow::slotHideDisableWindow()
+{
 
 }
 
@@ -277,13 +310,8 @@ void MainWindow::slotOpenDocumentation()
     file->close();
 }
 
-void MainWindow::closeEvent(QCloseEvent *)
+void MainWindow::slotDisconnectUpdate()
 {
-    qDebug() << "closing...";
-    presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
-}
-
-void MainWindow::slotDisconnectUpdate(){
     qDebug("download preset started");
     disconnect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
 }

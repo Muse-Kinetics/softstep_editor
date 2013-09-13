@@ -40,6 +40,7 @@ void SysExComposer::slotGetEmbeddedVersion()
 #if defined(Q_OS_MAC) && !defined(QT_DEBUG)
     sysExPath.remove(sysExPath.length() - 5, sysExPath.length()); //Remove "MacOS" from path string
     sysExPath.append("Resources/SoftStep.syx");
+
 #else
     sysExPath = QString("./SoftStep.syx");
 #endif
