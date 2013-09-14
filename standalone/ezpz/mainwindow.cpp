@@ -78,9 +78,8 @@ MainWindow::MainWindow(QWidget *parent) :
     slotConnectInterfaces();
 
     //Load preset from last app session
-    //presetInterface->slotRecallPreset(1);
-    //ui->scene->setValue(settings->value("lastPreset").toInt());
-    ui->currentPreset->setValue(settings->value("lastPreset").toInt());
+    presetInterface->slotRecallPreset(1);
+    //ui->currentPreset->setValue(settings->value("lastPreset").toInt());
     ui->currentPreset->setFocus();
 
 #ifdef Q_OS_MAC

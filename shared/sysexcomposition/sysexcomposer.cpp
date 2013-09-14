@@ -196,12 +196,12 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset)
 
     //------------------------------------- Global Settings
     attribute(x,3,A_SYM,"set",A_SYM,"Key_Response",A_LONG,0l);
-    attribute(x,3,A_SYM,"set",A_SYM,"Global_Gain",A_FLOAT,preset.value("Global_Gain").toFloat());   //-----
+    attribute(x,3,A_SYM,"set",A_SYM,"Global_Gain",A_FLOAT,preset.value("sensitivity").toFloat());   //-----
     //attribute(x,0,A_SYM,"set",A_SYM,"Pedal_Table",A_GIMME,-1);
     attribute(x,4,A_SYM,"set",A_SYM,"pedalEdges",A_LONG,127l, A_LONG,0l);
     attribute(x,3,A_SYM,"set",A_SYM,"pedalHysteresis",A_LONG,7);
     attribute(x,3,A_SYM,"set",A_SYM,"pedalFilterLength",A_LONG,5);
-    attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!preset.value("Global_Backlight").toInt());     //-----
+    attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!preset.value("backlight").toInt());     //-----
     attribute(x,3,A_SYM,"set",A_SYM,"ProgramChangeInput",A_LONG,12);
 
 
@@ -241,7 +241,9 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset)
 
     //Preset/Scene Number and Name
     attribute(x,2,A_SYM,"preset",A_LONG,0);
-    attribute(x,3,A_SYM, "set",A_SYM,"Scene_Name",A_SYM,preset.value("Global_Scene_Name").toString().toUtf8().constData());
+    attribute(x,3,A_SYM, "set",A_SYM,"Scene_Name",A_SYM,preset.value("displayName").toString().toUtf8().constData());
+
+    qDebug() << preset.value("displayName").toString().toUtf8().constData();
 
     //Keys
     for(long k = 0l; k < 10l; k++)

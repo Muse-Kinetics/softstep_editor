@@ -209,7 +209,7 @@ QCheckBox::indicator {
     <rect>
      <x>15</x>
      <y>27</y>
-     <width>65</width>
+     <width>52</width>
      <height>16</height>
     </rect>
    </property>
@@ -273,7 +273,7 @@ QCheckBox::indicator {
     <rect>
      <x>15</x>
      <y>42</y>
-     <width>65</width>
+     <width>46</width>
      <height>16</height>
     </rect>
    </property>
@@ -337,7 +337,7 @@ QCheckBox::indicator {
     <rect>
      <x>15</x>
      <y>57</y>
-     <width>65</width>
+     <width>33</width>
      <height>16</height>
     </rect>
    </property>
@@ -401,7 +401,7 @@ QCheckBox::indicator {
     <rect>
      <x>15</x>
      <y>72</y>
-     <width>65</width>
+     <width>39</width>
      <height>16</height>
     </rect>
    </property>
@@ -465,7 +465,7 @@ QCheckBox::indicator {
     <rect>
      <x>15</x>
      <y>87</y>
-     <width>65</width>
+     <width>53</width>
      <height>16</height>
     </rect>
    </property>
@@ -613,7 +613,7 @@ border: 2px solid white;
 }</string>
    </property>
    <property name="currentIndex">
-    <number>6</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="notePage">
     <widget class="QLabel" name="noteNumLabel">
@@ -647,6 +647,9 @@ border: 2px solid white;
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
     </widget>
     <widget class="QLabel" name="noteVelocityLabel">
      <property name="geometry">
@@ -678,6 +681,9 @@ border: 2px solid white;
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
      </property>
     </widget>
     <widget class="QLabel" name="noteToggleLabel">
