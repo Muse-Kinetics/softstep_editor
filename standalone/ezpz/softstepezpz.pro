@@ -22,6 +22,7 @@ SOURCES +=      main.cpp\
                 key.cpp \
                 presetinterface.cpp \
                 mididevicemanager.cpp \
+                sysexcomposer.cpp \
                 ../../shared/sysexcomposition/utils.c \
                 ../../shared/sysexcomposition/syxtx.c \
                 ../../shared/sysexcomposition/syxrx.c \
@@ -30,12 +31,13 @@ SOURCES +=      main.cpp\
                 ../../shared/sysexcomposition/download.c \
                 ../../shared/sysexcomposition/attribute.c \
                 ../../shared/sysexcomposition/mainsysex.c \
-                ../../shared/sysexcomposition/sysexcomposer.cpp
+
 
 HEADERS  +=     mainwindow.h \
                 key.h \
                 presetinterface.h \
                 mididevicemanager.h \
+                sysexcomposer.h \
                 ../../shared/sysexcomposition/utils.h \
                 ../../shared/sysexcomposition/syxtx.h \
                 ../../shared/sysexcomposition/syxrx.h \

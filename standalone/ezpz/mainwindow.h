@@ -9,7 +9,7 @@
 
 #include "key.h"
 #include "presetinterface.h"
-#include "sysexComposition/sysexcomposer.h"
+#include "sysexcomposer.h"
 #include "mididevicemanager.h"
 
 #ifdef Q_OS_MAC
