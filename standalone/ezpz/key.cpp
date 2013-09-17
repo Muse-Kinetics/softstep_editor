@@ -47,6 +47,8 @@ Key::Key(QWidget *parent, int instanceNum) :
     keyForm.xyLatch->setAttribute(Qt::WA_MacShowFocusRect, false);
     keyForm.xyXCC->setAttribute(Qt::WA_MacShowFocusRect, false);
     keyForm.xyYCC->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.yIncCC->setAttribute(Qt::WA_MacShowFocusRect, false);
+    keyForm.yIncSpeed->setAttribute(Qt::WA_MacShowFocusRect, false);
     keyForm.programBank->setAttribute(Qt::WA_MacShowFocusRect, false);
     keyForm.programNum->setAttribute(Qt::WA_MacShowFocusRect, false);
 
@@ -264,6 +266,12 @@ void Key::slotConnectElements()
     //xyLatch
     connect(keyForm.xyLatch, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
 
+    //YIncCC
+    connect(keyForm.yIncCC, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+
+    //YINc speed
+    connect(keyForm.yIncSpeed, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+
     //programNum
     connect(keyForm.programNum, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 
@@ -275,6 +283,10 @@ void Key::slotValueChanged()
 {
     //############### This is a rather bloated way of doing things, could be optimzed by referencing component name/type and using fewer condidtions
     //############### though the app is small enough for it to barely make sense
+
+    //---------------------------------------------------------------------------------------------------------------------//
+    //-------------------------------------------------          UI         -----------------------------------------------//
+    //---------------------------------------------------------------------------------------------------------------------//
 
     //If UIC was not manually altered by an event filter
     if(QObject::sender())
@@ -383,13 +395,218 @@ void Key::slotValueChanged()
         }
     }
 
+
+
+    //---------------------------------------------------------------------------------------------------------------------//
+    //-------------------------------------------------  Source / Modlines  -----------------------------------------------//
+    //---------------------------------------------------------------------------------------------------------------------//
     //Store Check Boxes ############## may need to optimize here depending on UI response when editing rapidly ##########
     for(int i = 0; i < checkBoxes.count(); i++)
     {
         if(checkBoxes.at(i)->isChecked())
         {
-            //qDebug() << checkBoxes.at(i)->objectName();
+            //emit source for ui
             emit signalStoreValue(QString("%1_key_source").arg(instance), checkBoxes.at(i)->objectName(), -1);
+
+            //set modline params based on selected source
+
+            //Note
+            if(checkBoxes.at(i)->objectName() == "sourceNote")
+            {
+                //--------- Modlines
+                //Source
+                emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "Foot_On", -1);
+                emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "None", -1);
+
+                //Table
+                if(keyForm.noteToggle->isChecked())
+                {
+                    emit signalStoreValue(QString("%1_key_modline_table").arg(instance), "Toggle_127", -1);
+                }
+                else
+                {
+                    emit signalStoreValue(QString("%1_key_modline_table").arg(instance), "1_Lin", -1);
+                }
+
+                //Gain
+                emit signalStoreValue(QString("%1_key_modline_gain").arg(instance), 1.00f, -1);
+
+                //Min
+                emit signalStoreValue(QString("%1_key_modline_min").arg(instance), 0, -1);
+
+                //Max
+                emit signalStoreValue(QString("%1_key_modline_max").arg(instance), 127, -1);
+
+                //Slew
+                emit signalStoreValue(QString("%1_key_modline_slew").arg(instance), 0, -1);
+
+                //Dest
+                emit signalStoreValue(QString("%1_key_modline_destination").arg(instance), "Note_Set", -1);
+            }
+
+            //Pressure
+            else if(checkBoxes.at(i)->objectName() == "sourcePressure")
+            {
+                //Source
+                emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "Pressure_Live", -1);
+                emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "None", -1);
+
+                //Table
+                emit signalStoreValue(QString("%1_key_modline_table").arg(instance), "1_Lin", -1);
+
+                //Gain
+                emit signalStoreValue(QString("%1_key_modline_gain").arg(instance), 1.00, -1);
+
+                //Min
+                emit signalStoreValue(QString("%1_key_modline_min").arg(instance), 0, -1);
+
+                //Max
+                emit signalStoreValue(QString("%1_key_modline_max").arg(instance), 127, -1);
+
+                //Slew
+                emit signalStoreValue(QString("%1_key_modline_slew").arg(instance), keyForm.pressureSmooth->value(), -1);
+
+                //Dest
+                emit signalStoreValue(QString("%1_key_modline_destination").arg(instance), "CC", -1);
+
+                //CC#
+                emit signalStoreValue(QString("%1_key_modline_cc").arg(instance), keyForm.pressureCC->value(), -1);
+            }
+
+            //Toggle
+            else if(checkBoxes.at(i)->objectName() == "sourceToggle")
+            {
+                //Source
+                emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "Foot_On", -1);
+                emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "None", -1);
+
+                //Table
+                emit signalStoreValue(QString("%1_key_modline_table").arg(instance), "Toggle_127", -1);
+
+                //Gain
+                emit signalStoreValue(QString("%1_key_modline_gain").arg(instance), 1.00, -1);
+
+                //Min
+                emit signalStoreValue(QString("%1_key_modline_min").arg(instance), keyForm.toggleLo->value(), -1);
+
+                //Max
+                emit signalStoreValue(QString("%1_key_modline_max").arg(instance), keyForm.toggleHi->value(), -1);
+
+                //Slew
+                emit signalStoreValue(QString("%1_key_modline_slew").arg(instance), 0, -1);
+
+                //Dest
+                emit signalStoreValue(QString("%1_key_modline_destination").arg(instance), "CC", -1);
+
+                //CC#
+                emit signalStoreValue(QString("%1_key_modline_cc").arg(instance), keyForm.toggleCC->value(), -1);
+            }
+
+            //XY
+            else if(checkBoxes.at(i)->objectName() == "sourceXY")
+            {
+                //Source
+                if(keyForm.xyLatch->isChecked())
+                {
+                    emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "X_Latch", -1);
+                    emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "Y_Latch", -1);
+                }
+                else
+                {
+                    emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "X_Live", -1);
+                    emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "Y_Live", -1);
+                }
+
+                //Table
+                emit signalStoreValue(QString("%1_key_modline_table").arg(instance), "1_Lin", -1);
+
+                //Gain
+                emit signalStoreValue(QString("%1_key_modline_gain").arg(instance), 1.00, -1);
+
+                //Min
+                emit signalStoreValue(QString("%1_key_modline_min").arg(instance), 0, -1);
+                emit signalStoreValue(QString("%1_key_modline2_min").arg(instance), 0, -1);
+
+                //Max
+                emit signalStoreValue(QString("%1_key_modline_max").arg(instance), 127, -1);
+                emit signalStoreValue(QString("%1_key_modline2_max").arg(instance), 127, -1);
+
+                //Slew
+                emit signalStoreValue(QString("%1_key_modline_slew").arg(instance), 0, -1);
+
+                //Dest
+                emit signalStoreValue(QString("%1_key_modline_destination").arg(instance), "CC", -1);
+                emit signalStoreValue(QString("%1_key_modline2_destination").arg(instance), "CC", -1);
+
+                //CC#s
+                emit signalStoreValue(QString("%1_key_modline_cc").arg(instance), keyForm.xyXCC->value(), -1);
+                emit signalStoreValue(QString("%1_key_modline2_cc").arg(instance), keyForm.xyYCC->value(), -1);
+            }
+
+            //Y Inc
+            else if(checkBoxes.at(i)->objectName() == "sourceYInc")
+            {
+                //Source
+                emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "Y_Increment", -1);
+                emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "None", -1);
+
+                //Table
+                emit signalStoreValue(QString("%1_key_modline_table").arg(instance), "1_Lin", -1);
+
+                //Gain
+                emit signalStoreValue(QString("%1_key_modline_gain").arg(instance), 1.00, -1);
+
+                //Min
+                emit signalStoreValue(QString("%1_key_modline_min").arg(instance), 0, -1);
+
+                //Max
+                emit signalStoreValue(QString("%1_key_modline_max").arg(instance), 127, -1);
+
+                //Slew
+                emit signalStoreValue(QString("%1_key_modline_slew").arg(instance), 0, -1);
+
+                //Dest
+                emit signalStoreValue(QString("%1_key_modline_destination").arg(instance), "CC", -1);
+
+                //CC#
+                emit signalStoreValue(QString("%1_key_modline_cc").arg(instance), keyForm.yIncCC->value(), -1);
+
+                //Speed
+                emit signalStoreValue(QString("%1_key_setting_yAccel").arg(instance), keyForm.yIncSpeed->value(), -1);
+
+            }
+
+            //Program
+            else if(checkBoxes.at(i)->objectName() == "sourceProgram")
+            {
+                //Modline 1: Bank, Modline 2: Program
+
+                //Source
+                emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "Foot_On", -1);
+                emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "Foot_On", -1);
+
+                //Table
+                emit signalStoreValue(QString("%1_key_modline_table").arg(instance), "Toggle_127", -1);
+
+                //Gain
+                emit signalStoreValue(QString("%1_key_modline_gain").arg(instance), 1.00, -1);
+
+                //Min
+                emit signalStoreValue(QString("%1_key_modline_min").arg(instance), keyForm.programBank->value(), -1);
+                emit signalStoreValue(QString("%1_key_modline2_min").arg(instance), keyForm.programNum->value(), -1);
+
+                //Max
+                emit signalStoreValue(QString("%1_key_modline_max").arg(instance), keyForm.programBank->value(), -1);
+                emit signalStoreValue(QString("%1_key_modline2_max").arg(instance), keyForm.programNum->value(), -1);
+
+                //Slew
+                emit signalStoreValue(QString("%1_key_modline_slew").arg(instance), 0, -1);
+
+                //Dest
+                emit signalStoreValue(QString("%1_key_modline_destination").arg(instance), "Bank", -1);
+                emit signalStoreValue(QString("%1_key_modline2_destination").arg(instance), "Program", -1);
+            }
+
             break;
         }
     }
@@ -454,6 +671,9 @@ void Key::slotRecallPreset(QVariantMap preset)
     }
 
     isKeyOff();
+
+    //Name
+    keyForm.name->setText(preset.value(QString("%1_key_name").arg(instance)).toString());
 
     //Note
     keyForm.noteNum->setValue(preset.value(QString("%1_key_noteNum").arg(instance)).toInt());

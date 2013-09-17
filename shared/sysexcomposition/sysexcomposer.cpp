@@ -46,9 +46,9 @@ void SysExComposer::slotGetEmbeddedVersion()
 #endif
 
 #ifdef Q_OS_MAC
-FILE *fd = fopen(sysExPath.toUtf8(),"r");
+    FILE *fd = fopen(sysExPath.toUtf8(),"r");
 #else
-FILE *fd = fopen(sysExPath.toUtf8(),"rb");
+    FILE *fd = fopen(sysExPath.toUtf8(),"rb");
 #endif
 
     if (fd)
@@ -219,7 +219,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset)
         attribute(x,3,A_SYM,"set",A_SYM,"On_Sens",A_LONG,20l);
         attribute(x,3,A_SYM,"set",A_SYM,"Off_Sens",A_LONG,10l);
     }
-  //----------------------------------- Nav Settings
+    //----------------------------------- Nav Settings
 
     //Nav Key
     attribute(x,3,A_SYM,"set",A_SYM,"key",A_SYM,"nav");
@@ -245,88 +245,107 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset)
 
     qDebug() << preset.value("displayName").toString().toUtf8().constData();
 
-    //Keys
+    //----------------------------------------------------------------------------------------//
+    //------------------------------------------ Keys ----------------------------------------//
+    //----------------------------------------------------------------------------------------//
     for(long k = 0l; k < 10l; k++)
     {
         attribute(x,2,A_SYM,"key",A_LONG,k+1);
-        attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM, preset.value(QString("%1_Key_Key_Name").arg(k)).toString().toUtf8().constData());
+        attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM, preset.value(QString("%1_key_name").arg(k)).toString().toUtf8().constData());
 
-        if(preset.value(QString("%1_Key_Source").arg(k)).toString() == "Y_Increment")
+        if(preset.value(QString("%1_key_source").arg(k)).toString() == "sourceYInc")
         {
             attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,4l);
             attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,"Y");
         }
-        else if(preset.value(QString("%1_Key_Source").arg(k)).toString() == "X_Live")
+        else if(preset.value(QString("%1_key_source").arg(k)).toString() == "sourceXY")
         {
             attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,4l);
-            attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,"X");
+            attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,"XY");
         }
         else
         {
             attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,1l);
-            attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,"X");
+            attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,"XY");
         }
 
-        //Modlines
+        //--------------------------------------- Modlines ---------------------------------------//
         for(long m = 0l; m < 6l; m++)
         {
-            //Will need more logic here with full editor
             attribute(x,3,A_SYM,"set",A_SYM,"Modline",A_LONG,m+1);
-            if(m == 0l)
+
+            //First two lines are twins, except for their device output
+            if(m < 2l)
             {
                 attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
                 attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,1l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("%1_Key_Source").arg(k)).toString().toUtf8().constData());
-                attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
+                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("%1_key_modline_source").arg(k)).toString().toUtf8().constData());
+                attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("%1_key_modline_gain").arg(k)).toFloat());
                 attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, preset.value(QString("%1_Key_Table").arg(k)).toString().toUtf8().constData());
-                attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("%1_Key_Smooth").arg(k)).toInt());
+                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, preset.value(QString("%1_key_modline_table").arg(k)).toString().toUtf8().constData());
+                attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,preset.value(QString("%1_key_modline_min").arg(k)).toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,preset.value(QString("%1_key_modline_max").arg(k)).toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("%1_key_modline_slew").arg(k)).toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,preset.value(QString("%1_key_modline_destination").arg(k)).toString().toUtf8().constData());
+                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,(long)preset.value("midiChannel").toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value(QString("%1_key_modline_cc").arg(k)).toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"Note_Number",A_LONG,preset.value(QString("%1_key_noteNum").arg(k)).toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"Note_Velocity",A_LONG,preset.value(QString("%1_key_noteVelocity").arg(k)).toLongLong());
 
-                // Set gain to 127 for foot on source so that it goes from 0 to 127 instead of 0 to 1.
-                if(preset.value(QString("%1_Key_Source").arg(k)).toString() == "Foot_On"){
-                    attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,127.0000);
-                }
-                else{
-                    attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
-                }
-
-                // Led menu conditionals
-                if(preset.value(QString("%1_Key_Source").arg(k)).toString() == "Foot_On" && preset.value(QString("%1_Key_Table").arg(k)).toString() == "Toggle_127")
+                if(m == 0l)
                 {
-                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"True");
+                    attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SSCOM_Port_1");
                 }
                 else
                 {
-                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
+                    attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SoftStep_Expander");
                 }
 
-                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
-
-                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"CC");
-                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,(long)preset.value("Global_Midi_Channel").toInt());
-                attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value(QString("%1_Key_CC").arg(k)).toInt());
-                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SSCOM_Port_1");
-            }
-            else if(k == 0 && m == 1l)
-            {
-                attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,1l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"Pedal");
-                attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
-                attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "1_Lin");
-                attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,0l);
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
-                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"CC");
-                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value("Global_Midi_Channel").toInt());
-                attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value("Global_Pedal_CC").toInt());
-                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SSCOM_Port_1");
             }
+
+            //If source requires two modlines (XY, Program), then make twins on 3 and four
+            else if(m < 4l)
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,1l);
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("%1_key_modline2_source").arg(k)).toString().toUtf8().constData());
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("%1_key_modline_gain").arg(k)).toFloat());
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, preset.value(QString("%1_key_modline_table").arg(k)).toString().toUtf8().constData());
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,preset.value(QString("%1_key_modline2_min").arg(k)).toLongLong());
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,preset.value(QString("%1_key_modline2_max").arg(k)).toLongLong());
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("%1_key_modline_slew").arg(k)).toLongLong());
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,preset.value(QString("%1_key_modline2_destination").arg(k)).toString().toUtf8().constData());
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,(long)preset.value("midiChannel").toLongLong());
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value(QString("%1_key_modline2_cc").arg(k)).toLongLong());
+
+                if(m == 2l)
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SSCOM_Port_1");
+                }
+                else
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SoftStep_Expander");
+                }
+
+                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
+                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
+            }
+
+            //Turn all other lines off
             else
             {
                 attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,0l);
@@ -342,79 +361,78 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset)
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
                 attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"None");
             }
-            //repeat all the settings in modline 0 for modline 2 (modline 1 key 0 = pedal)
-            //except turn off Display_Linked (only one modline needed for display since they are the same)
-            //and set device to expander so that output is repeated there.
-            if(m == 2l)
-            {
-                attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,0l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("%1_Key_Source").arg(k)).toString().toUtf8().constData());
-                attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
-                attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, preset.value(QString("%1_Key_Table").arg(k)).toString().toUtf8().constData());
-                attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("%1_Key_Smooth").arg(k)).toInt());
-
-                // Set gain to 127 for foot on source so that it goes from 0 to 127 instead of 0 to 1.
-                if(preset.value(QString("%1_Key_Source").arg(k)).toString() == "Foot_On"){
-                    attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,127.0000);
-                }
-                else{
-                    attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
-                }
-
-                // Led menu conditionals
-                if(preset.value(QString("%1_Key_Source").arg(k)).toString() == "Foot_On" && preset.value(QString("%1_Key_Table").arg(k)).toString() == "Toggle_127")
-                {
-                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"True");
-                }
-                else
-                {
-                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
-                }
-
-                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
-
-                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"CC");
-                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,(long)preset.value("Global_Midi_Channel").toInt());
-                attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value(QString("%1_Key_CC").arg(k)).toInt());
-                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SoftStep_Expander");
-            }
-            //then repeat the pedal output on key 0 modline 3 and send it to the expander too turning off display_linked.
-            else if(k == 0 && m == 3l)
-            {
-                attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,0l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"Pedal");
-                attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
-                attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "1_Lin");
-                attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,0l);
-                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
-                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
-                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"CC");
-                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value("Global_Midi_Channel").toInt());
-                attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value("Global_Pedal_CC").toInt());
-                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SoftStep_Expander");
-            }
         }
     }
 
-    //set nav pad to modline mode instead of program change mode.
+    //----------------------------------------------------------------------------------------//
+    //----------------------------------------- NavP. ----------------------------------------//
+    //----------------------------------------------------------------------------------------//
     attribute(x,2,A_SYM,"key",A_LONG,11l);
     attribute(x,3,A_SYM,"set",A_SYM,"Nav_Modline_Mode",A_LONG,1l);
 
-    //set nav pad key name to scene name and display to always so that the scene name will display when the nav pad is pressed.
-    attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM,preset.value("Global_Scene_Name").toString().toUtf8().constData());
+    //set nav pad key name to scene name and display to always so that then scene name will display when the nav pad is pressed.
+    attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM,preset.value("displayName").toString().toUtf8().constData());
     attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,1l);
 
-    for(long m = 0l; m < 6l; m++){
+    for(long m = 0l; m < 6l; m++)
+    {
+        //Y Inc-dec
+        if(m < 2l)
+        {
+            attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,1l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"Nav_Y_Inc-Dec");
+            attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
+            attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
+            attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "1_Lin");
+            attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,0l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"CC");
+            attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value("midiChannel").toLongLong());
+            attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value("pedalCC").toLongLong());
 
-            //set all modlines to default parameters.
+            if(m == 0l)
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SSCOM_Port_1");
+            }
+            else
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"SoftStep_Expander");
+            }
+        }
+
+        //Pedal
+        else if(m < 4l)
+        {
+            attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,1l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"Pedal");
+            attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
+            attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
+            attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "1_Lin");
+            attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,0l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"CC");
+            attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value("midiChannel").toLongLong());
+            attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value("navPadCC").toLongLong());
+
+            if(m == 2l)
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SSCOM_Port_1");
+            }
+            else
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"SoftStep_Expander");
+            }
+        }
+
+        //All other lines off
+        else
+        {
+            attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,0l);
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,0l);
             attribute(x,3,A_SYM,"set",A_SYM,"Modline",A_LONG,m+1);
             attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"None");
             attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
@@ -423,18 +441,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset)
             attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
             attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
             attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,0l);
-            attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
-            attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
             attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"None");
-
-            //turn on modline 1 only and link it to the display
-        if(m == 0l){
-            attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
-            attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,1l);
-        }
-        else{
-            attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,0l);
-            attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,0l);
         }
     }
 

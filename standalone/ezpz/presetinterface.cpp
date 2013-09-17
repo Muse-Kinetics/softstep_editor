@@ -20,7 +20,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
     slotReadJSON();
     slotConstructDefaultMap();
 
-    //Generate fresh default json needed
+    /*//Generate fresh default json needed
     for(int i = 0; i < 10; i++)
     {
         jsonMasterMap.insert(QString("Preset_00%1").arg(i), defaultParamMap);
@@ -30,7 +30,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
         jsonMasterMap.insert("backlight", true);
     }
 
-    slotWriteJSON(jsonMasterMap);
+    slotWriteJSON(jsonMasterMap);*/
 
 }
 
@@ -92,7 +92,7 @@ void PresetInterface::slotWriteJSON(QVariantMap jsonMap)
 
 void PresetInterface::slotConstructDefaultMap()
 {
-    //Globals
+    //Preset Globals
     defaultParamMap["midiChannel"] = 1;
     //defaultParamMap["sensitivity"] = 1.00;
     defaultParamMap["navPadCC"] = 7;
@@ -101,6 +101,22 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["displayName"] = "EASY";
 
     //0
+    defaultParamMap["0_key_modline_source"] = "None";
+    defaultParamMap["0_key_modline_table"] = "None";
+    defaultParamMap["0_key_modline_gain"] = 1.00;
+    defaultParamMap["0_key_modline_min"] = 1;
+    defaultParamMap["0_key_modline_max"] = 127;
+    defaultParamMap["0_key_modline_slew"] = 0;
+    defaultParamMap["0_key_modline_destination"] = "None";
+    defaultParamMap["0_key_modline_cc"] = 0;
+    defaultParamMap["0_key_modline2_source"] = "None";
+    defaultParamMap["0_key_modline2_min"] = 1;
+    defaultParamMap["0_key_modline2_max"] = 127;
+    defaultParamMap["0_key_modline2_destination"] = "None";
+    defaultParamMap["0_key_modline2_cc"] = 0;
+    defaultParamMap["0_key_setting_yAccel"] = 85;
+    defaultParamMap["0_key_led_green"] = "None";
+    defaultParamMap["0_key_led_red"] ="None";
     defaultParamMap["0_key_source"] = "None";
     defaultParamMap["0_key_name"] = "0KEY";
     defaultParamMap["0_key_noteNum"] = 60;
@@ -120,6 +136,22 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["0_key_programBank"] = 0;
 
     //1
+    defaultParamMap["1_key_modline_source"] = "None";
+    defaultParamMap["1_key_modline_table"] = "None";
+    defaultParamMap["1_key_modline_gain"] = 1.00;
+    defaultParamMap["1_key_modline_min"] = 1;
+    defaultParamMap["1_key_modline_max"] = 127;
+    defaultParamMap["1_key_modline_slew"] = 0;
+    defaultParamMap["1_key_modline_destination"] = "None";
+    defaultParamMap["1_key_modline_cc"] = 0;
+    defaultParamMap["1_key_modline2_source"] = "None";
+    defaultParamMap["1_key_modline2_min"] = 1;
+    defaultParamMap["1_key_modline2_max"] = 127;
+    defaultParamMap["1_key_modline2_destination"] = "None";
+    defaultParamMap["1_key_modline2_cc"] = 0;
+    defaultParamMap["1_key_setting_yAccel"] = 85;
+    defaultParamMap["1_key_led_green"] = "None";
+    defaultParamMap["1_key_led_red"] ="None";
     defaultParamMap["1_key_source"] = "None";
     defaultParamMap["1_key_name"] = "1KEY";
     defaultParamMap["1_key_noteNum"] = 61;
@@ -139,6 +171,22 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["1_key_programBank"] = 0;
 
     //2
+    defaultParamMap["2_key_modline_source"] = "None";
+    defaultParamMap["2_key_modline_table"] = "None";
+    defaultParamMap["2_key_modline_gain"] = 1.00;
+    defaultParamMap["2_key_modline_min"] = 1;
+    defaultParamMap["2_key_modline_max"] = 127;
+    defaultParamMap["2_key_modline_slew"] = 0;
+    defaultParamMap["2_key_modline_destination"] = "None";
+    defaultParamMap["2_key_modline_cc"] = 0;
+    defaultParamMap["2_key_modline2_source"] = "None";
+    defaultParamMap["2_key_modline2_min"] = 1;
+    defaultParamMap["2_key_modline2_max"] = 127;
+    defaultParamMap["2_key_modline2_destination"] = "None";
+    defaultParamMap["2_key_modline2_cc"] = 0;
+    defaultParamMap["2_key_setting_yAccel"] = 85;
+    defaultParamMap["2_key_led_green"] = "None";
+    defaultParamMap["2_key_led_red"] ="None";
     defaultParamMap["2_key_source"] = "None";
     defaultParamMap["2_key_name"] = "2KEY";
     defaultParamMap["2_key_noteNum"] = 62;
@@ -158,6 +206,22 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["2_key_programBank"] = 0;
 
     //3
+    defaultParamMap["3_key_modline_source"] = "None";
+    defaultParamMap["3_key_modline_table"] = "None";
+    defaultParamMap["3_key_modline_gain"] = 1.00;
+    defaultParamMap["3_key_modline_min"] = 1;
+    defaultParamMap["3_key_modline_max"] = 127;
+    defaultParamMap["3_key_modline_slew"] = 0;
+    defaultParamMap["3_key_modline_destination"] = "None";
+    defaultParamMap["3_key_modline_cc"] = 0;
+    defaultParamMap["3_key_modline2_source"] = "None";
+    defaultParamMap["3_key_modline2_min"] = 1;
+    defaultParamMap["3_key_modline2_max"] = 127;
+    defaultParamMap["3_key_modline2_destination"] = "None";
+    defaultParamMap["3_key_modline2_cc"] = 0;
+    defaultParamMap["3_key_setting_yAccel"] = 85;
+    defaultParamMap["3_key_led_green"] = "None";
+    defaultParamMap["3_key_led_red"] ="None";
     defaultParamMap["3_key_source"] = "None";
     defaultParamMap["3_key_name"] = "3KEY";
     defaultParamMap["3_key_noteNum"] = 63;
@@ -177,6 +241,22 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["3_key_programBank"] = 0;
 
     //4
+    defaultParamMap["4_key_modline_source"] = "None";
+    defaultParamMap["4_key_modline_table"] = "None";
+    defaultParamMap["4_key_modline_gain"] = 1.00;
+    defaultParamMap["4_key_modline_min"] = 1;
+    defaultParamMap["4_key_modline_max"] = 127;
+    defaultParamMap["4_key_modline_slew"] = 0;
+    defaultParamMap["4_key_modline_destination"] = "None";
+    defaultParamMap["4_key_modline_cc"] = 0;
+    defaultParamMap["4_key_modline2_source"] = "None";
+    defaultParamMap["4_key_modline2_min"] = 1;
+    defaultParamMap["4_key_modline2_max"] = 127;
+    defaultParamMap["4_key_modline2_destination"] = "None";
+    defaultParamMap["4_key_modline2_cc"] = 0;
+    defaultParamMap["4_key_setting_yAccel"] = 85;
+    defaultParamMap["4_key_led_green"] = "None";
+    defaultParamMap["4_key_led_red"] ="None";
     defaultParamMap["4_key_source"] = "None";
     defaultParamMap["4_key_name"] = "4KEY";
     defaultParamMap["4_key_noteNum"] = 64;
@@ -196,6 +276,22 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["4_key_programBank"] = 0;
 
     //5
+    defaultParamMap["5_key_modline_source"] = "None";
+    defaultParamMap["5_key_modline_table"] = "None";
+    defaultParamMap["5_key_modline_gain"] = 1.00;
+    defaultParamMap["5_key_modline_min"] = 1;
+    defaultParamMap["5_key_modline_max"] = 127;
+    defaultParamMap["5_key_modline_slew"] = 0;
+    defaultParamMap["5_key_modline_destination"] = "None";
+    defaultParamMap["5_key_modline_cc"] = 0;
+    defaultParamMap["5_key_modline2_source"] = "None";
+    defaultParamMap["5_key_modline2_min"] = 1;
+    defaultParamMap["5_key_modline2_max"] = 127;
+    defaultParamMap["5_key_modline2_destination"] = "None";
+    defaultParamMap["5_key_modline2_cc"] = 0;
+    defaultParamMap["5_key_setting_yAccel"] = 85;
+    defaultParamMap["5_key_led_green"] = "None";
+    defaultParamMap["5_key_led_red"] ="None";
     defaultParamMap["5_key_source"] = "None";
     defaultParamMap["5_key_name"] = "5KEY";
     defaultParamMap["5_key_noteNum"] = 65;
@@ -215,6 +311,22 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["5_key_programBank"] = 0;
 
     //6
+    defaultParamMap["6_key_modline_source"] = "None";
+    defaultParamMap["6_key_modline_table"] = "None";
+    defaultParamMap["6_key_modline_gain"] = 1.00;
+    defaultParamMap["6_key_modline_min"] = 1;
+    defaultParamMap["6_key_modline_max"] = 127;
+    defaultParamMap["6_key_modline_slew"] = 0;
+    defaultParamMap["6_key_modline_destination"] = "None";
+    defaultParamMap["6_key_modline_cc"] = 0;
+    defaultParamMap["6_key_modline2_source"] = "None";
+    defaultParamMap["6_key_modline2_min"] = 1;
+    defaultParamMap["6_key_modline2_max"] = 127;
+    defaultParamMap["6_key_modline2_destination"] = "None";
+    defaultParamMap["6_key_modline2_cc"] = 0;
+    defaultParamMap["6_key_setting_yAccel"] = 85;
+    defaultParamMap["6_key_led_green"] = "None";
+    defaultParamMap["6_key_led_red"] ="None";
     defaultParamMap["6_key_source"] = "None";
     defaultParamMap["6_key_name"] = "6KEY";
     defaultParamMap["6_key_noteNum"] = 66;
@@ -234,6 +346,22 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["6_key_programBank"] = 0;
 
     //7
+    defaultParamMap["7_key_modline_source"] = "None";
+    defaultParamMap["7_key_modline_table"] = "None";
+    defaultParamMap["7_key_modline_gain"] = 1.00;
+    defaultParamMap["7_key_modline_min"] = 1;
+    defaultParamMap["7_key_modline_max"] = 127;
+    defaultParamMap["7_key_modline_slew"] = 0;
+    defaultParamMap["7_key_modline_destination"] = "None";
+    defaultParamMap["7_key_modline_cc"] = 0;
+    defaultParamMap["7_key_modline2_source"] = "None";
+    defaultParamMap["7_key_modline2_min"] = 1;
+    defaultParamMap["7_key_modline2_max"] = 127;
+    defaultParamMap["7_key_modline2_destination"] = "None";
+    defaultParamMap["7_key_modline2_cc"] = 0;
+    defaultParamMap["7_key_setting_yAccel"] = 85;
+    defaultParamMap["7_key_led_green"] = "None";
+    defaultParamMap["7_key_led_red"] ="None";
     defaultParamMap["7_key_source"] = "None";
     defaultParamMap["7_key_name"] = "7KEY";
     defaultParamMap["7_key_noteNum"] = 67;
@@ -253,6 +381,22 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["7_key_programBank"] = 0;
 
     //8
+    defaultParamMap["8_key_modline_source"] = "None";
+    defaultParamMap["8_key_modline_table"] = "None";
+    defaultParamMap["8_key_modline_gain"] = 1.00;
+    defaultParamMap["8_key_modline_min"] = 1;
+    defaultParamMap["8_key_modline_max"] = 127;
+    defaultParamMap["8_key_modline_slew"] = 0;
+    defaultParamMap["8_key_modline_destination"] = "None";
+    defaultParamMap["8_key_modline_cc"] = 0;
+    defaultParamMap["8_key_modline2_source"] = "None";
+    defaultParamMap["8_key_modline2_min"] = 1;
+    defaultParamMap["8_key_modline2_max"] = 127;
+    defaultParamMap["8_key_modline2_destination"] = "None";
+    defaultParamMap["8_key_modline2_cc"] = 0;
+    defaultParamMap["8_key_setting_yAccel"] = 85;
+    defaultParamMap["8_key_led_green"] = "None";
+    defaultParamMap["8_key_led_red"] ="None";
     defaultParamMap["8_key_source"] = "None";
     defaultParamMap["8_key_name"] = "8KEY";
     defaultParamMap["8_key_noteNum"] = 68;
@@ -272,6 +416,22 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["8_key_programBank"] = 0;
 
     //9
+    defaultParamMap["9_key_modline_source"] = "None";
+    defaultParamMap["9_key_modline_table"] = "None";
+    defaultParamMap["9_key_modline_gain"] = 1.00;
+    defaultParamMap["9_key_modline_min"] = 1;
+    defaultParamMap["9_key_modline_max"] = 127;
+    defaultParamMap["9_key_modline_slew"] = 0;
+    defaultParamMap["9_key_modline_destination"] = "None";
+    defaultParamMap["9_key_modline_cc"] = 0;
+    defaultParamMap["9_key_modline2_source"] = "None";
+    defaultParamMap["9_key_modline2_min"] = 1;
+    defaultParamMap["9_key_modline2_max"] = 127;
+    defaultParamMap["9_key_modline2_destination"] = "None";
+    defaultParamMap["9_key_modline2_cc"] = 0;
+    defaultParamMap["9_key_setting_yAccel"] = 85;
+    defaultParamMap["9_key_led_green"] = "None";
+    defaultParamMap["9_key_led_red"] ="None";
     defaultParamMap["9_key_source"] = "None";
     defaultParamMap["9_key_name"] = "9KEY";
     defaultParamMap["9_key_noteNum"] = 69;
@@ -289,6 +449,10 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["9_key_yIncSpeed"] = 0;
     defaultParamMap["9_key_programNum"] = 0;
     defaultParamMap["9_key_programBank"] = 0;
+
+
+
+
 }
 
 void PresetInterface::slotRecallPreset(int i)
