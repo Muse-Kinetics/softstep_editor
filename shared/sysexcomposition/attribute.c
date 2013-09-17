@@ -498,6 +498,9 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
             x->current_modline->slew = LE_short(argv[2].a_w.w_long / 10 + 1) ;
         else
             x->current_modline->slew = 0;
+
+        post("Slew [%d]\n", x->current_modline->max);
+
         return;
     }
 
@@ -522,20 +525,8 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
             par_match(argc,argv,A_SYM,"set",A_SYM,"Bend_Device_ID",A_SYM,0,-1) ||
             par_match(argc,argv,A_SYM,"set",A_SYM,"Bend_Device",A_SYM,0,-1)	)
     {
-
-        post("******************************************************   destination device is %s",argv[2].a_w.w_sym->s_name);
-        //		if (argc==3)
-        x->current_modline->port = get_index(destination_list,NULL,argv + 2);
-        //		else
-        //		{
-        //			char source[40];
-        //			strcpy(source,argv[2].a_w.w_sym->s_name);
-        //			strcat(source," ");
-        //			strcat(source,argv[3].a_w.w_sym->s_name);
-        //			x->current_modline->port = get_index_str(destination_list,source);
-        //			post_par_list(argc,argv,"attribute:");
-        //			post("************ Conner, this destination port symbols got spit up into 2 symbols.  Go back to 1");
-        //		}
+        x->current_modline->port = get_index(destination_list,NULL,argv + 2);   
+        post("Device [%s]",argv[2].a_w.w_sym->s_name);
         return;
     }
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Destination",A_SYM,0,-1))
@@ -561,8 +552,6 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Gain",A_FLOAT,0.0,-1))
     {
         float oval,fval;
-
-        printf("GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAin");
 
         oval = fval = argv[2].a_w.w_float;
 
