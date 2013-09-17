@@ -506,15 +506,52 @@ void Key::slotValueChanged()
             else if(checkBoxes.at(i)->objectName() == "sourceXY")
             {
                 //Source
+                //Latch
                 if(keyForm.xyLatch->isChecked())
                 {
-                    emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "X_Latch", -1);
-                    emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "Y_Latch", -1);
+                    //X
+                    if(keyForm.xyXCC->value() != -1)
+                    {
+                        emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "X_Latch", -1);
+                    }
+                    else
+                    {
+                        emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "None", -1);
+                    }
+
+                    //Y
+                    if(keyForm.xyYCC->value() != -1)
+                    {
+                        emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "Y_Latch", -1);
+                    }
+                    else
+                    {
+                        emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "None", -1);
+                    }
                 }
+
+                //Live
                 else
                 {
-                    emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "X_Live", -1);
-                    emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "Y_Live", -1);
+                    //X
+                    if(keyForm.xyXCC->value() != -1)
+                    {
+                        emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "X_Live", -1);
+                    }
+                    else
+                    {
+                        emit signalStoreValue(QString("%1_key_modline_source").arg(instance), "None", -1);
+                    }
+
+                    //Y
+                    if(keyForm.xyYCC->value() != -1)
+                    {
+                        emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "Y_Live", -1);
+                    }
+                    else
+                    {
+                        emit signalStoreValue(QString("%1_key_modline2_source").arg(instance), "None", -1);
+                    }
                 }
 
                 //Table
@@ -603,7 +640,15 @@ void Key::slotValueChanged()
                 emit signalStoreValue(QString("%1_key_modline_slew").arg(instance), 0, -1);
 
                 //Dest
-                emit signalStoreValue(QString("%1_key_modline_destination").arg(instance), "Bank", -1);
+                if(keyForm.programBank->value() != -1)
+                {
+                   emit signalStoreValue(QString("%1_key_modline_destination").arg(instance), "Bank", -1);
+                }
+                else
+                {
+                    emit signalStoreValue(QString("%1_key_modline_destination").arg(instance), "None", -1);
+                }
+
                 emit signalStoreValue(QString("%1_key_modline2_destination").arg(instance), "Program", -1);
             }
 
@@ -652,7 +697,7 @@ void Key::slotUpdateSourceAndTable()
 
 }
 
-void Key::slotRecallPreset(QVariantMap preset)
+void Key::slotRecallPreset(QVariantMap preset, QVariantMap master)
 {
     qDebug() << "--------------------------------------- recall preset" << instance << preset.value(QString("%1_key_source").arg(instance)).toString();
 

@@ -816,6 +816,9 @@ QCheckBox::indicator {
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
     </widget>
     <widget class="QSpinBox" name="pressureSmooth">
      <property name="geometry">
@@ -831,6 +834,9 @@ QCheckBox::indicator {
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
      </property>
     </widget>
    </widget>
@@ -849,6 +855,9 @@ QCheckBox::indicator {
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
      </property>
     </widget>
     <widget class="QLabel" name="toggleCCLabel">
@@ -898,6 +907,9 @@ QCheckBox::indicator {
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
     </widget>
     <widget class="QLabel" name="toggleHiLabel">
      <property name="geometry">
@@ -930,6 +942,9 @@ QCheckBox::indicator {
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="xyPage">
@@ -947,6 +962,18 @@ QCheckBox::indicator {
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="specialValueText">
+      <string>off</string>
+     </property>
+     <property name="minimum">
+      <number>-1</number>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+     <property name="value">
+      <number>-1</number>
      </property>
     </widget>
     <widget class="QLabel" name="xyXCCLabel">
@@ -995,6 +1022,18 @@ QCheckBox::indicator {
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="specialValueText">
+      <string>off</string>
+     </property>
+     <property name="minimum">
+      <number>-1</number>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+     <property name="value">
+      <number>-1</number>
      </property>
     </widget>
     <widget class="QCheckBox" name="xyLatch">
@@ -1098,6 +1137,9 @@ QCheckBox::indicator {
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
     </widget>
     <widget class="QLabel" name="yIncCCLabel">
      <property name="geometry">
@@ -1129,6 +1171,9 @@ QCheckBox::indicator {
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
      </property>
     </widget>
     <widget class="QLabel" name="yIncSpeedLabel">
@@ -1164,6 +1209,9 @@ QCheckBox::indicator {
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
     </widget>
     <widget class="QLabel" name="programNumLabel">
      <property name="geometry">
@@ -1195,6 +1243,18 @@ QCheckBox::indicator {
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="specialValueText">
+      <string>off</string>
+     </property>
+     <property name="minimum">
+      <number>-1</number>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+     <property name="value">
+      <number>-1</number>
      </property>
     </widget>
     <widget class="QLabel" name="programBankLabel">

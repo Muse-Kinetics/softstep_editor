@@ -18,19 +18,6 @@ PresetInterface::PresetInterface(QWidget *parent) :
 #endif
 
     slotReadJSON();
-    slotConstructDefaultMap();
-
-    ///Generate fresh default json needed
-    for(int i = 0; i < 10; i++)
-    {
-        jsonMasterMap.insert(QString("Preset_00%1").arg(i), defaultParamMap);
-
-        //Globals
-        jsonMasterMap.insert("sensitivity",1.00);
-        jsonMasterMap.insert("backlight", true);
-    }
-
-    slotWriteJSON(jsonMasterMap);
 
 }
 
@@ -88,6 +75,23 @@ void PresetInterface::slotWriteJSON(QVariantMap jsonMap)
     }
 
     jsonFile->close();
+}
+
+void PresetInterface::writeDefualtJSON()
+{
+    slotConstructDefaultMap();
+
+    ///Generate fresh default json needed
+    for(int i = 0; i < 10; i++)
+    {
+        jsonMasterMap.insert(QString("Preset_00%1").arg(i), defaultParamMap);
+
+        //Globals
+        jsonMasterMap.insert("sensitivity",1.00);
+        jsonMasterMap.insert("backlight", true);
+    }
+
+    slotWriteJSON(jsonMasterMap);
 }
 
 void PresetInterface::slotConstructDefaultMap()
@@ -470,7 +474,7 @@ void PresetInterface::slotRecallPreset(int i)
         p.next();
     }
 
-    emit signalRecallPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap());
+    emit signalRecallPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMap);
 }
 
 void PresetInterface::slotStoreGlobal()
@@ -509,11 +513,7 @@ void PresetInterface::slotStoreGlobal()
 
     if(senderName.contains("sensitivity") || senderName.contains("backlight"))
     {
-        //--------------------------------------------- Set for All Presets
-        for(int i = 0; i < NUM_PRESETS; i++)
-        {
-            slotStoreValue(senderName, value, i);
-        }
+        jsonMasterMap.insert(senderName, value);
     }
     else
     {
@@ -525,7 +525,7 @@ void PresetInterface::slotUpdateClicked()
 {
     qDebug() << "update with this preset" << currentPresetNum;
     emit signalUpdateStarted(); //disable the button then start the download
-    emit signalAttributeFormatPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap());
+    emit signalAttributeFormatPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMap);
 }
 
 void PresetInterface::closeEvent(QCloseEvent *)

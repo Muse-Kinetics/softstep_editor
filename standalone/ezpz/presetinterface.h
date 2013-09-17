@@ -25,7 +25,6 @@ public:
 
     QSettings *settings;
 
-
     QJson::Parser       parser;
     QJson::Serializer   serializer;
 
@@ -38,10 +37,12 @@ public:
     QVariantMap currentPresetMap;
 
     void closeEvent(QCloseEvent *);
+
+    void writeDefualtJSON();
     
 signals:
-    void signalRecallPreset(QVariantMap);
-    void signalAttributeFormatPreset(QVariantMap);
+    void signalRecallPreset(QVariantMap,QVariantMap);
+    void signalAttributeFormatPreset(QVariantMap, QVariantMap);
     void signalUpdateStarted();
     
 public slots:

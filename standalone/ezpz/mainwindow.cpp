@@ -143,11 +143,11 @@ void MainWindow::slotConnectInterfaces()
 
     //Preset Recall
     connect(ui->currentPreset, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
-    connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap)), this, SLOT(slotRecallPreset(QVariantMap)));
+    connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), this, SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
 
     for(int i = 0; i < 10; i++)
     {
-        connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap)), key[i], SLOT(slotRecallPreset(QVariantMap)));
+        connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), key[i], SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
     }
 
     //Preset Storage
@@ -171,7 +171,7 @@ void MainWindow::slotConnectInterfaces()
     //Update Button
     connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
     connect(presetInterface, SIGNAL(signalUpdateStarted()), this, SLOT(slotDisconnectUpdate()));
-    connect(presetInterface, SIGNAL(signalAttributeFormatPreset(QVariantMap)), sysExComposer, SLOT(slotComposeAttributeListFromPreset(QVariantMap)));
+    connect(presetInterface, SIGNAL(signalAttributeFormatPreset(QVariantMap,QVariantMap)), sysExComposer, SLOT(slotComposeAttributeListFromPreset(QVariantMap,QVariantMap)));
     connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectUpdate()));
 
     //Standalone Download
@@ -186,14 +186,15 @@ void MainWindow::slotConnectInterfaces()
     ui->displayName->setAttribute(Qt::WA_MacShowFocusRect, false);
 }
 
-void MainWindow::slotRecallPreset(QVariantMap preset)
+void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap master)
 {
+    ui->sensitivity->setValue(master.value(QString("sensitivity")).toDouble());
+    ui->backlight->setChecked(master.value(QString("backlight")).toInt());
+
     //------------------------------------- Recalls/Sets Global Ui components
     ui->midiChannel->setValue(preset.value(QString("midiChannel")).toInt());
-    ui->sensitivity->setValue(preset.value(QString("sensitivity")).toDouble());
     ui->pedalCC->setValue(preset.value(QString("pedalCC")).toInt());
     ui->navPadCC->setValue(preset.value(QString("navPadCC")).toInt());
-    ui->backlight->setChecked(preset.value(QString("backlight")).toInt());
     ui->displayName->setText(preset.value(QString("displayName")).toString());
 }
 

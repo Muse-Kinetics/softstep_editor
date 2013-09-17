@@ -29,7 +29,7 @@ signals:
     void    signalUpdateComplete();
     
 public slots:
-    void    slotComposeAttributeListFromPreset(QVariantMap);
+    void    slotComposeAttributeListFromPreset(QVariantMap, QVariantMap);
     void    slotConstructDefaultAttributeList();
     void    slotGetConnectedVersion(QByteArray);
     void    slotGetEmbeddedVersion();

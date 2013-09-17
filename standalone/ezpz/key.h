@@ -39,7 +39,7 @@ public slots:
     void slotConnectElements();
     void slotValueChanged();
     void slotUpdateSourceAndTable();
-    void slotRecallPreset(QVariantMap preset);
+    void slotRecallPreset(QVariantMap preset, QVariantMap master);
 
 private:
     Ui::keyForm keyForm;

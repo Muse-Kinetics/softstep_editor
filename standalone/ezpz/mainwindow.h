@@ -99,7 +99,7 @@ public:
 
 public slots:
     void slotConnectInterfaces();
-    void slotRecallPreset(QVariantMap preset);
+    void slotRecallPreset(QVariantMap preset, QVariantMap master);
     void slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion);
     void slotConnected(bool);
     void slotUpdateFirmware();
