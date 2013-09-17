@@ -20,7 +20,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
     slotReadJSON();
     slotConstructDefaultMap();
 
-    /*//Generate fresh default json needed
+    ///Generate fresh default json needed
     for(int i = 0; i < 10; i++)
     {
         jsonMasterMap.insert(QString("Preset_00%1").arg(i), defaultParamMap);
@@ -30,7 +30,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
         jsonMasterMap.insert("backlight", true);
     }
 
-    slotWriteJSON(jsonMasterMap);*/
+    slotWriteJSON(jsonMasterMap);
 
 }
 
