@@ -19,6 +19,8 @@ PresetInterface::PresetInterface(QWidget *parent) :
 
     slotReadJSON();
 
+    //writeDefualtJSON();
+
 }
 
 void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum)
@@ -30,9 +32,36 @@ void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum
         presetNum = currentPresetNum;
     }
 
-    QVariantMap presetMap = jsonMasterMap.value(QString("Preset_00%1").arg(presetNum)).toMap();
+    QVariantMap presetMap = jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap();
     presetMap.insert(name, value);
-    jsonMasterMap.insert(QString("Preset_00%1").arg(presetNum), presetMap);
+    jsonMasterMapCopy.insert(QString("Preset_00%1").arg(presetNum), presetMap);
+}
+
+void PresetInterface::slotCheckSaveState()
+{
+        QStringList keyList = jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().keys();
+
+        for(int i = 0; i < keyList.size(); i++)
+        {
+            if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) !=
+               jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)))
+            {
+                qDebug() << "------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
+
+                break;
+            }
+        }
+
+        //Globes
+        if(jsonMasterMapCopy.value("sensitivity") != jsonMasterMap.value("sensitivity"))
+        {
+            qDebug() << "------------sensitivity" << jsonMasterMapCopy.value("sensitivity") << jsonMasterMap.value("sensitivity");
+        }
+
+        if(jsonMasterMapCopy.value("backlight") != jsonMasterMap.value("backlight"))
+        {
+            qDebug() << "------------backlight" << jsonMasterMapCopy.value("backlight") << jsonMasterMap.value("backlight");
+        }
 }
 
 void PresetInterface::slotReadJSON()
@@ -46,6 +75,22 @@ void PresetInterface::slotReadJSON()
 
         QByteArray jsonByteArray = jsonFile->readAll();//load json file into a byte array to be processd by the parser
         jsonMasterMap = parser.parse(jsonByteArray, &ok).toMap(); //parse the json data, convert it to a map and set it equal to the master jsonMap
+        jsonMasterMapCopy = jsonMasterMap;
+
+        //-------
+         int presetNum = 1;
+
+        QStringList keyList = jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap().keys();
+
+        for(int i = 0; i < keyList.size(); i++)
+        {
+            if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i)) !=
+               jsonMasterMap.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i)))
+            {
+                qDebug() << "------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i));
+                //break;
+            }
+        }
     }
     else
     {
@@ -106,7 +151,7 @@ void PresetInterface::slotConstructDefaultMap()
 
     //0
     defaultParamMap["0_key_modline_source"] = "None";
-    defaultParamMap["0_key_modline_table"] = "None";
+    defaultParamMap["0_key_modline_table"] = "1_Lin";
     defaultParamMap["0_key_modline_gain"] = 1.00;
     defaultParamMap["0_key_modline_min"] = 1;
     defaultParamMap["0_key_modline_max"] = 127;
@@ -141,7 +186,7 @@ void PresetInterface::slotConstructDefaultMap()
 
     //1
     defaultParamMap["1_key_modline_source"] = "None";
-    defaultParamMap["1_key_modline_table"] = "None";
+    defaultParamMap["1_key_modline_table"] = "1_Lin";
     defaultParamMap["1_key_modline_gain"] = 1.00;
     defaultParamMap["1_key_modline_min"] = 1;
     defaultParamMap["1_key_modline_max"] = 127;
@@ -176,7 +221,7 @@ void PresetInterface::slotConstructDefaultMap()
 
     //2
     defaultParamMap["2_key_modline_source"] = "None";
-    defaultParamMap["2_key_modline_table"] = "None";
+    defaultParamMap["2_key_modline_table"] = "1_Lin";
     defaultParamMap["2_key_modline_gain"] = 1.00;
     defaultParamMap["2_key_modline_min"] = 1;
     defaultParamMap["2_key_modline_max"] = 127;
@@ -211,7 +256,7 @@ void PresetInterface::slotConstructDefaultMap()
 
     //3
     defaultParamMap["3_key_modline_source"] = "None";
-    defaultParamMap["3_key_modline_table"] = "None";
+    defaultParamMap["3_key_modline_table"] = "1_Lin";
     defaultParamMap["3_key_modline_gain"] = 1.00;
     defaultParamMap["3_key_modline_min"] = 1;
     defaultParamMap["3_key_modline_max"] = 127;
@@ -246,7 +291,7 @@ void PresetInterface::slotConstructDefaultMap()
 
     //4
     defaultParamMap["4_key_modline_source"] = "None";
-    defaultParamMap["4_key_modline_table"] = "None";
+    defaultParamMap["4_key_modline_table"] = "1_Lin";
     defaultParamMap["4_key_modline_gain"] = 1.00;
     defaultParamMap["4_key_modline_min"] = 1;
     defaultParamMap["4_key_modline_max"] = 127;
@@ -281,7 +326,7 @@ void PresetInterface::slotConstructDefaultMap()
 
     //5
     defaultParamMap["5_key_modline_source"] = "None";
-    defaultParamMap["5_key_modline_table"] = "None";
+    defaultParamMap["5_key_modline_table"] = "1_Lin";
     defaultParamMap["5_key_modline_gain"] = 1.00;
     defaultParamMap["5_key_modline_min"] = 1;
     defaultParamMap["5_key_modline_max"] = 127;
@@ -316,7 +361,7 @@ void PresetInterface::slotConstructDefaultMap()
 
     //6
     defaultParamMap["6_key_modline_source"] = "None";
-    defaultParamMap["6_key_modline_table"] = "None";
+    defaultParamMap["6_key_modline_table"] = "1_Lin";
     defaultParamMap["6_key_modline_gain"] = 1.00;
     defaultParamMap["6_key_modline_min"] = 1;
     defaultParamMap["6_key_modline_max"] = 127;
@@ -351,7 +396,7 @@ void PresetInterface::slotConstructDefaultMap()
 
     //7
     defaultParamMap["7_key_modline_source"] = "None";
-    defaultParamMap["7_key_modline_table"] = "None";
+    defaultParamMap["7_key_modline_table"] = "1_Lin";
     defaultParamMap["7_key_modline_gain"] = 1.00;
     defaultParamMap["7_key_modline_min"] = 1;
     defaultParamMap["7_key_modline_max"] = 127;
@@ -386,7 +431,7 @@ void PresetInterface::slotConstructDefaultMap()
 
     //8
     defaultParamMap["8_key_modline_source"] = "None";
-    defaultParamMap["8_key_modline_table"] = "None";
+    defaultParamMap["8_key_modline_table"] = "1_Lin";
     defaultParamMap["8_key_modline_gain"] = 1.00;
     defaultParamMap["8_key_modline_min"] = 1;
     defaultParamMap["8_key_modline_max"] = 127;
@@ -421,7 +466,7 @@ void PresetInterface::slotConstructDefaultMap()
 
     //9
     defaultParamMap["9_key_modline_source"] = "None";
-    defaultParamMap["9_key_modline_table"] = "None";
+    defaultParamMap["9_key_modline_table"] = "1_Lin";
     defaultParamMap["9_key_modline_gain"] = 1.00;
     defaultParamMap["9_key_modline_min"] = 1;
     defaultParamMap["9_key_modline_max"] = 127;
@@ -453,10 +498,6 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["9_key_yIncSpeed"] = 0;
     defaultParamMap["9_key_programNum"] = 0;
     defaultParamMap["9_key_programBank"] = 0;
-
-
-
-
 }
 
 void PresetInterface::slotRecallPreset(int i)
@@ -467,14 +508,14 @@ void PresetInterface::slotRecallPreset(int i)
     qDebug() << "recall preset" << i;
     currentPresetNum = i;
 
-    QMapIterator<QString, QVariant> p(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap());
+    QMapIterator<QString, QVariant> p(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap());
 
     while (p.hasNext())
     {
         p.next();
     }
 
-    emit signalRecallPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMap);
+    emit signalRecallPreset(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMapCopy);
 }
 
 void PresetInterface::slotStoreGlobal()
@@ -484,7 +525,7 @@ void PresetInterface::slotStoreGlobal()
 
     QString senderName = QObject::sender()->objectName();
 
-    qDebug() << senderName;
+    //qDebug() << senderName;
 
     if(senderName == "midiChannel")
     {
@@ -513,19 +554,23 @@ void PresetInterface::slotStoreGlobal()
 
     if(senderName.contains("sensitivity") || senderName.contains("backlight"))
     {
-        jsonMasterMap.insert(senderName, value);
+        jsonMasterMapCopy.insert(senderName, value);
     }
     else
     {
         slotStoreValue(senderName, value, currentPresetNum);
     }
+
+    slotCheckSaveState();
 }
 
 void PresetInterface::slotUpdateClicked()
 {
+    jsonMasterMap.insert(QString("Preset_00%1").arg(currentPresetNum), jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap());
+
     qDebug() << "update with this preset" << currentPresetNum;
     emit signalUpdateStarted(); //disable the button then start the download
-    emit signalAttributeFormatPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMap);
+    emit signalAttributeFormatPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMapCopy);
 }
 
 void PresetInterface::closeEvent(QCloseEvent *)

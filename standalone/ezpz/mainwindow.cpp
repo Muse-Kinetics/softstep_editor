@@ -82,6 +82,13 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->currentPreset->setValue(settings->value("lastPreset").toInt());
     ui->currentPreset->setFocus();
 
+
+    //Construct Keys
+    for(int i = 0; i < 10; i++)
+    {
+        key[i]->slotConnectElements();
+    }
+
 #ifdef Q_OS_MAC
     mdm->connectSource();
 #else
@@ -166,7 +173,12 @@ void MainWindow::slotConnectInterfaces()
     for(int i = 0; i < 10; i++)
     {
         connect(key[i], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
+
+        //Save State
+        connect(key[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
     }
+
+
 
     //Update Button
     connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));

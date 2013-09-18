@@ -52,7 +52,7 @@ Key::Key(QWidget *parent, int instanceNum) :
     keyForm.programBank->setAttribute(Qt::WA_MacShowFocusRect, false);
     keyForm.programNum->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    slotConnectElements();
+    //slotConnectElements();
 }
 
 void Key::keyPressEvent(QKeyEvent *keyEvent)
@@ -221,6 +221,11 @@ bool Key::isKeyOff()
     return true;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////            /////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////    Slots   /////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////            /////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Key::slotConnectElements()
 {
@@ -656,50 +661,12 @@ void Key::slotValueChanged()
         }
     }
 
-    slotUpdateSourceAndTable();
-}
-
-void Key::slotUpdateSourceAndTable()
-{
-    /*if(keyForm.footOn->isChecked())
-    {
-        source = "Foot_On";
-        table = "1_Lin";
-    }
-    else if(keyForm.pressure->isChecked())
-    {
-        source = "Pressure_Live";
-        table = "1_Lin";
-    }
-    else if(keyForm.yInc->isChecked())
-    {
-        source = "Y_Increment";
-        table = "1_Lin";
-    }
-    else if(keyForm.toggle->isChecked())
-    {
-        source = "Foot_On";
-        table = "Toggle_127";
-    }
-    else if(keyForm.xLive->isChecked())
-    {
-        source = "X_Live";
-        table = "1_Lin";
-    }
-    else
-    {
-        source = "None";
-        table = "1_Lin";
-    }
-
-    emit signalStoreValue(QString("%1_Key_Source").arg(instance), source, -1);
-    emit signalStoreValue(QString("%1_Key_Table").arg(instance), table, -1);*/
-
+    emit signalCheckSavedState();
 }
 
 void Key::slotRecallPreset(QVariantMap preset, QVariantMap master)
 {
-    qDebug() << "--------------------------------------- recall preset" << instance << preset.value(QString("%1_key_source").arg(instance)).toString();
+    qDebug() << "--------------------------------------- recall preset - key:" << instance << preset.value(QString("%1_key_source").arg(instance)).toString();
 
     //Sources
     for(int i =0; i < checkBoxes.size(); i++)

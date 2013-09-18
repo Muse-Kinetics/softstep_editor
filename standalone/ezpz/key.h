@@ -34,11 +34,11 @@ public:
 
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
+    void signalCheckSavedState();
     
 public slots:
     void slotConnectElements();
     void slotValueChanged();
-    void slotUpdateSourceAndTable();
     void slotRecallPreset(QVariantMap preset, QVariantMap master);
 
 private:

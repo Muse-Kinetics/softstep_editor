@@ -21,6 +21,7 @@ public:
     explicit PresetInterface(QWidget *parent = 0);
 
     QVariantMap jsonMasterMap;
+    QVariantMap jsonMasterMapCopy;
     QVariantMap defaultParamMap;
 
     QSettings *settings;
@@ -47,6 +48,7 @@ signals:
     
 public slots:
     void slotStoreValue(QString name, QVariant value, int presetNum);
+    void slotCheckSaveState();
     void slotStoreGlobal();
 
     void slotReadJSON();
