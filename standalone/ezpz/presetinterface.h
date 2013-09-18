@@ -45,6 +45,7 @@ signals:
     void signalRecallPreset(QVariantMap,QVariantMap);
     void signalAttributeFormatPreset(QVariantMap, QVariantMap);
     void signalUpdateStarted();
+    void signalPresetDirty(bool);
     
 public slots:
     void slotStoreValue(QString name, QVariant value, int presetNum);

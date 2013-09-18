@@ -12,5 +12,7 @@
         <file>resources/radio_off.svg</file>
         <file>resources/radio_on.svg</file>
         <file>resources/radio_focus_on.svg</file>
+        <file>resources/sendbuttondirtystylesheet.qss</file>
+        <file>resources/sendbuttoncleanstylesheet.qss</file>
     </qresource>
 </RCC>

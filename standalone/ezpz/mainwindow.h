@@ -11,6 +11,7 @@
 #include "presetinterface.h"
 #include "sysexcomposer.h"
 #include "mididevicemanager.h"
+#include "stylesheets.h"
 
 #ifdef Q_OS_MAC
 #include "ui_fwoodform.h"
@@ -41,6 +42,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    StyleSheets* styleSheets;
     PresetInterface *presetInterface;
     SysExComposer   *sysExComposer;
 
@@ -108,6 +110,7 @@ public slots:
     void slotOpenDocumentation();   
     void slotDisconnectUpdate();
     void slotConnectUpdate();
+    void slotDisplaySaveState(bool);
 
     void slotShowDisableWindow();
     void slotHideDisableWindow();

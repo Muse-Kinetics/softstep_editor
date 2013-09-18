@@ -31,6 +31,7 @@ SOURCES +=      main.cpp\
                 ../../shared/sysexcomposition/download.c \
                 ../../shared/sysexcomposition/attribute.c \
                 ../../shared/sysexcomposition/mainsysex.c \
+    stylesheets.cpp
 
 
 HEADERS  +=     mainwindow.h \
@@ -49,7 +50,8 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexcomposition/download.h \
                 ../../shared/sysexcomposition/attribute.h \
                 ../../shared/sysexcomposition/sysexcomposer.h \
-                ../../shared/sysexmessages.h
+                ../../shared/sysexmessages.h \
+    stylesheets.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/keyform.ui \
@@ -67,6 +69,8 @@ FORMS    +=     forms/mainwindow.ui \
                 forms/aboutformWin.ui
 
 OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
+                resources/sendbuttondirtystylesheet.qss \
+    resources/sendbuttoncleanstylesheet.qss
                 #doc.txt
 
 RESOURCES +=    Resources.qrc

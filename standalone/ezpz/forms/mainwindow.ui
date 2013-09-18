@@ -214,7 +214,7 @@ background: black;
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>0</y>
+       <y>75</y>
        <width>40</width>
        <height>20</height>
       </rect>
@@ -242,7 +242,7 @@ background: black;
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>75</y>
+       <y>125</y>
        <width>40</width>
        <height>20</height>
       </rect>
@@ -267,7 +267,7 @@ background: black;
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>125</y>
+       <y>150</y>
        <width>40</width>
        <height>20</height>
       </rect>
@@ -304,7 +304,7 @@ background: black;
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>25</y>
+       <y>0</y>
        <width>40</width>
        <height>20</height>
       </rect>
@@ -332,7 +332,7 @@ background: black;
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>0</y>
+       <y>75</y>
        <width>89</width>
        <height>20</height>
       </rect>
@@ -347,46 +347,11 @@ background: black;
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="backlightLabel">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>100</y>
-       <width>89</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>Backlight On/Off</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="backlight">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>98</y>
-       <width>24</width>
-       <height>24</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::WheelFocus</enum>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QLabel" name="sceneNameLabel">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>125</y>
+       <y>150</y>
        <width>89</width>
        <height>20</height>
       </rect>
@@ -410,6 +375,15 @@ background: black;
        <height>50</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>18</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
      </property>
@@ -418,7 +392,7 @@ background: black;
 QPushButton
 {
 	border: 6px solid rgba(0,174,239,255);
-	font: 20pt &quot;Futura&quot;;
+	font: 18pt &quot;Futura&quot;;
 	color: white;
 }
 
@@ -431,14 +405,14 @@ QPushButton:pressed
 }</string>
      </property>
      <property name="text">
-      <string>UPDATE</string>
+      <string>SAVE + SEND</string>
      </property>
     </widget>
     <widget class="QLabel" name="gainLabel_2">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>25</y>
+       <y>0</y>
        <width>89</width>
        <height>20</height>
       </rect>
@@ -457,7 +431,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>50</y>
+       <y>100</y>
        <width>89</width>
        <height>20</height>
       </rect>
@@ -476,7 +450,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>75</y>
+       <y>125</y>
        <width>89</width>
        <height>20</height>
       </rect>
@@ -495,7 +469,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>50</y>
+       <y>100</y>
        <width>40</width>
        <height>20</height>
       </rect>
@@ -516,49 +490,11 @@ QPushButton:pressed
       <number>7</number>
      </property>
     </widget>
-    <widget class="QPushButton" name="save">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>200</y>
-       <width>40</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>SAVE</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="revert">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>200</y>
-       <width>40</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>REVERT</string>
-     </property>
-    </widget>
     <widget class="QSpinBox" name="currentPreset">
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>175</y>
+       <y>200</y>
        <width>40</width>
        <height>20</height>
       </rect>
@@ -586,7 +522,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>175</y>
+       <y>200</y>
        <width>89</width>
        <height>20</height>
       </rect>
@@ -595,10 +531,45 @@ QPushButton:pressed
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>Current Preset</string>
+      <string>CURRENT PRESET</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="backlightLabel">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>24</y>
+       <width>89</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Backlight</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="backlight">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>23</y>
+       <width>24</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::WheelFocus</enum>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
@@ -606,16 +577,36 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>860</x>
-      <y>10</y>
+      <y>0</y>
       <width>121</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 30pt</string>
+     <string notr="true">font: 30pt &quot;Futura&quot;;</string>
     </property>
     <property name="text">
      <string>SoftStep</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="connectedLabel">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>31</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font:8pt &quot;Futura&quot;;
+color: red;</string>
+    </property>
+    <property name="text">
+     <string>NOT CONNECTED</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -632,8 +623,6 @@ QPushButton:pressed
   <tabstop>backlight</tabstop>
   <tabstop>displayName</tabstop>
   <tabstop>currentPreset</tabstop>
-  <tabstop>save</tabstop>
-  <tabstop>revert</tabstop>
   <tabstop>update</tabstop>
  </tabstops>
  <resources/>

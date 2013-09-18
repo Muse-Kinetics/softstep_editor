@@ -16,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     connected = false;
 
+    //StyleSheets
+    styleSheets = new StyleSheets();
+
     //Settings
     QCoreApplication::setApplicationName("SoftStepEasyEditor");
     QCoreApplication::setOrganizationName("KeithMcMillenInstruments");
@@ -178,7 +181,8 @@ void MainWindow::slotConnectInterfaces()
         connect(key[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
     }
 
-
+    //Save indicator
+    connect(presetInterface, SIGNAL(signalPresetDirty(bool)), this, SLOT(slotDisplaySaveState(bool)));
 
     //Update Button
     connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
@@ -200,14 +204,29 @@ void MainWindow::slotConnectInterfaces()
 
 void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap master)
 {
+    //------------------------------------- Sets mainwindow Ui components
+
+    //Global
     ui->sensitivity->setValue(master.value(QString("sensitivity")).toDouble());
     ui->backlight->setChecked(master.value(QString("backlight")).toInt());
 
-    //------------------------------------- Recalls/Sets Global Ui components
+    //Preset
     ui->midiChannel->setValue(preset.value(QString("midiChannel")).toInt());
     ui->pedalCC->setValue(preset.value(QString("pedalCC")).toInt());
     ui->navPadCC->setValue(preset.value(QString("navPadCC")).toInt());
     ui->displayName->setText(preset.value(QString("displayName")).toString());
+}
+
+void MainWindow::slotDisplaySaveState(bool dirty)
+{
+    if(dirty)
+    {
+        ui->update->setStyleSheet(styleSheets->sendButtonDirtyStyleSheet);
+    }
+    else
+    {
+        ui->update->setStyleSheet(styleSheets->sendButtonCleanStyleSheet);
+    }
 }
 
 void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
@@ -227,13 +246,17 @@ void MainWindow::slotConnected(bool connection)
 {
     if(connection)
     {
-        //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(10,255,0);border-radius:6;");
-        //ui->connectedLabel->setText("Connected");
+        ui->connectedLabel->setText("CONNECTED");
+        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");
+        ui->update->setText("SAVE + SEND");
     }
     else
     {
         //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
         //ui->connectedLabel->setText("Not Connected");
+        ui->connectedLabel->setText("NOT CONNECTED");
+        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
+        ui->update->setText("SAVE");
         aboutForm->found->setText("Not Connected");
     }
 }
