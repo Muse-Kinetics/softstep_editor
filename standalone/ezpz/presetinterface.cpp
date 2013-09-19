@@ -48,7 +48,7 @@ void PresetInterface::slotCheckSaveState()
             if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) !=
                jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)))
             {
-                //qDebug() << "------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
+                qDebug() << "------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
                 dirty = true;
                 break;
             }
@@ -57,13 +57,13 @@ void PresetInterface::slotCheckSaveState()
         //Globes
         if(jsonMasterMapCopy.value("sensitivity") != jsonMasterMap.value("sensitivity"))
         {
-            //qDebug() << "------------sensitivity" << jsonMasterMapCopy.value("sensitivity") << jsonMasterMap.value("sensitivity");
+            qDebug() << "------------sensitivity" << jsonMasterMapCopy.value("sensitivity") << jsonMasterMap.value("sensitivity");
             dirty = true;
         }
 
         if(jsonMasterMapCopy.value("backlight") != jsonMasterMap.value("backlight"))
         {
-            //qDebug() << "------------backlight" << jsonMasterMapCopy.value("backlight") << jsonMasterMap.value("backlight");
+            qDebug() << "------------backlight" << jsonMasterMapCopy.value("backlight") << jsonMasterMap.value("backlight");
             dirty = true;
         }
 

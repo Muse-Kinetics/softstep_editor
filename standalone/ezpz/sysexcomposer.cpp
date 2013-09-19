@@ -314,8 +314,19 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset, QVari
                 }
 
                 //LEDs
-                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
-                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
+                //Handle LED States for special sources
+                if(preset.value(QString("%1_key_source").arg(k)).toString().contains("sourceXY") ||
+                        preset.value(QString("%1_key_source").arg(k)).toString().contains("sourceProgram") ||
+                        preset.value(QString("%1_key_source").arg(k)).toString().contains("sourceYInc"))
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
+                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
+                }
+                else
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,preset.value(QString("%1_key_led_green").arg(k)).toString().toUtf8().constData());
+                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
+                }
             }
 
             //If source requires two modlines (XY, Program), then make twins on 3 and four for each output device
@@ -353,21 +364,57 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap preset, QVari
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
             }
 
-            //Turn all other lines off
+            //Turn all other lines off, unless needed for LEDs
+            //####################################################### This should be cleaned up when I'm less tired #######################################
             else
             {
-                attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,0l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,0l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"None");
-                attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
-                attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM,"1_Lin");
-                attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
-                attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,0l);
-                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
-                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
-                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"None");
+                //Handle LED States for special sources
+                //Use last modline
+                if(m == 5l)
+                {
+                    if(preset.value(QString("%1_key_source").arg(k)).toString().contains("sourceXY") ||
+                            preset.value(QString("%1_key_source").arg(k)).toString().contains("sourceProgram") ||
+                            preset.value(QString("%1_key_source").arg(k)).toString().contains("sourceYInc"))
+                    {
+                        attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
+                        attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"Foot_On");
+                        attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"True");
+                    }
+                    else
+                    {
+                        attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,0l);
+                        attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"None");
+                        attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
+                    }
+                    attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,0l);
+                    attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
+                    attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
+                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM,"1_Lin");
+                    attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
+                    attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
+                    attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,0l);
+                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
+                    attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"None");
+                }
+
+                else
+
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,0l);
+                    attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"None");
+
+                    attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,0l);
+                    attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
+                    attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0000);
+                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM,"1_Lin");
+                    attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,0l);
+                    attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,127l);
+                    attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,0l);
+                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,"None");
+                    attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,"None");
+                    attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"None");
+                }
+
             }
         }
     }
