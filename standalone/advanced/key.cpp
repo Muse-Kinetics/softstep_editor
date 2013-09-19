@@ -30,7 +30,9 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     //Set up the Key Window
     keyWindowWidget = new QWidget();
     keyWindowForm->setupUi(keyWindowWidget);
-    keyWindowWidget->setFixedSize(700,250);
+    keyWindowWidget->setFixedSize(1000,250);
+    keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg(keyInstance+1));
+
 
 
     //What's in the Key Box?
@@ -44,13 +46,19 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     //Construct Modlines
     for(int i = 0; i < 6; i++)
     {
-        modline[i] = new Modline(keyWindowWidget, i);
+        modline[i] = new Modline(keyWindowWidget, keyInstance, i);
+    }
+
+    //Connect Modlines
+    for(int i = 0; i < 6; i++)
+    {
+        modline[i]->slotConnectElements();
     }
 }
 
 void Key::slotOpenWindow()
 {
-    qDebug() << QString("Key %1 Button clicked! Open the window!").arg(keyInstance);
+    qDebug() << QString("Open Key %1 Button clicked! Open the window!").arg(keyInstance+1);
     keyWindowWidget->show();
 }
 

@@ -15,9 +15,10 @@ class Modline : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Modline(QWidget *parent = 0, int modlineInstance = 0);
+    explicit Modline(QWidget *parent = 0, int keyInstanceNum = 0, int modlineInstanceNum = 0);
 
-    int instance;
+    int keyInstance;
+    int modlineInstance;
     
 signals:
     

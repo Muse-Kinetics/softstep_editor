@@ -9,8 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     //Mainwindow Ui
-    this->setWindowTitle("SoftStep Advanced Editor");
+    this->setWindowTitle("SoftStep Advanced Editor");  //FIND OUT WHY THIS ISN'T WORKING!?
     ui->setupUi(this);
+    this->setFixedSize(995,344);
 
     //Construct Key Windows
     for(int i = 0; i < 10; i++)

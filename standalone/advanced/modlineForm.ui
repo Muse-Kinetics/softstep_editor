@@ -6,47 +6,982 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
+    <width>1000</width>
     <height>30</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QSpinBox" name="gain">
+  <widget class="QLabel" name="instanceLabel">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>4</y>
-     <width>57</width>
-     <height>22</height>
+     <x>3</x>
+     <y>6</y>
+     <width>18</width>
+     <height>18</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>#</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable">
+   <property name="geometry">
+    <rect>
+     <x>12</x>
+     <y>6</y>
+     <width>22</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="tristate">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="initMode">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>6</y>
+     <width>70</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="frame">
     <bool>true</bool>
    </property>
-   <property name="keyboardTracking">
+   <item>
+    <property name="text">
+     <string>None</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Once</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Always</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QSpinBox" name="initValue">
+   <property name="geometry">
+    <rect>
+     <x>97</x>
+     <y>6</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="frame">
     <bool>true</bool>
    </property>
-   <property name="minimum">
-    <number>-127</number>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
    </property>
    <property name="maximum">
     <number>127</number>
    </property>
   </widget>
-  <widget class="QLabel" name="instanceLabel">
+  <widget class="QSpinBox" name="raw">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>4</y>
-     <width>62</width>
-     <height>22</height>
+     <x>207</x>
+     <y>6</y>
+     <width>30</width>
+     <height>18</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Inst</string>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>238</x>
+     <y>5</y>
+     <width>8</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>x</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>287</x>
+     <y>6</y>
+     <width>8</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>+</string>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="gain">
+   <property name="geometry">
+    <rect>
+     <x>246</x>
+     <y>6</y>
+     <width>40</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="minimum">
+    <double>-127.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>127.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="offset">
+   <property name="geometry">
+    <rect>
+     <x>296</x>
+     <y>6</y>
+     <width>40</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="minimum">
+    <double>-127.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>127.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>337</x>
+     <y>6</y>
+     <width>8</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>=</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="result">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>347</x>
+     <y>6</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="table">
+   <property name="geometry">
+    <rect>
+     <x>378</x>
+     <y>6</y>
+     <width>80</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <item>
+    <property name="text">
+     <string>Lin</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Sin</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cos</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Exp</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Log</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Custom</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Toggle</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Counter Inc</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Counter Dec</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Counter Set</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QSpinBox" name="min">
+   <property name="geometry">
+    <rect>
+     <x>458</x>
+     <y>6</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="max">
+   <property name="geometry">
+    <rect>
+     <x>487</x>
+     <y>6</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="slew">
+   <property name="geometry">
+    <rect>
+     <x>516</x>
+     <y>6</y>
+     <width>35</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>5000</number>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="outputValue">
+   <property name="geometry">
+    <rect>
+     <x>770</x>
+     <y>6</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="destination">
+   <property name="geometry">
+    <rect>
+     <x>553</x>
+     <y>6</y>
+     <width>80</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::DefaultContextMenu</enum>
+   </property>
+   <item>
+    <property name="text">
+     <string>None</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Note Set</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Note Live</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>CC</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bank</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Program</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>OSC</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pitch Bend</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>MMC</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Aftertouch</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Poly Aftertouch</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Garage Band</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>HUI</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>X Inc Set</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Y Inc Set</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="source">
+   <property name="geometry">
+    <rect>
+     <x>128</x>
+     <y>6</y>
+     <width>80</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <item>
+    <property name="text">
+     <string>None</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pressure Live</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>X Live</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Y Live</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pressure Latch</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>X Latch</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Y Latch</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>X Increment</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Y Increment</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Foot On</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Foot Off</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Top</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bottom</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Fast Trig</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dbl Trig</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Long Trig</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Off Trig</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Delta Trig</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Fast Trig Latch</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dbl Trig Latch</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Long Trig Latch</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pedal</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Nav Y</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Nav Yx10 &amp; Key</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Any Key Value</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Prev Key Value</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>This Key Value</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Key 1 Pressed</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Key 2 Pressed</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Key 3 Pressed</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Key 4 Pressed</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Key 5 Pressed</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Key 6 Pressed</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Key 7 Pressed</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Key 8 Pressed</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Key 9 Pressed</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Key 0 Pressed</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Other Key Pressed</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Modline 1 Output</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Modline 2 Output</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Modline 3 Output</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Modline 4 Output</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Modline 5 Output</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Modline 6 Output</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>MIDI A</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>MIDI B</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>MIDI C</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>MIDI D</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>MIDI E</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>MIDI F</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>MIDI G</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>MIDI H</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>OSC A</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>OSC B</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>OSC C</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>OSC D</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>OSC E</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>OSC F</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>OSC G</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>OSC H</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="greenLED">
+   <property name="geometry">
+    <rect>
+     <x>810</x>
+     <y>6</y>
+     <width>70</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::DefaultContextMenu</enum>
+   </property>
+   <item>
+    <property name="text">
+     <string>True</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>False</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Flash True</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Flash False</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Flash Fast True</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Flash Fast False</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Blink True</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Blink False</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Off</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="redLED">
+   <property name="geometry">
+    <rect>
+     <x>877</x>
+     <y>6</y>
+     <width>70</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::DefaultContextMenu</enum>
+   </property>
+   <item>
+    <property name="text">
+     <string>True</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>False</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Flash True</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Flash False</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Flash Fast True</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Flash Fast False</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Blink True</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Blink False</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Off</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>
