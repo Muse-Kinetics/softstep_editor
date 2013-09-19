@@ -613,7 +613,7 @@ border: 2px solid white;
 }</string>
    </property>
    <property name="currentIndex">
-    <number>6</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="notePage">
     <widget class="QLabel" name="noteNumLabel">
@@ -772,7 +772,7 @@ QCheckBox::indicator {
     <widget class="QLabel" name="pressureCCLabel">
      <property name="geometry">
       <rect>
-       <x>6</x>
+       <x>8</x>
        <y>0</y>
        <width>40</width>
        <height>20</height>
@@ -863,7 +863,7 @@ QCheckBox::indicator {
     <widget class="QLabel" name="toggleCCLabel">
      <property name="geometry">
       <rect>
-       <x>6</x>
+       <x>8</x>
        <y>0</y>
        <width>40</width>
        <height>20</height>

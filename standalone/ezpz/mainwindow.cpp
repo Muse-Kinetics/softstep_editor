@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutForm->expected->setText(QString("%1 %2").arg(sysExComposer->embeddedVersion).arg(sysExComposer->embeddedbuildNum));
 
     //Construct Keys
-    for(int i = 0; i < 10; i++)
+    for(int i = 1; i < 11; i++)
     {
         key[i] = new Key(this, i);
     }
@@ -87,7 +87,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //Construct Keys
-    for(int i = 0; i < 10; i++)
+    for(int i = 1; i < 11; i++)
     {
         key[i]->slotConnectElements();
     }
@@ -155,7 +155,7 @@ void MainWindow::slotConnectInterfaces()
     connect(ui->currentPreset, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
     connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), this, SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
 
-    for(int i = 0; i < 10; i++)
+    for(int i = 1; i < 11; i++)
     {
         connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), key[i], SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
     }
@@ -173,7 +173,7 @@ void MainWindow::slotConnectInterfaces()
     ui->pedalCC->setContextMenuPolicy(Qt::PreventContextMenu);
     ui->displayName->setContextMenuPolicy(Qt::PreventContextMenu);
 
-    for(int i = 0; i < 10; i++)
+    for(int i = 1; i < 11; i++)
     {
         connect(key[i], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
 
@@ -187,7 +187,7 @@ void MainWindow::slotConnectInterfaces()
     //Update Button
     connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
     connect(presetInterface, SIGNAL(signalUpdateStarted()), this, SLOT(slotDisconnectUpdate()));
-    connect(presetInterface, SIGNAL(signalAttributeFormatPreset(QVariantMap,QVariantMap)), sysExComposer, SLOT(slotComposeAttributeListFromPreset(QVariantMap,QVariantMap)));
+    connect(presetInterface, SIGNAL(signalAttributeFormatPreset(QVariantMap,QVariantMap, qlonglong)), sysExComposer, SLOT(slotComposeAttributeListFromPreset(QVariantMap,QVariantMap, qlonglong)));
     connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectUpdate()));
 
     //Standalone Download

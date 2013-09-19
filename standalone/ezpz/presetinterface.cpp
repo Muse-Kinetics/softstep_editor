@@ -157,41 +157,6 @@ void PresetInterface::slotConstructDefaultMap()
     //defaultParamMap["backlight"] = true;
     defaultParamMap["displayName"] = "EASY";
 
-    //0
-    defaultParamMap["0_key_modline_source"] = "None";
-    defaultParamMap["0_key_modline_table"] = "1_Lin";
-    defaultParamMap["0_key_modline_gain"] = 1.00;
-    defaultParamMap["0_key_modline_min"] = 1;
-    defaultParamMap["0_key_modline_max"] = 127;
-    defaultParamMap["0_key_modline_slew"] = 0;
-    defaultParamMap["0_key_modline_destination"] = "None";
-    defaultParamMap["0_key_modline_cc"] = 0;
-    defaultParamMap["0_key_modline2_source"] = "None";
-    defaultParamMap["0_key_modline2_min"] = 1;
-    defaultParamMap["0_key_modline2_max"] = 127;
-    defaultParamMap["0_key_modline2_destination"] = "None";
-    defaultParamMap["0_key_modline2_cc"] = 0;
-    defaultParamMap["0_key_setting_yAccel"] = 85;
-    defaultParamMap["0_key_led_green"] = "None";
-    defaultParamMap["0_key_led_red"] ="None";
-    defaultParamMap["0_key_source"] = "None";
-    defaultParamMap["0_key_name"] = "0KEY";
-    defaultParamMap["0_key_noteNum"] = 60;
-    defaultParamMap["0_key_noteVelocity"] = 127;
-    defaultParamMap["0_key_noteToggle"] = 1;
-    defaultParamMap["0_key_pressureCC"] = 20;
-    defaultParamMap["0_key_pressureSmooth"] = 0;
-    defaultParamMap["0_key_toggleCC"] = 21;
-    defaultParamMap["0_key_toggleLo"] = 0;
-    defaultParamMap["0_key_toggleHi"] = 127;
-    defaultParamMap["0_key_xyXCC"] = 22;
-    defaultParamMap["0_key_xyYCC"] = 23;
-    defaultParamMap["0_key_xyLatch"] = 0;
-    defaultParamMap["0_key_yIncCC"] = 24;
-    defaultParamMap["0_key_yIncSpeed"] = 0;
-    defaultParamMap["0_key_programNum"] = 0;
-    defaultParamMap["0_key_programBank"] = 0;
-
     //1
     defaultParamMap["1_key_modline_source"] = "None";
     defaultParamMap["1_key_modline_table"] = "1_Lin";
@@ -506,6 +471,41 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["9_key_yIncSpeed"] = 0;
     defaultParamMap["9_key_programNum"] = 0;
     defaultParamMap["9_key_programBank"] = 0;
+
+    //10
+    defaultParamMap["10_key_modline_source"] = "None";
+    defaultParamMap["10_key_modline_table"] = "1_Lin";
+    defaultParamMap["10_key_modline_gain"] = 1.00;
+    defaultParamMap["10_key_modline_min"] = 1;
+    defaultParamMap["10_key_modline_max"] = 127;
+    defaultParamMap["10_key_modline_slew"] = 0;
+    defaultParamMap["10_key_modline_destination"] = "None";
+    defaultParamMap["10_key_modline_cc"] = 0;
+    defaultParamMap["10_key_modline2_source"] = "None";
+    defaultParamMap["10_key_modline2_min"] = 1;
+    defaultParamMap["10_key_modline2_max"] = 127;
+    defaultParamMap["10_key_modline2_destination"] = "None";
+    defaultParamMap["10_key_modline2_cc"] = 0;
+    defaultParamMap["10_key_setting_yAccel"] = 85;
+    defaultParamMap["10_key_led_green"] = "None";
+    defaultParamMap["10_key_led_red"] ="None";
+    defaultParamMap["10_key_source"] = "None";
+    defaultParamMap["10_key_name"] = "0KEY";
+    defaultParamMap["10_key_noteNum"] = 70;
+    defaultParamMap["10_key_noteVelocity"] = 127;
+    defaultParamMap["10_key_noteToggle"] = 1;
+    defaultParamMap["10_key_pressureCC"] = 20;
+    defaultParamMap["10_key_pressureSmooth"] = 0;
+    defaultParamMap["10_key_toggleCC"] = 21;
+    defaultParamMap["10_key_toggleLo"] = 0;
+    defaultParamMap["10_key_toggleHi"] = 127;
+    defaultParamMap["10_key_xyXCC"] = 22;
+    defaultParamMap["10_key_xyYCC"] = 23;
+    defaultParamMap["10_key_xyLatch"] = 0;
+    defaultParamMap["10_key_yIncCC"] = 24;
+    defaultParamMap["10_key_yIncSpeed"] = 0;
+    defaultParamMap["10_key_programNum"] = 0;
+    defaultParamMap["10_key_programBank"] = 0;
 }
 
 void PresetInterface::slotRecallPreset(int i)
@@ -576,11 +576,17 @@ void PresetInterface::slotStoreGlobal()
 
 void PresetInterface::slotUpdateClicked()
 {
+    //Store copy of current preset into master json
     jsonMasterMap.insert(QString("Preset_00%1").arg(currentPresetNum), jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap());
+
+    //Store globals
+    jsonMasterMap.insert("sensitivity", jsonMasterMapCopy.value("sensitivity"));
+    jsonMasterMap.insert("backlight", jsonMasterMapCopy.value("backlight").toBool());
+
 
     qDebug() << "update with this preset" << currentPresetNum;
     emit signalUpdateStarted(); //disable the button then start the download
-    emit signalAttributeFormatPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMapCopy);
+    emit signalAttributeFormatPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMap, (qlonglong)currentPresetNum);
 
     slotCheckSaveState();
 }

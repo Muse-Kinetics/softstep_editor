@@ -16,15 +16,15 @@ Key::Key(QWidget *parent, int instanceNum) :
     keyForm.setupUi(formWidget);
     this->setFixedSize(157,157);
 
-    keyForm.instanceLabel->setText(QString("%1").arg((instanceNum + 1)%10));
+    keyForm.instanceLabel->setText(QString("%1").arg((instanceNum)%10));
 
-    if(instanceNum < 5)
+    if(instanceNum < 6)
     {
-        this->setGeometry(10 + ((instanceNum)*167),177,157,157);
+        this->setGeometry(10 + ((instanceNum - 1)*167),177,157,157);
     }
     else
     {
-        this->setGeometry(10 + ((instanceNum - 5)*167),10,157,157);
+        this->setGeometry(10 + ((instanceNum - 6)*167),10,157,157);
     }
 
     //---------------------------------------- Populate Checkbox list
@@ -51,6 +51,9 @@ Key::Key(QWidget *parent, int instanceNum) :
     keyForm.yIncSpeed->setAttribute(Qt::WA_MacShowFocusRect, false);
     keyForm.programBank->setAttribute(Qt::WA_MacShowFocusRect, false);
     keyForm.programNum->setAttribute(Qt::WA_MacShowFocusRect, false);
+
+    keyForm.yIncSpeed->hide();
+    keyForm.yIncSpeedLabel->hide();
 
     //slotConnectElements();
 }
@@ -283,6 +286,8 @@ void Key::slotConnectElements()
 
 void Key::slotValueChanged()
 {
+
+    qDebug() << "instance num" << instance;
     //############### This is a rather bloated way of doing things, could be optimzed by referencing component name/type and using fewer condidtions
     //############### though the app is small enough for it to barely make sense
 

@@ -29,7 +29,6 @@ char *led_list[] = {"None","True","False","Flash True","Flash False","Flash_Fast
 
 
 
-
 char *source_list[] = {
     "None","Knob","Pressure_Latch","X_Latch","Y_Latch","Pressure_Live","X_Live","Y_Live","X_Increment",SRC_Y_INCREMENT,
     "Foot_On","Foot_Off","Preset","Pedal","Wait_Trig","Fast_Trig","Dbl_Trig",SRC_LONG_TRIG,"Off_Trig",
@@ -108,11 +107,14 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
                         post("--------------------  Error: Duplicate scene[%d] -------------------\n",count);
                     break;
                 }
-                else{
+                else
+                {
                     list = &(*list)->next;
                     just_created = false;
                 }
-            } else {
+            }
+            else
+            {
 
 
                 *list = (PRESET_LIST *) malloc(sizeof(PRESET_LIST));

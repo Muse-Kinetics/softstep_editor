@@ -21,6 +21,7 @@ public:
     QString   embeddedVersion, connectedVersion;
     unsigned char*  fwFile;
     int             fwFileSize;
+    bool            isSoftStep2;
 
     
 signals:
@@ -29,7 +30,7 @@ signals:
     void    signalUpdateComplete();
     
 public slots:
-    void    slotComposeAttributeListFromPreset(QVariantMap, QVariantMap);
+    void    slotComposeAttributeListFromPreset(QVariantMap presetSent, QVariantMap, qlonglong);
     void    slotConstructDefaultAttributeList();
     void    slotGetConnectedVersion(QByteArray);
     void    slotGetEmbeddedVersion();

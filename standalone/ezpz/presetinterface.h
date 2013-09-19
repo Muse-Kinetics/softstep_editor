@@ -43,7 +43,7 @@ public:
     
 signals:
     void signalRecallPreset(QVariantMap,QVariantMap);
-    void signalAttributeFormatPreset(QVariantMap, QVariantMap);
+    void signalAttributeFormatPreset(QVariantMap, QVariantMap, qlonglong);
     void signalUpdateStarted();
     void signalPresetDirty(bool);
     
