@@ -13,11 +13,16 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    modline.cpp \
+    key.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    modline.h \
+    key.h
 
 FORMS    += mainwindow.ui \
-    settings.ui \
-    modline.ui \
-    keyWindow.ui
+    modlineForm.ui \
+    keyWindowForm.ui \
+    settingsForm.ui \
+    keyBoxForm.ui

@@ -8,10 +8,38 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    //Mainwindow Ui
+    this->setWindowTitle("SoftStep Advanced Editor");
     ui->setupUi(this);
+
+    //Construct Key Windows
+    for(int i = 0; i < 10; i++)
+    {
+        key[i] = new Key(this, i);
+    }
+
+    this->installEventFilter(this);
+
+    //slotConnectInterfaces();
+
+    //Construct Key Windows
+    for(int i = 0; i < 10; i++)
+    {
+        key[i]->slotConnectElements();
+    }
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+/*
+void MainWindow::slotConnectInterfaces()
+{
+    for(init i = 0; i < 6; i++)
+    {
+        //connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), modline[i], SLOT(slotRecallPreset(QVariantMap, QVariantMap)));
+    }
+}
+*/

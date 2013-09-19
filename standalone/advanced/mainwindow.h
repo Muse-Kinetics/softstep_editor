@@ -5,6 +5,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QVariant>
+#include <QDebug>
+#include <QVariant>
+
+#include "key.h"
+#include "ui_mainwindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,7 +23,14 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    
+
+    //Ui Elements
+    Key *key[10];
+
+public slots:
+    //void slotConnectElements();
+    //void slotValueChanged();
+
 private:
     Ui::MainWindow *ui;
 };
