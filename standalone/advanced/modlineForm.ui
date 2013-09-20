@@ -420,7 +420,7 @@
   <widget class="QSpinBox" name="outputValue">
    <property name="geometry">
     <rect>
-     <x>770</x>
+     <x>810</x>
      <y>6</y>
      <width>30</width>
      <height>18</height>
@@ -858,7 +858,7 @@
   <widget class="QComboBox" name="greenLED">
    <property name="geometry">
     <rect>
-     <x>810</x>
+     <x>850</x>
      <y>6</y>
      <width>70</width>
      <height>18</height>
@@ -922,7 +922,7 @@
   <widget class="QComboBox" name="redLED">
    <property name="geometry">
     <rect>
-     <x>877</x>
+     <x>917</x>
      <y>6</y>
      <width>70</width>
      <height>18</height>
@@ -982,6 +982,808 @@
      <string>Off</string>
     </property>
    </item>
+  </widget>
+  <widget class="QStackedWidget" name="destinationWidget">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>5</y>
+     <width>180</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="noneDeviceView">
+    <widget class="Line" name="line">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>9</y>
+       <width>180</width>
+       <height>3</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="noteSetDeviceView">
+    <widget class="QSpinBox" name="noteNumber">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>1</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="noteVelocity">
+     <property name="geometry">
+      <rect>
+       <x>34</x>
+       <y>1</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="noteChannel">
+     <property name="geometry">
+      <rect>
+       <x>63</x>
+       <y>1</y>
+       <width>25</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>16</number>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="noteDevice">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>1</y>
+       <width>90</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>SoftStep Expander</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SSCOM Port 1</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="noteLiveDeviceView">
+    <widget class="QComboBox" name="noteLiveDevice">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>1</y>
+       <width>90</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>SoftStep Expander</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SSCOM Port 1</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QSpinBox" name="noteLiveVelocity">
+     <property name="geometry">
+      <rect>
+       <x>34</x>
+       <y>1</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="noteLiveChannel">
+     <property name="geometry">
+      <rect>
+       <x>63</x>
+       <y>1</y>
+       <width>25</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>16</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="noteLiveNumber">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>1</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="controlDeviceView">
+    <widget class="QSpinBox" name="controlNumber">
+     <property name="geometry">
+      <rect>
+       <x>34</x>
+       <y>1</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="controlChannel">
+     <property name="geometry">
+      <rect>
+       <x>63</x>
+       <y>1</y>
+       <width>25</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>16</number>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="controlDevice">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>1</y>
+       <width>90</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>SoftStep Expander</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SSCOM Port 1</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="bankDeviceView">
+    <widget class="QComboBox" name="bankDevice">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>1</y>
+       <width>90</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>SoftStep Expander</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SSCOM Port 1</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QSpinBox" name="bankMSB">
+     <property name="geometry">
+      <rect>
+       <x>34</x>
+       <y>1</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="bankChannel">
+     <property name="geometry">
+      <rect>
+       <x>63</x>
+       <y>1</y>
+       <width>25</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>16</number>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="programDeviceView">
+    <widget class="QComboBox" name="programDevice">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>1</y>
+       <width>90</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>SoftStep Expander</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SSCOM Port 1</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QSpinBox" name="programChannel">
+     <property name="geometry">
+      <rect>
+       <x>63</x>
+       <y>1</y>
+       <width>25</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>16</number>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="oscDeviceView">
+    <widget class="QTextEdit" name="oscRoute">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>1</y>
+       <width>90</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="tabChangesFocus">
+      <bool>true</bool>
+     </property>
+     <property name="tabStopWidth">
+      <number>80</number>
+     </property>
+     <property name="acceptRichText">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="bendDeviceView">
+    <widget class="QSpinBox" name="bendChannel">
+     <property name="geometry">
+      <rect>
+       <x>63</x>
+       <y>1</y>
+       <width>25</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>16</number>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="bendDevice">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>1</y>
+       <width>90</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>SoftStep Expander</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SSCOM Port 1</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="mmcDeviceView">
+    <widget class="QComboBox" name="mmcDevice">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>1</y>
+       <width>90</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>SoftStep Expander</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SSCOM Port 1</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QSpinBox" name="mmcDeviceId">
+     <property name="geometry">
+      <rect>
+       <x>2</x>
+       <y>1</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="mmcFunction">
+     <property name="geometry">
+      <rect>
+       <x>28</x>
+       <y>1</y>
+       <width>70</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>Stop</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Play</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Deferred Play</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Fast Forward</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Rewind</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Punch In</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Punch Out</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Pause</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="aftertouchDeviceView">
+    <widget class="QComboBox" name="aftertouchDevice">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>1</y>
+       <width>90</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>SoftStep Expander</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SSCOM Port 1</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QSpinBox" name="aftertouchChannel">
+     <property name="geometry">
+      <rect>
+       <x>63</x>
+       <y>1</y>
+       <width>25</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>16</number>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="polyDeviceView">
+    <widget class="QSpinBox" name="polyNote">
+     <property name="geometry">
+      <rect>
+       <x>24</x>
+       <y>0</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="polyChannel">
+     <property name="geometry">
+      <rect>
+       <x>53</x>
+       <y>0</y>
+       <width>25</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>16</number>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="polyDevice">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>0</y>
+       <width>90</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>SoftStep Expander</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SSCOM Port 1</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <resources/>
