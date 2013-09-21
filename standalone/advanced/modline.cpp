@@ -2,6 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "modline.h"
+//#include "ui_keyWindowForm.h"
 
 Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     QWidget(parent)
@@ -18,6 +19,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     this->setFixedSize(1000,30);
 
     modlineForm.instanceLabel->setText(QString("%1").arg((modlineInstance + 1)%10));
+    modlineForm.deviceViews->setCurrentIndex(0);
 
     this->setGeometry(10,35 + ((modlineInstance)*31),1000,30);
 }
@@ -137,6 +139,16 @@ void Modline::slotValueChanged()
         else if(sender == modlineForm.destination)
         {
             qDebug() << QString("Pad %1 Modline %2 Source [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.destination->currentText());
+
+            //set the device view to change based on what is selected in the destination menu
+            if((modlineForm.destination->currentIndex()) > 10)
+            {
+                modlineForm.deviceViews->setCurrentIndex(0);
+            }
+            else
+            {
+                modlineForm.deviceViews->setCurrentIndex(modlineForm.destination->currentIndex());
+            }
         }
 
         //Green LED

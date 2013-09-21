@@ -6,12 +6,118 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
+    <width>980</width>
     <height>30</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background:		rgba(35,31,32,255);
+	border: none;
+}
+
+/* ------- QStackedWidget ---------*/
+QStackedWidget
+{
+	border-left: 2px solid rgb(0,174,239);
+	border-right: 2px solid rgb(0,174,239);
+}
+
+/* ---------- QLabels ------------*/
+QLabel
+{
+	background:		rgba(0,0,0,0);
+	color: 				white;
+	font: 				10pt &quot;Futura&quot;;
+	border:				none;
+}
+
+QLabel:hover
+{
+	border:				none;
+}  
+
+/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 2px solid rgb(0,174,239);
+	background-color: rgba(0, 0, 0, 255);
+	color: white;
+	padding:0, 3, 0, 0;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+QDoubleSpinBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 2px solid rgb(0,174,239);
+	background-color: rgba(0, 0, 0, 255);
+	color: white;
+	padding:0, 3, 0, 0;
+}
+
+QDoubleSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+/* ---------- QLineEdit ------------*/
+QLineEdit
+{
+	font: 10pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 2px solid rgba(0,174,239,255);
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+QLineEdit:focus
+{
+	font: 10pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 2px solid white;
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	font: 10pt &quot;Futura&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 3, 0, 0;
+	border: none;
+}
+
+QCheckBox:focus
+{
+	background:rgba(0,174,239,0);
+}
+
+/*----------- QComboBox ------------*/
+QComboBox {
+	font: 10pt &quot;Futura&quot;;
+	border: 2px solid rgb(0,174,239);
+	background-color: rgba(0, 0, 0, 255);
+	color: white;
+	padding:0, 3, 0, 0;
+ }</string>
   </property>
   <widget class="QLabel" name="instanceLabel">
    <property name="geometry">
@@ -36,7 +142,7 @@
    <property name="geometry">
     <rect>
      <x>12</x>
-     <y>6</y>
+     <y>8</y>
      <width>22</width>
      <height>18</height>
     </rect>
@@ -59,7 +165,7 @@
     <rect>
      <x>30</x>
      <y>6</y>
-     <width>70</width>
+     <width>81</width>
      <height>18</height>
     </rect>
    </property>
@@ -91,7 +197,7 @@
   <widget class="QSpinBox" name="initValue">
    <property name="geometry">
     <rect>
-     <x>97</x>
+     <x>93</x>
      <y>6</y>
      <width>30</width>
      <height>18</height>
@@ -229,7 +335,7 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>337</x>
+     <x>338</x>
      <y>6</y>
      <width>8</width>
      <height>18</height>
@@ -238,7 +344,10 @@
    <property name="font">
     <font>
      <family>Futura</family>
-     <pointsize>11</pointsize>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="text">
@@ -279,9 +388,9 @@
   <widget class="QComboBox" name="table">
    <property name="geometry">
     <rect>
-     <x>378</x>
+     <x>379</x>
      <y>6</y>
-     <width>80</width>
+     <width>81</width>
      <height>18</height>
     </rect>
    </property>
@@ -345,7 +454,7 @@
   <widget class="QSpinBox" name="min">
    <property name="geometry">
     <rect>
-     <x>458</x>
+     <x>442</x>
      <y>6</y>
      <width>30</width>
      <height>18</height>
@@ -370,7 +479,7 @@
   <widget class="QSpinBox" name="max">
    <property name="geometry">
     <rect>
-     <x>487</x>
+     <x>470</x>
      <y>6</y>
      <width>30</width>
      <height>18</height>
@@ -395,7 +504,7 @@
   <widget class="QSpinBox" name="slew">
    <property name="geometry">
     <rect>
-     <x>516</x>
+     <x>498</x>
      <y>6</y>
      <width>35</width>
      <height>18</height>
@@ -420,7 +529,7 @@
   <widget class="QSpinBox" name="outputValue">
    <property name="geometry">
     <rect>
-     <x>810</x>
+     <x>782</x>
      <y>6</y>
      <width>30</width>
      <height>18</height>
@@ -448,9 +557,9 @@
   <widget class="QComboBox" name="destination">
    <property name="geometry">
     <rect>
-     <x>553</x>
+     <x>537</x>
      <y>6</y>
-     <width>80</width>
+     <width>75</width>
      <height>18</height>
     </rect>
    </property>
@@ -520,16 +629,6 @@
    </item>
    <item>
     <property name="text">
-     <string>Garage Band</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>HUI</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
      <string>X Inc Set</string>
     </property>
    </item>
@@ -544,7 +643,7 @@
     <rect>
      <x>128</x>
      <y>6</y>
-     <width>80</width>
+     <width>97</width>
      <height>18</height>
     </rect>
    </property>
@@ -858,9 +957,9 @@
   <widget class="QComboBox" name="greenLED">
    <property name="geometry">
     <rect>
-     <x>850</x>
+     <x>823</x>
      <y>6</y>
-     <width>70</width>
+     <width>65</width>
      <height>18</height>
     </rect>
    </property>
@@ -922,9 +1021,9 @@
   <widget class="QComboBox" name="redLED">
    <property name="geometry">
     <rect>
-     <x>917</x>
+     <x>871</x>
      <y>6</y>
-     <width>70</width>
+     <width>65</width>
      <height>18</height>
     </rect>
    </property>
@@ -983,39 +1082,25 @@
     </property>
    </item>
   </widget>
-  <widget class="QStackedWidget" name="destinationWidget">
+  <widget class="QStackedWidget" name="deviceViews">
    <property name="geometry">
     <rect>
-     <x>630</x>
-     <y>5</y>
-     <width>180</width>
-     <height>20</height>
+     <x>594</x>
+     <y>6</y>
+     <width>190</width>
+     <height>18</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>10</number>
    </property>
-   <widget class="QWidget" name="noneDeviceView">
-    <widget class="Line" name="line">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>9</y>
-       <width>180</width>
-       <height>3</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </widget>
+   <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
     <widget class="QSpinBox" name="noteNumber">
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>1</y>
+       <y>0</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1040,7 +1125,7 @@
      <property name="geometry">
       <rect>
        <x>34</x>
-       <y>1</y>
+       <y>0</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1065,7 +1150,7 @@
      <property name="geometry">
       <rect>
        <x>63</x>
-       <y>1</y>
+       <y>0</y>
        <width>25</width>
        <height>18</height>
       </rect>
@@ -1090,8 +1175,8 @@
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>1</y>
-       <width>90</width>
+       <y>0</y>
+       <width>116</width>
        <height>18</height>
       </rect>
      </property>
@@ -1121,8 +1206,8 @@
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>1</y>
-       <width>90</width>
+       <y>0</y>
+       <width>116</width>
        <height>18</height>
       </rect>
      </property>
@@ -1150,7 +1235,7 @@
      <property name="geometry">
       <rect>
        <x>34</x>
-       <y>1</y>
+       <y>0</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1175,7 +1260,7 @@
      <property name="geometry">
       <rect>
        <x>63</x>
-       <y>1</y>
+       <y>0</y>
        <width>25</width>
        <height>18</height>
       </rect>
@@ -1200,7 +1285,7 @@
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>1</y>
+       <y>0</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1230,7 +1315,7 @@
      <property name="geometry">
       <rect>
        <x>34</x>
-       <y>1</y>
+       <y>0</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1255,7 +1340,7 @@
      <property name="geometry">
       <rect>
        <x>63</x>
-       <y>1</y>
+       <y>0</y>
        <width>25</width>
        <height>18</height>
       </rect>
@@ -1280,8 +1365,8 @@
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>1</y>
-       <width>90</width>
+       <y>0</y>
+       <width>116</width>
        <height>18</height>
       </rect>
      </property>
@@ -1311,8 +1396,8 @@
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>1</y>
-       <width>90</width>
+       <y>0</y>
+       <width>116</width>
        <height>18</height>
       </rect>
      </property>
@@ -1340,7 +1425,7 @@
      <property name="geometry">
       <rect>
        <x>34</x>
-       <y>1</y>
+       <y>0</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1365,7 +1450,7 @@
      <property name="geometry">
       <rect>
        <x>63</x>
-       <y>1</y>
+       <y>0</y>
        <width>25</width>
        <height>18</height>
       </rect>
@@ -1392,8 +1477,8 @@
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>1</y>
-       <width>90</width>
+       <y>0</y>
+       <width>116</width>
        <height>18</height>
       </rect>
      </property>
@@ -1421,7 +1506,7 @@
      <property name="geometry">
       <rect>
        <x>63</x>
-       <y>1</y>
+       <y>0</y>
        <width>25</width>
        <height>18</height>
       </rect>
@@ -1448,7 +1533,7 @@
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>1</y>
+       <y>0</y>
        <width>90</width>
        <height>18</height>
       </rect>
@@ -1481,7 +1566,7 @@
      <property name="geometry">
       <rect>
        <x>63</x>
-       <y>1</y>
+       <y>0</y>
        <width>25</width>
        <height>18</height>
       </rect>
@@ -1506,8 +1591,8 @@
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>1</y>
-       <width>90</width>
+       <y>0</y>
+       <width>116</width>
        <height>18</height>
       </rect>
      </property>
@@ -1537,8 +1622,8 @@
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>1</y>
-       <width>90</width>
+       <y>0</y>
+       <width>116</width>
        <height>18</height>
       </rect>
      </property>
@@ -1566,7 +1651,7 @@
      <property name="geometry">
       <rect>
        <x>2</x>
-       <y>1</y>
+       <y>0</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1591,8 +1676,8 @@
      <property name="geometry">
       <rect>
        <x>28</x>
-       <y>1</y>
-       <width>70</width>
+       <y>0</y>
+       <width>80</width>
        <height>18</height>
       </rect>
      </property>
@@ -1646,14 +1731,17 @@
       </property>
      </item>
     </widget>
+    <zorder>mmcDeviceId</zorder>
+    <zorder>mmcFunction</zorder>
+    <zorder>mmcDevice</zorder>
    </widget>
    <widget class="QWidget" name="aftertouchDeviceView">
     <widget class="QComboBox" name="aftertouchDevice">
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>1</y>
-       <width>90</width>
+       <y>0</y>
+       <width>116</width>
        <height>18</height>
       </rect>
      </property>
@@ -1681,7 +1769,7 @@
      <property name="geometry">
       <rect>
        <x>63</x>
-       <y>1</y>
+       <y>0</y>
        <width>25</width>
        <height>18</height>
       </rect>
@@ -1707,7 +1795,7 @@
     <widget class="QSpinBox" name="polyNote">
      <property name="geometry">
       <rect>
-       <x>24</x>
+       <x>34</x>
        <y>0</y>
        <width>30</width>
        <height>18</height>
@@ -1732,7 +1820,7 @@
     <widget class="QSpinBox" name="polyChannel">
      <property name="geometry">
       <rect>
-       <x>53</x>
+       <x>63</x>
        <y>0</y>
        <width>25</width>
        <height>18</height>
@@ -1757,9 +1845,9 @@
     <widget class="QComboBox" name="polyDevice">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>90</x>
        <y>0</y>
-       <width>90</width>
+       <width>116</width>
        <height>18</height>
       </rect>
      </property>
@@ -1785,6 +1873,56 @@
     </widget>
    </widget>
   </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>918</x>
+     <y>6</y>
+     <width>18</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QLabels ------------*/
+QLabel
+{
+	background:		rgba(35,31,32,255);
+	color: 				white;
+	font: 				10pt &quot;Futura&quot;;
+	border-left: 2px solid rgb(0,174,239);
+}
+
+QLabel:hover
+{
+	border:				none;
+}  </string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <zorder>instanceLabel</zorder>
+  <zorder>enable</zorder>
+  <zorder>initMode</zorder>
+  <zorder>initValue</zorder>
+  <zorder>label</zorder>
+  <zorder>label_2</zorder>
+  <zorder>gain</zorder>
+  <zorder>offset</zorder>
+  <zorder>label_3</zorder>
+  <zorder>result</zorder>
+  <zorder>table</zorder>
+  <zorder>max</zorder>
+  <zorder>slew</zorder>
+  <zorder>destination</zorder>
+  <zorder>source</zorder>
+  <zorder>greenLED</zorder>
+  <zorder>redLED</zorder>
+  <zorder>raw</zorder>
+  <zorder>min</zorder>
+  <zorder>deviceViews</zorder>
+  <zorder>label_4</zorder>
+  <zorder>outputValue</zorder>
  </widget>
  <resources/>
  <connections/>
