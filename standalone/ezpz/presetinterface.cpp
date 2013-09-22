@@ -20,7 +20,6 @@ PresetInterface::PresetInterface(QWidget *parent) :
     slotReadJSON();
 
     //writeDefualtJSON();
-
 }
 
 void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum)
@@ -39,37 +38,37 @@ void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum
 
 void PresetInterface::slotCheckSaveState()
 {
-        QStringList keyList = jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().keys();
+    QStringList keyList = jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().keys();
 
-        bool dirty = false;
+    bool dirty = false;
 
-        for(int i = 0; i < keyList.size(); i++)
+    for(int i = 0; i < keyList.size(); i++)
+    {
+        if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) !=
+                jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)))
         {
-            if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) !=
-               jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)))
-            {
-                qDebug() << "------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
-                dirty = true;
-                break;
-            }
-        }
-
-        //Globes
-        if(jsonMasterMapCopy.value("sensitivity") != jsonMasterMap.value("sensitivity"))
-        {
-            qDebug() << "------------sensitivity" << jsonMasterMapCopy.value("sensitivity") << jsonMasterMap.value("sensitivity");
+            qDebug() << "------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
             dirty = true;
+            break;
         }
+    }
 
-        if(jsonMasterMapCopy.value("backlight") != jsonMasterMap.value("backlight"))
-        {
-            qDebug() << "------------backlight" << jsonMasterMapCopy.value("backlight") << jsonMasterMap.value("backlight");
-            dirty = true;
-        }
+    //Globes
+    if(jsonMasterMapCopy.value("sensitivity") != jsonMasterMap.value("sensitivity"))
+    {
+        qDebug() << "------------sensitivity" << jsonMasterMapCopy.value("sensitivity") << jsonMasterMap.value("sensitivity");
+        dirty = true;
+    }
 
-        //qDebug() << "preset Dirty?" << dirty;
+    if(jsonMasterMapCopy.value("backlight") != jsonMasterMap.value("backlight"))
+    {
+        qDebug() << "------------backlight" << jsonMasterMapCopy.value("backlight") << jsonMasterMap.value("backlight");
+        dirty = true;
+    }
 
-        emit signalPresetDirty(dirty);
+    //qDebug() << "preset Dirty?" << dirty;
+
+    emit signalPresetDirty(dirty);
 }
 
 void PresetInterface::slotReadJSON()
@@ -86,14 +85,14 @@ void PresetInterface::slotReadJSON()
         jsonMasterMapCopy = jsonMasterMap;
 
         //-------
-         int presetNum = 1;
+        int presetNum = 1;
 
         QStringList keyList = jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap().keys();
 
         for(int i = 0; i < keyList.size(); i++)
         {
             if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i)) !=
-               jsonMasterMap.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i)))
+                    jsonMasterMap.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i)))
             {
                 qDebug() << "------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i));
                 //break;
@@ -156,6 +155,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["pedalCC"] = 26;
     //defaultParamMap["backlight"] = true;
     defaultParamMap["displayName"] = "EASY";
+    defaultParamMap["useFactory"] = "No";
 
     //1
     defaultParamMap["1_key_modline_source"] = "None";
@@ -250,6 +250,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultParamMap["3_key_noteVelocity"] = 127;
     defaultParamMap["3_key_noteToggle"] = 1;
     defaultParamMap["3_key_pressureCC"] = 20;
+
     defaultParamMap["3_key_pressureSmooth"] = 0;
     defaultParamMap["3_key_toggleCC"] = 21;
     defaultParamMap["3_key_toggleLo"] = 0;
@@ -589,6 +590,22 @@ void PresetInterface::slotUpdateClicked()
     emit signalAttributeFormatPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMap, (qlonglong)currentPresetNum);
 
     slotCheckSaveState();
+}
+
+void PresetInterface::slotSetCurrentPresetToFactory()
+{
+    QString factoryPresetName = reinterpret_cast<QAction *>(QObject::sender())->text();
+    qDebug() << factoryPresetName;
+
+    if(factoryPresetName.contains("Use Custom Preset"))
+    {
+        slotStoreValue("useFactory", "No", -1);
+    }
+    else
+    {
+        slotStoreValue("useFactory", factoryPresetName, -1);
+    }
+
 }
 
 void PresetInterface::closeEvent(QCloseEvent *)

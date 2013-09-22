@@ -31,7 +31,8 @@ SOURCES +=      main.cpp\
                 ../../shared/sysexcomposition/download.c \
                 ../../shared/sysexcomposition/attribute.c \
                 ../../shared/sysexcomposition/mainsysex.c \
-    stylesheets.cpp
+    stylesheets.cpp \
+    factorypresets.cpp
 
 
 HEADERS  +=     mainwindow.h \
@@ -51,7 +52,8 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexcomposition/attribute.h \
                 ../../shared/sysexcomposition/sysexcomposer.h \
                 ../../shared/sysexmessages.h \
-    stylesheets.h
+    stylesheets.h \
+    factorypresets.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/keyform.ui \

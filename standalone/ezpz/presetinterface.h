@@ -46,6 +46,8 @@ signals:
     void signalAttributeFormatPreset(QVariantMap, QVariantMap, qlonglong);
     void signalUpdateStarted();
     void signalPresetDirty(bool);
+
+    void signalSetPresetToFactory(int, QString);
     
 public slots:
     void slotStoreValue(QString name, QVariant value, int presetNum);
@@ -59,6 +61,8 @@ public slots:
     void slotRecallPreset(int i);
 
     void slotUpdateClicked();
+
+    void slotSetCurrentPresetToFactory();
     
 };
 

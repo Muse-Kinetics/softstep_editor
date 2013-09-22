@@ -301,19 +301,37 @@ void MainWindow::slotInitMenuBar()
     menubar->setGeometry(0,0, this->width(), 20);
 #endif
 
-    //File
-    //QMenu* file = new QMenu("File");
-    //menubar->addMenu(file);
 
-    //Hardware
+    //-------------------------------------------------------------------------- File
+    QMenu* file = new QMenu("File");
+    menubar->addMenu(file);
+
+    //-------------------------------------------------------------------------- Edit
+    QMenu* edit = new QMenu("Edit ");
+    menubar->addMenu(edit);
+
+    QAction* useCustom = new QAction("Use Custom Preset", edit);
+    connect(useCustom, SIGNAL(triggered()), presetInterface, SLOT(slotSetCurrentPresetToFactory()));
+    edit->addAction(useCustom);
+
+    QMenu* factoryPreset = new QMenu("Use Factory Preset");
+    edit->addMenu(factoryPreset);
+
+    QAction* factoryProgramChange = new QAction("Program Change", factoryPreset);
+    connect(factoryProgramChange, SIGNAL(triggered()), presetInterface, SLOT(slotSetCurrentPresetToFactory()));
+    factoryPreset->addAction(factoryProgramChange);
+
+
+    //-------------------------------------------------------------------------- Hardware
     QMenu* hardware = new QMenu("Hardware");
     QAction* updatefw = new QAction("Update/Reload Firmware...", hardware);
     connect(updatefw, SIGNAL(triggered()), disableWidget, SLOT(show()));
     connect(updatefw, SIGNAL(triggered()), fwUpdateDialogWidget, SLOT(show()));
+
     hardware->addAction(updatefw);
     menubar->addMenu(hardware);
 
-    //Help
+    //-------------------------------------------------------------------------- Help
     QMenu* help = new QMenu("Help");
     QAction* about = new QAction("About SoftStep Easy Editor", help);
     connect(about, SIGNAL(triggered()), disableWidget, SLOT(show()));

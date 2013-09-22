@@ -9,6 +9,13 @@
 #include <QFile>
 #include <QCoreApplication>
 
+#include "factorypresets.h"
+
+extern "C"
+{
+#include "softstep.h"
+}
+
 class SysExComposer : public QWidget
 {
     Q_OBJECT
@@ -23,6 +30,8 @@ public:
     int             fwFileSize;
     bool            isSoftStep2;
 
+    FactoryPresets* factoryPresets;
+    bool isFactoryPreset[10];
     
 signals:
     void    signalSendSysEx(QString messageID, unsigned char* message, int messageLength, QString destinationName);
@@ -35,8 +44,7 @@ public slots:
     void    slotGetConnectedVersion(QByteArray);
     void    slotGetEmbeddedVersion();
     void    slotUpdateFirmware();
-
-    
+    void    slotComposeFactoryPreset(long p, QString factoryPresetName, t_softstep *x);
 };
 
 #endif // SYSEXCOMPOSER_H
