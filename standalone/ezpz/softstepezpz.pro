@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT +=           core gui
+QT +=           core gui \
+                svg
 
 TARGET =        "SoftStep Easy Editor"
 
@@ -75,7 +76,7 @@ OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
     resources/sendbuttoncleanstylesheet.qss
                 #doc.txt
 
-RESOURCES +=    Resources.qrc
+RESOURCES =    Resources.qrc
 
 #-------------------QJson-------------------#
 #-------------------------------------------#
