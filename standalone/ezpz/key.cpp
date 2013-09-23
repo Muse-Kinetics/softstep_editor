@@ -700,6 +700,63 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap master)
 {
     //qDebug() << "--------------------------------------- recall preset - key:" << instance << preset.value(QString("%1_key_source").arg(instance)).toString();
 
+    //Show/Hide Factory/Custom Preset
+    if(!preset.value("useFactory").toString().contains("No"))
+    {
+        keyForm.name->setFocusPolicy(Qt::NoFocus);
+        keyForm.noteNum->setFocusPolicy(Qt::NoFocus);
+        keyForm.noteToggle->setFocusPolicy(Qt::NoFocus);
+        keyForm.noteVelocity->setFocusPolicy(Qt::NoFocus);
+        keyForm.pressureCC->setFocusPolicy(Qt::NoFocus);
+        keyForm.pressureSmooth->setFocusPolicy(Qt::NoFocus);
+        keyForm.toggleCC->setFocusPolicy(Qt::NoFocus);
+        keyForm.toggleHi->setFocusPolicy(Qt::NoFocus);
+        keyForm.toggleLo->setFocusPolicy(Qt::NoFocus);
+        keyForm.xyLatch->setFocusPolicy(Qt::NoFocus);
+        keyForm.xyXCC->setFocusPolicy(Qt::NoFocus);
+        keyForm.xyYCC->setFocusPolicy(Qt::NoFocus);
+        keyForm.yIncCC->setFocusPolicy(Qt::NoFocus);
+        keyForm.yIncSpeed->setFocusPolicy(Qt::NoFocus);
+        keyForm.programBank->setFocusPolicy(Qt::NoFocus);
+        keyForm.programNum->setFocusPolicy(Qt::NoFocus);
+
+        keyForm.yIncSpeed->hide();
+        keyForm.yIncSpeedLabel->hide();
+
+        for(int i =0; i < checkBoxes.size(); i++)
+        {
+            checkBoxes.at(i)->setFocusPolicy(Qt::NoFocus);
+        }
+    }
+    else
+    {
+        for(int i =0; i < checkBoxes.size(); i++)
+        {
+            checkBoxes.at(i)->setFocusPolicy(Qt::StrongFocus);
+        }
+
+        keyForm.name->setFocusPolicy(Qt::StrongFocus);
+        keyForm.noteNum->setFocusPolicy(Qt::StrongFocus);
+        keyForm.noteToggle->setFocusPolicy(Qt::StrongFocus);
+        keyForm.noteVelocity->setFocusPolicy(Qt::StrongFocus);
+        keyForm.pressureCC->setFocusPolicy(Qt::StrongFocus);
+        keyForm.pressureSmooth->setFocusPolicy(Qt::StrongFocus);
+        keyForm.toggleCC->setFocusPolicy(Qt::StrongFocus);
+        keyForm.toggleHi->setFocusPolicy(Qt::StrongFocus);
+        keyForm.toggleLo->setFocusPolicy(Qt::StrongFocus);
+        keyForm.xyLatch->setFocusPolicy(Qt::StrongFocus);
+        keyForm.xyXCC->setFocusPolicy(Qt::StrongFocus);
+        keyForm.xyYCC->setFocusPolicy(Qt::StrongFocus);
+        keyForm.yIncCC->setFocusPolicy(Qt::StrongFocus);
+        keyForm.yIncSpeed->setFocusPolicy(Qt::StrongFocus);
+        keyForm.programBank->setFocusPolicy(Qt::StrongFocus);
+        keyForm.programNum->setFocusPolicy(Qt::StrongFocus);
+
+        keyForm.yIncSpeed->hide();
+        keyForm.yIncSpeedLabel->hide();
+
+    }
+
     //Sources
     for(int i =0; i < checkBoxes.size(); i++)
     {

@@ -606,6 +606,10 @@ void PresetInterface::slotSetCurrentPresetToFactory()
         slotStoreValue("useFactory", factoryPresetName, -1);
     }
 
+    emit signalRecallPreset(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMapCopy);
+
+    slotCheckSaveState();
+
 }
 
 void PresetInterface::closeEvent(QCloseEvent *)

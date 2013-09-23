@@ -58,6 +58,9 @@ public:
     QWidget* keyTestWidget;
 
     QWidget* disableWidget;
+    QWidget* factoryPresetCoverWidget1;
+    QWidget* factoryPresetCoverWidget2;
+    QLabel*  factoryPresetNameLabel;
 
     QSettings *settings;
 
@@ -114,6 +117,8 @@ public slots:
 
     void slotShowDisableWindow();
     void slotHideDisableWindow();
+
+    void slotDisplayFactory();
 
 private:
     Ui::MainWindow *ui;

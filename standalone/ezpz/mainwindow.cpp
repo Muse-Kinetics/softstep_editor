@@ -34,7 +34,26 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("SoftStep Easy Editor");
     ui->setupUi(this);
 
-    //Coverup
+    //Construct Keys
+    for(int i = 1; i < 11; i++)
+    {
+        key[i-1] = new Key(ui->centralWidget, i);
+    }
+
+
+    //Coverup for factory presets
+    factoryPresetCoverWidget1 = new QWidget(ui->centralWidget);
+    factoryPresetCoverWidget1->hide();
+    factoryPresetCoverWidget1->resize(this->size());
+    factoryPresetCoverWidget1->setStyleSheet("QWidget{ background: rgba(0,0,0,200); }");
+
+    factoryPresetNameLabel = new QLabel(ui->centralWidget,0);
+    factoryPresetNameLabel->hide();
+    factoryPresetNameLabel->resize(this->size());
+    factoryPresetNameLabel->setAlignment(Qt::AlignCenter);
+    factoryPresetNameLabel->setStyleSheet("font: 36pt \"Futura\"; color: white");
+
+    //Coverup for dialogs
     disableWidget = new QWidget(this);
     disableWidget->hide();
     disableWidget->resize(this->size());
@@ -68,12 +87,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     aboutForm->expected->setText(QString("%1 %2").arg(sysExComposer->embeddedVersion).arg(sysExComposer->embeddedbuildNum));
 
-    //Construct Keys
-    for(int i = 1; i < 11; i++)
-    {
-        key[i] = new Key(this, i);
-    }
-
     this->installEventFilter(this);
 
     slotInitMenuBar();
@@ -86,10 +99,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->currentPreset->setFocus();
 
 
-    //Construct Keys
+    //Connect Key Elements
     for(int i = 1; i < 11; i++)
     {
-        key[i]->slotConnectElements();
+        key[i-1]->slotConnectElements();
     }
 
 #ifdef Q_OS_MAC
@@ -157,7 +170,7 @@ void MainWindow::slotConnectInterfaces()
 
     for(int i = 1; i < 11; i++)
     {
-        connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), key[i], SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
+        connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), key[i-1], SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
     }
 
     //Preset Storage
@@ -175,10 +188,10 @@ void MainWindow::slotConnectInterfaces()
 
     for(int i = 1; i < 11; i++)
     {
-        connect(key[i], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
+        connect(key[i-1], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
 
         //Save State
-        connect(key[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
+        connect(key[i-1], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
     }
 
     //Save indicator
@@ -204,6 +217,43 @@ void MainWindow::slotConnectInterfaces()
 
 void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap master)
 {
+    //Show/Hide Factory/Custom Preset
+    if(!preset.value("useFactory").toString().contains("No"))
+    {
+        factoryPresetCoverWidget1->show();
+
+        factoryPresetNameLabel->setText(QString("Using Factory Preset: ") + preset.value("useFactory").toString());
+        factoryPresetNameLabel->show();
+
+        ui->update->raise();
+        ui->currentPreset->raise();
+        ui->currentPresetLabel->raise();
+        ui->sensitivity->raise();
+        ui->sensitivityLabel->raise();
+        ui->backlight->raise();
+        ui->backlightLabel->raise();
+        ui->softstepLabel->raise();
+        ui->connectedLabel->raise();
+
+        ui->midiChannel->setFocusPolicy(Qt::NoFocus);
+        ui->navPadCC->setFocusPolicy(Qt::NoFocus);
+        ui->pedalCC->setFocusPolicy(Qt::NoFocus);
+        ui->displayName->setFocusPolicy(Qt::NoFocus);
+
+        ui->currentPreset->setFocus();
+    }
+    else
+    {
+        ui->midiChannel->setFocusPolicy(Qt::StrongFocus);
+        ui->navPadCC->setFocusPolicy(Qt::StrongFocus);
+        ui->pedalCC->setFocusPolicy(Qt::StrongFocus);
+        ui->displayName->setFocusPolicy(Qt::StrongFocus);
+
+        factoryPresetCoverWidget1->hide();
+        factoryPresetNameLabel->hide();
+    }
+
+
     //------------------------------------- Sets mainwindow Ui components
 
     //Global
@@ -350,6 +400,11 @@ void MainWindow::slotShowDisableWindow()
 }
 
 void MainWindow::slotHideDisableWindow()
+{
+
+}
+
+void MainWindow::slotDisplayFactory()
 {
 
 }

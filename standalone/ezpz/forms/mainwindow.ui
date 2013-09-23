@@ -124,7 +124,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-color: rgba(255,255,255,250);
+color: rgba(255,255,255,0);
 	font: 10pt &quot;Futura&quot;;
 }
 
@@ -181,9 +181,9 @@ background: black;
     <property name="geometry">
      <rect>
       <x>845</x>
-      <y>59</y>
+      <y>130</y>
       <width>141</width>
-      <height>281</height>
+      <height>111</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -194,8 +194,8 @@ background: black;
     </property>
     <property name="minimumSize">
      <size>
-      <width>141</width>
-      <height>281</height>
+      <width>0</width>
+      <height>0</height>
      </size>
     </property>
     <property name="focusPolicy">
@@ -214,7 +214,7 @@ background: black;
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>75</y>
+       <y>5</y>
        <width>40</width>
        <height>20</height>
       </rect>
@@ -242,7 +242,7 @@ background: black;
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>125</y>
+       <y>55</y>
        <width>40</width>
        <height>20</height>
       </rect>
@@ -267,7 +267,7 @@ background: black;
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>150</y>
+       <y>80</y>
        <width>40</width>
        <height>20</height>
       </rect>
@@ -300,39 +300,11 @@ background: black;
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="sensitivity">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>0</y>
-       <width>40</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::WheelFocus</enum>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="minimum">
-      <double>0.500000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>2.550000000000000</double>
-     </property>
-     <property name="value">
-      <double>1.000000000000000</double>
-     </property>
-    </widget>
     <widget class="QLabel" name="midiChannelLabel">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>75</y>
+       <y>5</y>
        <width>89</width>
        <height>20</height>
       </rect>
@@ -351,7 +323,7 @@ background: black;
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>150</y>
+       <y>80</y>
        <width>89</width>
        <height>20</height>
       </rect>
@@ -366,72 +338,11 @@ background: black;
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="update">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>225</y>
-       <width>140</width>
-       <height>50</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Futura</family>
-       <pointsize>18</pointsize>
-       <weight>50</weight>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*---------- QPushButton ---------*/
-QPushButton
-{
-	border: 6px solid rgba(0,174,239,255);
-	font: 18pt &quot;Futura&quot;;
-	color: white;
-}
-
-QPushButton:pressed
-{
-	background: rgba(0,174,239,255);
-	border: 6px solid white;
-	font: 20pt &quot;Futura&quot;;
-	color: white;
-}</string>
-     </property>
-     <property name="text">
-      <string>SAVE + SEND</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="gainLabel_2">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>89</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>Sensitivity</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
     <widget class="QLabel" name="gainLabel_3">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>100</y>
+       <y>30</y>
        <width>89</width>
        <height>20</height>
       </rect>
@@ -450,7 +361,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>125</y>
+       <y>55</y>
        <width>89</width>
        <height>20</height>
       </rect>
@@ -469,7 +380,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>100</y>
+       <y>30</y>
        <width>40</width>
        <height>20</height>
       </rect>
@@ -490,90 +401,8 @@ QPushButton:pressed
       <number>7</number>
      </property>
     </widget>
-    <widget class="QSpinBox" name="currentPreset">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>200</y>
-       <width>40</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::WheelFocus</enum>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="minimum">
-      <number>1</number>
-     </property>
-     <property name="maximum">
-      <number>10</number>
-     </property>
-     <property name="value">
-      <number>1</number>
-     </property>
-    </widget>
-    <widget class="QLabel" name="gainLabel_5">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>200</y>
-       <width>89</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>CURRENT PRESET</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="backlightLabel">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>24</y>
-       <width>89</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>Backlight</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="backlight">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>23</y>
-       <width>24</width>
-       <height>24</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::WheelFocus</enum>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
    </widget>
-   <widget class="QLabel" name="gainLabel_6">
+   <widget class="QLabel" name="softstepLabel">
     <property name="geometry">
      <rect>
       <x>860</x>
@@ -612,6 +441,190 @@ color: red;</string>
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="sensitivityLabel">
+    <property name="geometry">
+     <rect>
+      <x>844</x>
+      <y>60</y>
+      <width>89</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Sensitivity</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="currentPreset">
+    <property name="geometry">
+     <rect>
+      <x>945</x>
+      <y>260</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::WheelFocus</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>10</number>
+    </property>
+    <property name="value">
+     <number>1</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="update">
+    <property name="geometry">
+     <rect>
+      <x>845</x>
+      <y>285</y>
+      <width>140</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura</family>
+      <pointsize>18</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/*---------- QPushButton ---------*/
+QPushButton
+{
+	border: 6px solid rgba(0,174,239,255);
+	font: 18pt &quot;Futura&quot;;
+	color: white;
+}
+
+QPushButton:pressed
+{
+	background: rgba(0,174,239,255);
+	border: 6px solid white;
+	font: 20pt &quot;Futura&quot;;
+	color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>SAVE + SEND</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="currentPresetLabel">
+    <property name="geometry">
+     <rect>
+      <x>844</x>
+      <y>260</y>
+      <width>89</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>CURRENT PRESET</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="backlightLabel">
+    <property name="geometry">
+     <rect>
+      <x>844</x>
+      <y>84</y>
+      <width>89</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Backlight</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="sensitivity">
+    <property name="geometry">
+     <rect>
+      <x>945</x>
+      <y>60</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::WheelFocus</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="minimum">
+     <double>0.500000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>2.550000000000000</double>
+    </property>
+    <property name="value">
+     <double>1.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="backlight">
+    <property name="geometry">
+     <rect>
+      <x>945</x>
+      <y>83</y>
+      <width>24</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::WheelFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: rgba(0,0,0,0);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>settingsFrame</zorder>
+   <zorder>softstepLabel</zorder>
+   <zorder>connectedLabel</zorder>
+   <zorder>sensitivityLabel</zorder>
+   <zorder>backlightLabel</zorder>
+   <zorder>sensitivity</zorder>
+   <zorder>backlight</zorder>
+   <zorder>currentPreset</zorder>
+   <zorder>update</zorder>
+   <zorder>currentPresetLabel</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
