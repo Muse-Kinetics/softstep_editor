@@ -21,7 +21,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     modlineForm.instanceLabel->setText(QString("%1").arg((modlineInstance + 1)%10));
     modlineForm.deviceViews->setCurrentIndex(0);
 
-    this->setGeometry(10,35 + ((modlineInstance)*31),1000,30);
+    this->setGeometry(10,35 + ((modlineInstance)*40),1000,30);
 }
 
 void Modline::slotConnectElements()
