@@ -69,7 +69,8 @@ FORMS    +=     forms/mainwindow.ui \
                 forms/fwupdatecompleteformWin.ui \
                 forms/fwprogressformWin.ui \
                 forms/fwoodformWin.ui \
-                forms/aboutformWin.ui
+                forms/aboutformWin.ui \
+    forms/settingsForm.ui
 
 OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
                 resources/sendbuttondirtystylesheet.qss \
