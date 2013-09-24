@@ -6,23 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>128</width>
-    <height>123</height>
+    <width>157</width>
+    <height>157</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background:		rgba(120, 120, 120, 0);
-	/*border:				3px solid rgb(0, 187, 187);*/
-	border-radius: 2px;
-	border-bottom-left-radius:8.0;
-	border-bottom-right-radius:8.0;
-	border-top-left-radius:8.0;
-	border-top-right-radius:8.0;
+	background:		rgba(35,31,32,255);
+	border: 6px solid rgba(0,174,239,255);
 }  
 
 QWidget:hover
@@ -35,7 +33,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				7pt &quot;Arial&quot;;
+	font: 				7pt &quot;Futura&quot;;
 	border:				none;
 }
 
@@ -47,490 +45,1314 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font-family:&quot;Arial&quot;;
-	border-radius:4.0;
-	border-color:black;
-	background-color: rgba(67, 67, 67, 255);
-	font-size:9px;
-	color: rgb(108, 243, 255);;
-	padding:0, 0, 0, 0;
-	border: none;
+	font: 7pt &quot;Futura&quot;;
+	border: 2px solid rgb(0,174,239);
+	background-color: rgba(0, 0, 0, 255);
+	color: white;
+	padding:0, 3, 0, 0;
 }
 
-QSpinBox:hover
+QSpinBox::focus
 {
-	border:				none;
-}  
+	border: none;
+	outline: none;
+}
 
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 9pt &quot;Courier&quot;;
-	border-radius:4.0;
-	border-color:black;
-	background-color: rgba(67, 67, 67, 255);;
-	/*color: rgb(108, 243, 255);*/
-	color: rgb(255, 70, 0);
+	font: 7pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 2px solid rgba(0,174,239,255);
+	border-radius: 0px;
+	color: white;
 	padding-left: 2px;
-	border: none;
+	padding-bottom: 2px;
 }
 
-QLineEdit:hover
+QLineEdit:focus
 {
-	border:				none;
-}  
+	font: 7pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 2px solid white;
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
 
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font-family:&quot;Arial&quot;;
-	border-radius:4.0;
-	border-color:black;
-	background-color: rgba(67, 67, 67, 0);
-	font-size: 9px;
+	font: 7pt &quot;Futura&quot;;
+	background:rgba(0,174,239,0);
 	color: white;
 	padding:0, 3, 0, 0;
 	border: none;
 }
 
-QCheckBox:hover
+QCheckBox:focus
 {
-	border:				none;
-} </string>
+	background:rgba(0,174,239,0);
+}
+
+
+/* ------- QStackedWidget ---------*/
+QStackedWidget
+{
+border-top: 1px solid white;
+background: black;
+}
+
+</string>
   </property>
-  <widget class="QFrame" name="sourceFrame">
+  <widget class="QLineEdit" name="name">
    <property name="geometry">
     <rect>
-     <x>5</x>
-     <y>23</y>
-     <width>117</width>
-     <height>92</height>
+     <x>101</x>
+     <y>80</y>
+     <width>40</width>
+     <height>20</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::WheelFocus</enum>
+   </property>
    <property name="styleSheet">
-    <string notr="true">QFrame {
-	background: rgba(120, 120, 120, 255);
-	border-bottom-left-radius:4.0;
-	border-bottom-right-radius:4.0;
-	border-top-left-radius:0;
-	border-top-right-radius:0;
-	border: none;
-}</string>
+    <string notr="true"/>
    </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
+   <property name="text">
+    <string>KEYS</string>
    </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
+   <property name="maxLength">
+    <number>4</number>
    </property>
-   <widget class="QCheckBox" name="xLive">
-    <property name="geometry">
-     <rect>
-      <x>47</x>
-      <y>66</y>
-      <width>24</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="toggleLabel">
-    <property name="geometry">
-     <rect>
-      <x>2</x>
-      <y>53</y>
-      <width>40</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>7</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>Toggle</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="pressureLabel">
-    <property name="geometry">
-     <rect>
-      <x>2</x>
-      <y>25</y>
-      <width>40</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>7</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>Pressure</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="yIncLabel">
-    <property name="geometry">
-     <rect>
-      <x>2</x>
-      <y>40</y>
-      <width>40</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>7</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>Y Inc</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="toggle">
-    <property name="geometry">
-     <rect>
-      <x>47</x>
-      <y>52</y>
-      <width>24</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="footOnLabel">
-    <property name="geometry">
-     <rect>
-      <x>2</x>
-      <y>11</y>
-      <width>40</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>7</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>Foot on</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="footOn">
-    <property name="geometry">
-     <rect>
-      <x>47</x>
-      <y>10</y>
-      <width>24</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="pressure">
-    <property name="geometry">
-     <rect>
-      <x>47</x>
-      <y>24</y>
-      <width>24</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="yInc">
-    <property name="geometry">
-     <rect>
-      <x>47</x>
-      <y>38</y>
-      <width>24</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="xLiveLabel">
-    <property name="geometry">
-     <rect>
-      <x>2</x>
-      <y>67</y>
-      <width>40</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>7</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>X Live</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="name">
-    <property name="geometry">
-     <rect>
-      <x>77</x>
-      <y>14</y>
-      <width>34</width>
-      <height>15</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>10</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 10pt &quot;Consolas&quot;;</string>
-    </property>
-    <property name="text">
-     <string>KEYS</string>
-    </property>
-    <property name="maxLength">
-     <number>4</number>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QSpinBox" name="cc">
-    <property name="geometry">
-     <rect>
-      <x>77</x>
-      <y>41</y>
-      <width>34</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-    <property name="buttonSymbols">
-     <enum>QAbstractSpinBox::NoButtons</enum>
-    </property>
-    <property name="maximum">
-     <number>127</number>
-    </property>
-   </widget>
-   <widget class="QSpinBox" name="smooth">
-    <property name="geometry">
-     <rect>
-      <x>77</x>
-      <y>71</y>
-      <width>34</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-    <property name="buttonSymbols">
-     <enum>QAbstractSpinBox::NoButtons</enum>
-    </property>
-    <property name="maximum">
-     <number>127</number>
-    </property>
-   </widget>
-   <widget class="QLabel" name="nameLabel">
-    <property name="geometry">
-     <rect>
-      <x>75</x>
-      <y>1</y>
-      <width>31</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>7</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>Name</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="ccLabel">
-    <property name="geometry">
-     <rect>
-      <x>77</x>
-      <y>26</y>
-      <width>34</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>7</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>cc</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="smoothLabel">
-    <property name="geometry">
-     <rect>
-      <x>75</x>
-      <y>56</y>
-      <width>35</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>7</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>Smooth</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <zorder>xLive</zorder>
-   <zorder>toggleLabel</zorder>
-   <zorder>pressureLabel</zorder>
-   <zorder>yIncLabel</zorder>
-   <zorder>toggle</zorder>
-   <zorder>footOnLabel</zorder>
-   <zorder>footOn</zorder>
-   <zorder>pressure</zorder>
-   <zorder>yInc</zorder>
-   <zorder>xLiveLabel</zorder>
-   <zorder>nameLabel</zorder>
-   <zorder>ccLabel</zorder>
-   <zorder>smoothLabel</zorder>
-   <zorder>smooth</zorder>
-   <zorder>cc</zorder>
-   <zorder>name</zorder>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="sourceNote">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>12</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::WheelFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 7pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }
+
+  QCheckBox::indicator::unchecked {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }</string>
+   </property>
+   <property name="text">
+    <string> MIDI Note</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="sourcePressure">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>27</y>
+     <width>61</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::WheelFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 7pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }
+
+  QCheckBox::indicator::unchecked {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }</string>
+   </property>
+   <property name="text">
+    <string> Pressure</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="sourceToggle">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>42</y>
+     <width>51</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::WheelFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 7pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }
+
+  QCheckBox::indicator::unchecked {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }</string>
+   </property>
+   <property name="text">
+    <string> Toggle</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="sourceXY">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>57</y>
+     <width>41</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::WheelFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 7pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }
+
+  QCheckBox::indicator::unchecked {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }</string>
+   </property>
+   <property name="text">
+    <string> X/Y</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="sourceYInc">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>72</y>
+     <width>51</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::WheelFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 7pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }
+
+  QCheckBox::indicator::unchecked {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }</string>
+   </property>
+   <property name="text">
+    <string> Y Inc</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="sourceProgram">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>87</y>
+     <width>61</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::WheelFocus</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 7pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }
+
+  QCheckBox::indicator::unchecked {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }</string>
+   </property>
+   <property name="text">
+    <string> Program</string>
+   </property>
   </widget>
   <widget class="QLabel" name="instanceLabel">
    <property name="geometry">
     <rect>
-     <x>5</x>
-     <y>5</y>
-     <width>117</width>
-     <height>16</height>
+     <x>100</x>
+     <y>10</y>
+     <width>51</width>
+     <height>40</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QFrame {
-	background:rgb(0, 126, 126);
-border-top-left-radius:4.0;
-border-top-right-radius:4.0;
-border-bottom-left-radius:0;
-border-bottom-right-radius:0;
-border: none;
-color: rgba(67, 67, 67, 255);
-}
-
-QToolTip {
-background: #006599;
-color: white;
-}</string>
+    <string notr="true">font: 27pt &quot;Futura&quot;;</string>
    </property>
    <property name="text">
-    <string>Key 0</string>
+    <string>0</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QLabel" name="nameLabel">
+   <property name="geometry">
+    <rect>
+     <x>101</x>
+     <y>65</y>
+     <width>40</width>
+     <height>15</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>name</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="dividerLine">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>105</y>
+     <width>127</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel
+{
+border-top: 1px solid white;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QStackedWidget" name="sourcesParams">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>105</y>
+     <width>136</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget
+{
+border: none;
+background: rgba(0, 0, 0, 0);
+}
+/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 7pt &quot;Futura&quot;;
+	border: 2px solid rgb(0,174,239);
+	background: rgba(0, 0, 0, 0);
+	color: white;
+	padding:0, 3, 0, 0;
+}
+
+QSpinBox:focus
+{
+outline: none;
+border: 2px solid white;
+}</string>
+   </property>
+   <property name="currentIndex">
+    <number>6</number>
+   </property>
+   <widget class="QWidget" name="notePage">
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+     </font>
+    </property>
+    <widget class="QLabel" name="noteNumLabel">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>0</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Note #</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="noteNum">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>20</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="noteVelocityLabel">
+     <property name="geometry">
+      <rect>
+       <x>58</x>
+       <y>0</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Velocity</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="noteVelocity">
+     <property name="geometry">
+      <rect>
+       <x>58</x>
+       <y>20</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="noteToggleLabel">
+     <property name="geometry">
+      <rect>
+       <x>101</x>
+       <y>0</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Toggle</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="noteToggle">
+     <property name="geometry">
+      <rect>
+       <x>111</x>
+       <y>20</y>
+       <width>20</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::WheelFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 7pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 20px;
+     height: 20px;
+ }
+
+ QCheckBox::indicator::unchecked {
+     image: url(:/resources/toggle_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/toggle_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/toggle_on.svg);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/toggle_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/toggle_off.svg);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/toggle_focus_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/toggle_focus_on.svg);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/toggle_focus_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/toggle_focus_off.svg);
+ }</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="pressurePage">
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+     </font>
+    </property>
+    <widget class="QLabel" name="pressureCCLabel">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>0</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>CC #</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="pressureSmoothLabel">
+     <property name="geometry">
+      <rect>
+       <x>81</x>
+       <y>0</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Smooth</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="pressureCC">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>20</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="pressureSmooth">
+     <property name="geometry">
+      <rect>
+       <x>91</x>
+       <y>20</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="togglePage">
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+     </font>
+    </property>
+    <widget class="QSpinBox" name="toggleCC">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>20</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="toggleCCLabel">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>0</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>CC #</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="toggleLoLabel">
+     <property name="geometry">
+      <rect>
+       <x>68</x>
+       <y>0</y>
+       <width>30</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Lo</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="toggleLo">
+     <property name="geometry">
+      <rect>
+       <x>68</x>
+       <y>20</y>
+       <width>30</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="toggleHiLabel">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>0</y>
+       <width>30</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Hi</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="toggleHi">
+     <property name="geometry">
+      <rect>
+       <x>101</x>
+       <y>20</y>
+       <width>30</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="xyPage">
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+     </font>
+    </property>
+    <widget class="QSpinBox" name="xyXCC">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>20</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="specialValueText">
+      <string>off</string>
+     </property>
+     <property name="minimum">
+      <number>-1</number>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+     <property name="value">
+      <number>-1</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="xyXCCLabel">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>0</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>X CC #</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="xyYCCLabel">
+     <property name="geometry">
+      <rect>
+       <x>58</x>
+       <y>0</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Y CC #</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="xyYCC">
+     <property name="geometry">
+      <rect>
+       <x>58</x>
+       <y>20</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="specialValueText">
+      <string>off</string>
+     </property>
+     <property name="minimum">
+      <number>-1</number>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+     <property name="value">
+      <number>-1</number>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="xyLatch">
+     <property name="geometry">
+      <rect>
+       <x>111</x>
+       <y>20</y>
+       <width>20</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::WheelFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 7pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 20px;
+     height: 20px;
+ }
+
+ QCheckBox::indicator::unchecked {
+     image: url(:/resources/toggle_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/toggle_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/toggle_on.svg);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/toggle_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/toggle_off.svg);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/toggle_focus_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/toggle_focus_on.svg);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/toggle_focus_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/toggle_focus_off.svg);
+ }</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="xyLatchLabel">
+     <property name="geometry">
+      <rect>
+       <x>91</x>
+       <y>0</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Latch</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="yIncPage">
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+     </font>
+    </property>
+    <widget class="QSpinBox" name="yIncCC">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>20</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">outline: none;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="yIncCCLabel">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>0</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>CC #</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="yIncSpeed">
+     <property name="geometry">
+      <rect>
+       <x>91</x>
+       <y>20</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="yIncSpeedLabel">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>0</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Inc Speed</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="programPage">
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+     </font>
+    </property>
+    <widget class="QSpinBox" name="programNum">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>20</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="programNumLabel">
+     <property name="geometry">
+      <rect>
+       <x>3</x>
+       <y>0</y>
+       <width>51</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Program #</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="programBank">
+     <property name="geometry">
+      <rect>
+       <x>91</x>
+       <y>20</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="specialValueText">
+      <string>off</string>
+     </property>
+     <property name="minimum">
+      <number>-1</number>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+     <property name="value">
+      <number>-1</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="programBankLabel">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>0</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Bank #</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="offPage">
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+     </font>
+    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>10</y>
+       <width>136</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>[ No source selected ]</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+  </widget>
  </widget>
+ <tabstops>
+  <tabstop>sourceNote</tabstop>
+  <tabstop>sourcePressure</tabstop>
+  <tabstop>sourceToggle</tabstop>
+  <tabstop>sourceXY</tabstop>
+  <tabstop>sourceYInc</tabstop>
+  <tabstop>sourceProgram</tabstop>
+  <tabstop>name</tabstop>
+  <tabstop>noteNum</tabstop>
+  <tabstop>noteVelocity</tabstop>
+  <tabstop>noteToggle</tabstop>
+  <tabstop>pressureCC</tabstop>
+  <tabstop>pressureSmooth</tabstop>
+  <tabstop>toggleCC</tabstop>
+  <tabstop>toggleLo</tabstop>
+  <tabstop>toggleHi</tabstop>
+  <tabstop>xyXCC</tabstop>
+  <tabstop>xyYCC</tabstop>
+  <tabstop>xyLatch</tabstop>
+  <tabstop>yIncCC</tabstop>
+  <tabstop>yIncSpeed</tabstop>
+  <tabstop>programNum</tabstop>
+  <tabstop>programBank</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
