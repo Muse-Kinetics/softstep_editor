@@ -28,6 +28,8 @@ public:
     int             fwFileSize;
     bool            isSoftStep2;
 
+    QList<QVariantMap> setlist;
+
 signals:
     void    signalSendSysEx(QString messageID, unsigned char* message, int messageLength, QString destinationName);
     void    signalSendBuildNums(int,QString, int, QString);
