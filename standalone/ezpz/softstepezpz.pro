@@ -7,7 +7,7 @@
 QT +=           core gui \
                 svg
 
-TARGET =        "SoftStep Easy Editor"
+TARGET =        "SoftStep Editor"
 
 TEMPLATE =      app
 

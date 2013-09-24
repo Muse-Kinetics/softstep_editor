@@ -23,15 +23,15 @@ public:
     explicit SysExComposer(QWidget *parent = 0);
     ~SysExComposer();
 
-    QVariantMap defaultAttributeList;
-    int       embeddedbuildNum, connectedBuildNum;
-    QString   embeddedVersion, connectedVersion;
+    QVariantMap     defaultAttributeList;
+    int             embeddedbuildNum, connectedBuildNum;
+    QString         embeddedVersion, connectedVersion;
     unsigned char*  fwFile;
     int             fwFileSize;
     bool            isSoftStep2;
 
     FactoryPresets* factoryPresets;
-    bool isFactoryPreset[10];
+    bool            isFactoryPreset[10];
     
 signals:
     void    signalSendSysEx(QString messageID, unsigned char* message, int messageLength, QString destinationName);
@@ -40,7 +40,6 @@ signals:
     
 public slots:
     void    slotComposeAttributeListFromPreset(QVariantMap presetSent, QVariantMap, qlonglong);
-    void    slotConstructDefaultAttributeList();
     void    slotGetConnectedVersion(QByteArray);
     void    slotGetEmbeddedVersion();
     void    slotUpdateFirmware();
