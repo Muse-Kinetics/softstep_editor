@@ -66,10 +66,9 @@ void MainWindow::slotConnectInterfaces()
         //Modlines
         for(int m = 0; m < 6; m++)
         {
-            connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), key[k]->modline[m], SLOT(slotRecallPreset(QVariantMap, QVariantMap)));
+            connect(key[k]->modline[m], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
         }
     }
 
     //Nav Pad
-
 }

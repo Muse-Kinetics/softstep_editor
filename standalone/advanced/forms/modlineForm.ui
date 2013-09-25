@@ -954,7 +954,7 @@ QComboBox {
     </property>
    </item>
   </widget>
-  <widget class="QComboBox" name="greenLED">
+  <widget class="QComboBox" name="ledgreen">
    <property name="geometry">
     <rect>
      <x>823</x>
@@ -1018,7 +1018,7 @@ QComboBox {
     </property>
    </item>
   </widget>
-  <widget class="QComboBox" name="redLED">
+  <widget class="QComboBox" name="ledred">
    <property name="geometry">
     <rect>
      <x>871</x>
@@ -1919,7 +1919,7 @@ QStackedWidget
 }</string>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">
@@ -2309,8 +2309,8 @@ QStackedWidget
   <zorder>slew</zorder>
   <zorder>destination</zorder>
   <zorder>source</zorder>
-  <zorder>greenLED</zorder>
-  <zorder>redLED</zorder>
+  <zorder>ledgreen</zorder>
+  <zorder>ledred</zorder>
   <zorder>raw</zorder>
   <zorder>min</zorder>
   <zorder>deviceViews</zorder>

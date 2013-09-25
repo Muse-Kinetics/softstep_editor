@@ -58,7 +58,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
 
 void Key::slotOpenWindow()
 {
-    qDebug() << QString("Open Key %1 Button clicked! Open the window!").arg(keyInstance+1);
+    //qDebug() << QString("Open Key %1 Button clicked! Open the window!").arg(keyInstance+1);
     keyWindowWidget->show();
 }
 

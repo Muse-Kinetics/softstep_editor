@@ -64,10 +64,10 @@ void Modline::slotConnectElements()
     connect(modlineForm.destination,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
     //green LED
-    connect(modlineForm.greenLED,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.ledgreen,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
     //red LED
-    connect(modlineForm.redLED,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.ledred,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 }
 
 void Modline::slotValueChanged()
@@ -75,72 +75,71 @@ void Modline::slotValueChanged()
     if(QObject::sender())
     {
         QObject *sender = QObject::sender();
+        QVariant value;
 
         //enable checkbox
         if(sender == modlineForm.enable)
         {
-            qDebug() << QString("Pad %1 Modline %2 Enable [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.enable->isChecked());
+            value = modlineForm.enable->isChecked();
         }
 
         //initMode
         else if(sender == modlineForm.initMode)
         {
-            qDebug() << QString("Pad %1 Modline %2 Init Mode [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.initMode->currentText());
+            value = modlineForm.initMode->currentText();
         }
 
         //initValue
         else if(sender == modlineForm.initValue)
         {
-            qDebug() << QString("Pad %1 Modline %2 Init Value [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.initValue->value());
+            value = modlineForm.initValue->value();
         }
 
         //Source Menu
         else if(sender == modlineForm.source)
         {
-            qDebug() << QString("Pad %1 Modline %2 Source [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.source->currentText());
+            value = modlineForm.source->currentText();
         }
 
         //Gain
         else if(sender == modlineForm.gain)
         {
-            qDebug() << QString("Pad %1 Modline %2 Gain [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.gain->value());
+            value = modlineForm.gain->value();
         }
 
         //Offset
         else if(sender == modlineForm.offset)
         {
-            qDebug() << QString("Pad %1 Modline%2 Offset [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.offset->value());
+            value = modlineForm.offset->value();
         }
 
         //Table Menu
         else if(sender == modlineForm.table)
         {
-            qDebug() << QString("Pad %1 Modline %2 Table [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.table->currentText());
+            value = modlineForm.table->currentText();
         }
 
         //Min
         else if(sender == modlineForm.min)
         {
-            qDebug() << QString("Pad %1 Modline %2 Min [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.min->value());
+            value = modlineForm.min->value();
         }
 
         //Max
         else if(sender == modlineForm.max)
         {
-            qDebug() << QString("Pad %1 Modline %2 Max [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.max->value());
+            value = modlineForm.max->value();
         }
 
         //slew
         else if(sender == modlineForm.slew)
         {
-            qDebug() << QString("Pad %1 Modline %2 Slew [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.slew->value());
+            value = modlineForm.slew->value();
         }
 
         //Destination Menu
         else if(sender == modlineForm.destination)
         {
-            qDebug() << QString("Pad %1 Modline %2 Source [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.destination->currentText());
-
             //set the device view to change based on what is selected in the destination menu
             if((modlineForm.destination->currentIndex()) > 10)
             {
@@ -155,19 +154,19 @@ void Modline::slotValueChanged()
         }
 
         //Green LED
-        else if(sender == modlineForm.destination)
+        else if(sender == modlineForm.ledgreen)
         {
-            qDebug() << QString("Pad %1 Modline %2 Source [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.greenLED->currentText());
+            value = modlineForm.ledgreen->currentText();
         }
 
         //Red LED
-        else if(sender == modlineForm.destination)
+        else if(sender == modlineForm.ledred)
         {
-            qDebug() << QString("Pad %1 Modline %2 Source [%3]").arg(keyInstance+1).arg(modlineInstance+1).arg(modlineForm.redLED->currentText());
+            value = modlineForm.ledred->currentText();
         }
 
+        emit signalStoreValue(QString("key%1_modline%2_").arg(keyInstance+1).arg(modlineInstance+1) + sender->objectName(), value, -1);
     }
-    //emit signalStoreValue(QString("%1_modline_gain").arg(instance), modlineForm.gain->value(), -1);
 }
 
 void Modline::slotRecallPreset(QVariantMap, QVariantMap)
