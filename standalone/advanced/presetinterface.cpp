@@ -24,7 +24,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
 
 void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum)
 {
-    //qDebug() << "name" << name << "value" << value << "preset" << presetNum;
+    qDebug() << "name" << name << "value" << value << "preset" << presetNum;
 
     if(presetNum == -1)
     {

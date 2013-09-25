@@ -66,3 +66,8 @@ void Key::slotConnectElements()
 {
     //something goes here
 }
+
+void Key::slotRecallPreset(QVariantMap, QVariantMap)
+{
+
+}

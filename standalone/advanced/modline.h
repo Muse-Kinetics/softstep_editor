@@ -21,10 +21,12 @@ public:
     int modlineInstance;
     
 signals:
+    void signalStoreValue(QString name, QVariant value, int presetNum);
     
 public slots:
     void slotConnectElements();
     void slotValueChanged();
+    void slotRecallPreset(QVariantMap, QVariantMap);
 
 private:
     Ui::modlineForm modlineForm;

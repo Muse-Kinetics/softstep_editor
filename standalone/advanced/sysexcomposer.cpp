@@ -82,6 +82,8 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
 
     QMapIterator<QString, QVariant> i(presetSent);
 
+    QVariantMap preset;
+
     /*while (i.hasNext())
     {
         i.next();
@@ -112,7 +114,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
         attribute(x,3,A_SYM,"set",A_SYM,"Dead_X",A_LONG,16l);
         attribute(x,3,A_SYM,"set",A_SYM,"Accel_X",A_LONG,85l);
         attribute(x,3,A_SYM,"set",A_SYM,"Dead_Y",A_LONG,16l);
-        //attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,preset.value(QString("%1_key_setting_yAccel").arg(k)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,preset.value(QString("%1_key_setting_yAccel").arg(k)).toLongLong());
         attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,85l);
         attribute(x,3,A_SYM,"set",A_SYM,"On_Sens",A_LONG,20l);
         attribute(x,3,A_SYM,"set",A_SYM,"Off_Sens",A_LONG,10l);

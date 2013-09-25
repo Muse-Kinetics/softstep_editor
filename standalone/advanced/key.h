@@ -28,11 +28,13 @@ public:
     Modline *modline[6];
     
 signals:
+    void signalStoreValue(QString name, QVariant value, int presetNum);
     
 public slots:
     void slotOpenWindow();
     void slotConnectElements();
     //void slotValueChanged();
+    void slotRecallPreset(QVariantMap, QVariantMap);
 
 private:
     Ui::keyBoxForm *keyBoxForm;

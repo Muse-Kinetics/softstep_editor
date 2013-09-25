@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    presetInterface = new PresetInterface();
+
     //Mainwindow Ui
     this->setWindowTitle("SoftStep Advanced Editor");  //FIND OUT WHY THIS ISN'T WORKING!?
     ui->setupUi(this);
@@ -21,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->installEventFilter(this);
 
-    //slotConnectInterfaces();
+    slotConnectInterfaces();
 
     //Construct Key Windows
     for(int i = 0; i < 10; i++)
@@ -35,12 +37,39 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/*
 void MainWindow::slotConnectInterfaces()
 {
-    for(init i = 0; i < 6; i++)
+    //--------------------------------------- Preset Recall
+
+    //Keys
+    for(int k = 0; k < 10; k++)
     {
-        //connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), modline[i], SLOT(slotRecallPreset(QVariantMap, QVariantMap)));
+        connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), key[k], SLOT(slotRecallPreset(QVariantMap, QVariantMap)));
+
+        //Modlines
+        for(int m = 0; m < 6; m++)
+        {
+            connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), key[k]->modline[m], SLOT(slotRecallPreset(QVariantMap, QVariantMap)));
+        }
     }
+
+    //Nav Pad
+
+
+    //--------------------------------------- Parameter Storage
+
+    //Keys
+    for(int k = 0; k < 10; k++)
+    {
+        connect(key[k], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
+
+        //Modlines
+        for(int m = 0; m < 6; m++)
+        {
+            connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), key[k]->modline[m], SLOT(slotRecallPreset(QVariantMap, QVariantMap)));
+        }
+    }
+
+    //Nav Pad
+
 }
-*/

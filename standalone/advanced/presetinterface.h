@@ -40,6 +40,7 @@ public:
     void writeDefualtJSON();
     
 signals:
+    void signalRecallPreset(QVariantMap preset, QVariantMap jsonMasterMapCopy);
     
 public slots:
     void slotStoreValue(QString name, QVariant value, int presetNum);

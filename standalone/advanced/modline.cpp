@@ -169,3 +169,8 @@ void Modline::slotValueChanged()
     }
     //emit signalStoreValue(QString("%1_modline_gain").arg(instance), modlineForm.gain->value(), -1);
 }
+
+void Modline::slotRecallPreset(QVariantMap, QVariantMap)
+{
+
+}

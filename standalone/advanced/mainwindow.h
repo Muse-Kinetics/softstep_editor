@@ -10,6 +10,8 @@
 #include <QVariant>
 
 #include "key.h"
+#include "presetinterface.h"
+
 #include "ui_mainwindow.h"
 
 namespace Ui {
@@ -24,12 +26,15 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    PresetInterface* presetInterface;
+
     //Ui Elements
     Key *key[10];
 
 public slots:
     //void slotConnectElements();
     //void slotValueChanged();
+    void slotConnectInterfaces();
 
 private:
     Ui::MainWindow *ui;
