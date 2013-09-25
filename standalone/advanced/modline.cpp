@@ -16,12 +16,13 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     QWidget *formWidget = new QWidget(this);
 
     modlineForm.setupUi(formWidget);
-    this->setFixedSize(1000,30);
+    this->setFixedSize(1000,40);
 
     modlineForm.instanceLabel->setText(QString("%1").arg((modlineInstance + 1)%10));
     modlineForm.deviceViews->setCurrentIndex(0);
+    modlineForm.deviceViewLabels->setCurrentIndex(0);
 
-    this->setGeometry(10,35 + ((modlineInstance)*40),1000,30);
+    this->setGeometry(10,35 + ((modlineInstance)*42),1000,40);
 }
 
 void Modline::slotConnectElements()
@@ -144,10 +145,12 @@ void Modline::slotValueChanged()
             if((modlineForm.destination->currentIndex()) > 10)
             {
                 modlineForm.deviceViews->setCurrentIndex(0);
+                modlineForm.deviceViewLabels->setCurrentIndex(0);
             }
             else
             {
                 modlineForm.deviceViews->setCurrentIndex(modlineForm.destination->currentIndex());
+                modlineForm.deviceViewLabels->setCurrentIndex(modlineForm.destination->currentIndex());
             }
         }
 
