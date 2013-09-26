@@ -20,7 +20,7 @@ public:
 
     QVariantMap jsonMasterMap;
     QVariantMap jsonMasterMapCopy;
-    QVariantMap defaultParamMap;
+    QVariantMap defaultPresetMap;
 
     QSettings *settings;
 

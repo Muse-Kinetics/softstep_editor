@@ -151,6 +151,8 @@ void Modline::slotValueChanged()
                 modlineForm.deviceViews->setCurrentIndex(modlineForm.destination->currentIndex());
                 modlineForm.deviceViewLabels->setCurrentIndex(modlineForm.destination->currentIndex());
             }
+
+            value = modlineForm.destination->currentText();
         }
 
         //Green LED
@@ -169,7 +171,18 @@ void Modline::slotValueChanged()
     }
 }
 
-void Modline::slotRecallPreset(QVariantMap, QVariantMap)
+void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
-
+    //modline parameters
+    modlineForm.enable->setChecked(preset.value(QString("key%1_modline%2_enable").arg(keyInstance+1).arg(modlineInstance+1)).toBool());
+    modlineForm.source->setCurrentIndex(modlineForm.source->findText(preset.value(QString("key%1_modline%2_source").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    modlineForm.gain->setValue(preset.value(QString("key%1_modline%2_gain").arg(keyInstance+1).arg(modlineInstance+1)).toDouble());
+    modlineForm.offset->setValue(preset.value(QString("key%1_modline%2_offset").arg(keyInstance+1).arg(modlineInstance+1)).toDouble());
+    modlineForm.table->setCurrentIndex(modlineForm.table->findText(preset.value(QString("key%1_modline%2_table").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    modlineForm.min->setValue(preset.value(QString("key%1_modline%2_min").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.max->setValue(preset.value(QString("key%1_modline%2_max").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.slew->setValue(preset.value(QString("key%1_modline%2_slew").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.destination->setCurrentIndex(modlineForm.destination->findText(preset.value(QString("key%1_modline%2_destination").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    modlineForm.ledgreen->setCurrentIndex(modlineForm.ledgreen->findText(preset.value(QString("key%1_modline%2_ledgreen").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    modlineForm.ledred->setCurrentIndex(modlineForm.ledred->findText(preset.value(QString("key%1_modline%2_ledred").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
 }

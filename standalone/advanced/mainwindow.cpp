@@ -30,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         key[i]->slotConnectElements();
     }
+
+    presetInterface->slotRecallPreset(1);
 }
 
 MainWindow::~MainWindow()

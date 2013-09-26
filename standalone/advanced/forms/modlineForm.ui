@@ -1092,7 +1092,7 @@ QComboBox {
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -1311,7 +1311,7 @@ QComboBox {
     </widget>
    </widget>
    <widget class="QWidget" name="controlDeviceView">
-    <widget class="QSpinBox" name="controlNumber">
+    <widget class="QSpinBox" name="cc">
      <property name="geometry">
       <rect>
        <x>34</x>

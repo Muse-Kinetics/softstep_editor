@@ -19,7 +19,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
 
     slotReadJSON();
 
-    //writeDefualtJSON();
+    writeDefualtJSON();
 }
 
 void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum)
@@ -101,16 +101,1580 @@ void PresetInterface::slotWriteJSON(QVariantMap jsonMap)
 
 void PresetInterface::writeDefualtJSON()
 {
+    slotConstructDefaultMap();
 
+    //Generate fresh default json needed
+    for(int i = 0; i < 4; i++)
+    {
+        jsonMasterMap.insert(QString("Preset_00%1").arg(i),defaultPresetMap);
+
+        //Globals
+        //jsonMasterMap.insert("sensitivity", 1.00);
+        //jsonMasterMap.insert("backlight", true);
+    }
+
+    slotWriteJSON(jsonMasterMap);
 }
 
 void PresetInterface::slotConstructDefaultMap()
 {
+    //------------------------ Key 1 ------------------------//
+    defaultPresetMap["1_key_name"] = "1KEY";
+    defaultPresetMap["1_key_displaymode"] = 1;
+    defaultPresetMap["1_key_prefix"] = "";
+    defaultPresetMap["1_key_counter_min"] = 0;
+    defaultPresetMap["1_key_counter_max"] = 127;
+    defaultPresetMap["1_key_counter_wrap"] = 1;
 
+    //------ Modline 1 ------//
+    defaultPresetMap["key1_modline1_enable"] = 0;
+    defaultPresetMap["key1_modline1_source"] = "None";
+    defaultPresetMap["key1_modline1_gain"] = 0.00;
+    defaultPresetMap["key1_modline1_offset"] = 0.00;
+    defaultPresetMap["key1_modline1_table"] = "1_Lin";
+    defaultPresetMap["key1_modline1_min"] = 0;
+    defaultPresetMap["key1_modline1_max"] = 127;
+    defaultPresetMap["key1_modline1_slew"] = 0;
+    defaultPresetMap["key1_modline1_destination"] = "None";
+    defaultPresetMap["key1_modline1_note"] = 60;
+    defaultPresetMap["key1_modline1_velocity"] = 127;
+    defaultPresetMap["key1_modline1_cc"] = 1;
+    defaultPresetMap["key1_modline1_mmcid"] = 0;
+    defaultPresetMap["key1_modline1_mmcfunction"] = "Stop";
+    defaultPresetMap["key1_modline1_channel"] = 0;
+    defaultPresetMap["key1_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key1_modline1_ledgreen"] = "None";
+    defaultPresetMap["key1_modline1_ledred"] = "None";
+    defaultPresetMap["key1_modline1_displaylinked"] = 0;
+    defaultPresetMap["key1_modline1_reminder"] = "";
+
+    //------ Modline 2 ------//
+    defaultPresetMap["key1_modline2_enable"] = 0;
+    defaultPresetMap["key1_modline2_source"] = "None";
+    defaultPresetMap["key1_modline2_gain"] = 0.00;
+    defaultPresetMap["key1_modline2_offset"] = 0.00;
+    defaultPresetMap["key1_modline2_table"] = "1_Lin";
+    defaultPresetMap["key1_modline2_min"] = 0;
+    defaultPresetMap["key1_modline2_max"] = 127;
+    defaultPresetMap["key1_modline2_slew"] = 0;
+    defaultPresetMap["key1_modline2_destination"] = "None";
+    defaultPresetMap["key1_modline2_note"] = 60;
+    defaultPresetMap["key1_modline2_velocity"] = 127;
+    defaultPresetMap["key1_modline2_cc"] = 1;
+    defaultPresetMap["key1_modline2_mmcid"] = 0;
+    defaultPresetMap["key1_modline2_mmcfunction"] = "Stop";
+    defaultPresetMap["key1_modline2_channel"] = 0;
+    defaultPresetMap["key1_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key1_modline2_ledgreen"] = "None";
+    defaultPresetMap["key1_modline2_ledred"] = "None";
+    defaultPresetMap["key1_modline2_displaylinked"] = 0;
+    defaultPresetMap["key1_modline2_reminder"] = "";
+
+    //------ Modline 3 ------//
+    defaultPresetMap["key1_modline3_enable"] = 0;
+    defaultPresetMap["key1_modline3_source"] = "None";
+    defaultPresetMap["key1_modline3_gain"] = 0.00;
+    defaultPresetMap["key1_modline3_offset"] = 0.00;
+    defaultPresetMap["key1_modline3_table"] = "1_Lin";
+    defaultPresetMap["key1_modline3_min"] = 0;
+    defaultPresetMap["key1_modline3_max"] = 127;
+    defaultPresetMap["key1_modline3_slew"] = 0;
+    defaultPresetMap["key1_modline3_destination"] = "None";
+    defaultPresetMap["key1_modline3_note"] = 60;
+    defaultPresetMap["key1_modline3_velocity"] = 127;
+    defaultPresetMap["key1_modline3_cc"] = 1;
+    defaultPresetMap["key1_modline3_mmcid"] = 0;
+    defaultPresetMap["key1_modline3_mmcfunction"] = "Stop";
+    defaultPresetMap["key1_modline3_channel"] = 0;
+    defaultPresetMap["key1_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key1_modline3_ledgreen"] = "None";
+    defaultPresetMap["key1_modline3_ledred"] = "None";
+    defaultPresetMap["key1_modline3_displaylinked"] = 0;
+    defaultPresetMap["key1_modline3_reminder"] = "";
+
+    //------ Modline 4 ------//
+    defaultPresetMap["key1_modline4_enable"] = 0;
+    defaultPresetMap["key1_modline4_source"] = "None";
+    defaultPresetMap["key1_modline4_gain"] = 0.00;
+    defaultPresetMap["key1_modline4_offset"] = 0.00;
+    defaultPresetMap["key1_modline4_table"] = "1_Lin";
+    defaultPresetMap["key1_modline4_min"] = 0;
+    defaultPresetMap["key1_modline4_max"] = 127;
+    defaultPresetMap["key1_modline4_slew"] = 0;
+    defaultPresetMap["key1_modline4_destination"] = "None";
+    defaultPresetMap["key1_modline4_note"] = 60;
+    defaultPresetMap["key1_modline4_velocity"] = 127;
+    defaultPresetMap["key1_modline4_cc"] = 1;
+    defaultPresetMap["key1_modline4_mmcid"] = 0;
+    defaultPresetMap["key1_modline4_mmcfunction"] = "Stop";
+    defaultPresetMap["key1_modline4_channel"] = 0;
+    defaultPresetMap["key1_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key1_modline4_ledgreen"] = "None";
+    defaultPresetMap["key1_modline4_ledred"] = "None";
+    defaultPresetMap["key1_modline4_displaylinked"] = 0;
+    defaultPresetMap["key1_modline4_reminder"] = "";
+
+    //------ Modline 5 ------//
+    defaultPresetMap["key1_modline5_enable"] = 0;
+    defaultPresetMap["key1_modline5_source"] = "None";
+    defaultPresetMap["key1_modline5_gain"] = 0.00;
+    defaultPresetMap["key1_modline5_offset"] = 0.00;
+    defaultPresetMap["key1_modline5_table"] = "1_Lin";
+    defaultPresetMap["key1_modline5_min"] = 0;
+    defaultPresetMap["key1_modline5_max"] = 127;
+    defaultPresetMap["key1_modline5_slew"] = 0;
+    defaultPresetMap["key1_modline5_destination"] = "None";
+    defaultPresetMap["key1_modline5_note"] = 60;
+    defaultPresetMap["key1_modline5_velocity"] = 127;
+    defaultPresetMap["key1_modline5_cc"] = 1;
+    defaultPresetMap["key1_modline5_mmcid"] = 0;
+    defaultPresetMap["key1_modline5_mmcfunction"] = "Stop";
+    defaultPresetMap["key1_modline5_channel"] = 0;
+    defaultPresetMap["key1_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key1_modline5_ledgreen"] = "None";
+    defaultPresetMap["key1_modline5_ledred"] = "None";
+    defaultPresetMap["key1_modline5_displaylinked"] = 0;
+    defaultPresetMap["key1_modline5_reminder"] = "";
+
+    //------ Modline 6 ------//
+    defaultPresetMap["key1_modline6_enable"] = 0;
+    defaultPresetMap["key1_modline6_source"] = "None";
+    defaultPresetMap["key1_modline6_gain"] = 0.00;
+    defaultPresetMap["key1_modline6_offset"] = 0.00;
+    defaultPresetMap["key1_modline6_table"] = "1_Lin";
+    defaultPresetMap["key1_modline6_min"] = 0;
+    defaultPresetMap["key1_modline6_max"] = 127;
+    defaultPresetMap["key1_modline6_slew"] = 0;
+    defaultPresetMap["key1_modline6_destination"] = "None";
+    defaultPresetMap["key1_modline6_note"] = 60;
+    defaultPresetMap["key1_modline6_velocity"] = 127;
+    defaultPresetMap["key1_modline6_cc"] = 1;
+    defaultPresetMap["key1_modline6_mmcid"] = 0;
+    defaultPresetMap["key1_modline6_mmcfunction"] = "Stop";
+    defaultPresetMap["key1_modline6_channel"] = 0;
+    defaultPresetMap["key1_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key1_modline6_ledgreen"] = "None";
+    defaultPresetMap["key1_modline6_ledred"] = "None";
+    defaultPresetMap["key1_modline6_displaylinked"] = 0;
+    defaultPresetMap["key1_modline6_reminder"] = "";
+
+
+    //------------------------ Key 2 ------------------------//
+    defaultPresetMap["2_key_name"] = "2KEY";
+    defaultPresetMap["2_key_displaymode"] = 1;
+    defaultPresetMap["2_key_prefix"] = "";
+    defaultPresetMap["2_key_counter_min"] = 0;
+    defaultPresetMap["2_key_counter_max"] = 127;
+    defaultPresetMap["2_key_counter_wrap"] = 1;
+
+    //------ Modline 1 ------//
+    defaultPresetMap["key2_modline1_enable"] = 0;
+    defaultPresetMap["key2_modline1_source"] = "None";
+    defaultPresetMap["key2_modline1_gain"] = 0.00;
+    defaultPresetMap["key2_modline1_offset"] = 0.00;
+    defaultPresetMap["key2_modline1_table"] = "1_Lin";
+    defaultPresetMap["key2_modline1_min"] = 0;
+    defaultPresetMap["key2_modline1_max"] = 127;
+    defaultPresetMap["key2_modline1_slew"] = 0;
+    defaultPresetMap["key2_modline1_destination"] = "None";
+    defaultPresetMap["key2_modline1_note"] = 60;
+    defaultPresetMap["key2_modline1_velocity"] = 127;
+    defaultPresetMap["key2_modline1_cc"] = 1;
+    defaultPresetMap["key2_modline1_mmcid"] = 0;
+    defaultPresetMap["key2_modline1_mmcfunction"] = "Stop";
+    defaultPresetMap["key2_modline1_channel"] = 0;
+    defaultPresetMap["key2_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key2_modline1_ledgreen"] = "None";
+    defaultPresetMap["key2_modline1_ledred"] = "None";
+    defaultPresetMap["key2_modline1_displaylinked"] = 0;
+    defaultPresetMap["key2_modline1_reminder"] = "";
+
+    //------ Modline 2 ------//
+    defaultPresetMap["key2_modline2_enable"] = 0;
+    defaultPresetMap["key2_modline2_source"] = "None";
+
+    defaultPresetMap["key2_modline2_gain"] = 0.00;
+    defaultPresetMap["key2_modline2_offset"] = 0.00;
+    defaultPresetMap["key2_modline2_table"] = "1_Lin";
+    defaultPresetMap["key2_modline2_min"] = 0;
+    defaultPresetMap["key2_modline2_max"] = 127;
+    defaultPresetMap["key2_modline2_slew"] = 0;
+    defaultPresetMap["key2_modline2_destination"] = "None";
+    defaultPresetMap["key2_modline2_note"] = 60;
+    defaultPresetMap["key2_modline2_velocity"] = 127;
+    defaultPresetMap["key2_modline2_cc"] = 1;
+    defaultPresetMap["key2_modline2_mmcid"] = 0;
+    defaultPresetMap["key2_modline2_mmcfunction"] = "Stop";
+    defaultPresetMap["key2_modline2_channel"] = 0;
+    defaultPresetMap["key2_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key2_modline2_ledgreen"] = "None";
+    defaultPresetMap["key2_modline2_ledred"] = "None";
+    defaultPresetMap["key2_modline2_displaylinked"] = 0;
+    defaultPresetMap["key2_modline2_reminder"] = "";
+
+    //------ Modline 3 ------//
+    defaultPresetMap["key2_modline3_enable"] = 0;
+    defaultPresetMap["key2_modline3_source"] = "None";
+    defaultPresetMap["key2_modline3_gain"] = 0.00;
+    defaultPresetMap["key2_modline3_offset"] = 0.00;
+    defaultPresetMap["key2_modline3_table"] = "1_Lin";
+    defaultPresetMap["key2_modline3_min"] = 0;
+    defaultPresetMap["key2_modline3_max"] = 127;
+    defaultPresetMap["key2_modline3_slew"] = 0;
+    defaultPresetMap["key2_modline3_destination"] = "None";
+    defaultPresetMap["key2_modline3_note"] = 60;
+    defaultPresetMap["key2_modline3_velocity"] = 127;
+    defaultPresetMap["key2_modline3_cc"] = 1;
+    defaultPresetMap["key2_modline3_mmcid"] = 0;
+    defaultPresetMap["key2_modline3_mmcfunction"] = "Stop";
+    defaultPresetMap["key2_modline3_channel"] = 0;
+    defaultPresetMap["key2_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key2_modline3_ledgreen"] = "None";
+    defaultPresetMap["key2_modline3_ledred"] = "None";
+    defaultPresetMap["key2_modline3_displaylinked"] = 0;
+    defaultPresetMap["key2_modline3_reminder"] = "";
+
+    //------ Modline 4 ------//
+    defaultPresetMap["key2_modline4_enable"] = 0;
+    defaultPresetMap["key2_modline4_source"] = "None";
+    defaultPresetMap["key2_modline4_gain"] = 0.00;
+    defaultPresetMap["key2_modline4_offset"] = 0.00;
+    defaultPresetMap["key2_modline4_table"] = "1_Lin";
+    defaultPresetMap["key2_modline4_min"] = 0;
+    defaultPresetMap["key2_modline4_max"] = 127;
+    defaultPresetMap["key2_modline4_slew"] = 0;
+    defaultPresetMap["key2_modline4_destination"] = "None";
+    defaultPresetMap["key2_modline4_note"] = 60;
+    defaultPresetMap["key2_modline4_velocity"] = 127;
+    defaultPresetMap["key2_modline4_cc"] = 1;
+    defaultPresetMap["key2_modline4_mmcid"] = 0;
+    defaultPresetMap["key2_modline4_mmcfunction"] = "Stop";
+    defaultPresetMap["key2_modline4_channel"] = 0;
+    defaultPresetMap["key2_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key2_modline4_ledgreen"] = "None";
+    defaultPresetMap["key2_modline4_ledred"] = "None";
+    defaultPresetMap["key2_modline4_displaylinked"] = 0;
+    defaultPresetMap["key2_modline4_reminder"] = "";
+
+    //------ Modline 5 ------//
+    defaultPresetMap["key2_modline5_enable"] = 0;
+    defaultPresetMap["key2_modline5_source"] = "None";
+    defaultPresetMap["key2_modline5_gain"] = 0.00;
+    defaultPresetMap["key2_modline5_offset"] = 0.00;
+    defaultPresetMap["key2_modline5_table"] = "1_Lin";
+    defaultPresetMap["key2_modline5_min"] = 0;
+    defaultPresetMap["key2_modline5_max"] = 127;
+    defaultPresetMap["key2_modline5_slew"] = 0;
+    defaultPresetMap["key2_modline5_destination"] = "None";
+    defaultPresetMap["key2_modline5_note"] = 60;
+    defaultPresetMap["key2_modline5_velocity"] = 127;
+    defaultPresetMap["key2_modline5_cc"] = 1;
+    defaultPresetMap["key2_modline5_mmcid"] = 0;
+    defaultPresetMap["key2_modline5_mmcfunction"] = "Stop";
+    defaultPresetMap["key2_modline5_channel"] = 0;
+    defaultPresetMap["key2_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key2_modline5_ledgreen"] = "None";
+    defaultPresetMap["key2_modline5_ledred"] = "None";
+    defaultPresetMap["key2_modline5_displaylinked"] = 0;
+    defaultPresetMap["key2_modline5_reminder"] = "";
+
+    //------ Modline 6 ------//
+    defaultPresetMap["key2_modline6_enable"] = 0;
+    defaultPresetMap["key2_modline6_source"] = "None";
+    defaultPresetMap["key2_modline6_gain"] = 0.00;
+    defaultPresetMap["key2_modline6_offset"] = 0.00;
+    defaultPresetMap["key2_modline6_table"] = "1_Lin";
+    defaultPresetMap["key2_modline6_min"] = 0;
+    defaultPresetMap["key2_modline6_max"] = 127;
+    defaultPresetMap["key2_modline6_slew"] = 0;
+    defaultPresetMap["key2_modline6_destination"] = "None";
+    defaultPresetMap["key2_modline6_note"] = 60;
+    defaultPresetMap["key2_modline6_velocity"] = 127;
+    defaultPresetMap["key2_modline6_cc"] = 1;
+    defaultPresetMap["key2_modline6_mmcid"] = 0;
+    defaultPresetMap["key2_modline6_mmcfunction"] = "Stop";
+    defaultPresetMap["key2_modline6_channel"] = 0;
+    defaultPresetMap["key2_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key2_modline6_ledgreen"] = "None";
+    defaultPresetMap["key2_modline6_ledred"] = "None";
+    defaultPresetMap["key2_modline6_displaylinked"] = 0;
+    defaultPresetMap["key2_modline6_reminder"] = "";
+
+
+    //------------------------ Key 3 ------------------------//
+    defaultPresetMap["3_key_name"] = "3KEY";
+    defaultPresetMap["3_key_displaymode"] = 1;
+    defaultPresetMap["3_key_prefix"] = "";
+    defaultPresetMap["3_key_counter_min"] = 0;
+    defaultPresetMap["3_key_counter_max"] = 127;
+    defaultPresetMap["3_key_counter_wrap"] = 1;
+
+    //------ Modline 1 ------//
+    defaultPresetMap["key3_modline1_enable"] = 0;
+    defaultPresetMap["key3_modline1_source"] = "None";
+    defaultPresetMap["key3_modline1_gain"] = 0.00;
+    defaultPresetMap["key3_modline1_offset"] = 0.00;
+    defaultPresetMap["key3_modline1_table"] = "1_Lin";
+    defaultPresetMap["key3_modline1_min"] = 0;
+    defaultPresetMap["key3_modline1_max"] = 127;
+    defaultPresetMap["key3_modline1_slew"] = 0;
+    defaultPresetMap["key3_modline1_destination"] = "None";
+    defaultPresetMap["key3_modline1_note"] = 60;
+    defaultPresetMap["key3_modline1_velocity"] = 127;
+    defaultPresetMap["key3_modline1_cc"] = 1;
+    defaultPresetMap["key3_modline1_mmcid"] = 0;
+    defaultPresetMap["key3_modline1_mmcfunction"] = "Stop";
+    defaultPresetMap["key3_modline1_channel"] = 0;
+    defaultPresetMap["key3_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key3_modline1_ledgreen"] = "None";
+    defaultPresetMap["key3_modline1_ledred"] = "None";
+    defaultPresetMap["key3_modline1_displaylinked"] = 0;
+    defaultPresetMap["key3_modline1_reminder"] = "";
+
+    //------ Modline 2 ------//
+    defaultPresetMap["key3_modline2_enable"] = 0;
+    defaultPresetMap["key3_modline2_source"] = "None";
+    defaultPresetMap["key3_modline2_gain"] = 0.00;
+    defaultPresetMap["key3_modline2_offset"] = 0.00;
+    defaultPresetMap["key3_modline2_table"] = "1_Lin";
+    defaultPresetMap["key3_modline2_min"] = 0;
+    defaultPresetMap["key3_modline2_max"] = 127;
+    defaultPresetMap["key3_modline2_slew"] = 0;
+    defaultPresetMap["key3_modline2_destination"] = "None";
+    defaultPresetMap["key3_modline2_note"] = 60;
+    defaultPresetMap["key3_modline2_velocity"] = 127;
+    defaultPresetMap["key3_modline2_cc"] = 1;
+    defaultPresetMap["key3_modline2_mmcid"] = 0;
+    defaultPresetMap["key3_modline2_mmcfunction"] = "Stop";
+    defaultPresetMap["key3_modline2_channel"] = 0;
+    defaultPresetMap["key3_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key3_modline2_ledgreen"] = "None";
+    defaultPresetMap["key3_modline2_ledred"] = "None";
+    defaultPresetMap["key3_modline2_displaylinked"] = 0;
+    defaultPresetMap["key3_modline2_reminder"] = "";
+
+    //------ Modline 3 ------//
+    defaultPresetMap["key3_modline3_enable"] = 0;
+    defaultPresetMap["key3_modline3_source"] = "None";
+    defaultPresetMap["key3_modline3_gain"] = 0.00;
+    defaultPresetMap["key3_modline3_offset"] = 0.00;
+    defaultPresetMap["key3_modline3_table"] = "1_Lin";
+    defaultPresetMap["key3_modline3_min"] = 0;
+    defaultPresetMap["key3_modline3_max"] = 127;
+    defaultPresetMap["key3_modline3_slew"] = 0;
+    defaultPresetMap["key3_modline3_destination"] = "None";
+    defaultPresetMap["key3_modline3_note"] = 60;
+    defaultPresetMap["key3_modline3_velocity"] = 127;
+    defaultPresetMap["key3_modline3_cc"] = 1;
+    defaultPresetMap["key3_modline3_mmcid"] = 0;
+    defaultPresetMap["key3_modline3_mmcfunction"] = "Stop";
+    defaultPresetMap["key3_modline3_channel"] = 0;
+    defaultPresetMap["key3_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key3_modline3_ledgreen"] = "None";
+    defaultPresetMap["key3_modline3_ledred"] = "None";
+    defaultPresetMap["key3_modline3_displaylinked"] = 0;
+    defaultPresetMap["key3_modline3_reminder"] = "";
+
+    //------ Modline 4 ------//
+    defaultPresetMap["key3_modline4_enable"] = 0;
+    defaultPresetMap["key3_modline4_source"] = "None";
+    defaultPresetMap["key3_modline4_gain"] = 0.00;
+    defaultPresetMap["key3_modline4_offset"] = 0.00;
+    defaultPresetMap["key3_modline4_table"] = "1_Lin";
+    defaultPresetMap["key3_modline4_min"] = 0;
+    defaultPresetMap["key3_modline4_max"] = 127;
+    defaultPresetMap["key3_modline4_slew"] = 0;
+    defaultPresetMap["key3_modline4_destination"] = "None";
+    defaultPresetMap["key3_modline4_note"] = 60;
+    defaultPresetMap["key3_modline4_velocity"] = 127;
+    defaultPresetMap["key3_modline4_cc"] = 1;
+    defaultPresetMap["key3_modline4_mmcid"] = 0;
+    defaultPresetMap["key3_modline4_mmcfunction"] = "Stop";
+    defaultPresetMap["key3_modline4_channel"] = 0;
+    defaultPresetMap["key3_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key3_modline4_ledgreen"] = "None";
+    defaultPresetMap["key3_modline4_ledred"] = "None";
+    defaultPresetMap["key3_modline4_displaylinked"] = 0;
+    defaultPresetMap["key3_modline4_reminder"] = "";
+
+    //------ Modline 5 ------//
+    defaultPresetMap["key3_modline5_enable"] = 0;
+    defaultPresetMap["key3_modline5_source"] = "None";
+    defaultPresetMap["key3_modline5_gain"] = 0.00;
+    defaultPresetMap["key3_modline5_offset"] = 0.00;
+    defaultPresetMap["key3_modline5_table"] = "1_Lin";
+    defaultPresetMap["key3_modline5_min"] = 0;
+    defaultPresetMap["key3_modline5_max"] = 127;
+    defaultPresetMap["key3_modline5_slew"] = 0;
+    defaultPresetMap["key3_modline5_destination"] = "None";
+    defaultPresetMap["key3_modline5_note"] = 60;
+    defaultPresetMap["key3_modline5_velocity"] = 127;
+    defaultPresetMap["key3_modline5_cc"] = 1;
+    defaultPresetMap["key3_modline5_mmcid"] = 0;
+    defaultPresetMap["key3_modline5_mmcfunction"] = "Stop";
+    defaultPresetMap["key3_modline5_channel"] = 0;
+    defaultPresetMap["key3_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key3_modline5_ledgreen"] = "None";
+    defaultPresetMap["key3_modline5_ledred"] = "None";
+    defaultPresetMap["key3_modline5_displaylinked"] = 0;
+    defaultPresetMap["key3_modline5_reminder"] = "";
+
+    //------ Modline 6 ------//
+    defaultPresetMap["key3_modline6_enable"] = 0;
+    defaultPresetMap["key3_modline6_source"] = "None";
+    defaultPresetMap["key3_modline6_gain"] = 0.00;
+    defaultPresetMap["key3_modline6_offset"] = 0.00;
+    defaultPresetMap["key3_modline6_table"] = "1_Lin";
+    defaultPresetMap["key3_modline6_min"] = 0;
+    defaultPresetMap["key3_modline6_max"] = 127;
+    defaultPresetMap["key3_modline6_slew"] = 0;
+    defaultPresetMap["key3_modline6_destination"] = "None";
+    defaultPresetMap["key3_modline6_note"] = 60;
+    defaultPresetMap["key3_modline6_velocity"] = 127;
+    defaultPresetMap["key3_modline6_cc"] = 1;
+    defaultPresetMap["key3_modline6_mmcid"] = 0;
+    defaultPresetMap["key3_modline6_mmcfunction"] = "Stop";
+    defaultPresetMap["key3_modline6_channel"] = 0;
+    defaultPresetMap["key3_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key3_modline6_ledgreen"] = "None";
+    defaultPresetMap["key3_modline6_ledred"] = "None";
+    defaultPresetMap["key3_modline6_displaylinked"] = 0;
+    defaultPresetMap["key3_modline6_reminder"] = "";
+
+
+    //------------------------ Key 4 ------------------------//
+    defaultPresetMap["4_key_name"] = "4KEY";
+    defaultPresetMap["4_key_displaymode"] = 1;
+    defaultPresetMap["4_key_prefix"] = "";
+    defaultPresetMap["4_key_counter_min"] = 0;
+    defaultPresetMap["4_key_counter_max"] = 127;
+    defaultPresetMap["4_key_counter_wrap"] = 1;
+
+    //------ Modline 1 ------//
+    defaultPresetMap["key4_modline1_enable"] = 0;
+    defaultPresetMap["key4_modline1_source"] = "None";
+    defaultPresetMap["key4_modline1_gain"] = 0.00;
+    defaultPresetMap["key4_modline1_offset"] = 0.00;
+    defaultPresetMap["key4_modline1_table"] = "1_Lin";
+    defaultPresetMap["key4_modline1_min"] = 0;
+    defaultPresetMap["key4_modline1_max"] = 127;
+    defaultPresetMap["key4_modline1_slew"] = 0;
+    defaultPresetMap["key4_modline1_destination"] = "None";
+    defaultPresetMap["key4_modline1_note"] = 60;
+    defaultPresetMap["key4_modline1_velocity"] = 127;
+    defaultPresetMap["key4_modline1_cc"] = 1;
+    defaultPresetMap["key4_modline1_mmcid"] = 0;
+    defaultPresetMap["key4_modline1_mmcfunction"] = "Stop";
+    defaultPresetMap["key4_modline1_channel"] = 0;
+    defaultPresetMap["key4_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key4_modline1_ledgreen"] = "None";
+    defaultPresetMap["key4_modline1_ledred"] = "None";
+    defaultPresetMap["key4_modline1_displaylinked"] = 0;
+    defaultPresetMap["key4_modline1_reminder"] = "";
+
+    //------ Modline 2 ------//
+    defaultPresetMap["key4_modline2_enable"] = 0;
+    defaultPresetMap["key4_modline2_source"] = "None";
+    defaultPresetMap["key4_modline2_gain"] = 0.00;
+    defaultPresetMap["key4_modline2_offset"] = 0.00;
+    defaultPresetMap["key4_modline2_table"] = "1_Lin";
+    defaultPresetMap["key4_modline2_min"] = 0;
+    defaultPresetMap["key4_modline2_max"] = 127;
+    defaultPresetMap["key4_modline2_slew"] = 0;
+    defaultPresetMap["key4_modline2_destination"] = "None";
+    defaultPresetMap["key4_modline2_note"] = 60;
+    defaultPresetMap["key4_modline2_velocity"] = 127;
+    defaultPresetMap["key4_modline2_cc"] = 1;
+    defaultPresetMap["key4_modline2_mmcid"] = 0;
+    defaultPresetMap["key4_modline2_mmcfunction"] = "Stop";
+    defaultPresetMap["key4_modline2_channel"] = 0;
+    defaultPresetMap["key4_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key4_modline2_ledgreen"] = "None";
+    defaultPresetMap["key4_modline2_ledred"] = "None";
+    defaultPresetMap["key4_modline2_displaylinked"] = 0;
+    defaultPresetMap["key4_modline2_reminder"] = "";
+
+    //------ Modline 3 ------//
+    defaultPresetMap["key4_modline3_enable"] = 0;
+    defaultPresetMap["key4_modline3_source"] = "None";
+    defaultPresetMap["key4_modline3_gain"] = 0.00;
+    defaultPresetMap["key4_modline3_offset"] = 0.00;
+    defaultPresetMap["key4_modline3_table"] = "1_Lin";
+    defaultPresetMap["key4_modline3_min"] = 0;
+    defaultPresetMap["key4_modline3_max"] = 127;
+    defaultPresetMap["key4_modline3_slew"] = 0;
+    defaultPresetMap["key4_modline3_destination"] = "None";
+    defaultPresetMap["key4_modline3_note"] = 60;
+    defaultPresetMap["key4_modline3_velocity"] = 127;
+    defaultPresetMap["key4_modline3_cc"] = 1;
+    defaultPresetMap["key4_modline3_mmcid"] = 0;
+    defaultPresetMap["key4_modline3_mmcfunction"] = "Stop";
+    defaultPresetMap["key4_modline3_channel"] = 0;
+    defaultPresetMap["key4_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key4_modline3_ledgreen"] = "None";
+    defaultPresetMap["key4_modline3_ledred"] = "None";
+    defaultPresetMap["key4_modline3_displaylinked"] = 0;
+    defaultPresetMap["key4_modline3_reminder"] = "";
+
+    //------ Modline 4 ------//
+    defaultPresetMap["key4_modline4_enable"] = 0;
+    defaultPresetMap["key4_modline4_source"] = "None";
+    defaultPresetMap["key4_modline4_gain"] = 0.00;
+    defaultPresetMap["key4_modline4_offset"] = 0.00;
+    defaultPresetMap["key4_modline4_table"] = "1_Lin";
+    defaultPresetMap["key4_modline4_min"] = 0;
+    defaultPresetMap["key4_modline4_max"] = 127;
+    defaultPresetMap["key4_modline4_slew"] = 0;
+    defaultPresetMap["key4_modline4_destination"] = "None";
+    defaultPresetMap["key4_modline4_note"] = 60;
+    defaultPresetMap["key4_modline4_velocity"] = 127;
+    defaultPresetMap["key4_modline4_cc"] = 1;
+    defaultPresetMap["key4_modline4_mmcid"] = 0;
+    defaultPresetMap["key4_modline4_mmcfunction"] = "Stop";
+    defaultPresetMap["key4_modline4_channel"] = 0;
+    defaultPresetMap["key4_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key4_modline4_ledgreen"] = "None";
+    defaultPresetMap["key4_modline4_ledred"] = "None";
+    defaultPresetMap["key4_modline4_displaylinked"] = 0;
+    defaultPresetMap["key4_modline4_reminder"] = "";
+
+    //------ Modline 5 ------//
+    defaultPresetMap["key4_modline5_enable"] = 0;
+    defaultPresetMap["key4_modline5_source"] = "None";
+    defaultPresetMap["key4_modline5_gain"] = 0.00;
+    defaultPresetMap["key4_modline5_offset"] = 0.00;
+    defaultPresetMap["key4_modline5_table"] = "1_Lin";
+    defaultPresetMap["key4_modline5_min"] = 0;
+    defaultPresetMap["key4_modline5_max"] = 127;
+    defaultPresetMap["key4_modline5_slew"] = 0;
+    defaultPresetMap["key4_modline5_destination"] = "None";
+    defaultPresetMap["key4_modline5_note"] = 60;
+    defaultPresetMap["key4_modline5_velocity"] = 127;
+    defaultPresetMap["key4_modline5_cc"] = 1;
+    defaultPresetMap["key4_modline5_mmcid"] = 0;
+    defaultPresetMap["key4_modline5_mmcfunction"] = "Stop";
+    defaultPresetMap["key4_modline5_channel"] = 0;
+    defaultPresetMap["key4_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key4_modline5_ledgreen"] = "None";
+    defaultPresetMap["key4_modline5_ledred"] = "None";
+    defaultPresetMap["key4_modline5_displaylinked"] = 0;
+    defaultPresetMap["key4_modline5_reminder"] = "";
+
+    //------ Modline 6 ------//
+    defaultPresetMap["key4_modline6_enable"] = 0;
+    defaultPresetMap["key4_modline6_source"] = "None";
+    defaultPresetMap["key4_modline6_gain"] = 0.00;
+    defaultPresetMap["key4_modline6_offset"] = 0.00;
+    defaultPresetMap["key4_modline6_table"] = "1_Lin";
+    defaultPresetMap["key4_modline6_min"] = 0;
+    defaultPresetMap["key4_modline6_max"] = 127;
+    defaultPresetMap["key4_modline6_slew"] = 0;
+    defaultPresetMap["key4_modline6_destination"] = "None";
+    defaultPresetMap["key4_modline6_note"] = 60;
+    defaultPresetMap["key4_modline6_velocity"] = 127;
+    defaultPresetMap["key4_modline6_cc"] = 1;
+    defaultPresetMap["key4_modline6_mmcid"] = 0;
+    defaultPresetMap["key4_modline6_mmcfunction"] = "Stop";
+    defaultPresetMap["key4_modline6_channel"] = 0;
+    defaultPresetMap["key4_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key4_modline6_ledgreen"] = "None";
+    defaultPresetMap["key4_modline6_ledred"] = "None";
+    defaultPresetMap["key4_modline6_displaylinked"] = 0;
+    defaultPresetMap["key4_modline6_reminder"] = "";
+
+
+    //------------------------ Key 5 ------------------------//
+    defaultPresetMap["5_key_name"] = "5KEY";
+    defaultPresetMap["5_key_displaymode"] = 1;
+    defaultPresetMap["5_key_prefix"] = "";
+    defaultPresetMap["5_key_counter_min"] = 0;
+    defaultPresetMap["5_key_counter_max"] = 127;
+    defaultPresetMap["5_key_counter_wrap"] = 1;
+
+    //------ Modline 1 ------//
+    defaultPresetMap["key5_modline1_enable"] = 0;
+    defaultPresetMap["key5_modline1_source"] = "None";
+    defaultPresetMap["key5_modline1_gain"] = 0.00;
+    defaultPresetMap["key5_modline1_offset"] = 0.00;
+    defaultPresetMap["key5_modline1_table"] = "1_Lin";
+    defaultPresetMap["key5_modline1_min"] = 0;
+    defaultPresetMap["key5_modline1_max"] = 127;
+    defaultPresetMap["key5_modline1_slew"] = 0;
+    defaultPresetMap["key5_modline1_destination"] = "None";
+    defaultPresetMap["key5_modline1_note"] = 60;
+    defaultPresetMap["key5_modline1_velocity"] = 127;
+    defaultPresetMap["key5_modline1_cc"] = 1;
+    defaultPresetMap["key5_modline1_mmcid"] = 0;
+    defaultPresetMap["key5_modline1_mmcfunction"] = "Stop";
+    defaultPresetMap["key5_modline1_channel"] = 0;
+    defaultPresetMap["key5_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key5_modline1_ledgreen"] = "None";
+    defaultPresetMap["key5_modline1_ledred"] = "None";
+    defaultPresetMap["key5_modline1_displaylinked"] = 0;
+    defaultPresetMap["key5_modline1_reminder"] = "";
+
+    //------ Modline 2 ------//
+    defaultPresetMap["key5_modline2_enable"] = 0;
+    defaultPresetMap["key5_modline2_source"] = "None";
+    defaultPresetMap["key5_modline2_gain"] = 0.00;
+    defaultPresetMap["key5_modline2_offset"] = 0.00;
+    defaultPresetMap["key5_modline2_table"] = "1_Lin";
+    defaultPresetMap["key5_modline2_min"] = 0;
+    defaultPresetMap["key5_modline2_max"] = 127;
+    defaultPresetMap["key5_modline2_slew"] = 0;
+    defaultPresetMap["key5_modline2_destination"] = "None";
+    defaultPresetMap["key5_modline2_note"] = 60;
+    defaultPresetMap["key5_modline2_velocity"] = 127;
+    defaultPresetMap["key5_modline2_cc"] = 1;
+    defaultPresetMap["key5_modline2_mmcid"] = 0;
+    defaultPresetMap["key5_modline2_mmcfunction"] = "Stop";
+    defaultPresetMap["key5_modline2_channel"] = 0;
+    defaultPresetMap["key5_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key5_modline2_ledgreen"] = "None";
+    defaultPresetMap["key5_modline2_ledred"] = "None";
+    defaultPresetMap["key5_modline2_displaylinked"] = 0;
+    defaultPresetMap["key5_modline2_reminder"] = "";
+
+    //------ Modline 3 ------//
+    defaultPresetMap["key5_modline3_enable"] = 0;
+    defaultPresetMap["key5_modline3_source"] = "None";
+    defaultPresetMap["key5_modline3_gain"] = 0.00;
+    defaultPresetMap["key5_modline3_offset"] = 0.00;
+    defaultPresetMap["key5_modline3_table"] = "1_Lin";
+    defaultPresetMap["key5_modline3_min"] = 0;
+    defaultPresetMap["key5_modline3_max"] = 127;
+    defaultPresetMap["key5_modline3_slew"] = 0;
+    defaultPresetMap["key5_modline3_destination"] = "None";
+    defaultPresetMap["key5_modline3_note"] = 60;
+    defaultPresetMap["key5_modline3_velocity"] = 127;
+    defaultPresetMap["key5_modline3_cc"] = 1;
+    defaultPresetMap["key5_modline3_mmcid"] = 0;
+    defaultPresetMap["key5_modline3_mmcfunction"] = "Stop";
+    defaultPresetMap["key5_modline3_channel"] = 0;
+    defaultPresetMap["key5_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key5_modline3_ledgreen"] = "None";
+    defaultPresetMap["key5_modline3_ledred"] = "None";
+    defaultPresetMap["key5_modline3_displaylinked"] = 0;
+    defaultPresetMap["key5_modline3_reminder"] = "";
+
+    //------ Modline 4 ------//
+    defaultPresetMap["key5_modline4_enable"] = 0;
+    defaultPresetMap["key5_modline4_source"] = "None";
+    defaultPresetMap["key5_modline4_gain"] = 0.00;
+    defaultPresetMap["key5_modline4_offset"] = 0.00;
+    defaultPresetMap["key5_modline4_table"] = "1_Lin";
+    defaultPresetMap["key5_modline4_min"] = 0;
+    defaultPresetMap["key5_modline4_max"] = 127;
+    defaultPresetMap["key5_modline4_slew"] = 0;
+    defaultPresetMap["key5_modline4_destination"] = "None";
+    defaultPresetMap["key5_modline4_note"] = 60;
+    defaultPresetMap["key5_modline4_velocity"] = 127;
+    defaultPresetMap["key5_modline4_cc"] = 1;
+    defaultPresetMap["key5_modline4_mmcid"] = 0;
+    defaultPresetMap["key5_modline4_mmcfunction"] = "Stop";
+    defaultPresetMap["key5_modline4_channel"] = 0;
+    defaultPresetMap["key5_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key5_modline4_ledgreen"] = "None";
+    defaultPresetMap["key5_modline4_ledred"] = "None";
+    defaultPresetMap["key5_modline4_displaylinked"] = 0;
+    defaultPresetMap["key5_modline4_reminder"] = "";
+
+    //------ Modline 5 ------//
+    defaultPresetMap["key5_modline5_enable"] = 0;
+    defaultPresetMap["key5_modline5_source"] = "None";
+    defaultPresetMap["key5_modline5_gain"] = 0.00;
+    defaultPresetMap["key5_modline5_offset"] = 0.00;
+    defaultPresetMap["key5_modline5_table"] = "1_Lin";
+    defaultPresetMap["key5_modline5_min"] = 0;
+    defaultPresetMap["key5_modline5_max"] = 127;
+    defaultPresetMap["key5_modline5_slew"] = 0;
+    defaultPresetMap["key5_modline5_destination"] = "None";
+    defaultPresetMap["key5_modline5_note"] = 60;
+    defaultPresetMap["key5_modline5_velocity"] = 127;
+    defaultPresetMap["key5_modline5_cc"] = 1;
+    defaultPresetMap["key5_modline5_mmcid"] = 0;
+    defaultPresetMap["key5_modline5_mmcfunction"] = "Stop";
+    defaultPresetMap["key5_modline5_channel"] = 0;
+    defaultPresetMap["key5_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key5_modline5_ledgreen"] = "None";
+    defaultPresetMap["key5_modline5_ledred"] = "None";
+    defaultPresetMap["key5_modline5_displaylinked"] = 0;
+    defaultPresetMap["key5_modline5_reminder"] = "";
+
+    //------ Modline 6 ------//
+    defaultPresetMap["key5_modline6_enable"] = 0;
+    defaultPresetMap["key5_modline6_source"] = "None";
+    defaultPresetMap["key5_modline6_gain"] = 0.00;
+    defaultPresetMap["key5_modline6_offset"] = 0.00;
+    defaultPresetMap["key5_modline6_table"] = "1_Lin";
+    defaultPresetMap["key5_modline6_min"] = 0;
+    defaultPresetMap["key5_modline6_max"] = 127;
+    defaultPresetMap["key5_modline6_slew"] = 0;
+    defaultPresetMap["key5_modline6_destination"] = "None";
+    defaultPresetMap["key5_modline6_note"] = 60;
+    defaultPresetMap["key5_modline6_velocity"] = 127;
+    defaultPresetMap["key5_modline6_cc"] = 1;
+    defaultPresetMap["key5_modline6_mmcid"] = 0;
+    defaultPresetMap["key5_modline6_mmcfunction"] = "Stop";
+    defaultPresetMap["key5_modline6_channel"] = 0;
+    defaultPresetMap["key5_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key5_modline6_ledgreen"] = "None";
+    defaultPresetMap["key5_modline6_ledred"] = "None";
+    defaultPresetMap["key5_modline6_displaylinked"] = 0;
+    defaultPresetMap["key5_modline6_reminder"] = "";
+
+
+    //------------------------ Key 6 ------------------------//
+    defaultPresetMap["6_key_name"] = "6KEY";
+    defaultPresetMap["6_key_displaymode"] = 1;
+    defaultPresetMap["6_key_prefix"] = "";
+    defaultPresetMap["6_key_counter_min"] = 0;
+    defaultPresetMap["6_key_counter_max"] = 127;
+    defaultPresetMap["6_key_counter_wrap"] = 1;
+
+    //------ Modline 1 ------//
+    defaultPresetMap["key6_modline1_enable"] = 0;
+    defaultPresetMap["key6_modline1_source"] = "None";
+    defaultPresetMap["key6_modline1_gain"] = 0.00;
+    defaultPresetMap["key6_modline1_offset"] = 0.00;
+    defaultPresetMap["key6_modline1_table"] = "1_Lin";
+    defaultPresetMap["key6_modline1_min"] = 0;
+    defaultPresetMap["key6_modline1_max"] = 127;
+    defaultPresetMap["key6_modline1_slew"] = 0;
+    defaultPresetMap["key6_modline1_destination"] = "None";
+    defaultPresetMap["key6_modline1_note"] = 60;
+    defaultPresetMap["key6_modline1_velocity"] = 127;
+    defaultPresetMap["key6_modline1_cc"] = 1;
+    defaultPresetMap["key6_modline1_mmcid"] = 0;
+    defaultPresetMap["key6_modline1_mmcfunction"] = "Stop";
+    defaultPresetMap["key6_modline1_channel"] = 0;
+    defaultPresetMap["key6_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key6_modline1_ledgreen"] = "None";
+    defaultPresetMap["key6_modline1_ledred"] = "None";
+    defaultPresetMap["key6_modline1_displaylinked"] = 0;
+    defaultPresetMap["key6_modline1_reminder"] = "";
+
+    //------ Modline 2 ------//
+    defaultPresetMap["key6_modline2_enable"] = 0;
+    defaultPresetMap["key6_modline2_source"] = "None";
+    defaultPresetMap["key6_modline2_gain"] = 0.00;
+    defaultPresetMap["key6_modline2_offset"] = 0.00;
+    defaultPresetMap["key6_modline2_table"] = "1_Lin";
+    defaultPresetMap["key6_modline2_min"] = 0;
+    defaultPresetMap["key6_modline2_max"] = 127;
+    defaultPresetMap["key6_modline2_slew"] = 0;
+    defaultPresetMap["key6_modline2_destination"] = "None";
+    defaultPresetMap["key6_modline2_note"] = 60;
+    defaultPresetMap["key6_modline2_velocity"] = 127;
+    defaultPresetMap["key6_modline2_cc"] = 1;
+    defaultPresetMap["key6_modline2_mmcid"] = 0;
+    defaultPresetMap["key6_modline2_mmcfunction"] = "Stop";
+    defaultPresetMap["key6_modline2_channel"] = 0;
+    defaultPresetMap["key6_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key6_modline2_ledgreen"] = "None";
+    defaultPresetMap["key6_modline2_ledred"] = "None";
+    defaultPresetMap["key6_modline2_displaylinked"] = 0;
+    defaultPresetMap["key6_modline2_reminder"] = "";
+
+    //------ Modline 3 ------//
+    defaultPresetMap["key6_modline3_enable"] = 0;
+    defaultPresetMap["key6_modline3_source"] = "None";
+    defaultPresetMap["key6_modline3_gain"] = 0.00;
+    defaultPresetMap["key6_modline3_offset"] = 0.00;
+    defaultPresetMap["key6_modline3_table"] = "1_Lin";
+    defaultPresetMap["key6_modline3_min"] = 0;
+    defaultPresetMap["key6_modline3_max"] = 127;
+    defaultPresetMap["key6_modline3_slew"] = 0;
+    defaultPresetMap["key6_modline3_destination"] = "None";
+    defaultPresetMap["key6_modline3_note"] = 60;
+    defaultPresetMap["key6_modline3_velocity"] = 127;
+    defaultPresetMap["key6_modline3_cc"] = 1;
+    defaultPresetMap["key6_modline3_mmcid"] = 0;
+    defaultPresetMap["key6_modline3_mmcfunction"] = "Stop";
+    defaultPresetMap["key6_modline3_channel"] = 0;
+    defaultPresetMap["key6_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key6_modline3_ledgreen"] = "None";
+    defaultPresetMap["key6_modline3_ledred"] = "None";
+    defaultPresetMap["key6_modline3_displaylinked"] = 0;
+    defaultPresetMap["key6_modline3_reminder"] = "";
+
+    //------ Modline 4 ------//
+    defaultPresetMap["key6_modline4_enable"] = 0;
+    defaultPresetMap["key6_modline4_source"] = "None";
+    defaultPresetMap["key6_modline4_gain"] = 0.00;
+    defaultPresetMap["key6_modline4_offset"] = 0.00;
+    defaultPresetMap["key6_modline4_table"] = "1_Lin";
+    defaultPresetMap["key6_modline4_min"] = 0;
+    defaultPresetMap["key6_modline4_max"] = 127;
+    defaultPresetMap["key6_modline4_slew"] = 0;
+    defaultPresetMap["key6_modline4_destination"] = "None";
+    defaultPresetMap["key6_modline4_note"] = 60;
+    defaultPresetMap["key6_modline4_velocity"] = 127;
+    defaultPresetMap["key6_modline4_cc"] = 1;
+    defaultPresetMap["key6_modline4_mmcid"] = 0;
+    defaultPresetMap["key6_modline4_mmcfunction"] = "Stop";
+    defaultPresetMap["key6_modline4_channel"] = 0;
+    defaultPresetMap["key6_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key6_modline4_ledgreen"] = "None";
+    defaultPresetMap["key6_modline4_ledred"] = "None";
+    defaultPresetMap["key6_modline4_displaylinked"] = 0;
+    defaultPresetMap["key6_modline4_reminder"] = "";
+
+    //------ Modline 5 ------//
+    defaultPresetMap["key6_modline5_enable"] = 0;
+    defaultPresetMap["key6_modline5_source"] = "None";
+    defaultPresetMap["key6_modline5_gain"] = 0.00;
+    defaultPresetMap["key6_modline5_offset"] = 0.00;
+    defaultPresetMap["key6_modline5_table"] = "1_Lin";
+    defaultPresetMap["key6_modline5_min"] = 0;
+    defaultPresetMap["key6_modline5_max"] = 127;
+    defaultPresetMap["key6_modline5_slew"] = 0;
+    defaultPresetMap["key6_modline5_destination"] = "None";
+    defaultPresetMap["key6_modline5_note"] = 60;
+    defaultPresetMap["key6_modline5_velocity"] = 127;
+    defaultPresetMap["key6_modline5_cc"] = 1;
+    defaultPresetMap["key6_modline5_mmcid"] = 0;
+    defaultPresetMap["key6_modline5_mmcfunction"] = "Stop";
+    defaultPresetMap["key6_modline5_channel"] = 0;
+    defaultPresetMap["key6_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key6_modline5_ledgreen"] = "None";
+    defaultPresetMap["key6_modline5_ledred"] = "None";
+    defaultPresetMap["key6_modline5_displaylinked"] = 0;
+    defaultPresetMap["key6_modline5_reminder"] = "";
+
+    //------ Modline 6 ------//
+    defaultPresetMap["key6_modline6_enable"] = 0;
+    defaultPresetMap["key6_modline6_source"] = "None";
+    defaultPresetMap["key6_modline6_gain"] = 0.00;
+    defaultPresetMap["key6_modline6_offset"] = 0.00;
+    defaultPresetMap["key6_modline6_table"] = "1_Lin";
+    defaultPresetMap["key6_modline6_min"] = 0;
+    defaultPresetMap["key6_modline6_max"] = 127;
+    defaultPresetMap["key6_modline6_slew"] = 0;
+    defaultPresetMap["key6_modline6_destination"] = "None";
+    defaultPresetMap["key6_modline6_note"] = 60;
+    defaultPresetMap["key6_modline6_velocity"] = 127;
+    defaultPresetMap["key6_modline6_cc"] = 1;
+    defaultPresetMap["key6_modline6_mmcid"] = 0;
+    defaultPresetMap["key6_modline6_mmcfunction"] = "Stop";
+    defaultPresetMap["key6_modline6_channel"] = 0;
+    defaultPresetMap["key6_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key6_modline6_ledgreen"] = "None";
+    defaultPresetMap["key6_modline6_ledred"] = "None";
+    defaultPresetMap["key6_modline6_displaylinked"] = 0;
+    defaultPresetMap["key6_modline6_reminder"] = "";
+
+
+    //------------------------ Key 7 ------------------------//
+    defaultPresetMap["7_key_name"] = "7KEY";
+    defaultPresetMap["7_key_displaymode"] = 1;
+    defaultPresetMap["7_key_prefix"] = "";
+    defaultPresetMap["7_key_counter_min"] = 0;
+    defaultPresetMap["7_key_counter_max"] = 127;
+    defaultPresetMap["7_key_counter_wrap"] = 1;
+
+    //------ Modline 1 ------//
+    defaultPresetMap["key7_modline1_enable"] = 0;
+    defaultPresetMap["key7_modline1_source"] = "None";
+    defaultPresetMap["key7_modline1_gain"] = 0.00;
+    defaultPresetMap["key7_modline1_offset"] = 0.00;
+    defaultPresetMap["key7_modline1_table"] = "1_Lin";
+    defaultPresetMap["key7_modline1_min"] = 0;
+    defaultPresetMap["key7_modline1_max"] = 127;
+    defaultPresetMap["key7_modline1_slew"] = 0;
+    defaultPresetMap["key7_modline1_destination"] = "None";
+    defaultPresetMap["key7_modline1_note"] = 60;
+    defaultPresetMap["key7_modline1_velocity"] = 127;
+    defaultPresetMap["key7_modline1_cc"] = 1;
+    defaultPresetMap["key7_modline1_mmcid"] = 0;
+    defaultPresetMap["key7_modline1_mmcfunction"] = "Stop";
+    defaultPresetMap["key7_modline1_channel"] = 0;
+    defaultPresetMap["key7_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key7_modline1_ledgreen"] = "None";
+    defaultPresetMap["key7_modline1_ledred"] = "None";
+    defaultPresetMap["key7_modline1_displaylinked"] = 0;
+    defaultPresetMap["key7_modline1_reminder"] = "";
+
+    //------ Modline 2 ------//
+    defaultPresetMap["key7_modline2_enable"] = 0;
+    defaultPresetMap["key7_modline2_source"] = "None";
+    defaultPresetMap["key7_modline2_gain"] = 0.00;
+    defaultPresetMap["key7_modline2_offset"] = 0.00;
+    defaultPresetMap["key7_modline2_table"] = "1_Lin";
+    defaultPresetMap["key7_modline2_min"] = 0;
+    defaultPresetMap["key7_modline2_max"] = 127;
+    defaultPresetMap["key7_modline2_slew"] = 0;
+    defaultPresetMap["key7_modline2_destination"] = "None";
+    defaultPresetMap["key7_modline2_note"] = 60;
+    defaultPresetMap["key7_modline2_velocity"] = 127;
+    defaultPresetMap["key7_modline2_cc"] = 1;
+    defaultPresetMap["key7_modline2_mmcid"] = 0;
+    defaultPresetMap["key7_modline2_mmcfunction"] = "Stop";
+    defaultPresetMap["key7_modline2_channel"] = 0;
+    defaultPresetMap["key7_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key7_modline2_ledgreen"] = "None";
+    defaultPresetMap["key7_modline2_ledred"] = "None";
+    defaultPresetMap["key7_modline2_displaylinked"] = 0;
+    defaultPresetMap["key7_modline2_reminder"] = "";
+
+    //------ Modline 3 ------//
+    defaultPresetMap["key7_modline3_enable"] = 0;
+    defaultPresetMap["key7_modline3_source"] = "None";
+    defaultPresetMap["key7_modline3_gain"] = 0.00;
+    defaultPresetMap["key7_modline3_offset"] = 0.00;
+    defaultPresetMap["key7_modline3_table"] = "1_Lin";
+    defaultPresetMap["key7_modline3_min"] = 0;
+    defaultPresetMap["key7_modline3_max"] = 127;
+    defaultPresetMap["key7_modline3_slew"] = 0;
+    defaultPresetMap["key7_modline3_destination"] = "None";
+    defaultPresetMap["key7_modline3_note"] = 60;
+    defaultPresetMap["key7_modline3_velocity"] = 127;
+    defaultPresetMap["key7_modline3_cc"] = 1;
+    defaultPresetMap["key7_modline3_mmcid"] = 0;
+    defaultPresetMap["key7_modline3_mmcfunction"] = "Stop";
+    defaultPresetMap["key7_modline3_channel"] = 0;
+    defaultPresetMap["key7_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key7_modline3_ledgreen"] = "None";
+    defaultPresetMap["key7_modline3_ledred"] = "None";
+    defaultPresetMap["key7_modline3_displaylinked"] = 0;
+    defaultPresetMap["key7_modline3_reminder"] = "";
+
+    //------ Modline 4 ------//
+    defaultPresetMap["key7_modline4_enable"] = 0;
+    defaultPresetMap["key7_modline4_source"] = "None";
+    defaultPresetMap["key7_modline4_gain"] = 0.00;
+    defaultPresetMap["key7_modline4_offset"] = 0.00;
+    defaultPresetMap["key7_modline4_table"] = "1_Lin";
+    defaultPresetMap["key7_modline4_min"] = 0;
+    defaultPresetMap["key7_modline4_max"] = 127;
+    defaultPresetMap["key7_modline4_slew"] = 0;
+    defaultPresetMap["key7_modline4_destination"] = "None";
+    defaultPresetMap["key7_modline4_note"] = 60;
+    defaultPresetMap["key7_modline4_velocity"] = 127;
+    defaultPresetMap["key7_modline4_cc"] = 1;
+    defaultPresetMap["key7_modline4_mmcid"] = 0;
+    defaultPresetMap["key7_modline4_mmcfunction"] = "Stop";
+    defaultPresetMap["key7_modline4_channel"] = 0;
+    defaultPresetMap["key7_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key7_modline4_ledgreen"] = "None";
+    defaultPresetMap["key7_modline4_ledred"] = "None";
+    defaultPresetMap["key7_modline4_displaylinked"] = 0;
+    defaultPresetMap["key7_modline4_reminder"] = "";
+
+    //------ Modline 5 ------//
+    defaultPresetMap["key7_modline5_enable"] = 0;
+    defaultPresetMap["key7_modline5_source"] = "None";
+    defaultPresetMap["key7_modline5_gain"] = 0.00;
+    defaultPresetMap["key7_modline5_offset"] = 0.00;
+    defaultPresetMap["key7_modline5_table"] = "1_Lin";
+    defaultPresetMap["key7_modline5_min"] = 0;
+    defaultPresetMap["key7_modline5_max"] = 127;
+    defaultPresetMap["key7_modline5_slew"] = 0;
+    defaultPresetMap["key7_modline5_destination"] = "None";
+    defaultPresetMap["key7_modline5_note"] = 60;
+    defaultPresetMap["key7_modline5_velocity"] = 127;
+    defaultPresetMap["key7_modline5_cc"] = 1;
+    defaultPresetMap["key7_modline5_mmcid"] = 0;
+    defaultPresetMap["key7_modline5_mmcfunction"] = "Stop";
+    defaultPresetMap["key7_modline5_channel"] = 0;
+    defaultPresetMap["key7_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key7_modline5_ledgreen"] = "None";
+    defaultPresetMap["key7_modline5_ledred"] = "None";
+    defaultPresetMap["key7_modline5_displaylinked"] = 0;
+    defaultPresetMap["key7_modline5_reminder"] = "";
+
+    //------ Modline 6 ------//
+    defaultPresetMap["key7_modline6_enable"] = 0;
+    defaultPresetMap["key7_modline6_source"] = "None";
+    defaultPresetMap["key7_modline6_gain"] = 0.00;
+    defaultPresetMap["key7_modline6_offset"] = 0.00;
+    defaultPresetMap["key7_modline6_table"] = "1_Lin";
+    defaultPresetMap["key7_modline6_min"] = 0;
+    defaultPresetMap["key7_modline6_max"] = 127;
+    defaultPresetMap["key7_modline6_slew"] = 0;
+    defaultPresetMap["key7_modline6_destination"] = "None";
+    defaultPresetMap["key7_modline6_note"] = 60;
+    defaultPresetMap["key7_modline6_velocity"] = 127;
+    defaultPresetMap["key7_modline6_cc"] = 1;
+    defaultPresetMap["key7_modline6_mmcid"] = 0;
+    defaultPresetMap["key7_modline6_mmcfunction"] = "Stop";
+    defaultPresetMap["key7_modline6_channel"] = 0;
+    defaultPresetMap["key7_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key7_modline6_ledgreen"] = "None";
+    defaultPresetMap["key7_modline6_ledred"] = "None";
+    defaultPresetMap["key7_modline6_displaylinked"] = 0;
+    defaultPresetMap["key7_modline6_reminder"] = "";
+
+
+    //------------------------ Key 8 ------------------------//
+    defaultPresetMap["8_key_name"] = "8KEY";
+    defaultPresetMap["8_key_displaymode"] = 1;
+    defaultPresetMap["8_key_prefix"] = "";
+    defaultPresetMap["8_key_counter_min"] = 0;
+    defaultPresetMap["8_key_counter_max"] = 127;
+    defaultPresetMap["8_key_counter_wrap"] = 1;
+
+    //------ Modline 1 ------//
+    defaultPresetMap["key8_modline1_enable"] = 0;
+    defaultPresetMap["key8_modline1_source"] = "None";
+    defaultPresetMap["key8_modline1_gain"] = 0.00;
+    defaultPresetMap["key8_modline1_offset"] = 0.00;
+    defaultPresetMap["key8_modline1_table"] = "1_Lin";
+    defaultPresetMap["key8_modline1_min"] = 0;
+    defaultPresetMap["key8_modline1_max"] = 127;
+    defaultPresetMap["key8_modline1_slew"] = 0;
+    defaultPresetMap["key8_modline1_destination"] = "None";
+    defaultPresetMap["key8_modline1_note"] = 60;
+    defaultPresetMap["key8_modline1_velocity"] = 127;
+    defaultPresetMap["key8_modline1_cc"] = 1;
+    defaultPresetMap["key8_modline1_mmcid"] = 0;
+    defaultPresetMap["key8_modline1_mmcfunction"] = "Stop";
+    defaultPresetMap["key8_modline1_channel"] = 0;
+    defaultPresetMap["key8_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key8_modline1_ledgreen"] = "None";
+    defaultPresetMap["key8_modline1_ledred"] = "None";
+    defaultPresetMap["key8_modline1_displaylinked"] = 0;
+    defaultPresetMap["key8_modline1_reminder"] = "";
+
+    //------ Modline 2 ------//
+    defaultPresetMap["key8_modline2_enable"] = 0;
+    defaultPresetMap["key8_modline2_source"] = "None";
+    defaultPresetMap["key8_modline2_gain"] = 0.00;
+    defaultPresetMap["key8_modline2_offset"] = 0.00;
+    defaultPresetMap["key8_modline2_table"] = "1_Lin";
+    defaultPresetMap["key8_modline2_min"] = 0;
+    defaultPresetMap["key8_modline2_max"] = 127;
+    defaultPresetMap["key8_modline2_slew"] = 0;
+    defaultPresetMap["key8_modline2_destination"] = "None";
+    defaultPresetMap["key8_modline2_note"] = 60;
+    defaultPresetMap["key8_modline2_velocity"] = 127;
+    defaultPresetMap["key8_modline2_cc"] = 1;
+    defaultPresetMap["key8_modline2_mmcid"] = 0;
+    defaultPresetMap["key8_modline2_mmcfunction"] = "Stop";
+    defaultPresetMap["key8_modline2_channel"] = 0;
+    defaultPresetMap["key8_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key8_modline2_ledgreen"] = "None";
+    defaultPresetMap["key8_modline2_ledred"] = "None";
+    defaultPresetMap["key8_modline2_displaylinked"] = 0;
+    defaultPresetMap["key8_modline2_reminder"] = "";
+
+    //------ Modline 3 ------//
+    defaultPresetMap["key8_modline3_enable"] = 0;
+    defaultPresetMap["key8_modline3_source"] = "None";
+    defaultPresetMap["key8_modline3_gain"] = 0.00;
+    defaultPresetMap["key8_modline3_offset"] = 0.00;
+    defaultPresetMap["key8_modline3_table"] = "1_Lin";
+    defaultPresetMap["key8_modline3_min"] = 0;
+    defaultPresetMap["key8_modline3_max"] = 127;
+    defaultPresetMap["key8_modline3_slew"] = 0;
+    defaultPresetMap["key8_modline3_destination"] = "None";
+    defaultPresetMap["key8_modline3_note"] = 60;
+    defaultPresetMap["key8_modline3_velocity"] = 127;
+    defaultPresetMap["key8_modline3_cc"] = 1;
+    defaultPresetMap["key8_modline3_mmcid"] = 0;
+    defaultPresetMap["key8_modline3_mmcfunction"] = "Stop";
+    defaultPresetMap["key8_modline3_channel"] = 0;
+    defaultPresetMap["key8_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key8_modline3_ledgreen"] = "None";
+    defaultPresetMap["key8_modline3_ledred"] = "None";
+    defaultPresetMap["key8_modline3_displaylinked"] = 0;
+    defaultPresetMap["key8_modline3_reminder"] = "";
+
+    //------ Modline 4 ------//
+    defaultPresetMap["key8_modline4_enable"] = 0;
+    defaultPresetMap["key8_modline4_source"] = "None";
+    defaultPresetMap["key8_modline4_gain"] = 0.00;
+    defaultPresetMap["key8_modline4_offset"] = 0.00;
+    defaultPresetMap["key8_modline4_table"] = "1_Lin";
+    defaultPresetMap["key8_modline4_min"] = 0;
+    defaultPresetMap["key8_modline4_max"] = 127;
+    defaultPresetMap["key8_modline4_slew"] = 0;
+    defaultPresetMap["key8_modline4_destination"] = "None";
+    defaultPresetMap["key8_modline4_note"] = 60;
+    defaultPresetMap["key8_modline4_velocity"] = 127;
+    defaultPresetMap["key8_modline4_cc"] = 1;
+    defaultPresetMap["key8_modline4_mmcid"] = 0;
+    defaultPresetMap["key8_modline4_mmcfunction"] = "Stop";
+    defaultPresetMap["key8_modline4_channel"] = 0;
+    defaultPresetMap["key8_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key8_modline4_ledgreen"] = "None";
+    defaultPresetMap["key8_modline4_ledred"] = "None";
+    defaultPresetMap["key8_modline4_displaylinked"] = 0;
+    defaultPresetMap["key8_modline4_reminder"] = "";
+
+    //------ Modline 5 ------//
+    defaultPresetMap["key8_modline5_enable"] = 0;
+    defaultPresetMap["key8_modline5_source"] = "None";
+    defaultPresetMap["key8_modline5_gain"] = 0.00;
+    defaultPresetMap["key8_modline5_offset"] = 0.00;
+    defaultPresetMap["key8_modline5_table"] = "1_Lin";
+    defaultPresetMap["key8_modline5_min"] = 0;
+    defaultPresetMap["key8_modline5_max"] = 127;
+    defaultPresetMap["key8_modline5_slew"] = 0;
+    defaultPresetMap["key8_modline5_destination"] = "None";
+    defaultPresetMap["key8_modline5_note"] = 60;
+    defaultPresetMap["key8_modline5_velocity"] = 127;
+    defaultPresetMap["key8_modline5_cc"] = 1;
+    defaultPresetMap["key8_modline5_mmcid"] = 0;
+    defaultPresetMap["key8_modline5_mmcfunction"] = "Stop";
+    defaultPresetMap["key8_modline5_channel"] = 0;
+    defaultPresetMap["key8_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key8_modline5_ledgreen"] = "None";
+    defaultPresetMap["key8_modline5_ledred"] = "None";
+    defaultPresetMap["key8_modline5_displaylinked"] = 0;
+    defaultPresetMap["key8_modline5_reminder"] = "";
+
+    //------ Modline 6 ------//
+    defaultPresetMap["key8_modline6_enable"] = 0;
+    defaultPresetMap["key8_modline6_source"] = "None";
+    defaultPresetMap["key8_modline6_gain"] = 0.00;
+    defaultPresetMap["key8_modline6_offset"] = 0.00;
+    defaultPresetMap["key8_modline6_table"] = "1_Lin";
+    defaultPresetMap["key8_modline6_min"] = 0;
+    defaultPresetMap["key8_modline6_max"] = 127;
+    defaultPresetMap["key8_modline6_slew"] = 0;
+    defaultPresetMap["key8_modline6_destination"] = "None";
+    defaultPresetMap["key8_modline6_note"] = 60;
+    defaultPresetMap["key8_modline6_velocity"] = 127;
+    defaultPresetMap["key8_modline6_cc"] = 1;
+    defaultPresetMap["key8_modline6_mmcid"] = 0;
+    defaultPresetMap["key8_modline6_mmcfunction"] = "Stop";
+    defaultPresetMap["key8_modline6_channel"] = 0;
+    defaultPresetMap["key8_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key8_modline6_ledgreen"] = "None";
+    defaultPresetMap["key8_modline6_ledred"] = "None";
+    defaultPresetMap["key8_modline6_displaylinked"] = 0;
+    defaultPresetMap["key8_modline6_reminder"] = "";
+
+
+    //------------------------ Key 9 ------------------------//
+    defaultPresetMap["9_key_name"] = "9KEY";
+    defaultPresetMap["9_key_displaymode"] = 1;
+    defaultPresetMap["9_key_prefix"] = "";
+    defaultPresetMap["9_key_counter_min"] = 0;
+    defaultPresetMap["9_key_counter_max"] = 127;
+    defaultPresetMap["9_key_counter_wrap"] = 1;
+
+    //------ Modline 1 ------//
+    defaultPresetMap["key9_modline1_enable"] = 0;
+    defaultPresetMap["key9_modline1_source"] = "None";
+    defaultPresetMap["key9_modline1_gain"] = 0.00;
+    defaultPresetMap["key9_modline1_offset"] = 0.00;
+    defaultPresetMap["key9_modline1_table"] = "1_Lin";
+    defaultPresetMap["key9_modline1_min"] = 0;
+    defaultPresetMap["key9_modline1_max"] = 127;
+    defaultPresetMap["key9_modline1_slew"] = 0;
+    defaultPresetMap["key9_modline1_destination"] = "None";
+    defaultPresetMap["key9_modline1_note"] = 60;
+    defaultPresetMap["key9_modline1_velocity"] = 127;
+    defaultPresetMap["key9_modline1_cc"] = 1;
+    defaultPresetMap["key9_modline1_mmcid"] = 0;
+    defaultPresetMap["key9_modline1_mmcfunction"] = "Stop";
+    defaultPresetMap["key9_modline1_channel"] = 0;
+    defaultPresetMap["key9_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key9_modline1_ledgreen"] = "None";
+    defaultPresetMap["key9_modline1_ledred"] = "None";
+    defaultPresetMap["key9_modline1_displaylinked"] = 0;
+    defaultPresetMap["key9_modline1_reminder"] = "";
+
+    //------ Modline 2 ------//
+    defaultPresetMap["key9_modline2_enable"] = 0;
+    defaultPresetMap["key9_modline2_source"] = "None";
+    defaultPresetMap["key9_modline2_gain"] = 0.00;
+    defaultPresetMap["key9_modline2_offset"] = 0.00;
+    defaultPresetMap["key9_modline2_table"] = "1_Lin";
+    defaultPresetMap["key9_modline2_min"] = 0;
+    defaultPresetMap["key9_modline2_max"] = 127;
+    defaultPresetMap["key9_modline2_slew"] = 0;
+    defaultPresetMap["key9_modline2_destination"] = "None";
+    defaultPresetMap["key9_modline2_note"] = 60;
+    defaultPresetMap["key9_modline2_velocity"] = 127;
+    defaultPresetMap["key9_modline2_cc"] = 1;
+    defaultPresetMap["key9_modline2_mmcid"] = 0;
+    defaultPresetMap["key9_modline2_mmcfunction"] = "Stop";
+    defaultPresetMap["key9_modline2_channel"] = 0;
+    defaultPresetMap["key9_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key9_modline2_ledgreen"] = "None";
+    defaultPresetMap["key9_modline2_ledred"] = "None";
+    defaultPresetMap["key9_modline2_displaylinked"] = 0;
+    defaultPresetMap["key9_modline2_reminder"] = "";
+
+    //------ Modline 3 ------//
+    defaultPresetMap["key9_modline3_enable"] = 0;
+    defaultPresetMap["key9_modline3_source"] = "None";
+    defaultPresetMap["key9_modline3_gain"] = 0.00;
+    defaultPresetMap["key9_modline3_offset"] = 0.00;
+    defaultPresetMap["key9_modline3_table"] = "1_Lin";
+    defaultPresetMap["key9_modline3_min"] = 0;
+    defaultPresetMap["key9_modline3_max"] = 127;
+    defaultPresetMap["key9_modline3_slew"] = 0;
+    defaultPresetMap["key9_modline3_destination"] = "None";
+    defaultPresetMap["key9_modline3_note"] = 60;
+    defaultPresetMap["key9_modline3_velocity"] = 127;
+    defaultPresetMap["key9_modline3_cc"] = 1;
+    defaultPresetMap["key9_modline3_mmcid"] = 0;
+    defaultPresetMap["key9_modline3_mmcfunction"] = "Stop";
+    defaultPresetMap["key9_modline3_channel"] = 0;
+    defaultPresetMap["key9_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key9_modline3_ledgreen"] = "None";
+    defaultPresetMap["key9_modline3_ledred"] = "None";
+    defaultPresetMap["key9_modline3_displaylinked"] = 0;
+    defaultPresetMap["key9_modline3_reminder"] = "";
+
+    //------ Modline 4 ------//
+    defaultPresetMap["key9_modline4_enable"] = 0;
+    defaultPresetMap["key9_modline4_source"] = "None";
+    defaultPresetMap["key9_modline4_gain"] = 0.00;
+    defaultPresetMap["key9_modline4_offset"] = 0.00;
+    defaultPresetMap["key9_modline4_table"] = "1_Lin";
+    defaultPresetMap["key9_modline4_min"] = 0;
+    defaultPresetMap["key9_modline4_max"] = 127;
+    defaultPresetMap["key9_modline4_slew"] = 0;
+    defaultPresetMap["key9_modline4_destination"] = "None";
+    defaultPresetMap["key9_modline4_note"] = 60;
+    defaultPresetMap["key9_modline4_velocity"] = 127;
+    defaultPresetMap["key9_modline4_cc"] = 1;
+    defaultPresetMap["key9_modline4_mmcid"] = 0;
+    defaultPresetMap["key9_modline4_mmcfunction"] = "Stop";
+    defaultPresetMap["key9_modline4_channel"] = 0;
+    defaultPresetMap["key9_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key9_modline4_ledgreen"] = "None";
+    defaultPresetMap["key9_modline4_ledred"] = "None";
+    defaultPresetMap["key9_modline4_displaylinked"] = 0;
+    defaultPresetMap["key9_modline4_reminder"] = "";
+
+    //------ Modline 5 ------//
+    defaultPresetMap["key9_modline5_enable"] = 0;
+    defaultPresetMap["key9_modline5_source"] = "None";
+    defaultPresetMap["key9_modline5_gain"] = 0.00;
+    defaultPresetMap["key9_modline5_offset"] = 0.00;
+    defaultPresetMap["key9_modline5_table"] = "1_Lin";
+    defaultPresetMap["key9_modline5_min"] = 0;
+    defaultPresetMap["key9_modline5_max"] = 127;
+    defaultPresetMap["key9_modline5_slew"] = 0;
+    defaultPresetMap["key9_modline5_destination"] = "None";
+    defaultPresetMap["key9_modline5_note"] = 60;
+    defaultPresetMap["key9_modline5_velocity"] = 127;
+    defaultPresetMap["key9_modline5_cc"] = 1;
+    defaultPresetMap["key9_modline5_mmcid"] = 0;
+    defaultPresetMap["key9_modline5_mmcfunction"] = "Stop";
+    defaultPresetMap["key9_modline5_channel"] = 0;
+    defaultPresetMap["key9_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key9_modline5_ledgreen"] = "None";
+    defaultPresetMap["key9_modline5_ledred"] = "None";
+    defaultPresetMap["key9_modline5_displaylinked"] = 0;
+    defaultPresetMap["key9_modline5_reminder"] = "";
+
+    //------ Modline 6 ------//
+    defaultPresetMap["key9_modline6_enable"] = 0;
+    defaultPresetMap["key9_modline6_source"] = "None";
+    defaultPresetMap["key9_modline6_gain"] = 0.00;
+    defaultPresetMap["key9_modline6_offset"] = 0.00;
+    defaultPresetMap["key9_modline6_table"] = "1_Lin";
+    defaultPresetMap["key9_modline6_min"] = 0;
+    defaultPresetMap["key9_modline6_max"] = 127;
+    defaultPresetMap["key9_modline6_slew"] = 0;
+    defaultPresetMap["key9_modline6_destination"] = "None";
+    defaultPresetMap["key9_modline6_note"] = 60;
+    defaultPresetMap["key9_modline6_velocity"] = 127;
+    defaultPresetMap["key9_modline6_cc"] = 1;
+    defaultPresetMap["key9_modline6_mmcid"] = 0;
+    defaultPresetMap["key9_modline6_mmcfunction"] = "Stop";
+    defaultPresetMap["key9_modline6_channel"] = 0;
+    defaultPresetMap["key9_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key9_modline6_ledgreen"] = "None";
+    defaultPresetMap["key9_modline6_ledred"] = "None";
+    defaultPresetMap["key9_modline6_displaylinked"] = 0;
+    defaultPresetMap["key9_modline6_reminder"] = "";
+
+
+    //------------------------ Key 10 ------------------------//
+    defaultPresetMap["10_key_name"] = "0KEY";
+    defaultPresetMap["10_key_displaymode"] = 1;
+    defaultPresetMap["10_key_prefix"] = "";
+    defaultPresetMap["10_key_counter_min"] = 0;
+    defaultPresetMap["10_key_counter_max"] = 127;
+    defaultPresetMap["10_key_counter_wrap"] = 1;
+
+    //------ Modline 1 ------//
+    defaultPresetMap["key10_modline1_enable"] = 0;
+    defaultPresetMap["key10_modline1_source"] = "None";
+    defaultPresetMap["key10_modline1_gain"] = 0.00;
+    defaultPresetMap["key10_modline1_offset"] = 0.00;
+    defaultPresetMap["key10_modline1_table"] = "1_Lin";
+    defaultPresetMap["key10_modline1_min"] = 0;
+    defaultPresetMap["key10_modline1_max"] = 127;
+    defaultPresetMap["key10_modline1_slew"] = 0;
+    defaultPresetMap["key10_modline1_destination"] = "None";
+    defaultPresetMap["key10_modline1_note"] = 60;
+    defaultPresetMap["key10_modline1_velocity"] = 127;
+    defaultPresetMap["key10_modline1_cc"] = 1;
+    defaultPresetMap["key10_modline1_mmcid"] = 0;
+    defaultPresetMap["key10_modline1_mmcfunction"] = "Stop";
+    defaultPresetMap["key10_modline1_channel"] = 0;
+    defaultPresetMap["key10_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key10_modline1_ledgreen"] = "None";
+    defaultPresetMap["key10_modline1_ledred"] = "None";
+    defaultPresetMap["key10_modline1_displaylinked"] = 0;
+    defaultPresetMap["key10_modline1_reminder"] = "";
+
+    //------ Modline 2 ------//
+    defaultPresetMap["key10_modline2_enable"] = 0;
+    defaultPresetMap["key10_modline2_source"] = "None";
+    defaultPresetMap["key10_modline2_gain"] = 0.00;
+    defaultPresetMap["key10_modline2_offset"] = 0.00;
+    defaultPresetMap["key10_modline2_table"] = "1_Lin";
+    defaultPresetMap["key10_modline2_min"] = 0;
+    defaultPresetMap["key10_modline2_max"] = 127;
+    defaultPresetMap["key10_modline2_slew"] = 0;
+    defaultPresetMap["key10_modline2_destination"] = "None";
+    defaultPresetMap["key10_modline2_note"] = 60;
+    defaultPresetMap["key10_modline2_velocity"] = 127;
+    defaultPresetMap["key10_modline2_cc"] = 1;
+    defaultPresetMap["key10_modline2_mmcid"] = 0;
+    defaultPresetMap["key10_modline2_mmcfunction"] = "Stop";
+    defaultPresetMap["key10_modline2_channel"] = 0;
+    defaultPresetMap["key10_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key10_modline2_ledgreen"] = "None";
+    defaultPresetMap["key10_modline2_ledred"] = "None";
+    defaultPresetMap["key10_modline2_displaylinked"] = 0;
+    defaultPresetMap["key10_modline2_reminder"] = "";
+
+    //------ Modline 3 ------//
+    defaultPresetMap["key10_modline3_enable"] = 0;
+    defaultPresetMap["key10_modline3_source"] = "None";
+    defaultPresetMap["key10_modline3_gain"] = 0.00;
+    defaultPresetMap["key10_modline3_offset"] = 0.00;
+    defaultPresetMap["key10_modline3_table"] = "1_Lin";
+    defaultPresetMap["key10_modline3_min"] = 0;
+    defaultPresetMap["key10_modline3_max"] = 127;
+    defaultPresetMap["key10_modline3_slew"] = 0;
+    defaultPresetMap["key10_modline3_destination"] = "None";
+    defaultPresetMap["key10_modline3_note"] = 60;
+    defaultPresetMap["key10_modline3_velocity"] = 127;
+    defaultPresetMap["key10_modline3_cc"] = 1;
+    defaultPresetMap["key10_modline3_mmcid"] = 0;
+    defaultPresetMap["key10_modline3_mmcfunction"] = "Stop";
+    defaultPresetMap["key10_modline3_channel"] = 0;
+    defaultPresetMap["key10_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key10_modline3_ledgreen"] = "None";
+    defaultPresetMap["key10_modline3_ledred"] = "None";
+    defaultPresetMap["key10_modline3_displaylinked"] = 0;
+    defaultPresetMap["key10_modline3_reminder"] = "";
+
+    //------ Modline 4 ------//
+    defaultPresetMap["key10_modline4_enable"] = 0;
+    defaultPresetMap["key10_modline4_source"] = "None";
+    defaultPresetMap["key10_modline4_gain"] = 0.00;
+    defaultPresetMap["key10_modline4_offset"] = 0.00;
+    defaultPresetMap["key10_modline4_table"] = "1_Lin";
+    defaultPresetMap["key10_modline4_min"] = 0;
+    defaultPresetMap["key10_modline4_max"] = 127;
+    defaultPresetMap["key10_modline4_slew"] = 0;
+    defaultPresetMap["key10_modline4_destination"] = "None";
+    defaultPresetMap["key10_modline4_note"] = 60;
+    defaultPresetMap["key10_modline4_velocity"] = 127;
+    defaultPresetMap["key10_modline4_cc"] = 1;
+    defaultPresetMap["key10_modline4_mmcid"] = 0;
+    defaultPresetMap["key10_modline4_mmcfunction"] = "Stop";
+    defaultPresetMap["key10_modline4_channel"] = 0;
+    defaultPresetMap["key10_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key10_modline4_ledgreen"] = "None";
+    defaultPresetMap["key10_modline4_ledred"] = "None";
+    defaultPresetMap["key10_modline4_displaylinked"] = 0;
+    defaultPresetMap["key10_modline4_reminder"] = "";
+
+    //------ Modline 5 ------//
+    defaultPresetMap["key10_modline5_enable"] = 0;
+    defaultPresetMap["key10_modline5_source"] = "None";
+    defaultPresetMap["key10_modline5_gain"] = 0.00;
+    defaultPresetMap["key10_modline5_offset"] = 0.00;
+    defaultPresetMap["key10_modline5_table"] = "1_Lin";
+    defaultPresetMap["key10_modline5_min"] = 0;
+    defaultPresetMap["key10_modline5_max"] = 127;
+    defaultPresetMap["key10_modline5_slew"] = 0;
+    defaultPresetMap["key10_modline5_destination"] = "None";
+    defaultPresetMap["key10_modline5_note"] = 60;
+    defaultPresetMap["key10_modline5_velocity"] = 127;
+    defaultPresetMap["key10_modline5_cc"] = 1;
+    defaultPresetMap["key10_modline5_mmcid"] = 0;
+    defaultPresetMap["key10_modline5_mmcfunction"] = "Stop";
+    defaultPresetMap["key10_modline5_channel"] = 0;
+    defaultPresetMap["key10_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key10_modline5_ledgreen"] = "None";
+    defaultPresetMap["key10_modline5_ledred"] = "None";
+    defaultPresetMap["key10_modline5_displaylinked"] = 0;
+    defaultPresetMap["key10_modline5_reminder"] = "";
+
+    //------ Modline 6 ------//
+    defaultPresetMap["key10_modline6_enable"] = 0;
+    defaultPresetMap["key10_modline6_source"] = "None";
+    defaultPresetMap["key10_modline6_gain"] = 0.00;
+    defaultPresetMap["key10_modline6_offset"] = 0.00;
+    defaultPresetMap["key10_modline6_table"] = "1_Lin";
+    defaultPresetMap["key10_modline6_min"] = 0;
+    defaultPresetMap["key10_modline6_max"] = 127;
+    defaultPresetMap["key10_modline6_slew"] = 0;
+    defaultPresetMap["key10_modline6_destination"] = "None";
+    defaultPresetMap["key10_modline6_note"] = 60;
+    defaultPresetMap["key10_modline6_velocity"] = 127;
+    defaultPresetMap["key10_modline6_cc"] = 1;
+    defaultPresetMap["key10_modline6_mmcid"] = 0;
+    defaultPresetMap["key10_modline6_mmcfunction"] = "Stop";
+    defaultPresetMap["key10_modline6_channel"] = 0;
+    defaultPresetMap["key10_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key10_modline6_ledgreen"] = "None";
+    defaultPresetMap["key10_modline6_ledred"] = "None";
+    defaultPresetMap["key10_modline6_displaylinked"] = 0;
+    defaultPresetMap["key10_modline6_reminder"] = "";
+
+
+    //------------------------ Nav ------------------------//
+    defaultPresetMap["nav_name"] = "1KEY";
+    defaultPresetMap["nav_displaymode"] = 1;
+    defaultPresetMap["nav_modlinemode"] = 1;
+    defaultPresetMap["nav_prefix"] = "";
+    defaultPresetMap["nav_counter_min"] = 0;
+    defaultPresetMap["nav_counter_max"] = 127;
+    defaultPresetMap["nav_counter_wrap"] = 1;
+
+    //------ Modline 1 ------//
+    defaultPresetMap["nav_modline1_enable"] = 0.00;
+    defaultPresetMap["nav_modline1_source"] = "None";
+    defaultPresetMap["nav_modline1_gain"] = 0.00;
+    defaultPresetMap["nav_modline1_offset"] = 0.00;
+    defaultPresetMap["nav_modline1_table"] = "1_Lin";
+    defaultPresetMap["nav_modline1_min"] = 0;
+    defaultPresetMap["nav_modline1_max"] = 127;
+    defaultPresetMap["nav_modline1_slew"] = 0;
+    defaultPresetMap["nav_modline1_destination"] = "None";
+    defaultPresetMap["nav_modline1_note"] = 60;
+    defaultPresetMap["nav_modline1_velocity"] = 127;
+    defaultPresetMap["nav_modline1_cc"] = 1;
+    defaultPresetMap["nav_modline1_mmcid"] = 0;
+    defaultPresetMap["nav_modline1_mmcfunction"] = "Stop";
+    defaultPresetMap["nav_modline1_channel"] = 0;
+    defaultPresetMap["nav_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["nav_modline1_displaylinked"] = 0;
+    defaultPresetMap["nav_modline1_reminder"] = "";
+
+    //------ Modline 2 ------//
+    defaultPresetMap["nav_modline2_enable"] = 0.00;
+    defaultPresetMap["nav_modline2_source"] = "None";
+    defaultPresetMap["nav_modline2_gain"] = 0.00;
+    defaultPresetMap["nav_modline2_offset"] = 0.00;
+    defaultPresetMap["nav_modline2_table"] = "1_Lin";
+    defaultPresetMap["nav_modline2_min"] = 0;
+    defaultPresetMap["nav_modline2_max"] = 127;
+    defaultPresetMap["nav_modline2_slew"] = 0;
+    defaultPresetMap["nav_modline2_destination"] = "None";
+    defaultPresetMap["nav_modline2_note"] = 60;
+    defaultPresetMap["nav_modline2_velocity"] = 127;
+    defaultPresetMap["nav_modline2_cc"] = 1;
+    defaultPresetMap["nav_modline2_mmcid"] = 0;
+    defaultPresetMap["nav_modline2_mmcfunction"] = "Stop";
+    defaultPresetMap["nav_modline2_channel"] = 0;
+    defaultPresetMap["nav_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["nav_modline2_displaylinked"] = 0;
+    defaultPresetMap["nav_modline2_reminder"] = "";
+
+    //------ Modline 3 ------//
+    defaultPresetMap["nav_modline3_enable"] = 0.00;
+    defaultPresetMap["nav_modline3_source"] = "None";
+    defaultPresetMap["nav_modline3_gain"] = 0.00;
+    defaultPresetMap["nav_modline3_offset"] = 0.00;
+    defaultPresetMap["nav_modline3_table"] = "1_Lin";
+    defaultPresetMap["nav_modline3_min"] = 0;
+    defaultPresetMap["nav_modline3_max"] = 127;
+    defaultPresetMap["nav_modline3_slew"] = 0;
+    defaultPresetMap["nav_modline3_destination"] = "None";
+    defaultPresetMap["nav_modline3_note"] = 60;
+    defaultPresetMap["nav_modline3_velocity"] = 127;
+    defaultPresetMap["nav_modline3_cc"] = 1;
+    defaultPresetMap["nav_modline3_mmcid"] = 0;
+    defaultPresetMap["nav_modline3_mmcfunction"] = "Stop";
+    defaultPresetMap["nav_modline3_channel"] = 0;
+    defaultPresetMap["nav_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["nav_modline3_displaylinked"] = 0;
+    defaultPresetMap["nav_modline3_reminder"] = "";
+
+    //------ Modline 4 ------//
+    defaultPresetMap["nav_modline4_enable"] = 0.00;
+    defaultPresetMap["nav_modline4_source"] = "None";
+    defaultPresetMap["nav_modline4_gain"] = 0.00;
+    defaultPresetMap["nav_modline4_offset"] = 0.00;
+    defaultPresetMap["nav_modline4_table"] = "1_Lin";
+    defaultPresetMap["nav_modline4_min"] = 0;
+    defaultPresetMap["nav_modline4_max"] = 127;
+    defaultPresetMap["nav_modline4_slew"] = 0;
+    defaultPresetMap["nav_modline4_destination"] = "None";
+    defaultPresetMap["nav_modline4_note"] = 60;
+    defaultPresetMap["nav_modline4_velocity"] = 127;
+    defaultPresetMap["nav_modline4_cc"] = 1;
+    defaultPresetMap["nav_modline4_mmcid"] = 0;
+    defaultPresetMap["nav_modline4_mmcfunction"] = "Stop";
+    defaultPresetMap["nav_modline4_channel"] = 0;
+    defaultPresetMap["nav_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["nav_modline4_displaylinked"] = 0;
+    defaultPresetMap["nav_modline4_reminder"] = "";
+
+    //------ Modline 5 ------//
+    defaultPresetMap["nav_modline5_enable"] = 0.00;
+    defaultPresetMap["nav_modline5_source"] = "None";
+    defaultPresetMap["nav_modline5_gain"] = 0.00;
+    defaultPresetMap["nav_modline5_offset"] = 0.00;
+    defaultPresetMap["nav_modline5_table"] = "1_Lin";
+    defaultPresetMap["nav_modline5_min"] = 0;
+    defaultPresetMap["nav_modline5_max"] = 127;
+    defaultPresetMap["nav_modline5_slew"] = 0;
+    defaultPresetMap["nav_modline5_destination"] = "None";
+    defaultPresetMap["nav_modline5_note"] = 60;
+    defaultPresetMap["nav_modline5_velocity"] = 127;
+    defaultPresetMap["nav_modline5_cc"] = 1;
+    defaultPresetMap["nav_modline5_mmcid"] = 0;
+    defaultPresetMap["nav_modline5_mmcfunction"] = "Stop";
+    defaultPresetMap["nav_modline5_channel"] = 0;
+    defaultPresetMap["nav_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["nav_modline5_displaylinked"] = 0;
+    defaultPresetMap["nav_modline5_reminder"] = "";
+
+    //------ Modline 6 ------//
+    defaultPresetMap["nav_modline6_enable"] = 0.00;
+    defaultPresetMap["nav_modline6_source"] = "None";
+    defaultPresetMap["nav_modline6_gain"] = 0.00;
+    defaultPresetMap["nav_modline6_offset"] = 0.00;
+    defaultPresetMap["nav_modline6_table"] = "1_Lin";
+    defaultPresetMap["nav_modline6_min"] = 0;
+    defaultPresetMap["nav_modline6_max"] = 127;
+    defaultPresetMap["nav_modline6_slew"] = 0;
+    defaultPresetMap["nav_modline6_destination"] = "None";
+    defaultPresetMap["nav_modline6_note"] = 60;
+    defaultPresetMap["nav_modline6_velocity"] = 127;
+    defaultPresetMap["nav_modline6_cc"] = 1;
+    defaultPresetMap["nav_modline6_mmcid"] = 0;
+    defaultPresetMap["nav_modline6_mmcfunction"] = "Stop";
+    defaultPresetMap["nav_modline6_channel"] = 0;
+    defaultPresetMap["nav_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["nav_modline6_displaylinked"] = 0;
+    defaultPresetMap["nav_modline6_reminder"] = "";
 }
 
 void PresetInterface::slotRecallPreset(int i)
 {
+    i -= 1;
+    qDebug() << "recall preset" << i;
+
+    currentPresetNum = i;
+
+    QMapIterator<QString, QVariant> p(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap());
+
+    while(p.hasNext())
+    {
+        p.next();
+    }
+    emit signalRecallPreset(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMapCopy);
+
+    slotCheckSaveState();
 
 }
 
