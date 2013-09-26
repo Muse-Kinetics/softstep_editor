@@ -12,8 +12,13 @@ public:
     FactoryPresets();
 
     QVariantMap programChangeMap;
+    QVariantMap factoryElevenRackMap;
+    QVariantMap factoryPodMap;
+    QVariantMap factoryLiveMap;
     void        createProgramChange();
-
+    void        createElevenRackMap();
+    void        createPodMap();
+    void        createLiveMap();
 
 };
 
