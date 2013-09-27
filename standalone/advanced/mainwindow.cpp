@@ -73,4 +73,11 @@ void MainWindow::slotConnectInterfaces()
     }
 
     //Nav Pad
+
+
+    //Update Button
+    connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
+
+    //preset number box (this will be switched to a comboBox soon)
+    connect(ui->presetNumber, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
 }

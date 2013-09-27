@@ -106,66 +106,83 @@ void Modline::slotValueChanged()
 {    
     if(QObject::sender())
     {
+        QString jsonName;
         QObject *sender = QObject::sender();
         QVariant value;
 
         //enable checkbox
         if(sender == modlineForm.enable)
         {
+            jsonName = "enable";
             value = modlineForm.enable->isChecked();
         }
 
         //initMode
         else if(sender == modlineForm.initMode)
         {
+            jsonName = "initMode";
             value = modlineForm.initMode->currentText();
         }
 
         //initValue
         else if(sender == modlineForm.initValue)
         {
+            jsonName = "initValue";
             value = modlineForm.initValue->value();
         }
 
         //Source Menu
         else if(sender == modlineForm.source)
         {
+            jsonName = "source";
             value = modlineForm.source->currentText();
+        }
+
+        //raw-result (not sent to presets)
+        else if(sender == modlineForm.raw)
+        {
+            modlineForm.result->setValue((modlineForm.raw->value())*(modlineForm.gain->value())+(modlineForm.offset->value()));
         }
 
         //Gain
         else if(sender == modlineForm.gain)
         {
+            jsonName = "gain";
             value = modlineForm.gain->value();
         }
 
         //Offset
         else if(sender == modlineForm.offset)
         {
+            jsonName = "offset";
             value = modlineForm.offset->value();
         }
 
         //Table Menu
         else if(sender == modlineForm.table)
         {
+            jsonName = "table";
             value = modlineForm.table->currentText();
         }
 
         //Min
         else if(sender == modlineForm.min)
         {
+            jsonName = "min";
             value = modlineForm.min->value();
         }
 
         //Max
         else if(sender == modlineForm.max)
         {
+            jsonName = "max";
             value = modlineForm.max->value();
         }
 
         //slew
         else if(sender == modlineForm.slew)
         {
+            jsonName = "selw";
             value = modlineForm.slew->value();
         }
 
@@ -184,6 +201,7 @@ void Modline::slotValueChanged()
                 modlineForm.deviceViewLabels->setCurrentIndex(modlineForm.destination->currentIndex());
             }
 
+            jsonName = "destination";
             value = modlineForm.destination->currentText();
         }
 
@@ -191,126 +209,154 @@ void Modline::slotValueChanged()
 
         else if(sender == modlineForm.noteNumber)
         {
+            jsonName = "note";
             value = modlineForm.noteNumber->value();
         }
         else if(sender == modlineForm.noteVelocity)
         {
+            jsonName = "velocity";
             value = modlineForm.noteVelocity->value();
         }
         else if(sender == modlineForm.noteLiveVelocity)
         {
+            jsonName = "velocity";
             value = modlineForm.noteLiveVelocity->value();
         }
         else if(sender == modlineForm.cc)
         {
+            jsonName = "cc";
             value = modlineForm.cc->value();
         }
         else if(sender == modlineForm.bankMSB)
         {
+            jsonName = "bankMSB";
             value = modlineForm.bankMSB->value();
         }
         else if(sender == modlineForm.polyNote)
         {
+            jsonName = "note";
             value = modlineForm.polyNote->value();
         }
 
         else if(sender == modlineForm.noteChannel)
         {
+            jsonName = "channel";
             value = modlineForm.noteChannel->value();
         }
         else if(sender == modlineForm.noteLiveChannel)
         {
+            jsonName = "channel";
             value = modlineForm.noteLiveChannel->value();
         }
         else if(sender == modlineForm.controlChannel)
         {
+            jsonName = "channel";
             value = modlineForm.controlChannel->value();
         }
         else if(sender == modlineForm.bankChannel)
         {
+            jsonName = "channel";
             value = modlineForm.bankChannel->value();
         }
         else if(sender == modlineForm.programChannel)
         {
+            jsonName = "channel";
             value = modlineForm.programChannel->value();
         }
         else if(sender == modlineForm.bendChannel)
         {
+            jsonName = "channel";
             value = modlineForm.bendChannel->value();
         }
         else if(sender == modlineForm.aftertouchChannel)
         {
+            jsonName = "channel";
             value = modlineForm.aftertouchChannel->value();
         }
         else if(sender == modlineForm.polyChannel)
         {
+            jsonName = "channel";
             value = modlineForm.polyChannel->value();
         }
 
         else if(sender == modlineForm.noteDevice)
         {
+            jsonName = "device";
             value = modlineForm.noteDevice->currentText();
         }
         else if(sender == modlineForm.noteLiveDevice)
         {
+            jsonName = "device";
             value = modlineForm.noteLiveDevice->currentText();
         }
         else if(sender == modlineForm.controlDevice)
         {
+            jsonName = "device";
             value = modlineForm.controlDevice->currentText();
         }
         else if(sender == modlineForm.bankDevice)
         {
+            jsonName = "device";
             value = modlineForm.bankDevice->currentText();
         }
         else if(sender == modlineForm.programDevice)
         {
+            jsonName = "device";
             value = modlineForm.programDevice->currentText();
         }
         else if(sender == modlineForm.bendDevice)
         {
+            jsonName = "device";
             value = modlineForm.bendDevice->currentText();
         }
         else if(sender == modlineForm.aftertouchDevice)
         {
+            jsonName = "device";
             value = modlineForm.aftertouchDevice->currentText();
         }
         else if(sender == modlineForm.polyDevice)
         {
+            jsonName = "device";
             value = modlineForm.polyDevice->currentText();
         }
 
         else if(sender == modlineForm.mmcDeviceId)
         {
+            jsonName = "mmcid";
             value = modlineForm.mmcDeviceId->value();
         }
         else if(sender == modlineForm.mmcFunction)
         {
+            jsonName = "mmcfunction";
             value = modlineForm.mmcFunction->currentText();
         }
         else if(sender == modlineForm.mmcDevice)
         {
+            jsonName = "device";
             value = modlineForm.mmcDevice->currentText();
         }
 
         else if(sender == modlineForm.oscRoute)
         {
+            jsonName = "oscroute";
             value = modlineForm.oscRoute->text();
         }
 
         //Green LED
         else if(sender == modlineForm.ledgreen)
         {
+            jsonName = "ledgreen";
             value = modlineForm.ledgreen->currentText();
         }
 
         //Red LED
         else if(sender == modlineForm.ledred)
         {
+            jsonName = "ledred";
             value = modlineForm.ledred->currentText();
         }
 
-        emit signalStoreValue(QString("key%1_modline%2_").arg(keyInstance+1).arg(modlineInstance+1) + sender->objectName(), value, -1);
+        emit signalStoreValue(QString("key%1_modline%2_").arg(keyInstance+1).arg(modlineInstance+1) + jsonName, value, -1);
     }
 }
 
@@ -337,13 +383,12 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     //destination parameters
     modlineForm.noteNumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm.noteLiveNumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm.noteNumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.polyNote->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
 
     modlineForm.noteVelocity->setValue(preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm.noteLiveVelocity->setValue(preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm.cc->setValue(preset.value(QString("key%1_modline%2_cc").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm.bankMSB->setValue(preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm.polyNote->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.bankMSB->setValue(preset.value(QString("key%1_modline%2_bankMSB").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
 
     modlineForm.noteChannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm.noteLiveChannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
