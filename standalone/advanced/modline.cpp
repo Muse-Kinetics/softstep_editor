@@ -173,8 +173,10 @@ void Modline::slotValueChanged()
 
 void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
-    //modline parameters
+    //basic modline parameters
     modlineForm.enable->setChecked(preset.value(QString("key%1_modline%2_enable").arg(keyInstance+1).arg(modlineInstance+1)).toBool());
+    modlineForm.initValue->setValue(preset.value(QString("key%1_modline%2_initValue").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.initMode->setCurrentIndex(modlineForm.initMode->findText(preset.value(QString("key%1_modline%2_initMode").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
     modlineForm.source->setCurrentIndex(modlineForm.source->findText(preset.value(QString("key%1_modline%2_source").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
     modlineForm.gain->setValue(preset.value(QString("key%1_modline%2_gain").arg(keyInstance+1).arg(modlineInstance+1)).toDouble());
     modlineForm.offset->setValue(preset.value(QString("key%1_modline%2_offset").arg(keyInstance+1).arg(modlineInstance+1)).toDouble());
@@ -183,6 +185,45 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modlineForm.max->setValue(preset.value(QString("key%1_modline%2_max").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm.slew->setValue(preset.value(QString("key%1_modline%2_slew").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm.destination->setCurrentIndex(modlineForm.destination->findText(preset.value(QString("key%1_modline%2_destination").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+
+    //LED parameters
     modlineForm.ledgreen->setCurrentIndex(modlineForm.ledgreen->findText(preset.value(QString("key%1_modline%2_ledgreen").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
     modlineForm.ledred->setCurrentIndex(modlineForm.ledred->findText(preset.value(QString("key%1_modline%2_ledred").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+
+    /*
+    //destination parameters
+    modlineForm.noteNumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.noteLiveNumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.noteNumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+
+    modlineForm.noteVelocity->setValue(preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.noteLiveVelocity->setValue(preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.cc->setValue(preset.value(QString("key%1_modline%2_cc").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.bankMSB->setValue(preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.polyNote->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+
+    modlineForm.noteChannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.noteLiveChannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.controlChannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.bankChannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.programChannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.bendChannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.aftertouchChannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.polyChannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+
+    modlineForm.noteDevice->setCurrentIndex(modlineForm.noteDevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    modlineForm.noteLiveDevice->setCurrentIndex(modlineForm.noteDevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    modlineForm.controlDevice->setCurrentIndex(modlineForm.noteDevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    modlineForm.bankDevice->setCurrentIndex(modlineForm.noteDevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    modlineForm.programDevice->setCurrentIndex(modlineForm.noteDevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    modlineForm.bendDevice->setCurrentIndex(modlineForm.noteDevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    modlineForm.aftertouchDevice->setCurrentIndex(modlineForm.noteDevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    modlineForm.polyDevice->setCurrentIndex(modlineForm.noteDevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+
+    modlineForm.mmcDeviceId->setValue(preset.value(QString("key%1_modline%2_mmcid").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    modlineForm.mmcFunction->setCurrentIndex(modlineForm.mmcFunction->findText(preset.value(QString("key%1_modline%2_mmcfunction").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    modlineForm.mmcDevice->setCurrentIndex(modlineForm.noteDevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+
+    modlineForm.oscRoute->setText(preset.value(QString("key%1_modline%2_oscroute").arg(keyInstance+1).arg(modlineInstance+1)).toString());
+    */
 }

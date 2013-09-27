@@ -127,29 +127,34 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["1_key_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
-    defaultPresetMap["key1_modline1_enable"] = 0;
-    defaultPresetMap["key1_modline1_source"] = "None";
-    defaultPresetMap["key1_modline1_gain"] = 0.00;
-    defaultPresetMap["key1_modline1_offset"] = 0.00;
-    defaultPresetMap["key1_modline1_table"] = "1_Lin";
-    defaultPresetMap["key1_modline1_min"] = 0;
-    defaultPresetMap["key1_modline1_max"] = 127;
-    defaultPresetMap["key1_modline1_slew"] = 0;
-    defaultPresetMap["key1_modline1_destination"] = "None";
+    defaultPresetMap["key1_modline1_enable"] = 1;
+    defaultPresetMap["key1_modline1_initValue"] = 3;
+    defaultPresetMap["key1_modline1_initMode"] = "Once";
+    defaultPresetMap["key1_modline1_source"] = "Pressure Live";
+    defaultPresetMap["key1_modline1_gain"] = 3.33;
+    defaultPresetMap["key1_modline1_offset"] = 3.33;
+    defaultPresetMap["key1_modline1_table"] = "Sin";
+    defaultPresetMap["key1_modline1_min"] = 3;
+    defaultPresetMap["key1_modline1_max"] = 33;
+    defaultPresetMap["key1_modline1_slew"] = 333;
+    defaultPresetMap["key1_modline1_destination"] = "Note Set";
     defaultPresetMap["key1_modline1_note"] = 60;
     defaultPresetMap["key1_modline1_velocity"] = 127;
     defaultPresetMap["key1_modline1_cc"] = 1;
-    defaultPresetMap["key1_modline1_mmcid"] = 0;
-    defaultPresetMap["key1_modline1_mmcfunction"] = "Stop";
-    defaultPresetMap["key1_modline1_channel"] = 0;
+    defaultPresetMap["key1_modline1_mmcid"] = 3;
+    defaultPresetMap["key1_modline1_mmcfunction"] = "Play";
+    defaultPresetMap["key1_modline1_channel"] = 13;
     defaultPresetMap["key1_modline1_device"] = "SSCOM_Port_1";
-    defaultPresetMap["key1_modline1_ledgreen"] = "None";
-    defaultPresetMap["key1_modline1_ledred"] = "None";
+    defaultPresetMap["key1_modline1_oscroute"] = "3333";
+    defaultPresetMap["key1_modline1_ledgreen"] = "True";
+    defaultPresetMap["key1_modline1_ledred"] = "False";
     defaultPresetMap["key1_modline1_displaylinked"] = 0;
     defaultPresetMap["key1_modline1_reminder"] = "";
 
     //------ Modline 2 ------//
     defaultPresetMap["key1_modline2_enable"] = 0;
+    defaultPresetMap["key1_modline2_initValue"] = 0;
+    defaultPresetMap["key1_modline2_initMode"] = "None";
     defaultPresetMap["key1_modline2_source"] = "None";
     defaultPresetMap["key1_modline2_gain"] = 0.00;
     defaultPresetMap["key1_modline2_offset"] = 0.00;
@@ -165,6 +170,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key1_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline2_channel"] = 0;
     defaultPresetMap["key1_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key1_modline2_oscroute"] = "";
     defaultPresetMap["key1_modline2_ledgreen"] = "None";
     defaultPresetMap["key1_modline2_ledred"] = "None";
     defaultPresetMap["key1_modline2_displaylinked"] = 0;
@@ -172,6 +178,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 3 ------//
     defaultPresetMap["key1_modline3_enable"] = 0;
+    defaultPresetMap["key1_modline3_initValue"] = 0;
+    defaultPresetMap["key1_modline3_initMode"] = "None";
     defaultPresetMap["key1_modline3_source"] = "None";
     defaultPresetMap["key1_modline3_gain"] = 0.00;
     defaultPresetMap["key1_modline3_offset"] = 0.00;
@@ -187,6 +195,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key1_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline3_channel"] = 0;
     defaultPresetMap["key1_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key1_modline3_oscroute"] = "";
     defaultPresetMap["key1_modline3_ledgreen"] = "None";
     defaultPresetMap["key1_modline3_ledred"] = "None";
     defaultPresetMap["key1_modline3_displaylinked"] = 0;
@@ -194,6 +203,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 4 ------//
     defaultPresetMap["key1_modline4_enable"] = 0;
+    defaultPresetMap["key1_modline4_initValue"] = 0;
+    defaultPresetMap["key1_modline4_initMode"] = "None";
     defaultPresetMap["key1_modline4_source"] = "None";
     defaultPresetMap["key1_modline4_gain"] = 0.00;
     defaultPresetMap["key1_modline4_offset"] = 0.00;
@@ -209,6 +220,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key1_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline4_channel"] = 0;
     defaultPresetMap["key1_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key1_modline4_oscroute"] = "";
     defaultPresetMap["key1_modline4_ledgreen"] = "None";
     defaultPresetMap["key1_modline4_ledred"] = "None";
     defaultPresetMap["key1_modline4_displaylinked"] = 0;
@@ -216,6 +228,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 5 ------//
     defaultPresetMap["key1_modline5_enable"] = 0;
+    defaultPresetMap["key1_modline5_initValue"] = 0;
+    defaultPresetMap["key1_modline5_initMode"] = "None";
     defaultPresetMap["key1_modline5_source"] = "None";
     defaultPresetMap["key1_modline5_gain"] = 0.00;
     defaultPresetMap["key1_modline5_offset"] = 0.00;
@@ -231,6 +245,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key1_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline5_channel"] = 0;
     defaultPresetMap["key1_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key1_modline5_oscroute"] = "";
     defaultPresetMap["key1_modline5_ledgreen"] = "None";
     defaultPresetMap["key1_modline5_ledred"] = "None";
     defaultPresetMap["key1_modline5_displaylinked"] = 0;
@@ -238,6 +253,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 6 ------//
     defaultPresetMap["key1_modline6_enable"] = 0;
+    defaultPresetMap["key1_modline6_initValue"] = 0;
+    defaultPresetMap["key1_modline6_initMode"] = "None";
     defaultPresetMap["key1_modline6_source"] = "None";
     defaultPresetMap["key1_modline6_gain"] = 0.00;
     defaultPresetMap["key1_modline6_offset"] = 0.00;
@@ -253,6 +270,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key1_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline6_channel"] = 0;
     defaultPresetMap["key1_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key1_modline6_oscroute"] = "";
     defaultPresetMap["key1_modline6_ledgreen"] = "None";
     defaultPresetMap["key1_modline6_ledred"] = "None";
     defaultPresetMap["key1_modline6_displaylinked"] = 0;
@@ -269,6 +287,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 1 ------//
     defaultPresetMap["key2_modline1_enable"] = 0;
+    defaultPresetMap["key2_modline1_initValue"] = 0;
+    defaultPresetMap["key2_modline1_initMode"] = "None";
     defaultPresetMap["key2_modline1_source"] = "None";
     defaultPresetMap["key2_modline1_gain"] = 0.00;
     defaultPresetMap["key2_modline1_offset"] = 0.00;
@@ -284,6 +304,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key2_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline1_channel"] = 0;
     defaultPresetMap["key2_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key2_modline1_oscroute"] = "";
     defaultPresetMap["key2_modline1_ledgreen"] = "None";
     defaultPresetMap["key2_modline1_ledred"] = "None";
     defaultPresetMap["key2_modline1_displaylinked"] = 0;
@@ -291,8 +312,9 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 2 ------//
     defaultPresetMap["key2_modline2_enable"] = 0;
+    defaultPresetMap["key2_modline2_initValue"] = 0;
+    defaultPresetMap["key2_modline2_initMode"] = "None";
     defaultPresetMap["key2_modline2_source"] = "None";
-
     defaultPresetMap["key2_modline2_gain"] = 0.00;
     defaultPresetMap["key2_modline2_offset"] = 0.00;
     defaultPresetMap["key2_modline2_table"] = "1_Lin";
@@ -307,6 +329,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key2_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline2_channel"] = 0;
     defaultPresetMap["key2_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key2_modline2_oscroute"] = "";
     defaultPresetMap["key2_modline2_ledgreen"] = "None";
     defaultPresetMap["key2_modline2_ledred"] = "None";
     defaultPresetMap["key2_modline2_displaylinked"] = 0;
@@ -314,6 +337,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 3 ------//
     defaultPresetMap["key2_modline3_enable"] = 0;
+    defaultPresetMap["key2_modline3_initValue"] = 0;
+    defaultPresetMap["key2_modline3_initMode"] = "None";
     defaultPresetMap["key2_modline3_source"] = "None";
     defaultPresetMap["key2_modline3_gain"] = 0.00;
     defaultPresetMap["key2_modline3_offset"] = 0.00;
@@ -329,6 +354,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key2_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline3_channel"] = 0;
     defaultPresetMap["key2_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key2_modline3_oscroute"] = "";
     defaultPresetMap["key2_modline3_ledgreen"] = "None";
     defaultPresetMap["key2_modline3_ledred"] = "None";
     defaultPresetMap["key2_modline3_displaylinked"] = 0;
@@ -336,6 +362,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 4 ------//
     defaultPresetMap["key2_modline4_enable"] = 0;
+    defaultPresetMap["key2_modline4_initValue"] = 0;
+    defaultPresetMap["key2_modline4_initMode"] = "None";
     defaultPresetMap["key2_modline4_source"] = "None";
     defaultPresetMap["key2_modline4_gain"] = 0.00;
     defaultPresetMap["key2_modline4_offset"] = 0.00;
@@ -351,6 +379,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key2_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline4_channel"] = 0;
     defaultPresetMap["key2_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key2_modline4_oscroute"] = "";
     defaultPresetMap["key2_modline4_ledgreen"] = "None";
     defaultPresetMap["key2_modline4_ledred"] = "None";
     defaultPresetMap["key2_modline4_displaylinked"] = 0;
@@ -358,6 +387,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 5 ------//
     defaultPresetMap["key2_modline5_enable"] = 0;
+    defaultPresetMap["key2_modline5_initValue"] = 0;
+    defaultPresetMap["key2_modline5_initMode"] = "None";
     defaultPresetMap["key2_modline5_source"] = "None";
     defaultPresetMap["key2_modline5_gain"] = 0.00;
     defaultPresetMap["key2_modline5_offset"] = 0.00;
@@ -373,6 +404,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key2_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline5_channel"] = 0;
     defaultPresetMap["key2_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key2_modline5_oscroute"] = "";
     defaultPresetMap["key2_modline5_ledgreen"] = "None";
     defaultPresetMap["key2_modline5_ledred"] = "None";
     defaultPresetMap["key2_modline5_displaylinked"] = 0;
@@ -380,6 +412,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 6 ------//
     defaultPresetMap["key2_modline6_enable"] = 0;
+    defaultPresetMap["key2_modline6_initValue"] = 0;
+    defaultPresetMap["key2_modline6_initMode"] = "None";
     defaultPresetMap["key2_modline6_source"] = "None";
     defaultPresetMap["key2_modline6_gain"] = 0.00;
     defaultPresetMap["key2_modline6_offset"] = 0.00;
@@ -395,6 +429,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key2_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline6_channel"] = 0;
     defaultPresetMap["key2_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key2_modline6_oscroute"] = "";
     defaultPresetMap["key2_modline6_ledgreen"] = "None";
     defaultPresetMap["key2_modline6_ledred"] = "None";
     defaultPresetMap["key2_modline6_displaylinked"] = 0;
@@ -411,6 +446,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 1 ------//
     defaultPresetMap["key3_modline1_enable"] = 0;
+    defaultPresetMap["key3_modline1_initValue"] = 0;
+    defaultPresetMap["key3_modline1_initMode"] = "None";
     defaultPresetMap["key3_modline1_source"] = "None";
     defaultPresetMap["key3_modline1_gain"] = 0.00;
     defaultPresetMap["key3_modline1_offset"] = 0.00;
@@ -426,6 +463,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key3_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline1_channel"] = 0;
     defaultPresetMap["key3_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key3_modline1_oscroute"] = "";
     defaultPresetMap["key3_modline1_ledgreen"] = "None";
     defaultPresetMap["key3_modline1_ledred"] = "None";
     defaultPresetMap["key3_modline1_displaylinked"] = 0;
@@ -433,6 +471,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 2 ------//
     defaultPresetMap["key3_modline2_enable"] = 0;
+    defaultPresetMap["key3_modline2_initValue"] = 0;
+    defaultPresetMap["key3_modline2_initMode"] = "None";
     defaultPresetMap["key3_modline2_source"] = "None";
     defaultPresetMap["key3_modline2_gain"] = 0.00;
     defaultPresetMap["key3_modline2_offset"] = 0.00;
@@ -448,6 +488,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key3_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline2_channel"] = 0;
     defaultPresetMap["key3_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key3_modline2_oscroute"] = "";
     defaultPresetMap["key3_modline2_ledgreen"] = "None";
     defaultPresetMap["key3_modline2_ledred"] = "None";
     defaultPresetMap["key3_modline2_displaylinked"] = 0;
@@ -455,6 +496,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 3 ------//
     defaultPresetMap["key3_modline3_enable"] = 0;
+    defaultPresetMap["key3_modline3_initValue"] = 0;
+    defaultPresetMap["key3_modline3_initMode"] = "None";
     defaultPresetMap["key3_modline3_source"] = "None";
     defaultPresetMap["key3_modline3_gain"] = 0.00;
     defaultPresetMap["key3_modline3_offset"] = 0.00;
@@ -470,6 +513,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key3_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline3_channel"] = 0;
     defaultPresetMap["key3_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key3_modline3_oscroute"] = "";
     defaultPresetMap["key3_modline3_ledgreen"] = "None";
     defaultPresetMap["key3_modline3_ledred"] = "None";
     defaultPresetMap["key3_modline3_displaylinked"] = 0;
@@ -477,6 +521,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 4 ------//
     defaultPresetMap["key3_modline4_enable"] = 0;
+    defaultPresetMap["key3_modline4_initValue"] = 0;
+    defaultPresetMap["key3_modline4_initMode"] = "None";
     defaultPresetMap["key3_modline4_source"] = "None";
     defaultPresetMap["key3_modline4_gain"] = 0.00;
     defaultPresetMap["key3_modline4_offset"] = 0.00;
@@ -492,6 +538,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key3_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline4_channel"] = 0;
     defaultPresetMap["key3_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key3_modline4_oscroute"] = "";
     defaultPresetMap["key3_modline4_ledgreen"] = "None";
     defaultPresetMap["key3_modline4_ledred"] = "None";
     defaultPresetMap["key3_modline4_displaylinked"] = 0;
@@ -499,6 +546,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 5 ------//
     defaultPresetMap["key3_modline5_enable"] = 0;
+    defaultPresetMap["key3_modline5_initValue"] = 0;
+    defaultPresetMap["key3_modline5_initMode"] = "None";
     defaultPresetMap["key3_modline5_source"] = "None";
     defaultPresetMap["key3_modline5_gain"] = 0.00;
     defaultPresetMap["key3_modline5_offset"] = 0.00;
@@ -514,6 +563,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key3_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline5_channel"] = 0;
     defaultPresetMap["key3_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key3_modline5_oscroute"] = "";
     defaultPresetMap["key3_modline5_ledgreen"] = "None";
     defaultPresetMap["key3_modline5_ledred"] = "None";
     defaultPresetMap["key3_modline5_displaylinked"] = 0;
@@ -521,6 +571,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 6 ------//
     defaultPresetMap["key3_modline6_enable"] = 0;
+    defaultPresetMap["key3_modline6_initValue"] = 0;
+    defaultPresetMap["key3_modline6_initMode"] = "None";
     defaultPresetMap["key3_modline6_source"] = "None";
     defaultPresetMap["key3_modline6_gain"] = 0.00;
     defaultPresetMap["key3_modline6_offset"] = 0.00;
@@ -536,6 +588,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key3_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline6_channel"] = 0;
     defaultPresetMap["key3_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key3_modline6_oscroute"] = "";
     defaultPresetMap["key3_modline6_ledgreen"] = "None";
     defaultPresetMap["key3_modline6_ledred"] = "None";
     defaultPresetMap["key3_modline6_displaylinked"] = 0;
@@ -552,6 +605,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 1 ------//
     defaultPresetMap["key4_modline1_enable"] = 0;
+    defaultPresetMap["key4_modline1_initValue"] = 0;
+    defaultPresetMap["key4_modline1_initMode"] = "None";
     defaultPresetMap["key4_modline1_source"] = "None";
     defaultPresetMap["key4_modline1_gain"] = 0.00;
     defaultPresetMap["key4_modline1_offset"] = 0.00;
@@ -567,6 +622,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key4_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline1_channel"] = 0;
     defaultPresetMap["key4_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key4_modline1_oscroute"] = "";
     defaultPresetMap["key4_modline1_ledgreen"] = "None";
     defaultPresetMap["key4_modline1_ledred"] = "None";
     defaultPresetMap["key4_modline1_displaylinked"] = 0;
@@ -574,6 +630,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 2 ------//
     defaultPresetMap["key4_modline2_enable"] = 0;
+    defaultPresetMap["key4_modline2_initValue"] = 0;
+    defaultPresetMap["key4_modline2_initMode"] = "None";
     defaultPresetMap["key4_modline2_source"] = "None";
     defaultPresetMap["key4_modline2_gain"] = 0.00;
     defaultPresetMap["key4_modline2_offset"] = 0.00;
@@ -589,6 +647,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key4_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline2_channel"] = 0;
     defaultPresetMap["key4_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key4_modline2_oscroute"] = "";
     defaultPresetMap["key4_modline2_ledgreen"] = "None";
     defaultPresetMap["key4_modline2_ledred"] = "None";
     defaultPresetMap["key4_modline2_displaylinked"] = 0;
@@ -596,6 +655,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 3 ------//
     defaultPresetMap["key4_modline3_enable"] = 0;
+    defaultPresetMap["key4_modline3_initValue"] = 0;
+    defaultPresetMap["key4_modline3_initMode"] = "None";
     defaultPresetMap["key4_modline3_source"] = "None";
     defaultPresetMap["key4_modline3_gain"] = 0.00;
     defaultPresetMap["key4_modline3_offset"] = 0.00;
@@ -611,6 +672,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key4_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline3_channel"] = 0;
     defaultPresetMap["key4_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key4_modline3_oscroute"] = "";
     defaultPresetMap["key4_modline3_ledgreen"] = "None";
     defaultPresetMap["key4_modline3_ledred"] = "None";
     defaultPresetMap["key4_modline3_displaylinked"] = 0;
@@ -618,6 +680,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 4 ------//
     defaultPresetMap["key4_modline4_enable"] = 0;
+    defaultPresetMap["key4_modline4_initValue"] = 0;
+    defaultPresetMap["key4_modline4_initMode"] = "None";
     defaultPresetMap["key4_modline4_source"] = "None";
     defaultPresetMap["key4_modline4_gain"] = 0.00;
     defaultPresetMap["key4_modline4_offset"] = 0.00;
@@ -633,6 +697,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key4_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline4_channel"] = 0;
     defaultPresetMap["key4_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key4_modline4_oscroute"] = "";
     defaultPresetMap["key4_modline4_ledgreen"] = "None";
     defaultPresetMap["key4_modline4_ledred"] = "None";
     defaultPresetMap["key4_modline4_displaylinked"] = 0;
@@ -640,6 +705,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 5 ------//
     defaultPresetMap["key4_modline5_enable"] = 0;
+    defaultPresetMap["key4_modline5_initValue"] = 0;
+    defaultPresetMap["key4_modline5_initMode"] = "None";
     defaultPresetMap["key4_modline5_source"] = "None";
     defaultPresetMap["key4_modline5_gain"] = 0.00;
     defaultPresetMap["key4_modline5_offset"] = 0.00;
@@ -655,6 +722,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key4_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline5_channel"] = 0;
     defaultPresetMap["key4_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key4_modline5_oscroute"] = "";
     defaultPresetMap["key4_modline5_ledgreen"] = "None";
     defaultPresetMap["key4_modline5_ledred"] = "None";
     defaultPresetMap["key4_modline5_displaylinked"] = 0;
@@ -662,6 +730,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 6 ------//
     defaultPresetMap["key4_modline6_enable"] = 0;
+    defaultPresetMap["key4_modline6_initValue"] = 0;
+    defaultPresetMap["key4_modline6_initMode"] = "None";
     defaultPresetMap["key4_modline6_source"] = "None";
     defaultPresetMap["key4_modline6_gain"] = 0.00;
     defaultPresetMap["key4_modline6_offset"] = 0.00;
@@ -677,6 +747,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key4_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline6_channel"] = 0;
     defaultPresetMap["key4_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key4_modline6_oscroute"] = "";
     defaultPresetMap["key4_modline6_ledgreen"] = "None";
     defaultPresetMap["key4_modline6_ledred"] = "None";
     defaultPresetMap["key4_modline6_displaylinked"] = 0;
@@ -693,6 +764,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 1 ------//
     defaultPresetMap["key5_modline1_enable"] = 0;
+    defaultPresetMap["key5_modline1_initValue"] = 0;
+    defaultPresetMap["key5_modline1_initMode"] = "None";
     defaultPresetMap["key5_modline1_source"] = "None";
     defaultPresetMap["key5_modline1_gain"] = 0.00;
     defaultPresetMap["key5_modline1_offset"] = 0.00;
@@ -708,6 +781,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key5_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline1_channel"] = 0;
     defaultPresetMap["key5_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key5_modline1_oscroute"] = "";
     defaultPresetMap["key5_modline1_ledgreen"] = "None";
     defaultPresetMap["key5_modline1_ledred"] = "None";
     defaultPresetMap["key5_modline1_displaylinked"] = 0;
@@ -715,6 +789,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 2 ------//
     defaultPresetMap["key5_modline2_enable"] = 0;
+    defaultPresetMap["key5_modline2_initValue"] = 0;
+    defaultPresetMap["key5_modline2_initMode"] = "None";
     defaultPresetMap["key5_modline2_source"] = "None";
     defaultPresetMap["key5_modline2_gain"] = 0.00;
     defaultPresetMap["key5_modline2_offset"] = 0.00;
@@ -730,6 +806,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key5_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline2_channel"] = 0;
     defaultPresetMap["key5_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key5_modline2_oscroute"] = "";
     defaultPresetMap["key5_modline2_ledgreen"] = "None";
     defaultPresetMap["key5_modline2_ledred"] = "None";
     defaultPresetMap["key5_modline2_displaylinked"] = 0;
@@ -737,6 +814,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 3 ------//
     defaultPresetMap["key5_modline3_enable"] = 0;
+    defaultPresetMap["key5_modline3_initValue"] = 0;
+    defaultPresetMap["key5_modline3_initMode"] = "None";
     defaultPresetMap["key5_modline3_source"] = "None";
     defaultPresetMap["key5_modline3_gain"] = 0.00;
     defaultPresetMap["key5_modline3_offset"] = 0.00;
@@ -752,6 +831,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key5_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline3_channel"] = 0;
     defaultPresetMap["key5_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key5_modline3_oscroute"] = "";
     defaultPresetMap["key5_modline3_ledgreen"] = "None";
     defaultPresetMap["key5_modline3_ledred"] = "None";
     defaultPresetMap["key5_modline3_displaylinked"] = 0;
@@ -759,6 +839,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 4 ------//
     defaultPresetMap["key5_modline4_enable"] = 0;
+    defaultPresetMap["key5_modline4_initValue"] = 0;
+    defaultPresetMap["key5_modline4_initMode"] = "None";
     defaultPresetMap["key5_modline4_source"] = "None";
     defaultPresetMap["key5_modline4_gain"] = 0.00;
     defaultPresetMap["key5_modline4_offset"] = 0.00;
@@ -774,6 +856,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key5_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline4_channel"] = 0;
     defaultPresetMap["key5_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key5_modline4_oscroute"] = "";
     defaultPresetMap["key5_modline4_ledgreen"] = "None";
     defaultPresetMap["key5_modline4_ledred"] = "None";
     defaultPresetMap["key5_modline4_displaylinked"] = 0;
@@ -781,6 +864,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 5 ------//
     defaultPresetMap["key5_modline5_enable"] = 0;
+    defaultPresetMap["key5_modline5_initValue"] = 0;
+    defaultPresetMap["key5_modline5_initMode"] = "None";
     defaultPresetMap["key5_modline5_source"] = "None";
     defaultPresetMap["key5_modline5_gain"] = 0.00;
     defaultPresetMap["key5_modline5_offset"] = 0.00;
@@ -796,6 +881,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key5_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline5_channel"] = 0;
     defaultPresetMap["key5_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key5_modline5_oscroute"] = "";
     defaultPresetMap["key5_modline5_ledgreen"] = "None";
     defaultPresetMap["key5_modline5_ledred"] = "None";
     defaultPresetMap["key5_modline5_displaylinked"] = 0;
@@ -803,6 +889,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 6 ------//
     defaultPresetMap["key5_modline6_enable"] = 0;
+    defaultPresetMap["key5_modline6_initValue"] = 0;
+    defaultPresetMap["key5_modline6_initMode"] = "None";
     defaultPresetMap["key5_modline6_source"] = "None";
     defaultPresetMap["key5_modline6_gain"] = 0.00;
     defaultPresetMap["key5_modline6_offset"] = 0.00;
@@ -818,6 +906,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key5_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline6_channel"] = 0;
     defaultPresetMap["key5_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key5_modline6_oscroute"] = "";
     defaultPresetMap["key5_modline6_ledgreen"] = "None";
     defaultPresetMap["key5_modline6_ledred"] = "None";
     defaultPresetMap["key5_modline6_displaylinked"] = 0;
@@ -834,6 +923,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 1 ------//
     defaultPresetMap["key6_modline1_enable"] = 0;
+    defaultPresetMap["key6_modline1_initValue"] = 0;
+    defaultPresetMap["key6_modline1_initMode"] = "None";
     defaultPresetMap["key6_modline1_source"] = "None";
     defaultPresetMap["key6_modline1_gain"] = 0.00;
     defaultPresetMap["key6_modline1_offset"] = 0.00;
@@ -849,6 +940,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key6_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline1_channel"] = 0;
     defaultPresetMap["key6_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key6_modline1_oscroute"] = "";
     defaultPresetMap["key6_modline1_ledgreen"] = "None";
     defaultPresetMap["key6_modline1_ledred"] = "None";
     defaultPresetMap["key6_modline1_displaylinked"] = 0;
@@ -856,6 +948,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 2 ------//
     defaultPresetMap["key6_modline2_enable"] = 0;
+    defaultPresetMap["key6_modline2_initValue"] = 0;
+    defaultPresetMap["key6_modline2_initMode"] = "None";
     defaultPresetMap["key6_modline2_source"] = "None";
     defaultPresetMap["key6_modline2_gain"] = 0.00;
     defaultPresetMap["key6_modline2_offset"] = 0.00;
@@ -871,6 +965,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key6_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline2_channel"] = 0;
     defaultPresetMap["key6_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key6_modline2_oscroute"] = "";
     defaultPresetMap["key6_modline2_ledgreen"] = "None";
     defaultPresetMap["key6_modline2_ledred"] = "None";
     defaultPresetMap["key6_modline2_displaylinked"] = 0;
@@ -878,6 +973,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 3 ------//
     defaultPresetMap["key6_modline3_enable"] = 0;
+    defaultPresetMap["key6_modline3_initValue"] = 0;
+    defaultPresetMap["key6_modline3_initMode"] = "None";
     defaultPresetMap["key6_modline3_source"] = "None";
     defaultPresetMap["key6_modline3_gain"] = 0.00;
     defaultPresetMap["key6_modline3_offset"] = 0.00;
@@ -893,6 +990,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key6_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline3_channel"] = 0;
     defaultPresetMap["key6_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key6_modline3_oscroute"] = "";
     defaultPresetMap["key6_modline3_ledgreen"] = "None";
     defaultPresetMap["key6_modline3_ledred"] = "None";
     defaultPresetMap["key6_modline3_displaylinked"] = 0;
@@ -900,6 +998,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 4 ------//
     defaultPresetMap["key6_modline4_enable"] = 0;
+    defaultPresetMap["key6_modline4_initValue"] = 0;
+    defaultPresetMap["key6_modline4_initMode"] = "None";
     defaultPresetMap["key6_modline4_source"] = "None";
     defaultPresetMap["key6_modline4_gain"] = 0.00;
     defaultPresetMap["key6_modline4_offset"] = 0.00;
@@ -915,6 +1015,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key6_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline4_channel"] = 0;
     defaultPresetMap["key6_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key6_modline4_oscroute"] = "";
     defaultPresetMap["key6_modline4_ledgreen"] = "None";
     defaultPresetMap["key6_modline4_ledred"] = "None";
     defaultPresetMap["key6_modline4_displaylinked"] = 0;
@@ -922,6 +1023,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 5 ------//
     defaultPresetMap["key6_modline5_enable"] = 0;
+    defaultPresetMap["key6_modline5_initValue"] = 0;
+    defaultPresetMap["key6_modline5_initMode"] = "None";
     defaultPresetMap["key6_modline5_source"] = "None";
     defaultPresetMap["key6_modline5_gain"] = 0.00;
     defaultPresetMap["key6_modline5_offset"] = 0.00;
@@ -937,6 +1040,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key6_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline5_channel"] = 0;
     defaultPresetMap["key6_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key6_modline5_oscroute"] = "";
     defaultPresetMap["key6_modline5_ledgreen"] = "None";
     defaultPresetMap["key6_modline5_ledred"] = "None";
     defaultPresetMap["key6_modline5_displaylinked"] = 0;
@@ -944,6 +1048,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 6 ------//
     defaultPresetMap["key6_modline6_enable"] = 0;
+    defaultPresetMap["key6_modline6_initValue"] = 0;
+    defaultPresetMap["key6_modline6_initMode"] = "None";
     defaultPresetMap["key6_modline6_source"] = "None";
     defaultPresetMap["key6_modline6_gain"] = 0.00;
     defaultPresetMap["key6_modline6_offset"] = 0.00;
@@ -959,6 +1065,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key6_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline6_channel"] = 0;
     defaultPresetMap["key6_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key6_modline6_oscroute"] = "";
     defaultPresetMap["key6_modline6_ledgreen"] = "None";
     defaultPresetMap["key6_modline6_ledred"] = "None";
     defaultPresetMap["key6_modline6_displaylinked"] = 0;
@@ -975,6 +1082,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 1 ------//
     defaultPresetMap["key7_modline1_enable"] = 0;
+    defaultPresetMap["key7_modline1_initValue"] = 0;
+    defaultPresetMap["key7_modline1_initMode"] = "None";
     defaultPresetMap["key7_modline1_source"] = "None";
     defaultPresetMap["key7_modline1_gain"] = 0.00;
     defaultPresetMap["key7_modline1_offset"] = 0.00;
@@ -990,6 +1099,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key7_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline1_channel"] = 0;
     defaultPresetMap["key7_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key7_modline1_oscroute"] = "";
     defaultPresetMap["key7_modline1_ledgreen"] = "None";
     defaultPresetMap["key7_modline1_ledred"] = "None";
     defaultPresetMap["key7_modline1_displaylinked"] = 0;
@@ -997,6 +1107,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 2 ------//
     defaultPresetMap["key7_modline2_enable"] = 0;
+    defaultPresetMap["key7_modline2_initValue"] = 0;
+    defaultPresetMap["key7_modline2_initMode"] = "None";
     defaultPresetMap["key7_modline2_source"] = "None";
     defaultPresetMap["key7_modline2_gain"] = 0.00;
     defaultPresetMap["key7_modline2_offset"] = 0.00;
@@ -1012,6 +1124,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key7_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline2_channel"] = 0;
     defaultPresetMap["key7_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key7_modline2_oscroute"] = "";
     defaultPresetMap["key7_modline2_ledgreen"] = "None";
     defaultPresetMap["key7_modline2_ledred"] = "None";
     defaultPresetMap["key7_modline2_displaylinked"] = 0;
@@ -1019,6 +1132,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 3 ------//
     defaultPresetMap["key7_modline3_enable"] = 0;
+    defaultPresetMap["key7_modline3_initValue"] = 0;
+    defaultPresetMap["key7_modline3_initMode"] = "None";
     defaultPresetMap["key7_modline3_source"] = "None";
     defaultPresetMap["key7_modline3_gain"] = 0.00;
     defaultPresetMap["key7_modline3_offset"] = 0.00;
@@ -1034,6 +1149,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key7_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline3_channel"] = 0;
     defaultPresetMap["key7_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key7_modline3_oscroute"] = "";
     defaultPresetMap["key7_modline3_ledgreen"] = "None";
     defaultPresetMap["key7_modline3_ledred"] = "None";
     defaultPresetMap["key7_modline3_displaylinked"] = 0;
@@ -1041,6 +1157,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 4 ------//
     defaultPresetMap["key7_modline4_enable"] = 0;
+    defaultPresetMap["key7_modline4_initValue"] = 0;
+    defaultPresetMap["key7_modline4_initMode"] = "None";
     defaultPresetMap["key7_modline4_source"] = "None";
     defaultPresetMap["key7_modline4_gain"] = 0.00;
     defaultPresetMap["key7_modline4_offset"] = 0.00;
@@ -1056,6 +1174,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key7_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline4_channel"] = 0;
     defaultPresetMap["key7_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key7_modline4_oscroute"] = "";
     defaultPresetMap["key7_modline4_ledgreen"] = "None";
     defaultPresetMap["key7_modline4_ledred"] = "None";
     defaultPresetMap["key7_modline4_displaylinked"] = 0;
@@ -1063,6 +1182,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 5 ------//
     defaultPresetMap["key7_modline5_enable"] = 0;
+    defaultPresetMap["key7_modline5_initValue"] = 0;
+    defaultPresetMap["key7_modline5_initMode"] = "None";
     defaultPresetMap["key7_modline5_source"] = "None";
     defaultPresetMap["key7_modline5_gain"] = 0.00;
     defaultPresetMap["key7_modline5_offset"] = 0.00;
@@ -1078,6 +1199,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key7_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline5_channel"] = 0;
     defaultPresetMap["key7_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key7_modline5_oscroute"] = "";
     defaultPresetMap["key7_modline5_ledgreen"] = "None";
     defaultPresetMap["key7_modline5_ledred"] = "None";
     defaultPresetMap["key7_modline5_displaylinked"] = 0;
@@ -1085,6 +1207,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 6 ------//
     defaultPresetMap["key7_modline6_enable"] = 0;
+    defaultPresetMap["key7_modline6_initValue"] = 0;
+    defaultPresetMap["key7_modline6_initMode"] = "None";
     defaultPresetMap["key7_modline6_source"] = "None";
     defaultPresetMap["key7_modline6_gain"] = 0.00;
     defaultPresetMap["key7_modline6_offset"] = 0.00;
@@ -1100,6 +1224,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key7_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline6_channel"] = 0;
     defaultPresetMap["key7_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key7_modline6_oscroute"] = "";
     defaultPresetMap["key7_modline6_ledgreen"] = "None";
     defaultPresetMap["key7_modline6_ledred"] = "None";
     defaultPresetMap["key7_modline6_displaylinked"] = 0;
@@ -1116,6 +1241,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 1 ------//
     defaultPresetMap["key8_modline1_enable"] = 0;
+    defaultPresetMap["key8_modline1_initValue"] = 0;
+    defaultPresetMap["key8_modline1_initMode"] = "None";
     defaultPresetMap["key8_modline1_source"] = "None";
     defaultPresetMap["key8_modline1_gain"] = 0.00;
     defaultPresetMap["key8_modline1_offset"] = 0.00;
@@ -1131,6 +1258,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key8_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline1_channel"] = 0;
     defaultPresetMap["key8_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key8_modline1_oscroute"] = "";
     defaultPresetMap["key8_modline1_ledgreen"] = "None";
     defaultPresetMap["key8_modline1_ledred"] = "None";
     defaultPresetMap["key8_modline1_displaylinked"] = 0;
@@ -1138,6 +1266,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 2 ------//
     defaultPresetMap["key8_modline2_enable"] = 0;
+    defaultPresetMap["key8_modline2_initValue"] = 0;
+    defaultPresetMap["key8_modline2_initMode"] = "None";
     defaultPresetMap["key8_modline2_source"] = "None";
     defaultPresetMap["key8_modline2_gain"] = 0.00;
     defaultPresetMap["key8_modline2_offset"] = 0.00;
@@ -1153,6 +1283,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key8_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline2_channel"] = 0;
     defaultPresetMap["key8_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key8_modline2_oscroute"] = "";
     defaultPresetMap["key8_modline2_ledgreen"] = "None";
     defaultPresetMap["key8_modline2_ledred"] = "None";
     defaultPresetMap["key8_modline2_displaylinked"] = 0;
@@ -1160,6 +1291,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 3 ------//
     defaultPresetMap["key8_modline3_enable"] = 0;
+    defaultPresetMap["key8_modline3_initValue"] = 0;
+    defaultPresetMap["key8_modline3_initMode"] = "None";
     defaultPresetMap["key8_modline3_source"] = "None";
     defaultPresetMap["key8_modline3_gain"] = 0.00;
     defaultPresetMap["key8_modline3_offset"] = 0.00;
@@ -1175,6 +1308,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key8_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline3_channel"] = 0;
     defaultPresetMap["key8_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key8_modline3_oscroute"] = "";
     defaultPresetMap["key8_modline3_ledgreen"] = "None";
     defaultPresetMap["key8_modline3_ledred"] = "None";
     defaultPresetMap["key8_modline3_displaylinked"] = 0;
@@ -1182,6 +1316,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 4 ------//
     defaultPresetMap["key8_modline4_enable"] = 0;
+    defaultPresetMap["key8_modline4_initValue"] = 0;
+    defaultPresetMap["key8_modline4_initMode"] = "None";
     defaultPresetMap["key8_modline4_source"] = "None";
     defaultPresetMap["key8_modline4_gain"] = 0.00;
     defaultPresetMap["key8_modline4_offset"] = 0.00;
@@ -1197,6 +1333,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key8_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline4_channel"] = 0;
     defaultPresetMap["key8_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key8_modline4_oscroute"] = "";
     defaultPresetMap["key8_modline4_ledgreen"] = "None";
     defaultPresetMap["key8_modline4_ledred"] = "None";
     defaultPresetMap["key8_modline4_displaylinked"] = 0;
@@ -1204,6 +1341,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 5 ------//
     defaultPresetMap["key8_modline5_enable"] = 0;
+    defaultPresetMap["key8_modline5_initValue"] = 0;
+    defaultPresetMap["key8_modline5_initMode"] = "None";
     defaultPresetMap["key8_modline5_source"] = "None";
     defaultPresetMap["key8_modline5_gain"] = 0.00;
     defaultPresetMap["key8_modline5_offset"] = 0.00;
@@ -1219,6 +1358,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key8_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline5_channel"] = 0;
     defaultPresetMap["key8_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key8_modline5_oscroute"] = "";
     defaultPresetMap["key8_modline5_ledgreen"] = "None";
     defaultPresetMap["key8_modline5_ledred"] = "None";
     defaultPresetMap["key8_modline5_displaylinked"] = 0;
@@ -1226,6 +1366,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 6 ------//
     defaultPresetMap["key8_modline6_enable"] = 0;
+    defaultPresetMap["key8_modline6_initValue"] = 0;
+    defaultPresetMap["key8_modline6_initMode"] = "None";
     defaultPresetMap["key8_modline6_source"] = "None";
     defaultPresetMap["key8_modline6_gain"] = 0.00;
     defaultPresetMap["key8_modline6_offset"] = 0.00;
@@ -1241,6 +1383,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key8_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline6_channel"] = 0;
     defaultPresetMap["key8_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key8_modline6_oscroute"] = "";
     defaultPresetMap["key8_modline6_ledgreen"] = "None";
     defaultPresetMap["key8_modline6_ledred"] = "None";
     defaultPresetMap["key8_modline6_displaylinked"] = 0;
@@ -1257,6 +1400,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 1 ------//
     defaultPresetMap["key9_modline1_enable"] = 0;
+    defaultPresetMap["key9_modline1_initValue"] = 0;
+    defaultPresetMap["key9_modline1_initMode"] = "None";
     defaultPresetMap["key9_modline1_source"] = "None";
     defaultPresetMap["key9_modline1_gain"] = 0.00;
     defaultPresetMap["key9_modline1_offset"] = 0.00;
@@ -1272,6 +1417,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key9_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline1_channel"] = 0;
     defaultPresetMap["key9_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key9_modline1_oscroute"] = "";
     defaultPresetMap["key9_modline1_ledgreen"] = "None";
     defaultPresetMap["key9_modline1_ledred"] = "None";
     defaultPresetMap["key9_modline1_displaylinked"] = 0;
@@ -1279,6 +1425,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 2 ------//
     defaultPresetMap["key9_modline2_enable"] = 0;
+    defaultPresetMap["key9_modline2_initValue"] = 0;
+    defaultPresetMap["key9_modline2_initMode"] = "None";
     defaultPresetMap["key9_modline2_source"] = "None";
     defaultPresetMap["key9_modline2_gain"] = 0.00;
     defaultPresetMap["key9_modline2_offset"] = 0.00;
@@ -1294,6 +1442,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key9_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline2_channel"] = 0;
     defaultPresetMap["key9_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key9_modline2_oscroute"] = "";
     defaultPresetMap["key9_modline2_ledgreen"] = "None";
     defaultPresetMap["key9_modline2_ledred"] = "None";
     defaultPresetMap["key9_modline2_displaylinked"] = 0;
@@ -1301,6 +1450,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 3 ------//
     defaultPresetMap["key9_modline3_enable"] = 0;
+    defaultPresetMap["key9_modline3_initValue"] = 0;
+    defaultPresetMap["key9_modline3_initMode"] = "None";
     defaultPresetMap["key9_modline3_source"] = "None";
     defaultPresetMap["key9_modline3_gain"] = 0.00;
     defaultPresetMap["key9_modline3_offset"] = 0.00;
@@ -1316,6 +1467,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key9_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline3_channel"] = 0;
     defaultPresetMap["key9_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key9_modline3_oscroute"] = "";
     defaultPresetMap["key9_modline3_ledgreen"] = "None";
     defaultPresetMap["key9_modline3_ledred"] = "None";
     defaultPresetMap["key9_modline3_displaylinked"] = 0;
@@ -1323,6 +1475,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 4 ------//
     defaultPresetMap["key9_modline4_enable"] = 0;
+    defaultPresetMap["key9_modline4_initValue"] = 0;
+    defaultPresetMap["key9_modline4_initMode"] = "None";
     defaultPresetMap["key9_modline4_source"] = "None";
     defaultPresetMap["key9_modline4_gain"] = 0.00;
     defaultPresetMap["key9_modline4_offset"] = 0.00;
@@ -1338,6 +1492,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key9_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline4_channel"] = 0;
     defaultPresetMap["key9_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key9_modline4_oscroute"] = "";
     defaultPresetMap["key9_modline4_ledgreen"] = "None";
     defaultPresetMap["key9_modline4_ledred"] = "None";
     defaultPresetMap["key9_modline4_displaylinked"] = 0;
@@ -1345,6 +1500,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 5 ------//
     defaultPresetMap["key9_modline5_enable"] = 0;
+    defaultPresetMap["key9_modline5_initValue"] = 0;
+    defaultPresetMap["key9_modline5_initMode"] = "None";
     defaultPresetMap["key9_modline5_source"] = "None";
     defaultPresetMap["key9_modline5_gain"] = 0.00;
     defaultPresetMap["key9_modline5_offset"] = 0.00;
@@ -1360,6 +1517,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key9_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline5_channel"] = 0;
     defaultPresetMap["key9_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key9_modline5_oscroute"] = "";
     defaultPresetMap["key9_modline5_ledgreen"] = "None";
     defaultPresetMap["key9_modline5_ledred"] = "None";
     defaultPresetMap["key9_modline5_displaylinked"] = 0;
@@ -1367,6 +1525,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 6 ------//
     defaultPresetMap["key9_modline6_enable"] = 0;
+    defaultPresetMap["key9_modline6_initValue"] = 0;
+    defaultPresetMap["key9_modline6_initMode"] = "None";
     defaultPresetMap["key9_modline6_source"] = "None";
     defaultPresetMap["key9_modline6_gain"] = 0.00;
     defaultPresetMap["key9_modline6_offset"] = 0.00;
@@ -1382,6 +1542,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key9_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline6_channel"] = 0;
     defaultPresetMap["key9_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key9_modline6_oscroute"] = "";
     defaultPresetMap["key9_modline6_ledgreen"] = "None";
     defaultPresetMap["key9_modline6_ledred"] = "None";
     defaultPresetMap["key9_modline6_displaylinked"] = 0;
@@ -1398,6 +1559,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 1 ------//
     defaultPresetMap["key10_modline1_enable"] = 0;
+    defaultPresetMap["key10_modline1_initValue"] = 0;
+    defaultPresetMap["key10_modline1_initMode"] = "None";
     defaultPresetMap["key10_modline1_source"] = "None";
     defaultPresetMap["key10_modline1_gain"] = 0.00;
     defaultPresetMap["key10_modline1_offset"] = 0.00;
@@ -1413,6 +1576,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key10_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline1_channel"] = 0;
     defaultPresetMap["key10_modline1_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key10_modline1_oscroute"] = "";
     defaultPresetMap["key10_modline1_ledgreen"] = "None";
     defaultPresetMap["key10_modline1_ledred"] = "None";
     defaultPresetMap["key10_modline1_displaylinked"] = 0;
@@ -1420,6 +1584,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 2 ------//
     defaultPresetMap["key10_modline2_enable"] = 0;
+    defaultPresetMap["key10_modline2_initValue"] = 0;
+    defaultPresetMap["key10_modline2_initMode"] = "None";
     defaultPresetMap["key10_modline2_source"] = "None";
     defaultPresetMap["key10_modline2_gain"] = 0.00;
     defaultPresetMap["key10_modline2_offset"] = 0.00;
@@ -1435,6 +1601,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key10_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline2_channel"] = 0;
     defaultPresetMap["key10_modline2_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key10_modline2_oscroute"] = "";
     defaultPresetMap["key10_modline2_ledgreen"] = "None";
     defaultPresetMap["key10_modline2_ledred"] = "None";
     defaultPresetMap["key10_modline2_displaylinked"] = 0;
@@ -1442,6 +1609,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 3 ------//
     defaultPresetMap["key10_modline3_enable"] = 0;
+    defaultPresetMap["key10_modline3_initValue"] = 0;
+    defaultPresetMap["key10_modline3_initMode"] = "None";
     defaultPresetMap["key10_modline3_source"] = "None";
     defaultPresetMap["key10_modline3_gain"] = 0.00;
     defaultPresetMap["key10_modline3_offset"] = 0.00;
@@ -1457,6 +1626,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key10_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline3_channel"] = 0;
     defaultPresetMap["key10_modline3_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key10_modline3_oscroute"] = "";
     defaultPresetMap["key10_modline3_ledgreen"] = "None";
     defaultPresetMap["key10_modline3_ledred"] = "None";
     defaultPresetMap["key10_modline3_displaylinked"] = 0;
@@ -1464,6 +1634,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 4 ------//
     defaultPresetMap["key10_modline4_enable"] = 0;
+    defaultPresetMap["key10_modline4_initValue"] = 0;
+    defaultPresetMap["key10_modline4_initMode"] = "None";
     defaultPresetMap["key10_modline4_source"] = "None";
     defaultPresetMap["key10_modline4_gain"] = 0.00;
     defaultPresetMap["key10_modline4_offset"] = 0.00;
@@ -1479,6 +1651,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key10_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline4_channel"] = 0;
     defaultPresetMap["key10_modline4_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key10_modline4_oscroute"] = "";
     defaultPresetMap["key10_modline4_ledgreen"] = "None";
     defaultPresetMap["key10_modline4_ledred"] = "None";
     defaultPresetMap["key10_modline4_displaylinked"] = 0;
@@ -1486,6 +1659,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 5 ------//
     defaultPresetMap["key10_modline5_enable"] = 0;
+    defaultPresetMap["key10_modline5_initValue"] = 0;
+    defaultPresetMap["key10_modline5_initMode"] = "None";
     defaultPresetMap["key10_modline5_source"] = "None";
     defaultPresetMap["key10_modline5_gain"] = 0.00;
     defaultPresetMap["key10_modline5_offset"] = 0.00;
@@ -1501,6 +1676,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key10_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline5_channel"] = 0;
     defaultPresetMap["key10_modline5_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key10_modline5_oscroute"] = "";
     defaultPresetMap["key10_modline5_ledgreen"] = "None";
     defaultPresetMap["key10_modline5_ledred"] = "None";
     defaultPresetMap["key10_modline5_displaylinked"] = 0;
@@ -1508,6 +1684,8 @@ void PresetInterface::slotConstructDefaultMap()
 
     //------ Modline 6 ------//
     defaultPresetMap["key10_modline6_enable"] = 0;
+    defaultPresetMap["key10_modline6_initValue"] = 0;
+    defaultPresetMap["key10_modline6_initMode"] = "None";
     defaultPresetMap["key10_modline6_source"] = "None";
     defaultPresetMap["key10_modline6_gain"] = 0.00;
     defaultPresetMap["key10_modline6_offset"] = 0.00;
@@ -1523,6 +1701,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key10_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline6_channel"] = 0;
     defaultPresetMap["key10_modline6_device"] = "SSCOM_Port_1";
+    defaultPresetMap["key10_modline6_oscroute"] = "";
     defaultPresetMap["key10_modline6_ledgreen"] = "None";
     defaultPresetMap["key10_modline6_ledred"] = "None";
     defaultPresetMap["key10_modline6_displaylinked"] = 0;
