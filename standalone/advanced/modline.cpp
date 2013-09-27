@@ -63,6 +63,38 @@ void Modline::slotConnectElements()
     //parameter destination menu
     connect(modlineForm.destination,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
+    //destination parameters
+    connect(modlineForm.noteNumber,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.noteVelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.noteLiveVelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.cc,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.bankMSB,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.polyNote,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+
+    connect(modlineForm.noteChannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.noteLiveChannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.controlChannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.bankChannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.programChannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.bendChannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.aftertouchChannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.polyChannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+
+    connect(modlineForm.noteDevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.noteLiveDevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.controlDevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.bankDevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.programDevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.bendDevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.aftertouchDevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.polyDevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+
+    connect(modlineForm.mmcDeviceId,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.mmcFunction,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.mmcDevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+
+    connect(modlineForm.oscRoute,SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
+
     //green LED
     connect(modlineForm.ledgreen,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
@@ -155,6 +187,117 @@ void Modline::slotValueChanged()
             value = modlineForm.destination->currentText();
         }
 
+        //destination parameters
+
+        else if(sender == modlineForm.noteNumber)
+        {
+            value = modlineForm.noteNumber->value();
+        }
+        else if(sender == modlineForm.noteVelocity)
+        {
+            value = modlineForm.noteVelocity->value();
+        }
+        else if(sender == modlineForm.noteLiveVelocity)
+        {
+            value = modlineForm.noteLiveVelocity->value();
+        }
+        else if(sender == modlineForm.cc)
+        {
+            value = modlineForm.cc->value();
+        }
+        else if(sender == modlineForm.bankMSB)
+        {
+            value = modlineForm.bankMSB->value();
+        }
+        else if(sender == modlineForm.polyNote)
+        {
+            value = modlineForm.polyNote->value();
+        }
+
+        else if(sender == modlineForm.noteChannel)
+        {
+            value = modlineForm.noteChannel->value();
+        }
+        else if(sender == modlineForm.noteLiveChannel)
+        {
+            value = modlineForm.noteLiveChannel->value();
+        }
+        else if(sender == modlineForm.controlChannel)
+        {
+            value = modlineForm.controlChannel->value();
+        }
+        else if(sender == modlineForm.bankChannel)
+        {
+            value = modlineForm.bankChannel->value();
+        }
+        else if(sender == modlineForm.programChannel)
+        {
+            value = modlineForm.programChannel->value();
+        }
+        else if(sender == modlineForm.bendChannel)
+        {
+            value = modlineForm.bendChannel->value();
+        }
+        else if(sender == modlineForm.aftertouchChannel)
+        {
+            value = modlineForm.aftertouchChannel->value();
+        }
+        else if(sender == modlineForm.polyChannel)
+        {
+            value = modlineForm.polyChannel->value();
+        }
+
+        else if(sender == modlineForm.noteDevice)
+        {
+            value = modlineForm.noteDevice->currentText();
+        }
+        else if(sender == modlineForm.noteLiveDevice)
+        {
+            value = modlineForm.noteLiveDevice->currentText();
+        }
+        else if(sender == modlineForm.controlDevice)
+        {
+            value = modlineForm.controlDevice->currentText();
+        }
+        else if(sender == modlineForm.bankDevice)
+        {
+            value = modlineForm.bankDevice->currentText();
+        }
+        else if(sender == modlineForm.programDevice)
+        {
+            value = modlineForm.programDevice->currentText();
+        }
+        else if(sender == modlineForm.bendDevice)
+        {
+            value = modlineForm.bendDevice->currentText();
+        }
+        else if(sender == modlineForm.aftertouchDevice)
+        {
+            value = modlineForm.aftertouchDevice->currentText();
+        }
+        else if(sender == modlineForm.polyDevice)
+        {
+            value = modlineForm.polyDevice->currentText();
+        }
+
+        else if(sender == modlineForm.mmcDeviceId)
+        {
+            value = modlineForm.mmcDeviceId->value();
+        }
+        else if(sender == modlineForm.mmcFunction)
+        {
+            value = modlineForm.mmcFunction->currentText();
+        }
+        else if(sender == modlineForm.mmcDevice)
+        {
+            value = modlineForm.mmcDevice->currentText();
+        }
+
+        else if(sender == modlineForm.oscRoute)
+        {
+            value = modlineForm.oscRoute->text();
+        }
+
         //Green LED
         else if(sender == modlineForm.ledgreen)
         {
@@ -190,7 +333,7 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modlineForm.ledgreen->setCurrentIndex(modlineForm.ledgreen->findText(preset.value(QString("key%1_modline%2_ledgreen").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
     modlineForm.ledred->setCurrentIndex(modlineForm.ledred->findText(preset.value(QString("key%1_modline%2_ledred").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
 
-    /*
+
     //destination parameters
     modlineForm.noteNumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm.noteLiveNumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
@@ -225,5 +368,5 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modlineForm.mmcDevice->setCurrentIndex(modlineForm.noteDevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
 
     modlineForm.oscRoute->setText(preset.value(QString("key%1_modline%2_oscroute").arg(keyInstance+1).arg(modlineInstance+1)).toString());
-    */
+
 }

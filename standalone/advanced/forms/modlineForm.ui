@@ -1092,7 +1092,7 @@ QComboBox {
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>6</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -1529,7 +1529,7 @@ QComboBox {
     </widget>
    </widget>
    <widget class="QWidget" name="oscDeviceView">
-    <widget class="QTextEdit" name="oscRoute">
+    <widget class="QLineEdit" name="oscRoute">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -1537,27 +1537,6 @@ QComboBox {
        <width>90</width>
        <height>18</height>
       </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="verticalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOff</enum>
-     </property>
-     <property name="horizontalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOff</enum>
-     </property>
-     <property name="tabChangesFocus">
-      <bool>true</bool>
-     </property>
-     <property name="tabStopWidth">
-      <number>80</number>
-     </property>
-     <property name="acceptRichText">
-      <bool>false</bool>
      </property>
     </widget>
    </widget>
