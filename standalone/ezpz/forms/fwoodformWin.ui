@@ -245,7 +245,7 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Arial</family>
+       <family>Futura</family>
        <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
@@ -256,8 +256,7 @@ QPushButton:pressed
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">font:7pt &quot;Arial&quot;;
-</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>Your firmware is out of date.</string>

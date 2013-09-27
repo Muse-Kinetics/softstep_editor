@@ -70,7 +70,7 @@ FORMS    +=     forms/mainwindow.ui \
                 forms/fwprogressformWin.ui \
                 forms/fwoodformWin.ui \
                 forms/aboutformWin.ui \
-    forms/settingsForm.ui
+                forms/settingsForm.ui
 
 OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
                 resources/sendbuttondirtystylesheet.qss \

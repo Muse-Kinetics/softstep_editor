@@ -128,11 +128,10 @@ MainWindow::MainWindow(QWidget *parent) :
     mdm->connectSource();
 #else
     //Attempt to Connect SoftStep
-    mdm->devicePoller->start(1000);
+    //mdm->devicePoller->start(1000);
 #endif
 
     //menubar->actions().at(0)->setEnabled(false);
-
 }
 
 MainWindow::~MainWindow()
