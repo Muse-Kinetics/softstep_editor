@@ -30,7 +30,9 @@ public:
 
     bool isKeyOff();
 
+    bool disableKeyEvent;
     void keyPressEvent(QKeyEvent *);
+
 
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
@@ -40,6 +42,8 @@ public slots:
     void slotConnectElements();
     void slotValueChanged();
     void slotRecallPreset(QVariantMap preset, QVariantMap master);
+
+    void slotEnableDisableKeyEvents(bool);
 
 private:
     Ui::keyForm keyForm;

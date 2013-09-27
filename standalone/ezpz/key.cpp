@@ -8,6 +8,8 @@ Key::Key(QWidget *parent, int instanceNum) :
 {
     instance = instanceNum;
 
+    disableKeyEvent = false;
+
     this->setObjectName(QString("%1_Key").arg(instanceNum));
 
     //---------------------------------------- Set Up Ui
@@ -60,7 +62,7 @@ Key::Key(QWidget *parent, int instanceNum) :
 
 void Key::keyPressEvent(QKeyEvent *keyEvent)
 {
-    if((keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return))
+    if((keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return) && !disableKeyEvent)
     {
         //------------ Toggles
         if(keyForm.noteToggle->hasFocus())
@@ -804,20 +806,8 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap master)
     keyForm.programBank->setValue(preset.value(QString("%1_key_programBank").arg(instance)).toInt());
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void Key::slotEnableDisableKeyEvents(bool state)
+{
+    disableKeyEvent = state;
+}
 

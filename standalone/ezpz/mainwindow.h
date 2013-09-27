@@ -68,6 +68,7 @@ public:
 
     //Menubar
     QMenuBar *menubar;
+    QList<QAction *> actionList;
 
     //Ui Elements
     Key *key[10];
@@ -97,10 +98,9 @@ public:
     QLabel  *connectedLightLabel;
     QPushButton *reloadFactoryScenes;
 
+    bool shiftDown;
     void closeEvent(QCloseEvent *);
-    //bool eventFilter(QObject *, QEvent *);
     void keyPressEvent(QKeyEvent *);
-
 
 public slots:
     void slotConnectInterfaces();
@@ -115,8 +115,7 @@ public slots:
     void slotConnectUpdate();
     void slotDisplaySaveState(bool);
 
-    void slotShowDisableWindow();
-    void slotHideDisableWindow();
+    void slotEnableDisableMenu();
 
     void slotDisplayFactory();
 

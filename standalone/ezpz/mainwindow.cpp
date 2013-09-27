@@ -34,6 +34,25 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("SoftStep Easy Editor");
     ui->setupUi(this);
 
+    this->installEventFilter(this);
+
+    //QList<QWidget*> widgets = findChildren<QWidget*>();
+    foreach (QWidget* widget, findChildren<QWidget*>())
+    {
+        widget->installEventFilter(this);
+        widget->setAttribute(Qt::WA_MacShowFocusRect, false);
+    }
+
+
+    //Disable system focus boxt on Mac
+    /*ui->backlight->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->sensitivity->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->midiChannel->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->navPadCC->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->pedalCC->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->currentPreset->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->displayName->setAttribute(Qt::WA_MacShowFocusRect, false);*/
+
     //Construct Keys
     for(int i = 1; i < 11; i++)
     {
@@ -87,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     aboutForm->expected->setText(QString("%1 %2").arg(sysExComposer->embeddedVersion).arg(sysExComposer->embeddedbuildNum));
 
-    this->installEventFilter(this);
+    //this->installEventFilter(this);
 
     slotInitMenuBar();
 
@@ -112,6 +131,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mdm->devicePoller->start(1000);
 #endif
 
+    //menubar->actions().at(0)->setEnabled(false);
+
 }
 
 MainWindow::~MainWindow()
@@ -121,7 +142,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
-    if((keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return) && ui->backlight->hasFocus())
+    if((keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return) && ui->backlight->hasFocus() && !disableWidget->isVisible())
     {
         ui->backlight->setChecked(!ui->backlight->isChecked());
     }
@@ -141,6 +162,7 @@ void MainWindow::slotConnectInterfaces()
     //About Ok Button
     connect(aboutForm->ok, SIGNAL(clicked()), aboutFormWidget, SLOT(close()));
     connect(aboutForm->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+    connect(aboutForm->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //SysEx
     connect(mdm, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
@@ -150,12 +172,15 @@ void MainWindow::slotConnectInterfaces()
     //Firmware Out of Date Dialog
     connect(fwoodDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
     connect(fwoodDialog->cancel, SIGNAL(clicked()), fwoodDialogWidget, SLOT(close()));
+    connect(fwoodDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+    connect(fwoodDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //Firmware Update Dialog
     connect(fwUpdateDialog->cancel, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
     connect(fwUpdateDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
     connect(fwUpdateDialog->update, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
     connect(fwUpdateDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
+    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //Firmware Progress Bar
     connect(mdm, SIGNAL(signalFwBytesLeft(int)), this, SLOT(slotUpdateFwProgressBar(int)));
@@ -163,6 +188,7 @@ void MainWindow::slotConnectInterfaces()
     //Firmware Update Complete Dialog
     connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), fwUpdateCompleteDialogWidget, SLOT(close()));
     connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //Preset Recall
     connect(ui->currentPreset, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
@@ -206,13 +232,7 @@ void MainWindow::slotConnectInterfaces()
     //Standalone Download
     connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
 
-    ui->backlight->setAttribute(Qt::WA_MacShowFocusRect, false);
-    ui->sensitivity->setAttribute(Qt::WA_MacShowFocusRect, false);
-    ui->midiChannel->setAttribute(Qt::WA_MacShowFocusRect, false);
-    ui->navPadCC->setAttribute(Qt::WA_MacShowFocusRect, false);
-    ui->pedalCC->setAttribute(Qt::WA_MacShowFocusRect, false);
-    ui->currentPreset->setAttribute(Qt::WA_MacShowFocusRect, false);
-    ui->displayName->setAttribute(Qt::WA_MacShowFocusRect, false);
+
 }
 
 void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap master)
@@ -287,6 +307,8 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
     {
         fwoodDialog->expected->setText(QString("%1 %2").arg(embeddedVersion).arg(embedded));
         fwoodDialog->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
+        disableWidget->show();
+        slotEnableDisableMenu();
         fwoodDialogWidget->show();
         //qDebug() << "_____ Your firmware version is out of date _____";
     }
@@ -344,7 +366,7 @@ void MainWindow::slotUpdateFwProgressBar(int bytes)
 
 void MainWindow::slotInitMenuBar()
 {
-    menubar = new QMenuBar(this);
+    menubar = new QMenuBar(0);
 
 #ifdef Q_OS_MAC
 #else
@@ -354,54 +376,121 @@ void MainWindow::slotInitMenuBar()
 
     //-------------------------------------------------------------------------- File
     QMenu* file = new QMenu("File");
+    qDebug() << file;
+    file->setObjectName("FileMenu");
     menubar->addMenu(file);
 
     //-------------------------------------------------------------------------- Edit
     QMenu* edit = new QMenu("Edit ");
+    qDebug() << edit;
+    edit->setObjectName("EditMenu");
     menubar->addMenu(edit);
 
+    //Custom Preset
     QAction* useCustom = new QAction("Use Custom Preset", edit);
+    actionList.append(useCustom);
     connect(useCustom, SIGNAL(triggered()), presetInterface, SLOT(slotSetCurrentPresetToFactory()));
+    connect(useCustom, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
+
     edit->addAction(useCustom);
 
+    //Factory Preset Menu
     QMenu* factoryPreset = new QMenu("Use Factory Preset");
     edit->addMenu(factoryPreset);
 
+    //Factory Preset: Program Change
     QAction* factoryProgramChange = new QAction("Program Change", factoryPreset);
+    actionList.append(factoryProgramChange);
     connect(factoryProgramChange, SIGNAL(triggered()), presetInterface, SLOT(slotSetCurrentPresetToFactory()));
+    connect(factoryProgramChange, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
+
     factoryPreset->addAction(factoryProgramChange);
 
 
     //-------------------------------------------------------------------------- Hardware
     QMenu* hardware = new QMenu("Hardware");
+    hardware->setObjectName("HardwareMenu");
+
+    //Reload Firmware
     QAction* updatefw = new QAction("Update/Reload Firmware...", hardware);
+    actionList.append(updatefw);
     connect(updatefw, SIGNAL(triggered()), disableWidget, SLOT(show()));
     connect(updatefw, SIGNAL(triggered()), fwUpdateDialogWidget, SLOT(show()));
+    connect(updatefw, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
 
     hardware->addAction(updatefw);
     menubar->addMenu(hardware);
 
     //-------------------------------------------------------------------------- Help
     QMenu* help = new QMenu("Help");
+    help->setObjectName("HelpMenu");
+
+    //About
     QAction* about = new QAction("About SoftStep Easy Editor", help);
+    actionList.append(about);
     connect(about, SIGNAL(triggered()), disableWidget, SLOT(show()));
     connect(about, SIGNAL(triggered()), aboutFormWidget, SLOT(show()));
+    connect(about, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
     help->addAction(about);
 
+    //Doc
     QAction* doc = new QAction("Documentation...", help);
+    actionList.append(doc);
     connect(doc, SIGNAL(triggered()), this, SLOT(slotOpenDocumentation()));
     help->addAction(doc);
     menubar->addMenu(help);
 }
 
-void MainWindow::slotShowDisableWindow()
+void MainWindow::slotEnableDisableMenu()
 {
-    qDebug() << "Show";
-}
+    //Disable Menubar actions
+    for(int i = 0; i < actionList.size(); i++)
+    {
+        actionList.at(i)->setEnabled(!disableWidget->isVisible());
+    }
 
-void MainWindow::slotHideDisableWindow()
-{
+    //Disable MainWindow UI
+    foreach (QWidget* widget, this->findChildren<QWidget*>())
+    {
+        QString type = widget->metaObject()->className();
 
+        if(disableWidget->isVisible())
+        {
+            widget->setFocusPolicy(Qt::NoFocus);
+            widget->clearFocus();
+        }
+        else
+        {
+            if(type == "QSpinBox" || type == "QCheckBox" || type == "QLineEdit")
+            {
+                widget->setFocusPolicy(Qt::StrongFocus);
+            }
+        }
+    }
+
+    //Disable Keys
+    for(int i = 0; i < 10; i++)
+    {
+        key[i]->slotEnableDisableKeyEvents(disableWidget->isVisible());
+
+        foreach (QWidget* widget, key[i]->findChildren<QWidget*>())
+        {
+            QString type = widget->metaObject()->className();
+
+            if(disableWidget->isVisible())
+            {
+                widget->setFocusPolicy(Qt::NoFocus);
+                widget->clearFocus();
+            }
+            else
+            {
+                if(type == "QSpinBox" || type == "QCheckBox" || type == "QLineEdit")
+                {
+                    widget->setFocusPolicy(Qt::StrongFocus);
+                }
+            }
+        }
+    }
 }
 
 void MainWindow::slotDisplayFactory()

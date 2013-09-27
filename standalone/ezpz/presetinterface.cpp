@@ -44,12 +44,18 @@ void PresetInterface::slotCheckSaveState()
 
     for(int i = 0; i < keyList.size(); i++)
     {
+
         if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) !=
                 jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)))
         {
             qDebug() << "------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
-            dirty = true;
-            break;
+
+            //If not a modline param, only used in backend, not ui
+            if(!keyList.at(i).contains("modline") && !keyList.at(i).contains("setting") && !keyList.at(i).contains("led"))
+            {
+                dirty = true;
+                break;
+            }
         }
     }
 
