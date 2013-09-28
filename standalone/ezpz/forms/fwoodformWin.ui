@@ -256,7 +256,12 @@ QPushButton:pressed
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
+<<<<<<< .mine
+      <string notr="true">font:7pt &quot;Futura&quot;;
+</string>
+=======
       <string notr="true"/>
+>>>>>>> .r64
      </property>
      <property name="text">
       <string>Your firmware is out of date.</string>

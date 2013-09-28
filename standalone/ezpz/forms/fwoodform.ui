@@ -245,7 +245,7 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Arial</family>
+       <family>Futura</family>
        <pointsize>10</pointsize>
        <weight>50</weight>
        <italic>false</italic>
@@ -256,7 +256,7 @@ QPushButton:pressed
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">font:10pt &quot;Arial&quot;;
+      <string notr="true">font:10pt &quot;Futura&quot;;
 </string>
      </property>
      <property name="text">

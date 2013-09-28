@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>414</height>
+    <width>300</width>
+    <height>525</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -103,155 +103,17 @@ background: black;
 
 </string>
   </property>
-  <widget class="QCheckBox" name="sensorResponseAverage">
-   <property name="geometry">
-    <rect>
-     <x>310</x>
-     <y>70</y>
-     <width>52</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::WheelFocus</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QCheckBox
-{
-color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator {
-     width: 10px;
-     height: 10px;
- }
-
-  QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.svg);
- }
-
- QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.svg);
- }
-
- QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.svg);
- }
-
- QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.svg);
- }
-
- QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.svg);
- }
-
- QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.svg);
- }
-
- QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.svg);
- }
-
- QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.svg);
- }
-
- QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.svg);
- }</string>
-   </property>
-   <property name="text">
-    <string>Average</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="sensorResponseMax">
-   <property name="geometry">
-    <rect>
-     <x>310</x>
-     <y>50</y>
-     <width>65</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::WheelFocus</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QCheckBox
-{
-color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator {
-     width: 10px;
-     height: 10px;
- }
-
-  QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.svg);
- }
-
- QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.svg);
- }
-
- QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.svg);
- }
-
- QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.svg);
- }
-
- QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.svg);
- }
-
- QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.svg);
- }
-
- QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.svg);
- }
-
- QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.svg);
- }
-
- QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.svg);
- }</string>
-   </property>
-   <property name="text">
-    <string>Maximum</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>30</y>
-     <width>81</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Sensor Response</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>15</x>
-     <y>10</y>
+     <x>10</x>
+     <y>60</y>
      <width>255</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: bold 12px</string>
    </property>
    <property name="text">
     <string>Keys</string>
@@ -264,7 +126,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>100</y>
+     <y>140</y>
      <width>16</width>
      <height>18</height>
     </rect>
@@ -280,7 +142,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>120</y>
+     <y>160</y>
      <width>16</width>
      <height>18</height>
     </rect>
@@ -296,7 +158,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>140</y>
+     <y>180</y>
      <width>16</width>
      <height>18</height>
     </rect>
@@ -312,7 +174,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>160</y>
+     <y>200</y>
      <width>16</width>
      <height>18</height>
     </rect>
@@ -328,7 +190,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>180</y>
+     <y>220</y>
      <width>16</width>
      <height>18</height>
     </rect>
@@ -344,7 +206,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>200</y>
+     <y>240</y>
      <width>16</width>
      <height>18</height>
     </rect>
@@ -360,7 +222,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>220</y>
+     <y>260</y>
      <width>16</width>
      <height>18</height>
     </rect>
@@ -376,7 +238,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>240</y>
+     <y>280</y>
      <width>16</width>
      <height>18</height>
     </rect>
@@ -392,7 +254,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>260</y>
+     <y>300</y>
      <width>16</width>
      <height>18</height>
     </rect>
@@ -408,7 +270,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>280</y>
+     <y>320</y>
      <width>16</width>
      <height>18</height>
     </rect>
@@ -424,7 +286,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>100</y>
+     <y>140</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -443,7 +305,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>120</y>
+     <y>160</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -462,7 +324,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>140</y>
+     <y>180</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -481,7 +343,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>160</y>
+     <y>200</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -500,7 +362,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>180</y>
+     <y>220</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -519,7 +381,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>200</y>
+     <y>240</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -538,7 +400,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>220</y>
+     <y>260</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -557,7 +419,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>240</y>
+     <y>280</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -576,7 +438,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>260</y>
+     <y>300</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -595,7 +457,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>280</y>
+     <y>320</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -614,7 +476,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>70</y>
+     <y>110</y>
      <width>31</width>
      <height>26</height>
     </rect>
@@ -633,7 +495,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>70</y>
+     <y>110</y>
      <width>31</width>
      <height>26</height>
     </rect>
@@ -652,7 +514,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>200</y>
+     <y>240</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -671,7 +533,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>180</y>
+     <y>220</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -690,7 +552,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>260</y>
+     <y>300</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -709,7 +571,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>100</y>
+     <y>140</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -728,7 +590,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>160</y>
+     <y>200</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -747,7 +609,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>220</y>
+     <y>260</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -766,7 +628,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>240</y>
+     <y>280</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -785,7 +647,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>120</y>
+     <y>160</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -804,7 +666,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>140</y>
+     <y>180</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -823,7 +685,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>280</y>
+     <y>320</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -842,7 +704,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>70</y>
+     <y>110</y>
      <width>31</width>
      <height>26</height>
     </rect>
@@ -861,7 +723,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>70</y>
+     <y>110</y>
      <width>31</width>
      <height>26</height>
     </rect>
@@ -880,7 +742,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>70</y>
+     <y>110</y>
      <width>31</width>
      <height>26</height>
     </rect>
@@ -899,7 +761,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>70</y>
+     <y>110</y>
      <width>31</width>
      <height>26</height>
     </rect>
@@ -918,7 +780,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>280</y>
+     <y>320</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -937,7 +799,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>140</y>
+     <y>180</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -956,7 +818,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>160</y>
+     <y>200</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -975,7 +837,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>200</y>
+     <y>240</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -994,7 +856,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>100</y>
+     <y>140</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1013,7 +875,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>260</y>
+     <y>300</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1032,7 +894,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>220</y>
+     <y>260</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1051,7 +913,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>180</y>
+     <y>220</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1070,7 +932,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>120</y>
+     <y>160</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1089,7 +951,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>240</y>
+     <y>280</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1108,7 +970,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>200</y>
+     <y>240</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1127,7 +989,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>180</y>
+     <y>220</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1146,7 +1008,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>260</y>
+     <y>300</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1165,7 +1027,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>100</y>
+     <y>140</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1184,7 +1046,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>160</y>
+     <y>200</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1203,7 +1065,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>220</y>
+     <y>260</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1222,7 +1084,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>240</y>
+     <y>280</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1241,7 +1103,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>120</y>
+     <y>160</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1260,7 +1122,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>140</y>
+     <y>180</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1279,7 +1141,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>280</y>
+     <y>320</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1298,7 +1160,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>200</y>
+     <y>240</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1317,7 +1179,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>180</y>
+     <y>220</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1336,7 +1198,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>260</y>
+     <y>300</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1355,7 +1217,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>100</y>
+     <y>140</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1374,7 +1236,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>160</y>
+     <y>200</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1393,7 +1255,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>220</y>
+     <y>260</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1412,7 +1274,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>240</y>
+     <y>280</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1431,7 +1293,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>120</y>
+     <y>160</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1450,7 +1312,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>140</y>
+     <y>180</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1469,7 +1331,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>280</y>
+     <y>320</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1488,7 +1350,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>120</y>
+     <y>160</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1507,7 +1369,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>240</y>
+     <y>280</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1526,7 +1388,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>280</y>
+     <y>320</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1545,7 +1407,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>100</y>
+     <y>140</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1564,7 +1426,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>160</y>
+     <y>200</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1583,7 +1445,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>200</y>
+     <y>240</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1602,7 +1464,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>140</y>
+     <y>180</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1621,7 +1483,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>260</y>
+     <y>300</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1640,7 +1502,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>180</y>
+     <y>220</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1659,7 +1521,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>220</y>
+     <y>260</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1678,7 +1540,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>40</y>
+     <y>80</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1697,7 +1559,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>40</y>
+     <y>80</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1716,7 +1578,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>40</y>
+     <y>80</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1735,7 +1597,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>40</y>
+     <y>80</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1754,7 +1616,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>40</y>
+     <y>80</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1773,7 +1635,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>40</y>
+     <y>80</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1788,148 +1650,18 @@ QCheckBox::indicator {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QCheckBox" name="multipleKeyMode">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>360</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::WheelFocus</enum>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QCheckBox
-{
-color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator {
-     width: 10px;
-     height: 10px;
- }
-
-  QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.svg);
- }
-
- QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.svg);
- }
-
- QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.svg);
- }
-
- QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.svg);
- }
-
- QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.svg);
- }
-
- QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.svg);
- }
-
- QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.svg);
- }
-
- QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.svg);
- }
-
- QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.svg);
- }</string>
-   </property>
-   <property name="text">
-    <string>Multiple Key Mode</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="adjacentKeyMode">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>380</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::WheelFocus</enum>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QCheckBox
-{
-color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator {
-     width: 10px;
-     height: 10px;
- }
-
-  QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.svg);
- }
-
- QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.svg);
- }
-
- QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.svg);
- }
-
- QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.svg);
- }
-
- QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.svg);
- }
-
- QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.svg);
- }
-
- QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.svg);
- }
-
- QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.svg);
- }
-
- QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.svg);
- }</string>
-   </property>
-   <property name="text">
-    <string>Adjacent Key Mode</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_19">
    <property name="geometry">
     <rect>
-     <x>15</x>
-     <y>310</y>
+     <x>10</x>
+     <y>350</y>
      <width>255</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: bold 12px;
+</string>
    </property>
    <property name="text">
     <string>Nav Pad</string>
@@ -1942,7 +1674,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>350</y>
+     <y>390</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1961,7 +1693,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>330</y>
+     <y>370</y>
      <width>31</width>
      <height>18</height>
     </rect>
@@ -1980,7 +1712,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>350</y>
+     <y>390</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -1999,7 +1731,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>330</y>
+     <y>370</y>
      <width>31</width>
      <height>18</height>
     </rect>
@@ -2018,7 +1750,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>350</y>
+     <y>390</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -2037,7 +1769,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>370</y>
+     <y>410</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -2056,7 +1788,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>330</y>
+     <y>370</y>
      <width>31</width>
      <height>18</height>
     </rect>
@@ -2075,7 +1807,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>350</y>
+     <y>390</y>
      <width>41</width>
      <height>18</height>
     </rect>
@@ -2091,7 +1823,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>370</y>
+     <y>410</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -2110,7 +1842,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>370</y>
+     <y>410</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -2129,7 +1861,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>370</y>
+     <y>410</y>
      <width>51</width>
      <height>18</height>
     </rect>
@@ -2145,7 +1877,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>370</y>
+     <y>410</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -2164,7 +1896,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>330</y>
+     <y>370</y>
      <width>31</width>
      <height>18</height>
     </rect>
@@ -2183,7 +1915,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>350</y>
+     <y>390</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -2202,7 +1934,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>216</x>
-     <y>330</y>
+     <y>370</y>
      <width>41</width>
      <height>18</height>
     </rect>
@@ -2221,7 +1953,7 @@ QCheckBox::indicator {
    <property name="geometry">
     <rect>
      <x>220</x>
-     <y>360</y>
+     <y>400</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -2236,6 +1968,511 @@ QCheckBox::indicator {
     <number>127</number>
    </property>
   </widget>
+  <widget class="QFrame" name="settingsFrame">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>300</width>
+     <height>525</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="label_28">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>8</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura</family>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+	{
+		text:							&quot;Chomsky Honk&quot;;
+		font:							bold 16px;
+		font.underline: 		1;
+		font.letterSpacing:	100;
+	}</string>
+    </property>
+    <property name="text">
+     <string>SETTINGS</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_29">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>42</y>
+      <width>271</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+border-top: 2px solid white;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>470</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetFixedSize</enum>
+     </property>
+     <property name="leftMargin">
+      <number>10</number>
+     </property>
+     <item>
+      <widget class="QCheckBox" name="sensorResponseMax">
+       <property name="focusPolicy">
+        <enum>Qt::WheelFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }
+
+  QCheckBox::indicator::unchecked {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }</string>
+       </property>
+       <property name="text">
+        <string>Maximum</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="sensorResponseAverage">
+       <property name="focusPolicy">
+        <enum>Qt::WheelFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }
+
+  QCheckBox::indicator::unchecked {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }</string>
+       </property>
+       <property name="text">
+        <string>Average</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="label_27">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>445</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura</family>
+      <pointsize>-1</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: bold 12px;</string>
+    </property>
+    <property name="text">
+     <string>Key Safety</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>470</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QCheckBox" name="multipleKeyMode">
+       <property name="focusPolicy">
+        <enum>Qt::WheelFocus</enum>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }
+
+  QCheckBox::indicator::unchecked {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }</string>
+       </property>
+       <property name="text">
+        <string>Multiple Key Mode</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="adjacentKeyMode">
+       <property name="focusPolicy">
+        <enum>Qt::WheelFocus</enum>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }
+
+  QCheckBox::indicator::unchecked {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/radio_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/radio_off.svg);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/radio_focus_on.svg);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/radio_focus_off.svg);
+ }</string>
+       </property>
+       <property name="text">
+        <string>Adjacent Key Lockout</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="label_30">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>440</y>
+      <width>271</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+border-top: 1px solid white;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>445</y>
+     <width>149</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: bold 12px;</string>
+   </property>
+   <property name="text">
+    <string>Sensor Response</string>
+   </property>
+  </widget>
+  <zorder>settingsFrame</zorder>
+  <zorder>label_2</zorder>
+  <zorder>label_3</zorder>
+  <zorder>label_4</zorder>
+  <zorder>label_5</zorder>
+  <zorder>label_6</zorder>
+  <zorder>label_7</zorder>
+  <zorder>label_8</zorder>
+  <zorder>label_9</zorder>
+  <zorder>label_10</zorder>
+  <zorder>label_11</zorder>
+  <zorder>label_12</zorder>
+  <zorder>key1DeadX</zorder>
+  <zorder>key2DeadX</zorder>
+  <zorder>key3DeadX</zorder>
+  <zorder>key4DeadX</zorder>
+  <zorder>key5DeadX</zorder>
+  <zorder>key6DeadX</zorder>
+  <zorder>key7DeadX</zorder>
+  <zorder>key8DeadX</zorder>
+  <zorder>key9DeadX</zorder>
+  <zorder>key10DeadX</zorder>
+  <zorder>label_13</zorder>
+  <zorder>label_14</zorder>
+  <zorder>key6AccelX</zorder>
+  <zorder>key5AccelX</zorder>
+  <zorder>key9AccelX</zorder>
+  <zorder>key1AccelX</zorder>
+  <zorder>key4AccelX</zorder>
+  <zorder>key7AccelX</zorder>
+  <zorder>key8AccelX</zorder>
+  <zorder>key2AccelX</zorder>
+  <zorder>key3AccelX</zorder>
+  <zorder>key10AccelX</zorder>
+  <zorder>label_15</zorder>
+  <zorder>label_16</zorder>
+  <zorder>label_17</zorder>
+  <zorder>label_18</zorder>
+  <zorder>key10AccelY</zorder>
+  <zorder>key3AccelY</zorder>
+  <zorder>key4AccelY</zorder>
+  <zorder>key6AccelY</zorder>
+  <zorder>key1AccelY</zorder>
+  <zorder>key9AccelY</zorder>
+  <zorder>key7AccelY</zorder>
+  <zorder>key5AccelY</zorder>
+  <zorder>key2AccelY</zorder>
+  <zorder>key8AccelY</zorder>
+  <zorder>key6DeadY</zorder>
+  <zorder>key5DeadY</zorder>
+  <zorder>key9DeadY</zorder>
+  <zorder>key1DeadY</zorder>
+  <zorder>key4DeadY</zorder>
+  <zorder>key7DeadY</zorder>
+  <zorder>key8DeadY</zorder>
+  <zorder>key2DeadY</zorder>
+  <zorder>key3DeadY</zorder>
+  <zorder>key10DeadY</zorder>
+  <zorder>key6OnThresh</zorder>
+  <zorder>key5OnThresh</zorder>
+  <zorder>key9OnThresh</zorder>
+  <zorder>key1OnThresh</zorder>
+  <zorder>key4OnThresh</zorder>
+  <zorder>key7OnThresh</zorder>
+  <zorder>key8OnThresh</zorder>
+  <zorder>key2OnThresh</zorder>
+  <zorder>key3OnThresh</zorder>
+  <zorder>key10OnThresh</zorder>
+  <zorder>key2OffThresh</zorder>
+  <zorder>key8OffThresh</zorder>
+  <zorder>key10OffThresh</zorder>
+  <zorder>key1OffThresh</zorder>
+  <zorder>key4OffThresh</zorder>
+  <zorder>key6OffThresh</zorder>
+  <zorder>key3OffThresh</zorder>
+  <zorder>key9OffThresh</zorder>
+  <zorder>key5OffThresh</zorder>
+  <zorder>key7OffThresh</zorder>
+  <zorder>allDeadY</zorder>
+  <zorder>allDeadX</zorder>
+  <zorder>allAccelX</zorder>
+  <zorder>allOnThresh</zorder>
+  <zorder>allOffThresh</zorder>
+  <zorder>allAccelY</zorder>
+  <zorder>label_19</zorder>
+  <zorder>navEastOnThresh</zorder>
+  <zorder>label_20</zorder>
+  <zorder>navNorthOnThresh</zorder>
+  <zorder>label_21</zorder>
+  <zorder>navSouthOnThresh</zorder>
+  <zorder>navEastOffThresh</zorder>
+  <zorder>label_22</zorder>
+  <zorder>label_23</zorder>
+  <zorder>navNorthOffThresh</zorder>
+  <zorder>navWestOffThresh</zorder>
+  <zorder>label_24</zorder>
+  <zorder>navSouthOffThresh</zorder>
+  <zorder>label_25</zorder>
+  <zorder>navWestOnThresh</zorder>
+  <zorder>label_26</zorder>
+  <zorder>navAccelY</zorder>
+  <zorder>label</zorder>
  </widget>
  <resources/>
  <connections/>
