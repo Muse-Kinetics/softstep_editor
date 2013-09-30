@@ -30,7 +30,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     //Set up the Key Window
     keyWindowWidget = new QWidget();
     keyWindowForm->setupUi(keyWindowWidget);
-    keyWindowWidget->setFixedSize(1000,305);
+    keyWindowWidget->setFixedSize(1000,345);
     keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg(keyInstance+1));
 
 
@@ -64,10 +64,45 @@ void Key::slotOpenWindow()
 
 void Key::slotConnectElements()
 {
-    //something goes here
+
+    //key counter stuff
+    connect(keyWindowForm->counterMin,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(keyWindowForm->counterMax,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(keyWindowForm->counterWrap,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
 }
 
-void Key::slotRecallPreset(QVariantMap, QVariantMap)
+void Key::slotValueChanged()
 {
+    if(QObject::sender())
+    {
+        QString jsonName;
+        QObject *sender = QObject::sender();
+        QVariant value;
 
+        //key counter stuff
+        if(sender == keyWindowForm->counterMin)
+        {
+            jsonName = "counter_min";
+            value = keyWindowForm->counterMin->value();
+        }
+        else if(sender == keyWindowForm->counterMax)
+        {
+            jsonName = "counter_max";
+            value = keyWindowForm->counterMax->value();
+        }
+        else if(sender == keyWindowForm->counterWrap)
+        {
+            jsonName = "counter_wrap";
+            value = keyWindowForm->counterWrap->isChecked();
+        }
+
+        emit signalStoreValue(QString("%1_key_").arg(keyInstance+1) + jsonName, value, -1);
+    }
+}
+
+void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
+{
+    keyWindowForm->counterMin->setValue(preset.value(QString("%1_key_counter_min").arg(keyInstance+1)).toInt());
+    keyWindowForm->counterMax->setValue(preset.value(QString("%1_key_counter_max").arg(keyInstance+1)).toInt());
+    keyWindowForm->counterWrap->setChecked(preset.value(QString("%1_key_counter_wrap").arg(keyInstance+1)).toBool());
 }

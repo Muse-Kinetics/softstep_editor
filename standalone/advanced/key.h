@@ -33,7 +33,7 @@ signals:
 public slots:
     void slotOpenWindow();
     void slotConnectElements();
-    //void slotValueChanged();
+    void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
 
 private:

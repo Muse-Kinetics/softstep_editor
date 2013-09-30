@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>250</height>
+    <height>290</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,13 +32,45 @@ QLabel
 QLabel:hover
 {
 	border:				none;
-}</string>
+}
+
+/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgba(0, 0, 0, 255);
+	color: white;
+	padding:0, 3, 0, 0;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	font: 10pt &quot;Futura&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 3, 0, 0;
+	border: none;
+}
+
+QCheckBox:focus
+{
+	background:rgba(0,174,239,0);
+}
+</string>
   </property>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>20</y>
+     <y>60</y>
      <width>81</width>
      <height>16</height>
     </rect>
@@ -57,7 +89,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>20</y>
+     <y>60</y>
      <width>41</width>
      <height>16</height>
     </rect>
@@ -76,7 +108,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>20</y>
+     <y>60</y>
      <width>41</width>
      <height>16</height>
     </rect>
@@ -95,7 +127,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>220</x>
-     <y>20</y>
+     <y>60</y>
      <width>21</width>
      <height>16</height>
     </rect>
@@ -114,7 +146,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>258</x>
-     <y>20</y>
+     <y>60</y>
      <width>31</width>
      <height>16</height>
     </rect>
@@ -133,7 +165,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>308</x>
-     <y>20</y>
+     <y>60</y>
      <width>31</width>
      <height>16</height>
     </rect>
@@ -152,7 +184,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>356</x>
-     <y>20</y>
+     <y>60</y>
      <width>31</width>
      <height>16</height>
     </rect>
@@ -171,7 +203,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>392</x>
-     <y>20</y>
+     <y>60</y>
      <width>31</width>
      <height>16</height>
     </rect>
@@ -190,7 +222,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>455</x>
-     <y>20</y>
+     <y>60</y>
      <width>21</width>
      <height>16</height>
     </rect>
@@ -209,7 +241,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>485</x>
-     <y>20</y>
+     <y>60</y>
      <width>21</width>
      <height>16</height>
     </rect>
@@ -228,7 +260,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>515</x>
-     <y>20</y>
+     <y>60</y>
      <width>21</width>
      <height>16</height>
     </rect>
@@ -247,7 +279,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>550</x>
-     <y>20</y>
+     <y>60</y>
      <width>51</width>
      <height>16</height>
     </rect>
@@ -266,7 +298,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>834</x>
-     <y>20</y>
+     <y>60</y>
      <width>51</width>
      <height>16</height>
     </rect>
@@ -285,7 +317,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>886</x>
-     <y>20</y>
+     <y>60</y>
      <width>41</width>
      <height>16</height>
     </rect>
@@ -304,7 +336,7 @@ QLabel:hover
    <property name="geometry">
     <rect>
      <x>792</x>
-     <y>20</y>
+     <y>60</y>
      <width>41</width>
      <height>16</height>
     </rect>
@@ -317,6 +349,127 @@ QLabel:hover
    </property>
    <property name="text">
     <string>Output</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="counterMin">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>30</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_19">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>30</y>
+     <width>61</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Key Counter</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_20">
+   <property name="geometry">
+    <rect>
+     <x>85</x>
+     <y>15</y>
+     <width>21</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Min</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_21">
+   <property name="geometry">
+    <rect>
+     <x>115</x>
+     <y>15</y>
+     <width>21</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Max</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="counterMax">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>30</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_22">
+   <property name="geometry">
+    <rect>
+     <x>141</x>
+     <y>15</y>
+     <width>31</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Wrap</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="counterWrap">
+   <property name="geometry">
+    <rect>
+     <x>145</x>
+     <y>31</y>
+     <width>21</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
   <zorder>label_9</zorder>
@@ -334,6 +487,13 @@ QLabel:hover
   <zorder>label_12</zorder>
   <zorder>label_7</zorder>
   <zorder>label_4</zorder>
+  <zorder>counterMin</zorder>
+  <zorder>label_19</zorder>
+  <zorder>label_20</zorder>
+  <zorder>label_21</zorder>
+  <zorder>counterMax</zorder>
+  <zorder>label_22</zorder>
+  <zorder>counterWrap</zorder>
  </widget>
  <resources/>
  <connections/>
