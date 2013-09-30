@@ -615,18 +615,15 @@ background: black;
      <font>
       <family>Futura</family>
       <pointsize>-1</pointsize>
-      <weight>75</weight>
+      <weight>50</weight>
       <italic>false</italic>
-      <bold>true</bold>
+      <bold>false</bold>
      </font>
     </property>
     <property name="styleSheet">
      <string notr="true">QLabel
 	{
-		text:							&quot;Chomsky Honk&quot;;
-		font:							bold 16px;
-		font.underline: 		1;
-		font.letterSpacing:	100;
+		font:							 18px;
 	}</string>
     </property>
     <property name="text">
@@ -638,7 +635,7 @@ background: black;
      <rect>
       <x>15</x>
       <y>42</y>
-      <width>271</width>
+      <width>320</width>
       <height>16</height>
      </rect>
     </property>

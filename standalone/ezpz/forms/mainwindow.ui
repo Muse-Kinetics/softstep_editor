@@ -424,14 +424,23 @@ background: black;
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>880</x>
+      <x>876</x>
       <y>31</y>
-      <width>81</width>
+      <width>85</width>
       <height>20</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Futura</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="styleSheet">
-     <string notr="true">font:8pt &quot;Futura&quot;;
+     <string notr="true">font:bold 8pt &quot;Futura&quot;;
 color: red;</string>
     </property>
     <property name="text">
