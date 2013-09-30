@@ -153,6 +153,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
 
         if(!preset.value("useFactory").toString().contains("No"))
         {
+            qDebug() << "use factory" << preset.value("useFactory").toString();
             slotComposeFactoryPreset(p, preset.value("useFactory").toString(), x);
         }
 
@@ -467,11 +468,31 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
 
 void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, t_softstep* x)
 {
-    QVariantMap preset = factoryPresets->programChangeMap;
+    QVariantMap preset;
+
+    if(factoryPresetName == "Program Change")
+    {
+        preset = factoryPresets->programChangeMap;
+    }
+    else if(factoryPresetName == "ElevenRack Control")
+    {
+        preset = factoryPresets->factoryElevenRackMap;
+    }
+    else if(factoryPresetName == "Line6 Pod Control")
+    {
+        preset = factoryPresets->factoryPodMap;
+    }
+    else if(factoryPresetName == "Ableton Live Control")
+    {
+        preset = factoryPresets->factoryLiveMap;
+    }
 
     attribute(x,2,A_SYM,"preset",A_LONG,p);
     attribute(x,3,A_SYM, "set",A_SYM,"Scene_Name",A_SYM,preset.value("displayName").toString().toUtf8().constData());
 
+    //----------------------------------------------------------------------------------------//
+    //------------------------------------------ Keys ----------------------------------------//
+    //----------------------------------------------------------------------------------------//
     for(long k = 1; k < 11; k++)
     {
         attribute(x,2,A_SYM,"key",A_LONG,k);
@@ -499,6 +520,39 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
 
         }   //modline loop
     }       //key loop
+
+    //----------------------------------------------------------------------------------------//
+    //----------------------------------------- NavP. ----------------------------------------//
+    //----------------------------------------------------------------------------------------//
+    attribute(x,2,A_SYM,"key",A_LONG,11l);
+    attribute(x,3,A_SYM,"set",A_SYM,"Nav_Modline_Mode",A_LONG,preset.value("nav_modlinemode").toLongLong());
+
+    qDebug() << "\n\n------------modline mode for nav" << preset.value("nav_modlinemode").toLongLong();
+
+    //set nav pad key name to scene name and display to always so that then scene name will display when the nav pad is pressed.
+    attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM,preset.value("nav_name").toString().toUtf8().constData());
+    attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,preset.value("nav_displaymode").toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,preset.value("nav_prefix").toString().toUtf8().constData());
+
+    for(long m = 1; m < 7; m++ )
+    {
+        QString k = "nav";
+
+        attribute(x,3,A_SYM,"set",A_SYM,"Modline",A_LONG,m);
+
+        attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,preset.value(QString("%1_key_modline%2_on").arg(k).arg(m)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("%1_key_modline%2_source").arg(k).arg(m)).toString().toUtf8().constData());
+        attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("%1_key_modline%2_gain").arg(k).arg(m)).toFloat());
+        attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("%1_key_modline%2_offset").arg(k).arg(m)).toFloat());
+        attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, preset.value(QString("%1_key_modline%2_table").arg(k).arg(m)).toString().toUtf8().constData());
+        attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,preset.value(QString("%1_key_modline%2_min").arg(k).arg(m)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,preset.value(QString("%1_key_modline%2_max").arg(k).arg(m)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("%1_key_modline%2_slew").arg(k).arg(m)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,preset.value(QString("%1_key_modline%2_destination").arg(k).arg(m)).toString().toUtf8().constData());
+        attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("%1_key_modline%2_channel").arg(k).arg(m)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("%1_key_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
+        attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("%1_key_modline%2_displayLinked").arg(k).arg(m)).toString().toUtf8().constData());
+    }
 
 
 }

@@ -593,7 +593,7 @@ void PresetInterface::slotUpdateClicked()
 
     qDebug() << "update with this preset" << currentPresetNum;
     emit signalUpdateStarted(); //disable the button then start the download
-    //emit signalAttributeFormatPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMap, (qlonglong)currentPresetNum);
+    emit signalAttributeFormatPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMap, (qlonglong)currentPresetNum);
 
     slotCheckSaveState();
 }

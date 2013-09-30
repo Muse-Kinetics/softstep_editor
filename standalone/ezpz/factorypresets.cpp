@@ -1036,13 +1036,15 @@ void FactoryPresets::createProgramChange()
     programChangeMap["10_key_modline6_displayLinked"] = 0;
 
     //------------------------------------------------ Nav Pad 11
-    programChangeMap["nav_modlineMode"] = 0;
+    programChangeMap["nav_modlinemode"] = 0;
 
 }
 
-
 void FactoryPresets::createElevenRackMap(){
 
+    factoryElevenRackMap["displayName"] = "11RK";
+
+    factoryElevenRackMap["useFactory"] = "ElevenRack Control";
 
     //------------------------ Key 1 ------------------------//
     factoryElevenRackMap["1_key_name"] = "STMP";
@@ -2585,9 +2587,11 @@ void FactoryPresets::createElevenRackMap(){
 
 }
 
-
 void FactoryPresets::createPodMap(){
 
+    factoryPodMap["displayName"] = "POD";
+
+    factoryPodMap["useFactory"] = "Line6 Pod Control";
 
     //------------------------ Key 1 ------------------------//
     factoryPodMap["1_key_name"] = "PRES";
@@ -4132,6 +4136,9 @@ void FactoryPresets::createPodMap(){
 
 void FactoryPresets::createLiveMap(){
 
+    factoryLiveMap["displayName"] = "LIVE";
+
+    factoryLiveMap["useFactory"] = "Ableton Live Control";
 
     //------------------------ Key 1 ------------------------//
     factoryLiveMap["1_key_name"] = "1FDR";

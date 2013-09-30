@@ -397,13 +397,34 @@ void MainWindow::slotInitMenuBar()
     QMenu* factoryPreset = new QMenu("Use Factory Preset");
     edit->addMenu(factoryPreset);
 
-    //Factory Preset: Program Change
+    //--Program Change
     QAction* factoryProgramChange = new QAction("Program Change", factoryPreset);
     actionList.append(factoryProgramChange);
     connect(factoryProgramChange, SIGNAL(triggered()), presetInterface, SLOT(slotSetCurrentPresetToFactory()));
     connect(factoryProgramChange, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
-
     factoryPreset->addAction(factoryProgramChange);
+
+    //--Eleven Rack
+    QAction* factoryElevenRack = new QAction("ElevenRack Control", factoryPreset);
+    actionList.append(factoryElevenRack);
+    connect(factoryElevenRack, SIGNAL(triggered()), presetInterface, SLOT(slotSetCurrentPresetToFactory()));
+    connect(factoryElevenRack, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
+    factoryPreset->addAction(factoryElevenRack);
+
+    //--Pod
+    QAction* factoryPod = new QAction("Line6 Pod Control", factoryPreset);
+    actionList.append(factoryPod);
+    connect(factoryPod, SIGNAL(triggered()), presetInterface, SLOT(slotSetCurrentPresetToFactory()));
+    connect(factoryPod, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
+    factoryPreset->addAction(factoryPod);
+
+    //--Live
+    QAction* factoryLive = new QAction("Ableton Live Control", factoryPreset);
+    actionList.append(factoryLive);
+    connect(factoryLive, SIGNAL(triggered()), presetInterface, SLOT(slotSetCurrentPresetToFactory()));
+    connect(factoryLive, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
+    factoryPreset->addAction(factoryLive);
+
 
 
     //-------------------------------------------------------------------------- Hardware
