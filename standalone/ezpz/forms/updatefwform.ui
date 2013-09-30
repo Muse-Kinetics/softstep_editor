@@ -243,7 +243,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>25</y>
+       <y>27</y>
        <width>224</width>
        <height>21</height>
       </rect>
@@ -274,25 +274,25 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>42</y>
+       <y>40</y>
        <width>224</width>
        <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Arial</family>
+       <family>Futura</family>
        <pointsize>10</pointsize>
-       <weight>75</weight>
+       <weight>50</weight>
        <italic>false</italic>
-       <bold>true</bold>
+       <bold>false</bold>
       </font>
      </property>
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: bold 10pt &quot;Arial&quot;;
+      <string notr="true">font: 10pt &quot;Futura&quot;;
 </string>
      </property>
      <property name="text">
