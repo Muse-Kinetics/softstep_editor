@@ -26,1014 +26,1014 @@ void FactoryPresets::createProgramChange()
 
 
     //------------------------------------------------ Key1
-    programChangeMap["1_key_name"] = "1KEY";
-    programChangeMap["1_key_displayMode"] = 4;
-    programChangeMap["1_key_prefix"] = "PG";
+    programChangeMap["key1_name"] = "1KEY";
+    programChangeMap["key1_displayMode"] = 4;
+    programChangeMap["key1_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["1_key_modline1_on"] = 1;
-    programChangeMap["1_key_modline1_source"] = "Nav Yx10 & Key";
-    programChangeMap["1_key_modline1_gain"] = 1.00;
-    programChangeMap["1_key_modline1_offset"] = 0.00;
-    programChangeMap["1_key_modline1_table"] = "1_Lin";
-    programChangeMap["1_key_modline1_min"] = 0;
-    programChangeMap["1_key_modline1_max"] = 127;
-    programChangeMap["1_key_modline1_slew"] = 0;
-    programChangeMap["1_key_modline1_destination"] = "Program";
-    programChangeMap["1_key_modline1_channel"] = 1;
-    programChangeMap["1_key_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["1_key_modline1_led_green"] = "None";
-    programChangeMap["1_key_modline1_led_red"] = "None";
-    programChangeMap["1_key_modline1_displayLinked"] = 1;
+    programChangeMap["key1_modline1_on"] = 1;
+    programChangeMap["key1_modline1_source"] = "Nav Yx10 & Key";
+    programChangeMap["key1_modline1_gain"] = 1.00;
+    programChangeMap["key1_modline1_offset"] = 0.00;
+    programChangeMap["key1_modline1_table"] = "1_Lin";
+    programChangeMap["key1_modline1_min"] = 0;
+    programChangeMap["key1_modline1_max"] = 127;
+    programChangeMap["key1_modline1_slew"] = 0;
+    programChangeMap["key1_modline1_destination"] = "Program";
+    programChangeMap["key1_modline1_channel"] = 1;
+    programChangeMap["key1_modline1_device"] = "SSCOM_Port_1";
+    programChangeMap["key1_modline1_led_green"] = "None";
+    programChangeMap["key1_modline1_led_red"] = "None";
+    programChangeMap["key1_modline1_displayLinked"] = 1;
 
     //Modline 2
-    programChangeMap["1_key_modline2_on"] = 1;
-    programChangeMap["1_key_modline2_source"] = "Nav Yx10 & Key";
-    programChangeMap["1_key_modline2_gain"] = 1.00;
-    programChangeMap["1_key_modline2_offset"] = 0.00;
-    programChangeMap["1_key_modline2_table"] = "1_Lin";
-    programChangeMap["1_key_modline2_min"] = 0;
-    programChangeMap["1_key_modline2_max"] = 127;
-    programChangeMap["1_key_modline2_slew"] = 0;
-    programChangeMap["1_key_modline2_destination"] = "Program";
-    programChangeMap["1_key_modline2_channel"] = 1;
-    programChangeMap["1_key_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["1_key_modline2_led_green"] = "None";
-    programChangeMap["1_key_modline2_led_red"] = "None";
-    programChangeMap["1_key_modline2_displayLinked"] = 0;
+    programChangeMap["key1_modline2_on"] = 1;
+    programChangeMap["key1_modline2_source"] = "Nav Yx10 & Key";
+    programChangeMap["key1_modline2_gain"] = 1.00;
+    programChangeMap["key1_modline2_offset"] = 0.00;
+    programChangeMap["key1_modline2_table"] = "1_Lin";
+    programChangeMap["key1_modline2_min"] = 0;
+    programChangeMap["key1_modline2_max"] = 127;
+    programChangeMap["key1_modline2_slew"] = 0;
+    programChangeMap["key1_modline2_destination"] = "Program";
+    programChangeMap["key1_modline2_channel"] = 1;
+    programChangeMap["key1_modline2_device"] = "SoftStep_Expander";
+    programChangeMap["key1_modline2_led_green"] = "None";
+    programChangeMap["key1_modline2_led_red"] = "None";
+    programChangeMap["key1_modline2_displayLinked"] = 0;
 
     //Modline 3
-    programChangeMap["1_key_modline3_on"] = 1;
-    programChangeMap["1_key_modline3_source"] = "Key 1 Pressed";
-    programChangeMap["1_key_modline3_gain"] = 1.00;
-    programChangeMap["1_key_modline3_offset"] = 0.00;
-    programChangeMap["1_key_modline3_table"] = "1_Lin";
-    programChangeMap["1_key_modline3_min"] = 0;
-    programChangeMap["1_key_modline3_max"] = 127;
-    programChangeMap["1_key_modline3_slew"] = 0;
-    programChangeMap["1_key_modline3_destination"] = "None";
-    programChangeMap["1_key_modline3_channel"] = 1;
-    programChangeMap["1_key_modline3_device"] = "None";
-    programChangeMap["1_key_modline3_led_green"] = "True";
-    programChangeMap["1_key_modline3_led_red"] = "None";
-    programChangeMap["1_key_modline3_displayLinked"] = 0;
+    programChangeMap["key1_modline3_on"] = 1;
+    programChangeMap["key1_modline3_source"] = "Key 1 Pressed";
+    programChangeMap["key1_modline3_gain"] = 1.00;
+    programChangeMap["key1_modline3_offset"] = 0.00;
+    programChangeMap["key1_modline3_table"] = "1_Lin";
+    programChangeMap["key1_modline3_min"] = 0;
+    programChangeMap["key1_modline3_max"] = 127;
+    programChangeMap["key1_modline3_slew"] = 0;
+    programChangeMap["key1_modline3_destination"] = "None";
+    programChangeMap["key1_modline3_channel"] = 1;
+    programChangeMap["key1_modline3_device"] = "None";
+    programChangeMap["key1_modline3_led_green"] = "True";
+    programChangeMap["key1_modline3_led_red"] = "None";
+    programChangeMap["key1_modline3_displayLinked"] = 0;
 
     //Modline 4
-    programChangeMap["1_key_modline4_on"] = 1;
-    programChangeMap["1_key_modline4_source"] = "Other Key Pressed";
-    programChangeMap["1_key_modline4_gain"] = 1.00;
-    programChangeMap["1_key_modline4_offset"] = 0.00;
-    programChangeMap["1_key_modline4_table"] = "1_Lin";
-    programChangeMap["1_key_modline4_min"] = 0;
-    programChangeMap["1_key_modline4_max"] = 127;
-    programChangeMap["1_key_modline4_slew"] = 0;
-    programChangeMap["1_key_modline4_destination"] = "None";
-    programChangeMap["1_key_modline4_channel"] = 1;
-    programChangeMap["1_key_modline4_device"] = "None";
-    programChangeMap["1_key_modline4_led_green"] = "Off";
-    programChangeMap["1_key_modline4_led_red"] = "None";
-    programChangeMap["1_key_modline4_displayLinked"] = 0;
+    programChangeMap["key1_modline4_on"] = 1;
+    programChangeMap["key1_modline4_source"] = "Other Key Pressed";
+    programChangeMap["key1_modline4_gain"] = 1.00;
+    programChangeMap["key1_modline4_offset"] = 0.00;
+    programChangeMap["key1_modline4_table"] = "1_Lin";
+    programChangeMap["key1_modline4_min"] = 0;
+    programChangeMap["key1_modline4_max"] = 127;
+    programChangeMap["key1_modline4_slew"] = 0;
+    programChangeMap["key1_modline4_destination"] = "None";
+    programChangeMap["key1_modline4_channel"] = 1;
+    programChangeMap["key1_modline4_device"] = "None";
+    programChangeMap["key1_modline4_led_green"] = "Off";
+    programChangeMap["key1_modline4_led_red"] = "None";
+    programChangeMap["key1_modline4_displayLinked"] = 0;
 
     //Modline 5
-    programChangeMap["1_key_modline5_on"] = 1;
-    programChangeMap["1_key_modline5_source"] = "Init";
-    programChangeMap["1_key_modline5_gain"] = 1.00;
-    programChangeMap["1_key_modline5_offset"] = 127.00;
-    programChangeMap["1_key_modline5_table"] = "1_Lin";
-    programChangeMap["1_key_modline5_min"] = 0;
-    programChangeMap["1_key_modline5_max"] = 127;
-    programChangeMap["1_key_modline5_slew"] = 0;
-    programChangeMap["1_key_modline5_destination"] = "CC";
-    programChangeMap["1_key_modline5_channel"] = 1;
-    programChangeMap["1_key_modline5_device"] = "SSCOM_Port_1";
-    programChangeMap["1_key_modline5_led_green"] = "None";
-    programChangeMap["1_key_modline5_led_red"] = "None";
-    programChangeMap["1_key_modline5_displayLinked"] = 0;
+    programChangeMap["key1_modline5_on"] = 1;
+    programChangeMap["key1_modline5_source"] = "Init";
+    programChangeMap["key1_modline5_gain"] = 1.00;
+    programChangeMap["key1_modline5_offset"] = 127.00;
+    programChangeMap["key1_modline5_table"] = "1_Lin";
+    programChangeMap["key1_modline5_min"] = 0;
+    programChangeMap["key1_modline5_max"] = 127;
+    programChangeMap["key1_modline5_slew"] = 0;
+    programChangeMap["key1_modline5_destination"] = "CC";
+    programChangeMap["key1_modline5_channel"] = 1;
+    programChangeMap["key1_modline5_device"] = "SSCOM_Port_1";
+    programChangeMap["key1_modline5_led_green"] = "None";
+    programChangeMap["key1_modline5_led_red"] = "None";
+    programChangeMap["key1_modline5_displayLinked"] = 0;
 
     //Modline 6
-    programChangeMap["1_key_modline6_on"] = 1;
-    programChangeMap["1_key_modline6_source"] = "Pedal";
-    programChangeMap["1_key_modline6_gain"] = 1.00;
-    programChangeMap["1_key_modline6_offset"] = 0.00;
-    programChangeMap["1_key_modline6_table"] = "1_Lin";
-    programChangeMap["1_key_modline6_min"] = 0;
-    programChangeMap["1_key_modline6_max"] = 127;
-    programChangeMap["1_key_modline6_slew"] = 0;
-    programChangeMap["1_key_modline6_destination"] = "CC";
-    programChangeMap["1_key_modline6_channel"] = 1;
-    programChangeMap["1_key_modline6_device"] = "SSCOM_Port_1";
-    programChangeMap["1_key_modline6_led_green"] = "None";
-    programChangeMap["1_key_modline6_led_red"] = "None";
-    programChangeMap["1_key_modline6_displayLinked"] = 0;
+    programChangeMap["key1_modline6_on"] = 1;
+    programChangeMap["key1_modline6_source"] = "Pedal";
+    programChangeMap["key1_modline6_gain"] = 1.00;
+    programChangeMap["key1_modline6_offset"] = 0.00;
+    programChangeMap["key1_modline6_table"] = "1_Lin";
+    programChangeMap["key1_modline6_min"] = 0;
+    programChangeMap["key1_modline6_max"] = 127;
+    programChangeMap["key1_modline6_slew"] = 0;
+    programChangeMap["key1_modline6_destination"] = "CC";
+    programChangeMap["key1_modline6_channel"] = 1;
+    programChangeMap["key1_modline6_device"] = "SSCOM_Port_1";
+    programChangeMap["key1_modline6_led_green"] = "None";
+    programChangeMap["key1_modline6_led_red"] = "None";
+    programChangeMap["key1_modline6_displayLinked"] = 0;
 
     //------------------------------------------------ Key2
-    programChangeMap["2_key_name"] = "2KEY";
-    programChangeMap["2_key_displayMode"] = 4;
-    programChangeMap["2_key_prefix"] = "PG";
+    programChangeMap["key2_name"] = "2KEY";
+    programChangeMap["key2_displayMode"] = 4;
+    programChangeMap["key2_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["2_key_modline1_on"] = 1;
-    programChangeMap["2_key_modline1_source"] = "Nav Yx10 & Key";
-    programChangeMap["2_key_modline1_gain"] = 1.00;
-    programChangeMap["2_key_modline1_offset"] = 0.00;
-    programChangeMap["2_key_modline1_table"] = "1_Lin";
-    programChangeMap["2_key_modline1_min"] = 0;
-    programChangeMap["2_key_modline1_max"] = 127;
-    programChangeMap["2_key_modline1_slew"] = 0;
-    programChangeMap["2_key_modline1_destination"] = "Program";
-    programChangeMap["2_key_modline1_channel"] = 1;
-    programChangeMap["2_key_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["2_key_modline1_led_green"] = "None";
-    programChangeMap["2_key_modline1_led_red"] = "None";
-    programChangeMap["2_key_modline1_displayLinked"] = 1;
+    programChangeMap["key2_modline1_on"] = 1;
+    programChangeMap["key2_modline1_source"] = "Nav Yx10 & Key";
+    programChangeMap["key2_modline1_gain"] = 1.00;
+    programChangeMap["key2_modline1_offset"] = 0.00;
+    programChangeMap["key2_modline1_table"] = "1_Lin";
+    programChangeMap["key2_modline1_min"] = 0;
+    programChangeMap["key2_modline1_max"] = 127;
+    programChangeMap["key2_modline1_slew"] = 0;
+    programChangeMap["key2_modline1_destination"] = "Program";
+    programChangeMap["key2_modline1_channel"] = 1;
+    programChangeMap["key2_modline1_device"] = "SSCOM_Port_1";
+    programChangeMap["key2_modline1_led_green"] = "None";
+    programChangeMap["key2_modline1_led_red"] = "None";
+    programChangeMap["key2_modline1_displayLinked"] = 1;
 
     //Modline 2
-    programChangeMap["2_key_modline2_on"] = 1;
-    programChangeMap["2_key_modline2_source"] = "Nav Yx10 & Key";
-    programChangeMap["2_key_modline2_gain"] = 1.00;
-    programChangeMap["2_key_modline2_offset"] = 0.00;
-    programChangeMap["2_key_modline2_table"] = "1_Lin";
-    programChangeMap["2_key_modline2_min"] = 0;
-    programChangeMap["2_key_modline2_max"] = 127;
-    programChangeMap["2_key_modline2_slew"] = 0;
-    programChangeMap["2_key_modline2_destination"] = "Program";
-    programChangeMap["2_key_modline2_channel"] = 1;
-    programChangeMap["2_key_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["2_key_modline2_led_green"] = "None";
-    programChangeMap["2_key_modline2_led_red"] = "None";
-    programChangeMap["2_key_modline2_displayLinked"] = 0;
+    programChangeMap["key2_modline2_on"] = 1;
+    programChangeMap["key2_modline2_source"] = "Nav Yx10 & Key";
+    programChangeMap["key2_modline2_gain"] = 1.00;
+    programChangeMap["key2_modline2_offset"] = 0.00;
+    programChangeMap["key2_modline2_table"] = "1_Lin";
+    programChangeMap["key2_modline2_min"] = 0;
+    programChangeMap["key2_modline2_max"] = 127;
+    programChangeMap["key2_modline2_slew"] = 0;
+    programChangeMap["key2_modline2_destination"] = "Program";
+    programChangeMap["key2_modline2_channel"] = 1;
+    programChangeMap["key2_modline2_device"] = "SoftStep_Expander";
+    programChangeMap["key2_modline2_led_green"] = "None";
+    programChangeMap["key2_modline2_led_red"] = "None";
+    programChangeMap["key2_modline2_displayLinked"] = 0;
 
     //Modline 3
-    programChangeMap["2_key_modline3_on"] = 1;
-    programChangeMap["2_key_modline3_source"] = "Key 2 Pressed";
-    programChangeMap["2_key_modline3_gain"] = 1.00;
-    programChangeMap["2_key_modline3_offset"] = 0.00;
-    programChangeMap["2_key_modline3_table"] = "1_Lin";
-    programChangeMap["2_key_modline3_min"] = 0;
-    programChangeMap["2_key_modline3_max"] = 127;
-    programChangeMap["2_key_modline3_slew"] = 0;
-    programChangeMap["2_key_modline3_destination"] = "None";
-    programChangeMap["2_key_modline3_channel"] = 1;
-    programChangeMap["2_key_modline3_device"] = "None";
-    programChangeMap["2_key_modline3_led_green"] = "True";
-    programChangeMap["2_key_modline3_led_red"] = "None";
-    programChangeMap["2_key_modline3_displayLinked"] = 0;
+    programChangeMap["key2_modline3_on"] = 1;
+    programChangeMap["key2_modline3_source"] = "Key 2 Pressed";
+    programChangeMap["key2_modline3_gain"] = 1.00;
+    programChangeMap["key2_modline3_offset"] = 0.00;
+    programChangeMap["key2_modline3_table"] = "1_Lin";
+    programChangeMap["key2_modline3_min"] = 0;
+    programChangeMap["key2_modline3_max"] = 127;
+    programChangeMap["key2_modline3_slew"] = 0;
+    programChangeMap["key2_modline3_destination"] = "None";
+    programChangeMap["key2_modline3_channel"] = 1;
+    programChangeMap["key2_modline3_device"] = "None";
+    programChangeMap["key2_modline3_led_green"] = "True";
+    programChangeMap["key2_modline3_led_red"] = "None";
+    programChangeMap["key2_modline3_displayLinked"] = 0;
 
     //Modline 4
-    programChangeMap["2_key_modline4_on"] = 1;
-    programChangeMap["2_key_modline4_source"] = "Other Key Pressed";
-    programChangeMap["2_key_modline4_gain"] = 1.00;
-    programChangeMap["2_key_modline4_offset"] = 0.00;
-    programChangeMap["2_key_modline4_table"] = "1_Lin";
-    programChangeMap["2_key_modline4_min"] = 0;
-    programChangeMap["2_key_modline4_max"] = 127;
-    programChangeMap["2_key_modline4_slew"] = 0;
-    programChangeMap["2_key_modline4_destination"] = "None";
-    programChangeMap["2_key_modline4_channel"] = 1;
-    programChangeMap["2_key_modline4_device"] = "None";
-    programChangeMap["2_key_modline4_led_green"] = "Off";
-    programChangeMap["2_key_modline4_led_red"] = "None";
-    programChangeMap["2_key_modline4_displayLinked"] = 0;
+    programChangeMap["key2_modline4_on"] = 1;
+    programChangeMap["key2_modline4_source"] = "Other Key Pressed";
+    programChangeMap["key2_modline4_gain"] = 1.00;
+    programChangeMap["key2_modline4_offset"] = 0.00;
+    programChangeMap["key2_modline4_table"] = "1_Lin";
+    programChangeMap["key2_modline4_min"] = 0;
+    programChangeMap["key2_modline4_max"] = 127;
+    programChangeMap["key2_modline4_slew"] = 0;
+    programChangeMap["key2_modline4_destination"] = "None";
+    programChangeMap["key2_modline4_channel"] = 1;
+    programChangeMap["key2_modline4_device"] = "None";
+    programChangeMap["key2_modline4_led_green"] = "Off";
+    programChangeMap["key2_modline4_led_red"] = "None";
+    programChangeMap["key2_modline4_displayLinked"] = 0;
 
     //Modline 5
-    programChangeMap["2_key_modline5_on"] = 0;
-    programChangeMap["2_key_modline5_source"] = "None";
-    programChangeMap["2_key_modline5_gain"] = 1.00;
-    programChangeMap["2_key_modline5_offset"] = 0.00;
-    programChangeMap["2_key_modline5_table"] = "1_Lin";
-    programChangeMap["2_key_modline5_min"] = 0;
-    programChangeMap["2_key_modline5_max"] = 127;
-    programChangeMap["2_key_modline5_slew"] = 0;
-    programChangeMap["2_key_modline5_destination"] = "None";
-    programChangeMap["2_key_modline5_channel"] = 1;
-    programChangeMap["2_key_modline5_device"] = "None";
-    programChangeMap["2_key_modline5_led_green"] = "None";
-    programChangeMap["2_key_modline5_led_red"] = "None";
-    programChangeMap["2_key_modline5_displayLinked"] = 0;
+    programChangeMap["key2_modline5_on"] = 0;
+    programChangeMap["key2_modline5_source"] = "None";
+    programChangeMap["key2_modline5_gain"] = 1.00;
+    programChangeMap["key2_modline5_offset"] = 0.00;
+    programChangeMap["key2_modline5_table"] = "1_Lin";
+    programChangeMap["key2_modline5_min"] = 0;
+    programChangeMap["key2_modline5_max"] = 127;
+    programChangeMap["key2_modline5_slew"] = 0;
+    programChangeMap["key2_modline5_destination"] = "None";
+    programChangeMap["key2_modline5_channel"] = 1;
+    programChangeMap["key2_modline5_device"] = "None";
+    programChangeMap["key2_modline5_led_green"] = "None";
+    programChangeMap["key2_modline5_led_red"] = "None";
+    programChangeMap["key2_modline5_displayLinked"] = 0;
 
     //Modline 6
-    programChangeMap["2_key_modline6_on"] = 0;
-    programChangeMap["2_key_modline6_source"] = "None";
-    programChangeMap["2_key_modline6_gain"] = 1.00;
-    programChangeMap["2_key_modline6_offset"] = 0.00;
-    programChangeMap["2_key_modline6_table"] = "1_Lin";
-    programChangeMap["2_key_modline6_min"] = 0;
-    programChangeMap["2_key_modline6_max"] = 127;
-    programChangeMap["2_key_modline6_slew"] = 0;
-    programChangeMap["2_key_modline6_destination"] = "None";
-    programChangeMap["2_key_modline6_channel"] = 1;
-    programChangeMap["2_key_modline6_device"] = "None";
-    programChangeMap["2_key_modline6_led_green"] = "None";
-    programChangeMap["2_key_modline6_led_red"] = "None";
-    programChangeMap["2_key_modline6_displayLinked"] = 0;
+    programChangeMap["key2_modline6_on"] = 0;
+    programChangeMap["key2_modline6_source"] = "None";
+    programChangeMap["key2_modline6_gain"] = 1.00;
+    programChangeMap["key2_modline6_offset"] = 0.00;
+    programChangeMap["key2_modline6_table"] = "1_Lin";
+    programChangeMap["key2_modline6_min"] = 0;
+    programChangeMap["key2_modline6_max"] = 127;
+    programChangeMap["key2_modline6_slew"] = 0;
+    programChangeMap["key2_modline6_destination"] = "None";
+    programChangeMap["key2_modline6_channel"] = 1;
+    programChangeMap["key2_modline6_device"] = "None";
+    programChangeMap["key2_modline6_led_green"] = "None";
+    programChangeMap["key2_modline6_led_red"] = "None";
+    programChangeMap["key2_modline6_displayLinked"] = 0;
 
     //------------------------------------------------ Key3
-    programChangeMap["3_key_name"] = "3KEY";
-    programChangeMap["3_key_displayMode"] = 4;
-    programChangeMap["3_key_prefix"] = "PG";
+    programChangeMap["key3_name"] = "3KEY";
+    programChangeMap["key3_displayMode"] = 4;
+    programChangeMap["key3_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["3_key_modline1_on"] = 1;
-    programChangeMap["3_key_modline1_source"] = "Nav Yx10 & Key";
-    programChangeMap["3_key_modline1_gain"] = 1.00;
-    programChangeMap["3_key_modline1_offset"] = 0.00;
-    programChangeMap["3_key_modline1_table"] = "1_Lin";
-    programChangeMap["3_key_modline1_min"] = 0;
-    programChangeMap["3_key_modline1_max"] = 127;
-    programChangeMap["3_key_modline1_slew"] = 0;
-    programChangeMap["3_key_modline1_destination"] = "Program";
-    programChangeMap["3_key_modline1_channel"] = 1;
-    programChangeMap["3_key_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["3_key_modline1_led_green"] = "None";
-    programChangeMap["3_key_modline1_led_red"] = "None";
-    programChangeMap["3_key_modline1_displayLinked"] = 1;
+    programChangeMap["key3_modline1_on"] = 1;
+    programChangeMap["key3_modline1_source"] = "Nav Yx10 & Key";
+    programChangeMap["key3_modline1_gain"] = 1.00;
+    programChangeMap["key3_modline1_offset"] = 0.00;
+    programChangeMap["key3_modline1_table"] = "1_Lin";
+    programChangeMap["key3_modline1_min"] = 0;
+    programChangeMap["key3_modline1_max"] = 127;
+    programChangeMap["key3_modline1_slew"] = 0;
+    programChangeMap["key3_modline1_destination"] = "Program";
+    programChangeMap["key3_modline1_channel"] = 1;
+    programChangeMap["key3_modline1_device"] = "SSCOM_Port_1";
+    programChangeMap["key3_modline1_led_green"] = "None";
+    programChangeMap["key3_modline1_led_red"] = "None";
+    programChangeMap["key3_modline1_displayLinked"] = 1;
 
     //Modline 2
-    programChangeMap["3_key_modline2_on"] = 1;
-    programChangeMap["3_key_modline2_source"] = "Nav Yx10 & Key";
-    programChangeMap["3_key_modline2_gain"] = 1.00;
-    programChangeMap["3_key_modline2_offset"] = 0.00;
-    programChangeMap["3_key_modline2_table"] = "1_Lin";
-    programChangeMap["3_key_modline2_min"] = 0;
-    programChangeMap["3_key_modline2_max"] = 127;
-    programChangeMap["3_key_modline2_slew"] = 0;
-    programChangeMap["3_key_modline2_destination"] = "Program";
-    programChangeMap["3_key_modline2_channel"] = 1;
-    programChangeMap["3_key_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["3_key_modline2_led_green"] = "None";
-    programChangeMap["3_key_modline2_led_red"] = "None";
-    programChangeMap["3_key_modline2_displayLinked"] = 0;
+    programChangeMap["key3_modline2_on"] = 1;
+    programChangeMap["key3_modline2_source"] = "Nav Yx10 & Key";
+    programChangeMap["key3_modline2_gain"] = 1.00;
+    programChangeMap["key3_modline2_offset"] = 0.00;
+    programChangeMap["key3_modline2_table"] = "1_Lin";
+    programChangeMap["key3_modline2_min"] = 0;
+    programChangeMap["key3_modline2_max"] = 127;
+    programChangeMap["key3_modline2_slew"] = 0;
+    programChangeMap["key3_modline2_destination"] = "Program";
+    programChangeMap["key3_modline2_channel"] = 1;
+    programChangeMap["key3_modline2_device"] = "SoftStep_Expander";
+    programChangeMap["key3_modline2_led_green"] = "None";
+    programChangeMap["key3_modline2_led_red"] = "None";
+    programChangeMap["key3_modline2_displayLinked"] = 0;
 
     //Modline 3
-    programChangeMap["3_key_modline3_on"] = 1;
-    programChangeMap["3_key_modline3_source"] = "Key 3 Pressed";
-    programChangeMap["3_key_modline3_gain"] = 1.00;
-    programChangeMap["3_key_modline3_offset"] = 0.00;
-    programChangeMap["3_key_modline3_table"] = "1_Lin";
-    programChangeMap["3_key_modline3_min"] = 0;
-    programChangeMap["3_key_modline3_max"] = 127;
-    programChangeMap["3_key_modline3_slew"] = 0;
-    programChangeMap["3_key_modline3_destination"] = "None";
-    programChangeMap["3_key_modline3_channel"] = 1;
-    programChangeMap["3_key_modline3_device"] = "None";
-    programChangeMap["3_key_modline3_led_green"] = "True";
-    programChangeMap["3_key_modline3_led_red"] = "None";
-    programChangeMap["3_key_modline3_displayLinked"] = 0;
+    programChangeMap["key3_modline3_on"] = 1;
+    programChangeMap["key3_modline3_source"] = "Key 3 Pressed";
+    programChangeMap["key3_modline3_gain"] = 1.00;
+    programChangeMap["key3_modline3_offset"] = 0.00;
+    programChangeMap["key3_modline3_table"] = "1_Lin";
+    programChangeMap["key3_modline3_min"] = 0;
+    programChangeMap["key3_modline3_max"] = 127;
+    programChangeMap["key3_modline3_slew"] = 0;
+    programChangeMap["key3_modline3_destination"] = "None";
+    programChangeMap["key3_modline3_channel"] = 1;
+    programChangeMap["key3_modline3_device"] = "None";
+    programChangeMap["key3_modline3_led_green"] = "True";
+    programChangeMap["key3_modline3_led_red"] = "None";
+    programChangeMap["key3_modline3_displayLinked"] = 0;
 
     //Modline 4
-    programChangeMap["3_key_modline4_on"] = 1;
-    programChangeMap["3_key_modline4_source"] = "Other Key Pressed";
-    programChangeMap["3_key_modline4_gain"] = 1.00;
-    programChangeMap["3_key_modline4_offset"] = 0.00;
-    programChangeMap["3_key_modline4_table"] = "1_Lin";
-    programChangeMap["3_key_modline4_min"] = 0;
-    programChangeMap["3_key_modline4_max"] = 127;
-    programChangeMap["3_key_modline4_slew"] = 0;
-    programChangeMap["3_key_modline4_destination"] = "None";
-    programChangeMap["3_key_modline4_channel"] = 1;
-    programChangeMap["3_key_modline4_device"] = "None";
-    programChangeMap["3_key_modline4_led_green"] = "Off";
-    programChangeMap["3_key_modline4_led_red"] = "None";
-    programChangeMap["3_key_modline4_displayLinked"] = 0;
+    programChangeMap["key3_modline4_on"] = 1;
+    programChangeMap["key3_modline4_source"] = "Other Key Pressed";
+    programChangeMap["key3_modline4_gain"] = 1.00;
+    programChangeMap["key3_modline4_offset"] = 0.00;
+    programChangeMap["key3_modline4_table"] = "1_Lin";
+    programChangeMap["key3_modline4_min"] = 0;
+    programChangeMap["key3_modline4_max"] = 127;
+    programChangeMap["key3_modline4_slew"] = 0;
+    programChangeMap["key3_modline4_destination"] = "None";
+    programChangeMap["key3_modline4_channel"] = 1;
+    programChangeMap["key3_modline4_device"] = "None";
+    programChangeMap["key3_modline4_led_green"] = "Off";
+    programChangeMap["key3_modline4_led_red"] = "None";
+    programChangeMap["key3_modline4_displayLinked"] = 0;
 
     //Modline 5
-    programChangeMap["3_key_modline5_on"] = 0;
-    programChangeMap["3_key_modline5_source"] = "None";
-    programChangeMap["3_key_modline5_gain"] = 1.00;
-    programChangeMap["3_key_modline5_offset"] = 0.00;
-    programChangeMap["3_key_modline5_table"] = "1_Lin";
-    programChangeMap["3_key_modline5_min"] = 0;
-    programChangeMap["3_key_modline5_max"] = 127;
-    programChangeMap["3_key_modline5_slew"] = 0;
-    programChangeMap["3_key_modline5_destination"] = "None";
-    programChangeMap["3_key_modline5_channel"] = 1;
-    programChangeMap["3_key_modline5_device"] = "None";
-    programChangeMap["3_key_modline5_led_green"] = "None";
-    programChangeMap["3_key_modline5_led_red"] = "None";
-    programChangeMap["3_key_modline5_displayLinked"] = 0;
+    programChangeMap["key3_modline5_on"] = 0;
+    programChangeMap["key3_modline5_source"] = "None";
+    programChangeMap["key3_modline5_gain"] = 1.00;
+    programChangeMap["key3_modline5_offset"] = 0.00;
+    programChangeMap["key3_modline5_table"] = "1_Lin";
+    programChangeMap["key3_modline5_min"] = 0;
+    programChangeMap["key3_modline5_max"] = 127;
+    programChangeMap["key3_modline5_slew"] = 0;
+    programChangeMap["key3_modline5_destination"] = "None";
+    programChangeMap["key3_modline5_channel"] = 1;
+    programChangeMap["key3_modline5_device"] = "None";
+    programChangeMap["key3_modline5_led_green"] = "None";
+    programChangeMap["key3_modline5_led_red"] = "None";
+    programChangeMap["key3_modline5_displayLinked"] = 0;
 
     //Modline 6
-    programChangeMap["3_key_modline6_on"] = 0;
-    programChangeMap["3_key_modline6_source"] = "None";
-    programChangeMap["3_key_modline6_gain"] = 1.00;
-    programChangeMap["3_key_modline6_offset"] = 0.00;
-    programChangeMap["3_key_modline6_table"] = "1_Lin";
-    programChangeMap["3_key_modline6_min"] = 0;
-    programChangeMap["3_key_modline6_max"] = 127;
-    programChangeMap["3_key_modline6_slew"] = 0;
-    programChangeMap["3_key_modline6_destination"] = "None";
-    programChangeMap["3_key_modline6_channel"] = 1;
-    programChangeMap["3_key_modline6_device"] = "None";
-    programChangeMap["3_key_modline6_led_green"] = "None";
-    programChangeMap["3_key_modline6_led_red"] = "None";
-    programChangeMap["3_key_modline6_displayLinked"] = 0;
+    programChangeMap["key3_modline6_on"] = 0;
+    programChangeMap["key3_modline6_source"] = "None";
+    programChangeMap["key3_modline6_gain"] = 1.00;
+    programChangeMap["key3_modline6_offset"] = 0.00;
+    programChangeMap["key3_modline6_table"] = "1_Lin";
+    programChangeMap["key3_modline6_min"] = 0;
+    programChangeMap["key3_modline6_max"] = 127;
+    programChangeMap["key3_modline6_slew"] = 0;
+    programChangeMap["key3_modline6_destination"] = "None";
+    programChangeMap["key3_modline6_channel"] = 1;
+    programChangeMap["key3_modline6_device"] = "None";
+    programChangeMap["key3_modline6_led_green"] = "None";
+    programChangeMap["key3_modline6_led_red"] = "None";
+    programChangeMap["key3_modline6_displayLinked"] = 0;
 
     //------------------------------------------------ Key4
-    programChangeMap["4_key_name"] = "4KEY";
-    programChangeMap["4_key_displayMode"] = 4;
-    programChangeMap["4_key_prefix"] = "PG";
+    programChangeMap["key4_name"] = "4KEY";
+    programChangeMap["key4_displayMode"] = 4;
+    programChangeMap["key4_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["4_key_modline1_on"] = 1;
-    programChangeMap["4_key_modline1_source"] = "Nav Yx10 & Key";
-    programChangeMap["4_key_modline1_gain"] = 1.00;
-    programChangeMap["4_key_modline1_offset"] = 0.00;
-    programChangeMap["4_key_modline1_table"] = "1_Lin";
-    programChangeMap["4_key_modline1_min"] = 0;
-    programChangeMap["4_key_modline1_max"] = 127;
-    programChangeMap["4_key_modline1_slew"] = 0;
-    programChangeMap["4_key_modline1_destination"] = "Program";
-    programChangeMap["4_key_modline1_channel"] = 1;
-    programChangeMap["4_key_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["4_key_modline1_led_green"] = "None";
-    programChangeMap["4_key_modline1_led_red"] = "None";
-    programChangeMap["4_key_modline1_displayLinked"] = 1;
+    programChangeMap["key4_modline1_on"] = 1;
+    programChangeMap["key4_modline1_source"] = "Nav Yx10 & Key";
+    programChangeMap["key4_modline1_gain"] = 1.00;
+    programChangeMap["key4_modline1_offset"] = 0.00;
+    programChangeMap["key4_modline1_table"] = "1_Lin";
+    programChangeMap["key4_modline1_min"] = 0;
+    programChangeMap["key4_modline1_max"] = 127;
+    programChangeMap["key4_modline1_slew"] = 0;
+    programChangeMap["key4_modline1_destination"] = "Program";
+    programChangeMap["key4_modline1_channel"] = 1;
+    programChangeMap["key4_modline1_device"] = "SSCOM_Port_1";
+    programChangeMap["key4_modline1_led_green"] = "None";
+    programChangeMap["key4_modline1_led_red"] = "None";
+    programChangeMap["key4_modline1_displayLinked"] = 1;
 
     //Modline 2
-    programChangeMap["4_key_modline2_on"] = 1;
-    programChangeMap["4_key_modline2_source"] = "Nav Yx10 & Key";
-    programChangeMap["4_key_modline2_gain"] = 1.00;
-    programChangeMap["4_key_modline2_offset"] = 0.00;
-    programChangeMap["4_key_modline2_table"] = "1_Lin";
-    programChangeMap["4_key_modline2_min"] = 0;
-    programChangeMap["4_key_modline2_max"] = 127;
-    programChangeMap["4_key_modline2_slew"] = 0;
-    programChangeMap["4_key_modline2_destination"] = "Program";
-    programChangeMap["4_key_modline2_channel"] = 1;
-    programChangeMap["4_key_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["4_key_modline2_led_green"] = "None";
-    programChangeMap["4_key_modline2_led_red"] = "None";
-    programChangeMap["4_key_modline2_displayLinked"] = 0;
+    programChangeMap["key4_modline2_on"] = 1;
+    programChangeMap["key4_modline2_source"] = "Nav Yx10 & Key";
+    programChangeMap["key4_modline2_gain"] = 1.00;
+    programChangeMap["key4_modline2_offset"] = 0.00;
+    programChangeMap["key4_modline2_table"] = "1_Lin";
+    programChangeMap["key4_modline2_min"] = 0;
+    programChangeMap["key4_modline2_max"] = 127;
+    programChangeMap["key4_modline2_slew"] = 0;
+    programChangeMap["key4_modline2_destination"] = "Program";
+    programChangeMap["key4_modline2_channel"] = 1;
+    programChangeMap["key4_modline2_device"] = "SoftStep_Expander";
+    programChangeMap["key4_modline2_led_green"] = "None";
+    programChangeMap["key4_modline2_led_red"] = "None";
+    programChangeMap["key4_modline2_displayLinked"] = 0;
 
     //Modline 3
-    programChangeMap["4_key_modline3_on"] = 1;
-    programChangeMap["4_key_modline3_source"] = "Key 4 Pressed";
-    programChangeMap["4_key_modline3_gain"] = 1.00;
-    programChangeMap["4_key_modline3_offset"] = 0.00;
-    programChangeMap["4_key_modline3_table"] = "1_Lin";
-    programChangeMap["4_key_modline3_min"] = 0;
-    programChangeMap["4_key_modline3_max"] = 127;
-    programChangeMap["4_key_modline3_slew"] = 0;
-    programChangeMap["4_key_modline3_destination"] = "None";
-    programChangeMap["4_key_modline3_channel"] = 1;
-    programChangeMap["4_key_modline3_device"] = "None";
-    programChangeMap["4_key_modline3_led_green"] = "True";
-    programChangeMap["4_key_modline3_led_red"] = "None";
-    programChangeMap["4_key_modline3_displayLinked"] = 0;
+    programChangeMap["key4_modline3_on"] = 1;
+    programChangeMap["key4_modline3_source"] = "Key 4 Pressed";
+    programChangeMap["key4_modline3_gain"] = 1.00;
+    programChangeMap["key4_modline3_offset"] = 0.00;
+    programChangeMap["key4_modline3_table"] = "1_Lin";
+    programChangeMap["key4_modline3_min"] = 0;
+    programChangeMap["key4_modline3_max"] = 127;
+    programChangeMap["key4_modline3_slew"] = 0;
+    programChangeMap["key4_modline3_destination"] = "None";
+    programChangeMap["key4_modline3_channel"] = 1;
+    programChangeMap["key4_modline3_device"] = "None";
+    programChangeMap["key4_modline3_led_green"] = "True";
+    programChangeMap["key4_modline3_led_red"] = "None";
+    programChangeMap["key4_modline3_displayLinked"] = 0;
 
     //Modline 4
-    programChangeMap["4_key_modline4_on"] = 1;
-    programChangeMap["4_key_modline4_source"] = "Other Key Pressed";
-    programChangeMap["4_key_modline4_gain"] = 1.00;
-    programChangeMap["4_key_modline4_offset"] = 0.00;
-    programChangeMap["4_key_modline4_table"] = "1_Lin";
-    programChangeMap["4_key_modline4_min"] = 0;
-    programChangeMap["4_key_modline4_max"] = 127;
-    programChangeMap["4_key_modline4_slew"] = 0;
-    programChangeMap["4_key_modline4_destination"] = "None";
-    programChangeMap["4_key_modline4_channel"] = 1;
-    programChangeMap["4_key_modline4_device"] = "None";
-    programChangeMap["4_key_modline4_led_green"] = "Off";
-    programChangeMap["4_key_modline4_led_red"] = "None";
-    programChangeMap["4_key_modline4_displayLinked"] = 0;
+    programChangeMap["key4_modline4_on"] = 1;
+    programChangeMap["key4_modline4_source"] = "Other Key Pressed";
+    programChangeMap["key4_modline4_gain"] = 1.00;
+    programChangeMap["key4_modline4_offset"] = 0.00;
+    programChangeMap["key4_modline4_table"] = "1_Lin";
+    programChangeMap["key4_modline4_min"] = 0;
+    programChangeMap["key4_modline4_max"] = 127;
+    programChangeMap["key4_modline4_slew"] = 0;
+    programChangeMap["key4_modline4_destination"] = "None";
+    programChangeMap["key4_modline4_channel"] = 1;
+    programChangeMap["key4_modline4_device"] = "None";
+    programChangeMap["key4_modline4_led_green"] = "Off";
+    programChangeMap["key4_modline4_led_red"] = "None";
+    programChangeMap["key4_modline4_displayLinked"] = 0;
 
     //Modline 5
-    programChangeMap["4_key_modline5_on"] = 0;
-    programChangeMap["4_key_modline5_source"] = "None";
-    programChangeMap["4_key_modline5_gain"] = 1.00;
-    programChangeMap["4_key_modline5_offset"] = 0.00;
-    programChangeMap["4_key_modline5_table"] = "1_Lin";
-    programChangeMap["4_key_modline5_min"] = 0;
-    programChangeMap["4_key_modline5_max"] = 127;
-    programChangeMap["4_key_modline5_slew"] = 0;
-    programChangeMap["4_key_modline5_destination"] = "None";
-    programChangeMap["4_key_modline5_channel"] = 1;
-    programChangeMap["4_key_modline5_device"] = "None";
-    programChangeMap["4_key_modline5_led_green"] = "None";
-    programChangeMap["4_key_modline5_led_red"] = "None";
-    programChangeMap["4_key_modline5_displayLinked"] = 0;
+    programChangeMap["key4_modline5_on"] = 0;
+    programChangeMap["key4_modline5_source"] = "None";
+    programChangeMap["key4_modline5_gain"] = 1.00;
+    programChangeMap["key4_modline5_offset"] = 0.00;
+    programChangeMap["key4_modline5_table"] = "1_Lin";
+    programChangeMap["key4_modline5_min"] = 0;
+    programChangeMap["key4_modline5_max"] = 127;
+    programChangeMap["key4_modline5_slew"] = 0;
+    programChangeMap["key4_modline5_destination"] = "None";
+    programChangeMap["key4_modline5_channel"] = 1;
+    programChangeMap["key4_modline5_device"] = "None";
+    programChangeMap["key4_modline5_led_green"] = "None";
+    programChangeMap["key4_modline5_led_red"] = "None";
+    programChangeMap["key4_modline5_displayLinked"] = 0;
 
     //Modline 6
-    programChangeMap["4_key_modline6_on"] = 0;
-    programChangeMap["4_key_modline6_source"] = "None";
-    programChangeMap["4_key_modline6_gain"] = 1.00;
-    programChangeMap["4_key_modline6_offset"] = 0.00;
-    programChangeMap["4_key_modline6_table"] = "1_Lin";
-    programChangeMap["4_key_modline6_min"] = 0;
-    programChangeMap["4_key_modline6_max"] = 127;
-    programChangeMap["4_key_modline6_slew"] = 0;
-    programChangeMap["4_key_modline6_destination"] = "None";
-    programChangeMap["4_key_modline6_channel"] = 1;
-    programChangeMap["4_key_modline6_device"] = "None";
-    programChangeMap["4_key_modline6_led_green"] = "None";
-    programChangeMap["4_key_modline6_led_red"] = "None";
-    programChangeMap["4_key_modline6_displayLinked"] = 0;
+    programChangeMap["key4_modline6_on"] = 0;
+    programChangeMap["key4_modline6_source"] = "None";
+    programChangeMap["key4_modline6_gain"] = 1.00;
+    programChangeMap["key4_modline6_offset"] = 0.00;
+    programChangeMap["key4_modline6_table"] = "1_Lin";
+    programChangeMap["key4_modline6_min"] = 0;
+    programChangeMap["key4_modline6_max"] = 127;
+    programChangeMap["key4_modline6_slew"] = 0;
+    programChangeMap["key4_modline6_destination"] = "None";
+    programChangeMap["key4_modline6_channel"] = 1;
+    programChangeMap["key4_modline6_device"] = "None";
+    programChangeMap["key4_modline6_led_green"] = "None";
+    programChangeMap["key4_modline6_led_red"] = "None";
+    programChangeMap["key4_modline6_displayLinked"] = 0;
 
     //------------------------------------------------ Key5
-    programChangeMap["5_key_name"] = "5KEY";
-    programChangeMap["5_key_displayMode"] = 4;
-    programChangeMap["5_key_prefix"] = "PG";
+    programChangeMap["key5_name"] = "5KEY";
+    programChangeMap["key5_displayMode"] = 4;
+    programChangeMap["key5_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["5_key_modline1_on"] = 1;
-    programChangeMap["5_key_modline1_source"] = "Nav Yx10 & Key";
-    programChangeMap["5_key_modline1_gain"] = 1.00;
-    programChangeMap["5_key_modline1_offset"] = 0.00;
-    programChangeMap["5_key_modline1_table"] = "1_Lin";
-    programChangeMap["5_key_modline1_min"] = 0;
-    programChangeMap["5_key_modline1_max"] = 127;
-    programChangeMap["5_key_modline1_slew"] = 0;
-    programChangeMap["5_key_modline1_destination"] = "Program";
-    programChangeMap["5_key_modline1_channel"] = 1;
-    programChangeMap["5_key_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["5_key_modline1_led_green"] = "None";
-    programChangeMap["5_key_modline1_led_red"] = "None";
-    programChangeMap["5_key_modline1_displayLinked"] = 1;
+    programChangeMap["key5_modline1_on"] = 1;
+    programChangeMap["key5_modline1_source"] = "Nav Yx10 & Key";
+    programChangeMap["key5_modline1_gain"] = 1.00;
+    programChangeMap["key5_modline1_offset"] = 0.00;
+    programChangeMap["key5_modline1_table"] = "1_Lin";
+    programChangeMap["key5_modline1_min"] = 0;
+    programChangeMap["key5_modline1_max"] = 127;
+    programChangeMap["key5_modline1_slew"] = 0;
+    programChangeMap["key5_modline1_destination"] = "Program";
+    programChangeMap["key5_modline1_channel"] = 1;
+    programChangeMap["key5_modline1_device"] = "SSCOM_Port_1";
+    programChangeMap["key5_modline1_led_green"] = "None";
+    programChangeMap["key5_modline1_led_red"] = "None";
+    programChangeMap["key5_modline1_displayLinked"] = 1;
 
     //Modline 2
-    programChangeMap["5_key_modline2_on"] = 1;
-    programChangeMap["5_key_modline2_source"] = "Nav Yx10 & Key";
-    programChangeMap["5_key_modline2_gain"] = 1.00;
-    programChangeMap["5_key_modline2_offset"] = 0.00;
-    programChangeMap["5_key_modline2_table"] = "1_Lin";
-    programChangeMap["5_key_modline2_min"] = 0;
-    programChangeMap["5_key_modline2_max"] = 127;
-    programChangeMap["5_key_modline2_slew"] = 0;
-    programChangeMap["5_key_modline2_destination"] = "Program";
-    programChangeMap["5_key_modline2_channel"] = 1;
-    programChangeMap["5_key_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["5_key_modline2_led_green"] = "None";
-    programChangeMap["5_key_modline2_led_red"] = "None";
-    programChangeMap["5_key_modline2_displayLinked"] = 0;
+    programChangeMap["key5_modline2_on"] = 1;
+    programChangeMap["key5_modline2_source"] = "Nav Yx10 & Key";
+    programChangeMap["key5_modline2_gain"] = 1.00;
+    programChangeMap["key5_modline2_offset"] = 0.00;
+    programChangeMap["key5_modline2_table"] = "1_Lin";
+    programChangeMap["key5_modline2_min"] = 0;
+    programChangeMap["key5_modline2_max"] = 127;
+    programChangeMap["key5_modline2_slew"] = 0;
+    programChangeMap["key5_modline2_destination"] = "Program";
+    programChangeMap["key5_modline2_channel"] = 1;
+    programChangeMap["key5_modline2_device"] = "SoftStep_Expander";
+    programChangeMap["key5_modline2_led_green"] = "None";
+    programChangeMap["key5_modline2_led_red"] = "None";
+    programChangeMap["key5_modline2_displayLinked"] = 0;
 
     //Modline 3
-    programChangeMap["5_key_modline3_on"] = 1;
-    programChangeMap["5_key_modline3_source"] = "Key 5 Pressed";
-    programChangeMap["5_key_modline3_gain"] = 1.00;
-    programChangeMap["5_key_modline3_offset"] = 0.00;
-    programChangeMap["5_key_modline3_table"] = "1_Lin";
-    programChangeMap["5_key_modline3_min"] = 0;
-    programChangeMap["5_key_modline3_max"] = 127;
-    programChangeMap["5_key_modline3_slew"] = 0;
-    programChangeMap["5_key_modline3_destination"] = "None";
-    programChangeMap["5_key_modline3_channel"] = 1;
-    programChangeMap["5_key_modline3_device"] = "None";
-    programChangeMap["5_key_modline3_led_green"] = "True";
-    programChangeMap["5_key_modline3_led_red"] = "None";
-    programChangeMap["5_key_modline3_displayLinked"] = 0;
+    programChangeMap["key5_modline3_on"] = 1;
+    programChangeMap["key5_modline3_source"] = "Key 5 Pressed";
+    programChangeMap["key5_modline3_gain"] = 1.00;
+    programChangeMap["key5_modline3_offset"] = 0.00;
+    programChangeMap["key5_modline3_table"] = "1_Lin";
+    programChangeMap["key5_modline3_min"] = 0;
+    programChangeMap["key5_modline3_max"] = 127;
+    programChangeMap["key5_modline3_slew"] = 0;
+    programChangeMap["key5_modline3_destination"] = "None";
+    programChangeMap["key5_modline3_channel"] = 1;
+    programChangeMap["key5_modline3_device"] = "None";
+    programChangeMap["key5_modline3_led_green"] = "True";
+    programChangeMap["key5_modline3_led_red"] = "None";
+    programChangeMap["key5_modline3_displayLinked"] = 0;
 
     //Modline 4
-    programChangeMap["5_key_modline4_on"] = 1;
-    programChangeMap["5_key_modline4_source"] = "Other Key Pressed";
-    programChangeMap["5_key_modline4_gain"] = 1.00;
-    programChangeMap["5_key_modline4_offset"] = 0.00;
-    programChangeMap["5_key_modline4_table"] = "1_Lin";
-    programChangeMap["5_key_modline4_min"] = 0;
-    programChangeMap["5_key_modline4_max"] = 127;
-    programChangeMap["5_key_modline4_slew"] = 0;
-    programChangeMap["5_key_modline4_destination"] = "None";
-    programChangeMap["5_key_modline4_channel"] = 1;
-    programChangeMap["5_key_modline4_device"] = "None";
-    programChangeMap["5_key_modline4_led_green"] = "Off";
-    programChangeMap["5_key_modline4_led_red"] = "None";
-    programChangeMap["5_key_modline4_displayLinked"] = 0;
+    programChangeMap["key5_modline4_on"] = 1;
+    programChangeMap["key5_modline4_source"] = "Other Key Pressed";
+    programChangeMap["key5_modline4_gain"] = 1.00;
+    programChangeMap["key5_modline4_offset"] = 0.00;
+    programChangeMap["key5_modline4_table"] = "1_Lin";
+    programChangeMap["key5_modline4_min"] = 0;
+    programChangeMap["key5_modline4_max"] = 127;
+    programChangeMap["key5_modline4_slew"] = 0;
+    programChangeMap["key5_modline4_destination"] = "None";
+    programChangeMap["key5_modline4_channel"] = 1;
+    programChangeMap["key5_modline4_device"] = "None";
+    programChangeMap["key5_modline4_led_green"] = "Off";
+    programChangeMap["key5_modline4_led_red"] = "None";
+    programChangeMap["key5_modline4_displayLinked"] = 0;
 
     //Modline 5
-    programChangeMap["5_key_modline5_on"] = 0;
-    programChangeMap["5_key_modline5_source"] = "None";
-    programChangeMap["5_key_modline5_gain"] = 1.00;
-    programChangeMap["5_key_modline5_offset"] = 0.00;
-    programChangeMap["5_key_modline5_table"] = "1_Lin";
-    programChangeMap["5_key_modline5_min"] = 0;
-    programChangeMap["5_key_modline5_max"] = 127;
-    programChangeMap["5_key_modline5_slew"] = 0;
-    programChangeMap["5_key_modline5_destination"] = "None";
-    programChangeMap["5_key_modline5_channel"] = 1;
-    programChangeMap["5_key_modline5_device"] = "None";
-    programChangeMap["5_key_modline5_led_green"] = "None";
-    programChangeMap["5_key_modline5_led_red"] = "None";
-    programChangeMap["5_key_modline5_displayLinked"] = 0;
+    programChangeMap["key5_modline5_on"] = 0;
+    programChangeMap["key5_modline5_source"] = "None";
+    programChangeMap["key5_modline5_gain"] = 1.00;
+    programChangeMap["key5_modline5_offset"] = 0.00;
+    programChangeMap["key5_modline5_table"] = "1_Lin";
+    programChangeMap["key5_modline5_min"] = 0;
+    programChangeMap["key5_modline5_max"] = 127;
+    programChangeMap["key5_modline5_slew"] = 0;
+    programChangeMap["key5_modline5_destination"] = "None";
+    programChangeMap["key5_modline5_channel"] = 1;
+    programChangeMap["key5_modline5_device"] = "None";
+    programChangeMap["key5_modline5_led_green"] = "None";
+    programChangeMap["key5_modline5_led_red"] = "None";
+    programChangeMap["key5_modline5_displayLinked"] = 0;
 
     //Modline 6
-    programChangeMap["5_key_modline6_on"] = 0;
-    programChangeMap["5_key_modline6_source"] = "None";
-    programChangeMap["5_key_modline6_gain"] = 1.00;
-    programChangeMap["5_key_modline6_offset"] = 0.00;
-    programChangeMap["5_key_modline6_table"] = "1_Lin";
-    programChangeMap["5_key_modline6_min"] = 0;
-    programChangeMap["5_key_modline6_max"] = 127;
-    programChangeMap["5_key_modline6_slew"] = 0;
-    programChangeMap["5_key_modline6_destination"] = "None";
-    programChangeMap["5_key_modline6_channel"] = 1;
-    programChangeMap["5_key_modline6_device"] = "None";
-    programChangeMap["5_key_modline6_led_green"] = "None";
-    programChangeMap["5_key_modline6_led_red"] = "None";
-    programChangeMap["5_key_modline6_displayLinked"] = 0;
+    programChangeMap["key5_modline6_on"] = 0;
+    programChangeMap["key5_modline6_source"] = "None";
+    programChangeMap["key5_modline6_gain"] = 1.00;
+    programChangeMap["key5_modline6_offset"] = 0.00;
+    programChangeMap["key5_modline6_table"] = "1_Lin";
+    programChangeMap["key5_modline6_min"] = 0;
+    programChangeMap["key5_modline6_max"] = 127;
+    programChangeMap["key5_modline6_slew"] = 0;
+    programChangeMap["key5_modline6_destination"] = "None";
+    programChangeMap["key5_modline6_channel"] = 1;
+    programChangeMap["key5_modline6_device"] = "None";
+    programChangeMap["key5_modline6_led_green"] = "None";
+    programChangeMap["key5_modline6_led_red"] = "None";
+    programChangeMap["key5_modline6_displayLinked"] = 0;
 
     //------------------------------------------------ Key6
-    programChangeMap["6_key_name"] = "6KEY";
-    programChangeMap["6_key_displayMode"] = 4;
-    programChangeMap["6_key_prefix"] = "PG";
+    programChangeMap["key6_name"] = "6KEY";
+    programChangeMap["key6_displayMode"] = 4;
+    programChangeMap["key6_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["6_key_modline1_on"] = 1;
-    programChangeMap["6_key_modline1_source"] = "Nav Yx10 & Key";
-    programChangeMap["6_key_modline1_gain"] = 1.00;
-    programChangeMap["6_key_modline1_offset"] = 0.00;
-    programChangeMap["6_key_modline1_table"] = "1_Lin";
-    programChangeMap["6_key_modline1_min"] = 0;
-    programChangeMap["6_key_modline1_max"] = 127;
-    programChangeMap["6_key_modline1_slew"] = 0;
-    programChangeMap["6_key_modline1_destination"] = "Program";
-    programChangeMap["6_key_modline1_channel"] = 1;
-    programChangeMap["6_key_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["6_key_modline1_led_green"] = "None";
-    programChangeMap["6_key_modline1_led_red"] = "None";
-    programChangeMap["6_key_modline1_displayLinked"] = 1;
+    programChangeMap["key6_modline1_on"] = 1;
+    programChangeMap["key6_modline1_source"] = "Nav Yx10 & Key";
+    programChangeMap["key6_modline1_gain"] = 1.00;
+    programChangeMap["key6_modline1_offset"] = 0.00;
+    programChangeMap["key6_modline1_table"] = "1_Lin";
+    programChangeMap["key6_modline1_min"] = 0;
+    programChangeMap["key6_modline1_max"] = 127;
+    programChangeMap["key6_modline1_slew"] = 0;
+    programChangeMap["key6_modline1_destination"] = "Program";
+    programChangeMap["key6_modline1_channel"] = 1;
+    programChangeMap["key6_modline1_device"] = "SSCOM_Port_1";
+    programChangeMap["key6_modline1_led_green"] = "None";
+    programChangeMap["key6_modline1_led_red"] = "None";
+    programChangeMap["key6_modline1_displayLinked"] = 1;
 
     //Modline 2
-    programChangeMap["6_key_modline2_on"] = 1;
-    programChangeMap["6_key_modline2_source"] = "Nav Yx10 & Key";
-    programChangeMap["6_key_modline2_gain"] = 1.00;
-    programChangeMap["6_key_modline2_offset"] = 0.00;
-    programChangeMap["6_key_modline2_table"] = "1_Lin";
-    programChangeMap["6_key_modline2_min"] = 0;
-    programChangeMap["6_key_modline2_max"] = 127;
-    programChangeMap["6_key_modline2_slew"] = 0;
-    programChangeMap["6_key_modline2_destination"] = "Program";
-    programChangeMap["6_key_modline2_channel"] = 1;
-    programChangeMap["6_key_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["6_key_modline2_led_green"] = "None";
-    programChangeMap["6_key_modline2_led_red"] = "None";
-    programChangeMap["6_key_modline2_displayLinked"] = 0;
+    programChangeMap["key6_modline2_on"] = 1;
+    programChangeMap["key6_modline2_source"] = "Nav Yx10 & Key";
+    programChangeMap["key6_modline2_gain"] = 1.00;
+    programChangeMap["key6_modline2_offset"] = 0.00;
+    programChangeMap["key6_modline2_table"] = "1_Lin";
+    programChangeMap["key6_modline2_min"] = 0;
+    programChangeMap["key6_modline2_max"] = 127;
+    programChangeMap["key6_modline2_slew"] = 0;
+    programChangeMap["key6_modline2_destination"] = "Program";
+    programChangeMap["key6_modline2_channel"] = 1;
+    programChangeMap["key6_modline2_device"] = "SoftStep_Expander";
+    programChangeMap["key6_modline2_led_green"] = "None";
+    programChangeMap["key6_modline2_led_red"] = "None";
+    programChangeMap["key6_modline2_displayLinked"] = 0;
 
     //Modline 3
-    programChangeMap["6_key_modline3_on"] = 1;
-    programChangeMap["6_key_modline3_source"] = "Key 6 Pressed";
-    programChangeMap["6_key_modline3_gain"] = 1.00;
-    programChangeMap["6_key_modline3_offset"] = 0.00;
-    programChangeMap["6_key_modline3_table"] = "1_Lin";
-    programChangeMap["6_key_modline3_min"] = 0;
-    programChangeMap["6_key_modline3_max"] = 127;
-    programChangeMap["6_key_modline3_slew"] = 0;
-    programChangeMap["6_key_modline3_destination"] = "None";
-    programChangeMap["6_key_modline3_channel"] = 1;
-    programChangeMap["6_key_modline3_device"] = "None";
-    programChangeMap["6_key_modline3_led_green"] = "True";
-    programChangeMap["6_key_modline3_led_red"] = "None";
-    programChangeMap["6_key_modline3_displayLinked"] = 0;
+    programChangeMap["key6_modline3_on"] = 1;
+    programChangeMap["key6_modline3_source"] = "Key 6 Pressed";
+    programChangeMap["key6_modline3_gain"] = 1.00;
+    programChangeMap["key6_modline3_offset"] = 0.00;
+    programChangeMap["key6_modline3_table"] = "1_Lin";
+    programChangeMap["key6_modline3_min"] = 0;
+    programChangeMap["key6_modline3_max"] = 127;
+    programChangeMap["key6_modline3_slew"] = 0;
+    programChangeMap["key6_modline3_destination"] = "None";
+    programChangeMap["key6_modline3_channel"] = 1;
+    programChangeMap["key6_modline3_device"] = "None";
+    programChangeMap["key6_modline3_led_green"] = "True";
+    programChangeMap["key6_modline3_led_red"] = "None";
+    programChangeMap["key6_modline3_displayLinked"] = 0;
 
     //Modline 4
-    programChangeMap["6_key_modline4_on"] = 1;
-    programChangeMap["6_key_modline4_source"] = "Other Key Pressed";
-    programChangeMap["6_key_modline4_gain"] = 1.00;
-    programChangeMap["6_key_modline4_offset"] = 0.00;
-    programChangeMap["6_key_modline4_table"] = "1_Lin";
-    programChangeMap["6_key_modline4_min"] = 0;
-    programChangeMap["6_key_modline4_max"] = 127;
-    programChangeMap["6_key_modline4_slew"] = 0;
-    programChangeMap["6_key_modline4_destination"] = "None";
-    programChangeMap["6_key_modline4_channel"] = 1;
-    programChangeMap["6_key_modline4_device"] = "None";
-    programChangeMap["6_key_modline4_led_green"] = "Off";
-    programChangeMap["6_key_modline4_led_red"] = "None";
-    programChangeMap["6_key_modline4_displayLinked"] = 0;
+    programChangeMap["key6_modline4_on"] = 1;
+    programChangeMap["key6_modline4_source"] = "Other Key Pressed";
+    programChangeMap["key6_modline4_gain"] = 1.00;
+    programChangeMap["key6_modline4_offset"] = 0.00;
+    programChangeMap["key6_modline4_table"] = "1_Lin";
+    programChangeMap["key6_modline4_min"] = 0;
+    programChangeMap["key6_modline4_max"] = 127;
+    programChangeMap["key6_modline4_slew"] = 0;
+    programChangeMap["key6_modline4_destination"] = "None";
+    programChangeMap["key6_modline4_channel"] = 1;
+    programChangeMap["key6_modline4_device"] = "None";
+    programChangeMap["key6_modline4_led_green"] = "Off";
+    programChangeMap["key6_modline4_led_red"] = "None";
+    programChangeMap["key6_modline4_displayLinked"] = 0;
 
     //Modline 5
-    programChangeMap["6_key_modline5_on"] = 0;
-    programChangeMap["6_key_modline5_source"] = "None";
-    programChangeMap["6_key_modline5_gain"] = 1.00;
-    programChangeMap["6_key_modline5_offset"] = 0.00;
-    programChangeMap["6_key_modline5_table"] = "1_Lin";
-    programChangeMap["6_key_modline5_min"] = 0;
-    programChangeMap["6_key_modline5_max"] = 127;
-    programChangeMap["6_key_modline5_slew"] = 0;
-    programChangeMap["6_key_modline5_destination"] = "None";
-    programChangeMap["6_key_modline5_channel"] = 1;
-    programChangeMap["6_key_modline5_device"] = "None";
-    programChangeMap["6_key_modline5_led_green"] = "None";
-    programChangeMap["6_key_modline5_led_red"] = "None";
-    programChangeMap["6_key_modline5_displayLinked"] = 0;
+    programChangeMap["key6_modline5_on"] = 0;
+    programChangeMap["key6_modline5_source"] = "None";
+    programChangeMap["key6_modline5_gain"] = 1.00;
+    programChangeMap["key6_modline5_offset"] = 0.00;
+    programChangeMap["key6_modline5_table"] = "1_Lin";
+    programChangeMap["key6_modline5_min"] = 0;
+    programChangeMap["key6_modline5_max"] = 127;
+    programChangeMap["key6_modline5_slew"] = 0;
+    programChangeMap["key6_modline5_destination"] = "None";
+    programChangeMap["key6_modline5_channel"] = 1;
+    programChangeMap["key6_modline5_device"] = "None";
+    programChangeMap["key6_modline5_led_green"] = "None";
+    programChangeMap["key6_modline5_led_red"] = "None";
+    programChangeMap["key6_modline5_displayLinked"] = 0;
 
     //Modline 6
-    programChangeMap["6_key_modline6_on"] = 0;
-    programChangeMap["6_key_modline6_source"] = "None";
-    programChangeMap["6_key_modline6_gain"] = 1.00;
-    programChangeMap["6_key_modline6_offset"] = 0.00;
-    programChangeMap["6_key_modline6_table"] = "1_Lin";
-    programChangeMap["6_key_modline6_min"] = 0;
-    programChangeMap["6_key_modline6_max"] = 127;
-    programChangeMap["6_key_modline6_slew"] = 0;
-    programChangeMap["6_key_modline6_destination"] = "None";
-    programChangeMap["6_key_modline6_channel"] = 1;
-    programChangeMap["6_key_modline6_device"] = "None";
-    programChangeMap["6_key_modline6_led_green"] = "None";
-    programChangeMap["6_key_modline6_led_red"] = "None";
-    programChangeMap["6_key_modline6_displayLinked"] = 0;
+    programChangeMap["key6_modline6_on"] = 0;
+    programChangeMap["key6_modline6_source"] = "None";
+    programChangeMap["key6_modline6_gain"] = 1.00;
+    programChangeMap["key6_modline6_offset"] = 0.00;
+    programChangeMap["key6_modline6_table"] = "1_Lin";
+    programChangeMap["key6_modline6_min"] = 0;
+    programChangeMap["key6_modline6_max"] = 127;
+    programChangeMap["key6_modline6_slew"] = 0;
+    programChangeMap["key6_modline6_destination"] = "None";
+    programChangeMap["key6_modline6_channel"] = 1;
+    programChangeMap["key6_modline6_device"] = "None";
+    programChangeMap["key6_modline6_led_green"] = "None";
+    programChangeMap["key6_modline6_led_red"] = "None";
+    programChangeMap["key6_modline6_displayLinked"] = 0;
 
     //------------------------------------------------ Key7
-    programChangeMap["7_key_name"] = "7KEY";
-    programChangeMap["7_key_displayMode"] = 4;
-    programChangeMap["7_key_prefix"] = "PG";
+    programChangeMap["key7_name"] = "7KEY";
+    programChangeMap["key7_displayMode"] = 4;
+    programChangeMap["key7_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["7_key_modline1_on"] = 1;
-    programChangeMap["7_key_modline1_source"] = "Nav Yx10 & Key";
-    programChangeMap["7_key_modline1_gain"] = 1.00;
-    programChangeMap["7_key_modline1_offset"] = 0.00;
-    programChangeMap["7_key_modline1_table"] = "1_Lin";
-    programChangeMap["7_key_modline1_min"] = 0;
-    programChangeMap["7_key_modline1_max"] = 127;
-    programChangeMap["7_key_modline1_slew"] = 0;
-    programChangeMap["7_key_modline1_destination"] = "Program";
-    programChangeMap["7_key_modline1_channel"] = 1;
-    programChangeMap["7_key_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["7_key_modline1_led_green"] = "None";
-    programChangeMap["7_key_modline1_led_red"] = "None";
-    programChangeMap["7_key_modline1_displayLinked"] = 1;
+    programChangeMap["key7_modline1_on"] = 1;
+    programChangeMap["key7_modline1_source"] = "Nav Yx10 & Key";
+    programChangeMap["key7_modline1_gain"] = 1.00;
+    programChangeMap["key7_modline1_offset"] = 0.00;
+    programChangeMap["key7_modline1_table"] = "1_Lin";
+    programChangeMap["key7_modline1_min"] = 0;
+    programChangeMap["key7_modline1_max"] = 127;
+    programChangeMap["key7_modline1_slew"] = 0;
+    programChangeMap["key7_modline1_destination"] = "Program";
+    programChangeMap["key7_modline1_channel"] = 1;
+    programChangeMap["key7_modline1_device"] = "SSCOM_Port_1";
+    programChangeMap["key7_modline1_led_green"] = "None";
+    programChangeMap["key7_modline1_led_red"] = "None";
+    programChangeMap["key7_modline1_displayLinked"] = 1;
 
     //Modline 2
-    programChangeMap["7_key_modline2_on"] = 1;
-    programChangeMap["7_key_modline2_source"] = "Nav Yx10 & Key";
-    programChangeMap["7_key_modline2_gain"] = 1.00;
-    programChangeMap["7_key_modline2_offset"] = 0.00;
-    programChangeMap["7_key_modline2_table"] = "1_Lin";
-    programChangeMap["7_key_modline2_min"] = 0;
-    programChangeMap["7_key_modline2_max"] = 127;
-    programChangeMap["7_key_modline2_slew"] = 0;
-    programChangeMap["7_key_modline2_destination"] = "Program";
-    programChangeMap["7_key_modline2_channel"] = 1;
-    programChangeMap["7_key_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["7_key_modline2_led_green"] = "None";
-    programChangeMap["7_key_modline2_led_red"] = "None";
-    programChangeMap["7_key_modline2_displayLinked"] = 0;
+    programChangeMap["key7_modline2_on"] = 1;
+    programChangeMap["key7_modline2_source"] = "Nav Yx10 & Key";
+    programChangeMap["key7_modline2_gain"] = 1.00;
+    programChangeMap["key7_modline2_offset"] = 0.00;
+    programChangeMap["key7_modline2_table"] = "1_Lin";
+    programChangeMap["key7_modline2_min"] = 0;
+    programChangeMap["key7_modline2_max"] = 127;
+    programChangeMap["key7_modline2_slew"] = 0;
+    programChangeMap["key7_modline2_destination"] = "Program";
+    programChangeMap["key7_modline2_channel"] = 1;
+    programChangeMap["key7_modline2_device"] = "SoftStep_Expander";
+    programChangeMap["key7_modline2_led_green"] = "None";
+    programChangeMap["key7_modline2_led_red"] = "None";
+    programChangeMap["key7_modline2_displayLinked"] = 0;
 
     //Modline 3
-    programChangeMap["7_key_modline3_on"] = 1;
-    programChangeMap["7_key_modline3_source"] = "Key 7 Pressed";
-    programChangeMap["7_key_modline3_gain"] = 1.00;
-    programChangeMap["7_key_modline3_offset"] = 0.00;
-    programChangeMap["7_key_modline3_table"] = "1_Lin";
-    programChangeMap["7_key_modline3_min"] = 0;
-    programChangeMap["7_key_modline3_max"] = 127;
-    programChangeMap["7_key_modline3_slew"] = 0;
-    programChangeMap["7_key_modline3_destination"] = "None";
-    programChangeMap["7_key_modline3_channel"] = 1;
-    programChangeMap["7_key_modline3_device"] = "None";
-    programChangeMap["7_key_modline3_led_green"] = "True";
-    programChangeMap["7_key_modline3_led_red"] = "None";
-    programChangeMap["7_key_modline3_displayLinked"] = 0;
+    programChangeMap["key7_modline3_on"] = 1;
+    programChangeMap["key7_modline3_source"] = "Key 7 Pressed";
+    programChangeMap["key7_modline3_gain"] = 1.00;
+    programChangeMap["key7_modline3_offset"] = 0.00;
+    programChangeMap["key7_modline3_table"] = "1_Lin";
+    programChangeMap["key7_modline3_min"] = 0;
+    programChangeMap["key7_modline3_max"] = 127;
+    programChangeMap["key7_modline3_slew"] = 0;
+    programChangeMap["key7_modline3_destination"] = "None";
+    programChangeMap["key7_modline3_channel"] = 1;
+    programChangeMap["key7_modline3_device"] = "None";
+    programChangeMap["key7_modline3_led_green"] = "True";
+    programChangeMap["key7_modline3_led_red"] = "None";
+    programChangeMap["key7_modline3_displayLinked"] = 0;
 
     //Modline 4
-    programChangeMap["7_key_modline4_on"] = 1;
-    programChangeMap["7_key_modline4_source"] = "Other Key Pressed";
-    programChangeMap["7_key_modline4_gain"] = 1.00;
-    programChangeMap["7_key_modline4_offset"] = 0.00;
-    programChangeMap["7_key_modline4_table"] = "1_Lin";
-    programChangeMap["7_key_modline4_min"] = 0;
-    programChangeMap["7_key_modline4_max"] = 127;
-    programChangeMap["7_key_modline4_slew"] = 0;
-    programChangeMap["7_key_modline4_destination"] = "None";
-    programChangeMap["7_key_modline4_channel"] = 1;
-    programChangeMap["7_key_modline4_device"] = "None";
-    programChangeMap["7_key_modline4_led_green"] = "Off";
-    programChangeMap["7_key_modline4_led_red"] = "None";
-    programChangeMap["7_key_modline4_displayLinked"] = 0;
+    programChangeMap["key7_modline4_on"] = 1;
+    programChangeMap["key7_modline4_source"] = "Other Key Pressed";
+    programChangeMap["key7_modline4_gain"] = 1.00;
+    programChangeMap["key7_modline4_offset"] = 0.00;
+    programChangeMap["key7_modline4_table"] = "1_Lin";
+    programChangeMap["key7_modline4_min"] = 0;
+    programChangeMap["key7_modline4_max"] = 127;
+    programChangeMap["key7_modline4_slew"] = 0;
+    programChangeMap["key7_modline4_destination"] = "None";
+    programChangeMap["key7_modline4_channel"] = 1;
+    programChangeMap["key7_modline4_device"] = "None";
+    programChangeMap["key7_modline4_led_green"] = "Off";
+    programChangeMap["key7_modline4_led_red"] = "None";
+    programChangeMap["key7_modline4_displayLinked"] = 0;
 
     //Modline 5
-    programChangeMap["7_key_modline5_on"] = 0;
-    programChangeMap["7_key_modline5_source"] = "None";
-    programChangeMap["7_key_modline5_gain"] = 1.00;
-    programChangeMap["7_key_modline5_offset"] = 0.00;
-    programChangeMap["7_key_modline5_table"] = "1_Lin";
-    programChangeMap["7_key_modline5_min"] = 0;
-    programChangeMap["7_key_modline5_max"] = 127;
-    programChangeMap["7_key_modline5_slew"] = 0;
-    programChangeMap["7_key_modline5_destination"] = "None";
-    programChangeMap["7_key_modline5_channel"] = 1;
-    programChangeMap["7_key_modline5_device"] = "None";
-    programChangeMap["7_key_modline5_led_green"] = "None";
-    programChangeMap["7_key_modline5_led_red"] = "None";
-    programChangeMap["7_key_modline5_displayLinked"] = 0;
+    programChangeMap["key7_modline5_on"] = 0;
+    programChangeMap["key7_modline5_source"] = "None";
+    programChangeMap["key7_modline5_gain"] = 1.00;
+    programChangeMap["key7_modline5_offset"] = 0.00;
+    programChangeMap["key7_modline5_table"] = "1_Lin";
+    programChangeMap["key7_modline5_min"] = 0;
+    programChangeMap["key7_modline5_max"] = 127;
+    programChangeMap["key7_modline5_slew"] = 0;
+    programChangeMap["key7_modline5_destination"] = "None";
+    programChangeMap["key7_modline5_channel"] = 1;
+    programChangeMap["key7_modline5_device"] = "None";
+    programChangeMap["key7_modline5_led_green"] = "None";
+    programChangeMap["key7_modline5_led_red"] = "None";
+    programChangeMap["key7_modline5_displayLinked"] = 0;
 
     //Modline 6
-    programChangeMap["7_key_modline6_on"] = 0;
-    programChangeMap["7_key_modline6_source"] = "None";
-    programChangeMap["7_key_modline6_gain"] = 1.00;
-    programChangeMap["7_key_modline6_offset"] = 0.00;
-    programChangeMap["7_key_modline6_table"] = "1_Lin";
-    programChangeMap["7_key_modline6_min"] = 0;
-    programChangeMap["7_key_modline6_max"] = 127;
-    programChangeMap["7_key_modline6_slew"] = 0;
-    programChangeMap["7_key_modline6_destination"] = "None";
-    programChangeMap["7_key_modline6_channel"] = 1;
-    programChangeMap["7_key_modline6_device"] = "None";
-    programChangeMap["7_key_modline6_led_green"] = "None";
-    programChangeMap["7_key_modline6_led_red"] = "None";
-    programChangeMap["7_key_modline6_displayLinked"] = 0;
+    programChangeMap["key7_modline6_on"] = 0;
+    programChangeMap["key7_modline6_source"] = "None";
+    programChangeMap["key7_modline6_gain"] = 1.00;
+    programChangeMap["key7_modline6_offset"] = 0.00;
+    programChangeMap["key7_modline6_table"] = "1_Lin";
+    programChangeMap["key7_modline6_min"] = 0;
+    programChangeMap["key7_modline6_max"] = 127;
+    programChangeMap["key7_modline6_slew"] = 0;
+    programChangeMap["key7_modline6_destination"] = "None";
+    programChangeMap["key7_modline6_channel"] = 1;
+    programChangeMap["key7_modline6_device"] = "None";
+    programChangeMap["key7_modline6_led_green"] = "None";
+    programChangeMap["key7_modline6_led_red"] = "None";
+    programChangeMap["key7_modline6_displayLinked"] = 0;
 
     //------------------------------------------------ Key8
-    programChangeMap["8_key_name"] = "8KEY";
-    programChangeMap["8_key_displayMode"] = 4;
-    programChangeMap["8_key_prefix"] = "PG";
+    programChangeMap["key8_name"] = "8KEY";
+    programChangeMap["key8_displayMode"] = 4;
+    programChangeMap["key8_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["8_key_modline1_on"] = 1;
-    programChangeMap["8_key_modline1_source"] = "Nav Yx10 & Key";
-    programChangeMap["8_key_modline1_gain"] = 1.00;
-    programChangeMap["8_key_modline1_offset"] = 0.00;
-    programChangeMap["8_key_modline1_table"] = "1_Lin";
-    programChangeMap["8_key_modline1_min"] = 0;
-    programChangeMap["8_key_modline1_max"] = 127;
-    programChangeMap["8_key_modline1_slew"] = 0;
-    programChangeMap["8_key_modline1_destination"] = "Program";
-    programChangeMap["8_key_modline1_channel"] = 1;
-    programChangeMap["8_key_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["8_key_modline1_led_green"] = "None";
-    programChangeMap["8_key_modline1_led_red"] = "None";
-    programChangeMap["8_key_modline1_displayLinked"] = 1;
+    programChangeMap["key8_modline1_on"] = 1;
+    programChangeMap["key8_modline1_source"] = "Nav Yx10 & Key";
+    programChangeMap["key8_modline1_gain"] = 1.00;
+    programChangeMap["key8_modline1_offset"] = 0.00;
+    programChangeMap["key8_modline1_table"] = "1_Lin";
+    programChangeMap["key8_modline1_min"] = 0;
+    programChangeMap["key8_modline1_max"] = 127;
+    programChangeMap["key8_modline1_slew"] = 0;
+    programChangeMap["key8_modline1_destination"] = "Program";
+    programChangeMap["key8_modline1_channel"] = 1;
+    programChangeMap["key8_modline1_device"] = "SSCOM_Port_1";
+    programChangeMap["key8_modline1_led_green"] = "None";
+    programChangeMap["key8_modline1_led_red"] = "None";
+    programChangeMap["key8_modline1_displayLinked"] = 1;
 
     //Modline 2
-    programChangeMap["8_key_modline2_on"] = 1;
-    programChangeMap["8_key_modline2_source"] = "Nav Yx10 & Key";
-    programChangeMap["8_key_modline2_gain"] = 1.00;
-    programChangeMap["8_key_modline2_offset"] = 0.00;
-    programChangeMap["8_key_modline2_table"] = "1_Lin";
-    programChangeMap["8_key_modline2_min"] = 0;
-    programChangeMap["8_key_modline2_max"] = 127;
-    programChangeMap["8_key_modline2_slew"] = 0;
-    programChangeMap["8_key_modline2_destination"] = "Program";
-    programChangeMap["8_key_modline2_channel"] = 1;
-    programChangeMap["8_key_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["8_key_modline2_led_green"] = "None";
-    programChangeMap["8_key_modline2_led_red"] = "None";
-    programChangeMap["8_key_modline2_displayLinked"] = 0;
+    programChangeMap["key8_modline2_on"] = 1;
+    programChangeMap["key8_modline2_source"] = "Nav Yx10 & Key";
+    programChangeMap["key8_modline2_gain"] = 1.00;
+    programChangeMap["key8_modline2_offset"] = 0.00;
+    programChangeMap["key8_modline2_table"] = "1_Lin";
+    programChangeMap["key8_modline2_min"] = 0;
+    programChangeMap["key8_modline2_max"] = 127;
+    programChangeMap["key8_modline2_slew"] = 0;
+    programChangeMap["key8_modline2_destination"] = "Program";
+    programChangeMap["key8_modline2_channel"] = 1;
+    programChangeMap["key8_modline2_device"] = "SoftStep_Expander";
+    programChangeMap["key8_modline2_led_green"] = "None";
+    programChangeMap["key8_modline2_led_red"] = "None";
+    programChangeMap["key8_modline2_displayLinked"] = 0;
 
     //Modline 3
-    programChangeMap["8_key_modline3_on"] = 1;
-    programChangeMap["8_key_modline3_source"] = "Key 8 Pressed";
-    programChangeMap["8_key_modline3_gain"] = 1.00;
-    programChangeMap["8_key_modline3_offset"] = 0.00;
-    programChangeMap["8_key_modline3_table"] = "1_Lin";
-    programChangeMap["8_key_modline3_min"] = 0;
-    programChangeMap["8_key_modline3_max"] = 127;
-    programChangeMap["8_key_modline3_slew"] = 0;
-    programChangeMap["8_key_modline3_destination"] = "None";
-    programChangeMap["8_key_modline3_channel"] = 1;
-    programChangeMap["8_key_modline3_device"] = "None";
-    programChangeMap["8_key_modline3_led_green"] = "True";
-    programChangeMap["8_key_modline3_led_red"] = "None";
-    programChangeMap["8_key_modline3_displayLinked"] = 0;
+    programChangeMap["key8_modline3_on"] = 1;
+    programChangeMap["key8_modline3_source"] = "Key 8 Pressed";
+    programChangeMap["key8_modline3_gain"] = 1.00;
+    programChangeMap["key8_modline3_offset"] = 0.00;
+    programChangeMap["key8_modline3_table"] = "1_Lin";
+    programChangeMap["key8_modline3_min"] = 0;
+    programChangeMap["key8_modline3_max"] = 127;
+    programChangeMap["key8_modline3_slew"] = 0;
+    programChangeMap["key8_modline3_destination"] = "None";
+    programChangeMap["key8_modline3_channel"] = 1;
+    programChangeMap["key8_modline3_device"] = "None";
+    programChangeMap["key8_modline3_led_green"] = "True";
+    programChangeMap["key8_modline3_led_red"] = "None";
+    programChangeMap["key8_modline3_displayLinked"] = 0;
 
     //Modline 4
-    programChangeMap["8_key_modline4_on"] = 1;
-    programChangeMap["8_key_modline4_source"] = "Other Key Pressed";
-    programChangeMap["8_key_modline4_gain"] = 1.00;
-    programChangeMap["8_key_modline4_offset"] = 0.00;
-    programChangeMap["8_key_modline4_table"] = "1_Lin";
-    programChangeMap["8_key_modline4_min"] = 0;
-    programChangeMap["8_key_modline4_max"] = 127;
-    programChangeMap["8_key_modline4_slew"] = 0;
-    programChangeMap["8_key_modline4_destination"] = "None";
-    programChangeMap["8_key_modline4_channel"] = 1;
-    programChangeMap["8_key_modline4_device"] = "None";
-    programChangeMap["8_key_modline4_led_green"] = "Off";
-    programChangeMap["8_key_modline4_led_red"] = "None";
-    programChangeMap["8_key_modline4_displayLinked"] = 0;
+    programChangeMap["key8_modline4_on"] = 1;
+    programChangeMap["key8_modline4_source"] = "Other Key Pressed";
+    programChangeMap["key8_modline4_gain"] = 1.00;
+    programChangeMap["key8_modline4_offset"] = 0.00;
+    programChangeMap["key8_modline4_table"] = "1_Lin";
+    programChangeMap["key8_modline4_min"] = 0;
+    programChangeMap["key8_modline4_max"] = 127;
+    programChangeMap["key8_modline4_slew"] = 0;
+    programChangeMap["key8_modline4_destination"] = "None";
+    programChangeMap["key8_modline4_channel"] = 1;
+    programChangeMap["key8_modline4_device"] = "None";
+    programChangeMap["key8_modline4_led_green"] = "Off";
+    programChangeMap["key8_modline4_led_red"] = "None";
+    programChangeMap["key8_modline4_displayLinked"] = 0;
 
     //Modline 5
-    programChangeMap["8_key_modline5_on"] = 0;
-    programChangeMap["8_key_modline5_source"] = "None";
-    programChangeMap["8_key_modline5_gain"] = 1.00;
-    programChangeMap["8_key_modline5_offset"] = 0.00;
-    programChangeMap["8_key_modline5_table"] = "1_Lin";
-    programChangeMap["8_key_modline5_min"] = 0;
-    programChangeMap["8_key_modline5_max"] = 127;
-    programChangeMap["8_key_modline5_slew"] = 0;
-    programChangeMap["8_key_modline5_destination"] = "None";
-    programChangeMap["8_key_modline5_channel"] = 1;
-    programChangeMap["8_key_modline5_device"] = "None";
-    programChangeMap["8_key_modline5_led_green"] = "None";
-    programChangeMap["8_key_modline5_led_red"] = "None";
-    programChangeMap["8_key_modline5_displayLinked"] = 0;
+    programChangeMap["key8_modline5_on"] = 0;
+    programChangeMap["key8_modline5_source"] = "None";
+    programChangeMap["key8_modline5_gain"] = 1.00;
+    programChangeMap["key8_modline5_offset"] = 0.00;
+    programChangeMap["key8_modline5_table"] = "1_Lin";
+    programChangeMap["key8_modline5_min"] = 0;
+    programChangeMap["key8_modline5_max"] = 127;
+    programChangeMap["key8_modline5_slew"] = 0;
+    programChangeMap["key8_modline5_destination"] = "None";
+    programChangeMap["key8_modline5_channel"] = 1;
+    programChangeMap["key8_modline5_device"] = "None";
+    programChangeMap["key8_modline5_led_green"] = "None";
+    programChangeMap["key8_modline5_led_red"] = "None";
+    programChangeMap["key8_modline5_displayLinked"] = 0;
 
     //Modline 6
-    programChangeMap["8_key_modline6_on"] = 0;
-    programChangeMap["8_key_modline6_source"] = "None";
-    programChangeMap["8_key_modline6_gain"] = 1.00;
-    programChangeMap["8_key_modline6_offset"] = 0.00;
-    programChangeMap["8_key_modline6_table"] = "1_Lin";
-    programChangeMap["8_key_modline6_min"] = 0;
-    programChangeMap["8_key_modline6_max"] = 127;
-    programChangeMap["8_key_modline6_slew"] = 0;
-    programChangeMap["8_key_modline6_destination"] = "None";
-    programChangeMap["8_key_modline6_channel"] = 1;
-    programChangeMap["8_key_modline6_device"] = "None";
-    programChangeMap["8_key_modline6_led_green"] = "None";
-    programChangeMap["8_key_modline6_led_red"] = "None";
-    programChangeMap["8_key_modline6_displayLinked"] = 0;
+    programChangeMap["key8_modline6_on"] = 0;
+    programChangeMap["key8_modline6_source"] = "None";
+    programChangeMap["key8_modline6_gain"] = 1.00;
+    programChangeMap["key8_modline6_offset"] = 0.00;
+    programChangeMap["key8_modline6_table"] = "1_Lin";
+    programChangeMap["key8_modline6_min"] = 0;
+    programChangeMap["key8_modline6_max"] = 127;
+    programChangeMap["key8_modline6_slew"] = 0;
+    programChangeMap["key8_modline6_destination"] = "None";
+    programChangeMap["key8_modline6_channel"] = 1;
+    programChangeMap["key8_modline6_device"] = "None";
+    programChangeMap["key8_modline6_led_green"] = "None";
+    programChangeMap["key8_modline6_led_red"] = "None";
+    programChangeMap["key8_modline6_displayLinked"] = 0;
 
     //------------------------------------------------ Key9
-    programChangeMap["9_key_name"] = "9KEY";
-    programChangeMap["9_key_displayMode"] = 4;
-    programChangeMap["9_key_prefix"] = "PG";
+    programChangeMap["key9_name"] = "9KEY";
+    programChangeMap["key9_displayMode"] = 4;
+    programChangeMap["key9_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["9_key_modline1_on"] = 1;
-    programChangeMap["9_key_modline1_source"] = "Nav Yx10 & Key";
-    programChangeMap["9_key_modline1_gain"] = 1.00;
-    programChangeMap["9_key_modline1_offset"] = 0.00;
-    programChangeMap["9_key_modline1_table"] = "1_Lin";
-    programChangeMap["9_key_modline1_min"] = 0;
-    programChangeMap["9_key_modline1_max"] = 127;
-    programChangeMap["9_key_modline1_slew"] = 0;
-    programChangeMap["9_key_modline1_destination"] = "Program";
-    programChangeMap["9_key_modline1_channel"] = 1;
-    programChangeMap["9_key_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["9_key_modline1_led_green"] = "None";
-    programChangeMap["9_key_modline1_led_red"] = "None";
-    programChangeMap["9_key_modline1_displayLinked"] = 1;
+    programChangeMap["key9_modline1_on"] = 1;
+    programChangeMap["key9_modline1_source"] = "Nav Yx10 & Key";
+    programChangeMap["key9_modline1_gain"] = 1.00;
+    programChangeMap["key9_modline1_offset"] = 0.00;
+    programChangeMap["key9_modline1_table"] = "1_Lin";
+    programChangeMap["key9_modline1_min"] = 0;
+    programChangeMap["key9_modline1_max"] = 127;
+    programChangeMap["key9_modline1_slew"] = 0;
+    programChangeMap["key9_modline1_destination"] = "Program";
+    programChangeMap["key9_modline1_channel"] = 1;
+    programChangeMap["key9_modline1_device"] = "SSCOM_Port_1";
+    programChangeMap["key9_modline1_led_green"] = "None";
+    programChangeMap["key9_modline1_led_red"] = "None";
+    programChangeMap["key9_modline1_displayLinked"] = 1;
 
     //Modline 2
-    programChangeMap["9_key_modline2_on"] = 1;
-    programChangeMap["9_key_modline2_source"] = "Nav Yx10 & Key";
-    programChangeMap["9_key_modline2_gain"] = 1.00;
-    programChangeMap["9_key_modline2_offset"] = 0.00;
-    programChangeMap["9_key_modline2_table"] = "1_Lin";
-    programChangeMap["9_key_modline2_min"] = 0;
-    programChangeMap["9_key_modline2_max"] = 127;
-    programChangeMap["9_key_modline2_slew"] = 0;
-    programChangeMap["9_key_modline2_destination"] = "Program";
-    programChangeMap["9_key_modline2_channel"] = 1;
-    programChangeMap["9_key_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["9_key_modline2_led_green"] = "None";
-    programChangeMap["9_key_modline2_led_red"] = "None";
-    programChangeMap["9_key_modline2_displayLinked"] = 0;
+    programChangeMap["key9_modline2_on"] = 1;
+    programChangeMap["key9_modline2_source"] = "Nav Yx10 & Key";
+    programChangeMap["key9_modline2_gain"] = 1.00;
+    programChangeMap["key9_modline2_offset"] = 0.00;
+    programChangeMap["key9_modline2_table"] = "1_Lin";
+    programChangeMap["key9_modline2_min"] = 0;
+    programChangeMap["key9_modline2_max"] = 127;
+    programChangeMap["key9_modline2_slew"] = 0;
+    programChangeMap["key9_modline2_destination"] = "Program";
+    programChangeMap["key9_modline2_channel"] = 1;
+    programChangeMap["key9_modline2_device"] = "SoftStep_Expander";
+    programChangeMap["key9_modline2_led_green"] = "None";
+    programChangeMap["key9_modline2_led_red"] = "None";
+    programChangeMap["key9_modline2_displayLinked"] = 0;
 
     //Modline 3
-    programChangeMap["9_key_modline3_on"] = 1;
-    programChangeMap["9_key_modline3_source"] = "Key 9 Pressed";
-    programChangeMap["9_key_modline3_gain"] = 1.00;
-    programChangeMap["9_key_modline3_offset"] = 0.00;
-    programChangeMap["9_key_modline3_table"] = "1_Lin";
-    programChangeMap["9_key_modline3_min"] = 0;
-    programChangeMap["9_key_modline3_max"] = 127;
-    programChangeMap["9_key_modline3_slew"] = 0;
-    programChangeMap["9_key_modline3_destination"] = "None";
-    programChangeMap["9_key_modline3_channel"] = 1;
-    programChangeMap["9_key_modline3_device"] = "None";
-    programChangeMap["9_key_modline3_led_green"] = "True";
-    programChangeMap["9_key_modline3_led_red"] = "None";
-    programChangeMap["9_key_modline3_displayLinked"] = 0;
+    programChangeMap["key9_modline3_on"] = 1;
+    programChangeMap["key9_modline3_source"] = "Key 9 Pressed";
+    programChangeMap["key9_modline3_gain"] = 1.00;
+    programChangeMap["key9_modline3_offset"] = 0.00;
+    programChangeMap["key9_modline3_table"] = "1_Lin";
+    programChangeMap["key9_modline3_min"] = 0;
+    programChangeMap["key9_modline3_max"] = 127;
+    programChangeMap["key9_modline3_slew"] = 0;
+    programChangeMap["key9_modline3_destination"] = "None";
+    programChangeMap["key9_modline3_channel"] = 1;
+    programChangeMap["key9_modline3_device"] = "None";
+    programChangeMap["key9_modline3_led_green"] = "True";
+    programChangeMap["key9_modline3_led_red"] = "None";
+    programChangeMap["key9_modline3_displayLinked"] = 0;
 
     //Modline 4
-    programChangeMap["9_key_modline4_on"] = 1;
-    programChangeMap["9_key_modline4_source"] = "Other Key Pressed";
-    programChangeMap["9_key_modline4_gain"] = 1.00;
-    programChangeMap["9_key_modline4_offset"] = 0.00;
-    programChangeMap["9_key_modline4_table"] = "1_Lin";
-    programChangeMap["9_key_modline4_min"] = 0;
-    programChangeMap["9_key_modline4_max"] = 127;
-    programChangeMap["9_key_modline4_slew"] = 0;
-    programChangeMap["9_key_modline4_destination"] = "None";
-    programChangeMap["9_key_modline4_channel"] = 1;
-    programChangeMap["9_key_modline4_device"] = "None";
-    programChangeMap["9_key_modline4_led_green"] = "Off";
-    programChangeMap["9_key_modline4_led_red"] = "None";
-    programChangeMap["9_key_modline4_displayLinked"] = 0;
+    programChangeMap["key9_modline4_on"] = 1;
+    programChangeMap["key9_modline4_source"] = "Other Key Pressed";
+    programChangeMap["key9_modline4_gain"] = 1.00;
+    programChangeMap["key9_modline4_offset"] = 0.00;
+    programChangeMap["key9_modline4_table"] = "1_Lin";
+    programChangeMap["key9_modline4_min"] = 0;
+    programChangeMap["key9_modline4_max"] = 127;
+    programChangeMap["key9_modline4_slew"] = 0;
+    programChangeMap["key9_modline4_destination"] = "None";
+    programChangeMap["key9_modline4_channel"] = 1;
+    programChangeMap["key9_modline4_device"] = "None";
+    programChangeMap["key9_modline4_led_green"] = "Off";
+    programChangeMap["key9_modline4_led_red"] = "None";
+    programChangeMap["key9_modline4_displayLinked"] = 0;
 
     //Modline 5
-    programChangeMap["9_key_modline5_on"] = 0;
-    programChangeMap["9_key_modline5_source"] = "None";
-    programChangeMap["9_key_modline5_gain"] = 1.00;
-    programChangeMap["9_key_modline5_offset"] = 0.00;
-    programChangeMap["9_key_modline5_table"] = "1_Lin";
-    programChangeMap["9_key_modline5_min"] = 0;
-    programChangeMap["9_key_modline5_max"] = 127;
-    programChangeMap["9_key_modline5_slew"] = 0;
-    programChangeMap["9_key_modline5_destination"] = "None";
-    programChangeMap["9_key_modline5_channel"] = 1;
-    programChangeMap["9_key_modline5_device"] = "None";
-    programChangeMap["9_key_modline5_led_green"] = "None";
-    programChangeMap["9_key_modline5_led_red"] = "None";
-    programChangeMap["9_key_modline5_displayLinked"] = 0;
+    programChangeMap["key9_modline5_on"] = 0;
+    programChangeMap["key9_modline5_source"] = "None";
+    programChangeMap["key9_modline5_gain"] = 1.00;
+    programChangeMap["key9_modline5_offset"] = 0.00;
+    programChangeMap["key9_modline5_table"] = "1_Lin";
+    programChangeMap["key9_modline5_min"] = 0;
+    programChangeMap["key9_modline5_max"] = 127;
+    programChangeMap["key9_modline5_slew"] = 0;
+    programChangeMap["key9_modline5_destination"] = "None";
+    programChangeMap["key9_modline5_channel"] = 1;
+    programChangeMap["key9_modline5_device"] = "None";
+    programChangeMap["key9_modline5_led_green"] = "None";
+    programChangeMap["key9_modline5_led_red"] = "None";
+    programChangeMap["key9_modline5_displayLinked"] = 0;
 
     //Modline 6
-    programChangeMap["9_key_modline6_on"] = 0;
-    programChangeMap["9_key_modline6_source"] = "None";
-    programChangeMap["9_key_modline6_gain"] = 1.00;
-    programChangeMap["9_key_modline6_offset"] = 0.00;
-    programChangeMap["9_key_modline6_table"] = "1_Lin";
-    programChangeMap["9_key_modline6_min"] = 0;
-    programChangeMap["9_key_modline6_max"] = 127;
-    programChangeMap["9_key_modline6_slew"] = 0;
-    programChangeMap["9_key_modline6_destination"] = "None";
-    programChangeMap["9_key_modline6_channel"] = 1;
-    programChangeMap["9_key_modline6_device"] = "None";
-    programChangeMap["9_key_modline6_led_green"] = "None";
-    programChangeMap["9_key_modline6_led_red"] = "None";
-    programChangeMap["9_key_modline6_displayLinked"] = 0;
+    programChangeMap["key9_modline6_on"] = 0;
+    programChangeMap["key9_modline6_source"] = "None";
+    programChangeMap["key9_modline6_gain"] = 1.00;
+    programChangeMap["key9_modline6_offset"] = 0.00;
+    programChangeMap["key9_modline6_table"] = "1_Lin";
+    programChangeMap["key9_modline6_min"] = 0;
+    programChangeMap["key9_modline6_max"] = 127;
+    programChangeMap["key9_modline6_slew"] = 0;
+    programChangeMap["key9_modline6_destination"] = "None";
+    programChangeMap["key9_modline6_channel"] = 1;
+    programChangeMap["key9_modline6_device"] = "None";
+    programChangeMap["key9_modline6_led_green"] = "None";
+    programChangeMap["key9_modline6_led_red"] = "None";
+    programChangeMap["key9_modline6_displayLinked"] = 0;
 
     //------------------------------------------------ Key10
-    programChangeMap["10_key_name"] = "0KEY";
-    programChangeMap["10_key_displayMode"] = 4;
-    programChangeMap["10_key_prefix"] = "PG";
+    programChangeMap["key10_name"] = "0KEY";
+    programChangeMap["key10_displayMode"] = 4;
+    programChangeMap["key10_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["10_key_modline1_on"] = 1;
-    programChangeMap["10_key_modline1_source"] = "Nav Yx10 & Key";
-    programChangeMap["10_key_modline1_gain"] = 1.00;
-    programChangeMap["10_key_modline1_offset"] = 0.00;
-    programChangeMap["10_key_modline1_table"] = "1_Lin";
-    programChangeMap["10_key_modline1_min"] = 0;
-    programChangeMap["10_key_modline1_max"] = 127;
-    programChangeMap["10_key_modline1_slew"] = 0;
-    programChangeMap["10_key_modline1_destination"] = "Program";
-    programChangeMap["10_key_modline1_channel"] = 1;
-    programChangeMap["10_key_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["10_key_modline1_led_green"] = "None";
-    programChangeMap["10_key_modline1_led_red"] = "None";
-    programChangeMap["10_key_modline1_displayLinked"] = 1;
+    programChangeMap["key10_modline1_on"] = 1;
+    programChangeMap["key10_modline1_source"] = "Nav Yx10 & Key";
+    programChangeMap["key10_modline1_gain"] = 1.00;
+    programChangeMap["key10_modline1_offset"] = 0.00;
+    programChangeMap["key10_modline1_table"] = "1_Lin";
+    programChangeMap["key10_modline1_min"] = 0;
+    programChangeMap["key10_modline1_max"] = 127;
+    programChangeMap["key10_modline1_slew"] = 0;
+    programChangeMap["key10_modline1_destination"] = "Program";
+    programChangeMap["key10_modline1_channel"] = 1;
+    programChangeMap["key10_modline1_device"] = "SSCOM_Port_1";
+    programChangeMap["key10_modline1_led_green"] = "None";
+    programChangeMap["key10_modline1_led_red"] = "None";
+    programChangeMap["key10_modline1_displayLinked"] = 1;
 
     //Modline 2
-    programChangeMap["10_key_modline2_on"] = 1;
-    programChangeMap["10_key_modline2_source"] = "Nav Yx10 & Key";
-    programChangeMap["10_key_modline2_gain"] = 1.00;
-    programChangeMap["10_key_modline2_offset"] = 0.00;
-    programChangeMap["10_key_modline2_table"] = "1_Lin";
-    programChangeMap["10_key_modline2_min"] = 0;
-    programChangeMap["10_key_modline2_max"] = 127;
-    programChangeMap["10_key_modline2_slew"] = 0;
-    programChangeMap["10_key_modline2_destination"] = "Program";
-    programChangeMap["10_key_modline2_channel"] = 1;
-    programChangeMap["10_key_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["10_key_modline2_led_green"] = "None";
-    programChangeMap["10_key_modline2_led_red"] = "None";
-    programChangeMap["10_key_modline2_displayLinked"] = 0;
+    programChangeMap["key10_modline2_on"] = 1;
+    programChangeMap["key10_modline2_source"] = "Nav Yx10 & Key";
+    programChangeMap["key10_modline2_gain"] = 1.00;
+    programChangeMap["key10_modline2_offset"] = 0.00;
+    programChangeMap["key10_modline2_table"] = "1_Lin";
+    programChangeMap["key10_modline2_min"] = 0;
+    programChangeMap["key10_modline2_max"] = 127;
+    programChangeMap["key10_modline2_slew"] = 0;
+    programChangeMap["key10_modline2_destination"] = "Program";
+    programChangeMap["key10_modline2_channel"] = 1;
+    programChangeMap["key10_modline2_device"] = "SoftStep_Expander";
+    programChangeMap["key10_modline2_led_green"] = "None";
+    programChangeMap["key10_modline2_led_red"] = "None";
+    programChangeMap["key10_modline2_displayLinked"] = 0;
 
     //Modline 3
-    programChangeMap["10_key_modline3_on"] = 1;
-    programChangeMap["10_key_modline3_source"] = "Key 0 Pressed";
-    programChangeMap["10_key_modline3_gain"] = 1.00;
-    programChangeMap["10_key_modline3_offset"] = 0.00;
-    programChangeMap["10_key_modline3_table"] = "1_Lin";
-    programChangeMap["10_key_modline3_min"] = 0;
-    programChangeMap["10_key_modline3_max"] = 127;
-    programChangeMap["10_key_modline3_slew"] = 0;
-    programChangeMap["10_key_modline3_destination"] = "None";
-    programChangeMap["10_key_modline3_channel"] = 1;
-    programChangeMap["10_key_modline3_device"] = "None";
-    programChangeMap["10_key_modline3_led_green"] = "True";
-    programChangeMap["10_key_modline3_led_red"] = "None";
-    programChangeMap["10_key_modline3_displayLinked"] = 0;
+    programChangeMap["key10_modline3_on"] = 1;
+    programChangeMap["key10_modline3_source"] = "Key 0 Pressed";
+    programChangeMap["key10_modline3_gain"] = 1.00;
+    programChangeMap["key10_modline3_offset"] = 0.00;
+    programChangeMap["key10_modline3_table"] = "1_Lin";
+    programChangeMap["key10_modline3_min"] = 0;
+    programChangeMap["key10_modline3_max"] = 127;
+    programChangeMap["key10_modline3_slew"] = 0;
+    programChangeMap["key10_modline3_destination"] = "None";
+    programChangeMap["key10_modline3_channel"] = 1;
+    programChangeMap["key10_modline3_device"] = "None";
+    programChangeMap["key10_modline3_led_green"] = "True";
+    programChangeMap["key10_modline3_led_red"] = "None";
+    programChangeMap["key10_modline3_displayLinked"] = 0;
 
     //Modline 4
-    programChangeMap["10_key_modline4_on"] = 1;
-    programChangeMap["10_key_modline4_source"] = "Other Key Pressed";
-    programChangeMap["10_key_modline4_gain"] = 1.00;
-    programChangeMap["10_key_modline4_offset"] = 0.00;
-    programChangeMap["10_key_modline4_table"] = "1_Lin";
-    programChangeMap["10_key_modline4_min"] = 0;
-    programChangeMap["10_key_modline4_max"] = 127;
-    programChangeMap["10_key_modline4_slew"] = 0;
-    programChangeMap["10_key_modline4_destination"] = "None";
-    programChangeMap["10_key_modline4_channel"] = 1;
-    programChangeMap["10_key_modline4_device"] = "None";
-    programChangeMap["10_key_modline4_led_green"] = "Off";
-    programChangeMap["10_key_modline4_led_red"] = "None";
-    programChangeMap["10_key_modline4_displayLinked"] = 0;
+    programChangeMap["key10_modline4_on"] = 1;
+    programChangeMap["key10_modline4_source"] = "Other Key Pressed";
+    programChangeMap["key10_modline4_gain"] = 1.00;
+    programChangeMap["key10_modline4_offset"] = 0.00;
+    programChangeMap["key10_modline4_table"] = "1_Lin";
+    programChangeMap["key10_modline4_min"] = 0;
+    programChangeMap["key10_modline4_max"] = 127;
+    programChangeMap["key10_modline4_slew"] = 0;
+    programChangeMap["key10_modline4_destination"] = "None";
+    programChangeMap["key10_modline4_channel"] = 1;
+    programChangeMap["key10_modline4_device"] = "None";
+    programChangeMap["key10_modline4_led_green"] = "Off";
+    programChangeMap["key10_modline4_led_red"] = "None";
+    programChangeMap["key10_modline4_displayLinked"] = 0;
 
     //Modline 5
-    programChangeMap["10_key_modline5_on"] = 0;
-    programChangeMap["10_key_modline5_source"] = "None";
-    programChangeMap["10_key_modline5_gain"] = 1.00;
-    programChangeMap["10_key_modline5_offset"] = 0.00;
-    programChangeMap["10_key_modline5_table"] = "1_Lin";
-    programChangeMap["10_key_modline5_min"] = 0;
-    programChangeMap["10_key_modline5_max"] = 127;
-    programChangeMap["10_key_modline5_slew"] = 0;
-    programChangeMap["10_key_modline5_destination"] = "None";
-    programChangeMap["10_key_modline5_channel"] = 1;
-    programChangeMap["10_key_modline5_device"] = "None";
-    programChangeMap["10_key_modline5_led_green"] = "None";
-    programChangeMap["10_key_modline5_led_red"] = "None";
-    programChangeMap["10_key_modline5_displayLinked"] = 0;
+    programChangeMap["key10_modline5_on"] = 0;
+    programChangeMap["key10_modline5_source"] = "None";
+    programChangeMap["key10_modline5_gain"] = 1.00;
+    programChangeMap["key10_modline5_offset"] = 0.00;
+    programChangeMap["key10_modline5_table"] = "1_Lin";
+    programChangeMap["key10_modline5_min"] = 0;
+    programChangeMap["key10_modline5_max"] = 127;
+    programChangeMap["key10_modline5_slew"] = 0;
+    programChangeMap["key10_modline5_destination"] = "None";
+    programChangeMap["key10_modline5_channel"] = 1;
+    programChangeMap["key10_modline5_device"] = "None";
+    programChangeMap["key10_modline5_led_green"] = "None";
+    programChangeMap["key10_modline5_led_red"] = "None";
+    programChangeMap["key10_modline5_displayLinked"] = 0;
 
     //Modline 6
-    programChangeMap["10_key_modline6_on"] = 0;
-    programChangeMap["10_key_modline6_source"] = "None";
-    programChangeMap["10_key_modline6_gain"] = 1.00;
-    programChangeMap["10_key_modline6_offset"] = 0.00;
-    programChangeMap["10_key_modline6_table"] = "1_Lin";
-    programChangeMap["10_key_modline6_min"] = 0;
-    programChangeMap["10_key_modline6_max"] = 127;
-    programChangeMap["10_key_modline6_slew"] = 0;
-    programChangeMap["10_key_modline6_destination"] = "None";
-    programChangeMap["10_key_modline6_channel"] = 1;
-    programChangeMap["10_key_modline6_device"] = "None";
-    programChangeMap["10_key_modline6_led_green"] = "None";
-    programChangeMap["10_key_modline6_led_red"] = "None";
-    programChangeMap["10_key_modline6_displayLinked"] = 0;
+    programChangeMap["key10_modline6_on"] = 0;
+    programChangeMap["key10_modline6_source"] = "None";
+    programChangeMap["key10_modline6_gain"] = 1.00;
+    programChangeMap["key10_modline6_offset"] = 0.00;
+    programChangeMap["key10_modline6_table"] = "1_Lin";
+    programChangeMap["key10_modline6_min"] = 0;
+    programChangeMap["key10_modline6_max"] = 127;
+    programChangeMap["key10_modline6_slew"] = 0;
+    programChangeMap["key10_modline6_destination"] = "None";
+    programChangeMap["key10_modline6_channel"] = 1;
+    programChangeMap["key10_modline6_device"] = "None";
+    programChangeMap["key10_modline6_led_green"] = "None";
+    programChangeMap["key10_modline6_led_red"] = "None";
+    programChangeMap["key10_modline6_displayLinked"] = 0;
 
     //------------------------------------------------ Nav Pad 11
     programChangeMap["nav_modlinemode"] = 0;
@@ -1047,12 +1047,12 @@ void FactoryPresets::createElevenRackMap(){
     factoryElevenRackMap["useFactory"] = "ElevenRack Control";
 
     //------------------------ Key 1 ------------------------//
-    factoryElevenRackMap["1_key_name"] = "STMP";
-    factoryElevenRackMap["1_key_displaymode"] = 4;
-    factoryElevenRackMap["1_key_prefix"] = "";
-    factoryElevenRackMap["1_key_counter_min"] = 0;
-    factoryElevenRackMap["1_key_counter_max"] = 127;
-    factoryElevenRackMap["1_key_counter_wrap"] = 1;
+    factoryElevenRackMap["key1_name"] = "STMP";
+    factoryElevenRackMap["key1_displaymode"] = 4;
+    factoryElevenRackMap["key1_prefix"] = "";
+    factoryElevenRackMap["key1_counter_min"] = 0;
+    factoryElevenRackMap["key1_counter_max"] = 127;
+    factoryElevenRackMap["key1_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key1_modline1_enable"] = 1;
@@ -1188,12 +1188,12 @@ void FactoryPresets::createElevenRackMap(){
 
 
     //------------------------ Key 2 ------------------------//
-    factoryElevenRackMap["2_key_name"] = "MODX";
-    factoryElevenRackMap["2_key_displaymode"] = 4;
-    factoryElevenRackMap["2_key_prefix"] = "";
-    factoryElevenRackMap["2_key_counter_min"] = 0;
-    factoryElevenRackMap["2_key_counter_max"] = 127;
-    factoryElevenRackMap["2_key_counter_wrap"] = 1;
+    factoryElevenRackMap["key2_name"] = "MODX";
+    factoryElevenRackMap["key2_displaymode"] = 4;
+    factoryElevenRackMap["key2_prefix"] = "";
+    factoryElevenRackMap["key2_counter_min"] = 0;
+    factoryElevenRackMap["key2_counter_max"] = 127;
+    factoryElevenRackMap["key2_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key2_modline1_enable"] = 1;
@@ -1329,12 +1329,12 @@ void FactoryPresets::createElevenRackMap(){
 
 
     //------------------------ Key 3 ------------------------//
-    factoryElevenRackMap["3_key_name"] = "DLYX";
-    factoryElevenRackMap["3_key_displaymode"] = 4;
-    factoryElevenRackMap["3_key_prefix"] = "";
-    factoryElevenRackMap["3_key_counter_min"] = 0;
-    factoryElevenRackMap["3_key_counter_max"] = 127;
-    factoryElevenRackMap["3_key_counter_wrap"] = 1;
+    factoryElevenRackMap["key3_name"] = "DLYX";
+    factoryElevenRackMap["key3_displaymode"] = 4;
+    factoryElevenRackMap["key3_prefix"] = "";
+    factoryElevenRackMap["key3_counter_min"] = 0;
+    factoryElevenRackMap["key3_counter_max"] = 127;
+    factoryElevenRackMap["key3_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key3_modline1_enable"] = 1;
@@ -1470,12 +1470,12 @@ void FactoryPresets::createElevenRackMap(){
 
 
     //------------------------ Key 4 ------------------------//
-    factoryElevenRackMap["4_key_name"] = "TAP";
-    factoryElevenRackMap["4_key_displaymode"] = 1;
-    factoryElevenRackMap["4_key_prefix"] = "";
-    factoryElevenRackMap["4_key_counter_min"] = 0;
-    factoryElevenRackMap["4_key_counter_max"] = 127;
-    factoryElevenRackMap["4_key_counter_wrap"] = 1;
+    factoryElevenRackMap["key4_name"] = "TAP";
+    factoryElevenRackMap["key4_displaymode"] = 1;
+    factoryElevenRackMap["key4_prefix"] = "";
+    factoryElevenRackMap["key4_counter_min"] = 0;
+    factoryElevenRackMap["key4_counter_max"] = 127;
+    factoryElevenRackMap["key4_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key4_modline1_enable"] = 1;
@@ -1611,12 +1611,12 @@ void FactoryPresets::createElevenRackMap(){
 
 
     //------------------------ Key 5 ------------------------//
-    factoryElevenRackMap["5_key_name"] = "WAH";
-    factoryElevenRackMap["5_key_displaymode"] = 4;
-    factoryElevenRackMap["5_key_prefix"] = "";
-    factoryElevenRackMap["5_key_counter_min"] = 0;
-    factoryElevenRackMap["5_key_counter_max"] = 127;
-    factoryElevenRackMap["5_key_counter_wrap"] = 1;
+    factoryElevenRackMap["key5_name"] = "WAH";
+    factoryElevenRackMap["key5_displaymode"] = 4;
+    factoryElevenRackMap["key5_prefix"] = "";
+    factoryElevenRackMap["key5_counter_min"] = 0;
+    factoryElevenRackMap["key5_counter_max"] = 127;
+    factoryElevenRackMap["key5_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key5_modline1_enable"] = 1;
@@ -1752,12 +1752,12 @@ void FactoryPresets::createElevenRackMap(){
 
 
     //------------------------ Key 6 ------------------------//
-    factoryElevenRackMap["6_key_name"] = "DIST";
-    factoryElevenRackMap["6_key_displaymode"] = 1;
-    factoryElevenRackMap["6_key_prefix"] = "";
-    factoryElevenRackMap["6_key_counter_min"] = 0;
-    factoryElevenRackMap["6_key_counter_max"] = 127;
-    factoryElevenRackMap["6_key_counter_wrap"] = 1;
+    factoryElevenRackMap["key6_name"] = "DIST";
+    factoryElevenRackMap["key6_displaymode"] = 1;
+    factoryElevenRackMap["key6_prefix"] = "";
+    factoryElevenRackMap["key6_counter_min"] = 0;
+    factoryElevenRackMap["key6_counter_max"] = 127;
+    factoryElevenRackMap["key6_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key6_modline1_enable"] = 1;
@@ -1893,12 +1893,12 @@ void FactoryPresets::createElevenRackMap(){
 
 
     //------------------------ Key 7 ------------------------//
-    factoryElevenRackMap["7_key_name"] = "MOD";
-    factoryElevenRackMap["7_key_displaymode"] = 1;
-    factoryElevenRackMap["7_key_prefix"] = "P";
-    factoryElevenRackMap["7_key_counter_min"] = 0;
-    factoryElevenRackMap["7_key_counter_max"] = 127;
-    factoryElevenRackMap["7_key_counter_wrap"] = 1;
+    factoryElevenRackMap["key7_name"] = "MOD";
+    factoryElevenRackMap["key7_displaymode"] = 1;
+    factoryElevenRackMap["key7_prefix"] = "P";
+    factoryElevenRackMap["key7_counter_min"] = 0;
+    factoryElevenRackMap["key7_counter_max"] = 127;
+    factoryElevenRackMap["key7_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key7_modline1_enable"] = 1;
@@ -2034,12 +2034,12 @@ void FactoryPresets::createElevenRackMap(){
 
 
     //------------------------ Key 8 ------------------------//
-    factoryElevenRackMap["8_key_name"] = "DLY";
-    factoryElevenRackMap["8_key_displaymode"] = 1;
-    factoryElevenRackMap["8_key_prefix"] = "";
-    factoryElevenRackMap["8_key_counter_min"] = 0;
-    factoryElevenRackMap["8_key_counter_max"] = 127;
-    factoryElevenRackMap["8_key_counter_wrap"] = 1;
+    factoryElevenRackMap["key8_name"] = "DLY";
+    factoryElevenRackMap["key8_displaymode"] = 1;
+    factoryElevenRackMap["key8_prefix"] = "";
+    factoryElevenRackMap["key8_counter_min"] = 0;
+    factoryElevenRackMap["key8_counter_max"] = 127;
+    factoryElevenRackMap["key8_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key8_modline1_enable"] = 1;
@@ -2175,12 +2175,12 @@ void FactoryPresets::createElevenRackMap(){
 
 
     //------------------------ Key 9 ------------------------//
-    factoryElevenRackMap["9_key_name"] = "REVB";
-    factoryElevenRackMap["9_key_displaymode"] = 1;
-    factoryElevenRackMap["9_key_prefix"] = "";
-    factoryElevenRackMap["9_key_counter_min"] = 0;
-    factoryElevenRackMap["9_key_counter_max"] = 127;
-    factoryElevenRackMap["9_key_counter_wrap"] = 1;
+    factoryElevenRackMap["key9_name"] = "REVB";
+    factoryElevenRackMap["key9_displaymode"] = 1;
+    factoryElevenRackMap["key9_prefix"] = "";
+    factoryElevenRackMap["key9_counter_min"] = 0;
+    factoryElevenRackMap["key9_counter_max"] = 127;
+    factoryElevenRackMap["key9_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key9_modline1_enable"] = 1;
@@ -2316,12 +2316,12 @@ void FactoryPresets::createElevenRackMap(){
 
 
     //------------------------ Key 10 ------------------------//
-    factoryElevenRackMap["10_key_name"] = "WAH";
-    factoryElevenRackMap["10_key_displaymode"] = 1;
-    factoryElevenRackMap["10_key_prefix"] = "";
-    factoryElevenRackMap["10_key_counter_min"] = 0;
-    factoryElevenRackMap["10_key_counter_max"] = 127;
-    factoryElevenRackMap["10_key_counter_wrap"] = 1;
+    factoryElevenRackMap["key10_name"] = "WAH";
+    factoryElevenRackMap["key10_displaymode"] = 1;
+    factoryElevenRackMap["key10_prefix"] = "";
+    factoryElevenRackMap["key10_counter_min"] = 0;
+    factoryElevenRackMap["key10_counter_max"] = 127;
+    factoryElevenRackMap["key10_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key10_modline1_enable"] = 1;
@@ -2594,12 +2594,12 @@ void FactoryPresets::createPodMap(){
     factoryPodMap["useFactory"] = "Line6 Pod Control";
 
     //------------------------ Key 1 ------------------------//
-    factoryPodMap["1_key_name"] = "PRES";
-    factoryPodMap["1_key_displaymode"] = 4;
-    factoryPodMap["1_key_prefix"] = "";
-    factoryPodMap["1_key_counter_min"] = 0;
-    factoryPodMap["1_key_counter_max"] = 127;
-    factoryPodMap["1_key_counter_wrap"] = 1;
+    factoryPodMap["key1_name"] = "PRES";
+    factoryPodMap["key1_displaymode"] = 4;
+    factoryPodMap["key1_prefix"] = "";
+    factoryPodMap["key1_counter_min"] = 0;
+    factoryPodMap["key1_counter_max"] = 127;
+    factoryPodMap["key1_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryPodMap["key1_modline1_enable"] = 1;
@@ -2735,12 +2735,12 @@ void FactoryPresets::createPodMap(){
 
 
     //------------------------ Key 2 ------------------------//
-    factoryPodMap["2_key_name"] = "MODX";
-    factoryPodMap["2_key_displaymode"] = 4;
-    factoryPodMap["2_key_prefix"] = "";
-    factoryPodMap["2_key_counter_min"] = 0;
-    factoryPodMap["2_key_counter_max"] = 127;
-    factoryPodMap["2_key_counter_wrap"] = 1;
+    factoryPodMap["key2_name"] = "MODX";
+    factoryPodMap["key2_displaymode"] = 4;
+    factoryPodMap["key2_prefix"] = "";
+    factoryPodMap["key2_counter_min"] = 0;
+    factoryPodMap["key2_counter_max"] = 127;
+    factoryPodMap["key2_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryPodMap["key2_modline1_enable"] = 1;
@@ -2876,12 +2876,12 @@ void FactoryPresets::createPodMap(){
 
 
     //------------------------ Key 3 ------------------------//
-    factoryPodMap["3_key_name"] = "DLYX";
-    factoryPodMap["3_key_displaymode"] = 4;
-    factoryPodMap["3_key_prefix"] = "";
-    factoryPodMap["3_key_counter_min"] = 0;
-    factoryPodMap["3_key_counter_max"] = 127;
-    factoryPodMap["3_key_counter_wrap"] = 1;
+    factoryPodMap["key3_name"] = "DLYX";
+    factoryPodMap["key3_displaymode"] = 4;
+    factoryPodMap["key3_prefix"] = "";
+    factoryPodMap["key3_counter_min"] = 0;
+    factoryPodMap["key3_counter_max"] = 127;
+    factoryPodMap["key3_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryPodMap["key3_modline1_enable"] = 1;
@@ -3017,12 +3017,12 @@ void FactoryPresets::createPodMap(){
 
 
     //------------------------ Key 4 ------------------------//
-    factoryPodMap["4_key_name"] = "TAP";
-    factoryPodMap["4_key_displaymode"] = 1;
-    factoryPodMap["4_key_prefix"] = "";
-    factoryPodMap["4_key_counter_min"] = 0;
-    factoryPodMap["4_key_counter_max"] = 127;
-    factoryPodMap["4_key_counter_wrap"] = 1;
+    factoryPodMap["key4_name"] = "TAP";
+    factoryPodMap["key4_displaymode"] = 1;
+    factoryPodMap["key4_prefix"] = "";
+    factoryPodMap["key4_counter_min"] = 0;
+    factoryPodMap["key4_counter_max"] = 127;
+    factoryPodMap["key4_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryPodMap["key4_modline1_enable"] = 1;
@@ -3158,12 +3158,12 @@ void FactoryPresets::createPodMap(){
 
 
     //------------------------ Key 5 ------------------------//
-    factoryPodMap["5_key_name"] = "WAH";
-    factoryPodMap["5_key_displaymode"] = 4;
-    factoryPodMap["5_key_prefix"] = "";
-    factoryPodMap["5_key_counter_min"] = 0;
-    factoryPodMap["5_key_counter_max"] = 127;
-    factoryPodMap["5_key_counter_wrap"] = 1;
+    factoryPodMap["key5_name"] = "WAH";
+    factoryPodMap["key5_displaymode"] = 4;
+    factoryPodMap["key5_prefix"] = "";
+    factoryPodMap["key5_counter_min"] = 0;
+    factoryPodMap["key5_counter_max"] = 127;
+    factoryPodMap["key5_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryPodMap["key5_modline1_enable"] = 1;
@@ -3299,12 +3299,12 @@ void FactoryPresets::createPodMap(){
 
 
     //------------------------ Key 6 ------------------------//
-    factoryPodMap["6_key_name"] = "STMP";
-    factoryPodMap["6_key_displaymode"] = 1;
-    factoryPodMap["6_key_prefix"] = "";
-    factoryPodMap["6_key_counter_min"] = 0;
-    factoryPodMap["6_key_counter_max"] = 127;
-    factoryPodMap["6_key_counter_wrap"] = 1;
+    factoryPodMap["key6_name"] = "STMP";
+    factoryPodMap["key6_displaymode"] = 1;
+    factoryPodMap["key6_prefix"] = "";
+    factoryPodMap["key6_counter_min"] = 0;
+    factoryPodMap["key6_counter_max"] = 127;
+    factoryPodMap["key6_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryPodMap["key6_modline1_enable"] = 1;
@@ -3440,12 +3440,12 @@ void FactoryPresets::createPodMap(){
 
 
     //------------------------ Key 7 ------------------------//
-    factoryPodMap["7_key_name"] = "MOD";
-    factoryPodMap["7_key_displaymode"] = 1;
-    factoryPodMap["7_key_prefix"] = "P";
-    factoryPodMap["7_key_counter_min"] = 0;
-    factoryPodMap["7_key_counter_max"] = 127;
-    factoryPodMap["7_key_counter_wrap"] = 1;
+    factoryPodMap["key7_name"] = "MOD";
+    factoryPodMap["key7_displaymode"] = 1;
+    factoryPodMap["key7_prefix"] = "P";
+    factoryPodMap["key7_counter_min"] = 0;
+    factoryPodMap["key7_counter_max"] = 127;
+    factoryPodMap["key7_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryPodMap["key7_modline1_enable"] = 1;
@@ -3581,12 +3581,12 @@ void FactoryPresets::createPodMap(){
 
 
     //------------------------ Key 8 ------------------------//
-    factoryPodMap["8_key_name"] = "DLY";
-    factoryPodMap["8_key_displaymode"] = 1;
-    factoryPodMap["8_key_prefix"] = "";
-    factoryPodMap["8_key_counter_min"] = 0;
-    factoryPodMap["8_key_counter_max"] = 127;
-    factoryPodMap["8_key_counter_wrap"] = 1;
+    factoryPodMap["key8_name"] = "DLY";
+    factoryPodMap["key8_displaymode"] = 1;
+    factoryPodMap["key8_prefix"] = "";
+    factoryPodMap["key8_counter_min"] = 0;
+    factoryPodMap["key8_counter_max"] = 127;
+    factoryPodMap["key8_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryPodMap["key8_modline1_enable"] = 1;
@@ -3722,12 +3722,12 @@ void FactoryPresets::createPodMap(){
 
 
     //------------------------ Key 9 ------------------------//
-    factoryPodMap["9_key_name"] = "REVB";
-    factoryPodMap["9_key_displaymode"] = 1;
-    factoryPodMap["9_key_prefix"] = "";
-    factoryPodMap["9_key_counter_min"] = 0;
-    factoryPodMap["9_key_counter_max"] = 127;
-    factoryPodMap["9_key_counter_wrap"] = 1;
+    factoryPodMap["key9_name"] = "REVB";
+    factoryPodMap["key9_displaymode"] = 1;
+    factoryPodMap["key9_prefix"] = "";
+    factoryPodMap["key9_counter_min"] = 0;
+    factoryPodMap["key9_counter_max"] = 127;
+    factoryPodMap["key9_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryPodMap["key9_modline1_enable"] = 1;
@@ -3863,12 +3863,12 @@ void FactoryPresets::createPodMap(){
 
 
     //------------------------ Key 10 ------------------------//
-    factoryPodMap["10_key_name"] = "WAH";
-    factoryPodMap["10_key_displaymode"] = 1;
-    factoryPodMap["10_key_prefix"] = "";
-    factoryPodMap["10_key_counter_min"] = 0;
-    factoryPodMap["10_key_counter_max"] = 127;
-    factoryPodMap["10_key_counter_wrap"] = 1;
+    factoryPodMap["key10_name"] = "WAH";
+    factoryPodMap["key10_displaymode"] = 1;
+    factoryPodMap["key10_prefix"] = "";
+    factoryPodMap["key10_counter_min"] = 0;
+    factoryPodMap["key10_counter_max"] = 127;
+    factoryPodMap["key10_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryPodMap["key10_modline1_enable"] = 1;
@@ -4141,12 +4141,12 @@ void FactoryPresets::createLiveMap(){
     factoryLiveMap["useFactory"] = "Ableton Live Control";
 
     //------------------------ Key 1 ------------------------//
-    factoryLiveMap["1_key_name"] = "1FDR";
-    factoryLiveMap["1_key_displaymode"] = 4;
-    factoryLiveMap["1_key_prefix"] = "";
-    factoryLiveMap["1_key_counter_min"] = 0;
-    factoryLiveMap["1_key_counter_max"] = 127;
-    factoryLiveMap["1_key_counter_wrap"] = 1;
+    factoryLiveMap["key1_name"] = "1FDR";
+    factoryLiveMap["key1_displaymode"] = 4;
+    factoryLiveMap["key1_prefix"] = "";
+    factoryLiveMap["key1_counter_min"] = 0;
+    factoryLiveMap["key1_counter_max"] = 127;
+    factoryLiveMap["key1_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryLiveMap["key1_modline1_enable"] = 1;
@@ -4282,12 +4282,12 @@ void FactoryPresets::createLiveMap(){
 
 
     //------------------------ Key 2 ------------------------//
-    factoryLiveMap["2_key_name"] = "2FDR";
-    factoryLiveMap["2_key_displaymode"] = 4;
-    factoryLiveMap["2_key_prefix"] = "";
-    factoryLiveMap["2_key_counter_min"] = 0;
-    factoryLiveMap["2_key_counter_max"] = 127;
-    factoryLiveMap["2_key_counter_wrap"] = 1;
+    factoryLiveMap["key2_name"] = "2FDR";
+    factoryLiveMap["key2_displaymode"] = 4;
+    factoryLiveMap["key2_prefix"] = "";
+    factoryLiveMap["key2_counter_min"] = 0;
+    factoryLiveMap["key2_counter_max"] = 127;
+    factoryLiveMap["key2_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryLiveMap["key2_modline1_enable"] = 1;
@@ -4423,12 +4423,12 @@ void FactoryPresets::createLiveMap(){
 
 
     //------------------------ Key 3 ------------------------//
-    factoryLiveMap["3_key_name"] = "3FDR";
-    factoryLiveMap["3_key_displaymode"] = 4;
-    factoryLiveMap["3_key_prefix"] = "";
-    factoryLiveMap["3_key_counter_min"] = 0;
-    factoryLiveMap["3_key_counter_max"] = 127;
-    factoryLiveMap["3_key_counter_wrap"] = 1;
+    factoryLiveMap["key3_name"] = "3FDR";
+    factoryLiveMap["key3_displaymode"] = 4;
+    factoryLiveMap["key3_prefix"] = "";
+    factoryLiveMap["key3_counter_min"] = 0;
+    factoryLiveMap["key3_counter_max"] = 127;
+    factoryLiveMap["key3_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryLiveMap["key3_modline1_enable"] = 1;
@@ -4564,12 +4564,12 @@ void FactoryPresets::createLiveMap(){
 
 
     //------------------------ Key 4 ------------------------//
-    factoryLiveMap["4_key_name"] = "4FDR";
-    factoryLiveMap["4_key_displaymode"] = 4;
-    factoryLiveMap["4_key_prefix"] = "";
-    factoryLiveMap["4_key_counter_min"] = 0;
-    factoryLiveMap["4_key_counter_max"] = 127;
-    factoryLiveMap["4_key_counter_wrap"] = 1;
+    factoryLiveMap["key4_name"] = "4FDR";
+    factoryLiveMap["key4_displaymode"] = 4;
+    factoryLiveMap["key4_prefix"] = "";
+    factoryLiveMap["key4_counter_min"] = 0;
+    factoryLiveMap["key4_counter_max"] = 127;
+    factoryLiveMap["key4_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryLiveMap["key4_modline1_enable"] = 1;
@@ -4705,12 +4705,12 @@ void FactoryPresets::createLiveMap(){
 
 
     //------------------------ Key 5 ------------------------//
-    factoryLiveMap["5_key_name"] = "5FDR";
-    factoryLiveMap["5_key_displaymode"] = 4;
-    factoryLiveMap["5_key_prefix"] = "";
-    factoryLiveMap["5_key_counter_min"] = 0;
-    factoryLiveMap["5_key_counter_max"] = 127;
-    factoryLiveMap["5_key_counter_wrap"] = 1;
+    factoryLiveMap["key5_name"] = "5FDR";
+    factoryLiveMap["key5_displaymode"] = 4;
+    factoryLiveMap["key5_prefix"] = "";
+    factoryLiveMap["key5_counter_min"] = 0;
+    factoryLiveMap["key5_counter_max"] = 127;
+    factoryLiveMap["key5_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryLiveMap["key5_modline1_enable"] = 1;
@@ -4846,12 +4846,12 @@ void FactoryPresets::createLiveMap(){
 
 
     //------------------------ Key 6 ------------------------//
-    factoryLiveMap["6_key_name"] = "PLAY";
-    factoryLiveMap["6_key_displaymode"] = 1;
-    factoryLiveMap["6_key_prefix"] = "";
-    factoryLiveMap["6_key_counter_min"] = 0;
-    factoryLiveMap["6_key_counter_max"] = 127;
-    factoryLiveMap["6_key_counter_wrap"] = 1;
+    factoryLiveMap["key6_name"] = "PLAY";
+    factoryLiveMap["key6_displaymode"] = 1;
+    factoryLiveMap["key6_prefix"] = "";
+    factoryLiveMap["key6_counter_min"] = 0;
+    factoryLiveMap["key6_counter_max"] = 127;
+    factoryLiveMap["key6_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryLiveMap["key6_modline1_enable"] = 1;
@@ -4987,12 +4987,12 @@ void FactoryPresets::createLiveMap(){
 
 
     //------------------------ Key 7 ------------------------//
-    factoryLiveMap["7_key_name"] = "STOP";
-    factoryLiveMap["7_key_displaymode"] = 1;
-    factoryLiveMap["7_key_prefix"] = "";
-    factoryLiveMap["7_key_counter_min"] = 0;
-    factoryLiveMap["7_key_counter_max"] = 127;
-    factoryLiveMap["7_key_counter_wrap"] = 1;
+    factoryLiveMap["key7_name"] = "STOP";
+    factoryLiveMap["key7_displaymode"] = 1;
+    factoryLiveMap["key7_prefix"] = "";
+    factoryLiveMap["key7_counter_min"] = 0;
+    factoryLiveMap["key7_counter_max"] = 127;
+    factoryLiveMap["key7_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryLiveMap["key7_modline1_enable"] = 1;
@@ -5128,12 +5128,12 @@ void FactoryPresets::createLiveMap(){
 
 
     //------------------------ Key 8 ------------------------//
-    factoryLiveMap["8_key_name"] = "REC";
-    factoryLiveMap["8_key_displaymode"] = 1;
-    factoryLiveMap["8_key_prefix"] = "";
-    factoryLiveMap["8_key_counter_min"] = 0;
-    factoryLiveMap["8_key_counter_max"] = 127;
-    factoryLiveMap["8_key_counter_wrap"] = 1;
+    factoryLiveMap["key8_name"] = "REC";
+    factoryLiveMap["key8_displaymode"] = 1;
+    factoryLiveMap["key8_prefix"] = "";
+    factoryLiveMap["key8_counter_min"] = 0;
+    factoryLiveMap["key8_counter_max"] = 127;
+    factoryLiveMap["key8_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryLiveMap["key8_modline1_enable"] = 1;
@@ -5269,12 +5269,12 @@ void FactoryPresets::createLiveMap(){
 
 
     //------------------------ Key 9 ------------------------//
-    factoryLiveMap["9_key_name"] = "RWND";
-    factoryLiveMap["9_key_displaymode"] = 1;
-    factoryLiveMap["9_key_prefix"] = "";
-    factoryLiveMap["9_key_counter_min"] = 0;
-    factoryLiveMap["9_key_counter_max"] = 127;
-    factoryLiveMap["9_key_counter_wrap"] = 1;
+    factoryLiveMap["key9_name"] = "RWND";
+    factoryLiveMap["key9_displaymode"] = 1;
+    factoryLiveMap["key9_prefix"] = "";
+    factoryLiveMap["key9_counter_min"] = 0;
+    factoryLiveMap["key9_counter_max"] = 127;
+    factoryLiveMap["key9_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryLiveMap["key9_modline1_enable"] = 1;
@@ -5410,12 +5410,12 @@ void FactoryPresets::createLiveMap(){
 
 
     //------------------------ Key 10 ------------------------//
-    factoryLiveMap["10_key_name"] = "FFW";
-    factoryLiveMap["10_key_displaymode"] = 1;
-    factoryLiveMap["10_key_prefix"] = "";
-    factoryLiveMap["10_key_counter_min"] = 0;
-    factoryLiveMap["10_key_counter_max"] = 127;
-    factoryLiveMap["10_key_counter_wrap"] = 1;
+    factoryLiveMap["key10_name"] = "FFW";
+    factoryLiveMap["key10_displaymode"] = 1;
+    factoryLiveMap["key10_prefix"] = "";
+    factoryLiveMap["key10_counter_min"] = 0;
+    factoryLiveMap["key10_counter_max"] = 127;
+    factoryLiveMap["key10_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
     factoryLiveMap["key10_modline1_enable"] = 1;
