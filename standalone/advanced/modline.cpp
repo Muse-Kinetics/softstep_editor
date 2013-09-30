@@ -22,6 +22,12 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     modlineForm.deviceViews->setCurrentIndex(0);
     modlineForm.deviceViewLabels->setCurrentIndex(0);
 
+    //connect and initialize the raw value to the result (not for preset)
+    connect(modlineForm.raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
+    connect(modlineForm.gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
+    connect(modlineForm.offset,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
+    modlineForm.raw->setValue(0);
+
     this->setGeometry(10,75 + ((modlineInstance)*42),1000,40);
 }
 
@@ -38,9 +44,6 @@ void Modline::slotConnectElements()
 
     //source
     connect(modlineForm.source,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-
-    //raw value (not for preset)
-    connect(modlineForm.raw,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
 
     //gain
     connect(modlineForm.gain,SIGNAL(valueChanged(double)),this,SLOT(slotValueChanged()));
@@ -138,12 +141,6 @@ void Modline::slotValueChanged()
             value = modlineForm.source->currentText();
         }
 
-        //raw-result (not sent to presets)
-        else if(sender == modlineForm.raw)
-        {
-            modlineForm.result->setValue((modlineForm.raw->value())*(modlineForm.gain->value())+(modlineForm.offset->value()));
-        }
-
         //Gain
         else if(sender == modlineForm.gain)
         {
@@ -182,7 +179,7 @@ void Modline::slotValueChanged()
         //slew
         else if(sender == modlineForm.slew)
         {
-            jsonName = "selw";
+            jsonName = "slew";
             value = modlineForm.slew->value();
         }
 
@@ -382,7 +379,7 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     //destination parameters
     modlineForm.noteNumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm.noteLiveNumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    //modlineForm.noteLiveNumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm.polyNote->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
 
     modlineForm.noteVelocity->setValue(preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
@@ -414,4 +411,20 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     modlineForm.oscRoute->setText(preset.value(QString("key%1_modline%2_oscroute").arg(keyInstance+1).arg(modlineInstance+1)).toString());
 
+}
+
+void Modline::slotRawResult()
+{
+    if(QObject::sender())
+    {
+        QObject *sender = QObject::sender();
+
+        //raw-result (not sent to presets)
+        if(sender == modlineForm.raw || sender == modlineForm.gain || sender == modlineForm.offset)
+        {
+            modlineForm.result->setValue((modlineForm.raw->value())*(modlineForm.gain->value())+(modlineForm.offset->value()));
+        }
+    }
+
+    //qDebug() << "initialize result value";
 }

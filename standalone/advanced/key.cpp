@@ -64,6 +64,9 @@ void Key::slotOpenWindow()
 
 void Key::slotConnectElements()
 {
+    //key name (from the keyBoxForm)
+    connect(keyBoxForm->keyName,SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
+
 
     //key counter stuff
     connect(keyWindowForm->counterMin,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
@@ -79,8 +82,14 @@ void Key::slotValueChanged()
         QObject *sender = QObject::sender();
         QVariant value;
 
+        //key name (from the keyBoxForm
+        if(sender == keyBoxForm->keyName)
+        {
+            jsonName = "name";
+            value = keyBoxForm->keyName->text();
+        }
         //key counter stuff
-        if(sender == keyWindowForm->counterMin)
+        else if(sender == keyWindowForm->counterMin)
         {
             jsonName = "counter_min";
             value = keyWindowForm->counterMin->value();
@@ -102,6 +111,8 @@ void Key::slotValueChanged()
 
 void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
+    keyBoxForm->keyName->setText(preset.value(QString("%1_key_name").arg(keyInstance+1)).toString());
+
     keyWindowForm->counterMin->setValue(preset.value(QString("%1_key_counter_min").arg(keyInstance+1)).toInt());
     keyWindowForm->counterMax->setValue(preset.value(QString("%1_key_counter_max").arg(keyInstance+1)).toInt());
     keyWindowForm->counterWrap->setChecked(preset.value(QString("%1_key_counter_wrap").arg(keyInstance+1)).toBool());

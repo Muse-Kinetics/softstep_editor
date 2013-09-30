@@ -27,6 +27,7 @@ public slots:
     void slotConnectElements();
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
+    void slotRawResult();
 
 private:
     Ui::modlineForm modlineForm;

@@ -44,6 +44,29 @@ QPushButton
 	color: 				white;
 	font: 				10pt &quot;Futura&quot;;
 	border:				2px solid rgba(0,174,239,255);
+}
+
+/* ---------- QLineEdit ------------*/
+QLineEdit
+{
+	font: 10pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 2px solid rgba(0,174,239,255);
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+QLineEdit:focus
+{
+	font: 10pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 1px solid white;
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
 }</string>
   </property>
   <widget class="QLabel" name="keyInstanceLabel">
@@ -51,7 +74,7 @@ QPushButton
     <rect>
      <x>0</x>
      <y>10</y>
-     <width>150</width>
+     <width>75</width>
      <height>22</height>
     </rect>
    </property>
@@ -72,7 +95,7 @@ QPushButton
    <property name="geometry">
     <rect>
      <x>55</x>
-     <y>50</y>
+     <y>60</y>
      <width>40</width>
      <height>22</height>
     </rect>
@@ -85,6 +108,19 @@ QPushButton
    </property>
    <property name="text">
     <string>open</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="keyName">
+   <property name="geometry">
+    <rect>
+     <x>88</x>
+     <y>10</y>
+     <width>40</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maxLength">
+    <number>4</number>
    </property>
   </widget>
  </widget>
