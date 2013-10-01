@@ -32,7 +32,8 @@ SOURCES +=      main.cpp\
                 ../../shared/sysexcomposition/download.c \
                 ../../shared/sysexcomposition/attribute.c \
                 ../../shared/sysexcomposition/mainsysex.c \
-    sysexcomposer.cpp
+    sysexcomposer.cpp \
+    settings.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -50,7 +51,8 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexcomposition/download.h \
                 ../../shared/sysexcomposition/attribute.h \
                 ../../shared/sysexcomposition/sysexcomposer.h \
-                ../../shared/sysexmessages.h
+                ../../shared/sysexmessages.h \
+    settings.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \
