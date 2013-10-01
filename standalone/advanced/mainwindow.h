@@ -11,6 +11,7 @@
 
 #include "key.h"
 #include "presetinterface.h"
+#include "mididevicemanager.h"
 
 #include "ui_mainwindow.h"
 
@@ -27,14 +28,20 @@ public:
     ~MainWindow();
 
     PresetInterface* presetInterface;
+    MidiDeviceManager* midiDeviceManager;
+
+    //Menubar
+    QMenuBar *menubar;
+    QList<QAction *> actionList;
 
     //Ui Elements
     Key *key[10];
 
 public slots:
-    //void slotConnectElements();
-    //void slotValueChanged();
     void slotConnectInterfaces();
+    void slotInitMenuBar();
+
+    void slotConnected(bool);
 
 private:
     Ui::MainWindow *ui;

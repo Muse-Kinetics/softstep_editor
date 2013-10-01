@@ -8,7 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    presetInterface = new PresetInterface();
+    presetInterface = new PresetInterface(this);
+    midiDeviceManager = new MidiDeviceManager(this);
 
     //Mainwindow Ui
     this->setWindowTitle("SoftStep Advanced Editor");  //FIND OUT WHY THIS ISN'T WORKING!?
@@ -32,6 +33,13 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     presetInterface->slotRecallPreset(1);
+
+#ifdef Q_OS_MAC
+    midiDeviceManager->connectSource();
+#else
+    //Attempt to Connect SoftStep
+    //mdm->devicePoller->start(1000);
+#endif
 }
 
 MainWindow::~MainWindow()
@@ -41,6 +49,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::slotConnectInterfaces()
 {
+    //Connected Indicator
+    connect(midiDeviceManager, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
+
     //--------------------------------------- Preset Recall
 
     //Keys
@@ -80,4 +91,90 @@ void MainWindow::slotConnectInterfaces()
 
     //preset number box (this will be switched to a comboBox soon)
     connect(ui->presetNumber, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
+}
+
+void MainWindow::slotInitMenuBar()
+{
+    menubar = new QMenuBar(0);
+
+#ifdef Q_OS_MAC
+#else
+    menubar->setGeometry(0,0, this->width(), 20);
+#endif
+
+
+    //-------------------------------------------------------------------------- File
+    QMenu* file = new QMenu("File");
+    qDebug() << file;
+    file->setObjectName("FileMenu");
+    menubar->addMenu(file);
+
+
+    //-------------------------------------------------------------------------- Edit
+    QMenu* edit = new QMenu("Edit ");
+    qDebug() << edit;
+    edit->setObjectName("EditMenu");
+    menubar->addMenu(edit);
+
+    //Custom Preset
+    QAction* useCustom = new QAction("Use Custom Preset", edit);
+    actionList.append(useCustom);
+    edit->addAction(useCustom);
+
+    //Factory Preset Menu
+    QMenu* factoryPreset = new QMenu("Use Factory Preset");
+    edit->addMenu(factoryPreset);
+
+
+    //-------------------------------------------------------------------------- Hardware
+    QMenu* hardware = new QMenu("Hardware");
+    hardware->setObjectName("HardwareMenu");
+
+    //Reload Firmware
+    QAction* updatefw = new QAction("Update/Reload Firmware...", hardware);
+    actionList.append(updatefw);
+    hardware->addAction(updatefw);
+
+    //Settings
+    QAction* settings = new QAction("Update/Reload Firmware...", hardware);
+    actionList.append(settings);
+    hardware->addAction(settings);
+
+    menubar->addMenu(hardware);
+
+
+    //-------------------------------------------------------------------------- Help
+    QMenu* help = new QMenu("Help");
+    help->setObjectName("HelpMenu");
+
+    //About
+    QAction* about = new QAction("About SoftStep Advanced Editor", help);
+    actionList.append(about);
+    help->addAction(about);
+
+    //Doc
+    QAction* doc = new QAction("Documentation...", help);
+    actionList.append(doc);
+    help->addAction(doc);
+
+    menubar->addMenu(help);
+}
+
+void MainWindow::slotConnected(bool connection)
+{
+    if(connection)
+    {
+        ui->connectedLabel->setText("CONNECTED");
+        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");
+        ui->update->setText("SAVE + SEND");
+    }
+    else
+    {
+        //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
+        //ui->connectedLabel->setText("Not Connected");
+        ui->connectedLabel->setText("NOT CONNECTED");
+        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
+        ui->update->setText("SAVE");
+        //aboutForm->found->setText("Not Connected");
+    }
 }

@@ -27,11 +27,11 @@ void FactoryPresets::createProgramChange()
 
     //------------------------------------------------ Key1
     programChangeMap["key1_name"] = "1KEY";
-    programChangeMap["key1_displayMode"] = 4;
+    programChangeMap["key1_displaymode"] = 4;
     programChangeMap["key1_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["key1_modline1_on"] = 1;
+    programChangeMap["key1_modline1_enable"] = 1;
     programChangeMap["key1_modline1_source"] = "Nav Yx10 & Key";
     programChangeMap["key1_modline1_gain"] = 1.00;
     programChangeMap["key1_modline1_offset"] = 0.00;
@@ -42,12 +42,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key1_modline1_destination"] = "Program";
     programChangeMap["key1_modline1_channel"] = 1;
     programChangeMap["key1_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["key1_modline1_led_green"] = "None";
-    programChangeMap["key1_modline1_led_red"] = "None";
-    programChangeMap["key1_modline1_displayLinked"] = 1;
+    programChangeMap["key1_modline1_ledgreen"] = "None";
+    programChangeMap["key1_modline1_ledred"] = "None";
+    programChangeMap["key1_modline1_displaylinked"] = 1;
 
     //Modline 2
-    programChangeMap["key1_modline2_on"] = 1;
+    programChangeMap["key1_modline2_enable"] = 1;
     programChangeMap["key1_modline2_source"] = "Nav Yx10 & Key";
     programChangeMap["key1_modline2_gain"] = 1.00;
     programChangeMap["key1_modline2_offset"] = 0.00;
@@ -58,12 +58,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key1_modline2_destination"] = "Program";
     programChangeMap["key1_modline2_channel"] = 1;
     programChangeMap["key1_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["key1_modline2_led_green"] = "None";
-    programChangeMap["key1_modline2_led_red"] = "None";
-    programChangeMap["key1_modline2_displayLinked"] = 0;
+    programChangeMap["key1_modline2_ledgreen"] = "None";
+    programChangeMap["key1_modline2_ledred"] = "None";
+    programChangeMap["key1_modline2_displaylinked"] = 0;
 
     //Modline 3
-    programChangeMap["key1_modline3_on"] = 1;
+    programChangeMap["key1_modline3_enable"] = 1;
     programChangeMap["key1_modline3_source"] = "Key 1 Pressed";
     programChangeMap["key1_modline3_gain"] = 1.00;
     programChangeMap["key1_modline3_offset"] = 0.00;
@@ -74,12 +74,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key1_modline3_destination"] = "None";
     programChangeMap["key1_modline3_channel"] = 1;
     programChangeMap["key1_modline3_device"] = "None";
-    programChangeMap["key1_modline3_led_green"] = "True";
-    programChangeMap["key1_modline3_led_red"] = "None";
-    programChangeMap["key1_modline3_displayLinked"] = 0;
+    programChangeMap["key1_modline3_ledgreen"] = "True";
+    programChangeMap["key1_modline3_ledred"] = "None";
+    programChangeMap["key1_modline3_displaylinked"] = 0;
 
     //Modline 4
-    programChangeMap["key1_modline4_on"] = 1;
+    programChangeMap["key1_modline4_enable"] = 1;
     programChangeMap["key1_modline4_source"] = "Other Key Pressed";
     programChangeMap["key1_modline4_gain"] = 1.00;
     programChangeMap["key1_modline4_offset"] = 0.00;
@@ -90,12 +90,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key1_modline4_destination"] = "None";
     programChangeMap["key1_modline4_channel"] = 1;
     programChangeMap["key1_modline4_device"] = "None";
-    programChangeMap["key1_modline4_led_green"] = "Off";
-    programChangeMap["key1_modline4_led_red"] = "None";
-    programChangeMap["key1_modline4_displayLinked"] = 0;
+    programChangeMap["key1_modline4_ledgreen"] = "Off";
+    programChangeMap["key1_modline4_ledred"] = "None";
+    programChangeMap["key1_modline4_displaylinked"] = 0;
 
     //Modline 5
-    programChangeMap["key1_modline5_on"] = 1;
+    programChangeMap["key1_modline5_enable"] = 1;
     programChangeMap["key1_modline5_source"] = "Init";
     programChangeMap["key1_modline5_gain"] = 1.00;
     programChangeMap["key1_modline5_offset"] = 127.00;
@@ -106,12 +106,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key1_modline5_destination"] = "CC";
     programChangeMap["key1_modline5_channel"] = 1;
     programChangeMap["key1_modline5_device"] = "SSCOM_Port_1";
-    programChangeMap["key1_modline5_led_green"] = "None";
-    programChangeMap["key1_modline5_led_red"] = "None";
-    programChangeMap["key1_modline5_displayLinked"] = 0;
+    programChangeMap["key1_modline5_ledgreen"] = "None";
+    programChangeMap["key1_modline5_ledred"] = "None";
+    programChangeMap["key1_modline5_displaylinked"] = 0;
 
     //Modline 6
-    programChangeMap["key1_modline6_on"] = 1;
+    programChangeMap["key1_modline6_enable"] = 1;
     programChangeMap["key1_modline6_source"] = "Pedal";
     programChangeMap["key1_modline6_gain"] = 1.00;
     programChangeMap["key1_modline6_offset"] = 0.00;
@@ -122,17 +122,17 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key1_modline6_destination"] = "CC";
     programChangeMap["key1_modline6_channel"] = 1;
     programChangeMap["key1_modline6_device"] = "SSCOM_Port_1";
-    programChangeMap["key1_modline6_led_green"] = "None";
-    programChangeMap["key1_modline6_led_red"] = "None";
-    programChangeMap["key1_modline6_displayLinked"] = 0;
+    programChangeMap["key1_modline6_ledgreen"] = "None";
+    programChangeMap["key1_modline6_ledred"] = "None";
+    programChangeMap["key1_modline6_displaylinked"] = 0;
 
     //------------------------------------------------ Key2
     programChangeMap["key2_name"] = "2KEY";
-    programChangeMap["key2_displayMode"] = 4;
+    programChangeMap["key2_displaymode"] = 4;
     programChangeMap["key2_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["key2_modline1_on"] = 1;
+    programChangeMap["key2_modline1_enable"] = 1;
     programChangeMap["key2_modline1_source"] = "Nav Yx10 & Key";
     programChangeMap["key2_modline1_gain"] = 1.00;
     programChangeMap["key2_modline1_offset"] = 0.00;
@@ -143,12 +143,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key2_modline1_destination"] = "Program";
     programChangeMap["key2_modline1_channel"] = 1;
     programChangeMap["key2_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["key2_modline1_led_green"] = "None";
-    programChangeMap["key2_modline1_led_red"] = "None";
-    programChangeMap["key2_modline1_displayLinked"] = 1;
+    programChangeMap["key2_modline1_ledgreen"] = "None";
+    programChangeMap["key2_modline1_ledred"] = "None";
+    programChangeMap["key2_modline1_displaylinked"] = 1;
 
     //Modline 2
-    programChangeMap["key2_modline2_on"] = 1;
+    programChangeMap["key2_modline2_enable"] = 1;
     programChangeMap["key2_modline2_source"] = "Nav Yx10 & Key";
     programChangeMap["key2_modline2_gain"] = 1.00;
     programChangeMap["key2_modline2_offset"] = 0.00;
@@ -159,12 +159,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key2_modline2_destination"] = "Program";
     programChangeMap["key2_modline2_channel"] = 1;
     programChangeMap["key2_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["key2_modline2_led_green"] = "None";
-    programChangeMap["key2_modline2_led_red"] = "None";
-    programChangeMap["key2_modline2_displayLinked"] = 0;
+    programChangeMap["key2_modline2_ledgreen"] = "None";
+    programChangeMap["key2_modline2_ledred"] = "None";
+    programChangeMap["key2_modline2_displaylinked"] = 0;
 
     //Modline 3
-    programChangeMap["key2_modline3_on"] = 1;
+    programChangeMap["key2_modline3_enable"] = 1;
     programChangeMap["key2_modline3_source"] = "Key 2 Pressed";
     programChangeMap["key2_modline3_gain"] = 1.00;
     programChangeMap["key2_modline3_offset"] = 0.00;
@@ -175,12 +175,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key2_modline3_destination"] = "None";
     programChangeMap["key2_modline3_channel"] = 1;
     programChangeMap["key2_modline3_device"] = "None";
-    programChangeMap["key2_modline3_led_green"] = "True";
-    programChangeMap["key2_modline3_led_red"] = "None";
-    programChangeMap["key2_modline3_displayLinked"] = 0;
+    programChangeMap["key2_modline3_ledgreen"] = "True";
+    programChangeMap["key2_modline3_ledred"] = "None";
+    programChangeMap["key2_modline3_displaylinked"] = 0;
 
     //Modline 4
-    programChangeMap["key2_modline4_on"] = 1;
+    programChangeMap["key2_modline4_enable"] = 1;
     programChangeMap["key2_modline4_source"] = "Other Key Pressed";
     programChangeMap["key2_modline4_gain"] = 1.00;
     programChangeMap["key2_modline4_offset"] = 0.00;
@@ -191,12 +191,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key2_modline4_destination"] = "None";
     programChangeMap["key2_modline4_channel"] = 1;
     programChangeMap["key2_modline4_device"] = "None";
-    programChangeMap["key2_modline4_led_green"] = "Off";
-    programChangeMap["key2_modline4_led_red"] = "None";
-    programChangeMap["key2_modline4_displayLinked"] = 0;
+    programChangeMap["key2_modline4_ledgreen"] = "Off";
+    programChangeMap["key2_modline4_ledred"] = "None";
+    programChangeMap["key2_modline4_displaylinked"] = 0;
 
     //Modline 5
-    programChangeMap["key2_modline5_on"] = 0;
+    programChangeMap["key2_modline5_enable"] = 0;
     programChangeMap["key2_modline5_source"] = "None";
     programChangeMap["key2_modline5_gain"] = 1.00;
     programChangeMap["key2_modline5_offset"] = 0.00;
@@ -207,12 +207,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key2_modline5_destination"] = "None";
     programChangeMap["key2_modline5_channel"] = 1;
     programChangeMap["key2_modline5_device"] = "None";
-    programChangeMap["key2_modline5_led_green"] = "None";
-    programChangeMap["key2_modline5_led_red"] = "None";
-    programChangeMap["key2_modline5_displayLinked"] = 0;
+    programChangeMap["key2_modline5_ledgreen"] = "None";
+    programChangeMap["key2_modline5_ledred"] = "None";
+    programChangeMap["key2_modline5_displaylinked"] = 0;
 
     //Modline 6
-    programChangeMap["key2_modline6_on"] = 0;
+    programChangeMap["key2_modline6_enable"] = 0;
     programChangeMap["key2_modline6_source"] = "None";
     programChangeMap["key2_modline6_gain"] = 1.00;
     programChangeMap["key2_modline6_offset"] = 0.00;
@@ -223,17 +223,17 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key2_modline6_destination"] = "None";
     programChangeMap["key2_modline6_channel"] = 1;
     programChangeMap["key2_modline6_device"] = "None";
-    programChangeMap["key2_modline6_led_green"] = "None";
-    programChangeMap["key2_modline6_led_red"] = "None";
-    programChangeMap["key2_modline6_displayLinked"] = 0;
+    programChangeMap["key2_modline6_ledgreen"] = "None";
+    programChangeMap["key2_modline6_ledred"] = "None";
+    programChangeMap["key2_modline6_displaylinked"] = 0;
 
     //------------------------------------------------ Key3
     programChangeMap["key3_name"] = "3KEY";
-    programChangeMap["key3_displayMode"] = 4;
+    programChangeMap["key3_displaymode"] = 4;
     programChangeMap["key3_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["key3_modline1_on"] = 1;
+    programChangeMap["key3_modline1_enable"] = 1;
     programChangeMap["key3_modline1_source"] = "Nav Yx10 & Key";
     programChangeMap["key3_modline1_gain"] = 1.00;
     programChangeMap["key3_modline1_offset"] = 0.00;
@@ -244,12 +244,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key3_modline1_destination"] = "Program";
     programChangeMap["key3_modline1_channel"] = 1;
     programChangeMap["key3_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["key3_modline1_led_green"] = "None";
-    programChangeMap["key3_modline1_led_red"] = "None";
-    programChangeMap["key3_modline1_displayLinked"] = 1;
+    programChangeMap["key3_modline1_ledgreen"] = "None";
+    programChangeMap["key3_modline1_ledred"] = "None";
+    programChangeMap["key3_modline1_displaylinked"] = 1;
 
     //Modline 2
-    programChangeMap["key3_modline2_on"] = 1;
+    programChangeMap["key3_modline2_enable"] = 1;
     programChangeMap["key3_modline2_source"] = "Nav Yx10 & Key";
     programChangeMap["key3_modline2_gain"] = 1.00;
     programChangeMap["key3_modline2_offset"] = 0.00;
@@ -260,12 +260,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key3_modline2_destination"] = "Program";
     programChangeMap["key3_modline2_channel"] = 1;
     programChangeMap["key3_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["key3_modline2_led_green"] = "None";
-    programChangeMap["key3_modline2_led_red"] = "None";
-    programChangeMap["key3_modline2_displayLinked"] = 0;
+    programChangeMap["key3_modline2_ledgreen"] = "None";
+    programChangeMap["key3_modline2_ledred"] = "None";
+    programChangeMap["key3_modline2_displaylinked"] = 0;
 
     //Modline 3
-    programChangeMap["key3_modline3_on"] = 1;
+    programChangeMap["key3_modline3_enable"] = 1;
     programChangeMap["key3_modline3_source"] = "Key 3 Pressed";
     programChangeMap["key3_modline3_gain"] = 1.00;
     programChangeMap["key3_modline3_offset"] = 0.00;
@@ -276,12 +276,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key3_modline3_destination"] = "None";
     programChangeMap["key3_modline3_channel"] = 1;
     programChangeMap["key3_modline3_device"] = "None";
-    programChangeMap["key3_modline3_led_green"] = "True";
-    programChangeMap["key3_modline3_led_red"] = "None";
-    programChangeMap["key3_modline3_displayLinked"] = 0;
+    programChangeMap["key3_modline3_ledgreen"] = "True";
+    programChangeMap["key3_modline3_ledred"] = "None";
+    programChangeMap["key3_modline3_displaylinked"] = 0;
 
     //Modline 4
-    programChangeMap["key3_modline4_on"] = 1;
+    programChangeMap["key3_modline4_enable"] = 1;
     programChangeMap["key3_modline4_source"] = "Other Key Pressed";
     programChangeMap["key3_modline4_gain"] = 1.00;
     programChangeMap["key3_modline4_offset"] = 0.00;
@@ -292,12 +292,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key3_modline4_destination"] = "None";
     programChangeMap["key3_modline4_channel"] = 1;
     programChangeMap["key3_modline4_device"] = "None";
-    programChangeMap["key3_modline4_led_green"] = "Off";
-    programChangeMap["key3_modline4_led_red"] = "None";
-    programChangeMap["key3_modline4_displayLinked"] = 0;
+    programChangeMap["key3_modline4_ledgreen"] = "Off";
+    programChangeMap["key3_modline4_ledred"] = "None";
+    programChangeMap["key3_modline4_displaylinked"] = 0;
 
     //Modline 5
-    programChangeMap["key3_modline5_on"] = 0;
+    programChangeMap["key3_modline5_enable"] = 0;
     programChangeMap["key3_modline5_source"] = "None";
     programChangeMap["key3_modline5_gain"] = 1.00;
     programChangeMap["key3_modline5_offset"] = 0.00;
@@ -308,12 +308,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key3_modline5_destination"] = "None";
     programChangeMap["key3_modline5_channel"] = 1;
     programChangeMap["key3_modline5_device"] = "None";
-    programChangeMap["key3_modline5_led_green"] = "None";
-    programChangeMap["key3_modline5_led_red"] = "None";
-    programChangeMap["key3_modline5_displayLinked"] = 0;
+    programChangeMap["key3_modline5_ledgreen"] = "None";
+    programChangeMap["key3_modline5_ledred"] = "None";
+    programChangeMap["key3_modline5_displaylinked"] = 0;
 
     //Modline 6
-    programChangeMap["key3_modline6_on"] = 0;
+    programChangeMap["key3_modline6_enable"] = 0;
     programChangeMap["key3_modline6_source"] = "None";
     programChangeMap["key3_modline6_gain"] = 1.00;
     programChangeMap["key3_modline6_offset"] = 0.00;
@@ -324,17 +324,17 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key3_modline6_destination"] = "None";
     programChangeMap["key3_modline6_channel"] = 1;
     programChangeMap["key3_modline6_device"] = "None";
-    programChangeMap["key3_modline6_led_green"] = "None";
-    programChangeMap["key3_modline6_led_red"] = "None";
-    programChangeMap["key3_modline6_displayLinked"] = 0;
+    programChangeMap["key3_modline6_ledgreen"] = "None";
+    programChangeMap["key3_modline6_ledred"] = "None";
+    programChangeMap["key3_modline6_displaylinked"] = 0;
 
     //------------------------------------------------ Key4
     programChangeMap["key4_name"] = "4KEY";
-    programChangeMap["key4_displayMode"] = 4;
+    programChangeMap["key4_displaymode"] = 4;
     programChangeMap["key4_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["key4_modline1_on"] = 1;
+    programChangeMap["key4_modline1_enable"] = 1;
     programChangeMap["key4_modline1_source"] = "Nav Yx10 & Key";
     programChangeMap["key4_modline1_gain"] = 1.00;
     programChangeMap["key4_modline1_offset"] = 0.00;
@@ -345,12 +345,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key4_modline1_destination"] = "Program";
     programChangeMap["key4_modline1_channel"] = 1;
     programChangeMap["key4_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["key4_modline1_led_green"] = "None";
-    programChangeMap["key4_modline1_led_red"] = "None";
-    programChangeMap["key4_modline1_displayLinked"] = 1;
+    programChangeMap["key4_modline1_ledgreen"] = "None";
+    programChangeMap["key4_modline1_ledred"] = "None";
+    programChangeMap["key4_modline1_displaylinked"] = 1;
 
     //Modline 2
-    programChangeMap["key4_modline2_on"] = 1;
+    programChangeMap["key4_modline2_enable"] = 1;
     programChangeMap["key4_modline2_source"] = "Nav Yx10 & Key";
     programChangeMap["key4_modline2_gain"] = 1.00;
     programChangeMap["key4_modline2_offset"] = 0.00;
@@ -361,12 +361,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key4_modline2_destination"] = "Program";
     programChangeMap["key4_modline2_channel"] = 1;
     programChangeMap["key4_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["key4_modline2_led_green"] = "None";
-    programChangeMap["key4_modline2_led_red"] = "None";
-    programChangeMap["key4_modline2_displayLinked"] = 0;
+    programChangeMap["key4_modline2_ledgreen"] = "None";
+    programChangeMap["key4_modline2_ledred"] = "None";
+    programChangeMap["key4_modline2_displaylinked"] = 0;
 
     //Modline 3
-    programChangeMap["key4_modline3_on"] = 1;
+    programChangeMap["key4_modline3_enable"] = 1;
     programChangeMap["key4_modline3_source"] = "Key 4 Pressed";
     programChangeMap["key4_modline3_gain"] = 1.00;
     programChangeMap["key4_modline3_offset"] = 0.00;
@@ -377,12 +377,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key4_modline3_destination"] = "None";
     programChangeMap["key4_modline3_channel"] = 1;
     programChangeMap["key4_modline3_device"] = "None";
-    programChangeMap["key4_modline3_led_green"] = "True";
-    programChangeMap["key4_modline3_led_red"] = "None";
-    programChangeMap["key4_modline3_displayLinked"] = 0;
+    programChangeMap["key4_modline3_ledgreen"] = "True";
+    programChangeMap["key4_modline3_ledred"] = "None";
+    programChangeMap["key4_modline3_displaylinked"] = 0;
 
     //Modline 4
-    programChangeMap["key4_modline4_on"] = 1;
+    programChangeMap["key4_modline4_enable"] = 1;
     programChangeMap["key4_modline4_source"] = "Other Key Pressed";
     programChangeMap["key4_modline4_gain"] = 1.00;
     programChangeMap["key4_modline4_offset"] = 0.00;
@@ -393,12 +393,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key4_modline4_destination"] = "None";
     programChangeMap["key4_modline4_channel"] = 1;
     programChangeMap["key4_modline4_device"] = "None";
-    programChangeMap["key4_modline4_led_green"] = "Off";
-    programChangeMap["key4_modline4_led_red"] = "None";
-    programChangeMap["key4_modline4_displayLinked"] = 0;
+    programChangeMap["key4_modline4_ledgreen"] = "Off";
+    programChangeMap["key4_modline4_ledred"] = "None";
+    programChangeMap["key4_modline4_displaylinked"] = 0;
 
     //Modline 5
-    programChangeMap["key4_modline5_on"] = 0;
+    programChangeMap["key4_modline5_enable"] = 0;
     programChangeMap["key4_modline5_source"] = "None";
     programChangeMap["key4_modline5_gain"] = 1.00;
     programChangeMap["key4_modline5_offset"] = 0.00;
@@ -409,12 +409,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key4_modline5_destination"] = "None";
     programChangeMap["key4_modline5_channel"] = 1;
     programChangeMap["key4_modline5_device"] = "None";
-    programChangeMap["key4_modline5_led_green"] = "None";
-    programChangeMap["key4_modline5_led_red"] = "None";
-    programChangeMap["key4_modline5_displayLinked"] = 0;
+    programChangeMap["key4_modline5_ledgreen"] = "None";
+    programChangeMap["key4_modline5_ledred"] = "None";
+    programChangeMap["key4_modline5_displaylinked"] = 0;
 
     //Modline 6
-    programChangeMap["key4_modline6_on"] = 0;
+    programChangeMap["key4_modline6_enable"] = 0;
     programChangeMap["key4_modline6_source"] = "None";
     programChangeMap["key4_modline6_gain"] = 1.00;
     programChangeMap["key4_modline6_offset"] = 0.00;
@@ -425,17 +425,17 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key4_modline6_destination"] = "None";
     programChangeMap["key4_modline6_channel"] = 1;
     programChangeMap["key4_modline6_device"] = "None";
-    programChangeMap["key4_modline6_led_green"] = "None";
-    programChangeMap["key4_modline6_led_red"] = "None";
-    programChangeMap["key4_modline6_displayLinked"] = 0;
+    programChangeMap["key4_modline6_ledgreen"] = "None";
+    programChangeMap["key4_modline6_ledred"] = "None";
+    programChangeMap["key4_modline6_displaylinked"] = 0;
 
     //------------------------------------------------ Key5
     programChangeMap["key5_name"] = "5KEY";
-    programChangeMap["key5_displayMode"] = 4;
+    programChangeMap["key5_displaymode"] = 4;
     programChangeMap["key5_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["key5_modline1_on"] = 1;
+    programChangeMap["key5_modline1_enable"] = 1;
     programChangeMap["key5_modline1_source"] = "Nav Yx10 & Key";
     programChangeMap["key5_modline1_gain"] = 1.00;
     programChangeMap["key5_modline1_offset"] = 0.00;
@@ -446,12 +446,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key5_modline1_destination"] = "Program";
     programChangeMap["key5_modline1_channel"] = 1;
     programChangeMap["key5_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["key5_modline1_led_green"] = "None";
-    programChangeMap["key5_modline1_led_red"] = "None";
-    programChangeMap["key5_modline1_displayLinked"] = 1;
+    programChangeMap["key5_modline1_ledgreen"] = "None";
+    programChangeMap["key5_modline1_ledred"] = "None";
+    programChangeMap["key5_modline1_displaylinked"] = 1;
 
     //Modline 2
-    programChangeMap["key5_modline2_on"] = 1;
+    programChangeMap["key5_modline2_enable"] = 1;
     programChangeMap["key5_modline2_source"] = "Nav Yx10 & Key";
     programChangeMap["key5_modline2_gain"] = 1.00;
     programChangeMap["key5_modline2_offset"] = 0.00;
@@ -462,12 +462,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key5_modline2_destination"] = "Program";
     programChangeMap["key5_modline2_channel"] = 1;
     programChangeMap["key5_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["key5_modline2_led_green"] = "None";
-    programChangeMap["key5_modline2_led_red"] = "None";
-    programChangeMap["key5_modline2_displayLinked"] = 0;
+    programChangeMap["key5_modline2_ledgreen"] = "None";
+    programChangeMap["key5_modline2_ledred"] = "None";
+    programChangeMap["key5_modline2_displaylinked"] = 0;
 
     //Modline 3
-    programChangeMap["key5_modline3_on"] = 1;
+    programChangeMap["key5_modline3_enable"] = 1;
     programChangeMap["key5_modline3_source"] = "Key 5 Pressed";
     programChangeMap["key5_modline3_gain"] = 1.00;
     programChangeMap["key5_modline3_offset"] = 0.00;
@@ -478,12 +478,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key5_modline3_destination"] = "None";
     programChangeMap["key5_modline3_channel"] = 1;
     programChangeMap["key5_modline3_device"] = "None";
-    programChangeMap["key5_modline3_led_green"] = "True";
-    programChangeMap["key5_modline3_led_red"] = "None";
-    programChangeMap["key5_modline3_displayLinked"] = 0;
+    programChangeMap["key5_modline3_ledgreen"] = "True";
+    programChangeMap["key5_modline3_ledred"] = "None";
+    programChangeMap["key5_modline3_displaylinked"] = 0;
 
     //Modline 4
-    programChangeMap["key5_modline4_on"] = 1;
+    programChangeMap["key5_modline4_enable"] = 1;
     programChangeMap["key5_modline4_source"] = "Other Key Pressed";
     programChangeMap["key5_modline4_gain"] = 1.00;
     programChangeMap["key5_modline4_offset"] = 0.00;
@@ -494,12 +494,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key5_modline4_destination"] = "None";
     programChangeMap["key5_modline4_channel"] = 1;
     programChangeMap["key5_modline4_device"] = "None";
-    programChangeMap["key5_modline4_led_green"] = "Off";
-    programChangeMap["key5_modline4_led_red"] = "None";
-    programChangeMap["key5_modline4_displayLinked"] = 0;
+    programChangeMap["key5_modline4_ledgreen"] = "Off";
+    programChangeMap["key5_modline4_ledred"] = "None";
+    programChangeMap["key5_modline4_displaylinked"] = 0;
 
     //Modline 5
-    programChangeMap["key5_modline5_on"] = 0;
+    programChangeMap["key5_modline5_enable"] = 0;
     programChangeMap["key5_modline5_source"] = "None";
     programChangeMap["key5_modline5_gain"] = 1.00;
     programChangeMap["key5_modline5_offset"] = 0.00;
@@ -510,12 +510,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key5_modline5_destination"] = "None";
     programChangeMap["key5_modline5_channel"] = 1;
     programChangeMap["key5_modline5_device"] = "None";
-    programChangeMap["key5_modline5_led_green"] = "None";
-    programChangeMap["key5_modline5_led_red"] = "None";
-    programChangeMap["key5_modline5_displayLinked"] = 0;
+    programChangeMap["key5_modline5_ledgreen"] = "None";
+    programChangeMap["key5_modline5_ledred"] = "None";
+    programChangeMap["key5_modline5_displaylinked"] = 0;
 
     //Modline 6
-    programChangeMap["key5_modline6_on"] = 0;
+    programChangeMap["key5_modline6_enable"] = 0;
     programChangeMap["key5_modline6_source"] = "None";
     programChangeMap["key5_modline6_gain"] = 1.00;
     programChangeMap["key5_modline6_offset"] = 0.00;
@@ -526,17 +526,17 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key5_modline6_destination"] = "None";
     programChangeMap["key5_modline6_channel"] = 1;
     programChangeMap["key5_modline6_device"] = "None";
-    programChangeMap["key5_modline6_led_green"] = "None";
-    programChangeMap["key5_modline6_led_red"] = "None";
-    programChangeMap["key5_modline6_displayLinked"] = 0;
+    programChangeMap["key5_modline6_ledgreen"] = "None";
+    programChangeMap["key5_modline6_ledred"] = "None";
+    programChangeMap["key5_modline6_displaylinked"] = 0;
 
     //------------------------------------------------ Key6
     programChangeMap["key6_name"] = "6KEY";
-    programChangeMap["key6_displayMode"] = 4;
+    programChangeMap["key6_displaymode"] = 4;
     programChangeMap["key6_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["key6_modline1_on"] = 1;
+    programChangeMap["key6_modline1_enable"] = 1;
     programChangeMap["key6_modline1_source"] = "Nav Yx10 & Key";
     programChangeMap["key6_modline1_gain"] = 1.00;
     programChangeMap["key6_modline1_offset"] = 0.00;
@@ -547,12 +547,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key6_modline1_destination"] = "Program";
     programChangeMap["key6_modline1_channel"] = 1;
     programChangeMap["key6_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["key6_modline1_led_green"] = "None";
-    programChangeMap["key6_modline1_led_red"] = "None";
-    programChangeMap["key6_modline1_displayLinked"] = 1;
+    programChangeMap["key6_modline1_ledgreen"] = "None";
+    programChangeMap["key6_modline1_ledred"] = "None";
+    programChangeMap["key6_modline1_displaylinked"] = 1;
 
     //Modline 2
-    programChangeMap["key6_modline2_on"] = 1;
+    programChangeMap["key6_modline2_enable"] = 1;
     programChangeMap["key6_modline2_source"] = "Nav Yx10 & Key";
     programChangeMap["key6_modline2_gain"] = 1.00;
     programChangeMap["key6_modline2_offset"] = 0.00;
@@ -563,12 +563,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key6_modline2_destination"] = "Program";
     programChangeMap["key6_modline2_channel"] = 1;
     programChangeMap["key6_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["key6_modline2_led_green"] = "None";
-    programChangeMap["key6_modline2_led_red"] = "None";
-    programChangeMap["key6_modline2_displayLinked"] = 0;
+    programChangeMap["key6_modline2_ledgreen"] = "None";
+    programChangeMap["key6_modline2_ledred"] = "None";
+    programChangeMap["key6_modline2_displaylinked"] = 0;
 
     //Modline 3
-    programChangeMap["key6_modline3_on"] = 1;
+    programChangeMap["key6_modline3_enable"] = 1;
     programChangeMap["key6_modline3_source"] = "Key 6 Pressed";
     programChangeMap["key6_modline3_gain"] = 1.00;
     programChangeMap["key6_modline3_offset"] = 0.00;
@@ -579,12 +579,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key6_modline3_destination"] = "None";
     programChangeMap["key6_modline3_channel"] = 1;
     programChangeMap["key6_modline3_device"] = "None";
-    programChangeMap["key6_modline3_led_green"] = "True";
-    programChangeMap["key6_modline3_led_red"] = "None";
-    programChangeMap["key6_modline3_displayLinked"] = 0;
+    programChangeMap["key6_modline3_ledgreen"] = "True";
+    programChangeMap["key6_modline3_ledred"] = "None";
+    programChangeMap["key6_modline3_displaylinked"] = 0;
 
     //Modline 4
-    programChangeMap["key6_modline4_on"] = 1;
+    programChangeMap["key6_modline4_enable"] = 1;
     programChangeMap["key6_modline4_source"] = "Other Key Pressed";
     programChangeMap["key6_modline4_gain"] = 1.00;
     programChangeMap["key6_modline4_offset"] = 0.00;
@@ -595,12 +595,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key6_modline4_destination"] = "None";
     programChangeMap["key6_modline4_channel"] = 1;
     programChangeMap["key6_modline4_device"] = "None";
-    programChangeMap["key6_modline4_led_green"] = "Off";
-    programChangeMap["key6_modline4_led_red"] = "None";
-    programChangeMap["key6_modline4_displayLinked"] = 0;
+    programChangeMap["key6_modline4_ledgreen"] = "Off";
+    programChangeMap["key6_modline4_ledred"] = "None";
+    programChangeMap["key6_modline4_displaylinked"] = 0;
 
     //Modline 5
-    programChangeMap["key6_modline5_on"] = 0;
+    programChangeMap["key6_modline5_enable"] = 0;
     programChangeMap["key6_modline5_source"] = "None";
     programChangeMap["key6_modline5_gain"] = 1.00;
     programChangeMap["key6_modline5_offset"] = 0.00;
@@ -611,12 +611,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key6_modline5_destination"] = "None";
     programChangeMap["key6_modline5_channel"] = 1;
     programChangeMap["key6_modline5_device"] = "None";
-    programChangeMap["key6_modline5_led_green"] = "None";
-    programChangeMap["key6_modline5_led_red"] = "None";
-    programChangeMap["key6_modline5_displayLinked"] = 0;
+    programChangeMap["key6_modline5_ledgreen"] = "None";
+    programChangeMap["key6_modline5_ledred"] = "None";
+    programChangeMap["key6_modline5_displaylinked"] = 0;
 
     //Modline 6
-    programChangeMap["key6_modline6_on"] = 0;
+    programChangeMap["key6_modline6_enable"] = 0;
     programChangeMap["key6_modline6_source"] = "None";
     programChangeMap["key6_modline6_gain"] = 1.00;
     programChangeMap["key6_modline6_offset"] = 0.00;
@@ -627,17 +627,17 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key6_modline6_destination"] = "None";
     programChangeMap["key6_modline6_channel"] = 1;
     programChangeMap["key6_modline6_device"] = "None";
-    programChangeMap["key6_modline6_led_green"] = "None";
-    programChangeMap["key6_modline6_led_red"] = "None";
-    programChangeMap["key6_modline6_displayLinked"] = 0;
+    programChangeMap["key6_modline6_ledgreen"] = "None";
+    programChangeMap["key6_modline6_ledred"] = "None";
+    programChangeMap["key6_modline6_displaylinked"] = 0;
 
     //------------------------------------------------ Key7
     programChangeMap["key7_name"] = "7KEY";
-    programChangeMap["key7_displayMode"] = 4;
+    programChangeMap["key7_displaymode"] = 4;
     programChangeMap["key7_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["key7_modline1_on"] = 1;
+    programChangeMap["key7_modline1_enable"] = 1;
     programChangeMap["key7_modline1_source"] = "Nav Yx10 & Key";
     programChangeMap["key7_modline1_gain"] = 1.00;
     programChangeMap["key7_modline1_offset"] = 0.00;
@@ -648,12 +648,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key7_modline1_destination"] = "Program";
     programChangeMap["key7_modline1_channel"] = 1;
     programChangeMap["key7_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["key7_modline1_led_green"] = "None";
-    programChangeMap["key7_modline1_led_red"] = "None";
-    programChangeMap["key7_modline1_displayLinked"] = 1;
+    programChangeMap["key7_modline1_ledgreen"] = "None";
+    programChangeMap["key7_modline1_ledred"] = "None";
+    programChangeMap["key7_modline1_displaylinked"] = 1;
 
     //Modline 2
-    programChangeMap["key7_modline2_on"] = 1;
+    programChangeMap["key7_modline2_enable"] = 1;
     programChangeMap["key7_modline2_source"] = "Nav Yx10 & Key";
     programChangeMap["key7_modline2_gain"] = 1.00;
     programChangeMap["key7_modline2_offset"] = 0.00;
@@ -664,12 +664,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key7_modline2_destination"] = "Program";
     programChangeMap["key7_modline2_channel"] = 1;
     programChangeMap["key7_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["key7_modline2_led_green"] = "None";
-    programChangeMap["key7_modline2_led_red"] = "None";
-    programChangeMap["key7_modline2_displayLinked"] = 0;
+    programChangeMap["key7_modline2_ledgreen"] = "None";
+    programChangeMap["key7_modline2_ledred"] = "None";
+    programChangeMap["key7_modline2_displaylinked"] = 0;
 
     //Modline 3
-    programChangeMap["key7_modline3_on"] = 1;
+    programChangeMap["key7_modline3_enable"] = 1;
     programChangeMap["key7_modline3_source"] = "Key 7 Pressed";
     programChangeMap["key7_modline3_gain"] = 1.00;
     programChangeMap["key7_modline3_offset"] = 0.00;
@@ -680,12 +680,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key7_modline3_destination"] = "None";
     programChangeMap["key7_modline3_channel"] = 1;
     programChangeMap["key7_modline3_device"] = "None";
-    programChangeMap["key7_modline3_led_green"] = "True";
-    programChangeMap["key7_modline3_led_red"] = "None";
-    programChangeMap["key7_modline3_displayLinked"] = 0;
+    programChangeMap["key7_modline3_ledgreen"] = "True";
+    programChangeMap["key7_modline3_ledred"] = "None";
+    programChangeMap["key7_modline3_displaylinked"] = 0;
 
     //Modline 4
-    programChangeMap["key7_modline4_on"] = 1;
+    programChangeMap["key7_modline4_enable"] = 1;
     programChangeMap["key7_modline4_source"] = "Other Key Pressed";
     programChangeMap["key7_modline4_gain"] = 1.00;
     programChangeMap["key7_modline4_offset"] = 0.00;
@@ -696,12 +696,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key7_modline4_destination"] = "None";
     programChangeMap["key7_modline4_channel"] = 1;
     programChangeMap["key7_modline4_device"] = "None";
-    programChangeMap["key7_modline4_led_green"] = "Off";
-    programChangeMap["key7_modline4_led_red"] = "None";
-    programChangeMap["key7_modline4_displayLinked"] = 0;
+    programChangeMap["key7_modline4_ledgreen"] = "Off";
+    programChangeMap["key7_modline4_ledred"] = "None";
+    programChangeMap["key7_modline4_displaylinked"] = 0;
 
     //Modline 5
-    programChangeMap["key7_modline5_on"] = 0;
+    programChangeMap["key7_modline5_enable"] = 0;
     programChangeMap["key7_modline5_source"] = "None";
     programChangeMap["key7_modline5_gain"] = 1.00;
     programChangeMap["key7_modline5_offset"] = 0.00;
@@ -712,12 +712,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key7_modline5_destination"] = "None";
     programChangeMap["key7_modline5_channel"] = 1;
     programChangeMap["key7_modline5_device"] = "None";
-    programChangeMap["key7_modline5_led_green"] = "None";
-    programChangeMap["key7_modline5_led_red"] = "None";
-    programChangeMap["key7_modline5_displayLinked"] = 0;
+    programChangeMap["key7_modline5_ledgreen"] = "None";
+    programChangeMap["key7_modline5_ledred"] = "None";
+    programChangeMap["key7_modline5_displaylinked"] = 0;
 
     //Modline 6
-    programChangeMap["key7_modline6_on"] = 0;
+    programChangeMap["key7_modline6_enable"] = 0;
     programChangeMap["key7_modline6_source"] = "None";
     programChangeMap["key7_modline6_gain"] = 1.00;
     programChangeMap["key7_modline6_offset"] = 0.00;
@@ -728,17 +728,17 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key7_modline6_destination"] = "None";
     programChangeMap["key7_modline6_channel"] = 1;
     programChangeMap["key7_modline6_device"] = "None";
-    programChangeMap["key7_modline6_led_green"] = "None";
-    programChangeMap["key7_modline6_led_red"] = "None";
-    programChangeMap["key7_modline6_displayLinked"] = 0;
+    programChangeMap["key7_modline6_ledgreen"] = "None";
+    programChangeMap["key7_modline6_ledred"] = "None";
+    programChangeMap["key7_modline6_displaylinked"] = 0;
 
     //------------------------------------------------ Key8
     programChangeMap["key8_name"] = "8KEY";
-    programChangeMap["key8_displayMode"] = 4;
+    programChangeMap["key8_displaymode"] = 4;
     programChangeMap["key8_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["key8_modline1_on"] = 1;
+    programChangeMap["key8_modline1_enable"] = 1;
     programChangeMap["key8_modline1_source"] = "Nav Yx10 & Key";
     programChangeMap["key8_modline1_gain"] = 1.00;
     programChangeMap["key8_modline1_offset"] = 0.00;
@@ -749,12 +749,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key8_modline1_destination"] = "Program";
     programChangeMap["key8_modline1_channel"] = 1;
     programChangeMap["key8_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["key8_modline1_led_green"] = "None";
-    programChangeMap["key8_modline1_led_red"] = "None";
-    programChangeMap["key8_modline1_displayLinked"] = 1;
+    programChangeMap["key8_modline1_ledgreen"] = "None";
+    programChangeMap["key8_modline1_ledred"] = "None";
+    programChangeMap["key8_modline1_displaylinked"] = 1;
 
     //Modline 2
-    programChangeMap["key8_modline2_on"] = 1;
+    programChangeMap["key8_modline2_enable"] = 1;
     programChangeMap["key8_modline2_source"] = "Nav Yx10 & Key";
     programChangeMap["key8_modline2_gain"] = 1.00;
     programChangeMap["key8_modline2_offset"] = 0.00;
@@ -765,12 +765,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key8_modline2_destination"] = "Program";
     programChangeMap["key8_modline2_channel"] = 1;
     programChangeMap["key8_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["key8_modline2_led_green"] = "None";
-    programChangeMap["key8_modline2_led_red"] = "None";
-    programChangeMap["key8_modline2_displayLinked"] = 0;
+    programChangeMap["key8_modline2_ledgreen"] = "None";
+    programChangeMap["key8_modline2_ledred"] = "None";
+    programChangeMap["key8_modline2_displaylinked"] = 0;
 
     //Modline 3
-    programChangeMap["key8_modline3_on"] = 1;
+    programChangeMap["key8_modline3_enable"] = 1;
     programChangeMap["key8_modline3_source"] = "Key 8 Pressed";
     programChangeMap["key8_modline3_gain"] = 1.00;
     programChangeMap["key8_modline3_offset"] = 0.00;
@@ -781,12 +781,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key8_modline3_destination"] = "None";
     programChangeMap["key8_modline3_channel"] = 1;
     programChangeMap["key8_modline3_device"] = "None";
-    programChangeMap["key8_modline3_led_green"] = "True";
-    programChangeMap["key8_modline3_led_red"] = "None";
-    programChangeMap["key8_modline3_displayLinked"] = 0;
+    programChangeMap["key8_modline3_ledgreen"] = "True";
+    programChangeMap["key8_modline3_ledred"] = "None";
+    programChangeMap["key8_modline3_displaylinked"] = 0;
 
     //Modline 4
-    programChangeMap["key8_modline4_on"] = 1;
+    programChangeMap["key8_modline4_enable"] = 1;
     programChangeMap["key8_modline4_source"] = "Other Key Pressed";
     programChangeMap["key8_modline4_gain"] = 1.00;
     programChangeMap["key8_modline4_offset"] = 0.00;
@@ -797,12 +797,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key8_modline4_destination"] = "None";
     programChangeMap["key8_modline4_channel"] = 1;
     programChangeMap["key8_modline4_device"] = "None";
-    programChangeMap["key8_modline4_led_green"] = "Off";
-    programChangeMap["key8_modline4_led_red"] = "None";
-    programChangeMap["key8_modline4_displayLinked"] = 0;
+    programChangeMap["key8_modline4_ledgreen"] = "Off";
+    programChangeMap["key8_modline4_ledred"] = "None";
+    programChangeMap["key8_modline4_displaylinked"] = 0;
 
     //Modline 5
-    programChangeMap["key8_modline5_on"] = 0;
+    programChangeMap["key8_modline5_enable"] = 0;
     programChangeMap["key8_modline5_source"] = "None";
     programChangeMap["key8_modline5_gain"] = 1.00;
     programChangeMap["key8_modline5_offset"] = 0.00;
@@ -813,12 +813,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key8_modline5_destination"] = "None";
     programChangeMap["key8_modline5_channel"] = 1;
     programChangeMap["key8_modline5_device"] = "None";
-    programChangeMap["key8_modline5_led_green"] = "None";
-    programChangeMap["key8_modline5_led_red"] = "None";
-    programChangeMap["key8_modline5_displayLinked"] = 0;
+    programChangeMap["key8_modline5_ledgreen"] = "None";
+    programChangeMap["key8_modline5_ledred"] = "None";
+    programChangeMap["key8_modline5_displaylinked"] = 0;
 
     //Modline 6
-    programChangeMap["key8_modline6_on"] = 0;
+    programChangeMap["key8_modline6_enable"] = 0;
     programChangeMap["key8_modline6_source"] = "None";
     programChangeMap["key8_modline6_gain"] = 1.00;
     programChangeMap["key8_modline6_offset"] = 0.00;
@@ -829,17 +829,17 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key8_modline6_destination"] = "None";
     programChangeMap["key8_modline6_channel"] = 1;
     programChangeMap["key8_modline6_device"] = "None";
-    programChangeMap["key8_modline6_led_green"] = "None";
-    programChangeMap["key8_modline6_led_red"] = "None";
-    programChangeMap["key8_modline6_displayLinked"] = 0;
+    programChangeMap["key8_modline6_ledgreen"] = "None";
+    programChangeMap["key8_modline6_ledred"] = "None";
+    programChangeMap["key8_modline6_displaylinked"] = 0;
 
     //------------------------------------------------ Key9
     programChangeMap["key9_name"] = "9KEY";
-    programChangeMap["key9_displayMode"] = 4;
+    programChangeMap["key9_displaymode"] = 4;
     programChangeMap["key9_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["key9_modline1_on"] = 1;
+    programChangeMap["key9_modline1_enable"] = 1;
     programChangeMap["key9_modline1_source"] = "Nav Yx10 & Key";
     programChangeMap["key9_modline1_gain"] = 1.00;
     programChangeMap["key9_modline1_offset"] = 0.00;
@@ -850,12 +850,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key9_modline1_destination"] = "Program";
     programChangeMap["key9_modline1_channel"] = 1;
     programChangeMap["key9_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["key9_modline1_led_green"] = "None";
-    programChangeMap["key9_modline1_led_red"] = "None";
-    programChangeMap["key9_modline1_displayLinked"] = 1;
+    programChangeMap["key9_modline1_ledgreen"] = "None";
+    programChangeMap["key9_modline1_ledred"] = "None";
+    programChangeMap["key9_modline1_displaylinked"] = 1;
 
     //Modline 2
-    programChangeMap["key9_modline2_on"] = 1;
+    programChangeMap["key9_modline2_enable"] = 1;
     programChangeMap["key9_modline2_source"] = "Nav Yx10 & Key";
     programChangeMap["key9_modline2_gain"] = 1.00;
     programChangeMap["key9_modline2_offset"] = 0.00;
@@ -866,12 +866,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key9_modline2_destination"] = "Program";
     programChangeMap["key9_modline2_channel"] = 1;
     programChangeMap["key9_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["key9_modline2_led_green"] = "None";
-    programChangeMap["key9_modline2_led_red"] = "None";
-    programChangeMap["key9_modline2_displayLinked"] = 0;
+    programChangeMap["key9_modline2_ledgreen"] = "None";
+    programChangeMap["key9_modline2_ledred"] = "None";
+    programChangeMap["key9_modline2_displaylinked"] = 0;
 
     //Modline 3
-    programChangeMap["key9_modline3_on"] = 1;
+    programChangeMap["key9_modline3_enable"] = 1;
     programChangeMap["key9_modline3_source"] = "Key 9 Pressed";
     programChangeMap["key9_modline3_gain"] = 1.00;
     programChangeMap["key9_modline3_offset"] = 0.00;
@@ -882,12 +882,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key9_modline3_destination"] = "None";
     programChangeMap["key9_modline3_channel"] = 1;
     programChangeMap["key9_modline3_device"] = "None";
-    programChangeMap["key9_modline3_led_green"] = "True";
-    programChangeMap["key9_modline3_led_red"] = "None";
-    programChangeMap["key9_modline3_displayLinked"] = 0;
+    programChangeMap["key9_modline3_ledgreen"] = "True";
+    programChangeMap["key9_modline3_ledred"] = "None";
+    programChangeMap["key9_modline3_displaylinked"] = 0;
 
     //Modline 4
-    programChangeMap["key9_modline4_on"] = 1;
+    programChangeMap["key9_modline4_enable"] = 1;
     programChangeMap["key9_modline4_source"] = "Other Key Pressed";
     programChangeMap["key9_modline4_gain"] = 1.00;
     programChangeMap["key9_modline4_offset"] = 0.00;
@@ -898,12 +898,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key9_modline4_destination"] = "None";
     programChangeMap["key9_modline4_channel"] = 1;
     programChangeMap["key9_modline4_device"] = "None";
-    programChangeMap["key9_modline4_led_green"] = "Off";
-    programChangeMap["key9_modline4_led_red"] = "None";
-    programChangeMap["key9_modline4_displayLinked"] = 0;
+    programChangeMap["key9_modline4_ledgreen"] = "Off";
+    programChangeMap["key9_modline4_ledred"] = "None";
+    programChangeMap["key9_modline4_displaylinked"] = 0;
 
     //Modline 5
-    programChangeMap["key9_modline5_on"] = 0;
+    programChangeMap["key9_modline5_enable"] = 0;
     programChangeMap["key9_modline5_source"] = "None";
     programChangeMap["key9_modline5_gain"] = 1.00;
     programChangeMap["key9_modline5_offset"] = 0.00;
@@ -914,12 +914,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key9_modline5_destination"] = "None";
     programChangeMap["key9_modline5_channel"] = 1;
     programChangeMap["key9_modline5_device"] = "None";
-    programChangeMap["key9_modline5_led_green"] = "None";
-    programChangeMap["key9_modline5_led_red"] = "None";
-    programChangeMap["key9_modline5_displayLinked"] = 0;
+    programChangeMap["key9_modline5_ledgreen"] = "None";
+    programChangeMap["key9_modline5_ledred"] = "None";
+    programChangeMap["key9_modline5_displaylinked"] = 0;
 
     //Modline 6
-    programChangeMap["key9_modline6_on"] = 0;
+    programChangeMap["key9_modline6_enable"] = 0;
     programChangeMap["key9_modline6_source"] = "None";
     programChangeMap["key9_modline6_gain"] = 1.00;
     programChangeMap["key9_modline6_offset"] = 0.00;
@@ -930,17 +930,17 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key9_modline6_destination"] = "None";
     programChangeMap["key9_modline6_channel"] = 1;
     programChangeMap["key9_modline6_device"] = "None";
-    programChangeMap["key9_modline6_led_green"] = "None";
-    programChangeMap["key9_modline6_led_red"] = "None";
-    programChangeMap["key9_modline6_displayLinked"] = 0;
+    programChangeMap["key9_modline6_ledgreen"] = "None";
+    programChangeMap["key9_modline6_ledred"] = "None";
+    programChangeMap["key9_modline6_displaylinked"] = 0;
 
     //------------------------------------------------ Key10
     programChangeMap["key10_name"] = "0KEY";
-    programChangeMap["key10_displayMode"] = 4;
+    programChangeMap["key10_displaymode"] = 4;
     programChangeMap["key10_prefix"] = "PG";
 
     //Modline 1
-    programChangeMap["key10_modline1_on"] = 1;
+    programChangeMap["key10_modline1_enable"] = 1;
     programChangeMap["key10_modline1_source"] = "Nav Yx10 & Key";
     programChangeMap["key10_modline1_gain"] = 1.00;
     programChangeMap["key10_modline1_offset"] = 0.00;
@@ -951,12 +951,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key10_modline1_destination"] = "Program";
     programChangeMap["key10_modline1_channel"] = 1;
     programChangeMap["key10_modline1_device"] = "SSCOM_Port_1";
-    programChangeMap["key10_modline1_led_green"] = "None";
-    programChangeMap["key10_modline1_led_red"] = "None";
-    programChangeMap["key10_modline1_displayLinked"] = 1;
+    programChangeMap["key10_modline1_ledgreen"] = "None";
+    programChangeMap["key10_modline1_ledred"] = "None";
+    programChangeMap["key10_modline1_displaylinked"] = 1;
 
     //Modline 2
-    programChangeMap["key10_modline2_on"] = 1;
+    programChangeMap["key10_modline2_enable"] = 1;
     programChangeMap["key10_modline2_source"] = "Nav Yx10 & Key";
     programChangeMap["key10_modline2_gain"] = 1.00;
     programChangeMap["key10_modline2_offset"] = 0.00;
@@ -967,12 +967,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key10_modline2_destination"] = "Program";
     programChangeMap["key10_modline2_channel"] = 1;
     programChangeMap["key10_modline2_device"] = "SoftStep_Expander";
-    programChangeMap["key10_modline2_led_green"] = "None";
-    programChangeMap["key10_modline2_led_red"] = "None";
-    programChangeMap["key10_modline2_displayLinked"] = 0;
+    programChangeMap["key10_modline2_ledgreen"] = "None";
+    programChangeMap["key10_modline2_ledred"] = "None";
+    programChangeMap["key10_modline2_displaylinked"] = 0;
 
     //Modline 3
-    programChangeMap["key10_modline3_on"] = 1;
+    programChangeMap["key10_modline3_enable"] = 1;
     programChangeMap["key10_modline3_source"] = "Key 0 Pressed";
     programChangeMap["key10_modline3_gain"] = 1.00;
     programChangeMap["key10_modline3_offset"] = 0.00;
@@ -983,12 +983,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key10_modline3_destination"] = "None";
     programChangeMap["key10_modline3_channel"] = 1;
     programChangeMap["key10_modline3_device"] = "None";
-    programChangeMap["key10_modline3_led_green"] = "True";
-    programChangeMap["key10_modline3_led_red"] = "None";
-    programChangeMap["key10_modline3_displayLinked"] = 0;
+    programChangeMap["key10_modline3_ledgreen"] = "True";
+    programChangeMap["key10_modline3_ledred"] = "None";
+    programChangeMap["key10_modline3_displaylinked"] = 0;
 
     //Modline 4
-    programChangeMap["key10_modline4_on"] = 1;
+    programChangeMap["key10_modline4_enable"] = 1;
     programChangeMap["key10_modline4_source"] = "Other Key Pressed";
     programChangeMap["key10_modline4_gain"] = 1.00;
     programChangeMap["key10_modline4_offset"] = 0.00;
@@ -999,12 +999,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key10_modline4_destination"] = "None";
     programChangeMap["key10_modline4_channel"] = 1;
     programChangeMap["key10_modline4_device"] = "None";
-    programChangeMap["key10_modline4_led_green"] = "Off";
-    programChangeMap["key10_modline4_led_red"] = "None";
-    programChangeMap["key10_modline4_displayLinked"] = 0;
+    programChangeMap["key10_modline4_ledgreen"] = "Off";
+    programChangeMap["key10_modline4_ledred"] = "None";
+    programChangeMap["key10_modline4_displaylinked"] = 0;
 
     //Modline 5
-    programChangeMap["key10_modline5_on"] = 0;
+    programChangeMap["key10_modline5_enable"] = 0;
     programChangeMap["key10_modline5_source"] = "None";
     programChangeMap["key10_modline5_gain"] = 1.00;
     programChangeMap["key10_modline5_offset"] = 0.00;
@@ -1015,12 +1015,12 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key10_modline5_destination"] = "None";
     programChangeMap["key10_modline5_channel"] = 1;
     programChangeMap["key10_modline5_device"] = "None";
-    programChangeMap["key10_modline5_led_green"] = "None";
-    programChangeMap["key10_modline5_led_red"] = "None";
-    programChangeMap["key10_modline5_displayLinked"] = 0;
+    programChangeMap["key10_modline5_ledgreen"] = "None";
+    programChangeMap["key10_modline5_ledred"] = "None";
+    programChangeMap["key10_modline5_displaylinked"] = 0;
 
     //Modline 6
-    programChangeMap["key10_modline6_on"] = 0;
+    programChangeMap["key10_modline6_enable"] = 0;
     programChangeMap["key10_modline6_source"] = "None";
     programChangeMap["key10_modline6_gain"] = 1.00;
     programChangeMap["key10_modline6_offset"] = 0.00;
@@ -1031,9 +1031,9 @@ void FactoryPresets::createProgramChange()
     programChangeMap["key10_modline6_destination"] = "None";
     programChangeMap["key10_modline6_channel"] = 1;
     programChangeMap["key10_modline6_device"] = "None";
-    programChangeMap["key10_modline6_led_green"] = "None";
-    programChangeMap["key10_modline6_led_red"] = "None";
-    programChangeMap["key10_modline6_displayLinked"] = 0;
+    programChangeMap["key10_modline6_ledgreen"] = "None";
+    programChangeMap["key10_modline6_ledred"] = "None";
+    programChangeMap["key10_modline6_displaylinked"] = 0;
 
     //------------------------------------------------ Nav Pad 11
     programChangeMap["nav_modlinemode"] = 0;
@@ -1479,7 +1479,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key4_modline1_enable"] = 1;
-    factoryElevenRackMap["key4_modline1_source"] = "Foot_On";
+    factoryElevenRackMap["key4_modline1_source"] = "Foot_enable";
     factoryElevenRackMap["key4_modline1_gain"] = 1.00;
     factoryElevenRackMap["key4_modline1_offset"] = 0.00;
     factoryElevenRackMap["key4_modline1_table"] = "1_Lin";
@@ -1501,7 +1501,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 2 ------//
     factoryElevenRackMap["key4_modline2_enable"] = 1;
-    factoryElevenRackMap["key4_modline2_source"] = "Foot_On";
+    factoryElevenRackMap["key4_modline2_source"] = "Foot_enable";
     factoryElevenRackMap["key4_modline2_gain"] = 1.00;
     factoryElevenRackMap["key4_modline2_offset"] = 0.00;
     factoryElevenRackMap["key4_modline2_table"] = "Toggle_127";
@@ -1523,7 +1523,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 3 ------//
     factoryElevenRackMap["key4_modline3_enable"] = 1;
-    factoryElevenRackMap["key4_modline3_source"] = "Foot_On";
+    factoryElevenRackMap["key4_modline3_source"] = "Foot_enable";
     factoryElevenRackMap["key4_modline3_gain"] = 1.00;
     factoryElevenRackMap["key4_modline3_offset"] = 0.00;
     factoryElevenRackMap["key4_modline3_table"] = "1_Lin";
@@ -1545,7 +1545,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 4 ------//
     factoryElevenRackMap["key4_modline4_enable"] = 1;
-    factoryElevenRackMap["key4_modline4_source"] = "Foot_On";
+    factoryElevenRackMap["key4_modline4_source"] = "Foot_enable";
     factoryElevenRackMap["key4_modline4_gain"] = 1.00;
     factoryElevenRackMap["key4_modline4_offset"] = 0.00;
     factoryElevenRackMap["key4_modline4_table"] = "Toggle_127";
@@ -1761,7 +1761,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key6_modline1_enable"] = 1;
-    factoryElevenRackMap["key6_modline1_source"] = "Foot_On";
+    factoryElevenRackMap["key6_modline1_source"] = "Foot_enable";
     factoryElevenRackMap["key6_modline1_gain"] = 1.00;
     factoryElevenRackMap["key6_modline1_offset"] = 0.00;
     factoryElevenRackMap["key6_modline1_table"] = "Toggle_127";
@@ -1783,7 +1783,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 2 ------//
     factoryElevenRackMap["key6_modline2_enable"] = 1;
-    factoryElevenRackMap["key6_modline2_source"] = "Foot_On";
+    factoryElevenRackMap["key6_modline2_source"] = "Foot_enable";
     factoryElevenRackMap["key6_modline2_gain"] = 1.00;
     factoryElevenRackMap["key6_modline2_offset"] = 0.00;
     factoryElevenRackMap["key6_modline2_table"] = "Toggle_127";
@@ -1902,7 +1902,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key7_modline1_enable"] = 1;
-    factoryElevenRackMap["key7_modline1_source"] = "Foot_On";
+    factoryElevenRackMap["key7_modline1_source"] = "Foot_enable";
     factoryElevenRackMap["key7_modline1_gain"] = 1.00;
     factoryElevenRackMap["key7_modline1_offset"] = 0.00;
     factoryElevenRackMap["key7_modline1_table"] = "Toggle_127";
@@ -1924,7 +1924,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 2 ------//
     factoryElevenRackMap["key7_modline2_enable"] = 1;
-    factoryElevenRackMap["key7_modline2_source"] = "Foot_On";
+    factoryElevenRackMap["key7_modline2_source"] = "Foot_enable";
     factoryElevenRackMap["key7_modline2_gain"] = 1.00;
     factoryElevenRackMap["key7_modline2_offset"] = 0.00;
     factoryElevenRackMap["key7_modline2_table"] = "Toggle_127";
@@ -2043,7 +2043,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key8_modline1_enable"] = 1;
-    factoryElevenRackMap["key8_modline1_source"] = "Foot_On";
+    factoryElevenRackMap["key8_modline1_source"] = "Foot_enable";
     factoryElevenRackMap["key8_modline1_gain"] = 1.00;
     factoryElevenRackMap["key8_modline1_offset"] = 0.00;
     factoryElevenRackMap["key8_modline1_table"] = "Toggle_127";
@@ -2065,7 +2065,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 2 ------//
     factoryElevenRackMap["key8_modline2_enable"] = 1;
-    factoryElevenRackMap["key8_modline2_source"] = "Foot_On";
+    factoryElevenRackMap["key8_modline2_source"] = "Foot_enable";
     factoryElevenRackMap["key8_modline2_gain"] = 1.00;
     factoryElevenRackMap["key8_modline2_offset"] = 0.00;
     factoryElevenRackMap["key8_modline2_table"] = "Toggle_127";
@@ -2184,7 +2184,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key9_modline1_enable"] = 1;
-    factoryElevenRackMap["key9_modline1_source"] = "Foot_On";
+    factoryElevenRackMap["key9_modline1_source"] = "Foot_enable";
     factoryElevenRackMap["key9_modline1_gain"] = 1.00;
     factoryElevenRackMap["key9_modline1_offset"] = 0.00;
     factoryElevenRackMap["key9_modline1_table"] = "Toggle_127";
@@ -2206,7 +2206,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 2 ------//
     factoryElevenRackMap["key9_modline2_enable"] = 1;
-    factoryElevenRackMap["key9_modline2_source"] = "Foot_On";
+    factoryElevenRackMap["key9_modline2_source"] = "Foot_enable";
     factoryElevenRackMap["key9_modline2_gain"] = 1.00;
     factoryElevenRackMap["key9_modline2_offset"] = 0.00;
     factoryElevenRackMap["key9_modline2_table"] = "Toggle_127";
@@ -2325,7 +2325,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key10_modline1_enable"] = 1;
-    factoryElevenRackMap["key10_modline1_source"] = "Foot_On";
+    factoryElevenRackMap["key10_modline1_source"] = "Foot_enable";
     factoryElevenRackMap["key10_modline1_gain"] = 1.00;
     factoryElevenRackMap["key10_modline1_offset"] = 0.00;
     factoryElevenRackMap["key10_modline1_table"] = "Toggle_127";
@@ -2347,7 +2347,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 2 ------//
     factoryElevenRackMap["key10_modline2_enable"] = 1;
-    factoryElevenRackMap["key10_modline2_source"] = "Foot_On";
+    factoryElevenRackMap["key10_modline2_source"] = "Foot_enable";
     factoryElevenRackMap["key10_modline2_gain"] = 1.00;
     factoryElevenRackMap["key10_modline2_offset"] = 0.00;
     factoryElevenRackMap["key10_modline2_table"] = "Toggle_127";
@@ -3026,7 +3026,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 1 ------//
     factoryPodMap["key4_modline1_enable"] = 1;
-    factoryPodMap["key4_modline1_source"] = "Foot_On";
+    factoryPodMap["key4_modline1_source"] = "Foot_enable";
     factoryPodMap["key4_modline1_gain"] = 1.00;
     factoryPodMap["key4_modline1_offset"] = 0.00;
     factoryPodMap["key4_modline1_table"] = "Toggle_127";
@@ -3048,7 +3048,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 2 ------//
     factoryPodMap["key4_modline2_enable"] = 1;
-    factoryPodMap["key4_modline2_source"] = "Foot_On";
+    factoryPodMap["key4_modline2_source"] = "Foot_enable";
     factoryPodMap["key4_modline2_gain"] = 1.00;
     factoryPodMap["key4_modline2_offset"] = 0.00;
     factoryPodMap["key4_modline2_table"] = "Toggle_127";
@@ -3308,7 +3308,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 1 ------//
     factoryPodMap["key6_modline1_enable"] = 1;
-    factoryPodMap["key6_modline1_source"] = "Foot_On";
+    factoryPodMap["key6_modline1_source"] = "Foot_enable";
     factoryPodMap["key6_modline1_gain"] = 1.00;
     factoryPodMap["key6_modline1_offset"] = 0.00;
     factoryPodMap["key6_modline1_table"] = "Toggle_127";
@@ -3330,7 +3330,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 2 ------//
     factoryPodMap["key6_modline2_enable"] = 1;
-    factoryPodMap["key6_modline2_source"] = "Foot_On";
+    factoryPodMap["key6_modline2_source"] = "Foot_enable";
     factoryPodMap["key6_modline2_gain"] = 1.00;
     factoryPodMap["key6_modline2_offset"] = 0.00;
     factoryPodMap["key6_modline2_table"] = "Toggle_127";
@@ -3449,7 +3449,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 1 ------//
     factoryPodMap["key7_modline1_enable"] = 1;
-    factoryPodMap["key7_modline1_source"] = "Foot_On";
+    factoryPodMap["key7_modline1_source"] = "Foot_enable";
     factoryPodMap["key7_modline1_gain"] = 1.00;
     factoryPodMap["key7_modline1_offset"] = 0.00;
     factoryPodMap["key7_modline1_table"] = "Toggle_127";
@@ -3471,7 +3471,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 2 ------//
     factoryPodMap["key7_modline2_enable"] = 1;
-    factoryPodMap["key7_modline2_source"] = "Foot_On";
+    factoryPodMap["key7_modline2_source"] = "Foot_enable";
     factoryPodMap["key7_modline2_gain"] = 1.00;
     factoryPodMap["key7_modline2_offset"] = 0.00;
     factoryPodMap["key7_modline2_table"] = "Toggle_127";
@@ -3590,7 +3590,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 1 ------//
     factoryPodMap["key8_modline1_enable"] = 1;
-    factoryPodMap["key8_modline1_source"] = "Foot_On";
+    factoryPodMap["key8_modline1_source"] = "Foot_enable";
     factoryPodMap["key8_modline1_gain"] = 1.00;
     factoryPodMap["key8_modline1_offset"] = 0.00;
     factoryPodMap["key8_modline1_table"] = "Toggle_127";
@@ -3612,7 +3612,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 2 ------//
     factoryPodMap["key8_modline2_enable"] = 1;
-    factoryPodMap["key8_modline2_source"] = "Foot_On";
+    factoryPodMap["key8_modline2_source"] = "Foot_enable";
     factoryPodMap["key8_modline2_gain"] = 1.00;
     factoryPodMap["key8_modline2_offset"] = 0.00;
     factoryPodMap["key8_modline2_table"] = "Toggle_127";
@@ -3731,7 +3731,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 1 ------//
     factoryPodMap["key9_modline1_enable"] = 1;
-    factoryPodMap["key9_modline1_source"] = "Foot_On";
+    factoryPodMap["key9_modline1_source"] = "Foot_enable";
     factoryPodMap["key9_modline1_gain"] = 1.00;
     factoryPodMap["key9_modline1_offset"] = 0.00;
     factoryPodMap["key9_modline1_table"] = "Toggle_127";
@@ -3753,7 +3753,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 2 ------//
     factoryPodMap["key9_modline2_enable"] = 1;
-    factoryPodMap["key9_modline2_source"] = "Foot_On";
+    factoryPodMap["key9_modline2_source"] = "Foot_enable";
     factoryPodMap["key9_modline2_gain"] = 1.00;
     factoryPodMap["key9_modline2_offset"] = 0.00;
     factoryPodMap["key9_modline2_table"] = "Toggle_127";
@@ -3872,7 +3872,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 1 ------//
     factoryPodMap["key10_modline1_enable"] = 1;
-    factoryPodMap["key10_modline1_source"] = "Foot_On";
+    factoryPodMap["key10_modline1_source"] = "Foot_enable";
     factoryPodMap["key10_modline1_gain"] = 1.00;
     factoryPodMap["key10_modline1_offset"] = 0.00;
     factoryPodMap["key10_modline1_table"] = "Toggle_127";
@@ -3894,7 +3894,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 2 ------//
     factoryPodMap["key10_modline2_enable"] = 1;
-    factoryPodMap["key10_modline2_source"] = "Foot_On";
+    factoryPodMap["key10_modline2_source"] = "Foot_enable";
     factoryPodMap["key10_modline2_gain"] = 1.00;
     factoryPodMap["key10_modline2_offset"] = 0.00;
     factoryPodMap["key10_modline2_table"] = "Toggle_127";
@@ -4855,7 +4855,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 1 ------//
     factoryLiveMap["key6_modline1_enable"] = 1;
-    factoryLiveMap["key6_modline1_source"] = "Foot_On";
+    factoryLiveMap["key6_modline1_source"] = "Foot_enable";
     factoryLiveMap["key6_modline1_gain"] = 1.00;
     factoryLiveMap["key6_modline1_offset"] = 0.00;
     factoryLiveMap["key6_modline1_table"] = "1_Lin";
@@ -4877,7 +4877,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 2 ------//
     factoryLiveMap["key6_modline2_enable"] = 1;
-    factoryLiveMap["key6_modline2_source"] = "Foot_On";
+    factoryLiveMap["key6_modline2_source"] = "Foot_enable";
     factoryLiveMap["key6_modline2_gain"] = 1.00;
     factoryLiveMap["key6_modline2_offset"] = 0.00;
     factoryLiveMap["key6_modline2_table"] = "1_Lin";
@@ -4996,7 +4996,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 1 ------//
     factoryLiveMap["key7_modline1_enable"] = 1;
-    factoryLiveMap["key7_modline1_source"] = "Foot_On";
+    factoryLiveMap["key7_modline1_source"] = "Foot_enable";
     factoryLiveMap["key7_modline1_gain"] = 1.00;
     factoryLiveMap["key7_modline1_offset"] = 0.00;
     factoryLiveMap["key7_modline1_table"] = "1_Lin";
@@ -5018,7 +5018,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 2 ------//
     factoryLiveMap["key7_modline2_enable"] = 1;
-    factoryLiveMap["key7_modline2_source"] = "Foot_On";
+    factoryLiveMap["key7_modline2_source"] = "Foot_enable";
     factoryLiveMap["key7_modline2_gain"] = 1.00;
     factoryLiveMap["key7_modline2_offset"] = 0.00;
     factoryLiveMap["key7_modline2_table"] = "1_Lin";
@@ -5137,7 +5137,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 1 ------//
     factoryLiveMap["key8_modline1_enable"] = 1;
-    factoryLiveMap["key8_modline1_source"] = "Foot_On";
+    factoryLiveMap["key8_modline1_source"] = "Foot_enable";
     factoryLiveMap["key8_modline1_gain"] = 1.00;
     factoryLiveMap["key8_modline1_offset"] = 0.00;
     factoryLiveMap["key8_modline1_table"] = "1_Lin";
@@ -5159,7 +5159,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 2 ------//
     factoryLiveMap["key8_modline2_enable"] = 1;
-    factoryLiveMap["key8_modline2_source"] = "Foot_On";
+    factoryLiveMap["key8_modline2_source"] = "Foot_enable";
     factoryLiveMap["key8_modline2_gain"] = 1.00;
     factoryLiveMap["key8_modline2_offset"] = 0.00;
     factoryLiveMap["key8_modline2_table"] = "1_Lin";
@@ -5278,7 +5278,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 1 ------//
     factoryLiveMap["key9_modline1_enable"] = 1;
-    factoryLiveMap["key9_modline1_source"] = "Foot_On";
+    factoryLiveMap["key9_modline1_source"] = "Foot_enable";
     factoryLiveMap["key9_modline1_gain"] = 1.00;
     factoryLiveMap["key9_modline1_offset"] = 0.00;
     factoryLiveMap["key9_modline1_table"] = "1_Lin";
@@ -5300,7 +5300,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 2 ------//
     factoryLiveMap["key9_modline2_enable"] = 1;
-    factoryLiveMap["key9_modline2_source"] = "Foot_On";
+    factoryLiveMap["key9_modline2_source"] = "Foot_enable";
     factoryLiveMap["key9_modline2_gain"] = 1.00;
     factoryLiveMap["key9_modline2_offset"] = 0.00;
     factoryLiveMap["key9_modline2_table"] = "1_Lin";
@@ -5419,7 +5419,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 1 ------//
     factoryLiveMap["key10_modline1_enable"] = 1;
-    factoryLiveMap["key10_modline1_source"] = "Foot_On";
+    factoryLiveMap["key10_modline1_source"] = "Foot_enable";
     factoryLiveMap["key10_modline1_gain"] = 1.00;
     factoryLiveMap["key10_modline1_offset"] = 0.00;
     factoryLiveMap["key10_modline1_table"] = "1_Lin";
@@ -5441,7 +5441,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 2 ------//
     factoryLiveMap["key10_modline2_enable"] = 1;
-    factoryLiveMap["key10_modline2_source"] = "Foot_On";
+    factoryLiveMap["key10_modline2_source"] = "Foot_enable";
     factoryLiveMap["key10_modline2_gain"] = 1.00;
     factoryLiveMap["key10_modline2_offset"] = 0.00;
     factoryLiveMap["key10_modline2_table"] = "1_Lin";
