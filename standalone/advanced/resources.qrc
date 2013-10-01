@@ -1,8 +1,32 @@
 <RCC>
     <qresource prefix="/">
-        <file>resources/modlineEnable_toggle_off.svg</file>
-        <file>resources/modlineEnable_toggle_on.svg</file>
         <file>resources/radio_off.svg</file>
         <file>resources/radio_on.svg</file>
+        <file>resources/keyWindow_add_modline_button_clicked.svg</file>
+        <file>resources/keyWindow_add_modline_button_not_clicked.svg</file>
+        <file>resources/keyWindow_data_modifiers_label_bracket.svg</file>
+        <file>resources/keyWindow_data_sources_label_bracket.svg</file>
+        <file>resources/keyWindow_delete_modline_button_clicked.svg</file>
+        <file>resources/keyWindow_delete_modline_button_not_clicked.svg</file>
+        <file>resources/keyWindow_init_label_bracket.svg</file>
+        <file>resources/keyWindow_led_settings_toggle_off.svg</file>
+        <file>resources/keyWindow_led_settings_toggle_on.svg</file>
+        <file>resources/keyWindow_output_settings_label_bracket.svg</file>
+        <file>resources/modline_display_enable_off.svg</file>
+        <file>resources/modline_display_enable_on.svg</file>
+        <file>resources/modline_enable1_toggle_off.svg</file>
+        <file>resources/modline_enable1_toggle_on.svg</file>
+        <file>resources/modline_enable2_toggle_off.svg</file>
+        <file>resources/modline_enable2_toggle_on.svg</file>
+        <file>resources/modline_enable3_toggle_off.svg</file>
+        <file>resources/modline_enable3_toggle_on.svg</file>
+        <file>resources/modline_enable4_toggle_off.svg</file>
+        <file>resources/modline_enable4_toggle_on.svg</file>
+        <file>resources/modline_enable5_toggle_off.svg</file>
+        <file>resources/modline_enable5_toggle_on.svg</file>
+        <file>resources/modline_enable6_toggle_off.svg</file>
+        <file>resources/modline_enable6_toggle_on.svg</file>
+        <file>resources/modline_led_display_arrow.svg</file>
+        <file>resources/modline_window_label_background.svg</file>
     </qresource>
 </RCC>

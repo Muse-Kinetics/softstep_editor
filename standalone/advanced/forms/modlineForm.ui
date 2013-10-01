@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>45</height>
+    <height>100</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <string notr="true">QWidget
 {
 	background:		rgba(35,31,32,255);
-	border: none;
+	border: 3px rgb(25, 25, 25);
 }
 
 /* ------- QStackedWidget ---------*/
@@ -122,8 +122,8 @@ QComboBox {
   <widget class="QLabel" name="instanceLabel">
    <property name="geometry">
     <rect>
-     <x>6</x>
-     <y>18</y>
+     <x>8</x>
+     <y>43</y>
      <width>18</width>
      <height>18</height>
     </rect>
@@ -184,7 +184,7 @@ QCheckBox::indicator
     	 height: 20px;
 }
 
-QCheckBox::indicator::unchecked
+QCheckBox::indicator:unchecked
 {
 	     image: url(:/resources/modlineEnable_toggle_off.svg);
 }
@@ -199,7 +199,7 @@ QCheckBox::indicator:unchecked:pressed
 	     image: url(:/resources/modlineEnable_toggle_on.svg);
 }
 
-QCheckBox::indicator::checked
+QCheckBox::indicator:checked
 {
     	 image: url(:/resources/modlineEnable_toggle_on.svg);
 }
@@ -209,7 +209,7 @@ QCheckBox::indicator:checked:pressed
    	  image: url(:/resources/modlineEnable_toggle_off.svg);
 }
 
-QCheckBox::indicator::unchecked:focus
+QCheckBox::indicator:unchecked:focus
 {
 	     image: url(:/resources/modlineEnable_toggle_off.svg);
 }
@@ -219,7 +219,7 @@ QCheckBox::indicator:unchecked:pressed:focus
     	 image: url(:/resources/modlineEnable_toggle_on.svg);
 }
 
-QCheckBox::indicator::checked:focus
+QCheckBox::indicator:checked:focus
 {
 	     image: url(:/resources/modlineEnable_toggle_on.svg);
 }
