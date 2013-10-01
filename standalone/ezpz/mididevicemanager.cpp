@@ -195,7 +195,7 @@ QString MidiDeviceManager::cFStringRefToQString(CFStringRef ref)
 
 void MidiDeviceManager::slotSendSysEx(QString messageID,unsigned char* bytes, int len, QString destinationName)
 {
-    qDebug() << "==== Sed asdf asdf;ljasdf ";
+
     if(int dest = getDestination())
     {
         //Creat char array to hold sysex bytes
