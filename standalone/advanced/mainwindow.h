@@ -10,6 +10,7 @@
 #include <QVariant>
 
 #include "key.h"
+#include "settings.h"
 #include "presetinterface.h"
 #include "mididevicemanager.h"
 
@@ -36,6 +37,7 @@ public:
 
     //Ui Elements
     Key *key[10];
+    Settings *settingsWindow;
 
 public slots:
     void slotConnectInterfaces();

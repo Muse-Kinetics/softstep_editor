@@ -118,6 +118,79 @@ void PresetInterface::writeDefualtJSON()
 
 void PresetInterface::slotConstructDefaultMap()
 {
+    //-------------------- Settings --------------------//
+    defaultPresetMap["key1_settings_xdead"] = 0;
+    defaultPresetMap["key1_settings_ydead"] = 0;
+    defaultPresetMap["key1_settings_xaccel"] = 0;
+    defaultPresetMap["key1_settings_ydead"] = 0;
+    defaultPresetMap["key1_settings_onthresh"] = 10;
+    defaultPresetMap["key1_settings_offthresh"] = 5;
+    defaultPresetMap["key2_settings_xdead"] = 0;
+    defaultPresetMap["key2_settings_ydead"] = 0;
+    defaultPresetMap["key2_settings_xaccel"] = 0;
+    defaultPresetMap["key2_settings_ydead"] = 0;
+    defaultPresetMap["key2_settings_onthresh"] = 10;
+    defaultPresetMap["key2_settings_offthresh"] = 5;
+    defaultPresetMap["key3_settings_xdead"] = 0;
+    defaultPresetMap["key3_settings_ydead"] = 0;
+    defaultPresetMap["key3_settings_xaccel"] = 0;
+    defaultPresetMap["key3_settings_ydead"] = 0;
+    defaultPresetMap["key3_settings_onthresh"] = 10;
+    defaultPresetMap["key3_settings_offthresh"] = 5;
+    defaultPresetMap["key4_settings_xdead"] = 0;
+    defaultPresetMap["key4_settings_ydead"] = 0;
+    defaultPresetMap["key4_settings_xaccel"] = 0;
+    defaultPresetMap["key4_settings_ydead"] = 0;
+    defaultPresetMap["key4_settings_onthresh"] = 10;
+    defaultPresetMap["key4_settings_offthresh"] = 5;
+    defaultPresetMap["key5_settings_xdead"] = 0;
+    defaultPresetMap["key5_settings_ydead"] = 0;
+    defaultPresetMap["key5_settings_xaccel"] = 0;
+    defaultPresetMap["key5_settings_ydead"] = 0;
+    defaultPresetMap["key5_settings_onthresh"] = 10;
+    defaultPresetMap["key5_settings_offthresh"] = 5;
+    defaultPresetMap["key6_settings_xdead"] = 0;
+    defaultPresetMap["key6_settings_ydead"] = 0;
+    defaultPresetMap["key6_settings_xaccel"] = 0;
+    defaultPresetMap["key6_settings_ydead"] = 0;
+    defaultPresetMap["key6_settings_onthresh"] = 10;
+    defaultPresetMap["key6_settings_offthresh"] = 5;
+    defaultPresetMap["key7_settings_xdead"] = 0;
+    defaultPresetMap["key7_settings_ydead"] = 0;
+    defaultPresetMap["key7_settings_xaccel"] = 0;
+    defaultPresetMap["key7_settings_ydead"] = 0;
+    defaultPresetMap["key7_settings_onthresh"] = 10;
+    defaultPresetMap["key7_settings_offthresh"] = 5;
+    defaultPresetMap["key8_settings_xdead"] = 0;
+    defaultPresetMap["key8_settings_ydead"] = 0;
+    defaultPresetMap["key8_settings_xaccel"] = 0;
+    defaultPresetMap["key8_settings_ydead"] = 0;
+    defaultPresetMap["key8_settings_onthresh"] = 10;
+    defaultPresetMap["key8_settings_offthresh"] = 5;
+    defaultPresetMap["key9_settings_xdead"] = 0;
+    defaultPresetMap["key9_settings_ydead"] = 0;
+    defaultPresetMap["key9_settings_xaccel"] = 0;
+    defaultPresetMap["key9_settings_ydead"] = 0;
+    defaultPresetMap["key9_settings_onthresh"] = 10;
+    defaultPresetMap["key9_settings_offthresh"] = 5;
+    defaultPresetMap["key10_settings_xdead"] = 0;
+    defaultPresetMap["key10_settings_ydead"] = 0;
+    defaultPresetMap["key10_settings_xaccel"] = 0;
+    defaultPresetMap["key10_settings_ydead"] = 0;
+    defaultPresetMap["key10_settings_onthresh"] = 10;
+    defaultPresetMap["key10_settings_offthresh"] = 5;
+
+    defaultPresetMap["nav_north_settings_onThresh"] = 10;
+    defaultPresetMap["nav_north_settings_offThresh"] = 5;
+    defaultPresetMap["nav_south_settings_onThresh"] = 10;
+    defaultPresetMap["nav_south_settings_offThresh"] = 5;
+    defaultPresetMap["nav_east_settings_onThresh"] = 10;
+    defaultPresetMap["nav_east_settings_offThresh"] = 5;
+    defaultPresetMap["nav_west_settings_onThresh"] = 10;
+    defaultPresetMap["nav_west_settings_offThresh"] = 5;
+    defaultPresetMap["nav_settings_yaccel"] = 0;
+
+
     //------------------------ Key 1 ------------------------//
     defaultPresetMap["1_key_name"] = "1KEY";
     defaultPresetMap["1_key_displaymode"] = 1;
@@ -132,7 +205,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key1_modline1_initMode"] = "None";
     defaultPresetMap["key1_modline1_source"] = "None";
     defaultPresetMap["key1_modline1_gain"] = 1.00;
-    defaultPresetMap["key1_modline1_offset"] = 0.00;
+    defaultPresetMap["key1_modline1_offset"] = 0;
     defaultPresetMap["key1_modline1_table"] = "Lin";
     defaultPresetMap["key1_modline1_min"] = 0;
     defaultPresetMap["key1_modline1_max"] = 127;
@@ -158,7 +231,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key1_modline2_initMode"] = "None";
     defaultPresetMap["key1_modline2_source"] = "None";
     defaultPresetMap["key1_modline2_gain"] = 1.00;
-    defaultPresetMap["key1_modline2_offset"] = 0.00;
+    defaultPresetMap["key1_modline2_offset"] = 0;
     defaultPresetMap["key1_modline2_table"] = "Lin";
     defaultPresetMap["key1_modline2_min"] = 0;
     defaultPresetMap["key1_modline2_max"] = 127;
@@ -184,7 +257,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key1_modline3_initMode"] = "None";
     defaultPresetMap["key1_modline3_source"] = "None";
     defaultPresetMap["key1_modline3_gain"] = 1.00;
-    defaultPresetMap["key1_modline3_offset"] = 0.00;
+    defaultPresetMap["key1_modline3_offset"] = 0;
     defaultPresetMap["key1_modline3_table"] = "Lin";
     defaultPresetMap["key1_modline3_min"] = 0;
     defaultPresetMap["key1_modline3_max"] = 127;
@@ -210,7 +283,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key1_modline4_initMode"] = "None";
     defaultPresetMap["key1_modline4_source"] = "None";
     defaultPresetMap["key1_modline4_gain"] = 1.00;
-    defaultPresetMap["key1_modline4_offset"] = 0.00;
+    defaultPresetMap["key1_modline4_offset"] = 0;
     defaultPresetMap["key1_modline4_table"] = "Lin";
     defaultPresetMap["key1_modline4_min"] = 0;
     defaultPresetMap["key1_modline4_max"] = 127;
@@ -236,7 +309,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key1_modline5_initMode"] = "None";
     defaultPresetMap["key1_modline5_source"] = "None";
     defaultPresetMap["key1_modline5_gain"] = 1.00;
-    defaultPresetMap["key1_modline5_offset"] = 0.00;
+    defaultPresetMap["key1_modline5_offset"] = 0;
     defaultPresetMap["key1_modline5_table"] = "Lin";
     defaultPresetMap["key1_modline5_min"] = 0;
     defaultPresetMap["key1_modline5_max"] = 127;
@@ -262,7 +335,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key1_modline6_initMode"] = "None";
     defaultPresetMap["key1_modline6_source"] = "None";
     defaultPresetMap["key1_modline6_gain"] = 1.00;
-    defaultPresetMap["key1_modline6_offset"] = 0.00;
+    defaultPresetMap["key1_modline6_offset"] = 0;
     defaultPresetMap["key1_modline6_table"] = "Lin";
     defaultPresetMap["key1_modline6_min"] = 0;
     defaultPresetMap["key1_modline6_max"] = 127;
@@ -297,7 +370,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key2_modline1_initMode"] = "None";
     defaultPresetMap["key2_modline1_source"] = "None";
     defaultPresetMap["key2_modline1_gain"] = 1.00;
-    defaultPresetMap["key2_modline1_offset"] = 0.00;
+    defaultPresetMap["key2_modline1_offset"] = 0;
     defaultPresetMap["key2_modline1_table"] = "Lin";
     defaultPresetMap["key2_modline1_min"] = 0;
     defaultPresetMap["key2_modline1_max"] = 127;
@@ -323,7 +396,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key2_modline2_initMode"] = "None";
     defaultPresetMap["key2_modline2_source"] = "None";
     defaultPresetMap["key2_modline2_gain"] = 1.00;
-    defaultPresetMap["key2_modline2_offset"] = 0.00;
+    defaultPresetMap["key2_modline2_offset"] = 0;
     defaultPresetMap["key2_modline2_table"] = "Lin";
     defaultPresetMap["key2_modline2_min"] = 0;
     defaultPresetMap["key2_modline2_max"] = 127;
@@ -349,7 +422,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key2_modline3_initMode"] = "None";
     defaultPresetMap["key2_modline3_source"] = "None";
     defaultPresetMap["key2_modline3_gain"] = 1.00;
-    defaultPresetMap["key2_modline3_offset"] = 0.00;
+    defaultPresetMap["key2_modline3_offset"] = 0;
     defaultPresetMap["key2_modline3_table"] = "Lin";
     defaultPresetMap["key2_modline3_min"] = 0;
     defaultPresetMap["key2_modline3_max"] = 127;
@@ -375,7 +448,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key2_modline4_initMode"] = "None";
     defaultPresetMap["key2_modline4_source"] = "None";
     defaultPresetMap["key2_modline4_gain"] = 1.00;
-    defaultPresetMap["key2_modline4_offset"] = 0.00;
+    defaultPresetMap["key2_modline4_offset"] = 0;
     defaultPresetMap["key2_modline4_table"] = "Lin";
     defaultPresetMap["key2_modline4_min"] = 0;
     defaultPresetMap["key2_modline4_max"] = 127;
@@ -401,7 +474,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key2_modline5_initMode"] = "None";
     defaultPresetMap["key2_modline5_source"] = "None";
     defaultPresetMap["key2_modline5_gain"] = 1.00;
-    defaultPresetMap["key2_modline5_offset"] = 0.00;
+    defaultPresetMap["key2_modline5_offset"] = 0;
     defaultPresetMap["key2_modline5_table"] = "Lin";
     defaultPresetMap["key2_modline5_min"] = 0;
     defaultPresetMap["key2_modline5_max"] = 127;
@@ -427,7 +500,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key2_modline6_initMode"] = "None";
     defaultPresetMap["key2_modline6_source"] = "None";
     defaultPresetMap["key2_modline6_gain"] = 1.00;
-    defaultPresetMap["key2_modline6_offset"] = 0.00;
+    defaultPresetMap["key2_modline6_offset"] = 0;
     defaultPresetMap["key2_modline6_table"] = "Lin";
     defaultPresetMap["key2_modline6_min"] = 0;
     defaultPresetMap["key2_modline6_max"] = 127;
@@ -462,7 +535,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key3_modline1_initMode"] = "None";
     defaultPresetMap["key3_modline1_source"] = "None";
     defaultPresetMap["key3_modline1_gain"] = 1.00;
-    defaultPresetMap["key3_modline1_offset"] = 0.00;
+    defaultPresetMap["key3_modline1_offset"] = 0;
     defaultPresetMap["key3_modline1_table"] = "Lin";
     defaultPresetMap["key3_modline1_min"] = 0;
     defaultPresetMap["key3_modline1_max"] = 127;
@@ -488,7 +561,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key3_modline2_initMode"] = "None";
     defaultPresetMap["key3_modline2_source"] = "None";
     defaultPresetMap["key3_modline2_gain"] = 1.00;
-    defaultPresetMap["key3_modline2_offset"] = 0.00;
+    defaultPresetMap["key3_modline2_offset"] = 0;
     defaultPresetMap["key3_modline2_table"] = "Lin";
     defaultPresetMap["key3_modline2_min"] = 0;
     defaultPresetMap["key3_modline2_max"] = 127;
@@ -514,7 +587,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key3_modline3_initMode"] = "None";
     defaultPresetMap["key3_modline3_source"] = "None";
     defaultPresetMap["key3_modline3_gain"] = 1.00;
-    defaultPresetMap["key3_modline3_offset"] = 0.00;
+    defaultPresetMap["key3_modline3_offset"] = 0;
     defaultPresetMap["key3_modline3_table"] = "Lin";
     defaultPresetMap["key3_modline3_min"] = 0;
     defaultPresetMap["key3_modline3_max"] = 127;
@@ -540,7 +613,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key3_modline4_initMode"] = "None";
     defaultPresetMap["key3_modline4_source"] = "None";
     defaultPresetMap["key3_modline4_gain"] = 1.00;
-    defaultPresetMap["key3_modline4_offset"] = 0.00;
+    defaultPresetMap["key3_modline4_offset"] = 0;
     defaultPresetMap["key3_modline4_table"] = "Lin";
     defaultPresetMap["key3_modline4_min"] = 0;
     defaultPresetMap["key3_modline4_max"] = 127;
@@ -566,7 +639,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key3_modline5_initMode"] = "None";
     defaultPresetMap["key3_modline5_source"] = "None";
     defaultPresetMap["key3_modline5_gain"] = 1.00;
-    defaultPresetMap["key3_modline5_offset"] = 0.00;
+    defaultPresetMap["key3_modline5_offset"] = 0;
     defaultPresetMap["key3_modline5_table"] = "Lin";
     defaultPresetMap["key3_modline5_min"] = 0;
     defaultPresetMap["key3_modline5_max"] = 127;
@@ -592,7 +665,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key3_modline6_initMode"] = "None";
     defaultPresetMap["key3_modline6_source"] = "None";
     defaultPresetMap["key3_modline6_gain"] = 1.00;
-    defaultPresetMap["key3_modline6_offset"] = 0.00;
+    defaultPresetMap["key3_modline6_offset"] = 0;
     defaultPresetMap["key3_modline6_table"] = "Lin";
     defaultPresetMap["key3_modline6_min"] = 0;
     defaultPresetMap["key3_modline6_max"] = 127;
@@ -627,7 +700,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key4_modline1_initMode"] = "None";
     defaultPresetMap["key4_modline1_source"] = "None";
     defaultPresetMap["key4_modline1_gain"] = 1.00;
-    defaultPresetMap["key4_modline1_offset"] = 0.00;
+    defaultPresetMap["key4_modline1_offset"] = 0;
     defaultPresetMap["key4_modline1_table"] = "Lin";
     defaultPresetMap["key4_modline1_min"] = 0;
     defaultPresetMap["key4_modline1_max"] = 127;
@@ -653,7 +726,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key4_modline2_initMode"] = "None";
     defaultPresetMap["key4_modline2_source"] = "None";
     defaultPresetMap["key4_modline2_gain"] = 1.00;
-    defaultPresetMap["key4_modline2_offset"] = 0.00;
+    defaultPresetMap["key4_modline2_offset"] = 0;
     defaultPresetMap["key4_modline2_table"] = "Lin";
     defaultPresetMap["key4_modline2_min"] = 0;
     defaultPresetMap["key4_modline2_max"] = 127;
@@ -679,7 +752,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key4_modline3_initMode"] = "None";
     defaultPresetMap["key4_modline3_source"] = "None";
     defaultPresetMap["key4_modline3_gain"] = 1.00;
-    defaultPresetMap["key4_modline3_offset"] = 0.00;
+    defaultPresetMap["key4_modline3_offset"] = 0;
     defaultPresetMap["key4_modline3_table"] = "Lin";
     defaultPresetMap["key4_modline3_min"] = 0;
     defaultPresetMap["key4_modline3_max"] = 127;
@@ -705,7 +778,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key4_modline4_initMode"] = "None";
     defaultPresetMap["key4_modline4_source"] = "None";
     defaultPresetMap["key4_modline4_gain"] = 1.00;
-    defaultPresetMap["key4_modline4_offset"] = 0.00;
+    defaultPresetMap["key4_modline4_offset"] = 0;
     defaultPresetMap["key4_modline4_table"] = "Lin";
     defaultPresetMap["key4_modline4_min"] = 0;
     defaultPresetMap["key4_modline4_max"] = 127;
@@ -731,7 +804,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key4_modline5_initMode"] = "None";
     defaultPresetMap["key4_modline5_source"] = "None";
     defaultPresetMap["key4_modline5_gain"] = 1.00;
-    defaultPresetMap["key4_modline5_offset"] = 0.00;
+    defaultPresetMap["key4_modline5_offset"] = 0;
     defaultPresetMap["key4_modline5_table"] = "Lin";
     defaultPresetMap["key4_modline5_min"] = 0;
     defaultPresetMap["key4_modline5_max"] = 127;
@@ -757,7 +830,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key4_modline6_initMode"] = "None";
     defaultPresetMap["key4_modline6_source"] = "None";
     defaultPresetMap["key4_modline6_gain"] = 1.00;
-    defaultPresetMap["key4_modline6_offset"] = 0.00;
+    defaultPresetMap["key4_modline6_offset"] = 0;
     defaultPresetMap["key4_modline6_table"] = "Lin";
     defaultPresetMap["key4_modline6_min"] = 0;
     defaultPresetMap["key4_modline6_max"] = 127;
@@ -791,7 +864,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key5_modline1_initMode"] = "None";
     defaultPresetMap["key5_modline1_source"] = "None";
     defaultPresetMap["key5_modline1_gain"] = 1.00;
-    defaultPresetMap["key5_modline1_offset"] = 0.00;
+    defaultPresetMap["key5_modline1_offset"] = 0;
     defaultPresetMap["key5_modline1_table"] = "Lin";
     defaultPresetMap["key5_modline1_min"] = 0;
     defaultPresetMap["key5_modline1_max"] = 127;
@@ -817,7 +890,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key5_modline2_initMode"] = "None";
     defaultPresetMap["key5_modline2_source"] = "None";
     defaultPresetMap["key5_modline2_gain"] = 1.00;
-    defaultPresetMap["key5_modline2_offset"] = 0.00;
+    defaultPresetMap["key5_modline2_offset"] = 0;
     defaultPresetMap["key5_modline2_table"] = "Lin";
     defaultPresetMap["key5_modline2_min"] = 0;
     defaultPresetMap["key5_modline2_max"] = 127;
@@ -843,7 +916,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key5_modline3_initMode"] = "None";
     defaultPresetMap["key5_modline3_source"] = "None";
     defaultPresetMap["key5_modline3_gain"] = 1.00;
-    defaultPresetMap["key5_modline3_offset"] = 0.00;
+    defaultPresetMap["key5_modline3_offset"] = 0;
     defaultPresetMap["key5_modline3_table"] = "Lin";
     defaultPresetMap["key5_modline3_min"] = 0;
     defaultPresetMap["key5_modline3_max"] = 127;
@@ -869,7 +942,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key5_modline4_initMode"] = "None";
     defaultPresetMap["key5_modline4_source"] = "None";
     defaultPresetMap["key5_modline4_gain"] = 1.00;
-    defaultPresetMap["key5_modline4_offset"] = 0.00;
+    defaultPresetMap["key5_modline4_offset"] = 0;
     defaultPresetMap["key5_modline4_table"] = "Lin";
     defaultPresetMap["key5_modline4_min"] = 0;
     defaultPresetMap["key5_modline4_max"] = 127;
@@ -895,7 +968,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key5_modline5_initMode"] = "None";
     defaultPresetMap["key5_modline5_source"] = "None";
     defaultPresetMap["key5_modline5_gain"] = 1.00;
-    defaultPresetMap["key5_modline5_offset"] = 0.00;
+    defaultPresetMap["key5_modline5_offset"] = 0;
     defaultPresetMap["key5_modline5_table"] = "Lin";
     defaultPresetMap["key5_modline5_min"] = 0;
     defaultPresetMap["key5_modline5_max"] = 127;
@@ -921,7 +994,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key5_modline6_initMode"] = "None";
     defaultPresetMap["key5_modline6_source"] = "None";
     defaultPresetMap["key5_modline6_gain"] = 1.00;
-    defaultPresetMap["key5_modline6_offset"] = 0.00;
+    defaultPresetMap["key5_modline6_offset"] = 0;
     defaultPresetMap["key5_modline6_table"] = "Lin";
     defaultPresetMap["key5_modline6_min"] = 0;
     defaultPresetMap["key5_modline6_max"] = 127;
@@ -956,7 +1029,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key6_modline1_initMode"] = "None";
     defaultPresetMap["key6_modline1_source"] = "None";
     defaultPresetMap["key6_modline1_gain"] = 1.00;
-    defaultPresetMap["key6_modline1_offset"] = 0.00;
+    defaultPresetMap["key6_modline1_offset"] = 0;
     defaultPresetMap["key6_modline1_table"] = "Lin";
     defaultPresetMap["key6_modline1_min"] = 0;
     defaultPresetMap["key6_modline1_max"] = 127;
@@ -982,7 +1055,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key6_modline2_initMode"] = "None";
     defaultPresetMap["key6_modline2_source"] = "None";
     defaultPresetMap["key6_modline2_gain"] = 1.00;
-    defaultPresetMap["key6_modline2_offset"] = 0.00;
+    defaultPresetMap["key6_modline2_offset"] = 0;
     defaultPresetMap["key6_modline2_table"] = "Lin";
     defaultPresetMap["key6_modline2_min"] = 0;
     defaultPresetMap["key6_modline2_max"] = 127;
@@ -1008,7 +1081,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key6_modline3_initMode"] = "None";
     defaultPresetMap["key6_modline3_source"] = "None";
     defaultPresetMap["key6_modline3_gain"] = 1.00;
-    defaultPresetMap["key6_modline3_offset"] = 0.00;
+    defaultPresetMap["key6_modline3_offset"] = 0;
     defaultPresetMap["key6_modline3_table"] = "Lin";
     defaultPresetMap["key6_modline3_min"] = 0;
     defaultPresetMap["key6_modline3_max"] = 127;
@@ -1034,7 +1107,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key6_modline4_initMode"] = "None";
     defaultPresetMap["key6_modline4_source"] = "None";
     defaultPresetMap["key6_modline4_gain"] = 1.00;
-    defaultPresetMap["key6_modline4_offset"] = 0.00;
+    defaultPresetMap["key6_modline4_offset"] = 0;
     defaultPresetMap["key6_modline4_table"] = "Lin";
     defaultPresetMap["key6_modline4_min"] = 0;
     defaultPresetMap["key6_modline4_max"] = 127;
@@ -1060,7 +1133,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key6_modline5_initMode"] = "None";
     defaultPresetMap["key6_modline5_source"] = "None";
     defaultPresetMap["key6_modline5_gain"] = 1.00;
-    defaultPresetMap["key6_modline5_offset"] = 0.00;
+    defaultPresetMap["key6_modline5_offset"] = 0;
     defaultPresetMap["key6_modline5_table"] = "Lin";
     defaultPresetMap["key6_modline5_min"] = 0;
     defaultPresetMap["key6_modline5_max"] = 127;
@@ -1086,7 +1159,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key6_modline6_initMode"] = "None";
     defaultPresetMap["key6_modline6_source"] = "None";
     defaultPresetMap["key6_modline6_gain"] = 1.00;
-    defaultPresetMap["key6_modline6_offset"] = 0.00;
+    defaultPresetMap["key6_modline6_offset"] = 0;
     defaultPresetMap["key6_modline6_table"] = "Lin";
     defaultPresetMap["key6_modline6_min"] = 0;
     defaultPresetMap["key6_modline6_max"] = 127;
@@ -1121,7 +1194,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key7_modline1_initMode"] = "None";
     defaultPresetMap["key7_modline1_source"] = "None";
     defaultPresetMap["key7_modline1_gain"] = 1.00;
-    defaultPresetMap["key7_modline1_offset"] = 0.00;
+    defaultPresetMap["key7_modline1_offset"] = 0;
     defaultPresetMap["key7_modline1_table"] = "Lin";
     defaultPresetMap["key7_modline1_min"] = 0;
     defaultPresetMap["key7_modline1_max"] = 127;
@@ -1147,7 +1220,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key7_modline2_initMode"] = "None";
     defaultPresetMap["key7_modline2_source"] = "None";
     defaultPresetMap["key7_modline2_gain"] = 1.00;
-    defaultPresetMap["key7_modline2_offset"] = 0.00;
+    defaultPresetMap["key7_modline2_offset"] = 0;
     defaultPresetMap["key7_modline2_table"] = "Lin";
     defaultPresetMap["key7_modline2_min"] = 0;
     defaultPresetMap["key7_modline2_max"] = 127;
@@ -1173,7 +1246,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key7_modline3_initMode"] = "None";
     defaultPresetMap["key7_modline3_source"] = "None";
     defaultPresetMap["key7_modline3_gain"] = 1.00;
-    defaultPresetMap["key7_modline3_offset"] = 0.00;
+    defaultPresetMap["key7_modline3_offset"] = 0;
     defaultPresetMap["key7_modline3_table"] = "Lin";
     defaultPresetMap["key7_modline3_min"] = 0;
     defaultPresetMap["key7_modline3_max"] = 127;
@@ -1199,7 +1272,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key7_modline4_initMode"] = "None";
     defaultPresetMap["key7_modline4_source"] = "None";
     defaultPresetMap["key7_modline4_gain"] = 1.00;
-    defaultPresetMap["key7_modline4_offset"] = 0.00;
+    defaultPresetMap["key7_modline4_offset"] = 0;
     defaultPresetMap["key7_modline4_table"] = "Lin";
     defaultPresetMap["key7_modline4_min"] = 0;
     defaultPresetMap["key7_modline4_max"] = 127;
@@ -1225,7 +1298,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key7_modline5_initMode"] = "None";
     defaultPresetMap["key7_modline5_source"] = "None";
     defaultPresetMap["key7_modline5_gain"] = 1.00;
-    defaultPresetMap["key7_modline5_offset"] = 0.00;
+    defaultPresetMap["key7_modline5_offset"] = 0;
     defaultPresetMap["key7_modline5_table"] = "Lin";
     defaultPresetMap["key7_modline5_min"] = 0;
     defaultPresetMap["key7_modline5_max"] = 127;
@@ -1251,7 +1324,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key7_modline6_initMode"] = "None";
     defaultPresetMap["key7_modline6_source"] = "None";
     defaultPresetMap["key7_modline6_gain"] = 1.00;
-    defaultPresetMap["key7_modline6_offset"] = 0.00;
+    defaultPresetMap["key7_modline6_offset"] = 0;
     defaultPresetMap["key7_modline6_table"] = "Lin";
     defaultPresetMap["key7_modline6_min"] = 0;
     defaultPresetMap["key7_modline6_max"] = 127;
@@ -1285,7 +1358,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key8_modline1_initMode"] = "None";
     defaultPresetMap["key8_modline1_source"] = "None";
     defaultPresetMap["key8_modline1_gain"] = 1.00;
-    defaultPresetMap["key8_modline1_offset"] = 0.00;
+    defaultPresetMap["key8_modline1_offset"] = 0;
     defaultPresetMap["key8_modline1_table"] = "Lin";
     defaultPresetMap["key8_modline1_min"] = 0;
     defaultPresetMap["key8_modline1_max"] = 127;
@@ -1311,7 +1384,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key8_modline2_initMode"] = "None";
     defaultPresetMap["key8_modline2_source"] = "None";
     defaultPresetMap["key8_modline2_gain"] = 1.00;
-    defaultPresetMap["key8_modline2_offset"] = 0.00;
+    defaultPresetMap["key8_modline2_offset"] = 0;
     defaultPresetMap["key8_modline2_table"] = "Lin";
     defaultPresetMap["key8_modline2_min"] = 0;
     defaultPresetMap["key8_modline2_max"] = 127;
@@ -1337,7 +1410,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key8_modline3_initMode"] = "None";
     defaultPresetMap["key8_modline3_source"] = "None";
     defaultPresetMap["key8_modline3_gain"] = 1.00;
-    defaultPresetMap["key8_modline3_offset"] = 0.00;
+    defaultPresetMap["key8_modline3_offset"] = 0;
     defaultPresetMap["key8_modline3_table"] = "Lin";
     defaultPresetMap["key8_modline3_min"] = 0;
     defaultPresetMap["key8_modline3_max"] = 127;
@@ -1363,7 +1436,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key8_modline4_initMode"] = "None";
     defaultPresetMap["key8_modline4_source"] = "None";
     defaultPresetMap["key8_modline4_gain"] = 1.00;
-    defaultPresetMap["key8_modline4_offset"] = 0.00;
+    defaultPresetMap["key8_modline4_offset"] = 0;
     defaultPresetMap["key8_modline4_table"] = "Lin";
     defaultPresetMap["key8_modline4_min"] = 0;
     defaultPresetMap["key8_modline4_max"] = 127;
@@ -1389,7 +1462,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key8_modline5_initMode"] = "None";
     defaultPresetMap["key8_modline5_source"] = "None";
     defaultPresetMap["key8_modline5_gain"] = 1.00;
-    defaultPresetMap["key8_modline5_offset"] = 0.00;
+    defaultPresetMap["key8_modline5_offset"] = 0;
     defaultPresetMap["key8_modline5_table"] = "Lin";
     defaultPresetMap["key8_modline5_min"] = 0;
     defaultPresetMap["key8_modline5_max"] = 127;
@@ -1415,7 +1488,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key8_modline6_initMode"] = "None";
     defaultPresetMap["key8_modline6_source"] = "None";
     defaultPresetMap["key8_modline6_gain"] = 1.00;
-    defaultPresetMap["key8_modline6_offset"] = 0.00;
+    defaultPresetMap["key8_modline6_offset"] = 0;
     defaultPresetMap["key8_modline6_table"] = "Lin";
     defaultPresetMap["key8_modline6_min"] = 0;
     defaultPresetMap["key8_modline6_max"] = 127;
@@ -1450,7 +1523,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key9_modline1_initMode"] = "None";
     defaultPresetMap["key9_modline1_source"] = "None";
     defaultPresetMap["key9_modline1_gain"] = 1.00;
-    defaultPresetMap["key9_modline1_offset"] = 0.00;
+    defaultPresetMap["key9_modline1_offset"] = 0;
     defaultPresetMap["key9_modline1_table"] = "Lin";
     defaultPresetMap["key9_modline1_min"] = 0;
     defaultPresetMap["key9_modline1_max"] = 127;
@@ -1476,7 +1549,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key9_modline2_initMode"] = "None";
     defaultPresetMap["key9_modline2_source"] = "None";
     defaultPresetMap["key9_modline2_gain"] = 1.00;
-    defaultPresetMap["key9_modline2_offset"] = 0.00;
+    defaultPresetMap["key9_modline2_offset"] = 0;
     defaultPresetMap["key9_modline2_table"] = "Lin";
     defaultPresetMap["key9_modline2_min"] = 0;
     defaultPresetMap["key9_modline2_max"] = 127;
@@ -1502,7 +1575,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key9_modline3_initMode"] = "None";
     defaultPresetMap["key9_modline3_source"] = "None";
     defaultPresetMap["key9_modline3_gain"] = 1.00;
-    defaultPresetMap["key9_modline3_offset"] = 0.00;
+    defaultPresetMap["key9_modline3_offset"] = 0;
     defaultPresetMap["key9_modline3_table"] = "Lin";
     defaultPresetMap["key9_modline3_min"] = 0;
     defaultPresetMap["key9_modline3_max"] = 127;
@@ -1528,7 +1601,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key9_modline4_initMode"] = "None";
     defaultPresetMap["key9_modline4_source"] = "None";
     defaultPresetMap["key9_modline4_gain"] = 1.00;
-    defaultPresetMap["key9_modline4_offset"] = 0.00;
+    defaultPresetMap["key9_modline4_offset"] = 0;
     defaultPresetMap["key9_modline4_table"] = "Lin";
     defaultPresetMap["key9_modline4_min"] = 0;
     defaultPresetMap["key9_modline4_max"] = 127;
@@ -1554,7 +1627,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key9_modline5_initMode"] = "None";
     defaultPresetMap["key9_modline5_source"] = "None";
     defaultPresetMap["key9_modline5_gain"] = 1.00;
-    defaultPresetMap["key9_modline5_offset"] = 0.00;
+    defaultPresetMap["key9_modline5_offset"] = 0;
     defaultPresetMap["key9_modline5_table"] = "Lin";
     defaultPresetMap["key9_modline5_min"] = 0;
     defaultPresetMap["key9_modline5_max"] = 127;
@@ -1580,7 +1653,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key9_modline6_initMode"] = "None";
     defaultPresetMap["key9_modline6_source"] = "None";
     defaultPresetMap["key9_modline6_gain"] = 1.00;
-    defaultPresetMap["key9_modline6_offset"] = 0.00;
+    defaultPresetMap["key9_modline6_offset"] = 0;
     defaultPresetMap["key9_modline6_table"] = "Lin";
     defaultPresetMap["key9_modline6_min"] = 0;
     defaultPresetMap["key9_modline6_max"] = 127;
@@ -1615,7 +1688,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key10_modline1_initMode"] = "None";
     defaultPresetMap["key10_modline1_source"] = "None";
     defaultPresetMap["key10_modline1_gain"] = 1.00;
-    defaultPresetMap["key10_modline1_offset"] = 0.00;
+    defaultPresetMap["key10_modline1_offset"] = 0;
     defaultPresetMap["key10_modline1_table"] = "Lin";
     defaultPresetMap["key10_modline1_min"] = 0;
     defaultPresetMap["key10_modline1_max"] = 127;
@@ -1641,7 +1714,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key10_modline2_initMode"] = "None";
     defaultPresetMap["key10_modline2_source"] = "None";
     defaultPresetMap["key10_modline2_gain"] = 1.00;
-    defaultPresetMap["key10_modline2_offset"] = 0.00;
+    defaultPresetMap["key10_modline2_offset"] = 0;
     defaultPresetMap["key10_modline2_table"] = "Lin";
     defaultPresetMap["key10_modline2_min"] = 0;
     defaultPresetMap["key10_modline2_max"] = 127;
@@ -1667,7 +1740,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key10_modline3_initMode"] = "None";
     defaultPresetMap["key10_modline3_source"] = "None";
     defaultPresetMap["key10_modline3_gain"] = 1.00;
-    defaultPresetMap["key10_modline3_offset"] = 0.00;
+    defaultPresetMap["key10_modline3_offset"] = 0;
     defaultPresetMap["key10_modline3_table"] = "Lin";
     defaultPresetMap["key10_modline3_min"] = 0;
     defaultPresetMap["key10_modline3_max"] = 127;
@@ -1693,7 +1766,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key10_modline4_initMode"] = "None";
     defaultPresetMap["key10_modline4_source"] = "None";
     defaultPresetMap["key10_modline4_gain"] = 1.00;
-    defaultPresetMap["key10_modline4_offset"] = 0.00;
+    defaultPresetMap["key10_modline4_offset"] = 0;
     defaultPresetMap["key10_modline4_table"] = "Lin";
     defaultPresetMap["key10_modline4_min"] = 0;
     defaultPresetMap["key10_modline4_max"] = 127;
@@ -1719,7 +1792,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key10_modline5_initMode"] = "None";
     defaultPresetMap["key10_modline5_source"] = "None";
     defaultPresetMap["key10_modline5_gain"] = 1.00;
-    defaultPresetMap["key10_modline5_offset"] = 0.00;
+    defaultPresetMap["key10_modline5_offset"] = 0;
     defaultPresetMap["key10_modline5_table"] = "Lin";
     defaultPresetMap["key10_modline5_min"] = 0;
     defaultPresetMap["key10_modline5_max"] = 127;
@@ -1745,7 +1818,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["key10_modline6_initMode"] = "None";
     defaultPresetMap["key10_modline6_source"] = "None";
     defaultPresetMap["key10_modline6_gain"] = 1.00;
-    defaultPresetMap["key10_modline6_offset"] = 0.00;
+    defaultPresetMap["key10_modline6_offset"] = 0;
     defaultPresetMap["key10_modline6_table"] = "Lin";
     defaultPresetMap["key10_modline6_min"] = 0;
     defaultPresetMap["key10_modline6_max"] = 127;
@@ -1778,7 +1851,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["nav_modline1_enable"] = 0.00;
     defaultPresetMap["nav_modline1_source"] = "None";
     defaultPresetMap["nav_modline1_gain"] = 0.00;
-    defaultPresetMap["nav_modline1_offset"] = 0.00;
+    defaultPresetMap["nav_modline1_offset"] = 0;
     defaultPresetMap["nav_modline1_table"] = "Lin";
     defaultPresetMap["nav_modline1_min"] = 0;
     defaultPresetMap["nav_modline1_max"] = 127;
@@ -1798,7 +1871,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["nav_modline2_enable"] = 0.00;
     defaultPresetMap["nav_modline2_source"] = "None";
     defaultPresetMap["nav_modline2_gain"] = 0.00;
-    defaultPresetMap["nav_modline2_offset"] = 0.00;
+    defaultPresetMap["nav_modline2_offset"] = 0;
     defaultPresetMap["nav_modline2_table"] = "Lin";
     defaultPresetMap["nav_modline2_min"] = 0;
     defaultPresetMap["nav_modline2_max"] = 127;
@@ -1818,7 +1891,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["nav_modline3_enable"] = 0.00;
     defaultPresetMap["nav_modline3_source"] = "None";
     defaultPresetMap["nav_modline3_gain"] = 0.00;
-    defaultPresetMap["nav_modline3_offset"] = 0.00;
+    defaultPresetMap["nav_modline3_offset"] = 0;
     defaultPresetMap["nav_modline3_table"] = "Lin";
     defaultPresetMap["nav_modline3_min"] = 0;
     defaultPresetMap["nav_modline3_max"] = 127;
@@ -1838,7 +1911,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["nav_modline4_enable"] = 0.00;
     defaultPresetMap["nav_modline4_source"] = "None";
     defaultPresetMap["nav_modline4_gain"] = 0.00;
-    defaultPresetMap["nav_modline4_offset"] = 0.00;
+    defaultPresetMap["nav_modline4_offset"] = 0;
     defaultPresetMap["nav_modline4_table"] = "Lin";
     defaultPresetMap["nav_modline4_min"] = 0;
     defaultPresetMap["nav_modline4_max"] = 127;
@@ -1858,7 +1931,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["nav_modline5_enable"] = 0.00;
     defaultPresetMap["nav_modline5_source"] = "None";
     defaultPresetMap["nav_modline5_gain"] = 0.00;
-    defaultPresetMap["nav_modline5_offset"] = 0.00;
+    defaultPresetMap["nav_modline5_offset"] = 0;
     defaultPresetMap["nav_modline5_table"] = "Lin";
     defaultPresetMap["nav_modline5_min"] = 0;
     defaultPresetMap["nav_modline5_max"] = 127;
@@ -1878,7 +1951,7 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["nav_modline6_enable"] = 0.00;
     defaultPresetMap["nav_modline6_source"] = "None";
     defaultPresetMap["nav_modline6_gain"] = 0.00;
-    defaultPresetMap["nav_modline6_offset"] = 0.00;
+    defaultPresetMap["nav_modline6_offset"] = 0;
     defaultPresetMap["nav_modline6_table"] = "Lin";
     defaultPresetMap["nav_modline6_min"] = 0;
     defaultPresetMap["nav_modline6_max"] = 127;

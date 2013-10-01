@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>resources/modlineEnable_toggle_off.svg</file>
         <file>resources/modlineEnable_toggle_on.svg</file>
+        <file>resources/radio_off.svg</file>
+        <file>resources/radio_on.svg</file>
     </qresource>
 </RCC>

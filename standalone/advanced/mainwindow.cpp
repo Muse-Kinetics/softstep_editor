@@ -22,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent) :
         key[i] = new Key(this, i);
     }
 
+    //Construct Settings Window
+    settingsWindow = new Settings(this);
+
     this->installEventFilter(this);
 
     slotConnectInterfaces();
@@ -91,6 +94,9 @@ void MainWindow::slotConnectInterfaces()
 
     //preset number box (this will be switched to a comboBox soon)
     connect(ui->presetNumber, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
+
+    //open settings button
+    connect(ui->openSettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));
 }
 
 void MainWindow::slotInitMenuBar()

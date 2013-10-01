@@ -119,7 +119,7 @@ QComboBox {
 	padding:0, 3, 0, 0;
  }</string>
   </property>
-  <widget class="QSpinBox" name="key7AccelX">
+  <widget class="QSpinBox" name="key7_settings_xaccel">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -169,7 +169,7 @@ QComboBox {
     <string>SETTINGS</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key2OnThresh">
+  <widget class="QSpinBox" name="key2_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -188,7 +188,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key6OffThresh">
+  <widget class="QSpinBox" name="key6_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -207,7 +207,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key1DeadY">
+  <widget class="QSpinBox" name="key1_settings_ydead">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -226,7 +226,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key9AccelY">
+  <widget class="QSpinBox" name="key9_settings_yaccel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -245,7 +245,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key4DeadX">
+  <widget class="QSpinBox" name="key4_settings_xdead">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -280,7 +280,7 @@ QComboBox {
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="allOnThresh">
+  <widget class="QSpinBox" name="all_onthresh">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -315,7 +315,7 @@ QComboBox {
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key2AccelY">
+  <widget class="QSpinBox" name="key2_settings_yaccel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -334,7 +334,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key8DeadX">
+  <widget class="QSpinBox" name="key8_settings_xdead">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -353,7 +353,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key1OnThresh">
+  <widget class="QSpinBox" name="key1_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -372,7 +372,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key7DeadY">
+  <widget class="QSpinBox" name="key7_settings_ydead">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -391,7 +391,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key3OnThresh">
+  <widget class="QSpinBox" name="key3_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -410,7 +410,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key3OffThresh">
+  <widget class="QSpinBox" name="key3_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -429,7 +429,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key10DeadX">
+  <widget class="QSpinBox" name="key10_settings_xdead">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -448,7 +448,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key2DeadX">
+  <widget class="QSpinBox" name="key2_settings_xdead">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -467,7 +467,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="allOffThresh">
+  <widget class="QSpinBox" name="all_offthresh">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -486,7 +486,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key5DeadY">
+  <widget class="QSpinBox" name="key5_settings_ydead">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -505,7 +505,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key6AccelY">
+  <widget class="QSpinBox" name="key6_settings_yaccel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -540,7 +540,7 @@ QComboBox {
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key3DeadY">
+  <widget class="QSpinBox" name="key3_settings_ydead">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -559,7 +559,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key6AccelX">
+  <widget class="QSpinBox" name="key6_settings_xaccel">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -578,7 +578,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key1AccelX">
+  <widget class="QSpinBox" name="key1_settings_xaccel">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -597,7 +597,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key6DeadX">
+  <widget class="QSpinBox" name="key6_settings_xdead">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -632,7 +632,7 @@ QComboBox {
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key8AccelX">
+  <widget class="QSpinBox" name="key8_settings_xaccel">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -670,7 +670,7 @@ QComboBox {
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key10OnThresh">
+  <widget class="QSpinBox" name="key10_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -689,7 +689,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key9OffThresh">
+  <widget class="QSpinBox" name="key9_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -708,7 +708,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key10AccelX">
+  <widget class="QSpinBox" name="key10_settings_xaccel">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -727,7 +727,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key8OnThresh">
+  <widget class="QSpinBox" name="key8_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -746,7 +746,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key7AccelY">
+  <widget class="QSpinBox" name="key7_settings_yaccel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -784,7 +784,7 @@ QComboBox {
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key5OnThresh">
+  <widget class="QSpinBox" name="key5_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -803,7 +803,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="allAccelY">
+  <widget class="QSpinBox" name="all_yaccel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -841,7 +841,7 @@ QComboBox {
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key8AccelY">
+  <widget class="QSpinBox" name="key8_settings_yaccel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -860,7 +860,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key2OffThresh">
+  <widget class="QSpinBox" name="key2_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -879,7 +879,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key4OnThresh">
+  <widget class="QSpinBox" name="key4_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -898,7 +898,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key5OffThresh">
+  <widget class="QSpinBox" name="key5_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -917,7 +917,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key8DeadY">
+  <widget class="QSpinBox" name="key8_settings_ydead">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -936,7 +936,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key3DeadX">
+  <widget class="QSpinBox" name="key3_settings_xdead">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -993,7 +993,7 @@ QComboBox {
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key5AccelX">
+  <widget class="QSpinBox" name="key5_settings_xaccel">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -1012,7 +1012,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key10AccelY">
+  <widget class="QSpinBox" name="key10_settings_yaccel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -1031,7 +1031,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key9DeadY">
+  <widget class="QSpinBox" name="key9_settings_ydead">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -1050,7 +1050,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key1AccelY">
+  <widget class="QSpinBox" name="key1_settings_yaccel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -1069,7 +1069,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key10DeadY">
+  <widget class="QSpinBox" name="key10_settings_ydead">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -1088,7 +1088,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key8OffThresh">
+  <widget class="QSpinBox" name="key8_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -1107,7 +1107,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key7OffThresh">
+  <widget class="QSpinBox" name="key7_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -1126,7 +1126,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key7DeadX">
+  <widget class="QSpinBox" name="key7_settings_xdead">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -1161,7 +1161,7 @@ QComboBox {
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key4AccelX">
+  <widget class="QSpinBox" name="key4_settings_xaccel">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -1180,7 +1180,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key10OffThresh">
+  <widget class="QSpinBox" name="key10_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -1199,7 +1199,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="allDeadY">
+  <widget class="QSpinBox" name="all_ydead">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -1218,7 +1218,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key2AccelX">
+  <widget class="QSpinBox" name="key2_settings_xaccel">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -1237,7 +1237,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key5AccelY">
+  <widget class="QSpinBox" name="key5_settings_yaccel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -1288,7 +1288,7 @@ QComboBox {
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key9OnThresh">
+  <widget class="QSpinBox" name="key9_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -1307,7 +1307,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key4DeadY">
+  <widget class="QSpinBox" name="key4_settings_ydead">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -1326,7 +1326,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key1DeadX">
+  <widget class="QSpinBox" name="key1_settings_xdead">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -1345,7 +1345,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key1OffThresh">
+  <widget class="QSpinBox" name="key1_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -1364,7 +1364,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key9DeadX">
+  <widget class="QSpinBox" name="key9_settings_xdead">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -1402,7 +1402,7 @@ QComboBox {
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key9AccelX">
+  <widget class="QSpinBox" name="key9_settings_xaccel">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -1421,7 +1421,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key6DeadY">
+  <widget class="QSpinBox" name="key6_settings_ydead">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -1440,7 +1440,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key4AccelY">
+  <widget class="QSpinBox" name="key4_settings_yaccel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -1459,7 +1459,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="allDeadX">
+  <widget class="QSpinBox" name="all_xdead">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -1513,7 +1513,7 @@ QComboBox {
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key7OnThresh">
+  <widget class="QSpinBox" name="key7_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -1532,7 +1532,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key5DeadX">
+  <widget class="QSpinBox" name="key5_settings_xdead">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -1567,7 +1567,7 @@ QComboBox {
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key2DeadY">
+  <widget class="QSpinBox" name="key2_settings_ydead">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -1586,7 +1586,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key3AccelX">
+  <widget class="QSpinBox" name="key3_settings_xaccel">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -1605,7 +1605,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key3AccelY">
+  <widget class="QSpinBox" name="key3_settings_yaccel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -1624,7 +1624,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key4OffThresh">
+  <widget class="QSpinBox" name="key4_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -1643,7 +1643,7 @@ QComboBox {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key6OnThresh">
+  <widget class="QSpinBox" name="key6_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -1678,7 +1678,7 @@ QComboBox {
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="allAccelX">
+  <widget class="QSpinBox" name="all_xaccel">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -1831,7 +1831,7 @@ QCheckBox::indicator {
     </item>
    </layout>
   </widget>
-  <widget class="QSpinBox" name="navEastOnThresh">
+  <widget class="QSpinBox" name="nav_east_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>145</x>
@@ -1850,7 +1850,7 @@ QCheckBox::indicator {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="navSouthOnThresh">
+  <widget class="QSpinBox" name="nav_south_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>105</x>
@@ -1923,7 +1923,7 @@ border-top: 1px solid white;
     <string>Sensor Response</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="navEastOffThresh">
+  <widget class="QSpinBox" name="nav_east_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>145</x>
@@ -1942,7 +1942,7 @@ border-top: 1px solid white;
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="navWestOffThresh">
+  <widget class="QSpinBox" name="nav_west_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>185</x>
@@ -1999,7 +1999,7 @@ border-top: 2px solid white;
     <string/>
    </property>
   </widget>
-  <widget class="QSpinBox" name="navSouthOffThresh">
+  <widget class="QSpinBox" name="nav_south_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>105</x>
@@ -2187,7 +2187,7 @@ QCheckBox::indicator {
     </item>
    </layout>
   </widget>
-  <widget class="QSpinBox" name="navNorthOffThresh">
+  <widget class="QSpinBox" name="nav_north_settings_offthresh">
    <property name="geometry">
     <rect>
      <x>65</x>
@@ -2206,7 +2206,7 @@ QCheckBox::indicator {
     <number>127</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="navWestOnThresh">
+  <widget class="QSpinBox" name="nav_west_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>185</x>
@@ -2308,7 +2308,7 @@ QCheckBox::indicator {
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSpinBox" name="navAccelY">
+  <widget class="QSpinBox" name="nav_settings_yaccel">
    <property name="geometry">
     <rect>
      <x>225</x>
@@ -2346,7 +2346,7 @@ QCheckBox::indicator {
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QSpinBox" name="navNorthOnThresh">
+  <widget class="QSpinBox" name="nav_north_settings_onthresh">
    <property name="geometry">
     <rect>
      <x>65</x>

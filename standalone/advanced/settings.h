@@ -9,15 +9,27 @@
 #include <QDebug>
 #include <QVariant>
 
-class settings : public QWidget
+#include "ui_settingsForm.h"
+
+class Settings : public QWidget
 {
     Q_OBJECT
 public:
-    explicit settings(QWidget *parent = 0);
+    explicit Settings(QWidget *parent = 0);
+
+    QWidget* settingsWidget;
     
 signals:
+    void signalStoreValue(QString name, QVariant value, int presetNum);
     
 public slots:
+    void slotOpenSettings();
+    void slotConnectElements();
+    void slotValueChanged();
+    void slotRecallPreset(QVariantMap, QVariantMap);
+
+private:
+    Ui::settingsForm *settingsForm;
     
 };
 
