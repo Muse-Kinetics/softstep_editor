@@ -14,6 +14,8 @@ Settings::Settings(QWidget *parent) :
     settingsWidget->setFixedSize(380,516);
     settingsWidget->setWindowTitle(QString("Settings"));
 
+    slotConnectElements();
+
 
 }
 
@@ -25,7 +27,18 @@ void Settings::slotOpenSettings()
 
 void Settings::slotConnectElements()
 {
-    connect(settingsForm->key1_settings_xaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    foreach(QWidget* widget, settingsWidget->findChildren<QWidget *>())
+    {
+        //Check object type here
+        if(widget->metaObject()->className() == QString("QSpinBox"))
+        {
+            QSpinBox* spinbox = qobject_cast<QSpinBox *>(widget);
+            //qDebug() << "settings spin box name: " << widget->objectName();
+            connect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+        }
+    }
+
+    /*connect(settingsForm->key1_settings_xaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     connect(settingsForm->key1_settings_yaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     connect(settingsForm->key1_settings_xdead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     connect(settingsForm->key1_settings_ydead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
@@ -102,12 +115,13 @@ void Settings::slotConnectElements()
     connect(settingsForm->nav_east_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     connect(settingsForm->nav_east_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     connect(settingsForm->nav_west_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->nav_west_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(settingsForm->nav_west_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));*/
 }
 
 void Settings::slotValueChanged()
 {
     //emit values to the preset file here
+    qDebug() << "value changed" << QObject::sender()->objectName();
 }
 
 void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
