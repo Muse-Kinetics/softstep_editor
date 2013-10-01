@@ -4899,7 +4899,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 3 ------//
     factoryLiveMap["key6_modline3_enable"] = 1;
-    factoryLiveMap["key6_modline3_source"] = "Key_6_Pressed";
+    factoryLiveMap["key6_modline3_source"] = "Key 6 Pressed";
     factoryLiveMap["key6_modline3_gain"] = 1.00;
     factoryLiveMap["key6_modline3_offset"] = 0.00;
     factoryLiveMap["key6_modline3_table"] = "1_Lin";
@@ -4921,7 +4921,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 4 ------//
     factoryLiveMap["key6_modline4_enable"] = 1;
-    factoryLiveMap["key6_modline4_source"] = "Key_7_Pressed";
+    factoryLiveMap["key6_modline4_source"] = "Key 7 Pressed";
     factoryLiveMap["key6_modline4_gain"] = 1.00;
     factoryLiveMap["key6_modline4_offset"] = 0.00;
     factoryLiveMap["key6_modline4_table"] = "1_Lin";
@@ -5181,7 +5181,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 3 ------//
     factoryLiveMap["key8_modline3_enable"] = 1;
-    factoryLiveMap["key8_modline3_source"] = "Key_8_Pressed";
+    factoryLiveMap["key8_modline3_source"] = "Key 8 Pressed";
     factoryLiveMap["key8_modline3_gain"] = 1.00;
     factoryLiveMap["key8_modline3_offset"] = 0.00;
     factoryLiveMap["key8_modline3_table"] = "1_Lin";
@@ -5203,7 +5203,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 4 ------//
     factoryLiveMap["key8_modline4_enable"] = 1;
-    factoryLiveMap["key8_modline4_source"] = "Key_7_Pressed";
+    factoryLiveMap["key8_modline4_source"] = "Key 7 Pressed";
     factoryLiveMap["key8_modline4_gain"] = 1.00;
     factoryLiveMap["key8_modline4_offset"] = 0.00;
     factoryLiveMap["key8_modline4_table"] = "1_Lin";
@@ -5225,7 +5225,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 5 ------//
     factoryLiveMap["key8_modline5_enable"] = 1;
-    factoryLiveMap["key8_modline5_source"] = "Key_9_Pressed";
+    factoryLiveMap["key8_modline5_source"] = "Key 9 Pressed";
     factoryLiveMap["key8_modline5_gain"] = 1.00;
     factoryLiveMap["key8_modline5_offset"] = 0.00;
     factoryLiveMap["key8_modline5_table"] = "1_Lin";
@@ -5247,7 +5247,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 6 ------//
     factoryLiveMap["key8_modline6_enable"] = 1;
-    factoryLiveMap["key8_modline6_source"] = "Key_0_Pressed";
+    factoryLiveMap["key8_modline6_source"] = "Key 0 Pressed";
     factoryLiveMap["key8_modline6_gain"] = 1.00;
     factoryLiveMap["key8_modline6_offset"] = 0.00;
     factoryLiveMap["key8_modline6_table"] = "1_Lin";
