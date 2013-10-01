@@ -25,7 +25,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     //connect and initialize the raw value to the result (not for preset)
     connect(modlineForm.raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
     connect(modlineForm.gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
-    connect(modlineForm.offset,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
+    connect(modlineForm.offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
     modlineForm.raw->setValue(0);
 
     this->setGeometry(10,75 + ((modlineInstance)*42),1000,40);
@@ -49,7 +49,7 @@ void Modline::slotConnectElements()
     connect(modlineForm.gain,SIGNAL(valueChanged(double)),this,SLOT(slotValueChanged()));
 
     //offset
-    connect(modlineForm.offset,SIGNAL(valueChanged(double)),this,SLOT(slotValueChanged()));
+    connect(modlineForm.offset,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
 
     //table menu
     connect(modlineForm.table,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
@@ -365,7 +365,7 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modlineForm.initMode->setCurrentIndex(modlineForm.initMode->findText(preset.value(QString("key%1_modline%2_initMode").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
     modlineForm.source->setCurrentIndex(modlineForm.source->findText(preset.value(QString("key%1_modline%2_source").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
     modlineForm.gain->setValue(preset.value(QString("key%1_modline%2_gain").arg(keyInstance+1).arg(modlineInstance+1)).toDouble());
-    modlineForm.offset->setValue(preset.value(QString("key%1_modline%2_offset").arg(keyInstance+1).arg(modlineInstance+1)).toDouble());
+    modlineForm.offset->setValue(preset.value(QString("key%1_modline%2_offset").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm.table->setCurrentIndex(modlineForm.table->findText(preset.value(QString("key%1_modline%2_table").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
     modlineForm.min->setValue(preset.value(QString("key%1_modline%2_min").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm.max->setValue(preset.value(QString("key%1_modline%2_max").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
