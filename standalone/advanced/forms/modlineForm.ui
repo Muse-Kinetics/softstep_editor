@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>980</width>
-    <height>40</height>
+    <width>1200</width>
+    <height>45</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,7 +48,7 @@ QSpinBox
 	border: 1px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding: 1px 3px 1px 3px;
 }
 
 QSpinBox::focus
@@ -63,7 +63,7 @@ QDoubleSpinBox
 	border: 1px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding: 1px 3px 1px 3px;
 }
 
 QDoubleSpinBox::focus
@@ -116,14 +116,14 @@ QComboBox {
 	border: 1px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding: 1px 3px 1px 3px;
  }</string>
   </property>
   <widget class="QLabel" name="instanceLabel">
    <property name="geometry">
     <rect>
-     <x>3</x>
-     <y>19</y>
+     <x>6</x>
+     <y>17</y>
      <width>18</width>
      <height>18</height>
     </rect>
@@ -137,14 +137,17 @@ QComboBox {
    <property name="text">
     <string>#</string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
   <widget class="QCheckBox" name="enable">
    <property name="geometry">
     <rect>
-     <x>12</x>
-     <y>21</y>
-     <width>22</width>
-     <height>18</height>
+     <x>5</x>
+     <y>15</y>
+     <width>20</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="font">
@@ -152,6 +155,66 @@ QComboBox {
      <family>Futura</family>
      <pointsize>10</pointsize>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+		color: rgba(255,255,255,0);
+		font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+	     width: 20px;
+    	 height: 20px;
+}
+
+QCheckBox::indicator::unchecked
+{
+	     image: url(:/resources/modlineEnable_toggle_off.svg);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    	 image: url(:/resources/modlineEnable_toggle_off.svg);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	     image: url(:/resources/modlineEnable_toggle_on.svg);
+}
+
+QCheckBox::indicator::checked
+{
+    	 image: url(:/resources/modlineEnable_toggle_on.svg);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+   	  image: url(:/resources/modlineEnable_toggle_off.svg);
+}
+
+QCheckBox::indicator::unchecked:focus
+{
+	     image: url(:/resources/modlineEnable_toggle_off.svg);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    	 image: url(:/resources/modlineEnable_toggle_on.svg);
+}
+
+QCheckBox::indicator::checked:focus
+{
+	     image: url(:/resources/modlineEnable_toggle_on.svg);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    	 image: url(:/resources/modlineEnable_toggle_off.svg);
+}
+</string>
    </property>
    <property name="text">
     <string/>
@@ -2273,8 +2336,8 @@ QStackedWidget
     </widget>
    </widget>
   </widget>
-  <zorder>instanceLabel</zorder>
   <zorder>enable</zorder>
+  <zorder>instanceLabel</zorder>
   <zorder>initMode</zorder>
   <zorder>initValue</zorder>
   <zorder>label</zorder>

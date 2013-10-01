@@ -96,3 +96,6 @@ RC_FILE =       softstepadvancedicon.rc.txt
 macx{
 #ICON = advanced.icns
 }
+
+RESOURCES += \
+    resources.qrc
