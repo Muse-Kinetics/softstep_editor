@@ -21,6 +21,7 @@ public:
     QVariantMap jsonMasterMap;
     QVariantMap jsonMasterMapCopy;
     QVariantMap defaultPresetMap;
+    QVariantMap defaultGlobalMap;
 
     QSettings *settings;
 
@@ -41,17 +42,20 @@ public:
     
 signals:
     void signalRecallPreset(QVariantMap preset, QVariantMap jsonMasterMapCopy);
+    void signalRecallGlobal(QVariantMap preset, QVariantMap jsonMasterMapCopy);
     
 public slots:
     void slotStoreValue(QString name, QVariant value, int presetNum);
+    void slotStoreGlobal(QString name, QVariant value);
     void slotCheckSaveState();
-    void slotStoreGlobal();
 
     void slotReadJSON();
     void slotWriteJSON(QVariantMap jsonMap);
 
     void slotConstructDefaultMap();
+    void slotConstructGlobalDefaultMap();
     void slotRecallPreset(int i);
+    void slotRecallGlobal();
 
     void slotUpdateClicked();
     

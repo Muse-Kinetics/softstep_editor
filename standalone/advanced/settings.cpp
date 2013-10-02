@@ -38,93 +38,34 @@ void Settings::slotConnectElements()
         }
     }
 
-    /*connect(settingsForm->key1_settings_xaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key1_settings_yaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key1_settings_xdead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key1_settings_ydead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key1_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key1_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-
-    connect(settingsForm->key2_settings_xaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key2_settings_yaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key2_settings_xdead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key2_settings_ydead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key2_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key2_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-
-    connect(settingsForm->key3_settings_xaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key3_settings_yaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key3_settings_xdead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key3_settings_ydead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key3_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key3_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-
-    connect(settingsForm->key4_settings_xaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key4_settings_yaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key4_settings_xdead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key4_settings_ydead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key4_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key4_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-
-    connect(settingsForm->key5_settings_xaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key5_settings_yaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key5_settings_xdead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key5_settings_ydead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key5_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key5_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-
-    connect(settingsForm->key6_settings_xaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key6_settings_yaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key6_settings_xdead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key6_settings_ydead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key6_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key6_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-
-    connect(settingsForm->key7_settings_xaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key7_settings_yaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key7_settings_xdead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key7_settings_ydead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key7_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key7_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-
-    connect(settingsForm->key8_settings_xaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key8_settings_yaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key8_settings_xdead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key8_settings_ydead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key8_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key8_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-
-    connect(settingsForm->key9_settings_xaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key9_settings_yaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key9_settings_xdead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key9_settings_ydead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key9_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key9_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-
-    connect(settingsForm->key10_settings_xaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key10_settings_yaccel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key10_settings_xdead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key10_settings_ydead,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key10_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->key10_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-
-    connect(settingsForm->nav_north_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->nav_north_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->nav_south_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->nav_south_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->nav_east_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->nav_east_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->nav_west_settings_onthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(settingsForm->nav_west_settings_offthresh,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));*/
 }
 
 void Settings::slotValueChanged()
 {
     //emit values to the preset file here
+    if(QObject::sender())
+    {
+        QString jsonName;
+        QSpinBox *spinbox = reinterpret_cast<QSpinBox*>(QObject::sender());
+        QVariant value;
+
+        //spinboxes
+        jsonName = spinbox->objectName();
+        value = spinbox->value();
+
+        emit signalStoreValue(QString("%1").arg(jsonName),value);
+    }
     qDebug() << "value changed" << QObject::sender()->objectName();
 }
 
 void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
-    //set values from recalled presets here
+    settingsForm->key1_settings_xaccel->setValue(preset.value(QString("key1_settings_xaccel")).toInt());
+    settingsForm->key1_settings_yaccel->setValue(preset.value(QString("key1_settings_yaccel")).toInt());
+    settingsForm->key1_settings_xdead->setValue(preset.value(QString("key1_settings_xdead")).toInt());
+    settingsForm->key1_settings_ydead->setValue(preset.value(QString("key1_settings_ydead")).toInt());
+    settingsForm->key1_settings_onthresh->setValue(preset.value(QString("key1_settings_onthresh")).toInt());
+    settingsForm->key1_settings_offthresh->setValue(preset.value(QString("key1_settings_offthresh")).toInt());
+
+    //the rest of the key settings could go here, or find a more efficient way to do this...
 }

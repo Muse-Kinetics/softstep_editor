@@ -22,20 +22,24 @@ MainWindow::MainWindow(QWidget *parent) :
         key[i] = new Key(this, i);
     }
 
-    //Construct Settings Window
+    //Construct Settings Window Stuff
     settingsWindow = new Settings(this);
 
     this->installEventFilter(this);
 
     slotConnectInterfaces();
 
-    //Construct Key Windows
+    //Connect Key Windows
     for(int i = 0; i < 10; i++)
     {
         key[i]->slotConnectElements();
     }
 
+    //Connect Settings Window Stuff
+    settingsWindow->slotConnectElements();
+
     presetInterface->slotRecallPreset(1);
+    presetInterface->slotRecallGlobal();
 
 #ifdef Q_OS_MAC
     midiDeviceManager->connectSource();
@@ -71,6 +75,9 @@ void MainWindow::slotConnectInterfaces()
 
     //Nav Pad
 
+    //Settings
+    connect(presetInterface, SIGNAL(signalRecallGlobal(QVariantMap,QVariantMap)),settingsWindow,SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
+
 
     //--------------------------------------- Parameter Storage
 
@@ -88,6 +95,8 @@ void MainWindow::slotConnectInterfaces()
 
     //Nav Pad
 
+    //Settings
+    connect(settingsWindow, SIGNAL(signalStoreValue(QString,QVariant)), presetInterface, SLOT(slotStoreGlobal(QString,QVariant)));
 
     //Update Button
     connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));

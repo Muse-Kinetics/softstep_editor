@@ -31,9 +31,29 @@ void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum
         presetNum = currentPresetNum;
     }
 
+    /*if(name.contains("settings"))
+    {
+        QVariantMap globalMap = jsonMasterMapCopy.value(QString("Global")).toMap();
+        globalMap.insert(name, value);
+        jsonMasterMapCopy.insert(QString("Global"), globalMap);
+    }
+    else
+    {
+        QVariantMap presetMap = jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap();
+        presetMap.insert(name, value);
+        jsonMasterMapCopy.insert(QString("Preset_00%1").arg(presetNum), presetMap);
+    }*/
+
     QVariantMap presetMap = jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap();
     presetMap.insert(name, value);
     jsonMasterMapCopy.insert(QString("Preset_00%1").arg(presetNum), presetMap);
+}
+
+void PresetInterface::slotStoreGlobal(QString name, QVariant value)
+{
+    QVariantMap globalMap = jsonMasterMapCopy.value(QString("Global")).toMap();
+    globalMap.insert(name, value);
+    jsonMasterMapCopy.insert(QString("Global"), globalMap);
 }
 
 void PresetInterface::slotCheckSaveState()
@@ -102,6 +122,7 @@ void PresetInterface::slotWriteJSON(QVariantMap jsonMap)
 void PresetInterface::writeDefualtJSON()
 {
     slotConstructDefaultMap();
+    slotConstructGlobalDefaultMap();
 
     //Generate fresh default json needed
     for(int i = 0; i < 4; i++)
@@ -113,84 +134,13 @@ void PresetInterface::writeDefualtJSON()
         //jsonMasterMap.insert("backlight", true);
     }
 
+    jsonMasterMap.insert(QString("Global"),defaultGlobalMap);
+
     slotWriteJSON(jsonMasterMap);
 }
 
 void PresetInterface::slotConstructDefaultMap()
 {
-    //-------------------- Settings --------------------//
-    defaultPresetMap["key1_settings_xdead"] = 0;
-    defaultPresetMap["key1_settings_ydead"] = 0;
-    defaultPresetMap["key1_settings_xaccel"] = 0;
-    defaultPresetMap["key1_settings_ydead"] = 0;
-    defaultPresetMap["key1_settings_onthresh"] = 10;
-    defaultPresetMap["key1_settings_offthresh"] = 5;
-    defaultPresetMap["key2_settings_xdead"] = 0;
-    defaultPresetMap["key2_settings_ydead"] = 0;
-    defaultPresetMap["key2_settings_xaccel"] = 0;
-    defaultPresetMap["key2_settings_ydead"] = 0;
-    defaultPresetMap["key2_settings_onthresh"] = 10;
-    defaultPresetMap["key2_settings_offthresh"] = 5;
-    defaultPresetMap["key3_settings_xdead"] = 0;
-    defaultPresetMap["key3_settings_ydead"] = 0;
-    defaultPresetMap["key3_settings_xaccel"] = 0;
-    defaultPresetMap["key3_settings_ydead"] = 0;
-    defaultPresetMap["key3_settings_onthresh"] = 10;
-    defaultPresetMap["key3_settings_offthresh"] = 5;
-    defaultPresetMap["key4_settings_xdead"] = 0;
-    defaultPresetMap["key4_settings_ydead"] = 0;
-    defaultPresetMap["key4_settings_xaccel"] = 0;
-    defaultPresetMap["key4_settings_ydead"] = 0;
-    defaultPresetMap["key4_settings_onthresh"] = 10;
-    defaultPresetMap["key4_settings_offthresh"] = 5;
-    defaultPresetMap["key5_settings_xdead"] = 0;
-    defaultPresetMap["key5_settings_ydead"] = 0;
-    defaultPresetMap["key5_settings_xaccel"] = 0;
-    defaultPresetMap["key5_settings_ydead"] = 0;
-    defaultPresetMap["key5_settings_onthresh"] = 10;
-    defaultPresetMap["key5_settings_offthresh"] = 5;
-    defaultPresetMap["key6_settings_xdead"] = 0;
-    defaultPresetMap["key6_settings_ydead"] = 0;
-    defaultPresetMap["key6_settings_xaccel"] = 0;
-    defaultPresetMap["key6_settings_ydead"] = 0;
-    defaultPresetMap["key6_settings_onthresh"] = 10;
-    defaultPresetMap["key6_settings_offthresh"] = 5;
-    defaultPresetMap["key7_settings_xdead"] = 0;
-    defaultPresetMap["key7_settings_ydead"] = 0;
-    defaultPresetMap["key7_settings_xaccel"] = 0;
-    defaultPresetMap["key7_settings_ydead"] = 0;
-    defaultPresetMap["key7_settings_onthresh"] = 10;
-    defaultPresetMap["key7_settings_offthresh"] = 5;
-    defaultPresetMap["key8_settings_xdead"] = 0;
-    defaultPresetMap["key8_settings_ydead"] = 0;
-    defaultPresetMap["key8_settings_xaccel"] = 0;
-    defaultPresetMap["key8_settings_ydead"] = 0;
-    defaultPresetMap["key8_settings_onthresh"] = 10;
-    defaultPresetMap["key8_settings_offthresh"] = 5;
-    defaultPresetMap["key9_settings_xdead"] = 0;
-    defaultPresetMap["key9_settings_ydead"] = 0;
-    defaultPresetMap["key9_settings_xaccel"] = 0;
-    defaultPresetMap["key9_settings_ydead"] = 0;
-    defaultPresetMap["key9_settings_onthresh"] = 10;
-    defaultPresetMap["key9_settings_offthresh"] = 5;
-    defaultPresetMap["key10_settings_xdead"] = 0;
-    defaultPresetMap["key10_settings_ydead"] = 0;
-    defaultPresetMap["key10_settings_xaccel"] = 0;
-    defaultPresetMap["key10_settings_ydead"] = 0;
-    defaultPresetMap["key10_settings_onthresh"] = 10;
-    defaultPresetMap["key10_settings_offthresh"] = 5;
-
-    defaultPresetMap["nav_north_settings_onThresh"] = 10;
-    defaultPresetMap["nav_north_settings_offThresh"] = 5;
-    defaultPresetMap["nav_south_settings_onThresh"] = 10;
-    defaultPresetMap["nav_south_settings_offThresh"] = 5;
-    defaultPresetMap["nav_east_settings_onThresh"] = 10;
-    defaultPresetMap["nav_east_settings_offThresh"] = 5;
-    defaultPresetMap["nav_west_settings_onThresh"] = 10;
-    defaultPresetMap["nav_west_settings_offThresh"] = 5;
-    defaultPresetMap["nav_settings_yaccel"] = 0;
-
-
     //------------------------ Key 1 ------------------------//
     defaultPresetMap["1_key_name"] = "1KEY";
     defaultPresetMap["1_key_displaymode"] = 1;
@@ -1968,6 +1918,81 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["nav_modline6_reminder"] = "";
 }
 
+void PresetInterface::slotConstructGlobalDefaultMap()
+{
+    //-------------------- Settings --------------------//
+    defaultGlobalMap["key1_settings_xdead"] = 33;
+    defaultGlobalMap["key1_settings_ydead"] = 33;
+    defaultGlobalMap["key1_settings_xaccel"] = 33;
+    defaultGlobalMap["key1_settings_ydead"] = 33;
+    defaultGlobalMap["key1_settings_onthresh"] = 10;
+    defaultGlobalMap["key1_settings_offthresh"] = 5;
+    defaultGlobalMap["key2_settings_xdead"] = 0;
+    defaultGlobalMap["key2_settings_ydead"] = 0;
+    defaultGlobalMap["key2_settings_xaccel"] = 0;
+    defaultGlobalMap["key2_settings_ydead"] = 0;
+    defaultGlobalMap["key2_settings_onthresh"] = 10;
+    defaultGlobalMap["key2_settings_offthresh"] = 5;
+    defaultGlobalMap["key3_settings_xdead"] = 0;
+    defaultGlobalMap["key3_settings_ydead"] = 0;
+    defaultGlobalMap["key3_settings_xaccel"] = 0;
+    defaultGlobalMap["key3_settings_ydead"] = 0;
+    defaultGlobalMap["key3_settings_onthresh"] = 10;
+    defaultGlobalMap["key3_settings_offthresh"] = 5;
+    defaultGlobalMap["key4_settings_xdead"] = 0;
+    defaultGlobalMap["key4_settings_ydead"] = 0;
+    defaultGlobalMap["key4_settings_xaccel"] = 0;
+    defaultGlobalMap["key4_settings_ydead"] = 0;
+    defaultGlobalMap["key4_settings_onthresh"] = 10;
+    defaultGlobalMap["key4_settings_offthresh"] = 5;
+    defaultGlobalMap["key5_settings_xdead"] = 0;
+    defaultGlobalMap["key5_settings_ydead"] = 0;
+    defaultGlobalMap["key5_settings_xaccel"] = 0;
+    defaultGlobalMap["key5_settings_ydead"] = 0;
+    defaultGlobalMap["key5_settings_onthresh"] = 10;
+    defaultGlobalMap["key5_settings_offthresh"] = 5;
+    defaultGlobalMap["key6_settings_xdead"] = 0;
+    defaultGlobalMap["key6_settings_ydead"] = 0;
+    defaultGlobalMap["key6_settings_xaccel"] = 0;
+    defaultGlobalMap["key6_settings_ydead"] = 0;
+    defaultGlobalMap["key6_settings_onthresh"] = 10;
+    defaultGlobalMap["key6_settings_offthresh"] = 5;
+    defaultGlobalMap["key7_settings_xdead"] = 0;
+    defaultGlobalMap["key7_settings_ydead"] = 0;
+    defaultGlobalMap["key7_settings_xaccel"] = 0;
+    defaultGlobalMap["key7_settings_ydead"] = 0;
+    defaultGlobalMap["key7_settings_onthresh"] = 10;
+    defaultGlobalMap["key7_settings_offthresh"] = 5;
+    defaultGlobalMap["key8_settings_xdead"] = 0;
+    defaultGlobalMap["key8_settings_ydead"] = 0;
+    defaultGlobalMap["key8_settings_xaccel"] = 0;
+    defaultGlobalMap["key8_settings_ydead"] = 0;
+    defaultGlobalMap["key8_settings_onthresh"] = 10;
+    defaultGlobalMap["key8_settings_offthresh"] = 5;
+    defaultGlobalMap["key9_settings_xdead"] = 0;
+    defaultGlobalMap["key9_settings_ydead"] = 0;
+    defaultGlobalMap["key9_settings_xaccel"] = 0;
+    defaultGlobalMap["key9_settings_ydead"] = 0;
+    defaultGlobalMap["key9_settings_onthresh"] = 10;
+    defaultGlobalMap["key9_settings_offthresh"] = 5;
+    defaultGlobalMap["key10_settings_xdead"] = 0;
+    defaultGlobalMap["key10_settings_ydead"] = 0;
+    defaultGlobalMap["key10_settings_xaccel"] = 0;
+    defaultGlobalMap["key10_settings_ydead"] = 0;
+    defaultGlobalMap["key10_settings_onthresh"] = 10;
+    defaultGlobalMap["key10_settings_offthresh"] = 5;
+
+    defaultGlobalMap["nav_north_settings_onThresh"] = 10;
+    defaultGlobalMap["nav_north_settings_offThresh"] = 5;
+    defaultGlobalMap["nav_south_settings_onThresh"] = 10;
+    defaultGlobalMap["nav_south_settings_offThresh"] = 5;
+    defaultGlobalMap["nav_east_settings_onThresh"] = 10;
+    defaultGlobalMap["nav_east_settings_offThresh"] = 5;
+    defaultGlobalMap["nav_west_settings_onThresh"] = 10;
+    defaultGlobalMap["nav_west_settings_offThresh"] = 5;
+    defaultGlobalMap["nav_settings_yaccel"] = 0;
+}
+
 void PresetInterface::slotRecallPreset(int i)
 {
     i -= 1;
@@ -1987,9 +2012,11 @@ void PresetInterface::slotRecallPreset(int i)
 
 }
 
-void PresetInterface::slotStoreGlobal()
+void PresetInterface::slotRecallGlobal()
 {
+    emit signalRecallGlobal(jsonMasterMapCopy.value(QString("Global")).toMap(),jsonMasterMapCopy);
 
+    //slotCheckSaveState();
 }
 
 void PresetInterface::slotUpdateClicked()
@@ -1998,6 +2025,7 @@ void PresetInterface::slotUpdateClicked()
     jsonMasterMap.insert(QString("Preset_00%1").arg(currentPresetNum), jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap());
 
     //store globals goes here
+    jsonMasterMap.insert(QString("Global"), jsonMasterMapCopy.value(QString("Global")).toMap());
 
 
     qDebug() << "update with this preset" << currentPresetNum;

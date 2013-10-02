@@ -20,7 +20,7 @@ public:
     QWidget* settingsWidget;
     
 signals:
-    void signalStoreValue(QString name, QVariant value, int presetNum);
+    void signalStoreValue(QString name, QVariant value);
     
 public slots:
     void slotOpenSettings();
