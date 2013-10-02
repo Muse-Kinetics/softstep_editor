@@ -1479,7 +1479,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key4_modline1_enable"] = 1;
-    factoryElevenRackMap["key4_modline1_source"] = "Foot_enable";
+    factoryElevenRackMap["key4_modline1_source"] = "Foot_On";
     factoryElevenRackMap["key4_modline1_gain"] = 1.00;
     factoryElevenRackMap["key4_modline1_offset"] = 0.00;
     factoryElevenRackMap["key4_modline1_table"] = "1_Lin";
@@ -1501,7 +1501,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 2 ------//
     factoryElevenRackMap["key4_modline2_enable"] = 1;
-    factoryElevenRackMap["key4_modline2_source"] = "Foot_enable";
+    factoryElevenRackMap["key4_modline2_source"] = "Foot_On";
     factoryElevenRackMap["key4_modline2_gain"] = 1.00;
     factoryElevenRackMap["key4_modline2_offset"] = 0.00;
     factoryElevenRackMap["key4_modline2_table"] = "Toggle_127";
@@ -1523,7 +1523,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 3 ------//
     factoryElevenRackMap["key4_modline3_enable"] = 1;
-    factoryElevenRackMap["key4_modline3_source"] = "Foot_enable";
+    factoryElevenRackMap["key4_modline3_source"] = "Foot_On";
     factoryElevenRackMap["key4_modline3_gain"] = 1.00;
     factoryElevenRackMap["key4_modline3_offset"] = 0.00;
     factoryElevenRackMap["key4_modline3_table"] = "1_Lin";
@@ -1545,7 +1545,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 4 ------//
     factoryElevenRackMap["key4_modline4_enable"] = 1;
-    factoryElevenRackMap["key4_modline4_source"] = "Foot_enable";
+    factoryElevenRackMap["key4_modline4_source"] = "Foot_On";
     factoryElevenRackMap["key4_modline4_gain"] = 1.00;
     factoryElevenRackMap["key4_modline4_offset"] = 0.00;
     factoryElevenRackMap["key4_modline4_table"] = "Toggle_127";
@@ -1761,7 +1761,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key6_modline1_enable"] = 1;
-    factoryElevenRackMap["key6_modline1_source"] = "Foot_enable";
+    factoryElevenRackMap["key6_modline1_source"] = "Foot_On";
     factoryElevenRackMap["key6_modline1_gain"] = 1.00;
     factoryElevenRackMap["key6_modline1_offset"] = 0.00;
     factoryElevenRackMap["key6_modline1_table"] = "Toggle_127";
@@ -1783,7 +1783,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 2 ------//
     factoryElevenRackMap["key6_modline2_enable"] = 1;
-    factoryElevenRackMap["key6_modline2_source"] = "Foot_enable";
+    factoryElevenRackMap["key6_modline2_source"] = "Foot_On";
     factoryElevenRackMap["key6_modline2_gain"] = 1.00;
     factoryElevenRackMap["key6_modline2_offset"] = 0.00;
     factoryElevenRackMap["key6_modline2_table"] = "Toggle_127";
@@ -1902,7 +1902,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key7_modline1_enable"] = 1;
-    factoryElevenRackMap["key7_modline1_source"] = "Foot_enable";
+    factoryElevenRackMap["key7_modline1_source"] = "Foot_On";
     factoryElevenRackMap["key7_modline1_gain"] = 1.00;
     factoryElevenRackMap["key7_modline1_offset"] = 0.00;
     factoryElevenRackMap["key7_modline1_table"] = "Toggle_127";
@@ -1924,7 +1924,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 2 ------//
     factoryElevenRackMap["key7_modline2_enable"] = 1;
-    factoryElevenRackMap["key7_modline2_source"] = "Foot_enable";
+    factoryElevenRackMap["key7_modline2_source"] = "Foot_On";
     factoryElevenRackMap["key7_modline2_gain"] = 1.00;
     factoryElevenRackMap["key7_modline2_offset"] = 0.00;
     factoryElevenRackMap["key7_modline2_table"] = "Toggle_127";
@@ -2043,7 +2043,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key8_modline1_enable"] = 1;
-    factoryElevenRackMap["key8_modline1_source"] = "Foot_enable";
+    factoryElevenRackMap["key8_modline1_source"] = "Foot_On";
     factoryElevenRackMap["key8_modline1_gain"] = 1.00;
     factoryElevenRackMap["key8_modline1_offset"] = 0.00;
     factoryElevenRackMap["key8_modline1_table"] = "Toggle_127";
@@ -2065,7 +2065,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 2 ------//
     factoryElevenRackMap["key8_modline2_enable"] = 1;
-    factoryElevenRackMap["key8_modline2_source"] = "Foot_enable";
+    factoryElevenRackMap["key8_modline2_source"] = "Foot_On";
     factoryElevenRackMap["key8_modline2_gain"] = 1.00;
     factoryElevenRackMap["key8_modline2_offset"] = 0.00;
     factoryElevenRackMap["key8_modline2_table"] = "Toggle_127";
@@ -2184,7 +2184,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key9_modline1_enable"] = 1;
-    factoryElevenRackMap["key9_modline1_source"] = "Foot_enable";
+    factoryElevenRackMap["key9_modline1_source"] = "Foot_On";
     factoryElevenRackMap["key9_modline1_gain"] = 1.00;
     factoryElevenRackMap["key9_modline1_offset"] = 0.00;
     factoryElevenRackMap["key9_modline1_table"] = "Toggle_127";
@@ -2206,7 +2206,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 2 ------//
     factoryElevenRackMap["key9_modline2_enable"] = 1;
-    factoryElevenRackMap["key9_modline2_source"] = "Foot_enable";
+    factoryElevenRackMap["key9_modline2_source"] = "Foot_On";
     factoryElevenRackMap["key9_modline2_gain"] = 1.00;
     factoryElevenRackMap["key9_modline2_offset"] = 0.00;
     factoryElevenRackMap["key9_modline2_table"] = "Toggle_127";
@@ -2325,7 +2325,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 1 ------//
     factoryElevenRackMap["key10_modline1_enable"] = 1;
-    factoryElevenRackMap["key10_modline1_source"] = "Foot_enable";
+    factoryElevenRackMap["key10_modline1_source"] = "Foot_On";
     factoryElevenRackMap["key10_modline1_gain"] = 1.00;
     factoryElevenRackMap["key10_modline1_offset"] = 0.00;
     factoryElevenRackMap["key10_modline1_table"] = "Toggle_127";
@@ -2347,7 +2347,7 @@ void FactoryPresets::createElevenRackMap(){
 
     //------ Modline 2 ------//
     factoryElevenRackMap["key10_modline2_enable"] = 1;
-    factoryElevenRackMap["key10_modline2_source"] = "Foot_enable";
+    factoryElevenRackMap["key10_modline2_source"] = "Foot_On";
     factoryElevenRackMap["key10_modline2_gain"] = 1.00;
     factoryElevenRackMap["key10_modline2_offset"] = 0.00;
     factoryElevenRackMap["key10_modline2_table"] = "Toggle_127";
@@ -3026,7 +3026,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 1 ------//
     factoryPodMap["key4_modline1_enable"] = 1;
-    factoryPodMap["key4_modline1_source"] = "Foot_enable";
+    factoryPodMap["key4_modline1_source"] = "Foot_On";
     factoryPodMap["key4_modline1_gain"] = 1.00;
     factoryPodMap["key4_modline1_offset"] = 0.00;
     factoryPodMap["key4_modline1_table"] = "Toggle_127";
@@ -3048,7 +3048,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 2 ------//
     factoryPodMap["key4_modline2_enable"] = 1;
-    factoryPodMap["key4_modline2_source"] = "Foot_enable";
+    factoryPodMap["key4_modline2_source"] = "Foot_On";
     factoryPodMap["key4_modline2_gain"] = 1.00;
     factoryPodMap["key4_modline2_offset"] = 0.00;
     factoryPodMap["key4_modline2_table"] = "Toggle_127";
@@ -3308,7 +3308,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 1 ------//
     factoryPodMap["key6_modline1_enable"] = 1;
-    factoryPodMap["key6_modline1_source"] = "Foot_enable";
+    factoryPodMap["key6_modline1_source"] = "Foot_On";
     factoryPodMap["key6_modline1_gain"] = 1.00;
     factoryPodMap["key6_modline1_offset"] = 0.00;
     factoryPodMap["key6_modline1_table"] = "Toggle_127";
@@ -3330,7 +3330,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 2 ------//
     factoryPodMap["key6_modline2_enable"] = 1;
-    factoryPodMap["key6_modline2_source"] = "Foot_enable";
+    factoryPodMap["key6_modline2_source"] = "Foot_On";
     factoryPodMap["key6_modline2_gain"] = 1.00;
     factoryPodMap["key6_modline2_offset"] = 0.00;
     factoryPodMap["key6_modline2_table"] = "Toggle_127";
@@ -3449,7 +3449,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 1 ------//
     factoryPodMap["key7_modline1_enable"] = 1;
-    factoryPodMap["key7_modline1_source"] = "Foot_enable";
+    factoryPodMap["key7_modline1_source"] = "Foot_On";
     factoryPodMap["key7_modline1_gain"] = 1.00;
     factoryPodMap["key7_modline1_offset"] = 0.00;
     factoryPodMap["key7_modline1_table"] = "Toggle_127";
@@ -3471,7 +3471,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 2 ------//
     factoryPodMap["key7_modline2_enable"] = 1;
-    factoryPodMap["key7_modline2_source"] = "Foot_enable";
+    factoryPodMap["key7_modline2_source"] = "Foot_On";
     factoryPodMap["key7_modline2_gain"] = 1.00;
     factoryPodMap["key7_modline2_offset"] = 0.00;
     factoryPodMap["key7_modline2_table"] = "Toggle_127";
@@ -3590,7 +3590,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 1 ------//
     factoryPodMap["key8_modline1_enable"] = 1;
-    factoryPodMap["key8_modline1_source"] = "Foot_enable";
+    factoryPodMap["key8_modline1_source"] = "Foot_On";
     factoryPodMap["key8_modline1_gain"] = 1.00;
     factoryPodMap["key8_modline1_offset"] = 0.00;
     factoryPodMap["key8_modline1_table"] = "Toggle_127";
@@ -3612,7 +3612,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 2 ------//
     factoryPodMap["key8_modline2_enable"] = 1;
-    factoryPodMap["key8_modline2_source"] = "Foot_enable";
+    factoryPodMap["key8_modline2_source"] = "Foot_On";
     factoryPodMap["key8_modline2_gain"] = 1.00;
     factoryPodMap["key8_modline2_offset"] = 0.00;
     factoryPodMap["key8_modline2_table"] = "Toggle_127";
@@ -3731,7 +3731,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 1 ------//
     factoryPodMap["key9_modline1_enable"] = 1;
-    factoryPodMap["key9_modline1_source"] = "Foot_enable";
+    factoryPodMap["key9_modline1_source"] = "Foot_On";
     factoryPodMap["key9_modline1_gain"] = 1.00;
     factoryPodMap["key9_modline1_offset"] = 0.00;
     factoryPodMap["key9_modline1_table"] = "Toggle_127";
@@ -3753,7 +3753,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 2 ------//
     factoryPodMap["key9_modline2_enable"] = 1;
-    factoryPodMap["key9_modline2_source"] = "Foot_enable";
+    factoryPodMap["key9_modline2_source"] = "Foot_On";
     factoryPodMap["key9_modline2_gain"] = 1.00;
     factoryPodMap["key9_modline2_offset"] = 0.00;
     factoryPodMap["key9_modline2_table"] = "Toggle_127";
@@ -3872,7 +3872,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 1 ------//
     factoryPodMap["key10_modline1_enable"] = 1;
-    factoryPodMap["key10_modline1_source"] = "Foot_enable";
+    factoryPodMap["key10_modline1_source"] = "Foot_On";
     factoryPodMap["key10_modline1_gain"] = 1.00;
     factoryPodMap["key10_modline1_offset"] = 0.00;
     factoryPodMap["key10_modline1_table"] = "Toggle_127";
@@ -3894,7 +3894,7 @@ void FactoryPresets::createPodMap(){
 
     //------ Modline 2 ------//
     factoryPodMap["key10_modline2_enable"] = 1;
-    factoryPodMap["key10_modline2_source"] = "Foot_enable";
+    factoryPodMap["key10_modline2_source"] = "Foot_On";
     factoryPodMap["key10_modline2_gain"] = 1.00;
     factoryPodMap["key10_modline2_offset"] = 0.00;
     factoryPodMap["key10_modline2_table"] = "Toggle_127";
@@ -4855,7 +4855,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 1 ------//
     factoryLiveMap["key6_modline1_enable"] = 1;
-    factoryLiveMap["key6_modline1_source"] = "Foot_enable";
+    factoryLiveMap["key6_modline1_source"] = "Foot_On";
     factoryLiveMap["key6_modline1_gain"] = 1.00;
     factoryLiveMap["key6_modline1_offset"] = 0.00;
     factoryLiveMap["key6_modline1_table"] = "1_Lin";
@@ -4877,7 +4877,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 2 ------//
     factoryLiveMap["key6_modline2_enable"] = 1;
-    factoryLiveMap["key6_modline2_source"] = "Foot_enable";
+    factoryLiveMap["key6_modline2_source"] = "Foot_On";
     factoryLiveMap["key6_modline2_gain"] = 1.00;
     factoryLiveMap["key6_modline2_offset"] = 0.00;
     factoryLiveMap["key6_modline2_table"] = "1_Lin";
@@ -4996,7 +4996,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 1 ------//
     factoryLiveMap["key7_modline1_enable"] = 1;
-    factoryLiveMap["key7_modline1_source"] = "Foot_enable";
+    factoryLiveMap["key7_modline1_source"] = "Foot_On";
     factoryLiveMap["key7_modline1_gain"] = 1.00;
     factoryLiveMap["key7_modline1_offset"] = 0.00;
     factoryLiveMap["key7_modline1_table"] = "1_Lin";
@@ -5018,7 +5018,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 2 ------//
     factoryLiveMap["key7_modline2_enable"] = 1;
-    factoryLiveMap["key7_modline2_source"] = "Foot_enable";
+    factoryLiveMap["key7_modline2_source"] = "Foot_On";
     factoryLiveMap["key7_modline2_gain"] = 1.00;
     factoryLiveMap["key7_modline2_offset"] = 0.00;
     factoryLiveMap["key7_modline2_table"] = "1_Lin";
@@ -5137,7 +5137,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 1 ------//
     factoryLiveMap["key8_modline1_enable"] = 1;
-    factoryLiveMap["key8_modline1_source"] = "Foot_enable";
+    factoryLiveMap["key8_modline1_source"] = "Foot_On";
     factoryLiveMap["key8_modline1_gain"] = 1.00;
     factoryLiveMap["key8_modline1_offset"] = 0.00;
     factoryLiveMap["key8_modline1_table"] = "1_Lin";
@@ -5159,7 +5159,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 2 ------//
     factoryLiveMap["key8_modline2_enable"] = 1;
-    factoryLiveMap["key8_modline2_source"] = "Foot_enable";
+    factoryLiveMap["key8_modline2_source"] = "Foot_On";
     factoryLiveMap["key8_modline2_gain"] = 1.00;
     factoryLiveMap["key8_modline2_offset"] = 0.00;
     factoryLiveMap["key8_modline2_table"] = "1_Lin";
@@ -5278,7 +5278,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 1 ------//
     factoryLiveMap["key9_modline1_enable"] = 1;
-    factoryLiveMap["key9_modline1_source"] = "Foot_enable";
+    factoryLiveMap["key9_modline1_source"] = "Foot_On";
     factoryLiveMap["key9_modline1_gain"] = 1.00;
     factoryLiveMap["key9_modline1_offset"] = 0.00;
     factoryLiveMap["key9_modline1_table"] = "1_Lin";
@@ -5300,7 +5300,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 2 ------//
     factoryLiveMap["key9_modline2_enable"] = 1;
-    factoryLiveMap["key9_modline2_source"] = "Foot_enable";
+    factoryLiveMap["key9_modline2_source"] = "Foot_On";
     factoryLiveMap["key9_modline2_gain"] = 1.00;
     factoryLiveMap["key9_modline2_offset"] = 0.00;
     factoryLiveMap["key9_modline2_table"] = "1_Lin";
@@ -5419,7 +5419,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 1 ------//
     factoryLiveMap["key10_modline1_enable"] = 1;
-    factoryLiveMap["key10_modline1_source"] = "Foot_enable";
+    factoryLiveMap["key10_modline1_source"] = "Foot_On";
     factoryLiveMap["key10_modline1_gain"] = 1.00;
     factoryLiveMap["key10_modline1_offset"] = 0.00;
     factoryLiveMap["key10_modline1_table"] = "1_Lin";
@@ -5441,7 +5441,7 @@ void FactoryPresets::createLiveMap(){
 
     //------ Modline 2 ------//
     factoryLiveMap["key10_modline2_enable"] = 1;
-    factoryLiveMap["key10_modline2_source"] = "Foot_enable";
+    factoryLiveMap["key10_modline2_source"] = "Foot_On";
     factoryLiveMap["key10_modline2_gain"] = 1.00;
     factoryLiveMap["key10_modline2_offset"] = 0.00;
     factoryLiveMap["key10_modline2_table"] = "1_Lin";
