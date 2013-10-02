@@ -34,7 +34,8 @@ SOURCES +=      main.cpp\
                 ../../shared/sysexcomposition/mainsysex.c \
                 sysexcomposer.cpp \
                 settings.cpp \
-                mididevicemanager.cpp
+                mididevicemanager.cpp \
+    stylesheets.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -54,7 +55,8 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexcomposition/sysexcomposer.h \
                 ../../shared/sysexmessages.h \
                 settings.h \
-                mididevicemanager.h
+                mididevicemanager.h \
+    stylesheets.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \
