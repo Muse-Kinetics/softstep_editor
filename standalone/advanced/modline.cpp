@@ -16,7 +16,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     QWidget *formWidget = new QWidget(this);
 
     modlineForm.setupUi(formWidget);
-    this->setFixedSize(1000,40);
+    this->setFixedSize(1100,40);
 
     modlineForm.instanceLabel->setText(QString("%1").arg((modlineInstance + 1)%10));
     modlineForm.deviceViews->setCurrentIndex(0);
@@ -28,10 +28,10 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     connect(modlineForm.offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
     modlineForm.raw->setValue(0);
 
-    this->setGeometry(10,75 + ((modlineInstance)*42),1000,40);
+    this->setGeometry(10,98 + ((modlineInstance)*45),1100,40);
 
     //potentially add this to dynamically set the stylesheet for the "enable" checkbox -CARSON
-    modlineForm.enable->setStyleSheet(QString(":/modline_enable%1_stylesheet.qss").arg((modlineInstance+1)%10));
+    modlineForm.enable->setStyleSheet(QString(":/resources/modline_enable%1_stylesheet.qss").arg(modlineInstance + 1));
 }
 
 void Modline::slotConnectElements()

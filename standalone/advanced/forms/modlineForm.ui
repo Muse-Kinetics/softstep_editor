@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>100</height>
+    <height>40</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,13 +16,14 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background:		rgba(35,31,32,255);
+	background:		rgba(255, 255, 255, 50);
 	border: 3px rgb(25, 25, 25);
 }
 
 /* ------- QStackedWidget ---------*/
 QStackedWidget
 {
+	background: none;
 	border-left: 2px solid rgb(0,174,239);
 	border-right: 2px solid rgb(0,174,239);
 }
@@ -46,7 +47,7 @@ QSpinBox
 {
 	font: 10pt &quot;Futura&quot;;
 	border: 1px solid rgb(0,174,239);
-	background-color: rgba(0, 0, 0, 255);
+	background-color: rgb(18, 18, 18);
 	color: white;
 	padding: 1px 3px 1px 3px;
 }
@@ -61,7 +62,7 @@ QDoubleSpinBox
 {
 	font: 10pt &quot;Futura&quot;;
 	border: 1px solid rgb(0,174,239);
-	background-color: rgba(0, 0, 0, 255);
+	background-color: rgb(18, 18, 18);
 	color: white;
 	padding: 1px 3px 1px 3px;
 }
@@ -76,7 +77,7 @@ QDoubleSpinBox::focus
 QLineEdit
 {
 	font: 10pt &quot;Futura&quot;;
-	background: rgba(0,174,239,0);
+	background: rgb(18, 18, 18);
 	border: 1px solid rgba(0,174,239,255);
 	border-radius: 0px;
 	color: white;
@@ -111,10 +112,11 @@ QCheckBox:focus
 }
 
 /*----------- QComboBox ------------*/
-QComboBox {
+QComboBox
+{
 	font: 10pt &quot;Futura&quot;;
 	border: 1px solid rgb(0,174,239);
-	background-color: rgba(0, 0, 0, 255);
+	background: rgb(18, 18, 18);
 	color: white;
 	padding: 1px 3px 1px 3px;
  }</string>
@@ -1114,8 +1116,98 @@ QComboBox {
      <height>18</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget
+{
+	background: rgba(0, 0, 0, 0);
+}
+
+QLabel
+{
+	background: rgba(0, 0, 0, 0);
+}
+
+/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 3px 1px 3px;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+QDoubleSpinBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 3px 1px 3px;
+}
+
+QDoubleSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+/* ---------- QLineEdit ------------*/
+QLineEdit
+{
+	font: 10pt &quot;Futura&quot;;
+	background: rgb(18, 18, 18);
+	border: 1px solid rgba(0,174,239,255);
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+QLineEdit:focus
+{
+	font: 10pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 1px solid white;
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	font: 10pt &quot;Futura&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 3, 0, 0;
+	border: none;
+}
+
+QCheckBox:focus
+{
+	background:rgba(0,174,239,0);
+}
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 3px 1px 3px;
+ }</string>
+   </property>
    <property name="currentIndex">
-    <number>6</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -1918,13 +2010,26 @@ QStackedWidget
 {
 	border-left: none;
 	border-right: none;
+}
+
+QWidget
+{
+	background: rgba(0, 0, 0, 0);
+}
+
+QLabel
+{
+	background: rgba(0, 0, 0, 0);
 }</string>
    </property>
    <property name="currentIndex">
-    <number>6</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
