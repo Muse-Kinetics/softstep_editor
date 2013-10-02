@@ -1,0 +1,57 @@
+/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt "Futura";
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/modline_enable6_toggle_off.svg);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/modline_enable6_toggle_off.svg);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/modline_enable6_toggle_on.svg);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/modline_enable6_toggle_on.svg);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/modline_enable6_toggle_off.svg);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/modline_enable6_toggle_off.svg);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/modline_enable6_toggle_on.svg);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/modline_enable6_toggle_on.svg);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/modline_enable6_toggle_off.svg);
+}

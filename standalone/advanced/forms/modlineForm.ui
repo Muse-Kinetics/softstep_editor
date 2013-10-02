@@ -45,7 +45,7 @@ QLabel:hover
 QSpinBox
 {
 	font: 10pt &quot;Futura&quot;;
-	border: 1.5px solid rgb(0,174,239);
+	border: 1px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
 	padding: 1px 3px 1px 3px;
@@ -60,7 +60,7 @@ QSpinBox::focus
 QDoubleSpinBox
 {
 	font: 10pt &quot;Futura&quot;;
-	border: 1.5px solid rgb(0,174,239);
+	border: 1px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
 	padding: 1px 3px 1px 3px;
