@@ -286,7 +286,7 @@ QCheckBox::indicator:checked:pressed:focus
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/modline_window_label_background.svg);
+	background-image: url(:/resources/modline_window_label_background.png);
 }</string>
    </property>
    <property name="frameShape">
@@ -370,11 +370,11 @@ QCheckBox::indicator:checked:pressed:focus
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="initsBracketLabel">
    <property name="geometry">
     <rect>
      <x>47</x>
-     <y>80</y>
+     <y>82</y>
      <width>53</width>
      <height>11</height>
     </rect>
@@ -384,7 +384,7 @@ QCheckBox::indicator:checked:pressed:focus
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/keyWindow_inits_label_bracket.svg);
+	background-image: url(:/resources/keyWindow_inits_label_bracket.png);
 }</string>
    </property>
    <property name="text">
@@ -405,7 +405,7 @@ QCheckBox::indicator:checked:pressed:focus
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/keyWindow_inits_label.svg);
+	background-image: url(:/resources/keyWindow_inits_label.png);
 }</string>
    </property>
    <property name="text">
@@ -426,18 +426,18 @@ QCheckBox::indicator:checked:pressed:focus
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/keyWindow_dataSources_label.svg);
+	background-image: url(:/resources/keyWindow_dataSources_label.png);
 }</string>
    </property>
    <property name="text">
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_5">
+  <widget class="QLabel" name="dataSourcesBracketLabel">
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>80</y>
+     <y>82</y>
      <width>94</width>
      <height>11</height>
     </rect>
@@ -447,18 +447,18 @@ QCheckBox::indicator:checked:pressed:focus
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/keyWindow_dataSources_label_bracket.svg);
+	background-image: url(:/resources/keyWindow_dataSources_label_bracket.png);
 }</string>
    </property>
    <property name="text">
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_6">
+  <widget class="QLabel" name="dataModifiersBracketLabel">
    <property name="geometry">
     <rect>
      <x>239</x>
-     <y>80</y>
+     <y>82</y>
      <width>317</width>
      <height>11</height>
     </rect>
@@ -468,7 +468,7 @@ QCheckBox::indicator:checked:pressed:focus
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/keyWindow_dataModifiers_label_bracket.svg);
+	background-image: url(:/resources/keyWindow_dataModifiers_label_bracket.png);
 }</string>
    </property>
    <property name="text">
@@ -479,9 +479,9 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>330</x>
-     <y>64</y>
+     <y>63</y>
      <width>108</width>
-     <height>11</height>
+     <height>13</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -489,7 +489,7 @@ QCheckBox::indicator:checked:pressed:focus
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/keyWindow_dataModifiers_label.svg);
+	background-image: url(:/resources/keyWindow_dataModifiers_label.png);
 }</string>
    </property>
    <property name="text">
@@ -500,7 +500,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>676</x>
-     <y>64</y>
+     <y>63</y>
      <width>113</width>
      <height>14</height>
     </rect>
@@ -510,19 +510,19 @@ QCheckBox::indicator:checked:pressed:focus
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/keyWindow_outputSettings_label.svg);
+	background-image: url(:/resources/keyWindow_outputSettings_label.png);
 }</string>
    </property>
    <property name="text">
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_9">
+  <widget class="QLabel" name="outputSettingsBracketLabel">
    <property name="geometry">
     <rect>
      <x>585</x>
-     <y>80</y>
-     <width>303</width>
+     <y>82</y>
+     <width>304</width>
      <height>11</height>
     </rect>
    </property>
@@ -531,7 +531,7 @@ QCheckBox::indicator:checked:pressed:focus
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/keyWindow_outputSettings_label_bracket.svg);
+	background-image: url(:/resources/keyWindow_outputSettings_label_bracket.png);
 }</string>
    </property>
    <property name="text">
