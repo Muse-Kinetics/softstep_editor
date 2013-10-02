@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>40</height>
+    <height>42</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -173,7 +173,64 @@ QComboBox
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/modline_enable1_toggle_off.svg);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/modline_enable1_toggle_off.svg);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/modline_enable1_toggle_on.svg);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/modline_enable1_toggle_on.svg);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/modline_enable1_toggle_off.svg);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/modline_enable1_toggle_off.svg);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/modline_enable1_toggle_on.svg);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/modline_enable1_toggle_on.svg);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/modline_enable1_toggle_off.svg);
+}
+</string>
    </property>
    <property name="text">
     <string/>
