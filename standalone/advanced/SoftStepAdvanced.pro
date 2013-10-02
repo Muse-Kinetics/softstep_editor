@@ -102,4 +102,10 @@ macx{
 RESOURCES += \
     resources.qrc
 
-OTHER_FILES +=
+OTHER_FILES += \
+    resources/modline_enable1_stylesheet.qss \
+    resources/modline_enable2_stylesheet.qss \
+    resources/modline_enable3_stylesheet.qss \
+    resources/modline_enable4_stylesheet.qss \
+    resources/modline_enable5_stylesheet.qss \
+    resources/modline_enable6_stylesheet.qss
