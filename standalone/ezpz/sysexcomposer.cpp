@@ -541,7 +541,7 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
     attribute(x,2,A_SYM,"key",A_LONG,11l);
     attribute(x,3,A_SYM,"set",A_SYM,"Nav_Modline_Mode",A_LONG,preset.value("nav_modlinemode").toLongLong());
 
-    qDebug() << "\n\n------------modline mode for nav" << preset.value("nav_modlinemode").toLongLong();
+
 
     //set nav pad key name to scene name and display to always so that then scene name will display when the nav pad is pressed.
     attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM,preset.value("nav_name").toString().toUtf8().constData());
@@ -564,7 +564,7 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
         attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("%1_modline%2_slew").arg(k).arg(m)).toLongLong());
 
         //Set destination dependent params
-        QString dest = preset.value(QString("key%1_modline%2_destination").arg(k).arg(m)).toString();
+        QString dest = preset.value(QString("%1_modline%2_destination").arg(k).arg(m)).toString();
 
         if(dest.contains("Note"))
         {
@@ -574,6 +574,8 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
         else if(dest.contains("CC"))
         {
             attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value(QString("%1_modline%2_cc").arg(k).arg(m)).toLongLong());
+
+            qDebug() << "\n\n------------cc num for nav" << preset.value(QString("%1_modline%2_cc").arg(k).arg(m)).toLongLong();
         }
 
         attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,preset.value(QString("%1_modline%2_destination").arg(k).arg(m)).toString().toUtf8().constData());
