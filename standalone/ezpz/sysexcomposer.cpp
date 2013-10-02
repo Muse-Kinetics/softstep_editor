@@ -488,7 +488,7 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
     }
 
     attribute(x,2,A_SYM,"preset",A_LONG,p);
-    attribute(x,3,A_SYM, "set",A_SYM,"Scene_Name",A_SYM,preset.value("displayName").toString().toUtf8().constData());
+    attribute(x,3,A_SYM, "set",A_SYM,"Scene_Name",A_SYM,preset.value("displayname").toString().toUtf8().constData());
 
     //----------------------------------------------------------------------------------------//
     //------------------------------------------ Keys ----------------------------------------//

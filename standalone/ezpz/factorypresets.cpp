@@ -20,7 +20,7 @@ void FactoryPresets::createProgramChange()
     //programChangeMap["navPadCC"] = 7;
     //programChangeMap["pedalCC"] = 26;
     //programChangeMap["backlight"] = true;
-    programChangeMap["displayName"] = "PRGM";
+    programChangeMap["displayname"] = "PRGM";
 
     programChangeMap["useFactory"] = "Program Change";
 
@@ -1042,7 +1042,7 @@ void FactoryPresets::createProgramChange()
 
 void FactoryPresets::createElevenRackMap(){
 
-    factoryElevenRackMap["displayName"] = "11RK";
+    factoryElevenRackMap["displayname"] = "11RK";
 
     factoryElevenRackMap["useFactory"] = "ElevenRack Control";
 
@@ -2589,7 +2589,7 @@ void FactoryPresets::createElevenRackMap(){
 
 void FactoryPresets::createPodMap(){
 
-    factoryPodMap["displayName"] = "POD";
+    factoryPodMap["displayname"] = "POD";
 
     factoryPodMap["useFactory"] = "Line6 Pod Control";
 
@@ -4136,7 +4136,7 @@ void FactoryPresets::createPodMap(){
 
 void FactoryPresets::createLiveMap(){
 
-    factoryLiveMap["displayName"] = "LIVE";
+    factoryLiveMap["displayname"] = "LIVE";
 
     factoryLiveMap["useFactory"] = "Ableton Live Control";
 

@@ -150,27 +150,30 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
         for(long k = 1; k < 11; k++)
         {
             attribute(x,2,A_SYM,"key",A_LONG,k);
-            attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM, preset.value(QString("%1_key_name").arg(k)).toString().toUtf8().constData());
-            attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,preset.value(QString("%1_key_prefix").arg(k)).toString().toUtf8().constData());
-            attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,preset.value(QString("%1_key_displayMode").arg(k)).toLongLong());
+            attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM, preset.value(QString("key%1_name").arg(k)).toString().toUtf8().constData());
+            attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,preset.value(QString("key%1_prefix").arg(k)).toString().toUtf8().constData());
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,preset.value(QString("key%1_displaymode").arg(k)).toLongLong());
 
             for(long m = 1; m < 7; m++ )
             {
                 attribute(x,3,A_SYM,"set",A_SYM,"Modline",A_LONG,m);
-                attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,preset.value(QString("%1_key_modline%2_on").arg(k).arg(m)).toLongLong());
-                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("%1_key_modline%2_source").arg(k).arg(m)).toString().toUtf8().constData());
-                attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("%1_key_modline%2_gain").arg(k).arg(m)).toFloat());
-                attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("%1_key_modline%2_offset").arg(k).arg(m)).toFloat());
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, preset.value(QString("%1_key_modline%2_table").arg(k).arg(m)).toString().toUtf8().constData());
-                attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,preset.value(QString("%1_key_modline%2_min").arg(k).arg(m)).toLongLong());
-                attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,preset.value(QString("%1_key_modline%2_max").arg(k).arg(m)).toLongLong());
-                attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("%1_key_modline%2_slew").arg(k).arg(m)).toLongLong());
-                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,preset.value(QString("%1_key_modline%2_destination").arg(k).arg(m)).toString().toUtf8().constData());
-                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("%1_key_modline%2_channel").arg(k).arg(m)).toLongLong());
-                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("%1_key_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
-                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,preset.value(QString("%1_key_modline%2_led_red").arg(k).arg(m)).toString().toUtf8().constData());
-                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,preset.value(QString("%1_key_modline%2_led_green").arg(k).arg(m)).toString().toUtf8().constData());
-                attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("%1_key_modline%2_displayLinked").arg(k).arg(m)).toString().toUtf8().constData());
+                attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,preset.value(QString("key%1_modline%2_on").arg(k).arg(m)).toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("key%1_modline%2_source").arg(k).arg(m)).toString().toUtf8().constData());
+                attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("key%1_modline%2_gain").arg(k).arg(m)).toFloat());
+                attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("key%1_modline%2_offset").arg(k).arg(m)).toFloat());
+                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, preset.value(QString("key%1_modline%2_table").arg(k).arg(m)).toString().toUtf8().constData());
+                attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,preset.value(QString("key%1_modline%2_min").arg(k).arg(m)).toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,preset.value(QString("key%1_modline%2_max").arg(k).arg(m)).toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("key%1_modline%2_slew").arg(k).arg(m)).toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,preset.value(QString("key%1_modline%2_destination").arg(k).arg(m)).toString().toUtf8().constData());
+
+
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
+                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,preset.value(QString("key%1_modline%2_ledred").arg(k).arg(m)).toString().toUtf8().constData());
+                attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,preset.value(QString("key%1_modline%2_ledgreen").arg(k).arg(m)).toString().toUtf8().constData());
+                attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("key%1_modline%2_displaylinked").arg(k).arg(m)).toString().toUtf8().constData());
 
             } //Modline loop
          } //Key loop
