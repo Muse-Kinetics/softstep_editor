@@ -32,5 +32,9 @@
         <file>resources/keyWindow_inits_label.svg</file>
         <file>resources/keyWindow_outputSettings_label_bracket.svg</file>
         <file>resources/keyWindow_outputSettings_label.svg</file>
+        <file>resources/keyWindow_data_sources_label_bracket.svg</file>
+        <file>resources/keyWindow_data_modifiers_label_bracket.svg</file>
+        <file>resources/keyWindow_init_label_bracket.svg</file>
+        <file>resources/keyWindow_output_settings_label_bracket.svg</file>
     </qresource>
 </RCC>
