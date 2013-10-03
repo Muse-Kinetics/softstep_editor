@@ -10,17 +10,24 @@ StyleSheets::StyleSheets()
 
     //////////////// MODLINE ENABLE CHECKBOXES ////////////////
 
-    //Modline 1
-    file = new QFile(":/resources/modline_enable1_stylesheet.qss");
-    if(file->open(QIODevice::ReadOnly))
+    for(int i = 0; i < 6; i++)
     {
-        modlineEnable1StyleSheet = QTextStream(file).readAll();
-        qDebug() << modlineEnable1StyleSheet;
+        //Set file path dynamically
+        file = new QFile(QString(":/resources/modline_enable%1_stylesheet.qss").arg(i + 1));
+
+        //If we successfully opened the file...
+        if(file->open(QIODevice::ReadOnly))
+        {
+            //Append contents to out list of strings [QList<QString>]
+            modlineEnableStyleSheet.append(QTextStream(file).readAll());
+        }
+
+        file->close();
     }
 
-    file->close();
 
-    //Modline 2
+
+    /*//Modline 2
     file = new QFile(":/resources/modline_enable2_stylesheet.qss");
     if(file->open(QIODevice::ReadOnly))
     {
@@ -68,5 +75,5 @@ StyleSheets::StyleSheets()
         qDebug() << modlineEnable6StyleSheet;
     }
 
-    file->close();
+    file->close();*/
 }

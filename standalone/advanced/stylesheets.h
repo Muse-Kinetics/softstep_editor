@@ -16,12 +16,14 @@ class StyleSheets
 
         QFile* file;
 
-        QString modlineEnable1StyleSheet;
+        /*QString modlineEnable1StyleSheet;
         QString modlineEnable2StyleSheet;
         QString modlineEnable3StyleSheet;
         QString modlineEnable4StyleSheet;
         QString modlineEnable5StyleSheet;
-        QString modlineEnable6StyleSheet;
+        QString modlineEnable6StyleSheet;*/
+
+        QList<QString> modlineEnableStyleSheet;
 
 };
 

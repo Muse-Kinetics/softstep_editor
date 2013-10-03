@@ -10,12 +10,15 @@
 #include <QVariant>
 
 #include "ui_modlineForm.h"
+#include "stylesheets.h"
 
 class Modline : public QWidget
 {
     Q_OBJECT
 public:
     explicit Modline(QWidget *parent = 0, int keyInstanceNum = 0, int modlineInstanceNum = 0);
+
+    StyleSheets stylesheets;
 
     int keyInstance;
     int modlineInstance;

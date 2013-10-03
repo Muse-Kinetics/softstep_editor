@@ -36,7 +36,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     this->setGeometry(MODLINE_STARTING_X_POS, MODLINE_STARTING_Y_POS + ((modlineInstance)*(MODLINE_WINDOW_HEIGHT + MODLINE_SPACING)), MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
 
     //potentially add this to dynamically set the stylesheet for the "enable" checkbox -CARSON
-    //modlineForm.enable->setStyleSheet(QString("modlineEnable%1StyleSheet").arg(modlineInstance + 1));
+    modlineForm.enable->setStyleSheet(stylesheets.modlineEnableStyleSheet.at(modlineInstanceNum));
 }
 
 void Modline::slotConnectElements()
