@@ -46,5 +46,37 @@
         <file>resources/settingsWindow_tab_keys_enabled.png</file>
         <file>resources/settingsWindow_tab_pedal_disabled.png</file>
         <file>resources/settingsWindow_tab_pedal_enabled.png</file>
+        <file>resources/setlistWindow_enable1_off.png</file>
+        <file>resources/setlistWindow_enable1_on.png</file>
+        <file>resources/setlistWindow_enable2_off.png</file>
+        <file>resources/setlistWindow_enable2_on.png</file>
+        <file>resources/setlistWindow_enable3_off.png</file>
+        <file>resources/setlistWindow_enable3_on.png</file>
+        <file>resources/setlistWindow_enable4_off.png</file>
+        <file>resources/setlistWindow_enable4_on.png</file>
+        <file>resources/setlistWindow_enable5_off.png</file>
+        <file>resources/setlistWindow_enable5_on.png</file>
+        <file>resources/setlistWindow_enable6_off.png</file>
+        <file>resources/setlistWindow_enable6_on.png</file>
+        <file>resources/setlistWindow_enable7_off.png</file>
+        <file>resources/setlistWindow_enable7_on.png</file>
+        <file>resources/setlistWindow_enable8_off.png</file>
+        <file>resources/setlistWindow_enable8_on.png</file>
+        <file>resources/setlistWindow_enable9_off.png</file>
+        <file>resources/setlistWindow_enable9_on.png</file>
+        <file>resources/setlistWindow_enable10_off.png</file>
+        <file>resources/setlistWindow_enable10_on.png</file>
+        <file>resources/setlistWindow_enable11_off.png</file>
+        <file>resources/setlistWindow_enable11_on.png</file>
+        <file>resources/setlistWindow_enable12_off.png</file>
+        <file>resources/setlistWindow_enable12_on.png</file>
+        <file>resources/setlistWindow_enable13_off.png</file>
+        <file>resources/setlistWindow_enable13_on.png</file>
+        <file>resources/setlistWindow_enable14_off.png</file>
+        <file>resources/setlistWindow_enable14_on.png</file>
+        <file>resources/setlistWindow_enable15_off.png</file>
+        <file>resources/setlistWindow_enable15_on.png</file>
+        <file>resources/setlistWindow_enable16_off.png</file>
+        <file>resources/setlistWindow_enable16_on.png</file>
     </qresource>
 </RCC>

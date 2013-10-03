@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>250</width>
-    <height>440</height>
+    <height>445</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>250</width>
-    <height>440</height>
+    <height>445</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>500</width>
-    <height>440</height>
+    <height>445</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -28,7 +28,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background:		rgba(35,31,32,255);
+	background:	 rgb(25, 25, 25);
 	border: 3px solid rgba(0,174,239,255);
 }
 
@@ -131,6 +131,1205 @@ QComboBox {
 	padding:0, 3, 0, 0;
  }</string>
   </property>
+  <widget class="QLabel" name="titlelabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>6</y>
+     <width>229</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>-1</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel
+	{
+		font: 16px;
+		font.underline: 1;
+		font.letterSpacing: 100;
+		border-bottom: 2px solid white;
+	}</string>
+   </property>
+   <property name="text">
+    <string>SETLIST</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable1_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable1_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable1_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable1_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable1_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable1_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable1_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable1_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable1_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>65</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable2_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable2_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable2_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable2_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable2_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable2_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable2_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable2_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable2_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable3_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable3_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable3_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable3_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable3_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable3_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable3_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable3_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable3_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>115</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable4_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable4_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable4_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable4_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable4_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable4_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable4_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable4_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable4_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_5">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable5_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable5_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable5_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable5_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable5_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable5_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable5_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable5_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable5_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_6">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>165</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable6_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable6_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable6_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable6_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable6_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable6_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable6_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable6_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable6_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_7">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>190</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable7_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable7_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable7_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable7_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable7_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable7_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable7_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable7_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable7_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_8">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>215</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable8_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable8_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable8_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable8_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable8_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable8_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable8_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable8_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable8_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_9">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>240</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable9_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable9_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable9_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable9_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable9_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable9_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable9_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable9_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable9_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_10">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>265</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable10_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable10_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable10_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable10_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable10_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable10_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable10_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable10_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable10_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_11">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>290</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable11_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable11_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable11_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable11_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable11_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable11_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable11_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable11_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable11_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_12">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>315</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable12_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable12_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable12_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable12_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable12_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable12_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable12_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable12_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable12_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_13">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>340</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable13_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable13_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable13_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable13_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable13_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable13_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable13_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable13_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable13_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_14">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>365</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable14_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable14_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable14_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable14_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable14_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable14_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable14_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable14_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable14_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_15">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>390</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable15_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable15_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable15_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable15_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable15_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable15_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable15_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable15_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable15_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_16">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>415</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable16_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable16_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable16_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable16_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable16_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable16_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable16_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable16_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable16_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
