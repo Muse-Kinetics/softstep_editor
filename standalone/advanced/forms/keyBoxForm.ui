@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>150</width>
-    <height>125</height>
+    <width>130</width>
+    <height>80</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -72,7 +72,7 @@ QLineEdit:focus
   <widget class="QLabel" name="keyInstanceLabel">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>10</x>
      <y>10</y>
      <width>58</width>
      <height>30</height>
@@ -103,8 +103,8 @@ QLineEdit:focus
   <widget class="QPushButton" name="openWindow">
    <property name="geometry">
     <rect>
-     <x>55</x>
-     <y>60</y>
+     <x>20</x>
+     <y>40</y>
      <width>40</width>
      <height>22</height>
     </rect>
@@ -122,8 +122,8 @@ QLineEdit:focus
   <widget class="QLineEdit" name="keyName">
    <property name="geometry">
     <rect>
-     <x>88</x>
-     <y>10</y>
+     <x>70</x>
+     <y>40</y>
      <width>40</width>
      <height>22</height>
     </rect>

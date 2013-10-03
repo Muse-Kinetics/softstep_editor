@@ -15,15 +15,15 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     //Set up the Key Box
     keyBoxWidget = new QWidget(this);
     keyBoxForm->setupUi(keyBoxWidget);
-    keyBoxWidget->setFixedSize(150,125);
+    keyBoxWidget->setFixedSize(130,80);
 
     if(keyInstanceNum < 5)
     {
-        this->setGeometry(10 + ((keyInstance)*150), 160,150,125);
+        this->setGeometry(10 + ((keyInstance)*130), 230,130,80);
     }
     else
     {
-        this->setGeometry(10 + ((keyInstance - 5)*150), 10,150,125);
+        this->setGeometry(10 + ((keyInstance - 5)*130), 150,130,80);
     }
 
 
