@@ -33,7 +33,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				10pt &quot;Futura&quot;;
+	font: 				8pt &quot;Tahoma&quot;;
 	border:				none;
 }
 
@@ -45,7 +45,7 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
@@ -60,7 +60,7 @@ QSpinBox::focus
 
 QDoubleSpinBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
@@ -76,7 +76,7 @@ QDoubleSpinBox::focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgba(0,174,239,255);
 	border-radius: 0px;
@@ -87,7 +87,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	background: rgba(0,174,239,0);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -99,7 +99,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	background:rgba(0,174,239,0);
 	color: white;
 	padding:0, 3, 0, 0;
@@ -114,7 +114,7 @@ QCheckBox:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -250,8 +250,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="frame">
@@ -278,14 +281,17 @@ QCheckBox::indicator:checked:pressed:focus
     <rect>
      <x>93</x>
      <y>19</y>
-     <width>30</width>
+     <width>22</width>
      <height>18</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="focusPolicy">
@@ -312,8 +318,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="frame">
@@ -337,8 +346,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="text">
@@ -356,8 +368,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="text">
@@ -375,8 +390,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="buttonSymbols">
@@ -400,8 +418,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="buttonSymbols">
@@ -425,8 +446,8 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -450,8 +471,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="frame">
@@ -478,8 +502,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <item>
@@ -544,8 +571,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="frame">
@@ -569,8 +599,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="frame">
@@ -594,8 +627,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="frame">
@@ -619,8 +655,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="frame">
@@ -647,8 +686,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="contextMenuPolicy">
@@ -731,8 +773,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <item>
@@ -1047,8 +1092,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="contextMenuPolicy">
@@ -1111,8 +1159,11 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="contextMenuPolicy">
@@ -2469,8 +2520,11 @@ QLabel
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
+     <family>Tahoma</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="frame">

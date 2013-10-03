@@ -38,5 +38,13 @@
         <file>resources/modline_enable4_stylesheet.qss</file>
         <file>resources/modline_enable5_stylesheet.qss</file>
         <file>resources/modline_enable6_stylesheet.qss</file>
+        <file>resources/settingsWindow_tab_global_disabled.png</file>
+        <file>resources/settingsWindow_tab_global_enabled.png</file>
+        <file>resources/settingsWindow_tab_input_disabled.png</file>
+        <file>resources/settingsWindow_tab_input_enabled.png</file>
+        <file>resources/settingsWindow_tab_keys_disabled.png</file>
+        <file>resources/settingsWindow_tab_keys_enabled.png</file>
+        <file>resources/settingsWindow_tab_pedal_disabled.png</file>
+        <file>resources/settingsWindow_tab_pedal_enabled.png</file>
     </qresource>
 </RCC>

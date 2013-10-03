@@ -63,7 +63,8 @@ FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \
                 forms/keyWindowForm.ui \
                 forms/settingsForm.ui \
-                forms/keyBoxForm.ui
+                forms/keyBoxForm.ui \
+    forms/setlistForm.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#

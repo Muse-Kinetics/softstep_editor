@@ -3,6 +3,8 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "modline.h"
 //#include "ui_keyWindowForm.h"
+
+//Constants for various modline arrangement parameters
 #define MODLINE_WINDOW_WIDTH 1100
 #define MODLINE_WINDOW_HEIGHT 42
 #define MODLINE_SPACING 5
@@ -35,7 +37,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
 
     this->setGeometry(MODLINE_STARTING_X_POS, MODLINE_STARTING_Y_POS + ((modlineInstance)*(MODLINE_WINDOW_HEIGHT + MODLINE_SPACING)), MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
 
-    //potentially add this to dynamically set the stylesheet for the "enable" checkbox -CARSON
+    //potentially add this to dynamically set the stylesheet for the "enable" checkbox
     modlineForm.enable->setStyleSheet(stylesheets.modlineEnableStyleSheet.at(modlineInstanceNum));
 }
 
