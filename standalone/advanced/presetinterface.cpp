@@ -31,19 +31,6 @@ void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum
         presetNum = currentPresetNum;
     }
 
-    /*if(name.contains("settings"))
-    {
-        QVariantMap globalMap = jsonMasterMapCopy.value(QString("Global")).toMap();
-        globalMap.insert(name, value);
-        jsonMasterMapCopy.insert(QString("Global"), globalMap);
-    }
-    else
-    {
-        QVariantMap presetMap = jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap();
-        presetMap.insert(name, value);
-        jsonMasterMapCopy.insert(QString("Preset_00%1").arg(presetNum), presetMap);
-    }*/
-
     QVariantMap presetMap = jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap();
     presetMap.insert(name, value);
     jsonMasterMapCopy.insert(QString("Preset_00%1").arg(presetNum), presetMap);
@@ -125,7 +112,7 @@ void PresetInterface::writeDefualtJSON()
     slotConstructGlobalDefaultMap();
 
     //Generate fresh default json needed
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 10; i++)
     {
         jsonMasterMap.insert(QString("Preset_00%1").arg(i),defaultPresetMap);
 
@@ -1921,10 +1908,10 @@ void PresetInterface::slotConstructDefaultMap()
 void PresetInterface::slotConstructGlobalDefaultMap()
 {
     //-------------------- Settings --------------------//
-    defaultGlobalMap["key1_settings_xdead"] = 33;
-    defaultGlobalMap["key1_settings_ydead"] = 33;
-    defaultGlobalMap["key1_settings_xaccel"] = 33;
-    defaultGlobalMap["key1_settings_ydead"] = 33;
+    defaultGlobalMap["key1_settings_xdead"] = 0;
+    defaultGlobalMap["key1_settings_ydead"] = 0;
+    defaultGlobalMap["key1_settings_xaccel"] = 0;
+    defaultGlobalMap["key1_settings_ydead"] = 0;
     defaultGlobalMap["key1_settings_onthresh"] = 10;
     defaultGlobalMap["key1_settings_offthresh"] = 5;
     defaultGlobalMap["key2_settings_xdead"] = 0;
@@ -1982,14 +1969,14 @@ void PresetInterface::slotConstructGlobalDefaultMap()
     defaultGlobalMap["key10_settings_onthresh"] = 10;
     defaultGlobalMap["key10_settings_offthresh"] = 5;
 
-    defaultGlobalMap["nav_north_settings_onThresh"] = 10;
-    defaultGlobalMap["nav_north_settings_offThresh"] = 5;
-    defaultGlobalMap["nav_south_settings_onThresh"] = 10;
-    defaultGlobalMap["nav_south_settings_offThresh"] = 5;
-    defaultGlobalMap["nav_east_settings_onThresh"] = 10;
-    defaultGlobalMap["nav_east_settings_offThresh"] = 5;
-    defaultGlobalMap["nav_west_settings_onThresh"] = 10;
-    defaultGlobalMap["nav_west_settings_offThresh"] = 5;
+    defaultGlobalMap["nav_north_settings_onthresh"] = 10;
+    defaultGlobalMap["nav_north_settings_offthresh"] = 5;
+    defaultGlobalMap["nav_south_settings_onthresh"] = 10;
+    defaultGlobalMap["nav_south_settings_offthresh"] = 5;
+    defaultGlobalMap["nav_east_settings_onthresh"] = 10;
+    defaultGlobalMap["nav_east_settings_offthresh"] = 5;
+    defaultGlobalMap["nav_west_settings_onthresh"] = 10;
+    defaultGlobalMap["nav_west_settings_offthresh"] = 5;
     defaultGlobalMap["nav_settings_yaccel"] = 0;
 }
 
