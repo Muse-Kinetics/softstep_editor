@@ -27,6 +27,7 @@ public slots:
     void slotConnectElements();
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
+    void slotViewSelector();
 
 private:
     Ui::settingsForm *settingsForm;

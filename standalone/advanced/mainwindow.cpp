@@ -102,10 +102,11 @@ void MainWindow::slotConnectInterfaces()
     connect(ui->save, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
 
     //preset number box (this will be switched to a comboBox soon)
-    connect(ui->presetNumber, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
+    //connect(ui->presetNumber, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
+    connect(ui->presetmenu, SIGNAL(currentIndexChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
 
     //open settings button
-    connect(ui->openSettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));
+    connect(ui->opensettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));
 }
 
 void MainWindow::slotInitMenuBar()
