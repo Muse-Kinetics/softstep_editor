@@ -14,13 +14,7 @@ void sysExComplete(MIDISysexSendRequest*);                                      
 MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     QWidget(parent)
 {
-    inBootloader = false;
     fwUpdateRequested = false;
-
-    //Load Firmware File into a byte array
-    firmware = new QFile(":firmware/resources/firmware/QuNexus_Firmware.syx");
-    firmware->open(QIODevice::ReadOnly);
-    firmwareByteArray = firmware->readAll();
 
     //------------------------------------- Set Version Expectations & Initialize Found Strings
     bootloaderVersion[0] = 0x01;
@@ -50,15 +44,14 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     callbackClassPointer = this;
 
     createAppMidiClient();
-
-
 }
 
 void MidiDeviceManager::createAppMidiClient()
 {
-    MIDIClientCreate(CFSTR("QuNexus MIDI Client"), midiSystemChanged, this, &appClientRef);
-    MIDIInputPortCreate(appClientRef, CFSTR("QuNexus MIDI Client In Port"), incomingMidi, this, &appInPortRef);
-    MIDIOutputPortCreate(appClientRef, CFSTR("QuNexus MIDI Client Out Port"), &appOutPortRef);
+    MIDIClientCreate(CFSTR("SoftStep MIDI Client"), midiSystemChanged, this, &appClientRef);
+    MIDIInputPortCreate(appClientRef, CFSTR("SoftStep MIDI Client In Port"), incomingMidi, this, &appInPortRef);
+    MIDIOutputPortCreate(appClientRef, CFSTR("SoftStep MIDI Client Out Port"), &appOutPortRef);
+    MIDISourceCreate(appClientRef, CFSTR("SoftStep Share"), &appVirtualOutRef);
 }
 
 bool MidiDeviceManager::connectSource()
@@ -260,8 +253,6 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
         //emit signalFirmwareOutOfDate(expectedBootloaderVersion,foundBootloaderVersion,expectedFirmwareVersion,foundFirmwwareVersion);
         emit signalProcessFwQueryReply(sysExMessageByteArray);
     }
-
-
 }
 
 

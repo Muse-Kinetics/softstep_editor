@@ -11,7 +11,7 @@ Settings::Settings(QWidget *parent) :
     //set up settings window
     settingsWidget = new QWidget();
     settingsForm->setupUi(settingsWidget);
-    settingsWidget->setFixedSize(380,516);
+    //settingsWidget->setFixedSize(380,516);
     settingsWidget->setWindowTitle(QString("Settings"));
 
     slotConnectElements();

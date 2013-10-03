@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>308</width>
-    <height>516</height>
+    <width>319</width>
+    <height>546</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <string notr="true">QWidget
 {
 	background:		rgba(35,31,32,255);
-	border: 6px solid rgba(0,174,239,255);
+	border: 2px solid rgba(0,174,239,255);
 }
 
 /* ------- QStackedWidget ---------*/
@@ -119,25 +119,6 @@ QComboBox {
 	padding:0, 3, 0, 0;
  }</string>
   </property>
-  <widget class="QSpinBox" name="key7_settings_xaccel">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>250</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_28">
    <property name="geometry">
     <rect>
@@ -168,1631 +149,6 @@ QComboBox {
     <string>SETTINGS</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="key2_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>150</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key6_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>230</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key1_settings_ydead">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>130</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key9_settings_yaccel">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>290</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key4_settings_xdead">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>190</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_9">
-   <property name="geometry">
-    <rect>
-     <x>15</x>
-     <y>250</y>
-     <width>16</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>7</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_11">
-   <property name="geometry">
-    <rect>
-     <x>15</x>
-     <y>290</y>
-     <width>16</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>9</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key2_settings_yaccel">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>150</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key8_settings_xdead">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>270</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key1_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>130</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key7_settings_ydead">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>250</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key3_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>170</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key3_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>170</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key10_settings_xdead">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>310</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key2_settings_xdead">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>150</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key5_settings_ydead">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>210</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key6_settings_yaccel">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>230</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>15</x>
-     <y>190</y>
-     <width>16</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>4</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key3_settings_ydead">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>170</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key6_settings_xaccel">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>230</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key1_settings_xaccel">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>130</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key6_settings_xdead">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>230</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_10">
-   <property name="geometry">
-    <rect>
-     <x>15</x>
-     <y>270</y>
-     <width>16</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>8</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key8_settings_xaccel">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>270</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_15">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>100</y>
-     <width>31</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>accel y</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key10_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>310</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key9_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>290</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key10_settings_xaccel">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>310</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key8_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>270</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key7_settings_yaccel">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>250</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_18">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>100</y>
-     <width>31</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>off thresh</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key5_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>210</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>70</y>
-     <width>271</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: bold 12px</string>
-   </property>
-   <property name="text">
-    <string>Keys</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key8_settings_yaccel">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>270</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key2_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>150</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key4_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>190</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key5_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>210</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key8_settings_ydead">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>270</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key3_settings_xdead">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>170</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_14">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>100</y>
-     <width>31</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>accel x</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_13">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>100</y>
-     <width>31</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>dead x</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key5_settings_xaccel">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>210</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key10_settings_yaccel">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>310</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key9_settings_ydead">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>290</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key1_settings_yaccel">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>130</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key10_settings_ydead">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>310</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key8_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>270</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key7_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>250</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key7_settings_xdead">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>250</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_8">
-   <property name="geometry">
-    <rect>
-     <x>15</x>
-     <y>230</y>
-     <width>16</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>6</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key4_settings_xaccel">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>190</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key10_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>310</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key2_settings_xaccel">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>150</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key5_settings_yaccel">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>210</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>15</x>
-     <y>170</y>
-     <width>16</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>3</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>15</x>
-     <y>150</y>
-     <width>16</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>2</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key9_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>290</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key4_settings_ydead">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>190</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key1_settings_xdead">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>130</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key1_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>130</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key9_settings_xdead">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>290</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_16">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>100</y>
-     <width>31</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>dead y</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key9_settings_xaccel">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>290</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key6_settings_ydead">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>230</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key4_settings_yaccel">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>190</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>15</x>
-     <y>130</y>
-     <width>16</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>1</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_17">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>100</y>
-     <width>31</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>on thresh</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key7_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>250</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key5_settings_xdead">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>210</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_7">
-   <property name="geometry">
-    <rect>
-     <x>15</x>
-     <y>210</y>
-     <width>16</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>5</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key2_settings_ydead">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>150</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key3_settings_xaccel">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>170</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key3_settings_yaccel">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>170</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key4_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>190</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="key6_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>230</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_12">
-   <property name="geometry">
-    <rect>
-     <x>15</x>
-     <y>310</y>
-     <width>16</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>10</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QWidget" name="verticalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>25</x>
-     <y>460</y>
-     <width>131</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="sizeConstraint">
-     <enum>QLayout::SetFixedSize</enum>
-    </property>
-    <property name="leftMargin">
-     <number>10</number>
-    </property>
-    <item>
-     <widget class="QCheckBox" name="sensorResponseMax">
-      <property name="focusPolicy">
-       <enum>Qt::WheelFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QCheckBox
-{
-color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator {
-     width: 10px;
-     height: 10px;
- }</string>
-      </property>
-      <property name="text">
-       <string>Maximum</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="sensorResponseAverage">
-      <property name="focusPolicy">
-       <enum>Qt::WheelFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QCheckBox
-{
-color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator {
-     width: 10px;
-     height: 10px;
- }</string>
-      </property>
-      <property name="text">
-       <string>Average</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QSpinBox" name="nav_east_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>145</x>
-     <y>380</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="nav_south_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>105</x>
-     <y>380</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_25">
-   <property name="geometry">
-    <rect>
-     <x>185</x>
-     <y>360</y>
-     <width>31</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>W</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_30">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>430</y>
-     <width>271</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel
-{
-border-top: 1px solid white;
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>25</x>
-     <y>435</y>
-     <width>149</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: bold 12px;</string>
-   </property>
-   <property name="text">
-    <string>Sensor Response</string>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="nav_east_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>145</x>
-     <y>400</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="nav_west_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>185</x>
-     <y>400</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_26">
-   <property name="geometry">
-    <rect>
-     <x>221</x>
-     <y>360</y>
-     <width>41</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>accel y</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_29">
    <property name="geometry">
     <rect>
@@ -1812,299 +168,2067 @@ border-top: 2px solid white;
     <string/>
    </property>
   </widget>
-  <widget class="QSpinBox" name="nav_south_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>105</x>
-     <y>400</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_22">
-   <property name="geometry">
-    <rect>
-     <x>65</x>
-     <y>360</y>
-     <width>31</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>N</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_24">
+  <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>400</y>
-     <width>51</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>off thresh</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QWidget" name="verticalLayoutWidget_2">
-   <property name="geometry">
-    <rect>
-     <x>165</x>
-     <y>460</y>
-     <width>131</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <widget class="QCheckBox" name="multipleKeyMode">
-      <property name="focusPolicy">
-       <enum>Qt::WheelFocus</enum>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QCheckBox
-{
-color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator {
-     width: 10px;
-     height: 10px;
- }</string>
-      </property>
-      <property name="text">
-       <string>Multiple Key Mode</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="adjacentKeyMode">
-      <property name="focusPolicy">
-       <enum>Qt::WheelFocus</enum>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QCheckBox
-{
-color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator {
-     width: 10px;
-     height: 10px;
- }</string>
-      </property>
-      <property name="text">
-       <string>Adjacent Key Lockout</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QSpinBox" name="nav_north_settings_offthresh">
-   <property name="geometry">
-    <rect>
-     <x>65</x>
-     <y>400</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="nav_west_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>185</x>
-     <y>380</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_23">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>380</y>
-     <width>41</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>on thresh</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_21">
-   <property name="geometry">
-    <rect>
-     <x>145</x>
-     <y>360</y>
-     <width>31</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>E</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_19">
-   <property name="geometry">
-    <rect>
-     <x>15</x>
-     <y>340</y>
-     <width>255</width>
-     <height>16</height>
+     <y>100</y>
+     <width>281</width>
+     <height>431</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: bold 12px;
+    <string notr="true">QWidget
+{
+	background:		rgba(35,31,32,255);
+	/*border: 6px solid rgba(0,174,239,255);*/
+	border: none;
+}
+
+/* ------- QStackedWidget ---------*/
+QStackedWidget
+{
+	border-left: 2px solid rgb(0,174,239);
+	border-right: 2px solid rgb(0,174,239);
+	border: none;
+}
+
+/* ---------- QLabels ------------*/
+QLabel
+{
+	background:		rgba(0,0,0,0);
+	color: 				white;
+	font: 				10pt &quot;Futura&quot;;
+	border:				none;
+}
+
+QLabel:hover
+{
+	border:				none;
+}  
+
+/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgba(0, 0, 0, 255);
+	color: white;
+	padding:0, 3, 0, 0;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+QDoubleSpinBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgba(0, 0, 0, 255);
+	color: white;
+	padding:0, 3, 0, 0;
+}
+
+QDoubleSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+/* ---------- QLineEdit ------------*/
+QLineEdit
+{
+	font: 10pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 1px solid rgba(0,174,239,255);
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+QLineEdit:focus
+{
+	font: 10pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 1px solid white;
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	font: 10pt &quot;Futura&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 3, 0, 0;
+	border: none;
+}
+
+QCheckBox:focus
+{
+	background:rgba(0,174,239,0);
+}
+
+/*----------- QComboBox ------------*/
+QComboBox {
+	font: 10pt &quot;Futura&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgba(0, 0, 0, 255);
+	color: white;
+	padding:0, 3, 0, 0;
+ }</string>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="page">
+    <widget class="QLabel" name="label_17">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>30</y>
+       <width>31</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>on thresh</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key2_settings_yaccel">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>80</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_24">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>330</y>
+       <width>51</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>off thresh</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_25">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>290</y>
+       <width>31</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>W</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="nav_east_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>330</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key3_settings_ydead">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>100</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="nav_settings_yaccel">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>320</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key2_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>80</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key5_settings_ydead">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>140</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key8_settings_xdead">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>200</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>60</y>
+       <width>16</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>1</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key9_settings_ydead">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>220</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>-5</x>
+       <y>0</y>
+       <width>281</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: bold 12px</string>
+     </property>
+     <property name="text">
+      <string>Keys</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key6_settings_ydead">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>160</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key1_settings_yaccel">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>60</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key10_settings_ydead">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>240</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key8_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>225</x>
+       <y>200</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_22">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>290</y>
+       <width>31</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>N</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key4_settings_xaccel">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>120</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key10_settings_xdead">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>240</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key7_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>225</x>
+       <y>180</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key6_settings_yaccel">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>160</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key7_settings_xdead">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>180</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>160</y>
+       <width>16</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>6</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key4_settings_yaccel">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>120</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key1_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>60</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key4_settings_xdead">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>120</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key7_settings_ydead">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>180</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>365</y>
+       <width>149</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: bold 12px;</string>
+     </property>
+     <property name="text">
+      <string>Sensor Response</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="nav_north_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>310</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key3_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>100</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key4_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>120</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key3_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>225</x>
+       <y>100</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key1_settings_ydead">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>60</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key5_settings_xaccel">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>140</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key5_settings_xdead">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>140</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_15">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>30</y>
+       <width>31</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>accel y</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key8_settings_yaccel">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>200</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_23">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>310</y>
+       <width>41</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>on thresh</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key4_settings_ydead">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>120</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>390</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetFixedSize</enum>
+      </property>
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="sensorResponseMax">
+        <property name="focusPolicy">
+         <enum>Qt::WheelFocus</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }</string>
+        </property>
+        <property name="text">
+         <string>Maximum</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="sensorResponseAverage">
+        <property name="focusPolicy">
+         <enum>Qt::WheelFocus</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }</string>
+        </property>
+        <property name="text">
+         <string>Average</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>140</y>
+       <width>16</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>5</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key10_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>240</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>220</y>
+       <width>16</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>9</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key9_settings_xaccel">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>220</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="nav_west_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>330</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>180</y>
+       <width>16</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>7</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>240</y>
+       <width>16</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>10</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key9_settings_yaccel">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>220</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key2_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>225</x>
+       <y>80</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_26">
+     <property name="geometry">
+      <rect>
+       <x>206</x>
+       <y>290</y>
+       <width>41</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>accel y</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_16">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>30</y>
+       <width>31</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>dead y</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="nav_south_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>310</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key6_settings_xaccel">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>160</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key6_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>160</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key9_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>225</x>
+       <y>220</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key8_settings_ydead">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>200</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key7_settings_xaccel">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>180</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key7_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>180</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key5_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>140</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key3_settings_xdead">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>100</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_14">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>30</y>
+       <width>31</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>accel x</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_30">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>360</y>
+       <width>271</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+border-top: 1px solid white;
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>225</x>
+       <y>30</y>
+       <width>31</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>off thresh</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key10_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>225</x>
+       <y>240</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key1_settings_xaccel">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>60</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key1_settings_xdead">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>60</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key6_settings_xdead">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>160</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key4_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>225</x>
+       <y>120</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key1_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>225</x>
+       <y>60</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>270</y>
+       <width>255</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: bold 12px;
 </string>
-   </property>
-   <property name="text">
-    <string>Nav Pad</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_27">
-   <property name="geometry">
-    <rect>
-     <x>135</x>
-     <y>435</y>
-     <width>101</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Futura</family>
-     <pointsize>-1</pointsize>
-     <weight>75</weight>
-     <italic>false</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: bold 12px;</string>
-   </property>
-   <property name="text">
-    <string>Key Safety</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="nav_settings_yaccel">
-   <property name="geometry">
-    <rect>
-     <x>225</x>
-     <y>390</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_20">
-   <property name="geometry">
-    <rect>
-     <x>105</x>
-     <y>360</y>
-     <width>31</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>S</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="nav_north_settings_onthresh">
-   <property name="geometry">
-    <rect>
-     <x>65</x>
-     <y>380</y>
-     <width>30</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
+     </property>
+     <property name="text">
+      <string>Nav Pad</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>200</y>
+       <width>16</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>8</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key9_settings_xdead">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>220</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_13">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>30</y>
+       <width>31</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>dead x</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="nav_south_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>330</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_27">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>365</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>-1</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: bold 12px;</string>
+     </property>
+     <property name="text">
+      <string>Key Safety</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key7_settings_yaccel">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>180</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="nav_east_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>310</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key3_settings_yaccel">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>100</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>390</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QCheckBox" name="multipleKeyMode">
+        <property name="focusPolicy">
+         <enum>Qt::WheelFocus</enum>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }</string>
+        </property>
+        <property name="text">
+         <string>Multiple Key Mode</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="adjacentKeyMode">
+        <property name="focusPolicy">
+         <enum>Qt::WheelFocus</enum>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }</string>
+        </property>
+        <property name="text">
+         <string>Adjacent Key Lockout</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QSpinBox" name="key2_settings_xdead">
+     <property name="geometry">
+      <rect>
+       <x>25</x>
+       <y>80</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="nav_north_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>330</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key8_settings_xaccel">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>200</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="nav_west_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>310</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key9_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>220</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>120</y>
+       <width>16</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>4</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_20">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>290</y>
+       <width>31</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>S</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>80</y>
+       <width>16</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>2</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key2_settings_xaccel">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>80</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key10_settings_xaccel">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>240</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key3_settings_xaccel">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>100</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key8_settings_onthresh">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>200</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key5_settings_yaccel">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>140</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_21">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>290</y>
+       <width>31</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>E</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key5_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>225</x>
+       <y>140</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key6_settings_offthresh">
+     <property name="geometry">
+      <rect>
+       <x>225</x>
+       <y>160</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key10_settings_yaccel">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>240</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>100</y>
+       <width>16</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>3</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="key2_settings_ydead">
+     <property name="geometry">
+      <rect>
+       <x>105</x>
+       <y>80</y>
+       <width>30</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>127</number>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_2"/>
   </widget>
  </widget>
  <resources/>

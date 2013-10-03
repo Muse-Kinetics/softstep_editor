@@ -33,6 +33,7 @@ public:
     MIDIClientRef appClientRef;
     MIDIPortRef appInPortRef;
     MIDIPortRef appOutPortRef;
+    MIDIEndpointRef appVirtualOutRef;
 
     char bootloaderVersion[3];
     char firmwareVersion[3];
