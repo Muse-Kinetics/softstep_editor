@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>319</width>
-    <height>546</height>
+    <height>461</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -117,7 +117,15 @@ QComboBox {
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
 	padding:0, 3, 0, 0;
- }</string>
+ }
+
+/*------------ QPushButton -----------*/
+QPushButton {
+	font: 12pt &quot;Futura&quot;;
+	border: 2px solid rgb(0,174,239);
+	background-color: rgb(58,58,60);
+	color: white;
+}</string>
   </property>
   <widget class="QLabel" name="label_28">
    <property name="geometry">
@@ -172,9 +180,9 @@ border-top: 2px solid white;
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>100</y>
+     <y>80</y>
      <width>281</width>
-     <height>431</height>
+     <height>351</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -286,9 +294,179 @@ QComboBox {
  }</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
-   <widget class="QWidget" name="page">
+   <widget class="QWidget" name="settingsglobalpage">
+    <widget class="QLabel" name="label_27">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>230</y>
+       <width>101</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>-1</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: bold 12px;</string>
+     </property>
+     <property name="text">
+      <string>Key Safety</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>230</y>
+       <width>149</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: bold 12px;</string>
+     </property>
+     <property name="text">
+      <string>Sensor Response</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>255</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetFixedSize</enum>
+      </property>
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="sensorResponseMax">
+        <property name="focusPolicy">
+         <enum>Qt::WheelFocus</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }</string>
+        </property>
+        <property name="text">
+         <string>Maximum</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="sensorResponseAverage">
+        <property name="focusPolicy">
+         <enum>Qt::WheelFocus</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }</string>
+        </property>
+        <property name="text">
+         <string>Average</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>255</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QCheckBox" name="multipleKeyMode">
+        <property name="focusPolicy">
+         <enum>Qt::WheelFocus</enum>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }</string>
+        </property>
+        <property name="text">
+         <string>Multiple Key Mode</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="adjacentKeyMode">
+        <property name="focusPolicy">
+         <enum>Qt::WheelFocus</enum>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QCheckBox
+{
+color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 10px;
+     height: 10px;
+ }</string>
+        </property>
+        <property name="text">
+         <string>Adjacent Key Lockout</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="settingskeypage">
     <widget class="QLabel" name="label_17">
      <property name="geometry">
       <rect>
@@ -812,22 +990,6 @@ QComboBox {
       <number>127</number>
      </property>
     </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>365</y>
-       <width>149</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">font: bold 12px;</string>
-     </property>
-     <property name="text">
-      <string>Sensor Response</string>
-     </property>
-    </widget>
     <widget class="QSpinBox" name="nav_north_settings_onthresh">
      <property name="geometry">
       <rect>
@@ -1033,68 +1195,6 @@ QComboBox {
      <property name="maximum">
       <number>127</number>
      </property>
-    </widget>
-    <widget class="QWidget" name="verticalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>390</y>
-       <width>131</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetFixedSize</enum>
-      </property>
-      <property name="leftMargin">
-       <number>10</number>
-      </property>
-      <item>
-       <widget class="QCheckBox" name="sensorResponseMax">
-        <property name="focusPolicy">
-         <enum>Qt::WheelFocus</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QCheckBox
-{
-color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator {
-     width: 10px;
-     height: 10px;
- }</string>
-        </property>
-        <property name="text">
-         <string>Maximum</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="sensorResponseAverage">
-        <property name="focusPolicy">
-         <enum>Qt::WheelFocus</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QCheckBox
-{
-color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator {
-     width: 10px;
-     height: 10px;
- }</string>
-        </property>
-        <property name="text">
-         <string>Average</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
     <widget class="QLabel" name="label_7">
      <property name="geometry">
@@ -1483,25 +1583,6 @@ QCheckBox::indicator {
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLabel" name="label_30">
-     <property name="geometry">
-      <rect>
-       <x>5</x>
-       <y>360</y>
-       <width>271</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QLabel
-{
-border-top: 1px solid white;
-}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_18">
      <property name="geometry">
       <rect>
@@ -1728,34 +1809,6 @@ border-top: 1px solid white;
       <number>127</number>
      </property>
     </widget>
-    <widget class="QLabel" name="label_27">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>365</y>
-       <width>101</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Futura</family>
-       <pointsize>-1</pointsize>
-       <weight>75</weight>
-       <italic>false</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">font: bold 12px;</string>
-     </property>
-     <property name="text">
-      <string>Key Safety</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
     <widget class="QSpinBox" name="key7_settings_yaccel">
      <property name="geometry">
       <rect>
@@ -1812,68 +1865,6 @@ border-top: 1px solid white;
      <property name="maximum">
       <number>127</number>
      </property>
-    </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>390</y>
-       <width>131</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QCheckBox" name="multipleKeyMode">
-        <property name="focusPolicy">
-         <enum>Qt::WheelFocus</enum>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QCheckBox
-{
-color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator {
-     width: 10px;
-     height: 10px;
- }</string>
-        </property>
-        <property name="text">
-         <string>Multiple Key Mode</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="adjacentKeyMode">
-        <property name="focusPolicy">
-         <enum>Qt::WheelFocus</enum>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QCheckBox
-{
-color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator {
-     width: 10px;
-     height: 10px;
- }</string>
-        </property>
-        <property name="text">
-         <string>Adjacent Key Lockout</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
     <widget class="QSpinBox" name="key2_settings_xdead">
      <property name="geometry">
@@ -2228,7 +2219,60 @@ QCheckBox::indicator {
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="page_2"/>
+   <widget class="QWidget" name="settingsinputpage"/>
+   <widget class="QWidget" name="settingspedalpage"/>
+  </widget>
+  <widget class="QRadioButton" name="settingsglobalbutton">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>40</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>RadioButton</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="settingskeybutton">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>40</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>RadioButton</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="settingsinputbutton">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>40</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>RadioButton</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="settingspedalbutton">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>40</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>RadioButton</string>
+   </property>
   </widget>
  </widget>
  <resources/>
