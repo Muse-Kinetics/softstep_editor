@@ -71,10 +71,7 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
 
             QString objectName = widget->objectName();
 
-            if(!objectName.contains("all"))
-            {
-                spinbox->setValue(preset.value(objectName).toInt());
-            }
+            spinbox->setValue(preset.value(objectName).toInt());
         }
     }
 }

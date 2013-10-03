@@ -239,7 +239,7 @@ QCheckBox::indicator:checked:pressed:focus
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QComboBox" name="initMode">
+  <widget class="QComboBox" name="initmode">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -273,7 +273,7 @@ QCheckBox::indicator:checked:pressed:focus
     </property>
    </item>
   </widget>
-  <widget class="QSpinBox" name="initValue">
+  <widget class="QSpinBox" name="initvalue">
    <property name="geometry">
     <rect>
      <x>93</x>
@@ -608,7 +608,7 @@ QCheckBox::indicator:checked:pressed:focus
     <number>5000</number>
    </property>
   </widget>
-  <widget class="QSpinBox" name="outputValue">
+  <widget class="QSpinBox" name="outputvalue">
    <property name="geometry">
     <rect>
      <x>782</x>
@@ -1264,11 +1264,11 @@ QComboBox
  }</string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>10</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
-    <widget class="QSpinBox" name="noteNumber">
+    <widget class="QSpinBox" name="notenumber">
      <property name="geometry">
       <rect>
        <x>5</x>
@@ -1293,7 +1293,7 @@ QComboBox
       <number>127</number>
      </property>
     </widget>
-    <widget class="QSpinBox" name="noteVelocity">
+    <widget class="QSpinBox" name="notevelocity">
      <property name="geometry">
       <rect>
        <x>34</x>
@@ -1318,7 +1318,7 @@ QComboBox
       <number>127</number>
      </property>
     </widget>
-    <widget class="QSpinBox" name="noteChannel">
+    <widget class="QSpinBox" name="notechannel">
      <property name="geometry">
       <rect>
        <x>63</x>
@@ -1343,7 +1343,7 @@ QComboBox
       <number>16</number>
      </property>
     </widget>
-    <widget class="QComboBox" name="noteDevice">
+    <widget class="QComboBox" name="notedevice">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -1374,7 +1374,7 @@ QComboBox
     </widget>
    </widget>
    <widget class="QWidget" name="noteLiveDeviceView">
-    <widget class="QComboBox" name="noteLiveDevice">
+    <widget class="QComboBox" name="notelivedevice">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -1403,7 +1403,7 @@ QComboBox
       </property>
      </item>
     </widget>
-    <widget class="QSpinBox" name="noteLiveVelocity">
+    <widget class="QSpinBox" name="notelivevelocity">
      <property name="geometry">
       <rect>
        <x>34</x>
@@ -1428,7 +1428,7 @@ QComboBox
       <number>127</number>
      </property>
     </widget>
-    <widget class="QSpinBox" name="noteLiveChannel">
+    <widget class="QSpinBox" name="notelivechannel">
      <property name="geometry">
       <rect>
        <x>63</x>
@@ -1453,7 +1453,7 @@ QComboBox
       <number>16</number>
      </property>
     </widget>
-    <widget class="QSpinBox" name="noteLiveNumber">
+    <widget class="QSpinBox" name="notelivenumber">
      <property name="geometry">
       <rect>
        <x>5</x>
@@ -1508,7 +1508,7 @@ QComboBox
       <number>127</number>
      </property>
     </widget>
-    <widget class="QSpinBox" name="controlChannel">
+    <widget class="QSpinBox" name="controlchannel">
      <property name="geometry">
       <rect>
        <x>63</x>
@@ -1533,7 +1533,7 @@ QComboBox
       <number>16</number>
      </property>
     </widget>
-    <widget class="QComboBox" name="controlDevice">
+    <widget class="QComboBox" name="controldevice">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -1564,7 +1564,7 @@ QComboBox
     </widget>
    </widget>
    <widget class="QWidget" name="bankDeviceView">
-    <widget class="QComboBox" name="bankDevice">
+    <widget class="QComboBox" name="bankdevice">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -1593,7 +1593,7 @@ QComboBox
       </property>
      </item>
     </widget>
-    <widget class="QSpinBox" name="bankMSB">
+    <widget class="QSpinBox" name="bankmsb">
      <property name="geometry">
       <rect>
        <x>34</x>
@@ -1618,7 +1618,7 @@ QComboBox
       <number>127</number>
      </property>
     </widget>
-    <widget class="QSpinBox" name="bankChannel">
+    <widget class="QSpinBox" name="bankchannel">
      <property name="geometry">
       <rect>
        <x>63</x>
@@ -1645,7 +1645,7 @@ QComboBox
     </widget>
    </widget>
    <widget class="QWidget" name="programDeviceView">
-    <widget class="QComboBox" name="programDevice">
+    <widget class="QComboBox" name="programdevice">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -1674,7 +1674,7 @@ QComboBox
       </property>
      </item>
     </widget>
-    <widget class="QSpinBox" name="programChannel">
+    <widget class="QSpinBox" name="programchannel">
      <property name="geometry">
       <rect>
        <x>63</x>
@@ -1701,7 +1701,7 @@ QComboBox
     </widget>
    </widget>
    <widget class="QWidget" name="oscDeviceView">
-    <widget class="QLineEdit" name="oscRoute">
+    <widget class="QLineEdit" name="oscroute">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -1713,7 +1713,7 @@ QComboBox
     </widget>
    </widget>
    <widget class="QWidget" name="bendDeviceView">
-    <widget class="QSpinBox" name="bendChannel">
+    <widget class="QSpinBox" name="bendchannel">
      <property name="geometry">
       <rect>
        <x>63</x>
@@ -1738,7 +1738,7 @@ QComboBox
       <number>16</number>
      </property>
     </widget>
-    <widget class="QComboBox" name="bendDevice">
+    <widget class="QComboBox" name="benddevice">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -1769,7 +1769,7 @@ QComboBox
     </widget>
    </widget>
    <widget class="QWidget" name="mmcDeviceView">
-    <widget class="QComboBox" name="mmcDevice">
+    <widget class="QComboBox" name="mmcdevice">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -1798,7 +1798,7 @@ QComboBox
       </property>
      </item>
     </widget>
-    <widget class="QSpinBox" name="mmcDeviceId">
+    <widget class="QSpinBox" name="mmcdeviceid">
      <property name="geometry">
       <rect>
        <x>2</x>
@@ -1823,7 +1823,7 @@ QComboBox
       <number>127</number>
      </property>
     </widget>
-    <widget class="QComboBox" name="mmcFunction">
+    <widget class="QComboBox" name="mmcfunction">
      <property name="geometry">
       <rect>
        <x>28</x>
@@ -1882,12 +1882,12 @@ QComboBox
       </property>
      </item>
     </widget>
-    <zorder>mmcDeviceId</zorder>
-    <zorder>mmcFunction</zorder>
-    <zorder>mmcDevice</zorder>
+    <zorder>mmcdeviceid</zorder>
+    <zorder>mmcfunction</zorder>
+    <zorder>mmcdevice</zorder>
    </widget>
    <widget class="QWidget" name="aftertouchDeviceView">
-    <widget class="QComboBox" name="aftertouchDevice">
+    <widget class="QComboBox" name="aftertouchdevice">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -1916,7 +1916,7 @@ QComboBox
       </property>
      </item>
     </widget>
-    <widget class="QSpinBox" name="aftertouchChannel">
+    <widget class="QSpinBox" name="aftertouchchannel">
      <property name="geometry">
       <rect>
        <x>63</x>
@@ -1943,7 +1943,7 @@ QComboBox
     </widget>
    </widget>
    <widget class="QWidget" name="polyDeviceView">
-    <widget class="QSpinBox" name="polyNote">
+    <widget class="QSpinBox" name="polynote">
      <property name="geometry">
       <rect>
        <x>34</x>
@@ -1968,7 +1968,7 @@ QComboBox
       <number>127</number>
      </property>
     </widget>
-    <widget class="QSpinBox" name="polyChannel">
+    <widget class="QSpinBox" name="polychannel">
      <property name="geometry">
       <rect>
        <x>63</x>
@@ -1993,7 +1993,7 @@ QComboBox
       <number>16</number>
      </property>
     </widget>
-    <widget class="QComboBox" name="polyDevice">
+    <widget class="QComboBox" name="polydevice">
      <property name="geometry">
       <rect>
        <x>90</x>
@@ -2458,10 +2458,35 @@ QLabel
     </widget>
    </widget>
   </widget>
+  <widget class="QSpinBox" name="delay">
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>20</y>
+     <width>35</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>5000</number>
+   </property>
+  </widget>
   <zorder>enable</zorder>
   <zorder>instanceLabel</zorder>
-  <zorder>initMode</zorder>
-  <zorder>initValue</zorder>
+  <zorder>initmode</zorder>
+  <zorder>initvalue</zorder>
   <zorder>label</zorder>
   <zorder>label_2</zorder>
   <zorder>gain</zorder>
@@ -2479,8 +2504,9 @@ QLabel
   <zorder>min</zorder>
   <zorder>deviceViews</zorder>
   <zorder>label_4</zorder>
-  <zorder>outputValue</zorder>
+  <zorder>outputvalue</zorder>
   <zorder>deviceViewLabels</zorder>
+  <zorder>delay</zorder>
  </widget>
  <resources/>
  <connections/>

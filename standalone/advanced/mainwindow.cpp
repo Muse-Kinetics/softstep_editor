@@ -12,8 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
     midiDeviceManager = new MidiDeviceManager(this);
 
     //Mainwindow Ui
-    this->setWindowTitle("SoftStep Advanced Editor");  //FIND OUT WHY THIS ISN'T WORKING!?
     ui->setupUi(this);
+    this->setWindowTitle("SoftStep Advanced Editor");
     this->setFixedSize(995,344);
 
     //Construct Key Windows
