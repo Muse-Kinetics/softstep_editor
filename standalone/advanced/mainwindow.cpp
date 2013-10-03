@@ -98,8 +98,8 @@ void MainWindow::slotConnectInterfaces()
     //Settings
     connect(settingsWindow, SIGNAL(signalStoreValue(QString,QVariant)), presetInterface, SLOT(slotStoreGlobal(QString,QVariant)));
 
-    //Update Button
-    connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
+    //Save Button
+    connect(ui->save, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
 
     //preset number box (this will be switched to a comboBox soon)
     connect(ui->presetNumber, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
@@ -181,7 +181,7 @@ void MainWindow::slotConnected(bool connection)
     {
         ui->connectedLabel->setText("CONNECTED");
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");
-        ui->update->setText("SAVE + SEND");
+        //ui->update->setText("SAVE + SEND");
     }
     else
     {
@@ -189,7 +189,7 @@ void MainWindow::slotConnected(bool connection)
         //ui->connectedLabel->setText("Not Connected");
         ui->connectedLabel->setText("NOT CONNECTED");
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
-        ui->update->setText("SAVE");
+        //ui->update->setText("SAVE");
         //aboutForm->found->setText("Not Connected");
     }
 }

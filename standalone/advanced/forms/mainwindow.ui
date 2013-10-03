@@ -14,55 +14,10 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: rgba(0,0,0);
+   <string notr="true">background: rgb(40,40,41);
 </string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="update">
-    <property name="geometry">
-     <rect>
-      <x>830</x>
-      <y>150</y>
-      <width>121</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <family>Futura</family>
-      <pointsize>18</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">/*---------- QPushButton ---------*/
-QPushButton
-{
-	border: 6px solid rgba(0,174,239,255);
-	font: 18pt &quot;Futura&quot;;
-	color: white;
-}
-
-QPushButton:pressed
-{
-	background: rgba(0,174,239,255);
-	border: 6px solid white;
-	font: 20pt &quot;Futura&quot;;
-	color: white;
-}</string>
-    </property>
-    <property name="text">
-     <string>save + send</string>
-    </property>
-   </widget>
    <widget class="QSpinBox" name="presetNumber">
     <property name="geometry">
      <rect>
@@ -172,6 +127,222 @@ QPushButton:pressed
     <property name="text">
      <string>settings</string>
     </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>253</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: rgb(100,101,103);
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QFrame" name="frame_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>233</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*----------- QFrame ------------*/
+QFrame
+{
+background: rgb(90,136,158);
+border: 2px solid rgb(78,78,80);
+}
+
+/*----------- QPushButton ------------*/
+QPushButton
+{
+	background: rgb(58,58,60);
+	color: white;
+	border: 2px solid rgb(236,0,140);
+	font: 9pt &quot;Futura&quot;;
+	padding: 0,1,0,0;
+}
+
+/*----------- QLabel ------------*/
+QLabel
+{
+	background: rgba(0,0,0,0);
+	color: white;
+	border: none;
+	font: 10pt &quot;Futura&quot;;
+}
+
+/*----------- QComboBox ------------*/
+QComboBox {
+	font: 10pt &quot;Futura&quot;;
+	border: 2px solid rgb(0,174,239);
+	background-color: rgba(28, 28, 29);
+	color: white;
+ }</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QPushButton" name="save">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>45</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>SAVE</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="saveas">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>40</y>
+        <width>45</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>SAVE AS</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="revert">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>40</y>
+        <width>45</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>REVERT</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="deletepreset">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>40</y>
+        <width>45</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>DELETE</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="presetmenu">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>10</y>
+        <width>195</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="editable">
+       <bool>false</bool>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+      <item>
+       <property name="text">
+        <string>PRESET_NAME_HERE</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>3</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>4</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>5</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>6</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>7</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>8</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>9</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>10</string>
+       </property>
+      </item>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="update">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>86</y>
+       <width>232</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: rgb(40,40,41);
+color: white;
+border: 2px solid rgb(0,174,239);
+font: 12pt &quot;Futura&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&quot;MAKE IT SO&quot;</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
