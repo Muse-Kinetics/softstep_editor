@@ -56,6 +56,7 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexmessages.h \
                 settings.h \
                 mididevicemanager.h \
+    stylesheets.h \
     stylesheets.h
 
 FORMS    +=     forms/mainwindow.ui \

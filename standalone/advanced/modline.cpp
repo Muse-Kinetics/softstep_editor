@@ -3,6 +3,11 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "modline.h"
 //#include "ui_keyWindowForm.h"
+#define MODLINE_WINDOW_WIDTH 1100
+#define MODLINE_WINDOW_HEIGHT 42
+#define MODLINE_SPACING 5
+#define MODLINE_STARTING_X_POS 9
+#define MODLINE_STARTING_Y_POS 98
 
 Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     QWidget(parent)
@@ -16,7 +21,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     QWidget *formWidget = new QWidget(this);
 
     modlineForm.setupUi(formWidget);
-    this->setFixedSize(1100,42);
+    this->setFixedSize(MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
 
     modlineForm.instanceLabel->setText(QString("%1").arg((modlineInstance + 1)%10));
     modlineForm.deviceViews->setCurrentIndex(0);
@@ -28,10 +33,10 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     connect(modlineForm.offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
     modlineForm.raw->setValue(0);
 
-    this->setGeometry(10,98 + ((modlineInstance)*47),1100,42);
+    this->setGeometry(MODLINE_STARTING_X_POS, MODLINE_STARTING_Y_POS + ((modlineInstance)*(MODLINE_WINDOW_HEIGHT + MODLINE_SPACING)), MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
 
     //potentially add this to dynamically set the stylesheet for the "enable" checkbox -CARSON
-    modlineForm.enable->setStyleSheet(QString("modlineEnable%1StyleSheet").arg(modlineInstance + 1));
+    //modlineForm.enable->setStyleSheet(QString("modlineEnable%1StyleSheet").arg(modlineInstance + 1));
 }
 
 void Modline::slotConnectElements()

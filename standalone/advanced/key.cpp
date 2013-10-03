@@ -30,7 +30,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     //Set up the Key Window
     keyWindowWidget = new QWidget();
     keyWindowForm->setupUi(keyWindowWidget);
-    keyWindowWidget->setFixedSize(1200,400);
+    keyWindowWidget->setFixedSize(1200,410);
     keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg(keyInstance+1));
 
 
