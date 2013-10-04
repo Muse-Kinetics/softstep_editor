@@ -2008,6 +2008,16 @@ void PresetInterface::slotConstructDefaultMap()
 
 void PresetInterface::slotConstructGlobalDefaultMap()
 {
+    //------------------ Global Page -------------------//
+        defaultGlobalMap["sensorresponse_average"] = 1;
+        defaultGlobalMap["sensorresponse_max"] = 0;
+        defaultGlobalMap["adjacentkeymode"] = 0;
+        defaultGlobalMap["keylockoutmode"] = 0;
+        defaultGlobalMap["multiplekeymode"] = 1;
+
+        defaultGlobalMap["global_gain"] = 1.00;
+        defaultGlobalMap["backlighting_enable"] = 1;
+
     //-------------------- Key Page --------------------//
     defaultGlobalMap["key1_settings_xdead"] = 0;
     defaultGlobalMap["key1_settings_ydead"] = 0;

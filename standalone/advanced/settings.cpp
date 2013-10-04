@@ -45,6 +45,11 @@ void Settings::slotConnectElements()
                 connect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
             }
         }
+        else if(widget->metaObject()->className() == QString("QDoubleSpinBox"))
+        {
+            QDoubleSpinBox* doublespinbox = qobject_cast<QDoubleSpinBox *>(widget);
+            connect(doublespinbox, SIGNAL(valueChanged(double)),this,SLOT(slotValueChanged()));
+        }
         else if(widget->metaObject()->className() == QString("QCheckBox"))
         {
             QCheckBox* checkbox = qobject_cast<QCheckBox *>(widget);
@@ -59,6 +64,11 @@ void Settings::slotConnectElements()
         {
             QLineEdit* lineedit = qobject_cast<QLineEdit *>(widget);
             connect(lineedit, SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
+        }
+        else if(widget->metaObject()->className() == QString("QRadioButton"))
+        {
+            QRadioButton* radiobutton = qobject_cast<QRadioButton *>(widget);
+            connect(radiobutton, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
         }
     }
 }
@@ -79,6 +89,13 @@ void Settings::slotValueChanged()
             QSpinBox *spinbox = reinterpret_cast<QSpinBox*>(QObject::sender());
             jsonName = spinbox->objectName();
             value = spinbox->value();
+        }
+        //doublespinboxes
+        else if(senderClass == "QDoubleSpinBox")
+        {
+            QDoubleSpinBox *doublespinbox = reinterpret_cast<QDoubleSpinBox*>(QObject::sender());
+            jsonName = doublespinbox->objectName();
+            value = doublespinbox->value();
         }
         //checkboxes
         else if(senderClass == "QCheckBox")
@@ -101,7 +118,13 @@ void Settings::slotValueChanged()
             jsonName = lineedit->objectName();
             value = lineedit->text();
         }
-
+        //radio buttons
+        else if(senderClass == "QRadioButton")
+        {
+            QRadioButton *radiobutton = reinterpret_cast<QRadioButton*>(QObject::sender());
+            jsonName = radiobutton->objectName();
+            value = radiobutton->isChecked();
+        }
         emit signalStoreValue(jsonName,value);
     }
     //qDebug() << "value changed" << QObject::sender()->objectName();
@@ -120,6 +143,12 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
             QString objectName = widget->objectName();
             spinbox->setValue(preset.value(objectName).toInt());
         }
+        else if(widget->metaObject()->className() == QString("QDoubleSpinBox"))
+        {
+            QDoubleSpinBox* doublespinbox = qobject_cast<QDoubleSpinBox *>(widget);
+            QString objectName = widget->objectName();
+            doublespinbox->setValue(preset.value(objectName).toDouble());
+        }
         else if(widget->metaObject()->className() == QString("QCheckBox"))
         {
             QCheckBox* checkbox = qobject_cast<QCheckBox *>(widget);
@@ -137,6 +166,12 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
             QLineEdit* lineedit = qobject_cast<QLineEdit *>(widget);
             QString objectName = widget->objectName();
             lineedit->setText(preset.value(objectName).toString());
+        }
+        else if(widget->metaObject()->className() == QString("QRadioButton"))
+        {
+            QRadioButton* radiobutton = qobject_cast<QRadioButton *>(widget);
+            QString objectName = widget->objectName();
+            radiobutton->setChecked(preset.value(objectName).toBool());
         }
     }
 }
