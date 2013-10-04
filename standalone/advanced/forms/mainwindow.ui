@@ -97,7 +97,7 @@ QPushButton
 {
 	background: rgb(58,58,60);
 	color: white;
-	border: 2px solid rgb(236,0,140);
+	border: 2px solid rgba(236,0,140,235);
 	font: 9pt &quot;Futura&quot;;
 	padding: 0,1,0,0;
 }

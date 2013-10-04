@@ -17,7 +17,7 @@
    <string notr="true">QWidget
 {
 	background:		rgba(35,31,32,255);
-	border: 2px solid rgba(0,174,239,255);
+	border: 3px solid rgba(0,174,239,255);
 }
 
 /* ------- QStackedWidget ---------*/
@@ -131,7 +131,7 @@ QPushButton {
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>6</y>
+     <y>8</y>
      <width>300</width>
      <height>25</height>
     </rect>
@@ -150,8 +150,8 @@ QPushButton {
 	{
 		font: 16px;
 		font.underline: 1;
-		font.letterSpacing: 100;
 		border-bottom: 2px solid white;
+		padding-bottom: 3px;
 	}</string>
    </property>
    <property name="text">
@@ -276,7 +276,7 @@ QComboBox {
  }</string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QLabel" name="label_27">
@@ -3123,17 +3123,39 @@ QCheckBox::indicator {
    </widget>
    <widget class="QWidget" name="settingspedalpage"/>
   </widget>
-  <widget class="QRadioButton" name="settingsglobalbutton">
+  <widget class="QFrame" name="tabsframe">
    <property name="geometry">
     <rect>
      <x>15</x>
      <y>40</y>
-     <width>61</width>
-     <height>23</height>
+     <width>285</width>
+     <height>35</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QRadioButton
+    <string notr="true">QFrame
+{
+	border: 1px solid rgb(142, 142, 142);
+	background: rgb(80, 80, 80);
+}</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QRadioButton" name="settingsglobalbutton">
+    <property name="geometry">
+     <rect>
+      <x>8</x>
+      <y>6</y>
+      <width>61</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QRadioButton
 {
 	border: none;
 	background: none;
@@ -3168,22 +3190,22 @@ QRadioButton::indicator:checked:pressed
 {
 	image: url(:/resources/settingsWindow_tab_global_enabled.png);
 }</string>
-   </property>
-   <property name="text">
-    <string>RadioButton</string>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="settingskeybutton">
-   <property name="geometry">
-    <rect>
-     <x>91</x>
-     <y>40</y>
-     <width>61</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QRadioButton
+    </property>
+    <property name="text">
+     <string>RadioButton</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="settingskeybutton">
+    <property name="geometry">
+     <rect>
+      <x>77</x>
+      <y>6</y>
+      <width>61</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QRadioButton
 {
 	border: none;
 	background: none;
@@ -3218,22 +3240,22 @@ QRadioButton::indicator:checked:pressed
 {
 	image: url(:/resources/settingsWindow_tab_keys_enabled.png);
 }</string>
-   </property>
-   <property name="text">
-    <string>RadioButton</string>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="settingsinputbutton">
-   <property name="geometry">
-    <rect>
-     <x>167</x>
-     <y>40</y>
-     <width>61</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QRadioButton
+    </property>
+    <property name="text">
+     <string>RadioButton</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="settingsinputbutton">
+    <property name="geometry">
+     <rect>
+      <x>146</x>
+      <y>6</y>
+      <width>61</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QRadioButton
 {
 	border: none;
 	background: none;
@@ -3268,22 +3290,22 @@ QRadioButton::indicator:checked:pressed
 {
 	image: url(:/resources/settingsWindow_tab_input_enabled.png);
 }</string>
-   </property>
-   <property name="text">
-    <string>RadioButton</string>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="settingspedalbutton">
-   <property name="geometry">
-    <rect>
-     <x>244</x>
-     <y>40</y>
-     <width>61</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QRadioButton
+    </property>
+    <property name="text">
+     <string>RadioButton</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="settingspedalbutton">
+    <property name="geometry">
+     <rect>
+      <x>216</x>
+      <y>6</y>
+      <width>61</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QRadioButton
 {
 	border: none;
 	background: none;
@@ -3318,10 +3340,11 @@ QRadioButton::indicator:checked:pressed
 {
 	image: url(:/resources/settingsWindow_tab_pedal_enabled.png);
 }</string>
-   </property>
-   <property name="text">
-    <string>RadioButton</string>
-   </property>
+    </property>
+    <property name="text">
+     <string>RadioButton</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
