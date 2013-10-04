@@ -50,7 +50,7 @@ QSpinBox
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 3px 1px 3px;
+	padding: 1px 1px 1px 3px;
 }
 
 QSpinBox::focus
@@ -65,7 +65,7 @@ QDoubleSpinBox
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 3px 1px 3px;
+	padding: 1px 1px 1px 3px;
 }
 
 QDoubleSpinBox::focus
@@ -348,6 +348,9 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="frame">
     <bool>true</bool>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
    </property>
@@ -358,9 +361,9 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QSpinBox" name="raw">
    <property name="geometry">
     <rect>
-     <x>207</x>
+     <x>201</x>
      <y>19</y>
-     <width>30</width>
+     <width>27</width>
      <height>18</height>
     </rect>
    </property>
@@ -376,6 +379,9 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="frame">
     <bool>true</bool>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
    </property>
@@ -386,7 +392,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>238</x>
+     <x>233</x>
      <y>19</y>
      <width>8</width>
      <height>18</height>
@@ -408,7 +414,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>287</x>
+     <x>275</x>
      <y>19</y>
      <width>8</width>
      <height>18</height>
@@ -430,9 +436,9 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QDoubleSpinBox" name="gain">
    <property name="geometry">
     <rect>
-     <x>246</x>
+     <x>243</x>
      <y>19</y>
-     <width>40</width>
+     <width>29</width>
      <height>18</height>
     </rect>
    </property>
@@ -444,6 +450,9 @@ QCheckBox::indicator:checked:pressed:focus
      <italic>false</italic>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
@@ -458,9 +467,9 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QSpinBox" name="offset">
    <property name="geometry">
     <rect>
-     <x>296</x>
+     <x>285</x>
      <y>19</y>
-     <width>40</width>
+     <width>28</width>
      <height>18</height>
     </rect>
    </property>
@@ -472,6 +481,9 @@ QCheckBox::indicator:checked:pressed:focus
      <italic>false</italic>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
@@ -486,7 +498,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>338</x>
+     <x>317</x>
      <y>19</y>
      <width>8</width>
      <height>18</height>
@@ -511,9 +523,9 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="geometry">
     <rect>
-     <x>347</x>
+     <x>327</x>
      <y>19</y>
-     <width>30</width>
+     <width>28</width>
      <height>18</height>
     </rect>
    </property>
@@ -529,6 +541,9 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="frame">
     <bool>true</bool>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
    <property name="readOnly">
     <bool>true</bool>
    </property>
@@ -542,9 +557,9 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QComboBox" name="table">
    <property name="geometry">
     <rect>
-     <x>379</x>
+     <x>365</x>
      <y>19</y>
-     <width>81</width>
+     <width>60</width>
      <height>18</height>
     </rect>
    </property>
@@ -611,7 +626,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QSpinBox" name="min">
    <property name="geometry">
     <rect>
-     <x>442</x>
+     <x>430</x>
      <y>19</y>
      <width>30</width>
      <height>18</height>
@@ -628,6 +643,9 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="frame">
     <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
@@ -639,7 +657,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QSpinBox" name="max">
    <property name="geometry">
     <rect>
-     <x>470</x>
+     <x>462</x>
      <y>19</y>
      <width>30</width>
      <height>18</height>
@@ -657,6 +675,9 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="frame">
     <bool>true</bool>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
    </property>
@@ -667,9 +688,9 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QSpinBox" name="slew">
    <property name="geometry">
     <rect>
-     <x>498</x>
+     <x>494</x>
      <y>19</y>
-     <width>35</width>
+     <width>30</width>
      <height>18</height>
     </rect>
    </property>
@@ -685,6 +706,9 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="frame">
     <bool>true</bool>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
    </property>
@@ -695,7 +719,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QSpinBox" name="outputvalue">
    <property name="geometry">
     <rect>
-     <x>782</x>
+     <x>862</x>
      <y>19</y>
      <width>30</width>
      <height>18</height>
@@ -726,7 +750,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QComboBox" name="destination">
    <property name="geometry">
     <rect>
-     <x>537</x>
+     <x>617</x>
      <y>19</y>
      <width>75</width>
      <height>18</height>
@@ -1132,7 +1156,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QComboBox" name="ledgreen">
    <property name="geometry">
     <rect>
-     <x>823</x>
+     <x>903</x>
      <y>19</y>
      <width>65</width>
      <height>18</height>
@@ -1250,7 +1274,7 @@ QComboBox::drop-down
   <widget class="QComboBox" name="ledred">
    <property name="geometry">
     <rect>
-     <x>871</x>
+     <x>951</x>
      <y>19</y>
      <width>65</width>
      <height>18</height>
@@ -1329,7 +1353,7 @@ QComboBox QListView
   <widget class="QStackedWidget" name="deviceViews">
    <property name="geometry">
     <rect>
-     <x>594</x>
+     <x>674</x>
      <y>19</y>
      <width>190</width>
      <height>18</height>
@@ -2108,7 +2132,7 @@ QComboBox
     <widget class="QSpinBox" name="polynote">
      <property name="geometry">
       <rect>
-       <x>34</x>
+       <x>114</x>
        <y>0</y>
        <width>30</width>
        <height>18</height>
@@ -2133,7 +2157,7 @@ QComboBox
     <widget class="QSpinBox" name="polychannel">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>143</x>
        <y>0</y>
        <width>25</width>
        <height>18</height>
@@ -2158,7 +2182,7 @@ QComboBox
     <widget class="QComboBox" name="polydevice">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>170</x>
        <y>0</y>
        <width>116</width>
        <height>18</height>
@@ -2189,7 +2213,7 @@ QComboBox
   <widget class="QStackedWidget" name="deviceViewLabels">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>680</x>
      <y>0</y>
      <width>190</width>
      <height>18</height>
@@ -2224,7 +2248,7 @@ QLabel
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>2</x>
+       <x>82</x>
        <y>0</y>
        <width>31</width>
        <height>16</height>
@@ -2237,7 +2261,7 @@ QLabel
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>33</x>
+       <x>113</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2250,7 +2274,7 @@ QLabel
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>143</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2263,7 +2287,7 @@ QLabel
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>170</x>
        <y>0</y>
        <width>41</width>
        <height>16</height>
@@ -2595,9 +2619,9 @@ QLabel
   <widget class="QSpinBox" name="delay">
    <property name="geometry">
     <rect>
-     <x>990</x>
-     <y>20</y>
-     <width>35</width>
+     <x>526</x>
+     <y>19</y>
+     <width>30</width>
      <height>18</height>
     </rect>
    </property>
@@ -2613,6 +2637,9 @@ QLabel
    <property name="frame">
     <bool>true</bool>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
    </property>
@@ -2623,7 +2650,7 @@ QLabel
   <widget class="QLabel" name="label_13">
    <property name="geometry">
     <rect>
-     <x>36</x>
+     <x>35</x>
      <y>2</y>
      <width>21</width>
      <height>16</height>
@@ -2632,18 +2659,56 @@ QLabel
    <property name="text">
     <string>Mode</string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
   <widget class="QLabel" name="label_33">
    <property name="geometry">
     <rect>
-     <x>66</x>
-     <y>1</y>
+     <x>63</x>
+     <y>2</y>
      <width>27</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
     <string>Value</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_34">
+   <property name="geometry">
+    <rect>
+     <x>129</x>
+     <y>2</y>
+     <width>31</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Source</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_35">
+   <property name="geometry">
+    <rect>
+     <x>202</x>
+     <y>2</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Raw</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <zorder>enable</zorder>
@@ -2671,6 +2736,8 @@ QLabel
   <zorder>delay</zorder>
   <zorder>label_13</zorder>
   <zorder>label_33</zorder>
+  <zorder>label_34</zorder>
+  <zorder>label_35</zorder>
  </widget>
  <resources/>
  <connections/>

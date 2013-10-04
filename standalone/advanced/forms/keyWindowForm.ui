@@ -457,9 +457,9 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="dataModifiersBracketLabel">
    <property name="geometry">
     <rect>
-     <x>239</x>
+     <x>250</x>
      <y>82</y>
-     <width>317</width>
+     <width>318</width>
      <height>11</height>
     </rect>
    </property>
@@ -478,7 +478,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>330</x>
+     <x>341</x>
      <y>63</y>
      <width>108</width>
      <height>13</height>

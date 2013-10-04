@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>840</width>
-    <height>327</height>
+    <width>690</width>
+    <height>303</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@ QLineEdit
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>731</x>
+      <x>583</x>
       <y>55</y>
       <width>110</width>
       <height>20</height>
@@ -312,7 +312,7 @@ font: 16pt &quot;Futura&quot;;</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>715</x>
+      <x>568</x>
       <y>8</y>
       <width>116</width>
       <height>43</height>
@@ -532,6 +532,26 @@ QPushButton:pressed
       <string/>
      </property>
     </widget>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>143</y>
+      <width>670</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	border-top: 2px solid rgba(255, 255, 255, 200);
+	background: none;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

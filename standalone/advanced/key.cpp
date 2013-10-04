@@ -12,14 +12,14 @@
 /*-------KEYBOX SIZE AND SPACING CONSTANTS-------*/
 
 //Keybox dimensions
-#define KEYBOX_WIDTH 130
-#define KEYBOX_HEIGHT 80
+#define KEYBOX_WIDTH 101
+#define KEYBOX_HEIGHT 64
 //Space between key boxes
 #define KEYBOX_X_SPACING 10
 #define KEYBOX_Y_SPACING 10
 //Key box starting position (refers to keybox 1 position)
 #define KEYBOX_STARTING_X_POS 10
-#define KEYBOX_STARTING_Y_POS 235
+#define KEYBOX_STARTING_Y_POS 228
 
 
 Key::Key(QWidget *parent, int keyInstanceNum) :
