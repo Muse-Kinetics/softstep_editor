@@ -5,6 +5,19 @@
 
 #include <QDebug>
 
+//Constants for size of key window
+#define KEYWINDOW_WIDTH 1200
+#define KEYWINDOW_HEIGHT 410
+
+//Constants for size and spacing of key boxes
+#define KEYBOX_WIDTH 130
+#define KEYBOX_HEIGHT 80
+#define KEYBOX_X_SPACING 10
+#define KEYBOX_Y_SPACING 10
+#define KEYBOX_STARTING_X_POS 10
+#define KEYBOX_STARTING_Y_POS 230   // refers to keybox 1, which is the bottom-left key
+
+
 Key::Key(QWidget *parent, int keyInstanceNum) :
     QWidget(parent),
     keyBoxForm(new Ui::keyBoxForm),
@@ -15,22 +28,22 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     //Set up the Key Box
     keyBoxWidget = new QWidget(this);
     keyBoxForm->setupUi(keyBoxWidget);
-    keyBoxWidget->setFixedSize(130,80);
+    keyBoxWidget->setFixedSize(KEYBOX_WIDTH, KEYBOX_HEIGHT);
 
     if(keyInstanceNum < 5)
     {
-        this->setGeometry(10 + ((keyInstance)*130), 230,130,80);
+        this->setGeometry(10 + ((keyInstance) * (KEYBOX_WIDTH + KEYBOX_X_SPACING)), KEYBOX_STARTING_Y_POS, KEYBOX_WIDTH, KEYBOX_HEIGHT);
     }
     else
     {
-        this->setGeometry(10 + ((keyInstance - 5)*130), 150,130,80);
+        this->setGeometry(10 + ((keyInstance - 5) * (KEYBOX_WIDTH + KEYBOX_X_SPACING)), KEYBOX_STARTING_Y_POS - KEYBOX_HEIGHT - KEYBOX_Y_SPACING, KEYBOX_WIDTH, KEYBOX_HEIGHT);
     }
 
 
     //Set up the Key Window
     keyWindowWidget = new QWidget();
     keyWindowForm->setupUi(keyWindowWidget);
-    keyWindowWidget->setFixedSize(1200,410);
+    keyWindowWidget->setFixedSize(KEYWINDOW_WIDTH, KEYWINDOW_HEIGHT);
     keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg(keyInstance+1));
 
 

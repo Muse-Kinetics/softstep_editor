@@ -53,43 +53,12 @@ QLabel:hover
 	border:				none;
 }  
 
-/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 10pt &quot;Futura&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgba(0, 0, 0, 255);
-	color: white;
-	padding:0, 3, 0, 0;
-}
-
-QSpinBox::focus
-{
-	border: none;
-	outline: none;
-}
-
-QDoubleSpinBox
-{
-	font: 10pt &quot;Futura&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgba(0, 0, 0, 255);
-	color: white;
-	padding:0, 3, 0, 0;
-}
-
-QDoubleSpinBox::focus
-{
-	border: none;
-	outline: none;
-}
-
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
 	font: 10pt &quot;Futura&quot;;
-	background: rgba(0,174,239,0);
-	border: 1px solid rgba(0,174,239,255);
+	background: none;
+	border: none;
 	border-radius: 0px;
 	color: white;
 	padding-left: 2px;
@@ -99,8 +68,8 @@ QLineEdit
 QLineEdit:focus
 {
 	font: 10pt &quot;Futura&quot;;
-	background: rgba(0,174,239,0);
-	border: 1px solid white;
+	background: none;
+	border: none;
 	border-radius: 0px;
 	color: white;
 	padding-left: 2px;
@@ -123,14 +92,24 @@ QCheckBox:focus
 }
 
 /*----------- QComboBox ------------*/
-QComboBox {
+QComboBox
+{
 	font: 10pt &quot;Futura&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(40, 40, 40);
 	color: white;
-	padding:3px, 3px, 3px, 7px;
+	padding-left: 5px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-right: 5px;
  }
-</string>
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.png)
+}</string>
   </property>
   <widget class="QLabel" name="titlelabel">
    <property name="geometry">
