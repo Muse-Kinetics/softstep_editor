@@ -11,7 +11,7 @@ Settings::Settings(QWidget *parent) :
     //set up settings window
     settingsWidget = new QWidget();
     settingsForm->setupUi(settingsWidget);
-    //settingsWidget->setFixedSize(319,461);
+    //settingsWidget->setFixedSize(320,492);
     settingsWidget->setWindowTitle(QString("Settings"));
 
     slotConnectElements();
@@ -40,7 +40,10 @@ void Settings::slotConnectElements()
         {
             QSpinBox* spinbox = qobject_cast<QSpinBox *>(widget);
             //qDebug() << "settings spin box name: " << widget->objectName();
-            connect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+            if(!QString(spinbox->objectName()).contains("value")) //the value parameters should not be saved in presets
+            {
+                connect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+            }
         }
         else if(widget->metaObject()->className() == QString("QCheckBox"))
         {
@@ -51,6 +54,11 @@ void Settings::slotConnectElements()
         {
             QComboBox* combobox = qobject_cast<QComboBox *>(widget);
             connect(combobox, SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+        }
+        else if(widget->metaObject()->className() == QString("QLineEdit"))
+        {
+            QLineEdit* lineedit = qobject_cast<QLineEdit *>(widget);
+            connect(lineedit, SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
         }
     }
 }
@@ -86,6 +94,13 @@ void Settings::slotValueChanged()
             jsonName = combobox->objectName();
             value = combobox->currentText();
         }
+        //line edits (osc routes)
+        else if(senderClass == "QLineEdit")
+        {
+            QLineEdit *lineedit = reinterpret_cast<QLineEdit*>(QObject::sender());
+            jsonName = lineedit->objectName();
+            value = lineedit->text();
+        }
 
         emit signalStoreValue(jsonName,value);
     }
@@ -116,6 +131,12 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
             QComboBox* combobox = qobject_cast<QComboBox *>(widget);
             QString objectName = widget->objectName();
             combobox->setCurrentIndex(combobox->findText(preset.value(objectName).toString()));
+        }
+        else if(widget->metaObject()->className() == QString("QLineEdit"))
+        {
+            QLineEdit* lineedit = qobject_cast<QLineEdit *>(widget);
+            QString objectName = widget->objectName();
+            lineedit->setText(preset.value(objectName).toString());
         }
     }
 }

@@ -2036,6 +2036,30 @@ void PresetInterface::slotConstructGlobalDefaultMap()
     defaultGlobalMap["midih_settings_channel"] = 1;
     defaultGlobalMap["midih_settings_messagetype"] = "Note";
     defaultGlobalMap["midih_settings_number"] = 60;
+
+    defaultGlobalMap["osca_input_enable"] = 0;
+    defaultGlobalMap["osca_input_route"] = "";
+    defaultGlobalMap["oscb_input_enable"] = 0;
+    defaultGlobalMap["oscb_input_route"] = "";
+    defaultGlobalMap["oscc_input_enable"] = 0;
+    defaultGlobalMap["oscc_input_route"] = "";
+    defaultGlobalMap["oscd_input_enable"] = 0;
+    defaultGlobalMap["oscd_input_route"] = "";
+    defaultGlobalMap["osce_input_enable"] = 0;
+    defaultGlobalMap["osce_input_route"] = "";
+    defaultGlobalMap["oscf_input_enable"] = 0;
+    defaultGlobalMap["oscf_input_route"] = "";
+    defaultGlobalMap["oscg_input_enable"] = 0;
+    defaultGlobalMap["oscg_input_route"] = "";
+    defaultGlobalMap["osch_input_enable"] = 0;
+    defaultGlobalMap["osch_input_route"] = "";
+
+    defaultGlobalMap["osc_ip_1"] = 0;
+    defaultGlobalMap["osc_ip_2"] = 0;
+    defaultGlobalMap["osc_ip_3"] = 0;
+    defaultGlobalMap["osc_ip_4"] = 0;
+    defaultGlobalMap["osc_out_port"] = 0;
+    defaultGlobalMap["osc_in_port"] = 0;
 }
 
 void PresetInterface::slotRecallPreset(int i)
