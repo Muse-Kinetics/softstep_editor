@@ -35,7 +35,8 @@ SOURCES +=      main.cpp\
                 sysexcomposer.cpp \
                 settings.cpp \
                 mididevicemanager.cpp \
-    stylesheets.cpp
+                stylesheets.cpp \
+    setlist.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -56,15 +57,15 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexmessages.h \
                 settings.h \
                 mididevicemanager.h \
-    stylesheets.h \
-    stylesheets.h
+                stylesheets.h \
+    setlist.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \
                 forms/keyWindowForm.ui \
                 forms/settingsForm.ui \
                 forms/keyBoxForm.ui \
-    forms/setlistForm.ui
+                forms/setlistForm.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#

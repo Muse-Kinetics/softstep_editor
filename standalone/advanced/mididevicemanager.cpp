@@ -9,6 +9,7 @@ MidiDeviceManager *callbackClassPointer;
 void midiSystemChanged(const MIDINotification *message, void *refCon);                          //Called when the system's MIDI has changed
 void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon);    //Called upon incoming midi from connected port
 void sysExComplete(MIDISysexSendRequest*);                                                      //Called when sysex event has been completely sent
+void virtualIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon);
 
 
 MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
@@ -51,7 +52,8 @@ void MidiDeviceManager::createAppMidiClient()
     MIDIClientCreate(CFSTR("SoftStep MIDI Client"), midiSystemChanged, this, &appClientRef);
     MIDIInputPortCreate(appClientRef, CFSTR("SoftStep MIDI Client In Port"), incomingMidi, this, &appInPortRef);
     MIDIOutputPortCreate(appClientRef, CFSTR("SoftStep MIDI Client Out Port"), &appOutPortRef);
-    MIDISourceCreate(appClientRef, CFSTR("SoftStep Share"), &appVirtualOutRef);
+    MIDISourceCreate(appClientRef, CFSTR("SoftStep Share"), &appVirtualSourceRef);
+    MIDIDestinationCreate(appClientRef, CFSTR("SoftStep Share"), virtualIncomingMidi, NULL, &appVirtualDestRef);
 }
 
 bool MidiDeviceManager::connectSource()
@@ -327,6 +329,25 @@ void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *src
             {
                 //qDebug() << "MIDI Channel Event: " << packet->data[j];
             }
+        }
+
+        //advance packet in midi packet list
+        packet = MIDIPacketNext(packet);
+    }
+}
+
+void virtualIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon){
+
+    //iterate through midi packets and process according to type
+    const MIDIPacket *packet = &pktlist->packet[0];
+
+    //for number packets in packet list
+    for(int i =0; i < pktlist->numPackets; i++)
+    {
+        //for length of packet
+        for(int j = 0; j < packet->length; j++)
+        {
+            qDebug() << "MIDI Channel Event: " << packet->data[j];
         }
 
         //advance packet in midi packet list

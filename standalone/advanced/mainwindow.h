@@ -11,6 +11,7 @@
 
 #include "key.h"
 #include "settings.h"
+#include "setlist.h"
 #include "presetinterface.h"
 #include "mididevicemanager.h"
 
@@ -38,6 +39,7 @@ public:
     //Ui Elements
     Key *key[10];
     Settings *settingsWindow;
+    Setlist *setlist;
 
 public slots:
     void slotConnectInterfaces();

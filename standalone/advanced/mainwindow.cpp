@@ -22,8 +22,9 @@ MainWindow::MainWindow(QWidget *parent) :
         key[i] = new Key(this, i);
     }
 
-    //Construct Settings Window Stuff
+    //Construct Settings Window
     settingsWindow = new Settings(this);
+    setlist = new Setlist(this);
 
     this->installEventFilter(this);
 
@@ -38,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Connect Settings Window Stuff
     settingsWindow->slotConnectElements();
 
+    presetInterface->slotPopulateSetlistMenus();
     presetInterface->slotRecallPreset(1);
     presetInterface->slotRecallGlobal();
 
@@ -96,17 +98,23 @@ void MainWindow::slotConnectInterfaces()
     //Nav Pad
 
     //Settings
+    connect(ui->opensettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));
     connect(settingsWindow, SIGNAL(signalStoreValue(QString,QVariant)), presetInterface, SLOT(slotStoreGlobal(QString,QVariant)));
 
+    //------------- Save, Save As, Revert, Delete
     //Save Button
-    connect(ui->save, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
+    connect(ui->save, SIGNAL(clicked()), presetInterface, SLOT(slotSavePreset()));
+    connect(ui->saveas, SIGNAL(clicked()), presetInterface, SLOT(slotSavePresetAs()));
+    connect(ui->revert, SIGNAL(clicked()), presetInterface, SLOT(slotRevertPreset()));
+    connect(ui->deletepreset, SIGNAL(clicked()), presetInterface, SLOT(slotDeletePreset()));
 
     //preset number box (this will be switched to a comboBox soon)
     //connect(ui->presetNumber, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
     connect(ui->presetmenu, SIGNAL(currentIndexChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
 
-    //open settings button
-    connect(ui->opensettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));
+    //setlist
+    connect(ui->opensetlist, SIGNAL(clicked()), setlist, SLOT(slotShowSetlist()));
+    connect(presetInterface, SIGNAL(signalPopulateSetlistMenus(QVariantMap)), setlist, SLOT(slotPopulateMenus(QVariantMap)));
 }
 
 void MainWindow::slotInitMenuBar()

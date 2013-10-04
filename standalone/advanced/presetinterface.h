@@ -43,6 +43,7 @@ public:
 signals:
     void signalRecallPreset(QVariantMap preset, QVariantMap jsonMasterMapCopy);
     void signalRecallGlobal(QVariantMap preset, QVariantMap jsonMasterMapCopy);
+    void signalPopulateSetlistMenus(QVariantMap jsonMasterMapCopy);
     
 public slots:
     void slotStoreValue(QString name, QVariant value, int presetNum);
@@ -57,7 +58,15 @@ public slots:
     void slotRecallPreset(int i);
     void slotRecallGlobal();
 
-    void slotUpdateClicked();
+    void slotSavePreset();
+    void slotSavePresetAs();
+    void slotDeletePreset();
+    void slotRevertPreset();
+
+    void slotPopulateSetlistMenus();
+
+
+
     
 };
 
