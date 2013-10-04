@@ -5,17 +5,21 @@
 
 #include <QDebug>
 
-//Constants for size of key window
+/*-------KEYWINDOW SIZE CONSTANTS-------*/
 #define KEYWINDOW_WIDTH 1200
 #define KEYWINDOW_HEIGHT 410
 
-//Constants for size and spacing of key boxes
+/*-------KEYBOX SIZE AND SPACING CONSTANTS-------*/
+
+//Keybox dimensions
 #define KEYBOX_WIDTH 130
 #define KEYBOX_HEIGHT 80
+//Space between key boxes
 #define KEYBOX_X_SPACING 10
 #define KEYBOX_Y_SPACING 10
+//Key box starting position (refers to keybox 1 position)
 #define KEYBOX_STARTING_X_POS 10
-#define KEYBOX_STARTING_Y_POS 230   // refers to keybox 1, which is the bottom-left key
+#define KEYBOX_STARTING_Y_POS 230
 
 
 Key::Key(QWidget *parent, int keyInstanceNum) :
