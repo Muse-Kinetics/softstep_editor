@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>1118</width>
     <height>410</height>
    </rect>
   </property>
@@ -356,7 +356,7 @@ QCheckBox::indicator:checked:pressed:focus
     <rect>
      <x>20</x>
      <y>53</y>
-     <width>871</width>
+     <width>1080</width>
      <height>16</height>
     </rect>
    </property>

@@ -6,8 +6,8 @@
 #include <QDebug>
 
 /*-------KEYWINDOW SIZE CONSTANTS-------*/
-#define KEYWINDOW_WIDTH 1200
-#define KEYWINDOW_HEIGHT 410
+#define KEYWINDOW_WIDTH 1118
+#define KEYWINDOW_HEIGHT 400
 
 /*-------KEYBOX SIZE AND SPACING CONSTANTS-------*/
 
