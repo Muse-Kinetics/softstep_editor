@@ -1907,61 +1907,70 @@ void PresetInterface::slotConstructDefaultMap()
 
 void PresetInterface::slotConstructGlobalDefaultMap()
 {
-    //-------------------- Settings --------------------//
+    //-------------------- Key Page --------------------//
     defaultGlobalMap["key1_settings_xdead"] = 0;
     defaultGlobalMap["key1_settings_ydead"] = 0;
     defaultGlobalMap["key1_settings_xaccel"] = 0;
     defaultGlobalMap["key1_settings_ydead"] = 0;
     defaultGlobalMap["key1_settings_onthresh"] = 10;
     defaultGlobalMap["key1_settings_offthresh"] = 5;
+
     defaultGlobalMap["key2_settings_xdead"] = 0;
     defaultGlobalMap["key2_settings_ydead"] = 0;
     defaultGlobalMap["key2_settings_xaccel"] = 0;
     defaultGlobalMap["key2_settings_ydead"] = 0;
     defaultGlobalMap["key2_settings_onthresh"] = 10;
     defaultGlobalMap["key2_settings_offthresh"] = 5;
+
     defaultGlobalMap["key3_settings_xdead"] = 0;
     defaultGlobalMap["key3_settings_ydead"] = 0;
     defaultGlobalMap["key3_settings_xaccel"] = 0;
     defaultGlobalMap["key3_settings_ydead"] = 0;
     defaultGlobalMap["key3_settings_onthresh"] = 10;
     defaultGlobalMap["key3_settings_offthresh"] = 5;
+
     defaultGlobalMap["key4_settings_xdead"] = 0;
     defaultGlobalMap["key4_settings_ydead"] = 0;
     defaultGlobalMap["key4_settings_xaccel"] = 0;
     defaultGlobalMap["key4_settings_ydead"] = 0;
     defaultGlobalMap["key4_settings_onthresh"] = 10;
     defaultGlobalMap["key4_settings_offthresh"] = 5;
+
     defaultGlobalMap["key5_settings_xdead"] = 0;
     defaultGlobalMap["key5_settings_ydead"] = 0;
     defaultGlobalMap["key5_settings_xaccel"] = 0;
     defaultGlobalMap["key5_settings_ydead"] = 0;
     defaultGlobalMap["key5_settings_onthresh"] = 10;
     defaultGlobalMap["key5_settings_offthresh"] = 5;
+
     defaultGlobalMap["key6_settings_xdead"] = 0;
     defaultGlobalMap["key6_settings_ydead"] = 0;
     defaultGlobalMap["key6_settings_xaccel"] = 0;
     defaultGlobalMap["key6_settings_ydead"] = 0;
     defaultGlobalMap["key6_settings_onthresh"] = 10;
     defaultGlobalMap["key6_settings_offthresh"] = 5;
+
     defaultGlobalMap["key7_settings_xdead"] = 0;
     defaultGlobalMap["key7_settings_ydead"] = 0;
     defaultGlobalMap["key7_settings_xaccel"] = 0;
     defaultGlobalMap["key7_settings_ydead"] = 0;
     defaultGlobalMap["key7_settings_onthresh"] = 10;
     defaultGlobalMap["key7_settings_offthresh"] = 5;
+
     defaultGlobalMap["key8_settings_xdead"] = 0;
     defaultGlobalMap["key8_settings_ydead"] = 0;
     defaultGlobalMap["key8_settings_xaccel"] = 0;
     defaultGlobalMap["key8_settings_ydead"] = 0;
     defaultGlobalMap["key8_settings_onthresh"] = 10;
     defaultGlobalMap["key8_settings_offthresh"] = 5;
+
     defaultGlobalMap["key9_settings_xdead"] = 0;
     defaultGlobalMap["key9_settings_ydead"] = 0;
     defaultGlobalMap["key9_settings_xaccel"] = 0;
     defaultGlobalMap["key9_settings_ydead"] = 0;
     defaultGlobalMap["key9_settings_onthresh"] = 10;
     defaultGlobalMap["key9_settings_offthresh"] = 5;
+
     defaultGlobalMap["key10_settings_xdead"] = 0;
     defaultGlobalMap["key10_settings_ydead"] = 0;
     defaultGlobalMap["key10_settings_xaccel"] = 0;
@@ -1978,6 +1987,55 @@ void PresetInterface::slotConstructGlobalDefaultMap()
     defaultGlobalMap["nav_west_settings_onthresh"] = 10;
     defaultGlobalMap["nav_west_settings_offthresh"] = 5;
     defaultGlobalMap["nav_settings_yaccel"] = 0;
+
+    //---------------------- Input Page ---------------------//
+    defaultGlobalMap["midia_settings_enable"] = 0;
+    defaultGlobalMap["midia_settings_device"] = "IAC Driver Bus";
+    defaultGlobalMap["midia_settings_channel"] = 1;
+    defaultGlobalMap["midia_settings_messagetype"] = "Note";
+    defaultGlobalMap["midia_settings_number"] = 60;
+
+    defaultGlobalMap["midib_settings_enable"] = 0;
+    defaultGlobalMap["midib_settings_device"] = "IAC Driver Bus";
+    defaultGlobalMap["midib_settings_channel"] = 1;
+    defaultGlobalMap["midib_settings_messagetype"] = "Note";
+    defaultGlobalMap["midib_settings_number"] = 60;
+
+    defaultGlobalMap["midic_settings_enable"] = 0;
+    defaultGlobalMap["midic_settings_device"] = "IAC Driver Bus";
+    defaultGlobalMap["midic_settings_channel"] = 1;
+    defaultGlobalMap["midic_settings_messagetype"] = "Note";
+    defaultGlobalMap["midic_settings_number"] = 60;
+
+    defaultGlobalMap["midid_settings_enable"] = 0;
+    defaultGlobalMap["midid_settings_device"] = "IAC Driver Bus";
+    defaultGlobalMap["midid_settings_channel"] = 1;
+    defaultGlobalMap["midid_settings_messagetype"] = "Note";
+    defaultGlobalMap["midid_settings_number"] = 60;
+
+    defaultGlobalMap["midie_settings_enable"] = 0;
+    defaultGlobalMap["midie_settings_device"] = "IAC Driver Bus";
+    defaultGlobalMap["midie_settings_channel"] = 1;
+    defaultGlobalMap["midie_settings_messagetype"] = "Note";
+    defaultGlobalMap["midie_settings_number"] = 60;
+
+    defaultGlobalMap["midif_settings_enable"] = 0;
+    defaultGlobalMap["midif_settings_device"] = "IAC Driver Bus";
+    defaultGlobalMap["midif_settings_channel"] = 1;
+    defaultGlobalMap["midif_settings_messagetype"] = "Note";
+    defaultGlobalMap["midif_settings_number"] = 60;
+
+    defaultGlobalMap["midig_settings_enable"] = 0;
+    defaultGlobalMap["midig_settings_device"] = "IAC Driver Bus";
+    defaultGlobalMap["midig_settings_channel"] = 1;
+    defaultGlobalMap["midig_settings_messagetype"] = "Note";
+    defaultGlobalMap["midig_settings_number"] = 60;
+
+    defaultGlobalMap["midih_settings_enable"] = 0;
+    defaultGlobalMap["midih_settings_device"] = "IAC Driver Bus";
+    defaultGlobalMap["midih_settings_channel"] = 1;
+    defaultGlobalMap["midih_settings_messagetype"] = "Note";
+    defaultGlobalMap["midih_settings_number"] = 60;
 }
 
 void PresetInterface::slotRecallPreset(int i)

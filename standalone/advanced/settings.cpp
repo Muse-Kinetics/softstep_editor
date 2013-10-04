@@ -42,8 +42,17 @@ void Settings::slotConnectElements()
             //qDebug() << "settings spin box name: " << widget->objectName();
             connect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
         }
+        else if(widget->metaObject()->className() == QString("QCheckBox"))
+        {
+            QCheckBox* checkbox = qobject_cast<QCheckBox *>(widget);
+            connect(checkbox, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+        }
+        else if(widget->metaObject()->className() == QString("QComboBox"))
+        {
+            QComboBox* combobox = qobject_cast<QComboBox *>(widget);
+            connect(combobox, SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+        }
     }
-
 }
 
 void Settings::slotValueChanged()
@@ -51,15 +60,34 @@ void Settings::slotValueChanged()
     //emit values to the preset file here
     if(QObject::sender())
     {
+        QObject *sender = QObject::sender();
+        QString senderClass = sender->metaObject()->className();
+        QString jsonName;
         QVariant value;
 
-        QString spinBoxName;
-        QSpinBox *spinbox = reinterpret_cast<QSpinBox*>(QObject::sender());
-
         //spinboxes
-        spinBoxName = spinbox->objectName();
-        value = spinbox->value();
-        emit signalStoreValue(spinBoxName,value);
+        if(senderClass == "QSpinBox")
+        {
+            QSpinBox *spinbox = reinterpret_cast<QSpinBox*>(QObject::sender());
+            jsonName = spinbox->objectName();
+            value = spinbox->value();
+        }
+        //checkboxes
+        else if(senderClass == "QCheckBox")
+        {
+            QCheckBox *checkbox = reinterpret_cast<QCheckBox*>(QObject::sender());
+            jsonName = checkbox->objectName();
+            value = checkbox->isChecked();
+        }
+        //comboboxes
+        else if(senderClass == "QComboBox")
+        {
+            QComboBox *combobox = reinterpret_cast<QComboBox*>(QObject::sender());
+            jsonName = combobox->objectName();
+            value = combobox->currentText();
+        }
+
+        emit signalStoreValue(jsonName,value);
     }
     //qDebug() << "value changed" << QObject::sender()->objectName();
 }
@@ -74,10 +102,20 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
         if(widget->metaObject()->className() == QString("QSpinBox"))
         {
             QSpinBox* spinbox = qobject_cast<QSpinBox *>(widget);
-
             QString objectName = widget->objectName();
-
             spinbox->setValue(preset.value(objectName).toInt());
+        }
+        else if(widget->metaObject()->className() == QString("QCheckBox"))
+        {
+            QCheckBox* checkbox = qobject_cast<QCheckBox *>(widget);
+            QString objectName = widget->objectName();
+            checkbox->setChecked(preset.value(objectName).toBool());
+        }
+        else if(widget->metaObject()->className() == QString("QComboBox"))
+        {
+            QComboBox* combobox = qobject_cast<QComboBox *>(widget);
+            QString objectName = widget->objectName();
+            combobox->setCurrentIndex(combobox->findText(preset.value(objectName).toString()));
         }
     }
 }
