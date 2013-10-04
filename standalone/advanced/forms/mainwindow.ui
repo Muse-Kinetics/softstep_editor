@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>995</width>
-    <height>344</height>
+    <width>840</width>
+    <height>327</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,11 +32,21 @@ QLineEdit
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>885</x>
+      <x>731</x>
       <y>55</y>
       <width>110</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura</family>
+      <pointsize>9</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+      <kerning>false</kerning>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">font: 9pt &quot;Futura&quot;;
@@ -302,7 +312,7 @@ font: 16pt &quot;Futura&quot;;</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>872</x>
+      <x>715</x>
       <y>8</y>
       <width>116</width>
       <height>43</height>

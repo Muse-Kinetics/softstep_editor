@@ -4,6 +4,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+//Main window size constants (magic numbers == bad)
+#define MAINWINDOW_WIDTH 840
+#define MAINWINDOW_HEIGHT 327
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -14,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Mainwindow Ui
     ui->setupUi(this);
     this->setWindowTitle("SoftStep Advanced Editor");
-    this->setFixedSize(995,344);
+    this->setFixedSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
 
     //Construct Key Windows
     for(int i = 0; i < 10; i++)

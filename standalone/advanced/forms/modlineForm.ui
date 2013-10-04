@@ -105,6 +105,7 @@ QCheckBox
 	color: white;
 	padding:0, 3, 0, 0;
 	border: none;
+	border-radius: 0px;
 }
 
 QCheckBox:focus
@@ -119,7 +120,7 @@ QComboBox
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 3px 1px 3px;
+	padding: 1px 3px 1px 4px;
  }
 
 QComboBox QListView
@@ -128,17 +129,18 @@ QComboBox QListView
 	border: transparent;
 	font: 9px &quot;Tahoma&quot;;
 	padding-left: 5px;
+	min-width: 35px;
 }
 
 QComboBox::item:alternate
 {
-	background: rgb(40, 40, 40);
+	background: rgb(90, 90, 90);
 }
 
 QComboBox::item:selected
 {
 	border: 1px solid transparent;
-	background: rgb(40, 40, 40);
+	background: rgb(0,174,239);
 }
 
 QComboBox::indicator
@@ -282,9 +284,9 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QComboBox" name="initmode">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>29</x>
      <y>19</y>
-     <width>33</width>
+     <width>35</width>
      <height>18</height>
     </rect>
    </property>
@@ -325,7 +327,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QSpinBox" name="initvalue">
    <property name="geometry">
     <rect>
-     <x>65</x>
+     <x>66</x>
      <y>19</y>
      <width>22</width>
      <height>18</height>
@@ -811,7 +813,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QComboBox" name="source">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>97</x>
      <y>19</y>
      <width>97</width>
      <height>18</height>
@@ -1148,6 +1150,57 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="contextMenuPolicy">
     <enum>Qt::DefaultContextMenu</enum>
    </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 3px 1px 3px;
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 5px;
+	min-width: 65px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right bottom;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}</string>
+   </property>
    <item>
     <property name="text">
      <string>True</string>
@@ -1214,6 +1267,18 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="contextMenuPolicy">
     <enum>Qt::DefaultContextMenu</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+ }
+
+QComboBox QListView
+{
+	min-width: 67px;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -2121,34 +2186,6 @@ QComboBox
     </widget>
    </widget>
   </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>918</x>
-     <y>19</y>
-     <width>18</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/* ---------- QLabels ------------*/
-QLabel
-{
-	background:		rgba(35,31,32,255);
-	color: 				white;
-	font: 				10pt &quot;Futura&quot;;
-	border-left: 2px solid rgb(0,174,239);
-}
-
-QLabel:hover
-{
-	border:				none;
-}  </string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QStackedWidget" name="deviceViewLabels">
    <property name="geometry">
     <rect>
@@ -2629,7 +2666,6 @@ QLabel
   <zorder>raw</zorder>
   <zorder>min</zorder>
   <zorder>deviceViews</zorder>
-  <zorder>label_4</zorder>
   <zorder>outputvalue</zorder>
   <zorder>deviceViewLabels</zorder>
   <zorder>delay</zorder>
