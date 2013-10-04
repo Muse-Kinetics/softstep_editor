@@ -14,55 +14,10 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: rgb(40,40,41);
+   <string notr="true">background: rgb(18,18,18);
 </string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QSpinBox" name="presetNumber">
-    <property name="geometry">
-     <rect>
-      <x>880</x>
-      <y>220</y>
-      <width>30</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Futura</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 10pt &quot;Futura&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgba(0, 0, 0, 255);
-	color: white;
-	padding:0, 3, 0, 0;
-}
-
-QSpinBox::focus
-{
-	border: none;
-	outline: none;
-}</string>
-    </property>
-    <property name="frame">
-     <bool>true</bool>
-    </property>
-    <property name="buttonSymbols">
-     <enum>QAbstractSpinBox::NoButtons</enum>
-    </property>
-    <property name="minimum">
-     <number>1</number>
-    </property>
-    <property name="maximum">
-     <number>32</number>
-    </property>
-   </widget>
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
@@ -83,13 +38,13 @@ color: red;</string>
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="openSettings">
+   <widget class="QPushButton" name="opensettings">
     <property name="geometry">
      <rect>
       <x>830</x>
       <y>80</y>
-      <width>121</width>
-      <height>61</height>
+      <width>96</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -98,10 +53,22 @@ color: red;</string>
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>96</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>96</width>
+      <height>30</height>
+     </size>
+    </property>
     <property name="font">
      <font>
       <family>Futura</family>
-      <pointsize>18</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -111,8 +78,9 @@ color: red;</string>
      <string notr="true">/*---------- QPushButton ---------*/
 QPushButton
 {
-	border: 6px solid rgba(0,174,239,255);
-	font: 18pt &quot;Futura&quot;;
+	background: rgb(40, 40, 40);
+	border: 2px solid rgba(0,174,239,255);
+	font: 16pt &quot;Futura&quot;;
 	color: white;
 }
 
@@ -120,12 +88,12 @@ QPushButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: 6px solid white;
-	font: 20pt &quot;Futura&quot;;
+	font: 16pt &quot;Futura&quot;;
 	color: white;
 }</string>
     </property>
     <property name="text">
-     <string>settings</string>
+     <string>Settings</string>
     </property>
    </widget>
    <widget class="QFrame" name="frame">
@@ -153,7 +121,7 @@ QPushButton:pressed
        <x>10</x>
        <y>10</y>
        <width>233</width>
-       <height>71</height>
+       <height>70</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -261,6 +229,12 @@ QComboBox {
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox
+{
+	background: rgb(40, 40, 40);
+}</string>
+      </property>
       <property name="editable">
        <bool>false</bool>
       </property>
@@ -323,6 +297,27 @@ QComboBox {
        </property>
       </item>
      </widget>
+     <widget class="QLabel" name="presetlabel">
+      <property name="geometry">
+       <rect>
+        <x>7</x>
+        <y>7</y>
+        <width>10</width>
+        <height>57</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	background-image: url(:/resources/mainWindow_preset_label.png);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QPushButton" name="update">
      <property name="geometry">
@@ -343,6 +338,64 @@ font: 12pt &quot;Futura&quot;;</string>
       <string>&quot;MAKE IT SO&quot;</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="opensetlist">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>81</y>
+      <width>96</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>96</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>96</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura</family>
+      <pointsize>16</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/*---------- QPushButton ---------*/
+QPushButton
+{
+	background: rgb(40, 40, 40);
+	border: 2px solid rgba(0,174,239,255);
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}
+
+QPushButton:pressed
+{
+	background: rgba(0,174,239,255);
+	border: 6px solid white;
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>Setlist</string>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

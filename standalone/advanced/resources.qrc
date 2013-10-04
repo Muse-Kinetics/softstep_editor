@@ -78,5 +78,6 @@
         <file>resources/setlistWindow_enable15_on.png</file>
         <file>resources/setlistWindow_enable16_off.png</file>
         <file>resources/setlistWindow_enable16_on.png</file>
+        <file>resources/mainWindow_preset_label.png</file>
     </qresource>
 </RCC>
