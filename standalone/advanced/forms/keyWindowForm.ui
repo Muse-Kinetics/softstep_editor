@@ -373,7 +373,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="initsBracketLabel">
    <property name="geometry">
     <rect>
-     <x>47</x>
+     <x>40</x>
      <y>82</y>
      <width>53</width>
      <height>11</height>
@@ -394,7 +394,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>57</x>
+     <x>50</x>
      <y>64</y>
      <width>31</width>
      <height>11</height>
