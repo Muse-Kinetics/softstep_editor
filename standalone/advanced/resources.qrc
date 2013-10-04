@@ -80,5 +80,7 @@
         <file>resources/setlistWindow_enable16_on.png</file>
         <file>resources/mainWindow_preset_label.png</file>
         <file>resources/setlist_combobox_menu_arrows.png</file>
+        <file>resources/mainWindow_logo.png</file>
+        <file>resources/mainWindow_displayname_label.png</file>
     </qresource>
 </RCC>
