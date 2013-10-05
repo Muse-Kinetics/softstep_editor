@@ -156,12 +156,21 @@ QComboBox::drop-down
 	width: 1px;
 	height: 1px;
 	subcontrol-origin: margin;
-	subcontrol-position: right bottom;
+	subcontrol-position: right center;
 	border-left-width: 0px;
 	border-right-width: 0px;
 	border-top-width: 0px;
 	border-bottom-width: 0px;
-}</string>
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+</string>
   </property>
   <widget class="QLabel" name="instanceLabel">
    <property name="geometry">
@@ -300,7 +309,63 @@ QCheckBox::indicator:checked:pressed:focus
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 3px 1px 4px;
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 5px;
+	min-width: 35px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: none;
+}
+</string>
    </property>
    <property name="sizeAdjustPolicy">
     <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -572,6 +637,25 @@ QCheckBox::indicator:checked:pressed:focus
      <bold>false</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QComboBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 3px 1px 4px;
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 5px;
+	min-width: 55px;
+}</string>
+   </property>
    <item>
     <property name="text">
      <string>Lin</string>
@@ -719,7 +803,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QSpinBox" name="outputvalue">
    <property name="geometry">
     <rect>
-     <x>862</x>
+     <x>568</x>
      <y>19</y>
      <width>30</width>
      <height>18</height>
@@ -737,6 +821,9 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="frame">
     <bool>true</bool>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
    <property name="readOnly">
     <bool>true</bool>
    </property>
@@ -750,9 +837,9 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QComboBox" name="destination">
    <property name="geometry">
     <rect>
-     <x>617</x>
+     <x>610</x>
      <y>19</y>
-     <width>75</width>
+     <width>77</width>
      <height>18</height>
     </rect>
    </property>
@@ -1353,9 +1440,9 @@ QComboBox QListView
   <widget class="QStackedWidget" name="deviceViews">
    <property name="geometry">
     <rect>
-     <x>674</x>
+     <x>686</x>
      <y>19</y>
-     <width>190</width>
+     <width>208</width>
      <height>18</height>
     </rect>
    </property>
@@ -1363,11 +1450,13 @@ QComboBox QListView
     <string notr="true">QWidget
 {
 	background: rgba(0, 0, 0, 0);
+	border: none;
 }
 
 QLabel
 {
 	background: rgba(0, 0, 0, 0);
+	border: none;
 }
 
 /* ---------- QSpinBox ------------*/
@@ -1450,7 +1539,7 @@ QComboBox
  }</string>
    </property>
    <property name="currentIndex">
-    <number>10</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -1465,12 +1554,50 @@ QComboBox
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 1px 1px 3px;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+QDoubleSpinBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 1px 1px 3px;
+}
+
+QDoubleSpinBox::focus
+{
+	border: none;
+	outline: none;
+}</string>
      </property>
      <property name="frame">
       <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
@@ -1490,12 +1617,50 @@ QComboBox
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 1px 1px 3px;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+QDoubleSpinBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 1px 1px 3px;
+}
+
+QDoubleSpinBox::focus
+{
+	border: none;
+	outline: none;
+}</string>
      </property>
      <property name="frame">
       <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
@@ -1515,12 +1680,50 @@ QComboBox
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 1px 1px 3px;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+QDoubleSpinBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 1px 1px 3px;
+}
+
+QDoubleSpinBox::focus
+{
+	border: none;
+	outline: none;
+}</string>
      </property>
      <property name="frame">
       <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
@@ -2132,7 +2335,7 @@ QComboBox
     <widget class="QSpinBox" name="polynote">
      <property name="geometry">
       <rect>
-       <x>114</x>
+       <x>15</x>
        <y>0</y>
        <width>30</width>
        <height>18</height>
@@ -2157,7 +2360,7 @@ QComboBox
     <widget class="QSpinBox" name="polychannel">
      <property name="geometry">
       <rect>
-       <x>143</x>
+       <x>49</x>
        <y>0</y>
        <width>25</width>
        <height>18</height>
@@ -2213,9 +2416,9 @@ QComboBox
   <widget class="QStackedWidget" name="deviceViewLabels">
    <property name="geometry">
     <rect>
-     <x>680</x>
+     <x>695</x>
      <y>0</y>
-     <width>190</width>
+     <width>198</width>
      <height>18</height>
     </rect>
    </property>
@@ -2238,7 +2441,7 @@ QLabel
 }</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">
@@ -2248,7 +2451,7 @@ QLabel
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>82</x>
+       <x>0</x>
        <y>0</y>
        <width>31</width>
        <height>16</height>
@@ -2261,7 +2464,7 @@ QLabel
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>113</x>
+       <x>30</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2274,7 +2477,7 @@ QLabel
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>143</x>
+       <x>70</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2287,14 +2490,17 @@ QLabel
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
-       <x>170</x>
+       <x>97</x>
        <y>0</y>
-       <width>41</width>
+       <width>72</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>Device</string>
+      <string>Output Port</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>
