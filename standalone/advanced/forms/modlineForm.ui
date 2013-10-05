@@ -128,7 +128,8 @@ QComboBox QListView
 	background-color: rgb(40, 40, 40);
 	border: transparent;
 	font: 9px &quot;Tahoma&quot;;
-	padding-left: 5px;
+	padding-left: 3px;
+	padding-right: 3px;
 	min-width: 35px;
 }
 
@@ -385,6 +386,13 @@ QCheckBox::indicator:checked:pressed:focus
      <bold>false</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QSpinBox
+{
+	border: 1px solid rgba(236, 0, 140, 150);
+	color: rgba(255, 255, 255, 200);
+}</string>
+   </property>
    <property name="frame">
     <bool>true</bool>
    </property>
@@ -547,6 +555,13 @@ QCheckBox::indicator:checked:pressed:focus
      <bold>false</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QSpinBox
+{
+	border: 1px solid rgba(236, 0, 140, 150);
+	color: rgba(255, 255, 255, 200);
+}</string>
+   </property>
    <property name="frame">
     <bool>true</bool>
    </property>
@@ -596,7 +611,8 @@ QComboBox QListView
 	background-color: rgb(40, 40, 40);
 	border: transparent;
 	font: 9px &quot;Tahoma&quot;;
-	padding-left: 5px;
+	padding-left: 3px;
+	padding-right: 3px;
 	min-width: 55px;
 }</string>
    </property>
@@ -747,9 +763,9 @@ QComboBox QListView
   <widget class="QSpinBox" name="outputvalue">
    <property name="geometry">
     <rect>
-     <x>568</x>
+     <x>569</x>
      <y>19</y>
-     <width>30</width>
+     <width>27</width>
      <height>18</height>
     </rect>
    </property>
@@ -761,6 +777,13 @@ QComboBox QListView
      <italic>false</italic>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QSpinBox
+{
+	border: 1px solid rgba(236, 0, 140, 150);
+	color: rgba(255, 255, 255, 200);
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -781,7 +804,7 @@ QComboBox QListView
   <widget class="QComboBox" name="destination">
    <property name="geometry">
     <rect>
-     <x>610</x>
+     <x>608</x>
      <y>19</y>
      <width>77</width>
      <height>18</height>
@@ -1187,9 +1210,9 @@ QComboBox QListView
   <widget class="QComboBox" name="ledgreen">
    <property name="geometry">
     <rect>
-     <x>903</x>
+     <x>918</x>
      <y>19</y>
-     <width>65</width>
+     <width>60</width>
      <height>18</height>
     </rect>
    </property>
@@ -1209,52 +1232,19 @@ QComboBox QListView
     <string notr="true">/*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 8pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 3px 1px 3px;
- }
+	padding-right: 7px;
+}
 
 QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
 	font: 9px &quot;Tahoma&quot;;
-	padding-left: 5px;
+	padding-left: 3px;
+	padding-right: 3px;
 	min-width: 65px;
 }
-
-QComboBox::item:alternate
-{
-	background: rgb(90, 90, 90);
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right bottom;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}</string>
+</string>
    </property>
    <item>
     <property name="text">
@@ -1305,9 +1295,9 @@ QComboBox::drop-down
   <widget class="QComboBox" name="ledred">
    <property name="geometry">
     <rect>
-     <x>951</x>
+     <x>982</x>
      <y>19</y>
-     <width>65</width>
+     <width>60</width>
      <height>18</height>
     </rect>
    </property>
@@ -1327,8 +1317,8 @@ QComboBox::drop-down
     <string notr="true">/*----------- QComboBox ------------*/
 QComboBox
 {
-
- }
+	padding-right: 7px;
+}
 
 QComboBox QListView
 {
@@ -1475,15 +1465,64 @@ QCheckBox:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 3px 1px 3px;
- }</string>
+	padding: 1px 3px 1px 4px;
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 5px;
+	min-width: 35px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -1687,8 +1726,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="contextMenuPolicy">
@@ -1718,8 +1760,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="contextMenuPolicy">
@@ -1877,8 +1922,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="contextMenuPolicy">
@@ -1908,8 +1956,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="contextMenuPolicy">
@@ -1989,8 +2040,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="contextMenuPolicy">
@@ -2082,8 +2136,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="contextMenuPolicy">
@@ -2113,8 +2170,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="contextMenuPolicy">
@@ -2167,8 +2227,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="contextMenuPolicy">
@@ -2231,8 +2294,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="contextMenuPolicy">
@@ -2337,8 +2403,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="contextMenuPolicy">
@@ -2385,7 +2454,7 @@ QLabel
 }</string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">
@@ -2421,7 +2490,7 @@ QLabel
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>60</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2848,7 +2917,7 @@ QLabel
   <widget class="QLabel" name="label_35">
    <property name="geometry">
     <rect>
-     <x>202</x>
+     <x>200</x>
      <y>2</y>
      <width>27</width>
      <height>16</height>
@@ -2856,6 +2925,166 @@ QLabel
    </property>
    <property name="text">
     <string>Raw</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_36">
+   <property name="geometry">
+    <rect>
+     <x>245</x>
+     <y>2</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Gain</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_37">
+   <property name="geometry">
+    <rect>
+     <x>285</x>
+     <y>2</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Offset</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_38">
+   <property name="geometry">
+    <rect>
+     <x>327</x>
+     <y>2</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Result</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_39">
+   <property name="geometry">
+    <rect>
+     <x>381</x>
+     <y>2</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Table</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_40">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>2</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Min</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_41">
+   <property name="geometry">
+    <rect>
+     <x>463</x>
+     <y>2</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Max</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_42">
+   <property name="geometry">
+    <rect>
+     <x>496</x>
+     <y>2</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Smooth</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_43">
+   <property name="geometry">
+    <rect>
+     <x>527</x>
+     <y>2</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Delay</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_44">
+   <property name="geometry">
+    <rect>
+     <x>568</x>
+     <y>2</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Value</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_45">
+   <property name="geometry">
+    <rect>
+     <x>608</x>
+     <y>2</y>
+     <width>77</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Message Type</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -2888,6 +3117,16 @@ QLabel
   <zorder>label_33</zorder>
   <zorder>label_34</zorder>
   <zorder>label_35</zorder>
+  <zorder>label_36</zorder>
+  <zorder>label_37</zorder>
+  <zorder>label_38</zorder>
+  <zorder>label_39</zorder>
+  <zorder>label_40</zorder>
+  <zorder>label_41</zorder>
+  <zorder>label_42</zorder>
+  <zorder>label_43</zorder>
+  <zorder>label_44</zorder>
+  <zorder>label_45</zorder>
  </widget>
  <resources/>
  <connections/>
