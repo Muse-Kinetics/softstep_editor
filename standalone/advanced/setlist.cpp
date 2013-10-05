@@ -10,7 +10,30 @@ Setlist::Setlist(QWidget *parent) :
     setlistWidget = new QWidget();
     setlistForm->setupUi(setlistWidget);
 
-    slotConnectComponents();
+    slotInitComponents();
+
+}
+
+bool Setlist::eventFilter(QObject *obj, QEvent *event)
+{
+    if((event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonDblClick) && obj->objectName().contains("enable"))
+    {
+        QCheckBox* checkBox = (QCheckBox*)obj;
+        int i = checkBox->objectName().remove("enable").toInt();
+
+        QComboBox* menu = setlistWidget->findChild<QComboBox *>(QString("setlistmenu%1").arg(i));
+        qDebug() << "moust evnet" << i << menu->currentText();
+
+        if(checkBox->isChecked())
+        {
+            menu->setCurrentIndex(0);
+            checkBox->setChecked(false);
+        }
+
+        return true;
+    }
+
+    return false;
 }
 
 void Setlist::slotCheckBoxClicked()
@@ -20,10 +43,21 @@ void Setlist::slotCheckBoxClicked()
 
 void Setlist::slotMenuChanged(int menuNum)
 {
+    QComboBox* menu = (QComboBox*)QObject::sender();
+    int i = menu->objectName().remove("setlistmenu").toInt();
+    QCheckBox* checkBox = setlistWidget->findChild<QCheckBox *>(QString("enable%1").arg(i));
 
+    if(menu->currentIndex() == 0)
+    {
+        checkBox->setChecked(false);
+    }
+    else
+    {
+        checkBox->setChecked(true);
+    }
 }
 
-void Setlist::slotConnectComponents()
+void Setlist::slotInitComponents()
 {
     foreach(QWidget* widget, setlistWidget->findChildren<QWidget *>())
     {
@@ -31,11 +65,11 @@ void Setlist::slotConnectComponents()
         {
             QCheckBox *checkBox = reinterpret_cast<QCheckBox *>(widget);
             checkBoxes.append(checkBox);
-            connect(checkBox, SIGNAL(clicked()), this, SLOT(slotCheckBoxClicked()));
+            checkBox->installEventFilter(this);
+            //connect(checkBox, SIGNAL(clicked()), this, SLOT(slotCheckBoxClicked()));
         }
         else if(widget->objectName().contains("menu"))
         {
-
             QComboBox *comboBox = reinterpret_cast<QComboBox *>(widget);
             menus.append(comboBox);
             connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMenuChanged(int)));

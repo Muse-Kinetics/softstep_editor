@@ -20,12 +20,16 @@ public:
     QList<QComboBox *> menus;
     QList<QCheckBox *> checkBoxes;
 
+    bool eventFilter(QObject *obj, QEvent *event);
+    //void mouseReleaseEvent(QMouseEvent* e);
+    //void mousePressEvent(QMouseEvent* e);
+
 signals:
     
 public slots:
     void slotMenuChanged(int menuNum);
     void slotCheckBoxClicked();
-    void slotConnectComponents();
+    void slotInitComponents();
     void slotShowSetlist();
     void slotPopulateMenus(QVariantMap jsonMasterCopy);
 
@@ -34,5 +38,6 @@ private:
     Ui::setlistForm *setlistForm;
     
 };
+
 
 #endif // SETLIST_H
