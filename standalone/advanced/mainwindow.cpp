@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Connect Settings Window Stuff
     settingsWindow->slotConnectElements();
 
+    presetInterface->slotPopulatePresetMenu(ui->presetmenu);
     presetInterface->slotPopulateSetlistMenus();
     presetInterface->slotRecallPreset(1);
     presetInterface->slotRecallGlobal();
@@ -112,9 +113,8 @@ void MainWindow::slotConnectInterfaces()
     connect(ui->revert, SIGNAL(clicked()), presetInterface, SLOT(slotRevertPreset()));
     connect(ui->deletepreset, SIGNAL(clicked()), presetInterface, SLOT(slotDeletePreset()));
 
-    //preset number box (this will be switched to a comboBox soon)
-    //connect(ui->presetNumber, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
-    connect(ui->presetmenu, SIGNAL(currentIndexChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
+    //preset menu
+    //connect(ui->presetmenu, SIGNAL(currentIndexChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
 
     //setlist
     connect(ui->opensetlist, SIGNAL(clicked()), setlist, SLOT(slotShowSetlist()));

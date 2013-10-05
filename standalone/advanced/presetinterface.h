@@ -63,6 +63,7 @@ public slots:
     void slotDeletePreset();
     void slotRevertPreset();
 
+    void slotPopulatePresetMenu(QComboBox* presetMenu);
     void slotPopulateSetlistMenus();
 
 

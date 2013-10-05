@@ -24,6 +24,61 @@ PresetInterface::PresetInterface(QWidget *parent) :
 
 }
 
+void PresetInterface::slotPopulatePresetMenu(QComboBox* presetMenu)
+{
+    disconnect(presetMenu, SIGNAL(currentIndexChanged(int)), this, SLOT(slotRecallPreset(int)));
+
+    int numPresets = 0;
+
+    presetMenu->clear();
+
+    //Iterate through master map
+    QMapIterator<QString, QVariant> map(jsonMasterMapCopy);
+
+    while(map.hasNext())
+    {
+        map.next();
+
+        //If a preset within master map...
+        if(map.key().contains("Preset"))
+        {
+            //Inc preset count
+            numPresets++;
+
+            QString presetNumString = map.key();
+            int presetNum = presetNumString.remove("Preset_").toInt();
+
+            qDebug() << map.key() << presetNum;
+            //presetMenu->addItem(map.value().toMap().value("preset_name").toString());
+
+        }
+    }
+
+    //Iterate through presets in numerical order, which is not garunteed by map iterator
+    for(int i = 0; i < numPresets; i++)
+    {
+        QString presetName;
+
+        if(i < 10)
+        {
+            presetName = jsonMasterMapCopy.value(QString("Preset_00%1").arg(i)).toMap().value("preset_name").toString();
+        }
+        else if(i < 100)
+        {
+            presetName = jsonMasterMapCopy.value(QString("Preset_0%1").arg(i)).toMap().value("preset_name").toString();
+        }
+        else if(i < 1000)
+        {
+            presetName = jsonMasterMapCopy.value(QString("Preset_%1").arg(i)).toMap().value("preset_name").toString();
+        }
+
+        presetMenu->addItem(presetName, 0);
+    }
+
+    connect(presetMenu, SIGNAL(currentIndexChanged(int)), this, SLOT(slotRecallPreset(int)));
+
+}
+
 void PresetInterface::slotPopulateSetlistMenus()
 {
     emit signalPopulateSetlistMenus(jsonMasterMapCopy);
@@ -123,17 +178,11 @@ void PresetInterface::writeDefualtJSON()
 
 void PresetInterface::slotRecallPreset(int i)
 {
-    i -= 1;
+    //i -= 1;
     qDebug() << "recall preset" << i;
 
     currentPresetNum = i;
 
-    QMapIterator<QString, QVariant> p(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap());
-
-    while(p.hasNext())
-    {
-        p.next();
-    }
     emit signalRecallPreset(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMapCopy);
 
     slotCheckSaveState();
@@ -2009,14 +2058,14 @@ void PresetInterface::slotConstructDefaultMap()
 void PresetInterface::slotConstructGlobalDefaultMap()
 {
     //------------------ Global Page -------------------//
-        defaultGlobalMap["sensorresponse_average"] = 1;
-        defaultGlobalMap["sensorresponse_max"] = 0;
-        defaultGlobalMap["adjacentkeymode"] = 0;
-        defaultGlobalMap["keylockoutmode"] = 0;
-        defaultGlobalMap["multiplekeymode"] = 1;
+    defaultGlobalMap["sensorresponse_average"] = 1;
+    defaultGlobalMap["sensorresponse_max"] = 0;
+    defaultGlobalMap["adjacentkeymode"] = 0;
+    defaultGlobalMap["keylockoutmode"] = 0;
+    defaultGlobalMap["multiplekeymode"] = 1;
 
-        defaultGlobalMap["global_gain"] = 1.00;
-        defaultGlobalMap["backlighting_enable"] = 1;
+    defaultGlobalMap["global_gain"] = 1.00;
+    defaultGlobalMap["backlighting_enable"] = 1;
 
     //-------------------- Key Page --------------------//
     defaultGlobalMap["key1_settings_xdead"] = 0;
