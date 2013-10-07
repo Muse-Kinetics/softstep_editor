@@ -1210,7 +1210,7 @@ QComboBox QListView
   <widget class="QComboBox" name="ledgreen">
    <property name="geometry">
     <rect>
-     <x>918</x>
+     <x>950</x>
      <y>19</y>
      <width>60</width>
      <height>18</height>
@@ -1295,7 +1295,7 @@ QComboBox QListView
   <widget class="QComboBox" name="ledred">
    <property name="geometry">
     <rect>
-     <x>982</x>
+     <x>1014</x>
      <y>19</y>
      <width>60</width>
      <height>18</height>
@@ -1376,7 +1376,7 @@ QComboBox QListView
     <rect>
      <x>686</x>
      <y>19</y>
-     <width>208</width>
+     <width>244</width>
      <height>18</height>
     </rect>
    </property>
@@ -1396,11 +1396,11 @@ QLabel
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 3px 1px 3px;
+	padding: 1px 1px 1px 3px;
 }
 
 QSpinBox::focus
@@ -1411,11 +1411,11 @@ QSpinBox::focus
 
 QDoubleSpinBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 3px 1px 3px;
+	padding: 1px 1px 1px 3px;
 }
 
 QDoubleSpinBox::focus
@@ -1427,7 +1427,7 @@ QDoubleSpinBox::focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgba(0,174,239,255);
 	border-radius: 0px;
@@ -1438,7 +1438,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	background: rgba(0,174,239,0);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -1450,11 +1450,12 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	background:rgba(0,174,239,0);
 	color: white;
 	padding:0, 3, 0, 0;
 	border: none;
+	border-radius: 0px;
 }
 
 QCheckBox:focus
@@ -1477,7 +1478,8 @@ QComboBox QListView
 	background-color: rgb(40, 40, 40);
 	border: transparent;
 	font: 9px &quot;Tahoma&quot;;
-	padding-left: 5px;
+	padding-left: 3px;
+	padding-right: 3px;
 	min-width: 35px;
 }
 
@@ -1522,7 +1524,7 @@ QComboBox::down-arrow
 </string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>10</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -1592,7 +1594,7 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="notevelocity">
      <property name="geometry">
       <rect>
-       <x>34</x>
+       <x>37</x>
        <y>0</y>
        <width>30</width>
        <height>18</height>
@@ -1655,9 +1657,9 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="notechannel">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>69</x>
        <y>0</y>
-       <width>25</width>
+       <width>30</width>
        <height>18</height>
       </rect>
      </property>
@@ -1718,7 +1720,7 @@ QDoubleSpinBox::focus
     <widget class="QComboBox" name="notedevice">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>104</x>
        <y>0</y>
        <width>116</width>
        <height>18</height>
@@ -1752,7 +1754,7 @@ QDoubleSpinBox::focus
     <widget class="QComboBox" name="notelivedevice">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>104</x>
        <y>0</y>
        <width>116</width>
        <height>18</height>
@@ -1784,7 +1786,7 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="notelivevelocity">
      <property name="geometry">
       <rect>
-       <x>34</x>
+       <x>37</x>
        <y>0</y>
        <width>30</width>
        <height>18</height>
@@ -1792,8 +1794,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -1809,16 +1814,19 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="notelivechannel">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>69</x>
        <y>0</y>
-       <width>25</width>
+       <width>30</width>
        <height>18</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -1842,8 +1850,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -1864,7 +1875,7 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="cc">
      <property name="geometry">
       <rect>
-       <x>34</x>
+       <x>37</x>
        <y>0</y>
        <width>30</width>
        <height>18</height>
@@ -1872,8 +1883,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -1889,16 +1903,19 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="controlchannel">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>69</x>
        <y>0</y>
-       <width>25</width>
+       <width>30</width>
        <height>18</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -1914,7 +1931,7 @@ QDoubleSpinBox::focus
     <widget class="QComboBox" name="controldevice">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>104</x>
        <y>0</y>
        <width>116</width>
        <height>18</height>
@@ -1932,6 +1949,9 @@ QDoubleSpinBox::focus
      <property name="contextMenuPolicy">
       <enum>Qt::DefaultContextMenu</enum>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <item>
       <property name="text">
        <string>SoftStep Expander</string>
@@ -1948,7 +1968,7 @@ QDoubleSpinBox::focus
     <widget class="QComboBox" name="bankdevice">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>104</x>
        <y>0</y>
        <width>116</width>
        <height>18</height>
@@ -1980,7 +2000,7 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="bankmsb">
      <property name="geometry">
       <rect>
-       <x>34</x>
+       <x>37</x>
        <y>0</y>
        <width>30</width>
        <height>18</height>
@@ -1988,8 +2008,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -2005,16 +2028,19 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="bankchannel">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>60</x>
        <y>0</y>
-       <width>25</width>
+       <width>30</width>
        <height>18</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -2032,7 +2058,7 @@ QDoubleSpinBox::focus
     <widget class="QComboBox" name="programdevice">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>104</x>
        <y>0</y>
        <width>116</width>
        <height>18</height>
@@ -2064,16 +2090,19 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="programchannel">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>69</x>
        <y>0</y>
-       <width>25</width>
+       <width>30</width>
        <height>18</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -2091,7 +2120,7 @@ QDoubleSpinBox::focus
     <widget class="QLineEdit" name="oscroute">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>104</x>
        <y>0</y>
        <width>90</width>
        <height>18</height>
@@ -2103,16 +2132,19 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="bendchannel">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>69</x>
        <y>0</y>
-       <width>25</width>
+       <width>30</width>
        <height>18</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -2128,7 +2160,7 @@ QDoubleSpinBox::focus
     <widget class="QComboBox" name="benddevice">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>104</x>
        <y>0</y>
        <width>116</width>
        <height>18</height>
@@ -2162,7 +2194,7 @@ QDoubleSpinBox::focus
     <widget class="QComboBox" name="mmcdevice">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>104</x>
        <y>0</y>
        <width>116</width>
        <height>18</height>
@@ -2194,7 +2226,7 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="mmcdeviceid">
      <property name="geometry">
       <rect>
-       <x>2</x>
+       <x>5</x>
        <y>0</y>
        <width>30</width>
        <height>18</height>
@@ -2202,8 +2234,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -2219,9 +2254,9 @@ QDoubleSpinBox::focus
     <widget class="QComboBox" name="mmcfunction">
      <property name="geometry">
       <rect>
-       <x>28</x>
+       <x>37</x>
        <y>0</y>
-       <width>80</width>
+       <width>64</width>
        <height>18</height>
       </rect>
      </property>
@@ -2286,7 +2321,7 @@ QDoubleSpinBox::focus
     <widget class="QComboBox" name="aftertouchdevice">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>104</x>
        <y>0</y>
        <width>116</width>
        <height>18</height>
@@ -2318,16 +2353,19 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="aftertouchchannel">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>69</x>
        <y>0</y>
-       <width>25</width>
+       <width>30</width>
        <height>18</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -2345,7 +2383,7 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="polynote">
      <property name="geometry">
       <rect>
-       <x>15</x>
+       <x>37</x>
        <y>0</y>
        <width>30</width>
        <height>18</height>
@@ -2353,8 +2391,11 @@ QDoubleSpinBox::focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -2370,16 +2411,19 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="polychannel">
      <property name="geometry">
       <rect>
-       <x>49</x>
+       <x>69</x>
        <y>0</y>
-       <width>25</width>
+       <width>30</width>
        <height>18</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>10</pointsize>
+       <family>Tahoma</family>
+       <pointsize>8</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="frame">
@@ -2395,7 +2439,7 @@ QDoubleSpinBox::focus
     <widget class="QComboBox" name="polydevice">
      <property name="geometry">
       <rect>
-       <x>170</x>
+       <x>104</x>
        <y>0</y>
        <width>116</width>
        <height>18</height>
@@ -2454,7 +2498,7 @@ QLabel
 }</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>10</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">
@@ -2464,7 +2508,7 @@ QLabel
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>3</x>
        <y>0</y>
        <width>31</width>
        <height>16</height>
@@ -2477,7 +2521,7 @@ QLabel
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>36</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2490,7 +2534,7 @@ QLabel
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>70</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2503,7 +2547,7 @@ QLabel
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
-       <x>97</x>
+       <x>113</x>
        <y>0</y>
        <width>72</width>
        <height>16</height>
@@ -2685,14 +2729,14 @@ QLabel
     <widget class="QLabel" name="label_21">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>113</x>
        <y>0</y>
-       <width>41</width>
+       <width>55</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>Route</string>
+      <string>Output Prefix</string>
      </property>
     </widget>
    </widget>

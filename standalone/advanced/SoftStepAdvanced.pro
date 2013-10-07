@@ -66,7 +66,14 @@ FORMS    +=     forms/mainwindow.ui \
                 forms/settingsForm.ui \
                 forms/keyBoxForm.ui \
                 forms/setlistForm.ui \
-    forms/saveAsForm.ui
+    forms/saveAsForm.ui \
+    forms/saveAsForm.ui \
+    forms/modlineForm_hosted.ui \
+    forms/keyWindowForm_hosted.ui \
+    forms/setlistForm_hosted.ui \
+    forms/settingsForm_hosted.ui \
+    forms/mainwindow_hosted.ui \
+    forms/keyBoxForm_hosted.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#
