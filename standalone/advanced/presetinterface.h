@@ -31,6 +31,8 @@ public:
     QFile *jsonFile;
     bool ok;
 
+    int numPresets;
+
     QString jsonPath;
 
     int     currentPresetNum;
@@ -44,6 +46,7 @@ signals:
     void signalRecallPreset(QVariantMap preset, QVariantMap jsonMasterMapCopy);
     void signalRecallGlobal(QVariantMap preset, QVariantMap jsonMasterMapCopy);
     void signalPopulateSetlistMenus(QVariantMap jsonMasterMapCopy);
+    void signalAddPreset();
     
 public slots:
     void slotStoreValue(QString name, QVariant value, int presetNum);
@@ -59,7 +62,7 @@ public slots:
     void slotRecallGlobal();
 
     void slotSavePreset();
-    void slotSavePresetAs();
+    void slotSavePresetAs(QString presetName);
     void slotDeletePreset();
     void slotRevertPreset();
 

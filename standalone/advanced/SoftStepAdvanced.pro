@@ -65,7 +65,8 @@ FORMS    +=     forms/mainwindow.ui \
                 forms/keyWindowForm.ui \
                 forms/settingsForm.ui \
                 forms/keyBoxForm.ui \
-                forms/setlistForm.ui
+                forms/setlistForm.ui \
+    forms/saveAsForm.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#

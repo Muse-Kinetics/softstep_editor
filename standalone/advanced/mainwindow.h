@@ -16,6 +16,7 @@
 #include "mididevicemanager.h"
 
 #include "ui_mainwindow.h"
+#include "ui_saveAsForm.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +33,10 @@ public:
     PresetInterface* presetInterface;
     MidiDeviceManager* midiDeviceManager;
 
+    //Dialogs
+    QWidget* saveAsDialogWidget;
+
+
     //Menubar
     QMenuBar *menubar;
     QList<QAction *> actionList;
@@ -41,14 +46,24 @@ public:
     Settings *settingsWindow;
     Setlist *setlist;
 
+signals:
+    void signalSaveAs(QString presetName);
+
 public slots:
     void slotConnectInterfaces();
     void slotInitMenuBar();
 
     void slotConnected(bool);
 
+    void slotSaveAs();
+    void slotAddPreset();
+
 private:
     Ui::MainWindow *ui;
+
+    //Dialogs
+    Ui::saveAsDialog* saveAsDialog;
+
 };
 
 #endif // MAINWINDOW_H

@@ -10,7 +10,8 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    saveAsDialog(new Ui::saveAsDialog)
 {
     presetInterface = new PresetInterface(this);
     midiDeviceManager = new MidiDeviceManager(this);
@@ -25,6 +26,10 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         key[i] = new Key(this, i);
     }
+
+    //Dialogs
+    saveAsDialogWidget = new QWidget();
+    saveAsDialog->setupUi(saveAsDialogWidget);
 
     //Construct Settings Window
     settingsWindow = new Settings(this);
@@ -112,6 +117,14 @@ void MainWindow::slotConnectInterfaces()
     connect(ui->saveas, SIGNAL(clicked()), presetInterface, SLOT(slotSavePresetAs()));
     connect(ui->revert, SIGNAL(clicked()), presetInterface, SLOT(slotRevertPreset()));
     connect(ui->deletepreset, SIGNAL(clicked()), presetInterface, SLOT(slotDeletePreset()));
+
+    //Save As
+    connect(ui->saveas, SIGNAL(clicked()), saveAsDialogWidget, SLOT(show()));
+    connect(saveAsDialog->cancel, SIGNAL(clicked()), saveAsDialogWidget, SLOT(hide()));
+    connect(saveAsDialog->save, SIGNAL(clicked()), this, SLOT(slotSaveAs()));
+    connect(this, SIGNAL(signalSaveAs(QString)), presetInterface, SLOT(slotSavePresetAs(QString)));
+    connect(presetInterface, SIGNAL(signalAddPreset()), this, SLOT(slotAddPreset()));
+
 
     //preset menu
     //connect(ui->presetmenu, SIGNAL(currentIndexChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
@@ -205,4 +218,23 @@ void MainWindow::slotConnected(bool connection)
         //ui->update->setText("SAVE");
         //aboutForm->found->setText("Not Connected");
     }
+}
+
+void MainWindow::slotSaveAs()
+{
+    if(saveAsDialog->name->text() != "")
+    {
+        emit signalSaveAs(saveAsDialog->name->text());
+        saveAsDialogWidget->close();
+    }
+    else
+    {
+
+    }
+}
+
+void MainWindow::slotAddPreset()
+{
+    qDebug() << "add preset";
+    presetInterface->slotPopulatePresetMenu(ui->presetmenu);
 }

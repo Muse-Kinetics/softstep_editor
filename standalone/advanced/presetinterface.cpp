@@ -17,18 +17,18 @@ PresetInterface::PresetInterface(QWidget *parent) :
     jsonPath = QString("./presets/softstepadvanced.json");
 #endif
 
+    numPresets = 0;
+
     slotReadJSON();
 
     //writeDefualtJSON();
-
-
 }
 
 void PresetInterface::slotPopulatePresetMenu(QComboBox* presetMenu)
 {
     disconnect(presetMenu, SIGNAL(currentIndexChanged(int)), this, SLOT(slotRecallPreset(int)));
 
-    int numPresets = 0;
+    numPresets = 0;
 
     presetMenu->clear();
 
@@ -247,9 +247,31 @@ void PresetInterface::slotSavePreset()
     slotWriteJSON(jsonMasterMap);
 }
 
-void PresetInterface::slotSavePresetAs()
+void PresetInterface::slotSavePresetAs(QString presetName)
 {
+    qDebug() << "Save As: " << presetName << numPresets;
 
+    numPresets++;
+
+    if(numPresets < 10)
+    {
+        presetName = QString("Preset_00%1").arg(numPresets);
+    }
+    else if(numPresets < 100)
+    {
+        presetName = QString("Preset_0%1").arg(numPresets);
+    }
+    else if(numPresets < 1000)
+    {
+        presetName = QString("Preset_%1").arg(numPresets);
+    }
+
+    QVariantMap preset = jsonMasterMapCopy.value(presetName).toMap();
+
+    //Store copy of current preset into master json
+    jsonMasterMap.insert(presetName, jsonMasterMapCopy.value(presetName).toMap());
+
+    emit signalAddPreset();
 }
 
 void PresetInterface::slotRevertPreset()
