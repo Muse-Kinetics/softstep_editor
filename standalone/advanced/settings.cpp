@@ -131,7 +131,6 @@ void Settings::slotValueChanged()
         emit signalStoreValue(jsonName,value);
     }
     //qDebug() << "value changed" << QObject::sender()->objectName();
-    emit signalCheckSavedState();
 }
 
 void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)

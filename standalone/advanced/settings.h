@@ -21,7 +21,6 @@ public:
     
 signals:
     void signalStoreValue(QString name, QVariant value);
-    void signalCheckSavedState();
     
 public slots:
     void slotOpenSettings();

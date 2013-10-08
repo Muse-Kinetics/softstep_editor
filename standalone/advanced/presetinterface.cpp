@@ -151,10 +151,6 @@ void PresetInterface::writeDefualtJSON()
     for(int i = 0; i < 10; i++)
     {
         jsonMasterMap.insert(slotGetPresetStringFromInt(i),defaultPresetMap);
-
-        //Globals
-        //jsonMasterMap.insert("sensitivity", 1.00);
-        //jsonMasterMap.insert("backlight", true);
     }
 
     jsonMasterMap.insert(QString("Global"),defaultGlobalMap);
@@ -186,8 +182,6 @@ void PresetInterface::slotRecallPreset(int i)
 void PresetInterface::slotRecallGlobal()
 {
     emit signalRecallGlobal(jsonMasterMapCopy.value(QString("Global")).toMap(),jsonMasterMapCopy);
-
-    slotCheckSaveState();
 }
 
 void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum)
@@ -212,7 +206,11 @@ void PresetInterface::slotStoreGlobal(QString name, QVariant value)
     globalMap.insert(name, value);
     jsonMasterMapCopy.insert(QString("Global"), globalMap);
 
-    //slotCheckSaveState();
+    //------------------------------------store the settings globals in master preset here----------------------------------------
+    //this happens every time a parameter is modified  - it slows down the app's open time since each parameter is recalled and writes to the master copy individually
+    jsonMasterMap.insert(QString("Global"), jsonMasterMapCopy.value(QString("Global")).toMap());
+    qDebug() << "update the settings preset";
+    slotWriteJSON(jsonMasterMap);
 }
 
 void PresetInterface::slotCheckSaveState()
@@ -231,14 +229,6 @@ void PresetInterface::slotCheckSaveState()
         }
     }
 
-    //globals
-    if(jsonMasterMapCopy.value("Global") != jsonMasterMap.value("Global"))
-    {
-        //qDebug() << "----------------Global" << jsonMasterMapCopy.value("Global") << jsonMasterMap.value("Global");
-        qDebug() << "-----------------Global Setting changed";
-        dirty = true;
-    }
-
     emit signalPresetDirty(dirty);
 
 }
@@ -255,9 +245,6 @@ void PresetInterface::slotSavePreset()
 {
     //Store copy of current preset into master json
     jsonMasterMap.insert(slotGetPresetStringFromInt(currentPresetNum), jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap());
-
-    //store globals goes here - not part of preset
-    //jsonMasterMap.insert(QString("Global"), jsonMasterMapCopy.value(QString("Global")).toMap());
 
     qDebug() << "update with this preset" << currentPresetNum;
     //emit signalUpdateStarted(); //disable the button then start the download
