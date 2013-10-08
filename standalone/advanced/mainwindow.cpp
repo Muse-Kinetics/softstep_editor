@@ -106,10 +106,16 @@ void MainWindow::slotConnectInterfaces()
     {
         connect(key[k], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
 
+        //save state
+        connect(key[k], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
+
         //Modlines
         for(int m = 0; m < 6; m++)
         {
             connect(key[k]->modline[m], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
+
+            //save state
+            connect(key[k]->modline[m], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
         }
     }
 
@@ -118,11 +124,15 @@ void MainWindow::slotConnectInterfaces()
     //Settings
     connect(ui->opensettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));
     connect(settingsWindow, SIGNAL(signalStoreValue(QString,QVariant)), presetInterface, SLOT(slotStoreGlobal(QString,QVariant)));
+    connect(settingsWindow, SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
 
     //------------- Save, Save As, Revert, Delete
     //Save Button
     connect(ui->save, SIGNAL(clicked()), presetInterface, SLOT(slotSavePreset()));
     connect(ui->revert, SIGNAL(clicked()), presetInterface, SLOT(slotRevertPreset()));
+
+    //Save Indicator
+    connect(presetInterface, SIGNAL(signalPresetDirty(bool)), this, SLOT(slotDisplaySaveState(bool)));
 
     //Save As
     connect(ui->saveas, SIGNAL(clicked()), saveAsDialogWidget, SLOT(show()));
@@ -250,4 +260,16 @@ void MainWindow::slotPopulatePresetMenu()
     qDebug() << "add preset";
     presetInterface->slotPopulatePresetMenu(ui->presetmenu);
     setlist->slotRefreshSetlist(ui->presetmenu);
+}
+
+void MainWindow::slotDisplaySaveState(bool dirty)
+{
+    if(dirty)
+    {
+        qDebug() << "the preset is dirty";
+    }
+    else
+    {
+        qDebug() << "the preset is no longer dirty";
+    }
 }

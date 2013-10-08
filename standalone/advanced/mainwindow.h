@@ -59,6 +59,7 @@ public slots:
 
     void slotSaveAs();
     void slotPopulatePresetMenu();
+    void slotDisplaySaveState(bool);
 
 
 private:

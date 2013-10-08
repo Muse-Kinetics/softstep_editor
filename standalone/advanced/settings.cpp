@@ -68,7 +68,10 @@ void Settings::slotConnectElements()
         else if(widget->metaObject()->className() == QString("QRadioButton"))
         {
             QRadioButton* radiobutton = qobject_cast<QRadioButton *>(widget);
-            connect(radiobutton, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+            if(QString(radiobutton->objectName()).contains("sensorresponse") || QString(radiobutton->objectName()).contains("mode"))
+            {
+                connect(radiobutton, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+            }
         }
     }
 }
@@ -128,6 +131,7 @@ void Settings::slotValueChanged()
         emit signalStoreValue(jsonName,value);
     }
     //qDebug() << "value changed" << QObject::sender()->objectName();
+    emit signalCheckSavedState();
 }
 
 void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)

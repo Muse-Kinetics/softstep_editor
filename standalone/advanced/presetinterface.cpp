@@ -187,7 +187,7 @@ void PresetInterface::slotRecallGlobal()
 {
     emit signalRecallGlobal(jsonMasterMapCopy.value(QString("Global")).toMap(),jsonMasterMapCopy);
 
-    //slotCheckSaveState();
+    slotCheckSaveState();
 }
 
 void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum)
@@ -202,6 +202,8 @@ void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum
     QVariantMap presetMap = jsonMasterMapCopy.value(slotGetPresetStringFromInt(presetNum)).toMap();
     presetMap.insert(name, value);
     jsonMasterMapCopy.insert(slotGetPresetStringFromInt(presetNum), presetMap);
+
+    //slotCheckSaveState();
 }
 
 void PresetInterface::slotStoreGlobal(QString name, QVariant value)
@@ -209,10 +211,35 @@ void PresetInterface::slotStoreGlobal(QString name, QVariant value)
     QVariantMap globalMap = jsonMasterMapCopy.value(QString("Global")).toMap();
     globalMap.insert(name, value);
     jsonMasterMapCopy.insert(QString("Global"), globalMap);
+
+    //slotCheckSaveState();
 }
 
 void PresetInterface::slotCheckSaveState()
 {
+    QStringList keyList = jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().keys();
+
+    bool dirty = false;
+
+    for(int i = 0; i < keyList.size(); i++)
+    {
+        if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) !=
+                jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)))
+        {
+            qDebug() << "--------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
+            dirty = true;
+        }
+    }
+
+    //globals
+    if(jsonMasterMapCopy.value("Global") != jsonMasterMap.value("Global"))
+    {
+        //qDebug() << "----------------Global" << jsonMasterMapCopy.value("Global") << jsonMasterMap.value("Global");
+        qDebug() << "-----------------Global Setting changed";
+        dirty = true;
+    }
+
+    emit signalPresetDirty(dirty);
 
 }
 
@@ -236,7 +263,7 @@ void PresetInterface::slotSavePreset()
     //emit signalUpdateStarted(); //disable the button then start the download
     //emit signalAttributeFormatPreset(jsonMasterMap.value(slotGetPresetStringFromInt(currentPresetNum)).toMap(), jsonMasterMap, (qlonglong)currentPresetNum);
 
-    //slotCheckSaveState();
+    slotCheckSaveState();
 
     slotWriteJSON(jsonMasterMap);
 }
@@ -267,7 +294,17 @@ void PresetInterface::slotSavePresetAs(QString presetName)
 
 void PresetInterface::slotRevertPreset()
 {
-
+    if(currentPresetNum != -1)
+    {
+        //Load preset from master map into the copy
+        jsonMasterMapCopy.insert(slotGetPresetStringFromInt(currentPresetNum), jsonMasterMap.value(slotGetPresetStringFromInt(currentPresetNum)).toMap());
+        qDebug() << "preset should revert now";
+        slotRecallPreset(currentPresetNum);
+    }
+    else
+    {
+        qDebug() << "preset will not revert";
+    }
 }
 
 void PresetInterface::slotDeletePreset()

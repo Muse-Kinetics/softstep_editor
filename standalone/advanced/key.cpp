@@ -127,6 +127,7 @@ void Key::slotValueChanged()
 
         emit signalStoreValue(QString("%1_key_").arg(keyInstance+1) + jsonName, value, -1);
     }
+    emit signalCheckSavedState();
 }
 
 void Key::slotRecallPreset(QVariantMap preset, QVariantMap)

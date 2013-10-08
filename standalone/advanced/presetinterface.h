@@ -49,6 +49,7 @@ signals:
     void signalRecallGlobal(QVariantMap preset, QVariantMap jsonMasterMapCopy);
     void signalPopulateSetlistMenus(QComboBox* presetMenu);
     void signalAddRemovePreset();
+    void signalPresetDirty(bool);
     
 public slots:
     void slotStoreValue(QString name, QVariant value, int presetNum);

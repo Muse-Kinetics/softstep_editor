@@ -375,6 +375,8 @@ void Modline::slotValueChanged()
 
         emit signalStoreValue(QString("key%1_modline%2_").arg(keyInstance+1).arg(modlineInstance+1) + jsonName, value, -1);
     }
+
+    emit signalCheckSavedState();
 }
 
 void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
