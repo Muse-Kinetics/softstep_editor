@@ -16,8 +16,8 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background: rgb(0,0,0);
-/*	background:		rgba(255, 255, 255, 50);	*/
+/*	background: rgb(0,0,0); */
+	background:		rgba(255, 255, 255, 50);	
 	border: 3px rgb(25, 25, 25);
 }
 
@@ -389,8 +389,8 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="styleSheet">
     <string notr="true">QSpinBox
 {
-	border: 1px solid rgba(236, 0, 140, 150);
-	color: rgba(255, 255, 255, 200);
+	border: 1px solid rgba(236, 0, 140, 90);
+	color: rgba(255, 255, 255, 90);
 }</string>
    </property>
    <property name="frame">
@@ -558,8 +558,8 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="styleSheet">
     <string notr="true">QSpinBox
 {
-	border: 1px solid rgba(236, 0, 140, 150);
-	color: rgba(255, 255, 255, 200);
+	border: 1px solid rgba(236, 0, 140, 90);
+	color: rgba(255, 255, 255, 90);
 }</string>
    </property>
    <property name="frame">
@@ -781,8 +781,8 @@ QComboBox QListView
    <property name="styleSheet">
     <string notr="true">QSpinBox
 {
-	border: 1px solid rgba(236, 0, 140, 150);
-	color: rgba(255, 255, 255, 200);
+	border: 1px solid rgba(236, 0, 140, 90);
+	color: rgba(255, 255, 255, 90);
 }</string>
    </property>
    <property name="frame">
@@ -1524,7 +1524,7 @@ QComboBox::down-arrow
 </string>
    </property>
    <property name="currentIndex">
-    <number>10</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -1804,6 +1804,9 @@ QDoubleSpinBox::focus
      <property name="frame">
       <bool>true</bool>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
@@ -1832,6 +1835,9 @@ QDoubleSpinBox::focus
      <property name="frame">
       <bool>true</bool>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
@@ -1859,6 +1865,9 @@ QDoubleSpinBox::focus
      </property>
      <property name="frame">
       <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="readOnly">
       <bool>true</bool>
@@ -1893,6 +1902,9 @@ QDoubleSpinBox::focus
      <property name="frame">
       <bool>true</bool>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
@@ -1920,6 +1932,9 @@ QDoubleSpinBox::focus
      </property>
      <property name="frame">
       <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
@@ -2018,6 +2033,9 @@ QDoubleSpinBox::focus
      <property name="frame">
       <bool>true</bool>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
@@ -2028,7 +2046,7 @@ QDoubleSpinBox::focus
     <widget class="QSpinBox" name="bankchannel">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>69</x>
        <y>0</y>
        <width>30</width>
        <height>18</height>
@@ -2045,6 +2063,9 @@ QDoubleSpinBox::focus
      </property>
      <property name="frame">
       <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
@@ -2108,6 +2129,9 @@ QDoubleSpinBox::focus
      <property name="frame">
       <bool>true</bool>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
@@ -2122,7 +2146,7 @@ QDoubleSpinBox::focus
       <rect>
        <x>104</x>
        <y>0</y>
-       <width>90</width>
+       <width>116</width>
        <height>18</height>
       </rect>
      </property>
@@ -2149,6 +2173,9 @@ QDoubleSpinBox::focus
      </property>
      <property name="frame">
       <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
@@ -2243,6 +2270,9 @@ QDoubleSpinBox::focus
      </property>
      <property name="frame">
       <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
@@ -2371,6 +2401,9 @@ QDoubleSpinBox::focus
      <property name="frame">
       <bool>true</bool>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
@@ -2401,6 +2434,9 @@ QDoubleSpinBox::focus
      <property name="frame">
       <bool>true</bool>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
@@ -2428,6 +2464,9 @@ QDoubleSpinBox::focus
      </property>
      <property name="frame">
       <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
@@ -2967,6 +3006,12 @@ QLabel
      <height>16</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel
+{
+	color: rgba(255, 255, 255, 90);
+}</string>
+   </property>
    <property name="text">
     <string>Raw</string>
    </property>
@@ -3014,6 +3059,12 @@ QLabel
      <width>27</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel
+{
+	color: rgba(255, 255, 255, 90);
+}</string>
    </property>
    <property name="text">
     <string>Result</string>
@@ -3110,6 +3161,12 @@ QLabel
      <width>27</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel
+{
+	color: rgba(255, 255, 255, 90);
+}</string>
    </property>
    <property name="text">
     <string>Value</string>
