@@ -2121,7 +2121,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>37</x>
-     <y>338</y>
+     <y>288</y>
      <width>195</width>
      <height>22</height>
     </rect>
@@ -2198,7 +2198,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>37</x>
-     <y>288</y>
+     <y>313</y>
      <width>195</width>
      <height>22</height>
     </rect>
@@ -2275,7 +2275,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>37</x>
-     <y>413</y>
+     <y>338</y>
      <width>195</width>
      <height>22</height>
     </rect>
@@ -2506,7 +2506,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>37</x>
-     <y>313</y>
+     <y>413</y>
      <width>195</width>
      <height>22</height>
     </rect>

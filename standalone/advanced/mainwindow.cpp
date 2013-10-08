@@ -11,7 +11,9 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    saveAsDialog(new Ui::saveAsDialog)
+    saveAsDialogForm(new Ui::saveAsDialogForm),
+    deleteDialogForm(new Ui::deleteDialogForm)
+
 {
     presetInterface = new PresetInterface(this);
     midiDeviceManager = new MidiDeviceManager(this);
@@ -27,9 +29,15 @@ MainWindow::MainWindow(QWidget *parent) :
         key[i] = new Key(this, i);
     }
 
-    //Dialogs
+    //------------------------------------- Dialogs
+    //SaveAs
     saveAsDialogWidget = new QWidget();
-    saveAsDialog->setupUi(saveAsDialogWidget);
+    saveAsDialogForm->setupUi(saveAsDialogWidget);
+
+    //Delete
+    deleteDialogWidget = new QWidget();
+    deleteDialogForm->setupUi(deleteDialogWidget);
+
 
     //Construct Settings Window
     settingsWindow = new Settings(this);
@@ -49,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent) :
     settingsWindow->slotConnectElements();
 
     presetInterface->slotPopulatePresetMenu(ui->presetmenu);
-    presetInterface->slotPopulateSetlistMenus();
+    //presetInterface->slotPopulateSetlistMenus();
     presetInterface->slotRecallPreset(1);
     presetInterface->slotRecallGlobal();
 
@@ -114,24 +122,28 @@ void MainWindow::slotConnectInterfaces()
     //------------- Save, Save As, Revert, Delete
     //Save Button
     connect(ui->save, SIGNAL(clicked()), presetInterface, SLOT(slotSavePreset()));
-    connect(ui->saveas, SIGNAL(clicked()), presetInterface, SLOT(slotSavePresetAs()));
     connect(ui->revert, SIGNAL(clicked()), presetInterface, SLOT(slotRevertPreset()));
-    connect(ui->deletepreset, SIGNAL(clicked()), presetInterface, SLOT(slotDeletePreset()));
 
     //Save As
     connect(ui->saveas, SIGNAL(clicked()), saveAsDialogWidget, SLOT(show()));
-    connect(saveAsDialog->cancel, SIGNAL(clicked()), saveAsDialogWidget, SLOT(hide()));
-    connect(saveAsDialog->save, SIGNAL(clicked()), this, SLOT(slotSaveAs()));
+    connect(saveAsDialogForm->cancel, SIGNAL(clicked()), saveAsDialogWidget, SLOT(close()));
+    connect(saveAsDialogForm->save, SIGNAL(clicked()), this, SLOT(slotSaveAs()));
     connect(this, SIGNAL(signalSaveAs(QString)), presetInterface, SLOT(slotSavePresetAs(QString)));
-    connect(presetInterface, SIGNAL(signalAddPreset()), this, SLOT(slotAddPreset()));
+    connect(presetInterface, SIGNAL(signalAddRemovePreset()), this, SLOT(slotPopulatePresetMenu()));
 
+    //Delete
+    connect(ui->deletepreset, SIGNAL(clicked()), deleteDialogWidget, SLOT(show()));
+    connect(deleteDialogForm->cancel, SIGNAL(clicked()), deleteDialogWidget, SLOT(close()));
+    connect(deleteDialogForm->delete_2, SIGNAL(clicked()), presetInterface, SLOT(slotDeletePreset()));
+    connect(deleteDialogForm->delete_2, SIGNAL(clicked()), deleteDialogWidget, SLOT(close()));
+    connect(deleteDialogForm->delete_2, SIGNAL(clicked()), this, SLOT(slotPopulatePresetMenu()));
 
     //preset menu
     //connect(ui->presetmenu, SIGNAL(currentIndexChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
 
     //setlist
     connect(ui->opensetlist, SIGNAL(clicked()), setlist, SLOT(slotShowSetlist()));
-    connect(presetInterface, SIGNAL(signalPopulateSetlistMenus(QVariantMap)), setlist, SLOT(slotPopulateMenus(QVariantMap)));
+    connect(presetInterface, SIGNAL(signalPopulateSetlistMenus(QComboBox*)), setlist, SLOT(slotPopulateMenus(QComboBox*)));
 }
 
 void MainWindow::slotInitMenuBar()
@@ -222,9 +234,9 @@ void MainWindow::slotConnected(bool connection)
 
 void MainWindow::slotSaveAs()
 {
-    if(saveAsDialog->name->text() != "")
+    if(saveAsDialogForm->name->text() != "")
     {
-        emit signalSaveAs(saveAsDialog->name->text());
+        emit signalSaveAs(saveAsDialogForm->name->text());
         saveAsDialogWidget->close();
     }
     else
@@ -233,8 +245,9 @@ void MainWindow::slotSaveAs()
     }
 }
 
-void MainWindow::slotAddPreset()
+void MainWindow::slotPopulatePresetMenu()
 {
     qDebug() << "add preset";
     presetInterface->slotPopulatePresetMenu(ui->presetmenu);
+    setlist->slotRefreshSetlist(ui->presetmenu);
 }

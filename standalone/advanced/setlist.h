@@ -19,10 +19,13 @@ public:
     
     QList<QComboBox *> menus;
     QList<QCheckBox *> checkBoxes;
+    QStringList setlist;
 
     bool eventFilter(QObject *obj, QEvent *event);
     //void mouseReleaseEvent(QMouseEvent* e);
     //void mousePressEvent(QMouseEvent* e);
+
+    bool repopulating;
 
 signals:
     
@@ -31,7 +34,9 @@ public slots:
     void slotCheckBoxClicked();
     void slotInitComponents();
     void slotShowSetlist();
-    void slotPopulateMenus(QVariantMap jsonMasterCopy);
+    void slotPopulateMenus(QComboBox *presetMenu);
+    void slotCompileSetlist();
+    void slotRefreshSetlist(QComboBox* presetMenu);
 
 
 private:

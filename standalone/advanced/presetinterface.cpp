@@ -17,7 +17,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
     jsonPath = QString("./presets/softstepadvanced.json");
 #endif
 
-    numPresets = 0;
+
 
     slotReadJSON();
 
@@ -28,62 +28,56 @@ void PresetInterface::slotPopulatePresetMenu(QComboBox* presetMenu)
 {
     disconnect(presetMenu, SIGNAL(currentIndexChanged(int)), this, SLOT(slotRecallPreset(int)));
 
-    numPresets = 0;
-
     presetMenu->clear();
 
-    //Iterate through master map
-    QMapIterator<QString, QVariant> map(jsonMasterMapCopy);
+    //All presets should be stored and arranged in JSON before calling this function!
+    presetListCopy.clear();
+    presetListMaster.clear();
 
-    while(map.hasNext())
-    {
-        map.next();
 
-        //If a preset within master map...
-        if(map.key().contains("Preset"))
-        {
-            //Inc preset count
-            numPresets++;
-
-            QString presetNumString = map.key();
-            int presetNum = presetNumString.remove("Preset_").toInt();
-
-            qDebug() << map.key() << presetNum;
-            //presetMenu->addItem(map.value().toMap().value("preset_name").toString());
-
-        }
-    }
+    int numPresets = slotGetNumPresetsInJson();
 
     //Iterate through presets in numerical order, which is not garunteed by map iterator
     for(int i = 0; i < numPresets; i++)
     {
         QString presetName;
 
-        if(i < 10)
-        {
-            presetName = jsonMasterMapCopy.value(QString("Preset_00%1").arg(i)).toMap().value("preset_name").toString();
-        }
-        else if(i < 100)
-        {
-            presetName = jsonMasterMapCopy.value(QString("Preset_0%1").arg(i)).toMap().value("preset_name").toString();
-        }
-        else if(i < 1000)
-        {
-            presetName = jsonMasterMapCopy.value(QString("Preset_%1").arg(i)).toMap().value("preset_name").toString();
-        }
+        presetName = jsonMasterMapCopy.value(slotGetPresetStringFromInt(i)).toMap().value("preset_name").toString();
+
+        //Populate preset QList in numerical order, for easy modifaction
+        presetListCopy.append(jsonMasterMapCopy.value(slotGetPresetStringFromInt(i)).toMap());
+        presetListMaster.append(jsonMasterMap.value(slotGetPresetStringFromInt(i)).toMap());
 
         presetMenu->addItem(presetName, 0);
     }
 
     connect(presetMenu, SIGNAL(currentIndexChanged(int)), this, SLOT(slotRecallPreset(int)));
 
+    emit signalPopulateSetlistMenus(presetMenu);
 }
 
 void PresetInterface::slotPopulateSetlistMenus()
 {
-    emit signalPopulateSetlistMenus(jsonMasterMapCopy);
+    //emit signalPopulateSetlistMenus(jsonMasterMapCopy);
 }
 
+QString PresetInterface::slotGetPresetStringFromInt(int i)
+{
+    if(i < 10)
+    {
+        return QString("Preset_00%1").arg(i);
+    }
+    else if(i < 100)
+    {
+        return QString("Preset_0%1").arg(i);
+    }
+    else if(i < 1000)
+    {
+        return QString("Preset_%1").arg(i);
+    }
+
+    return QString();
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,14 +101,14 @@ void PresetInterface::slotReadJSON()
         //-------
         int presetNum = 1;
 
-        QStringList keyList = jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap().keys();
+        QStringList keyList = jsonMasterMapCopy.value(slotGetPresetStringFromInt(presetNum)).toMap().keys();
 
         for(int i = 0; i < keyList.size(); i++)
         {
-            if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i)) !=
-                    jsonMasterMap.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i)))
+            if(jsonMasterMapCopy.value(slotGetPresetStringFromInt(presetNum)).toMap().value(keyList.at(i)) !=
+                    jsonMasterMap.value(slotGetPresetStringFromInt(presetNum)).toMap().value(keyList.at(i)))
             {
-                qDebug() << "------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i));
+                qDebug() << "------------" << keyList.at(i) << jsonMasterMapCopy.value(slotGetPresetStringFromInt(presetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(slotGetPresetStringFromInt(presetNum)).toMap().value(keyList.at(i));
                 //break;
             }
         }
@@ -156,7 +150,7 @@ void PresetInterface::writeDefualtJSON()
     //Generate fresh default json needed
     for(int i = 0; i < 10; i++)
     {
-        jsonMasterMap.insert(QString("Preset_00%1").arg(i),defaultPresetMap);
+        jsonMasterMap.insert(slotGetPresetStringFromInt(i),defaultPresetMap);
 
         //Globals
         //jsonMasterMap.insert("sensitivity", 1.00);
@@ -183,7 +177,7 @@ void PresetInterface::slotRecallPreset(int i)
 
     currentPresetNum = i;
 
-    emit signalRecallPreset(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMapCopy);
+    emit signalRecallPreset(jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap(), jsonMasterMapCopy);
 
     slotCheckSaveState();
 
@@ -205,9 +199,9 @@ void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum
         presetNum = currentPresetNum;
     }
 
-    QVariantMap presetMap = jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap();
+    QVariantMap presetMap = jsonMasterMapCopy.value(slotGetPresetStringFromInt(presetNum)).toMap();
     presetMap.insert(name, value);
-    jsonMasterMapCopy.insert(QString("Preset_00%1").arg(presetNum), presetMap);
+    jsonMasterMapCopy.insert(slotGetPresetStringFromInt(presetNum), presetMap);
 }
 
 void PresetInterface::slotStoreGlobal(QString name, QVariant value)
@@ -233,14 +227,14 @@ void PresetInterface::slotCheckSaveState()
 void PresetInterface::slotSavePreset()
 {
     //Store copy of current preset into master json
-    jsonMasterMap.insert(QString("Preset_00%1").arg(currentPresetNum), jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap());
+    jsonMasterMap.insert(slotGetPresetStringFromInt(currentPresetNum), jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap());
 
-    //store globals goes here
-    jsonMasterMap.insert(QString("Global"), jsonMasterMapCopy.value(QString("Global")).toMap());
+    //store globals goes here - not part of preset
+    //jsonMasterMap.insert(QString("Global"), jsonMasterMapCopy.value(QString("Global")).toMap());
 
     qDebug() << "update with this preset" << currentPresetNum;
     //emit signalUpdateStarted(); //disable the button then start the download
-    //emit signalAttributeFormatPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMap, (qlonglong)currentPresetNum);
+    //emit signalAttributeFormatPreset(jsonMasterMap.value(slotGetPresetStringFromInt(currentPresetNum)).toMap(), jsonMasterMap, (qlonglong)currentPresetNum);
 
     //slotCheckSaveState();
 
@@ -249,29 +243,26 @@ void PresetInterface::slotSavePreset()
 
 void PresetInterface::slotSavePresetAs(QString presetName)
 {
-    qDebug() << "Save As: " << presetName << numPresets;
+    qDebug() << "Save As: " << presetName << slotGetNumPresetsInJson();
 
-    numPresets++;
+    //Get preset params into map
+    QVariantMap preset = presetListCopy.at(currentPresetNum);
 
-    if(numPresets < 10)
-    {
-        presetName = QString("Preset_00%1").arg(numPresets);
-    }
-    else if(numPresets < 100)
-    {
-        presetName = QString("Preset_0%1").arg(numPresets);
-    }
-    else if(numPresets < 1000)
-    {
-        presetName = QString("Preset_%1").arg(numPresets);
-    }
+    //Insert preset name param
+    preset.insert("preset_name", presetName);
 
-    QVariantMap preset = jsonMasterMapCopy.value(presetName).toMap();
+    //Add to active prest lists
+    presetListCopy.append(preset);
+    presetListMaster.append(preset);
 
-    //Store copy of current preset into master json
-    jsonMasterMap.insert(presetName, jsonMasterMapCopy.value(presetName).toMap());
+    //Add and order json maps
+    slotOrderPresetsInJson();
 
-    emit signalAddPreset();
+    //Save json file
+    slotWriteJSON(jsonMasterMap);
+
+    //Repopulate preset menu-- calls slotPopulatePresetMenu()
+    emit signalAddRemovePreset();
 }
 
 void PresetInterface::slotRevertPreset()
@@ -281,7 +272,67 @@ void PresetInterface::slotRevertPreset()
 
 void PresetInterface::slotDeletePreset()
 {
+    //Remove preset from active preset lists
+    presetListMaster.removeAt(currentPresetNum);
+    presetListCopy.removeAt(currentPresetNum);
 
+    if((presetListMaster.size() - 1) < currentPresetNum)
+    {
+        currentPresetNum = presetListMaster.size() - 1;
+    }
+
+    //Re-iterate through active lists and set properly index in json
+    slotOrderPresetsInJson();
+
+    //Save json file
+    slotWriteJSON(jsonMasterMap);
+
+    //Repopulate preset menu-- calls slotPopulatePresetMenu()
+    emit signalAddRemovePreset();
+}
+
+void PresetInterface::slotOrderPresetsInJson()
+{
+    //This function is used to ensure presets are kept ordered (without skpping numbers) in json
+
+    //Get number of presets in json
+    int numPresets = slotGetNumPresetsInJson();
+
+    //Remove all presets from json (keep globals)
+    for(int i = 0; i < numPresets; i++)
+    {
+        jsonMasterMapCopy.remove(slotGetPresetStringFromInt(i));
+        jsonMasterMap.remove(slotGetPresetStringFromInt(i));
+    }
+
+    //Re-insert presets in correct order with new indexes (just use size of copy here, the number should be the same in both preset lists)
+    for(int i = 0; i < presetListCopy.size(); i++)
+    {
+        jsonMasterMapCopy.insert(slotGetPresetStringFromInt(i), presetListCopy.at(i));
+        jsonMasterMap.insert(slotGetPresetStringFromInt(i), presetListMaster.at(i));
+    }
+}
+
+int PresetInterface::slotGetNumPresetsInJson()
+{
+    int numPresets = 0;
+
+    //Iterate through master map, gets num presets
+    QMapIterator<QString, QVariant> map(jsonMasterMapCopy);
+
+    while(map.hasNext())
+    {
+        map.next();
+
+        //If a preset within master map...
+        if(map.key().contains("Preset"))
+        {
+            //Inc preset count
+            numPresets++;
+        }
+    }
+
+    return numPresets;
 }
 
 void PresetInterface::closeEvent(QCloseEvent *)

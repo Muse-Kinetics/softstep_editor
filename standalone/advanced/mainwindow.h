@@ -17,6 +17,7 @@
 
 #include "ui_mainwindow.h"
 #include "ui_saveAsForm.h"
+#include "ui_deletePresetForm.h"
 
 namespace Ui {
 class MainWindow;
@@ -35,6 +36,7 @@ public:
 
     //Dialogs
     QWidget* saveAsDialogWidget;
+    QWidget* deleteDialogWidget;
 
 
     //Menubar
@@ -56,13 +58,16 @@ public slots:
     void slotConnected(bool);
 
     void slotSaveAs();
-    void slotAddPreset();
+    void slotPopulatePresetMenu();
+
 
 private:
     Ui::MainWindow *ui;
 
     //Dialogs
-    Ui::saveAsDialog* saveAsDialog;
+    Ui::saveAsDialogForm* saveAsDialogForm;
+    Ui::deleteDialogForm* deleteDialogForm;
+
 
 };
 

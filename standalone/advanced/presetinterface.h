@@ -19,7 +19,11 @@ public:
     explicit PresetInterface(QWidget *parent = 0);
 
     QVariantMap jsonMasterMap;
+    QList<QVariantMap> presetListMaster;
+
     QVariantMap jsonMasterMapCopy;
+    QList<QVariantMap> presetListCopy;
+
     QVariantMap defaultPresetMap;
     QVariantMap defaultGlobalMap;
 
@@ -30,8 +34,6 @@ public:
 
     QFile *jsonFile;
     bool ok;
-
-    int numPresets;
 
     QString jsonPath;
 
@@ -45,8 +47,8 @@ public:
 signals:
     void signalRecallPreset(QVariantMap preset, QVariantMap jsonMasterMapCopy);
     void signalRecallGlobal(QVariantMap preset, QVariantMap jsonMasterMapCopy);
-    void signalPopulateSetlistMenus(QVariantMap jsonMasterMapCopy);
-    void signalAddPreset();
+    void signalPopulateSetlistMenus(QComboBox* presetMenu);
+    void signalAddRemovePreset();
     
 public slots:
     void slotStoreValue(QString name, QVariant value, int presetNum);
@@ -68,6 +70,10 @@ public slots:
 
     void slotPopulatePresetMenu(QComboBox* presetMenu);
     void slotPopulateSetlistMenus();
+
+    QString slotGetPresetStringFromInt(int);
+    void slotOrderPresetsInJson();
+    int slotGetNumPresetsInJson();
 
 
 

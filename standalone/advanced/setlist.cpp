@@ -12,6 +12,8 @@ Setlist::Setlist(QWidget *parent) :
 
     slotInitComponents();
 
+    repopulating = false;
+
 }
 
 bool Setlist::eventFilter(QObject *obj, QEvent *event)
@@ -38,7 +40,7 @@ bool Setlist::eventFilter(QObject *obj, QEvent *event)
 
 void Setlist::slotCheckBoxClicked()
 {
-
+    slotCompileSetlist();
 }
 
 void Setlist::slotMenuChanged(int menuNum)
@@ -55,6 +57,12 @@ void Setlist::slotMenuChanged(int menuNum)
     {
         checkBox->setChecked(true);
     }
+
+    if(!repopulating)
+    {
+        slotCompileSetlist();
+    }
+
 }
 
 void Setlist::slotInitComponents()
@@ -82,9 +90,23 @@ void Setlist::slotShowSetlist()
     setlistWidget->show();
 }
 
-void Setlist::slotPopulateMenus(QVariantMap jsonMasterCopy)
+void Setlist::slotCompileSetlist()
+{
+    setlist.clear();
+
+    //Iterate through menus and reset setlist
+    for(int i = 0; i < menus.size(); i++)
+    {
+        setlist.append(menus.at(i)->currentText());
+    }
+
+    qDebug() << setlist;
+}
+
+void Setlist::slotPopulateMenus(QComboBox* presetMenu)
 {
     qDebug() << "populate menus";
+    repopulating = true;
 
     //Iterate through menus
     for(int m = 0; m < menus.size(); m++)
@@ -95,19 +117,42 @@ void Setlist::slotPopulateMenus(QVariantMap jsonMasterCopy)
         //Populate off item
         menus.at(m)->addItem("[EMPTY]");
 
-        //Iterate through presets
-        QVariantMap::iterator i;
-
-        for(i = jsonMasterCopy.begin(); i != jsonMasterCopy.end(); i++)
+        for(int i = 0; i < presetMenu->count(); i++)
         {
-            //Current preset
-            QVariantMap preset = i.value().toMap();
-
-            if(i.key().contains("Preset_"))
-            {
-                //Append name to current menu
-                menus.at(m)->addItem(preset.value("preset_name").toString(),0);
-            }
+            menus.at(m)->addItem(presetMenu->itemText(i), 0);
         }
     }
+
+    repopulating = false;
+}
+
+void Setlist::slotRefreshSetlist(QComboBox* presetMenu)
+{
+    qDebug() << "refresh setlist";
+
+    repopulating = true;
+
+    //Iterate through setlist to reset menus after a new preset has been added/deleted
+    for(int i = 0; i < setlist.size(); i++)
+    {
+        qDebug() << setlist.at(i) << presetMenu->findText(setlist.at(i));
+
+        menus.at(i)->setCurrentIndex(presetMenu->findText(setlist.at(i)) + 1); //offset because presetlist has no empty
+
+        /*//If text of menu not found in preset menu
+        if(presetMenu->findText(setlist.at(i)) == -1)
+        {
+            //Set it to empty
+            menus.at(i)->setCurrentIndex(0);
+        }
+        else
+        {
+
+        }*/
+    }
+
+    repopulating = false;
+
+    //Recompile setlist
+    slotCompileSetlist();
 }
