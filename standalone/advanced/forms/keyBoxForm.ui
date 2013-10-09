@@ -19,8 +19,8 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background:		rgba(35,31,32,255);
-	border: 3px solid rgba(0,174,239,255);
+	background:		rgb(35,31,32);
+	border: 3px solid rgb(0,174,239);
 }
 
 /* ---------- QLabels ------------*/
@@ -43,7 +43,7 @@ QPushButton
 	background:		rgba(0,0,0,0);
 	color: 				white;
 	font: 				10pt &quot;Futura&quot;;
-	border:				2px solid rgba(0,174,239,255);
+	border:				2px solid rgb(0,174,239);
 }
 
 /* ---------- QLineEdit ------------*/
@@ -51,7 +51,7 @@ QLineEdit
 {
 	font: 10pt &quot;Futura&quot;;
 	background: rgba(0,174,239,0);
-	border: 2px solid rgba(0,174,239,255);
+	border: 2px solid rgb(0,174,239);
 	border-radius: 0px;
 	color: white;
 	padding-left: 2px;
@@ -61,7 +61,7 @@ QLineEdit
 QLineEdit:focus
 {
 	font: 10pt &quot;Futura&quot;;
-	background: rgba(0,174,239,0);
+	background: transparent;
 	border: 1px solid white;
 	border-radius: 0px;
 	color: white;
