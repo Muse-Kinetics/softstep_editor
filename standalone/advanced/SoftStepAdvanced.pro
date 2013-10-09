@@ -36,7 +36,9 @@ SOURCES +=      main.cpp\
                 settings.cpp \
                 mididevicemanager.cpp \
                 stylesheets.cpp \
-    setlist.cpp
+    setlist.cpp \
+    navmodline.cpp \
+    navkey.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -58,7 +60,9 @@ HEADERS  +=     mainwindow.h \
                 settings.h \
                 mididevicemanager.h \
                 stylesheets.h \
-    setlist.h
+    setlist.h \
+    navmodline.h \
+    navkey.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \
