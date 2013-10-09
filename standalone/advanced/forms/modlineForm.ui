@@ -17,7 +17,7 @@
    <string notr="true">QWidget
 {
 /*	background: rgb(0,0,0); */
-	background:		rgba(255, 255, 255, 50);	
+	background:		rgb(80, 80, 80);	
 	border: 3px rgb(25, 25, 25);
 }
 
@@ -32,7 +32,7 @@ QStackedWidget
 /* ---------- QLabels ------------*/
 QLabel
 {
-	background:		rgba(0,0,0,0);
+	background:		none;
 	color: 				white;
 	font: 				8pt &quot;Tahoma&quot;;
 	border:				none;
@@ -79,7 +79,7 @@ QLineEdit
 {
 	font: 8pt &quot;Tahoma&quot;;
 	background: rgb(18, 18, 18);
-	border: 1px solid rgba(0,174,239,255);
+	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
 	color: white;
 	padding-left: 2px;
@@ -89,7 +89,7 @@ QLineEdit
 QLineEdit:focus
 {
 	font: 8pt &quot;Tahoma&quot;;
-	background: rgba(0,174,239,0);
+	background: rgb(0,174,239);
 	border: 1px solid white;
 	border-radius: 0px;
 	color: white;
@@ -101,7 +101,7 @@ QLineEdit:focus
 QCheckBox
 {
 	font: 8pt &quot;Tahoma&quot;;
-	background:rgba(0,174,239,0);
+	background: none;
 	color: white;
 	padding:0, 3, 0, 0;
 	border: none;
@@ -110,7 +110,7 @@ QCheckBox
 
 QCheckBox:focus
 {
-	background:rgba(0,174,239,0);
+	background: none;
 }
 
 /*----------- QComboBox ------------*/
@@ -906,6 +906,9 @@ QComboBox QListView
      <bold>false</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <item>
     <property name="text">
      <string>None</string>
@@ -1524,7 +1527,7 @@ QComboBox::down-arrow
 </string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>8</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -2537,7 +2540,7 @@ QLabel
 }</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>8</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">
@@ -2620,7 +2623,7 @@ QLabel
     <widget class="QLabel" name="label_11">
      <property name="geometry">
       <rect>
-       <x>33</x>
+       <x>36</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2633,7 +2636,7 @@ QLabel
     <widget class="QLabel" name="label_12">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>70</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2646,7 +2649,7 @@ QLabel
     <widget class="QLabel" name="label_27">
      <property name="geometry">
       <rect>
-       <x>2</x>
+       <x>3</x>
        <y>0</y>
        <width>31</width>
        <height>16</height>
@@ -2677,7 +2680,7 @@ QLabel
     <widget class="QLabel" name="label_15">
      <property name="geometry">
       <rect>
-       <x>33</x>
+       <x>36</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2690,7 +2693,7 @@ QLabel
     <widget class="QLabel" name="label_16">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>70</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2721,7 +2724,7 @@ QLabel
     <widget class="QLabel" name="label_18">
      <property name="geometry">
       <rect>
-       <x>33</x>
+       <x>36</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2734,7 +2737,7 @@ QLabel
     <widget class="QLabel" name="label_19">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>70</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2765,7 +2768,7 @@ QLabel
     <widget class="QLabel" name="label_22">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>70</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2814,7 +2817,7 @@ QLabel
     <widget class="QLabel" name="label_25">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>70</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2829,7 +2832,7 @@ QLabel
     <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>6</x>
        <y>0</y>
        <width>31</width>
        <height>16</height>
@@ -2858,7 +2861,7 @@ QLabel
     <widget class="QLabel" name="label_26">
      <property name="geometry">
       <rect>
-       <x>29</x>
+       <x>42</x>
        <y>0</y>
        <width>41</width>
        <height>16</height>
@@ -2889,7 +2892,7 @@ QLabel
     <widget class="QLabel" name="label_30">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>70</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>
@@ -2920,7 +2923,7 @@ QLabel
     <widget class="QLabel" name="label_31">
      <property name="geometry">
       <rect>
-       <x>33</x>
+       <x>35</x>
        <y>0</y>
        <width>31</width>
        <height>16</height>
@@ -2933,7 +2936,7 @@ QLabel
     <widget class="QLabel" name="label_32">
      <property name="geometry">
       <rect>
-       <x>63</x>
+       <x>70</x>
        <y>0</y>
        <width>21</width>
        <height>16</height>

@@ -16,14 +16,14 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background: rgba(20, 20, 20, 255);
+	background: rgb(30, 30, 30);
 }
 
 /*--------QLineEdit--------*/
 QLineEdit
 {
 	background: rgb(40, 40, 40);
-	border: 2px solid rgba(0,174,239,255);
+	border: 2px solid rgb(0,174,239);
 	font: 20pt &quot;Droid Sans Mono&quot;;
 	color: white;
 }</string>
