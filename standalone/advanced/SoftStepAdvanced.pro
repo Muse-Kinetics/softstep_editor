@@ -67,7 +67,10 @@ FORMS    +=     forms/mainwindow.ui \
                 forms/keyBoxForm.ui \
                 forms/setlistForm.ui \
     forms/saveAsForm.ui \
-    forms/deletePresetForm.ui
+    forms/deletePresetForm.ui \
+    forms/navModlineForm.ui \
+    forms/navKeyWindowForm.ui \
+    forms/navBoxForm.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#
