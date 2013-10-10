@@ -296,17 +296,60 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 10pt &quot;Futura&quot;;
-	background:rgba(0,174,239,0);
-	color: white;
-	padding:0, 3, 0, 0;
-	border: none;
+    font: 10pt &quot;Futura&quot;;
 }
 
-QCheckBox:focus
+QCheckBox::indicator
 {
-	background:rgba(0,174,239,0);
+    width: 11px;
+    height: 11px;
 }
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/toggle_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/toggle_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/toggle_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/toggle_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/toggle_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/toggle_focus_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/toggle_focus_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/toggle_focus_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/toggle_focus_off.png);
+}
+
 
 /*----------- QComboBox ------------*/
 QComboBox
@@ -319,7 +362,7 @@ QComboBox
  }</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QLabel" name="label_27">
@@ -2292,7 +2335,7 @@ QComboBox
     <widget class="QCheckBox" name="midia_settings_enable">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>12</x>
        <y>51</y>
        <width>16</width>
        <height>18</height>
@@ -2569,7 +2612,7 @@ QComboBox
     <widget class="QCheckBox" name="midib_settings_enable">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>12</x>
        <y>71</y>
        <width>16</width>
        <height>18</height>
@@ -2607,7 +2650,7 @@ QComboBox
     <widget class="QCheckBox" name="midic_settings_enable">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>12</x>
        <y>91</y>
        <width>16</width>
        <height>18</height>
@@ -2833,7 +2876,7 @@ QComboBox
     <widget class="QCheckBox" name="midid_settings_enable">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>12</x>
        <y>111</y>
        <width>16</width>
        <height>18</height>
@@ -2921,7 +2964,7 @@ QComboBox
     <widget class="QCheckBox" name="midie_settings_enable">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>12</x>
        <y>131</y>
        <width>16</width>
        <height>18</height>
@@ -3017,7 +3060,7 @@ QComboBox
     <widget class="QCheckBox" name="midif_settings_enable">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>12</x>
        <y>151</y>
        <width>16</width>
        <height>18</height>
@@ -3177,7 +3220,7 @@ QComboBox
     <widget class="QCheckBox" name="midig_settings_enable">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>12</x>
        <y>171</y>
        <width>16</width>
        <height>18</height>
@@ -3256,7 +3299,7 @@ QComboBox
     <widget class="QCheckBox" name="midih_settings_enable">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>12</x>
        <y>191</y>
        <width>16</width>
        <height>18</height>
@@ -3401,7 +3444,7 @@ QComboBox
     <widget class="QCheckBox" name="oscc_input_enable">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>12</x>
        <y>301</y>
        <width>16</width>
        <height>18</height>
@@ -3414,7 +3457,7 @@ QComboBox
     <widget class="QCheckBox" name="oscb_input_enable">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>12</x>
        <y>281</y>
        <width>16</width>
        <height>18</height>
@@ -3427,7 +3470,7 @@ QComboBox
     <widget class="QCheckBox" name="oscd_input_enable">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>12</x>
        <y>321</y>
        <width>16</width>
        <height>18</height>
@@ -3440,7 +3483,7 @@ QComboBox
     <widget class="QCheckBox" name="osca_input_enable">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>12</x>
        <y>261</y>
        <width>16</width>
        <height>18</height>
