@@ -58,6 +58,7 @@ public slots:
     void slotStoreGlobal(QString name, QVariant value);
     void slotCheckSaveState();
 
+    void slotUpdateJSONPath();
     void slotReadJSON();
     void slotWriteJSON(QVariantMap jsonMap);
 
@@ -79,6 +80,7 @@ public slots:
     int slotGetNumPresetsInJson();
 
     void slotSetMode(QString);
+
 
 
 

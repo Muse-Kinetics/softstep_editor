@@ -94,20 +94,22 @@ void Setlist::slotShowSetlist()
 
 void Setlist::slotCompileSetlist()
 {
+    //Clears the setlist read from json
     setlist.clear();
 
-    //Iterate through menus and reset setlist
+    //Iterate through the setlist window's menus
     for(int i = 0; i < menus.size(); i++)
     {
-        //setlist.append(menus.at(i)->currentText());
+        //Compiles setlist from contents of setlist window menus
+        setlist.insert(QString("%1").arg(i), menus.at(i)->currentText());
     }
 
-    qDebug() << setlist;
+    slotWriteSetlist();
 }
 
 void Setlist::slotPopulateMenus(QComboBox* presetMenu)
 {
-    qDebug() << "populate menus";
+    qDebug() << "populate setlist menus";
     repopulating = true;
 
     //Iterate through menus
@@ -128,7 +130,7 @@ void Setlist::slotPopulateMenus(QComboBox* presetMenu)
     repopulating = false;
 }
 
-void Setlist::slotRefreshSetlist(QComboBox* presetMenu)
+void Setlist::slotRefreshSetlistMenus(QComboBox* presetMenu)
 {
     qDebug() << "refresh setlist";
 
@@ -137,20 +139,9 @@ void Setlist::slotRefreshSetlist(QComboBox* presetMenu)
     //Iterate through setlist to reset menus after a new preset has been added/deleted
     for(int i = 0; i < setlist.size(); i++)
     {
-        //qDebug() << setlist.at(i) << presetMenu->findText(setlist.at(i));
+        qDebug() << setlist.value(QString("%1").arg(i)).toString() << presetMenu->findText(setlist.value(QString("%1").arg(i)).toString());
 
-        //menus.at(i)->setCurrentIndex(presetMenu->findText(setlist.at(i)) + 1); //offset because presetlist has no empty
-
-        /*//If text of menu not found in preset menu
-        if(presetMenu->findText(setlist.at(i)) == -1)
-        {
-            //Set it to empty
-            menus.at(i)->setCurrentIndex(0);
-        }
-        else
-        {
-
-        }*/
+        menus.at(i)->setCurrentIndex(presetMenu->findText(setlist.value(QString("%1").arg(i)).toString()) + 1); //offset because presetlist has no empty
     }
 
     repopulating = false;
@@ -161,12 +152,12 @@ void Setlist::slotRefreshSetlist(QComboBox* presetMenu)
 
 void Setlist::slotSetMode(QString m)
 {
-    //Write setlist in whatever mode we're currently in
-    slotWriteSetlist();
-
     //Update mode and setlist file path
     mode = m;
+}
 
+void Setlist::slotUpdateJSONPath()
+{
     jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
 
 #if defined(Q_OS_MAC) && !defined(QT_DEBUG)
@@ -190,9 +181,6 @@ void Setlist::slotSetMode(QString m)
         jsonPath = QString("./presets/setlist.json");
     }
 #endif
-
-    //Read setlist in new mode
-    slotReadSetlist();
 }
 
 void Setlist::slotReadSetlist()

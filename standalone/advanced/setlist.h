@@ -36,8 +36,6 @@ public:
     QFile *jsonFile;
     bool ok;
 
-
-
     bool eventFilter(QObject *obj, QEvent *event);
     //void mouseReleaseEvent(QMouseEvent* e);
     //void mousePressEvent(QMouseEvent* e);
@@ -53,9 +51,10 @@ public slots:
     void slotShowSetlist();
     void slotPopulateMenus(QComboBox *presetMenu);
     void slotCompileSetlist();
-    void slotRefreshSetlist(QComboBox* presetMenu);
+    void slotRefreshSetlistMenus(QComboBox* presetMenu);
 
     void slotSetMode(QString m);
+    void slotUpdateJSONPath();
     void slotReadSetlist();
     void slotWriteSetlist();
 

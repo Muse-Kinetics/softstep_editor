@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("SoftStep Advanced Editor");
     this->setFixedSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
 
-
+    //Populates source and dest lists for modes
     slotPopulateSourceDestLists();
 
     //Construct Key Windows
@@ -66,9 +66,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //Connect Settings Window Stuff
     settingsWindow->slotConnectElements();
 
-    presetInterface->slotPopulatePresetMenu(ui->presetmenu);
-    presetInterface->slotPopulateSetlistMenus();
-    presetInterface->slotRecallPreset(1);
+    slotSetMode();
+
+    //presetInterface->slotPopulatePresetMenu(ui->presetmenu);
+    //presetInterface->slotRecallPreset(1);
     //presetInterface->slotRecallGlobal();
 
 #ifdef Q_OS_MAC
@@ -247,30 +248,6 @@ void MainWindow::slotInitMenuBar()
 
     menubar->addMenu(hardware);
 
-
-    //-------------------------------------------------------------------------- Mode
-    QMenu* mode = new QMenu("Mode");
-    qDebug() << edit;
-    edit->setObjectName("Mode");
-    menubar->addMenu(edit);
-
-    //Hosted
-    QAction* hosted = new QAction("Hosted", mode);
-    actionList.append(hosted);
-    hosted->setObjectName("hosted");
-    mode->addAction(hosted);
-    connect(hosted, SIGNAL(triggered()), this, SLOT(slotSetMode()));
-
-    //Standalone
-    QAction* standalone = new QAction("Standalone", mode);
-    actionList.append(standalone);
-    standalone->setObjectName("standalone");
-    mode->addAction(standalone);
-    connect(standalone, SIGNAL(triggered()), this, SLOT(slotSetMode()));
-
-    menubar->addMenu(mode);
-
-
     //-------------------------------------------------------------------------- Help
     QMenu* help = new QMenu("Help");
     help->setObjectName("HelpMenu");
@@ -324,7 +301,7 @@ void MainWindow::slotPopulatePresetMenu()
 {
     qDebug() << "add preset";
     presetInterface->slotPopulatePresetMenu(ui->presetmenu);
-    setlist->slotRefreshSetlist(ui->presetmenu);
+    setlist->slotRefreshSetlistMenus(ui->presetmenu);
 }
 
 void MainWindow::slotDisplaySaveState(bool dirty)
@@ -341,6 +318,7 @@ void MainWindow::slotDisplaySaveState(bool dirty)
 
 void MainWindow::slotSetMode()
 {
+    //Check mode
     if(ui->mode->isChecked())
     {
         mode = "hosted";
@@ -349,12 +327,6 @@ void MainWindow::slotSetMode()
     {
         mode = "standalone";
     }
-
-    //Setlist
-    setlist->slotSetMode(mode);
-
-    //Preset Iterface
-    presetInterface->slotSetMode(mode);
 
     //Keys and Modlines
     for(int i = 0; i < 10; i++)
@@ -378,6 +350,20 @@ void MainWindow::slotSetMode()
             key[i]->modline[j]->slotConnectElements();
         }
     }
+
+    //Preset Iterface
+    presetInterface->slotSetMode(mode);
+    presetInterface->slotUpdateJSONPath();
+    presetInterface->slotReadJSON();
+    presetInterface->slotPopulatePresetMenu(ui->presetmenu);
+
+    //Setlist
+    setlist->slotSetMode(mode);
+    setlist->slotPopulateMenus(ui->presetmenu);
+    setlist->slotUpdateJSONPath();
+    setlist->slotReadSetlist();
+    setlist->slotRefreshSetlistMenus(ui->presetmenu);
+    setlist->slotCompileSetlist();
 
     //Will reload JSON here
 }

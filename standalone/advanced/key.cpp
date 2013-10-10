@@ -138,6 +138,6 @@ void Key::slotSetMode(QString mode)
     //Construct Modlines
     for(int i = 0; i < 6; i++)
     {
-        modline[i]->slotSetMode(mode);
+        //modline[i]->slotSetMode(mode);
     }
 }

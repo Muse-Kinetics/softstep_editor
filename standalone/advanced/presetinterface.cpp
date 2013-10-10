@@ -8,6 +8,15 @@ PresetInterface::PresetInterface(QWidget *parent) :
 {
     settings = new QSettings(this);
 
+
+    //slotSetJSONPath();
+    //slotReadJSON();
+
+    //writeDefualtJSON();
+}
+
+void PresetInterface::slotUpdateJSONPath()
+{
     jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
 
 #if defined(Q_OS_MAC) && !defined(QT_DEBUG)
@@ -24,7 +33,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
 #else
     if(mode == "hosted")
     {
-        jsonPath = QString("./presets/softstepadvanced.json");
+        jsonPath = QString("./presets/hosted_softstepadvanced.json");
     }
     else
     {
@@ -32,10 +41,6 @@ PresetInterface::PresetInterface(QWidget *parent) :
     }
 
 #endif
-
-    slotReadJSON();
-
-    //writeDefualtJSON();
 }
 
 void PresetInterface::slotPopulatePresetMenu(QComboBox* presetMenu)

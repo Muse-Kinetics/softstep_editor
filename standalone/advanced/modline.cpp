@@ -535,11 +535,6 @@ void Modline::slotRawResult()
     //qDebug() << "initialize result value";
 }
 
-void Modline::slotSetMode(QString mode)
-{
-
-}
-
 void Modline::slotSetMenus(QStringList source, QStringList dest, QStringList table)
 {
     //Set Source Menu
