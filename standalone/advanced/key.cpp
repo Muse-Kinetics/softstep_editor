@@ -25,12 +25,15 @@
 Key::Key(QWidget *parent, int keyInstanceNum) :
     QWidget(parent),
     keyBoxForm(new Ui::keyBoxForm),
-    keyWindowForm(new Ui::keyWindowForm)
+    keyWindowForm(new Ui::keyWindowForm),
+    dataCooker(keyInstanceNum, this),
+    keyWindowWidget(new QWidget()),
+    keyBoxWidget(new QWidget(this))
 {
     keyInstance = keyInstanceNum;
 
     //Set up the Key Box
-    keyBoxWidget = new QWidget(this);
+    //keyBoxWidget = new QWidget(this);
     keyBoxForm->setupUi(keyBoxWidget);
     keyBoxWidget->setFixedSize(KEYBOX_WIDTH, KEYBOX_HEIGHT);
 
@@ -45,19 +48,16 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
 
 
     //Set up the Key Window
-    keyWindowWidget = new QWidget();
+    //keyWindowWidget = new QWidget();
     keyWindowForm->setupUi(keyWindowWidget);
     keyWindowWidget->setFixedSize(KEYWINDOW_WIDTH, KEYWINDOW_HEIGHT);
     keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg(keyInstance+1));
-
 
     //What's in the Key Box?
     keyBoxForm->keyInstanceLabel->setText(QString("%1").arg((keyInstance + 1)%10));
 
     connect(keyBoxForm->openWindow,SIGNAL(clicked()), this, SLOT(slotOpenWindow()));
 
-
-    //What's in the Key Window?
 
     //Construct Modlines
     for(int i = 0; i < 6; i++)
@@ -81,7 +81,6 @@ void Key::slotConnectElements()
 {
     //key name (from the keyBoxForm)
     connect(keyBoxForm->keyName,SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
-
 
     //key counter stuff
     connect(keyWindowForm->counterMin,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
@@ -132,4 +131,13 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
     keyWindowForm->counterMin->setValue(preset.value(QString("%1_key_counter_min").arg(keyInstance+1)).toInt());
     keyWindowForm->counterMax->setValue(preset.value(QString("%1_key_counter_max").arg(keyInstance+1)).toInt());
     keyWindowForm->counterWrap->setChecked(preset.value(QString("%1_key_counter_wrap").arg(keyInstance+1)).toBool());
+}
+
+void Key::slotSetMode(QString mode)
+{
+    //Construct Modlines
+    for(int i = 0; i < 6; i++)
+    {
+        modline[i]->slotSetMode(mode);
+    }
 }

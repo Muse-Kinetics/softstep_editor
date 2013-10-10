@@ -20,6 +20,8 @@
 #include "ui_saveAsForm.h"
 #include "ui_deletePresetForm.h"
 
+#include "hosted/midiparse.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -34,11 +36,21 @@ public:
 
     PresetInterface* presetInterface;
     MidiDeviceManager* midiDeviceManager;
+    MidiParse* midiParse;
+
+    //--------------------------------- Mode Switching
+    QString mode;
+
+    QStringList standaloneDestinations;
+    QStringList standaloneSources;
+    QStringList standaloneTables;
+    QStringList hostedDestinations;
+    QStringList hostedSources;
+    QStringList hostedTables;
 
     //Dialogs
     QWidget* saveAsDialogWidget;
     QWidget* deleteDialogWidget;
-
 
     //Menubar
     QMenuBar *menubar;
@@ -52,6 +64,7 @@ public:
 
 signals:
     void signalSaveAs(QString presetName);
+    void signalSetMode(QString mode);
 
 public slots:
     void slotConnectInterfaces();
@@ -62,6 +75,9 @@ public slots:
     void slotSaveAs();
     void slotPopulatePresetMenu();
     void slotDisplaySaveState(bool);
+
+    void slotSetMode();
+    void slotPopulateSourceDestLists();
 
 
 private:

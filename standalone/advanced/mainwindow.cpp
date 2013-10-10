@@ -4,33 +4,32 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-//Main window size constants (magic numbers == bad)
 #define MAINWINDOW_WIDTH 690
 #define MAINWINDOW_HEIGHT 303
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
+    presetInterface(new PresetInterface(this)),
+    midiDeviceManager(new MidiDeviceManager(this)),
+    midiParse(new MidiParse()),
     saveAsDialogForm(new Ui::saveAsDialogForm),
     deleteDialogForm(new Ui::deleteDialogForm)
 
 {
-    presetInterface = new PresetInterface(this);
-    midiDeviceManager = new MidiDeviceManager(this);
-
     //Mainwindow Ui
     ui->setupUi(this);
     this->setWindowTitle("SoftStep Advanced Editor");
     this->setFixedSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
+
+
+    slotPopulateSourceDestLists();
 
     //Construct Key Windows
     for(int i = 0; i < 10; i++)
     {
         key[i] = new Key(this, i);
     }
-
-    //construct Nav Window
-    navKey = new NavKey(this);
 
     //------------------------------------- Dialogs
     //SaveAs
@@ -56,16 +55,15 @@ MainWindow::MainWindow(QWidget *parent) :
         key[i]->slotConnectElements();
     }
 
-    //connect Nav Windows
-    navKey->slotConnectElements();
+    slotInitMenuBar();
 
     //Connect Settings Window Stuff
     settingsWindow->slotConnectElements();
 
     presetInterface->slotPopulatePresetMenu(ui->presetmenu);
-    //presetInterface->slotPopulateSetlistMenus();
+    presetInterface->slotPopulateSetlistMenus();
     presetInterface->slotRecallPreset(1);
-    presetInterface->slotRecallGlobal();
+    //presetInterface->slotRecallGlobal();
 
 #ifdef Q_OS_MAC
     midiDeviceManager->connectSource();
@@ -73,6 +71,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //Attempt to Connect SoftStep
     //mdm->devicePoller->start(1000);
 #endif
+
+    midiDeviceManager->slotHostedOnOff(true);
 }
 
 MainWindow::~MainWindow()
@@ -82,8 +82,30 @@ MainWindow::~MainWindow()
 
 void MainWindow::slotConnectInterfaces()
 {
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////// Hosted / Standalone ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //-------------------------------------- Mode Switching
+    for(int k = 0; k < 10; k++)
+    {
+        connect(this, SIGNAL(signalSetMode(QString)), key[k], SLOT(slotSetMode(QString)));
+    }
+
+
+    //-------------------------------------- Hosted MIDI
+    connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)));
+
+    //Midi Parsing to each Key's data cooker
+    for(int k = 0; k < 10; k++)
+    {
+        connect(midiParse, SIGNAL(signalUpdateSensor(int,int)), &key[k]->dataCooker, SLOT(slotUpdateVals(int,int)));
+    }
+
+
     //Connected Indicator
     connect(midiDeviceManager, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
+
 
     //--------------------------------------- Preset Recall
 
@@ -99,11 +121,7 @@ void MainWindow::slotConnectInterfaces()
         }
     }
 
-    /*//Nav Pad
-    for(int i = 0; i < 6; i++)
-    {
-        connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), navKey->navModline[i], SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
-    }*/
+    //Nav Pad
 
     //Settings
     connect(presetInterface, SIGNAL(signalRecallGlobal(QVariantMap,QVariantMap)),settingsWindow,SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
@@ -130,13 +148,6 @@ void MainWindow::slotConnectInterfaces()
     }
 
     //Nav Pad
-    /*for(int i = 0; i < 6; i++)
-    {
-        connect(navKey->navModline[i], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
-
-        //save state
-        //connect(navKey->navModline[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
-    }*/
 
     //Settings
     connect(ui->opensettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));
@@ -215,12 +226,30 @@ void MainWindow::slotInitMenuBar()
     actionList.append(updatefw);
     hardware->addAction(updatefw);
 
-    //Settings
-    QAction* settings = new QAction("Update/Reload Firmware...", hardware);
-    actionList.append(settings);
-    hardware->addAction(settings);
-
     menubar->addMenu(hardware);
+
+
+    //-------------------------------------------------------------------------- Mode
+    QMenu* mode = new QMenu("Mode");
+    qDebug() << edit;
+    edit->setObjectName("Mode");
+    menubar->addMenu(edit);
+
+    //Hosted
+    QAction* hosted = new QAction("Hosted", mode);
+    actionList.append(hosted);
+    hosted->setObjectName("hosted");
+    mode->addAction(hosted);
+    connect(hosted, SIGNAL(triggered()), this, SLOT(slotSetMode()));
+
+    //Standalone
+    QAction* standalone = new QAction("Standalone", mode);
+    actionList.append(standalone);
+    standalone->setObjectName("standalone");
+    mode->addAction(standalone);
+    connect(standalone, SIGNAL(triggered()), this, SLOT(slotSetMode()));
+
+    menubar->addMenu(mode);
 
 
     //-------------------------------------------------------------------------- Help
@@ -283,10 +312,225 @@ void MainWindow::slotDisplaySaveState(bool dirty)
 {
     if(dirty)
     {
-        qDebug() << "the preset is dirty";
+        //qDebug() << "the preset is dirty";
     }
     else
     {
-        qDebug() << "the preset is no longer dirty";
+        //qDebug() << "the preset is no longer dirty";
     }
+}
+
+void MainWindow::slotSetMode()
+{
+    mode = QObject::sender()->objectName();
+
+    //Preset Iterface
+    presetInterface->slotSetMode(mode);
+
+    //Keys and Modlines
+    for(int i = 0; i < 10; i++)
+    {
+        key[i]->slotSetMode(mode);
+
+        for(int j = 0; j < 6; j++)
+        {
+            key[i]->modline[j]->slotDisconnectElements();
+
+            if(mode == "hosted")
+            {
+
+                key[i]->modline[j]->slotSetMenus(hostedSources, hostedDestinations, hostedTables);
+            }
+            else
+            {
+                key[i]->modline[j]->slotSetMenus(standaloneSources, standaloneDestinations, standaloneTables);
+            }
+
+            key[i]->modline[j]->slotConnectElements();
+        }
+    }
+
+    //Will reload JSON here
+}
+
+void MainWindow::slotPopulateSourceDestLists()
+{
+    //--------- Destinations
+    //Standalone
+    standaloneDestinations.append("None");
+    standaloneDestinations.append("Note Set");
+    standaloneDestinations.append("Note Live");
+    standaloneDestinations.append("CC");
+    standaloneDestinations.append("Bank");
+    standaloneDestinations.append("Program");
+    standaloneDestinations.append("Pitch Bend");
+    standaloneDestinations.append("MMC");
+
+    //Hosted
+    hostedDestinations.append("None");
+    hostedDestinations.append("Note Set");
+    hostedDestinations.append("Note Live");
+    hostedDestinations.append("CC");
+    hostedDestinations.append("Bank");
+    hostedDestinations.append("Program");
+    hostedDestinations.append("Pitch Bend");
+    hostedDestinations.append("MMC");
+    hostedDestinations.append("OSC");
+    hostedDestinations.append("Aftertouch");
+    hostedDestinations.append("Poly Aftertouch");
+    hostedDestinations.append("GarageBand");
+    hostedDestinations.append("HUI");
+    hostedDestinations.append("Y Inc Set");
+    hostedDestinations.append("X Inc Set");
+
+    //--------- Sources
+    //Standalone
+    standaloneSources.append("None");
+
+    standaloneSources.append("Pressure Live");
+    standaloneSources.append("X Live");
+    standaloneSources.append("Y Live");
+
+    standaloneSources.append("Pressure Latch");
+    standaloneSources.append("X Latch");
+    standaloneSources.append("Y Latch");
+
+    standaloneSources.append("X Increment");
+    standaloneSources.append("Y Increment");
+
+    standaloneSources.append("Foot On");
+    standaloneSources.append("Foot Off");
+    standaloneSources.append("Dbl Trig");
+    standaloneSources.append("Long Trig");
+
+    standaloneSources.append("Pedal");
+    standaloneSources.append("Init");
+
+    standaloneSources.append("Nav Yx10 & Key");
+
+    standaloneSources.append("Any Key Value");
+    standaloneSources.append("This Key Value");
+    standaloneSources.append("Prev Key Value");
+
+    standaloneSources.append("Key 1 Pressed");
+    standaloneSources.append("Key 2 Pressed");
+    standaloneSources.append("Key 3 Pressed");
+    standaloneSources.append("Key 4 Pressed");
+    standaloneSources.append("Key 5 Pressed");
+    standaloneSources.append("Key 6 Pressed");
+    standaloneSources.append("Key 7 Pressed");
+    standaloneSources.append("Key 8 Pressed");
+    standaloneSources.append("Key 9 Pressed");
+    standaloneSources.append("Key 0 Pressed");
+
+    standaloneSources.append("Modline 1 Output");
+    standaloneSources.append("Modline 2 Output");
+    standaloneSources.append("Modline 3 Output");
+    standaloneSources.append("Modline 4 Output");
+    standaloneSources.append("Modline 5 Output");
+    standaloneSources.append("Modline 6 Output");
+
+    //Hosted
+    hostedSources.append("None");
+
+    hostedSources.append("Pressure Live");
+    hostedSources.append("X Live");
+    hostedSources.append("Y Live");
+
+    hostedSources.append("Pressure Latch");
+    hostedSources.append("X Latch");
+    hostedSources.append("Y Latch");
+
+    hostedSources.append("X Increment");
+    hostedSources.append("Y Increment");
+
+    hostedSources.append("Foot On");
+    hostedSources.append("Foot Off");
+
+    hostedSources.append("Top");
+    hostedSources.append("Bottom");
+
+    hostedSources.append("Wait Trig");
+    hostedSources.append("Fast Trig");
+    hostedSources.append("Dbl Trig");
+    hostedSources.append("Long Trig");
+    hostedSources.append("Off Trig");
+    hostedSources.append("Delta Trig");
+
+    hostedSources.append("Wait Trig Latch");
+    hostedSources.append("Fast Trig Latch");
+    hostedSources.append("Dbl Trig Latch");
+    hostedSources.append("Long Trig Latch");
+
+    hostedSources.append("Pedal");
+
+    hostedSources.append("Nav Y");
+    hostedSources.append("Nav Yx10 & Key");
+
+    hostedSources.append("Any Key Value");
+    hostedSources.append("This Key Value");
+    hostedSources.append("Prev Key Value");
+
+    hostedSources.append("Key 1 Pressed");
+    hostedSources.append("Key 2 Pressed");
+    hostedSources.append("Key 3 Pressed");
+    hostedSources.append("Key 4 Pressed");
+    hostedSources.append("Key 5 Pressed");
+    hostedSources.append("Key 6 Pressed");
+    hostedSources.append("Key 7 Pressed");
+    hostedSources.append("Key 8 Pressed");
+    hostedSources.append("Key 9 Pressed");
+    hostedSources.append("Key 0 Pressed");
+    hostedSources.append("Other Key Pressed");
+
+    hostedSources.append("Modline 1 Output");
+    hostedSources.append("Modline 2 Output");
+    hostedSources.append("Modline 3 Output");
+    hostedSources.append("Modline 4 Output");
+    hostedSources.append("Modline 5 Output");
+    hostedSources.append("Modline 6 Output");
+
+    hostedSources.append("MIDI A");
+    hostedSources.append("MIDI B");
+    hostedSources.append("MIDI C");
+    hostedSources.append("MIDI D");
+    hostedSources.append("MIDI E");
+    hostedSources.append("MIDI F");
+    hostedSources.append("MIDI G");
+    hostedSources.append("MIDI H");
+
+    hostedSources.append("OSC A");
+    hostedSources.append("OSC B");
+    hostedSources.append("OSC C");
+    hostedSources.append("OSC D");
+    hostedSources.append("OSC E");
+    hostedSources.append("OSC F");
+    hostedSources.append("OSC G");
+    hostedSources.append("OSC H");
+
+    //--------- Tables
+    //Standalone
+    standaloneTables.append("Linear");
+    standaloneTables.append("Sine");
+    standaloneTables.append("Cosine");
+    standaloneTables.append("Exponential");
+    standaloneTables.append("Logarithmic");
+
+    standaloneTables.append("Toggle");
+    standaloneTables.append("Toggle 127");
+
+
+    //Hosted
+    hostedTables.append("Linear");
+    hostedTables.append("Sine");
+    hostedTables.append("Cosine");
+    hostedTables.append("Exponential");
+    hostedTables.append("Logarithmic");
+
+    hostedTables.append("Toggle");
+    hostedTables.append("Toggle 127s");
+
+    hostedTables.append("Counter Inc");
+    hostedTables.append("Counter Dec");
+    hostedTables.append("Counter Set");
 }

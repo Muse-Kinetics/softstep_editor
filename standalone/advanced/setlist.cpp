@@ -5,15 +5,15 @@
 
 Setlist::Setlist(QWidget *parent) :
     QWidget(parent),
-    setlistForm(new Ui::setlistForm)
+    setlistForm(new Ui::setlistForm),
+    setlistWidget(new QWidget())
 {
-    setlistWidget = new QWidget();
+    //setlistWidget = new QWidget();
     setlistForm->setupUi(setlistWidget);
 
     slotInitComponents();
 
     repopulating = false;
-
 }
 
 bool Setlist::eventFilter(QObject *obj, QEvent *event)
@@ -155,4 +155,9 @@ void Setlist::slotRefreshSetlist(QComboBox* presetMenu)
 
     //Recompile setlist
     slotCompileSetlist();
+}
+
+void Setlist::slotSetMode(QString m)
+{
+    mode = m;
 }

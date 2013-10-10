@@ -27,6 +27,10 @@ class MidiDeviceManager : public QWidget
 public:
     explicit MidiDeviceManager(QWidget *parent = 0);
 
+    QTimer* sysexFIFOClock;
+    QList<unsigned char*> sysexFIFOsQueue;
+    QString mode;
+
     //SysExEncode*        sysExEncode;
 
     //Application MIDI Variables so out App can rx/tx MIDI
@@ -35,7 +39,6 @@ public:
     MIDIPortRef appOutPortRef;
     MIDIEndpointRef appVirtualSourceRef;
     MIDIEndpointRef appVirtualDestRef;
-
 
     char bootloaderVersion[3];
     char firmwareVersion[3];
@@ -84,13 +87,18 @@ signals:
     void signalProcessFwQueryReply(QByteArray);
     void signalConnected(bool);
     void signalFwBytesLeft(int);
+
+    void hosted_signalParsePacket(const MIDIPacket*);
     
 public slots:
-    void slotRequestFirmwareUpdate();
     void slotUpdateFirmware();
-    void slotEnterBootloader();
     void slotSendSysEx(QString messageID, unsigned char* bytes, int len, QString destinationName);
     void slotProcessSysEx(QByteArray sysExMessageByteArray);
+
+    void slotHostedOnOff(bool onOff);
+    void slotDrainSysexFIFO();
+
+    void hosted_slotParsePacket(const MIDIPacket* packet);
     
 };
 #else

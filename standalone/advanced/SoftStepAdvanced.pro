@@ -37,8 +37,9 @@ SOURCES +=      main.cpp\
                 mididevicemanager.cpp \
                 stylesheets.cpp \
     setlist.cpp \
-    navmodline.cpp \
-    navkey.cpp
+    hosted/slewer.cpp \
+    hosted/midiparse.cpp \
+    hosted/datacooker.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -61,8 +62,9 @@ HEADERS  +=     mainwindow.h \
                 mididevicemanager.h \
                 stylesheets.h \
     setlist.h \
-    navmodline.h \
-    navkey.h
+    hosted/slewer.h \
+    hosted/midiparse.h \
+    hosted/datacooker.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \
@@ -71,10 +73,7 @@ FORMS    +=     forms/mainwindow.ui \
                 forms/keyBoxForm.ui \
                 forms/setlistForm.ui \
     forms/saveAsForm.ui \
-    forms/deletePresetForm.ui \
-    forms/navModlineForm.ui \
-    forms/navKeyWindowForm.ui \
-    forms/navBoxForm.ui
+    forms/deletePresetForm.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#

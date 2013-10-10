@@ -18,6 +18,8 @@ class PresetInterface : public QWidget
 public:
     explicit PresetInterface(QWidget *parent = 0);
 
+    QString mode;
+
     QVariantMap jsonMasterMap;
     QList<QVariantMap> presetListMaster;
 
@@ -75,6 +77,8 @@ public slots:
     QString slotGetPresetStringFromInt(int);
     void slotOrderPresetsInJson();
     int slotGetNumPresetsInJson();
+
+    void slotSetMode(QString);
 
 
 

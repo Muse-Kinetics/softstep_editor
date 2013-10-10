@@ -12,12 +12,26 @@ PresetInterface::PresetInterface(QWidget *parent) :
 
 #if defined(Q_OS_MAC) && !defined(QT_DEBUG)
     jsonPath.remove(jsonPath.length() - 5, jsonPath.length()); //Remove "MacOS" from path string
-    jsonPath.append("Resources/presets/softstepezpz.json");
+    if(mode == "hosted")
+    {
+        jsonPath.append("Resources/presets/hosted_softstepezpz.json");
+    }
+    else
+    {
+        jsonPath.append("Resources/presets/softstepezpz.json");
+    }
+
 #else
-    jsonPath = QString("./presets/softstepadvanced.json");
+    if(mode == "hosted")
+    {
+        jsonPath = QString("./presets/softstepadvanced.json");
+    }
+    else
+    {
+        jsonPath = QString("./presets/softstepadvanced.json");
+    }
+
 #endif
-
-
 
     slotReadJSON();
 
@@ -77,6 +91,11 @@ QString PresetInterface::slotGetPresetStringFromInt(int i)
     }
 
     return QString();
+}
+
+void PresetInterface::slotSetMode(QString m)
+{
+    mode = m;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -224,7 +243,7 @@ void PresetInterface::slotCheckSaveState()
         if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) !=
                 jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)))
         {
-            qDebug() << "--------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
+            //qDebug() << "--------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
             dirty = true;
         }
     }

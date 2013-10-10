@@ -13,6 +13,8 @@
 #include "ui_keyWindowForm.h"
 #include "ui_keyBoxForm.h"
 
+#include "hosted/datacooker.h"
+
 class Key : public QWidget
 {
     Q_OBJECT
@@ -26,6 +28,9 @@ public:
 
     //Ui Elements
     Modline *modline[6];
+
+    //------------------ Hosted ------------------//
+    DataCooker dataCooker;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
@@ -36,6 +41,8 @@ public slots:
     void slotConnectElements();
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
+
+    void slotSetMode(QString mode);
 
 private:
     Ui::keyBoxForm *keyBoxForm;

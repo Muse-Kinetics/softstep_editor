@@ -15,11 +15,15 @@ class Setlist : public QWidget
 public:
     explicit Setlist(QWidget *parent = 0);
 
+    QString mode;
+
     QWidget* setlistWidget;
     
     QList<QComboBox *> menus;
     QList<QCheckBox *> checkBoxes;
-    QStringList setlist;
+
+    QStringList standaloneSetlist;
+    QStringList hostedSetlist;
 
     bool eventFilter(QObject *obj, QEvent *event);
     //void mouseReleaseEvent(QMouseEvent* e);
@@ -37,6 +41,8 @@ public slots:
     void slotPopulateMenus(QComboBox *presetMenu);
     void slotCompileSetlist();
     void slotRefreshSetlist(QComboBox* presetMenu);
+
+    void slotSetMode(QString m);
 
 
 private:

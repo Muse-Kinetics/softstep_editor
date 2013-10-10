@@ -16,7 +16,7 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     keySensorBaseCcMap[7] = 48;
     keySensorBaseCcMap[8] = 56;
     keySensorBaseCcMap[9] = 64;
-    keySensorBaseCcMap[10] = 72;
+    keySensorBaseCcMap[0] = 72;
 
     keyNum = instanceNum;
 
@@ -48,7 +48,7 @@ void DataCooker::slotUpdateVals(int cc, int val)
             sensorVals[SE] = val;
         }
 
-        //qDebug() << "Key" << keyNum << "Sensor Vals" << sensorVals[NW] << sensorVals[NE] << sensorVals[SW] << sensorVals[SE];
+        qDebug() << "Key" << keyNum << "Sensor Vals" << sensorVals[NW] << sensorVals[NE] << sensorVals[SW] << sensorVals[SE];
 
         cook();
     }

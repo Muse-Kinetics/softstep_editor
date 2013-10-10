@@ -10,6 +10,7 @@
 #include <QVariant>
 
 #include "ui_modlineForm.h"
+#include "ui_modlineForm_hosted.h"
 #include "stylesheets.h"
 
 class Modline : public QWidget
@@ -20,6 +21,9 @@ public:
 
     StyleSheets stylesheets;
 
+    QWidget* formWidget;
+    QWidget* hosted_formWidget;
+
     int keyInstance;
     int modlineInstance;
     
@@ -29,12 +33,18 @@ signals:
     
 public slots:
     void slotConnectElements();
+    void slotDisconnectElements();
+
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
     void slotRawResult();
 
+    void slotSetMode(QString mode);
+    void slotSetMenus(QStringList source, QStringList dest, QStringList table);
+
 private:
-    Ui::modlineForm modlineForm;
+    Ui::modlineForm* modlineForm;
+    Ui::modlineForm_hosted* hosted_modlineForm;
 };
 
 #endif // MODLINE_H

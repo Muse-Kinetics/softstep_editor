@@ -15,35 +15,13 @@ void virtualIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, vo
 MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     QWidget(parent)
 {
+    mode = "standalone";
+
+    sysexFIFOClock = new QTimer(this);
+    connect(sysexFIFOClock, SIGNAL(timeout()), this, SLOT(slotDrainSysexFIFO()));
+
     fwUpdateRequested = false;
-
-    //------------------------------------- Set Version Expectations & Initialize Found Strings
-    bootloaderVersion[0] = 0x01;
-    bootloaderVersion[1] = 0x00;
-    bootloaderVersion[2] = 0x00;
-
-    firmwareVersion[0] = 0x01;
-    firmwareVersion[1] = 0x00;
-    firmwareVersion[2] = 0x01;
-
-    versionSum = 0;
-
-    foundBootloaderVersion = QString("Found Bootloader Version: Not Connected\n");
-
-    foundFirmwwareVersion = QString("Found Firmware Version: Not Connected\n");
-
-    expectedBootloaderVersion = QString("Expected Bootloader Version: %1.%2.%3\n")
-            .arg(int(bootloaderVersion[0]))
-            .arg(int(bootloaderVersion[1]))
-            .arg(int(bootloaderVersion[2]));
-
-    expectedFirmwareVersion = QString("Expected Firmware Version: %1.%2.%3\n")
-            .arg(int(firmwareVersion[0]))
-            .arg(int(firmwareVersion[1]))
-            .arg(int(firmwareVersion[2]));
-
     callbackClassPointer = this;
-
     createAppMidiClient();
 }
 
@@ -74,10 +52,6 @@ bool MidiDeviceManager::connectSource()
     }
     else
     {
-        foundBootloaderVersion = QString("Found Bootloader Version: Not Connected\n");
-        foundFirmwwareVersion = QString("Found Firmware Version: Not Connected\n");
-
-        //qDebug() << "Matching Source: " << sourceName << " NOT Found!";
         emit signalConnected(false);
         return false;
     }
@@ -111,41 +85,32 @@ int MidiDeviceManager::getDestination()
     return -1;
 }
 
-void MidiDeviceManager::slotRequestFirmwareUpdate()
+void MidiDeviceManager::slotHostedOnOff(bool onOff)
 {
-
-    fwUpdateRequested = true;
-
-    if(inBootloader)
+    if(!onOff)
     {
-        qDebug() << "Update Firmware Called from slot requested";
-        slotUpdateFirmware();
+        mode = "standalone";
+
+        sysexFIFOClock->stop();
+        sysexFIFOsQueue.clear();
+        sysexFIFOsQueue.append(_fw_tether_off);
+        sysexFIFOsQueue.append(_fw_standalone_on);
+        sysexFIFOsQueue.append(_fw_scenechange_on_persist);
+        sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
+        sysexFIFOClock->start(100);
     }
     else
     {
-        char sens[17] = { 0xF0 , 0x00 , 0x01 , 0x5F , 0x7A , 0x19 , 0x00 , 0x01 , 0x00 , 0x02 , 0x50 , 0x01 , 0x74 , 0x3E , 0x00 , 0x10 , 0xF7};
-        QByteArray sensitivitiesBA = QByteArray(sens, 17);
+        mode = "hosted";
 
-        qDebug() << "enter bootloader called from firmware request" << "zero" << (int)firmwareVersion[0] << "two" << (int)firmwareVersion[2];
-
-        if(versionSum >= 101)
-        {
-            //slotSendSysEx("RequestPerKeySensitivities", sensitivitiesBA, "QuNexus Port 1");
-        }
-        else
-        {
-            slotEnterBootloader();
-        }
+        sysexFIFOClock->stop();
+        sysexFIFOsQueue.clear();
+        sysexFIFOsQueue.append(_fw_tether_on);
+        sysexFIFOsQueue.append(_fw_standalone_off);
+        sysexFIFOsQueue.append(_fw_scenechange_off_persist);
+        sysexFIFOsQueue.append(_fw_nav_standalone_off_persist);
+        sysexFIFOClock->start(100);
     }
-}
-
-void MidiDeviceManager::slotEnterBootloader()
-{
-    //-------------- Enter Bootloader ---------------//
-    char bytes[] = {0xF0, 0x00, 0x01, 0x5F, 0x7A, 0x19, 0x00, 0x01,  0x00, 0x02, 0x11, 0x00, 0x5A, 0x62, 0x00, 0x30, 0xF7};
-    QByteArray byteArray(bytes, 17);
-
-    //slotSendSysEx("Enter Bootloader" , byteArray, "QuNexus Port 1");
 }
 
 void MidiDeviceManager::slotUpdateFirmware()
@@ -188,7 +153,23 @@ QString MidiDeviceManager::cFStringRefToQString(CFStringRef ref)
     return result;
 }
 
-void MidiDeviceManager::slotSendSysEx(QString messageID,unsigned char* bytes, int len, QString destinationName)
+void MidiDeviceManager::slotDrainSysexFIFO()
+{
+    //If anything in list, send the next message
+    if(sysexFIFOsQueue.size())
+    {
+        slotSendSysEx("message", sysexFIFOsQueue.first(), 43, "SSCOM Port 1");
+        sysexFIFOsQueue.removeFirst();
+    }
+
+    //Otherwise stop calling function
+    else
+    {
+        sysexFIFOClock->stop();
+    }
+}
+
+void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char* bytes, int len, QString destinationName)
 {
     if(int dest = getDestination())
     {
@@ -255,6 +236,11 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
         //emit signalFirmwareOutOfDate(expectedBootloaderVersion,foundBootloaderVersion,expectedFirmwareVersion,foundFirmwwareVersion);
         emit signalProcessFwQueryReply(sysExMessageByteArray);
     }
+}
+
+void MidiDeviceManager::hosted_slotParsePacket(const MIDIPacket * packet)
+{
+    emit hosted_signalParsePacket(packet);
 }
 
 
@@ -328,6 +314,11 @@ void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *src
             else if(packet->data[j] != 247)
             {
                 //qDebug() << "MIDI Channel Event: " << packet->data[j];
+                if(callbackClassPointer->mode == "hosted")
+                {
+                    callbackClassPointer->hosted_slotParsePacket(packet);
+                    break;
+                }
             }
         }
 
