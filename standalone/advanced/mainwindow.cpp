@@ -70,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //presetInterface->slotPopulatePresetMenu(ui->presetmenu);
     //presetInterface->slotRecallPreset(1);
-    //presetInterface->slotRecallGlobal();
+    presetInterface->slotRecallGlobal();
 
 #ifdef Q_OS_MAC
     midiDeviceManager->connectSource();
@@ -166,7 +166,7 @@ void MainWindow::slotConnectInterfaces()
         connect(navKey->navModline[i], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
 
         //save state
-        //connect(navKey->navModline[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
+        connect(navKey->navModline[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
     }
 
     //Settings
@@ -308,11 +308,11 @@ void MainWindow::slotDisplaySaveState(bool dirty)
 {
     if(dirty)
     {
-        //qDebug() << "the preset is dirty";
+        qDebug() << "the preset is dirty";
     }
     else
     {
-        //qDebug() << "the preset is no longer dirty";
+        qDebug() << "the preset is no longer dirty";
     }
 }
 

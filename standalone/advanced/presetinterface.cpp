@@ -254,6 +254,7 @@ void PresetInterface::slotCheckSaveState()
     }
 
     emit signalPresetDirty(dirty);
+    //qDebug() << "check nav pad save state";
 
 }
 
@@ -2056,124 +2057,148 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["nav_counter_wrap"] = 1;
 
     //------ Modline 1 ------//
-    defaultPresetMap["nav_modline1_enable"] = 0.00;
+    defaultPresetMap["nav_modline1_enable"] = 0;
+    defaultPresetMap["nav_modline1_initvalue"] = 0;
+    defaultPresetMap["nav_modline1_initmode"] = "None";
     defaultPresetMap["nav_modline1_source"] = "None";
-    defaultPresetMap["nav_modline1_gain"] = 0.00;
+    defaultPresetMap["nav_modline1_gain"] = 1.00;
     defaultPresetMap["nav_modline1_offset"] = 0;
     defaultPresetMap["nav_modline1_table"] = "Lin";
     defaultPresetMap["nav_modline1_min"] = 0;
     defaultPresetMap["nav_modline1_max"] = 127;
     defaultPresetMap["nav_modline1_slew"] = 0;
+    defaultPresetMap["nav_modline1_delay"] = 0;
     defaultPresetMap["nav_modline1_destination"] = "None";
     defaultPresetMap["nav_modline1_note"] = 60;
     defaultPresetMap["nav_modline1_velocity"] = 127;
     defaultPresetMap["nav_modline1_cc"] = 1;
+    defaultPresetMap["nav_modline1_bankmsb"] = 0;
     defaultPresetMap["nav_modline1_mmcid"] = 0;
     defaultPresetMap["nav_modline1_mmcfunction"] = "Stop";
-    defaultPresetMap["nav_modline1_channel"] = 0;
+    defaultPresetMap["nav_modline1_channel"] = 1;
     defaultPresetMap["nav_modline1_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline1_oscroute"] = "";
     defaultPresetMap["nav_modline1_displaylinked"] = 0;
-    defaultPresetMap["nav_modline1_reminder"] = "";
 
     //------ Modline 2 ------//
-    defaultPresetMap["nav_modline2_enable"] = 0.00;
+    defaultPresetMap["nav_modline2_enable"] = 0;
+    defaultPresetMap["nav_modline2_initvalue"] = 0;
+    defaultPresetMap["nav_modline2_initmode"] = "None";
     defaultPresetMap["nav_modline2_source"] = "None";
-    defaultPresetMap["nav_modline2_gain"] = 0.00;
+    defaultPresetMap["nav_modline2_gain"] = 1.00;
     defaultPresetMap["nav_modline2_offset"] = 0;
     defaultPresetMap["nav_modline2_table"] = "Lin";
     defaultPresetMap["nav_modline2_min"] = 0;
     defaultPresetMap["nav_modline2_max"] = 127;
     defaultPresetMap["nav_modline2_slew"] = 0;
+    defaultPresetMap["nav_modline2_delay"] = 0;
     defaultPresetMap["nav_modline2_destination"] = "None";
     defaultPresetMap["nav_modline2_note"] = 60;
     defaultPresetMap["nav_modline2_velocity"] = 127;
     defaultPresetMap["nav_modline2_cc"] = 1;
+    defaultPresetMap["nav_modline2_bankmsb"] = 0;
     defaultPresetMap["nav_modline2_mmcid"] = 0;
     defaultPresetMap["nav_modline2_mmcfunction"] = "Stop";
-    defaultPresetMap["nav_modline2_channel"] = 0;
+    defaultPresetMap["nav_modline2_channel"] = 1;
     defaultPresetMap["nav_modline2_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline2_oscroute"] = "";
     defaultPresetMap["nav_modline2_displaylinked"] = 0;
-    defaultPresetMap["nav_modline2_reminder"] = "";
 
     //------ Modline 3 ------//
-    defaultPresetMap["nav_modline3_enable"] = 0.00;
+    defaultPresetMap["nav_modline3_enable"] = 0;
+    defaultPresetMap["nav_modline3_initvalue"] = 0;
+    defaultPresetMap["nav_modline3_initmode"] = "None";
     defaultPresetMap["nav_modline3_source"] = "None";
-    defaultPresetMap["nav_modline3_gain"] = 0.00;
+    defaultPresetMap["nav_modline3_gain"] = 1.00;
     defaultPresetMap["nav_modline3_offset"] = 0;
     defaultPresetMap["nav_modline3_table"] = "Lin";
     defaultPresetMap["nav_modline3_min"] = 0;
     defaultPresetMap["nav_modline3_max"] = 127;
     defaultPresetMap["nav_modline3_slew"] = 0;
+    defaultPresetMap["nav_modline3_delay"] = 0;
     defaultPresetMap["nav_modline3_destination"] = "None";
     defaultPresetMap["nav_modline3_note"] = 60;
     defaultPresetMap["nav_modline3_velocity"] = 127;
     defaultPresetMap["nav_modline3_cc"] = 1;
+    defaultPresetMap["nav_modline3_bankmsb"] = 0;
     defaultPresetMap["nav_modline3_mmcid"] = 0;
     defaultPresetMap["nav_modline3_mmcfunction"] = "Stop";
-    defaultPresetMap["nav_modline3_channel"] = 0;
+    defaultPresetMap["nav_modline3_channel"] = 1;
     defaultPresetMap["nav_modline3_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline3_oscroute"] = "";
     defaultPresetMap["nav_modline3_displaylinked"] = 0;
-    defaultPresetMap["nav_modline3_reminder"] = "";
 
     //------ Modline 4 ------//
-    defaultPresetMap["nav_modline4_enable"] = 0.00;
+    defaultPresetMap["nav_modline4_enable"] = 0;
+    defaultPresetMap["nav_modline4_initvalue"] = 0;
+    defaultPresetMap["nav_modline4_initmode"] = "None";
     defaultPresetMap["nav_modline4_source"] = "None";
-    defaultPresetMap["nav_modline4_gain"] = 0.00;
+    defaultPresetMap["nav_modline4_gain"] = 1.00;
     defaultPresetMap["nav_modline4_offset"] = 0;
     defaultPresetMap["nav_modline4_table"] = "Lin";
     defaultPresetMap["nav_modline4_min"] = 0;
     defaultPresetMap["nav_modline4_max"] = 127;
     defaultPresetMap["nav_modline4_slew"] = 0;
+    defaultPresetMap["nav_modline4_delay"] = 0;
     defaultPresetMap["nav_modline4_destination"] = "None";
     defaultPresetMap["nav_modline4_note"] = 60;
     defaultPresetMap["nav_modline4_velocity"] = 127;
     defaultPresetMap["nav_modline4_cc"] = 1;
+    defaultPresetMap["nav_modline4_bankmsb"] = 0;
     defaultPresetMap["nav_modline4_mmcid"] = 0;
     defaultPresetMap["nav_modline4_mmcfunction"] = "Stop";
-    defaultPresetMap["nav_modline4_channel"] = 0;
+    defaultPresetMap["nav_modline4_channel"] = 1;
     defaultPresetMap["nav_modline4_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline4_oscroute"] = "";
     defaultPresetMap["nav_modline4_displaylinked"] = 0;
-    defaultPresetMap["nav_modline4_reminder"] = "";
 
     //------ Modline 5 ------//
-    defaultPresetMap["nav_modline5_enable"] = 0.00;
+    defaultPresetMap["nav_modline5_enable"] = 0;
+    defaultPresetMap["nav_modline5_initvalue"] = 0;
+    defaultPresetMap["nav_modline5_initmode"] = "None";
     defaultPresetMap["nav_modline5_source"] = "None";
-    defaultPresetMap["nav_modline5_gain"] = 0.00;
+    defaultPresetMap["nav_modline5_gain"] = 1.00;
     defaultPresetMap["nav_modline5_offset"] = 0;
     defaultPresetMap["nav_modline5_table"] = "Lin";
     defaultPresetMap["nav_modline5_min"] = 0;
     defaultPresetMap["nav_modline5_max"] = 127;
     defaultPresetMap["nav_modline5_slew"] = 0;
+    defaultPresetMap["nav_modline5_delay"] = 0;
     defaultPresetMap["nav_modline5_destination"] = "None";
     defaultPresetMap["nav_modline5_note"] = 60;
     defaultPresetMap["nav_modline5_velocity"] = 127;
     defaultPresetMap["nav_modline5_cc"] = 1;
+    defaultPresetMap["nav_modline5_bankmsb"] = 0;
     defaultPresetMap["nav_modline5_mmcid"] = 0;
     defaultPresetMap["nav_modline5_mmcfunction"] = "Stop";
-    defaultPresetMap["nav_modline5_channel"] = 0;
+    defaultPresetMap["nav_modline5_channel"] = 1;
     defaultPresetMap["nav_modline5_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline5_oscroute"] = "";
     defaultPresetMap["nav_modline5_displaylinked"] = 0;
-    defaultPresetMap["nav_modline5_reminder"] = "";
 
     //------ Modline 6 ------//
-    defaultPresetMap["nav_modline6_enable"] = 0.00;
+    defaultPresetMap["nav_modline6_enable"] = 0;
+    defaultPresetMap["nav_modline6_initvalue"] = 0;
+    defaultPresetMap["nav_modline6_initmode"] = "None";
     defaultPresetMap["nav_modline6_source"] = "None";
-    defaultPresetMap["nav_modline6_gain"] = 0.00;
+    defaultPresetMap["nav_modline6_gain"] = 1.00;
     defaultPresetMap["nav_modline6_offset"] = 0;
     defaultPresetMap["nav_modline6_table"] = "Lin";
     defaultPresetMap["nav_modline6_min"] = 0;
     defaultPresetMap["nav_modline6_max"] = 127;
     defaultPresetMap["nav_modline6_slew"] = 0;
+    defaultPresetMap["nav_modline6_delay"] = 0;
     defaultPresetMap["nav_modline6_destination"] = "None";
     defaultPresetMap["nav_modline6_note"] = 60;
     defaultPresetMap["nav_modline6_velocity"] = 127;
     defaultPresetMap["nav_modline6_cc"] = 1;
+    defaultPresetMap["nav_modline6_bankmsb"] = 0;
     defaultPresetMap["nav_modline6_mmcid"] = 0;
     defaultPresetMap["nav_modline6_mmcfunction"] = "Stop";
-    defaultPresetMap["nav_modline6_channel"] = 0;
+    defaultPresetMap["nav_modline6_channel"] = 1;
     defaultPresetMap["nav_modline6_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline6_oscroute"] = "";
     defaultPresetMap["nav_modline6_displaylinked"] = 0;
-    defaultPresetMap["nav_modline6_reminder"] = "";
 }
 
 void PresetInterface::slotConstructGlobalDefaultMap()

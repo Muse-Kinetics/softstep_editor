@@ -22,7 +22,7 @@ public:
     StyleSheets stylesheets;
 
     QWidget* formWidget;
-    QWidget* hosted_formWidget;
+    //QWidget* hosted_formWidget;
 
     int keyInstance;
     int modlineInstance;

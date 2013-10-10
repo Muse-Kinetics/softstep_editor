@@ -20,6 +20,8 @@ public:
 
     StyleSheets stylesheets;
 
+    QWidget* formWidget;
+
     int navInstance;
     
 signals:
@@ -28,12 +30,17 @@ signals:
     
 public slots:
     void slotConnectElements();
+    void slotDisconnectElements();
+
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
     void slotRawResult();
 
+    void slotSetMode(QString mode);
+    void slotSetMenus(QStringList source, QStringList dest, QStringList table);
+
 private:
-    Ui::navModlineForm navModlineForm;
+    Ui::navModlineForm* navModlineForm;
 };
 
 #endif // NAVMODLINE_H

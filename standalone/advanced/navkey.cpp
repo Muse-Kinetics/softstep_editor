@@ -16,17 +16,17 @@
 NavKey::NavKey(QWidget *parent) :
     QWidget(parent),
     navBoxForm(new Ui::navBoxForm),
-    navKeyWindowForm(new Ui::navKeyWindowForm)
+    navKeyWindowForm(new Ui::navKeyWindowForm),
+    navBoxWidget(new QWidget(this)),
+    navKeyWindowWidget(new QWidget())
 {
     //set up the nav pad box
-    navBoxWidget = new QWidget(this);
     navBoxForm->setupUi(navBoxWidget);
     navBoxWidget->setFixedSize(NAVBOX_WIDTH,NAVBOX_HEIGHT);
 
     this->setGeometry(NAVBOX_STARTING_X_POS, NAVBOX_STARTING_Y_POS, NAVBOX_WIDTH, NAVBOX_HEIGHT);
 
     //set ub the nav pad window
-    navKeyWindowWidget = new QWidget();
     navKeyWindowForm->setupUi(navKeyWindowWidget);
     navKeyWindowWidget->setFixedSize(NAVWINDOW_WIDTH,NAVWINDOW_HEIGHT);
     navKeyWindowWidget->setWindowTitle(QString("Nav Pad Modulation"));
