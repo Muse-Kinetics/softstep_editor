@@ -603,7 +603,7 @@ QPushButton:pressed
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="editormodecheckbox">
+   <widget class="QCheckBox" name="mode">
     <property name="geometry">
      <rect>
       <x>573</x>

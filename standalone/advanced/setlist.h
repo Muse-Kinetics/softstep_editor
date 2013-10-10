@@ -7,6 +7,9 @@
 #include <QWidget>
 #include <QtGui>
 
+#include "qjson/src/parser.h"
+#include "qjson/src/serializer.h"
+
 #include "ui_setlistForm.h"
 
 class Setlist : public QWidget
@@ -24,6 +27,16 @@ public:
 
     QStringList standaloneSetlist;
     QStringList hostedSetlist;
+    QVariantMap setlist;
+
+    QJson::Parser       parser;
+    QJson::Serializer   serializer;
+
+    QString jsonPath;
+    QFile *jsonFile;
+    bool ok;
+
+
 
     bool eventFilter(QObject *obj, QEvent *event);
     //void mouseReleaseEvent(QMouseEvent* e);
@@ -43,6 +56,8 @@ public slots:
     void slotRefreshSetlist(QComboBox* presetMenu);
 
     void slotSetMode(QString m);
+    void slotReadSetlist();
+    void slotWriteSetlist();
 
 
 private:

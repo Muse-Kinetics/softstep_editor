@@ -93,6 +93,8 @@ void MainWindow::slotConnectInterfaces()
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //-------------------------------------- Mode Switching
+    connect(ui->mode, SIGNAL(clicked()), this, SLOT(slotSetMode()));
+
     for(int k = 0; k < 10; k++)
     {
         connect(this, SIGNAL(signalSetMode(QString)), key[k], SLOT(slotSetMode(QString)));
@@ -339,7 +341,17 @@ void MainWindow::slotDisplaySaveState(bool dirty)
 
 void MainWindow::slotSetMode()
 {
-    mode = QObject::sender()->objectName();
+    if(ui->mode->isChecked())
+    {
+        mode = "hosted";
+    }
+    else
+    {
+        mode = "standalone";
+    }
+
+    //Setlist
+    setlist->slotSetMode(mode);
 
     //Preset Iterface
     presetInterface->slotSetMode(mode);

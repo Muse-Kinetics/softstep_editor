@@ -14,6 +14,8 @@ Setlist::Setlist(QWidget *parent) :
     slotInitComponents();
 
     repopulating = false;
+
+
 }
 
 bool Setlist::eventFilter(QObject *obj, QEvent *event)
@@ -97,7 +99,7 @@ void Setlist::slotCompileSetlist()
     //Iterate through menus and reset setlist
     for(int i = 0; i < menus.size(); i++)
     {
-        setlist.append(menus.at(i)->currentText());
+        //setlist.append(menus.at(i)->currentText());
     }
 
     qDebug() << setlist;
@@ -135,9 +137,9 @@ void Setlist::slotRefreshSetlist(QComboBox* presetMenu)
     //Iterate through setlist to reset menus after a new preset has been added/deleted
     for(int i = 0; i < setlist.size(); i++)
     {
-        qDebug() << setlist.at(i) << presetMenu->findText(setlist.at(i));
+        //qDebug() << setlist.at(i) << presetMenu->findText(setlist.at(i));
 
-        menus.at(i)->setCurrentIndex(presetMenu->findText(setlist.at(i)) + 1); //offset because presetlist has no empty
+        //menus.at(i)->setCurrentIndex(presetMenu->findText(setlist.at(i)) + 1); //offset because presetlist has no empty
 
         /*//If text of menu not found in preset menu
         if(presetMenu->findText(setlist.at(i)) == -1)
@@ -159,5 +161,78 @@ void Setlist::slotRefreshSetlist(QComboBox* presetMenu)
 
 void Setlist::slotSetMode(QString m)
 {
+    //Write setlist in whatever mode we're currently in
+    slotWriteSetlist();
+
+    //Update mode and setlist file path
     mode = m;
+
+    jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
+
+#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
+    jsonPath.remove(jsonPath.length() - 5, jsonPath.length()); //Remove "MacOS" from path string
+    if(mode == "hosted")
+    {
+        jsonPath.append("Resources/presets/hosted_setlist.json");
+    }
+    else
+    {
+        jsonPath.append("Resources/presets/setlist.json");
+    }
+
+#else
+    if(mode == "hosted")
+    {
+        jsonPath = QString("./presets/hosted_setlist.json");
+    }
+    else
+    {
+        jsonPath = QString("./presets/setlist.json");
+    }
+#endif
+
+    //Read setlist in new mode
+    slotReadSetlist();
+}
+
+void Setlist::slotReadSetlist()
+{
+    //Load json into QFile
+    QFile *jsonFile = new QFile(jsonPath);
+
+    if(jsonFile->open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        qDebug("Setlist JSON Found");
+
+        QByteArray setlistByteArray = jsonFile->readAll();
+
+        setlist = parser.parse(setlistByteArray, &ok).toMap(); //parse the json data, convert it to a map and set it equal to the master jsonMap
+    }
+    else
+    {
+        qDebug() << "Setlist Not Found";
+    }
+
+    jsonFile->close();
+}
+
+void Setlist::slotWriteSetlist()
+{
+    //Load json into QFile
+    QFile *jsonFile = new QFile(jsonPath);
+
+    if(jsonFile->open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        //Serialize JSON, write to file
+        QByteArray ba = serializer.serialize(setlist); //serialize the master json map into the byte array
+
+        jsonFile->resize(0);
+        jsonFile->write(ba);
+    }
+    else
+    {
+        qDebug() << "Setlist not found on write";
+    }
+
+    jsonFile->close();
 }
