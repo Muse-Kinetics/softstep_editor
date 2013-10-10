@@ -122,12 +122,62 @@ QLabel
 }
 
 /*----------- QComboBox ------------*/
-QComboBox {
+QComboBox
+{
 	font: 10pt &quot;Futura&quot;;
 	border: 2px solid rgb(0,174,239);
 	background-color: rgba(28, 28, 29);
 	color: white;
- }</string>
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 35px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.png);
+	padding-right: 20px;
+}
+</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -551,6 +601,80 @@ QPushButton:pressed
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="editormodecheckbox">
+    <property name="geometry">
+     <rect>
+      <x>573</x>
+      <y>92</y>
+      <width>100</width>
+      <height>38</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	background: none;
+    color: transparent;
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 99px;
+    height: 33px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/mainWindow_editormode_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/mainWindow_editormode_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/mainWindow_editormode_uncheckedPressed.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/mainWindow_editormode_checked.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/mainWindow_editormode_checkedPressed.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/mainWindow_editormode_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/mainWindow_editormode_uncheckedPressed.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/mainWindow_editormode_checked.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/mainWindow_editormode_checkedPressed.png);
+}
+</string>
+    </property>
+    <property name="text">
+     <string>CheckBox</string>
     </property>
    </widget>
   </widget>

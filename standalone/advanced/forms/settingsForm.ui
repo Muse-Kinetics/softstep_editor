@@ -319,7 +319,7 @@ QComboBox
  }</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QLabel" name="label_27">
