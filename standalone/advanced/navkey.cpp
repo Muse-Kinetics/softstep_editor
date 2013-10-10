@@ -9,12 +9,14 @@
 
 //-------NAV BOX SIZE CONSTANTS-------//
 #define NAVBOX_WIDTH 101
-#define NAVBOX_HEIGHT 64
-#define NAVBOX_STARTING_X_POS 10
-#define NAVBOX_STARTING_Y_POS 228
+#define NAVBOX_HEIGHT 101
+#define NAVBOX_STARTING_X_POS 560
+#define NAVBOX_STARTING_Y_POS 160
 
 NavKey::NavKey(QWidget *parent) :
-    QWidget(parent)
+    QWidget(parent),
+    navBoxForm(new Ui::navBoxForm),
+    navKeyWindowForm(new Ui::navKeyWindowForm)
 {
     //set up the nav pad box
     navBoxWidget = new QWidget(this);
@@ -30,7 +32,7 @@ NavKey::NavKey(QWidget *parent) :
     navKeyWindowWidget->setWindowTitle(QString("Nav Pad Modulation"));
 
     //what's in the nav pad box?
-    //connect(navBoxForm->openWindow, SIGNAL(clicked()), this, SLOT(slotOpenWindow()));
+    connect(navBoxForm->openNavWindow, SIGNAL(clicked()), this, SLOT(slotOpenWindow()));
 
     //what's in the nav pad window?
     for(int i = 0; i < 6; i++)

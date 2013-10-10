@@ -21,20 +21,20 @@ NavModline::NavModline(QWidget *parent, int navInstanceNum) :
     navModlineForm.setupUi(formWidget);
     this->setFixedSize(MODLINE_WINDOW_WIDTH,MODLINE_WINDOW_HEIGHT);
 
-    //navModlineForm.instanceLabel->setText(QString("%1").arg((navInstance +1)%10));
-    //navModlineForm.deviceViews->setCurrentIndex(0);
-    //navModlineForm.deviceViewLabels->setCurrentIndex(0);
+    navModlineForm.instanceLabel->setText(QString("%1").arg((navInstance +1)%10));
+    navModlineForm.deviceViews->setCurrentIndex(0);
+    navModlineForm.deviceViewLabels->setCurrentIndex(0);
 
     //connect and initialize the raw value to the result (not for presets)
-    //connect(navModlineForm.raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
-    //connect(navModlineForm.gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
-    //connect(navModlineForm.offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
-    //navModlineForm.raw->setValue(0);
+    connect(navModlineForm.raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
+    connect(navModlineForm.gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
+    connect(navModlineForm.offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
+    navModlineForm.raw->setValue(0);
 
     this->setGeometry(MODLINE_STARTING_X_POS, MODLINE_STARTING_Y_POS + ((navInstance)*(MODLINE_WINDOW_HEIGHT + MODLINE_SPACING)), MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
 
     //dynamically set the stylesheet for the "enable" checkbox
-    //navModlineForm.enable->setStyleSheet(stylesheets.modlineEnableStyleSheet.at(navInstance));
+    navModlineForm.enable->setStyleSheet(stylesheets.modlineEnableStyleSheet.at(navInstance));
 }
 
 void NavModline::slotConnectElements()

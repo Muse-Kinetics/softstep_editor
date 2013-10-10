@@ -63,11 +63,6 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     for(int i = 0; i < 6; i++)
     {
         modline[i] = new Modline(keyWindowWidget, keyInstance, i);
-    }
-
-    //Connect Modlines
-    for(int i = 0; i < 6; i++)
-    {
         modline[i]->slotConnectElements();
     }
 

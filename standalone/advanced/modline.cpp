@@ -25,7 +25,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     modlineForm.setupUi(formWidget);
     this->setFixedSize(MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
 
-    modlineForm.instanceLabel->setText(QString("%1").arg((modlineInstance + 1)%10));
+    modlineForm.instanceLabel->setText(QString("%1").arg((modlineInstance + 1)));
     modlineForm.deviceViews->setCurrentIndex(0);
     modlineForm.deviceViewLabels->setCurrentIndex(0);
 

@@ -10,6 +10,7 @@
 #include <QVariant>
 
 #include "key.h"
+#include "navkey.h"
 #include "settings.h"
 #include "setlist.h"
 #include "presetinterface.h"
@@ -45,6 +46,7 @@ public:
 
     //Ui Elements
     Key *key[10];
+    NavKey *navKey;
     Settings *settingsWindow;
     Setlist *setlist;
 
