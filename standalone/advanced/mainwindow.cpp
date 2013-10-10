@@ -31,6 +31,9 @@ MainWindow::MainWindow(QWidget *parent) :
         key[i] = new Key(this, i);
     }
 
+    //construct Nav Window
+    navKey = new NavKey(this);
+
     //------------------------------------- Dialogs
     //SaveAs
     saveAsDialogWidget = new QWidget();
@@ -54,6 +57,9 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         key[i]->slotConnectElements();
     }
+
+    //connect nav window
+    navKey->slotConnectElements();
 
     slotInitMenuBar();
 
@@ -122,6 +128,10 @@ void MainWindow::slotConnectInterfaces()
     }
 
     //Nav Pad
+    for(int i = 0; i < 6; i++)
+    {
+        connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), navKey->navModline[i], SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
+    }
 
     //Settings
     connect(presetInterface, SIGNAL(signalRecallGlobal(QVariantMap,QVariantMap)),settingsWindow,SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
@@ -148,6 +158,13 @@ void MainWindow::slotConnectInterfaces()
     }
 
     //Nav Pad
+    for(int i = 0; i < 6; i++)
+    {
+        connect(navKey->navModline[i], SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
+
+        //save state
+        //connect(navKey->navModline[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
+    }
 
     //Settings
     connect(ui->opensettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));

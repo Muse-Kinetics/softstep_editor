@@ -10,7 +10,7 @@
 #include <QVariant>
 
 #include "ui_modlineForm.h"
-#include "ui_modlineForm_hosted.h"
+//#include "ui_modlineForm_hosted.h"
 #include "stylesheets.h"
 
 class Modline : public QWidget
@@ -44,7 +44,7 @@ public slots:
 
 private:
     Ui::modlineForm* modlineForm;
-    Ui::modlineForm_hosted* hosted_modlineForm;
+    //Ui::modlineForm_hosted* hosted_modlineForm;
 };
 
 #endif // MODLINE_H

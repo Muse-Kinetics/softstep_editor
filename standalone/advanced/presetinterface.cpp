@@ -111,7 +111,7 @@ void PresetInterface::slotReadJSON()
 
     if(jsonFile->open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        qDebug("SoftStep Easy Editor JSON Found");
+        qDebug("SoftStep Advanced Editor JSON Found");
 
         QByteArray jsonByteArray = jsonFile->readAll();//load json file into a byte array to be processd by the parser
         jsonMasterMap = parser.parse(jsonByteArray, &ok).toMap(); //parse the json data, convert it to a map and set it equal to the master jsonMap
@@ -155,7 +155,7 @@ void PresetInterface::slotWriteJSON(QVariantMap jsonMap)
     }
     else
     {
-        qDebug() << "SoftStep Easy Editor JSON Not Found";
+        qDebug() << "SoftStep Advanced Editor JSON Not Found";
     }
 
     jsonFile->close();
