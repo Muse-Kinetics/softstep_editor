@@ -627,9 +627,9 @@ QPushButton:pressed
    <widget class="QCheckBox" name="mode">
     <property name="geometry">
      <rect>
-      <x>264</x>
-      <y>20</y>
-      <width>212</width>
+      <x>269</x>
+      <y>30</y>
+      <width>200</width>
       <height>45</height>
      </rect>
     </property>
@@ -644,8 +644,9 @@ QCheckBox
 
 QCheckBox::indicator
 {
-    width: 99px;
-    height: 33px;
+    width: 212px;
+    height: 45px;
+	padding: -6px;
 }
 
 QCheckBox::indicator:unchecked
