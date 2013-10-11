@@ -38,6 +38,7 @@ public slots:
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
     void slotRawResult();
+    void slotRecallDestinationMenu();
 
     void slotSetMenus(QStringList source, QStringList dest, QStringList table);
 

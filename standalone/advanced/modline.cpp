@@ -516,6 +516,7 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     modlineForm->oscroute->setText(preset.value(QString("key%1_modline%2_oscroute").arg(keyInstance+1).arg(modlineInstance+1)).toString());
 
+    slotRecallDestinationMenu();
     slotConnectElements();
 }
 
@@ -533,6 +534,21 @@ void Modline::slotRawResult()
     }
 
     //qDebug() << "initialize result value";
+}
+
+void Modline::slotRecallDestinationMenu()
+{
+    //set the device view to change based on what is selected in the destination menu
+    if((modlineForm->destination->currentIndex()) > 10)
+    {
+        modlineForm->deviceViews->setCurrentIndex(0);
+        modlineForm->deviceViewLabels->setCurrentIndex(0);
+    }
+    else
+    {
+        modlineForm->deviceViews->setCurrentIndex(modlineForm->destination->currentIndex());
+        modlineForm->deviceViewLabels->setCurrentIndex(modlineForm->destination->currentIndex());
+    }
 }
 
 void Modline::slotSetMenus(QStringList source, QStringList dest, QStringList table)
