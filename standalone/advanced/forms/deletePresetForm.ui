@@ -52,7 +52,7 @@ QToolTip
 {
 	font: 10px &quot;Futura&quot;;
 	color: rgb(255, 255, 255);
-	background: rgb(40, 40, 40);
+	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
 	width: 22px;
