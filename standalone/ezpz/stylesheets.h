@@ -17,6 +17,8 @@ public:
 
     QString sendButtonDirtyStyleSheet;
     QString sendButtonCleanStyleSheet;
+    QString sendButtonDirtyStyleSheet_windows;
+    QString sendButtonCleanStyleSheet_windows;
 };
 
 #endif // STYLESHEETS_H

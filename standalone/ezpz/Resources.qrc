@@ -14,5 +14,7 @@
         <file>resources/radio_focus_on.svg</file>
         <file>resources/sendbuttondirtystylesheet.qss</file>
         <file>resources/sendbuttoncleanstylesheet.qss</file>
+        <file>resources/sendbuttoncleanstylesheet_windows.qss</file>
+        <file>resources/sendbuttondirtystylesheet_windows.qss</file>
     </qresource>
 </RCC>

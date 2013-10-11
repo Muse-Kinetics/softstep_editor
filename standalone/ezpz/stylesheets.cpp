@@ -8,7 +8,7 @@ StyleSheets::StyleSheets()
 {
 
 
-    //------ Send Button
+    //------ Mac Send Button
     //Dirty
     file = new QFile(":/resources/sendbuttondirtystylesheet.qss");
     if(file->open(QIODevice::ReadOnly))
@@ -24,7 +24,28 @@ StyleSheets::StyleSheets()
     if(file->open(QIODevice::ReadOnly))
     {
         sendButtonCleanStyleSheet = QTextStream(file).readAll();
-        qDebug() << sendButtonCleanStyleSheet;
+        //qDebug() << sendButtonCleanStyleSheet;
+    }
+
+    file->close();
+
+    //------ Windows Send Button
+    //Dirty
+    file = new QFile(":/resources/sendbuttondirtystylesheet_windows.qss");
+    if(file->open(QIODevice::ReadOnly))
+    {
+        sendButtonDirtyStyleSheet_windows = QTextStream(file).readAll();
+        //qDebug() << QString("win dirty style") << sendButtonDirtyStyleSheet_windows;
+    }
+
+    file->close();
+
+    //Clean
+    file = new QFile(":/resources/sendbuttoncleanstylesheet_windows.qss");
+    if(file->open(QIODevice::ReadOnly))
+    {
+        sendButtonCleanStyleSheet_windows = QTextStream(file).readAll();
+        //qDebug()<< QString("win clean style") << sendButtonCleanStyleSheet_windows;
     }
 
     file->close();

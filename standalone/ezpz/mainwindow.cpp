@@ -310,6 +310,7 @@ void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap master)
 
 void MainWindow::slotDisplaySaveState(bool dirty)
 {
+#ifdef Q_OS_MAC
     if(dirty)
     {
         ui->update->setStyleSheet(styleSheets->sendButtonDirtyStyleSheet);
@@ -318,6 +319,17 @@ void MainWindow::slotDisplaySaveState(bool dirty)
     {
         ui->update->setStyleSheet(styleSheets->sendButtonCleanStyleSheet);
     }
+#else
+    if(dirty)
+    {
+        ui->update->setStyleSheet(styleSheets->sendButtonDirtyStyleSheet_windows);
+    }
+    else
+    {
+        ui->update->setStyleSheet(styleSheets->sendButtonCleanStyleSheet_windows);
+    }
+#endif
+
 }
 
 void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)

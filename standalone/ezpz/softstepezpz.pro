@@ -74,7 +74,9 @@ FORMS    +=     forms/mainwindow.ui \
 
 OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
                 resources/sendbuttondirtystylesheet.qss \
-    resources/sendbuttoncleanstylesheet.qss
+    resources/sendbuttoncleanstylesheet.qss \
+    resources/sendbuttoncleanstylesheet_windows.qss \
+    resources/sendbuttondirtystylesheet_windows.qss
                 #doc.txt
 
 RESOURCES =    Resources.qrc
@@ -115,3 +117,4 @@ RC_FILE =       softstepezpzicon.rc.txt
 macx{
 ICON = easy.icns
 }
+
