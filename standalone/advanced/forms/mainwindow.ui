@@ -26,13 +26,24 @@ QLineEdit
 	border: 2px solid rgb(0,174,239);
 	font: 20pt &quot;Droid Sans Mono&quot;;
 	color: white;
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgb(40, 40, 40);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
 }</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>583</x>
+      <x>586</x>
       <y>55</y>
       <width>110</width>
       <height>20</height>
@@ -48,13 +59,24 @@ QLineEdit
       <kerning>false</kerning>
      </font>
     </property>
+    <property name="toolTip">
+     <string/>
+    </property>
     <property name="styleSheet">
-     <string notr="true">font: 9pt &quot;Futura&quot;;
-color: red;
-background: rgb(40, 40, 40);
-padding-left: 5px;
-padding-top: 2px;
-padding-bottom: 2px;</string>
+     <string notr="true">QLabel
+{
+	font: 9pt &quot;Futura&quot;;
+	color: red;
+	background: rgb(40, 40, 40);
+	padding-left: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+QToolTip
+{
+	color: rgb(0, 0, 0);
+}</string>
     </property>
     <property name="text">
      <string>NOT CONNECTED</string>
@@ -203,6 +225,9 @@ QComboBox::down-arrow
         <height>20</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Saves any changes to the &lt;br&gt;current preset slot.</string>
+      </property>
       <property name="text">
        <string>SAVE</string>
       </property>
@@ -215,6 +240,9 @@ QComboBox::down-arrow
         <width>45</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>Saves the current preset &lt;br&gt;settings to a new preset &lt;br&gt;slot.</string>
       </property>
       <property name="text">
        <string>SAVE AS</string>
@@ -229,6 +257,9 @@ QComboBox::down-arrow
         <height>20</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Reverts any changes in the current preset to its &lt;br&gt;previously saved state.</string>
+      </property>
       <property name="text">
        <string>REVERT</string>
       </property>
@@ -242,6 +273,9 @@ QComboBox::down-arrow
         <height>20</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Deletes the currently selected preset.</string>
+      </property>
       <property name="text">
        <string>DELETE</string>
       </property>
@@ -254,6 +288,9 @@ QComboBox::down-arrow
         <width>195</width>
         <height>26</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>The preset currently being edited. &lt;br&gt;Click for a dropdown menu &lt;br&gt;of all saved presets.</string>
       </property>
       <property name="autoFillBackground">
        <bool>false</bool>
@@ -357,6 +394,9 @@ QComboBox::down-arrow
        <height>33</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Click to send the setlist &lt;br&gt;presets down to the SoftStep.</string>
+     </property>
      <property name="styleSheet">
       <string notr="true">/*---------- QPushButton ---------*/
 QPushButton
@@ -459,6 +499,9 @@ QPushButton:pressed
        <bold>false</bold>
       </font>
      </property>
+     <property name="toolTip">
+      <string>Click to open the setlist window.</string>
+     </property>
      <property name="styleSheet">
       <string notr="true">/*---------- QPushButton ---------*/
 QPushButton
@@ -517,6 +560,9 @@ QPushButton:pressed
        <bold>false</bold>
       </font>
      </property>
+     <property name="toolTip">
+      <string>Click to open the settings window.</string>
+     </property>
      <property name="styleSheet">
       <string notr="true">/*---------- QPushButton ---------*/
 QPushButton
@@ -574,6 +620,9 @@ QPushButton:pressed
      <property name="contextMenuPolicy">
       <enum>Qt::DefaultContextMenu</enum>
      </property>
+     <property name="toolTip">
+      <string>Sets the current preset's display name. &lt;br&gt; Anything entered here appears on&lt;br&gt; the SoftStep's alphanumeric display&lt;br&gt; when selected.</string>
+     </property>
      <property name="text">
       <string>NEXU</string>
      </property>
@@ -624,17 +673,42 @@ QPushButton:pressed
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="mode">
+   <widget class="QFrame" name="frame_editormode">
     <property name="geometry">
      <rect>
-      <x>269</x>
-      <y>30</y>
-      <width>200</width>
-      <height>45</height>
+      <x>264</x>
+      <y>10</y>
+      <width>212</width>
+      <height>68</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"> /* ---------- QCheckBox ------------*/
+     <string notr="true">QFrame
+{
+	background: rgba(255, 255, 255, 50);
+	border: rgba(255, 255, 255, 50);
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QCheckBox" name="mode">
+     <property name="geometry">
+      <rect>
+       <x>6</x>
+       <y>11</y>
+       <width>200</width>
+       <height>45</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Click to change the current editor mode.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"> /* ---------- QCheckBox ------------*/
 QCheckBox
 {
 	background: none;
@@ -695,10 +769,11 @@ QCheckBox::indicator:checked:pressed:focus
 }
 
 </string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
