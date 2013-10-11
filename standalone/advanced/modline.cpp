@@ -199,6 +199,7 @@ void Modline::slotDisconnectElements()
 
 void Modline::slotValueChanged()
 {    
+    //--------------------------- JSON Saving
     if(QObject::sender())
     {
         QString jsonName;
@@ -456,6 +457,9 @@ void Modline::slotValueChanged()
     }
 
     emit signalCheckSavedState();
+
+    //---------- update hosted source streaming
+    slotStreamSourceData();
 }
 
 void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
@@ -516,8 +520,10 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     modlineForm->oscroute->setText(preset.value(QString("key%1_modline%2_oscroute").arg(keyInstance+1).arg(modlineInstance+1)).toString());
 
-    slotRecallDestinationMenu();
     slotConnectElements();
+
+    //---------- update hosted source streaming
+    slotStreamSourceData();
 }
 
 void Modline::slotRawResult()
@@ -536,22 +542,12 @@ void Modline::slotRawResult()
     //qDebug() << "initialize result value";
 }
 
-void Modline::slotRecallDestinationMenu()
+void Modline::slotSetMode(QString m)
 {
-    //set the device view to change based on what is selected in the destination menu
-    if((modlineForm->destination->currentIndex()) > 10)
-    {
-        modlineForm->deviceViews->setCurrentIndex(0);
-        modlineForm->deviceViewLabels->setCurrentIndex(0);
-    }
-    else
-    {
-        modlineForm->deviceViews->setCurrentIndex(modlineForm->destination->currentIndex());
-        modlineForm->deviceViewLabels->setCurrentIndex(modlineForm->destination->currentIndex());
-    }
+    mode = m;
 }
 
-void Modline::slotSetMenus(QStringList source, QStringList dest, QStringList table)
+void Modline::slotPopulateMenus(QStringList source, QStringList dest, QStringList table)
 {
     //Set Source Menu
     modlineForm->source->clear();
@@ -564,4 +560,45 @@ void Modline::slotSetMenus(QStringList source, QStringList dest, QStringList tab
     //Set Destination Menu
     modlineForm->destination->clear();
     modlineForm->destination->addItems(dest);
+}
+
+void Modline::slotStreamSourceData()
+{
+
+    qDebug() << modlineForm->source->currentText() << mode;
+    //--------------------------- Hosted
+    if(mode == "hosted")
+    {
+        emit signalSetSource(modlineForm->source->currentText(), modlineInstance);
+    }
+}
+
+void Modline::slotSetTransformValues()
+{
+    gain = modlineForm->gain->value();
+    offset = modlineForm->offset->value();
+
+    //Set table array here later
+    table = modlineForm->table->currentText();
+
+    min = modlineForm->min->value();
+    max = modlineForm->max->value();
+    smooth = modlineForm->slew->value();
+    delay = modlineForm->delay->value();
+}
+
+void Modline::slotTransformSource(int val, int modlineNum)
+{
+    if(modlineNum == modlineInstance)
+    {
+        qDebug() << "modline #: " << modlineInstance << "result: : " << val;
+
+    //table
+
+    //min, max
+
+    //smooth
+
+    //delay
+    }
 }

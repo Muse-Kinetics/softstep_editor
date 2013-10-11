@@ -18,22 +18,22 @@ public:
     int                 sensorVals[4];
     int                 keyNum;
     QMap<int, int>      keySensorBaseCcMap;
+
+    QMap<int, QString>  modlineSources;
+
     void                cook();
 
     //------------------------------- Source Cooking
     int     pressureLive();
-    /*int     xLive();
+    int     xLive();
     int     yLive();
 
-    int     pressureLatch();
+    /*int     pressureLatch();
     int     xLatch();
     int     yLatch();
 
     int     xIncrement();
     int     yIncrement();
-
-    int     rotation();
-    int     rotationRelative();
 
     void    footOn();
     void    footOff();
@@ -56,12 +56,12 @@ public:
 
     
 signals:
-    void signalTransformSource(QString sourceName, int data);
+    void signalTransformSource(int data, int modlineNum);
     
 public slots:
     void slotUpdateVals(int cc, int val);
-
-    
+    void slotSetSource(QString source, int modlineInstance);
+    void slotCloseSource(QString source, int modlineInstance);
 };
 
 #endif // DATACOOKER_H

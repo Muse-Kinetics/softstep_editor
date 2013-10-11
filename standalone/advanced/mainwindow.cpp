@@ -328,44 +328,57 @@ void MainWindow::slotSetMode()
         mode = "standalone";
     }
 
+    //----------------- Set child modes
+
     //Keys and Modlines
     for(int i = 0; i < 10; i++)
     {
+        //Key Mode
         key[i]->slotSetMode(mode);
 
         for(int j = 0; j < 6; j++)
         {
+            //Modline Mode
+            key[i]->modline[j]->slotSetMode(mode);
+
+            //Disconnect from slotValueChanged
             key[i]->modline[j]->slotDisconnectElements();
 
+            //Populate modline menus according to mode-- doing this here to avoid having to embed source,dest, and table lists in modlines
             if(mode == "hosted")
             {
-
-                key[i]->modline[j]->slotSetMenus(hostedSources, hostedDestinations, hostedTables);
+                key[i]->modline[j]->slotPopulateMenus(hostedSources, hostedDestinations, hostedTables);
             }
             else
             {
-                key[i]->modline[j]->slotSetMenus(standaloneSources, standaloneDestinations, standaloneTables);
+                key[i]->modline[j]->slotPopulateMenus(standaloneSources, standaloneDestinations, standaloneTables);
             }
 
+            //Reconnect to slotValueChanged
             key[i]->modline[j]->slotConnectElements();
         }
     }
 
-    //Preset Iterface
+    midiDeviceManager->slotSetMode(mode);
     presetInterface->slotSetMode(mode);
-    presetInterface->slotUpdateJSONPath();
-    presetInterface->slotReadJSON();
-    presetInterface->slotPopulatePresetMenu(ui->presetmenu);
-
-    //Setlist
     setlist->slotSetMode(mode);
-    setlist->slotPopulateMenus(ui->presetmenu);
-    setlist->slotUpdateJSONPath();
-    setlist->slotReadSetlist();
-    setlist->slotRefreshSetlistMenus(ui->presetmenu);
-    setlist->slotCompileSetlist();
 
-    //Will reload JSON here
+    //Update paths to respective mode files
+    presetInterface->slotUpdateJSONPath();
+    setlist->slotUpdateJSONPath();
+
+    //Read files
+    presetInterface->slotReadJSON();
+    setlist->slotReadSetlist();
+
+    //Populate preset menu and setlist menu
+    presetInterface->slotPopulatePresetMenu(ui->presetmenu); //Also calls setlist->slotPopulateMenus()
+
+    //Set each setlist menu to correct item
+    setlist->slotRefreshSetlistMenus(ui->presetmenu);
+
+    //Recall Preset 1 in new mode
+    presetInterface->slotRecallPreset(1);
 }
 
 void MainWindow::slotPopulateSourceDestLists()

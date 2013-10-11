@@ -21,15 +21,30 @@ public:
 
     StyleSheets stylesheets;
 
+    QString mode;
+
     QWidget* formWidget;
     //QWidget* hosted_formWidget;
 
     int keyInstance;
     int modlineInstance;
+
+    //-------------------- Hosted
+    //Transform variables
+    float gain;
+    int offset;
+    QString table;
+    int min;
+    int max;
+    int smooth;
+    int delay;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
     void signalCheckSavedState();
+
+    //---------------------------- Hosted
+    void signalSetSource(QString sourceName, int modlineNum);
     
 public slots:
     void slotConnectElements();
@@ -38,13 +53,19 @@ public slots:
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
     void slotRawResult();
-    void slotRecallDestinationMenu();
+    //void slotRecallDestinationMenu();
 
-    void slotSetMenus(QStringList source, QStringList dest, QStringList table);
+    void slotSetMode(QString m);
+    void slotPopulateMenus(QStringList source, QStringList dest, QStringList table);
+
+    //---------------------------- Hosted
+    void slotTransformSource(int val, int modlineNum);
+    void slotSetTransformValues();
+    void slotStreamSourceData();
+
 
 private:
     Ui::modlineForm* modlineForm;
-    //Ui::modlineForm_hosted* hosted_modlineForm;
 };
 
 #endif // MODLINE_H

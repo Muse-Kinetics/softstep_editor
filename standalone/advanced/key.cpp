@@ -86,6 +86,14 @@ void Key::slotConnectElements()
     connect(keyWindowForm->counterMin,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     connect(keyWindowForm->counterMax,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     connect(keyWindowForm->counterWrap,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+
+    //Hosted streaming
+    for(int i = 0; i < 6; i++)
+    {
+        connect(modline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
+        connect(&dataCooker, SIGNAL(signalTransformSource(int, int)), modline[i], SLOT(slotTransformSource(int, int)));
+    }
+
 }
 
 void Key::slotValueChanged()
@@ -135,9 +143,5 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
 
 void Key::slotSetMode(QString mode)
 {
-    //Construct Modlines
-    for(int i = 0; i < 6; i++)
-    {
-        //modline[i]->slotSetMode(mode);
-    }
+
 }

@@ -95,6 +95,7 @@ public slots:
     void slotSendSysEx(QString messageID, unsigned char* bytes, int len, QString destinationName);
     void slotProcessSysEx(QByteArray sysExMessageByteArray);
 
+    void slotSetMode(QString m);
     void slotHostedOnOff(bool onOff);
     void slotDrainSysexFIFO();
 

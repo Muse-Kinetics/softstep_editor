@@ -136,7 +136,7 @@ void Setlist::slotRefreshSetlistMenus(QComboBox* presetMenu)
 
     repopulating = true;
 
-    //Iterate through setlist to reset menus after a new preset has been added/deleted
+    //Iterate through setlist and re-set current indexes to what's in the setlist, necessary after repopulating the menus (adding, deletion, mode switching)
     for(int i = 0; i < setlist.size(); i++)
     {
         qDebug() << setlist.value(QString("%1").arg(i)).toString() << presetMenu->findText(setlist.value(QString("%1").arg(i)).toString());

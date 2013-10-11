@@ -30,8 +30,6 @@ void MidiDeviceManager::createAppMidiClient()
     MIDIClientCreate(CFSTR("SoftStep MIDI Client"), midiSystemChanged, this, &appClientRef);
     MIDIInputPortCreate(appClientRef, CFSTR("SoftStep MIDI Client In Port"), incomingMidi, this, &appInPortRef);
     MIDIOutputPortCreate(appClientRef, CFSTR("SoftStep MIDI Client Out Port"), &appOutPortRef);
-    MIDISourceCreate(appClientRef, CFSTR("SoftStep Share"), &appVirtualSourceRef);
-    MIDIDestinationCreate(appClientRef, CFSTR("SoftStep Share"), virtualIncomingMidi, NULL, &appVirtualDestRef);
 }
 
 bool MidiDeviceManager::connectSource()
@@ -54,6 +52,25 @@ bool MidiDeviceManager::connectSource()
     {
         emit signalConnected(false);
         return false;
+    }
+}
+
+void MidiDeviceManager::slotSetMode(QString m)
+{
+    mode = m;
+
+    if(mode == "hosted")
+    {
+        MIDISourceCreate(appClientRef, CFSTR("SoftStep Share"), &appVirtualSourceRef);
+        MIDIDestinationCreate(appClientRef, CFSTR("SoftStep Share"), virtualIncomingMidi, NULL, &appVirtualDestRef);
+
+        slotHostedOnOff(true);
+    }
+    else
+    {
+        MIDIEndpointDispose(appVirtualSourceRef);
+        MIDIEndpointDispose(appVirtualDestRef);
+        slotHostedOnOff(false);
     }
 }
 
