@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>101</width>
-    <height>70</height>
+    <height>64</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -70,7 +70,7 @@ QLineEdit:focus
    <property name="geometry">
     <rect>
      <x>9</x>
-     <y>36</y>
+     <y>33</y>
      <width>40</width>
      <height>22</height>
     </rect>
@@ -89,7 +89,7 @@ QLineEdit:focus
    <property name="geometry">
     <rect>
      <x>52</x>
-     <y>36</y>
+     <y>33</y>
      <width>40</width>
      <height>22</height>
     </rect>

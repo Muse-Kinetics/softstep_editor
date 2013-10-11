@@ -9,9 +9,9 @@
 
 //-------NAV BOX SIZE CONSTANTS-------//
 #define NAVBOX_WIDTH 101
-#define NAVBOX_HEIGHT 70
-#define NAVBOX_STARTING_X_POS 565
-#define NAVBOX_STARTING_Y_POS 187
+#define NAVBOX_HEIGHT 64
+#define NAVBOX_STARTING_X_POS 579
+#define NAVBOX_STARTING_Y_POS 228
 
 NavKey::NavKey(QWidget *parent) :
     QWidget(parent),

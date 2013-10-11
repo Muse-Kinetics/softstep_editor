@@ -1527,7 +1527,7 @@ QComboBox::down-arrow
 </string>
    </property>
    <property name="currentIndex">
-    <number>8</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -2540,7 +2540,7 @@ QLabel
 }</string>
    </property>
    <property name="currentIndex">
-    <number>8</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">

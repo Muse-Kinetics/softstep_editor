@@ -3435,7 +3435,7 @@ QComboBox
       <string notr="true">font: bold 12px</string>
      </property>
      <property name="text">
-      <string>OSC</string>
+      <string>OSC Input</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -3962,7 +3962,7 @@ QComboBox
     <widget class="QLabel" name="label_59">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>350</y>
        <width>31</width>
        <height>16</height>
@@ -3975,7 +3975,7 @@ QComboBox
     <widget class="QLabel" name="label_60">
      <property name="geometry">
       <rect>
-       <x>160</x>
+       <x>166</x>
        <y>350</y>
        <width>41</width>
        <height>16</height>
@@ -3988,7 +3988,7 @@ QComboBox
     <widget class="QLabel" name="label_61">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>240</x>
        <y>350</y>
        <width>41</width>
        <height>16</height>

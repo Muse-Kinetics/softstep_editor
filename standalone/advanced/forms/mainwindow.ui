@@ -107,9 +107,18 @@ QPushButton
 {
 	background: rgb(58,58,60);
 	color: white;
-	border: 2px solid rgba(236,0,140,235);
+	border: 2px solid rgb(230,0,134);
 	font: 9pt &quot;Futura&quot;;
 	padding: 0,1,0,0;
+}
+
+QPushButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: none;
+	font: 9pt &quot;Futura&quot;;
+	padding: 0, 1, 0, 0;
 }
 
 /*----------- QLabel ------------*/
@@ -349,10 +358,22 @@ QComboBox::down-arrow
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background: rgb(40,40,40);
-color: white;
-border: 2px solid rgb(0,174,239);
-font: 16pt &quot;Futura&quot;;</string>
+      <string notr="true">/*---------- QPushButton ---------*/
+QPushButton
+{
+	background: rgb(40, 40, 40);
+	border: 2px solid rgba(0,174,239,255);
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}
+
+QPushButton:pressed
+{
+	background: rgba(0,174,239,255);
+	border: none;
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}</string>
      </property>
      <property name="text">
       <string>&quot;MAKE IT SO&quot;</string>
@@ -451,7 +472,7 @@ QPushButton
 QPushButton:pressed
 {
 	background: rgba(0,174,239,255);
-	border: 6px solid white;
+	border: none;
 	font: 16pt &quot;Futura&quot;;
 	color: white;
 }</string>
@@ -509,7 +530,7 @@ QPushButton
 QPushButton:pressed
 {
 	background: rgba(0,174,239,255);
-	border: 6px solid white;
+	border: none;
 	font: 16pt &quot;Futura&quot;;
 	color: white;
 }</string>
@@ -522,17 +543,17 @@ QPushButton:pressed
    <widget class="QFrame" name="frame_displayname">
     <property name="geometry">
      <rect>
-      <x>264</x>
-      <y>10</y>
-      <width>106</width>
-      <height>68</height>
+      <x>579</x>
+      <y>154</y>
+      <width>101</width>
+      <height>64</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QFrame
 {
-	background: rgba(0, 174, 239, 35);
-	border: none;
+	background: rgba(190, 0, 94, 100);
+	border: 2px solid rgb(230,0,134);
 }</string>
     </property>
     <property name="frameShape">
@@ -544,8 +565,8 @@ QPushButton:pressed
     <widget class="QLineEdit" name="lineEdit">
      <property name="geometry">
       <rect>
-       <x>11</x>
-       <y>28</y>
+       <x>8</x>
+       <y>24</y>
        <width>85</width>
        <height>33</height>
       </rect>
@@ -563,8 +584,8 @@ QPushButton:pressed
     <widget class="QLabel" name="presetlabel_3">
      <property name="geometry">
       <rect>
-       <x>17</x>
-       <y>11</y>
+       <x>14</x>
+       <y>8</y>
        <width>73</width>
        <height>10</height>
       </rect>
@@ -595,7 +616,7 @@ QPushButton:pressed
     <property name="styleSheet">
      <string notr="true">QLabel
 {
-	border-top: 2px solid rgba(255, 255, 255, 200);
+	border-top: 2px solid rgb(200, 200, 200);
 	background: none;
 }</string>
     </property>
