@@ -83,10 +83,6 @@
         <file>resources/mainWindow_logo.png</file>
         <file>resources/mainWindow_displayname_label.png</file>
         <file>resources/modline_combobox_menu_arrows.png</file>
-        <file>resources/mainWindow_editormode_checked.png</file>
-        <file>resources/mainWindow_editormode_checkedPressed.png</file>
-        <file>resources/mainWindow_editormode_unchecked.png</file>
-        <file>resources/mainWindow_editormode_uncheckedPressed.png</file>
         <file>resources/toggle_focus_off.png</file>
         <file>resources/toggle_focus_on.png</file>
         <file>resources/toggle_off.png</file>

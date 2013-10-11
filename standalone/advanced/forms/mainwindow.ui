@@ -627,14 +627,14 @@ QPushButton:pressed
    <widget class="QCheckBox" name="mode">
     <property name="geometry">
      <rect>
-      <x>573</x>
-      <y>92</y>
-      <width>100</width>
-      <height>38</height>
+      <x>264</x>
+      <y>20</y>
+      <width>212</width>
+      <height>45</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">/* ---------- QCheckBox ------------*/
+     <string notr="true"> /* ---------- QCheckBox ------------*/
 QCheckBox
 {
 	background: none;
@@ -692,10 +692,11 @@ QCheckBox::indicator:checked:pressed:focus
 {
     image: url(:/resources/mainWindow_editormode_checkedPressed.png);
 }
+
 </string>
     </property>
     <property name="text">
-     <string>CheckBox</string>
+     <string/>
     </property>
    </widget>
   </widget>
