@@ -19,14 +19,14 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background:		rgb(35,31,32);
+	background:		rgb(40, 40, 40);
 	border: 3px solid rgb(0,174,239);
 }
 
 /* ---------- QLabels ------------*/
 QLabel
 {
-	background:		rgba(0,0,0,0);
+	background:		none;
 	color: 				white;
 	font: 				10pt &quot;Futura&quot;;
 	border:				none;
@@ -40,17 +40,22 @@ QLabel:hover
 /* ---------- QPushButtons ------------*/
 QPushButton
 {
-	background:		rgba(0,0,0,0);
+	background:		rgb(30, 30, 30);
 	color: 				white;
 	font: 				10pt &quot;Futura&quot;;
 	border:				2px solid rgb(0,174,239);
+}
+
+QPushButton:pressed
+{
+	background: rgb(0, 174, 239)
 }
 
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
 	font: 10pt &quot;Futura&quot;;
-	background: rgba(0,174,239,0);
+	background: rgb(30, 30, 30);
 	border: 2px solid rgb(0,174,239);
 	border-radius: 0px;
 	color: white;
@@ -61,12 +66,23 @@ QLineEdit
 QLineEdit:focus
 {
 	font: 10pt &quot;Futura&quot;;
-	background: transparent;
+	background: rgb(30, 30, 30);
 	border: 1px solid white;
 	border-radius: 0px;
 	color: white;
 	padding-left: 2px;
 	padding-bottom: 2px;
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgb(40, 40, 40);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
 }</string>
   </property>
   <widget class="QLabel" name="keyInstanceLabel">

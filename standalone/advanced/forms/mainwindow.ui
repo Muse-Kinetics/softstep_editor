@@ -45,7 +45,7 @@ QToolTip
      <rect>
       <x>586</x>
       <y>55</y>
-      <width>110</width>
+      <width>98</width>
       <height>20</height>
      </rect>
     </property>
@@ -226,7 +226,7 @@ QComboBox::down-arrow
        </rect>
       </property>
       <property name="toolTip">
-       <string>Saves any changes to the &lt;br&gt;current preset slot.</string>
+       <string>Saves any changes to the &lt;br&gt;current preset.</string>
       </property>
       <property name="text">
        <string>SAVE</string>
@@ -258,7 +258,7 @@ QComboBox::down-arrow
        </rect>
       </property>
       <property name="toolTip">
-       <string>Reverts any changes in the current preset to its &lt;br&gt;previously saved state.</string>
+       <string>Reverts any unsaved &lt;br&gt;changes in the current &lt;br&gt;preset to its previously &lt;br&gt;saved state.</string>
       </property>
       <property name="text">
        <string>REVERT</string>
@@ -290,7 +290,7 @@ QComboBox::down-arrow
        </rect>
       </property>
       <property name="toolTip">
-       <string>The preset currently being edited. &lt;br&gt;Click for a dropdown menu &lt;br&gt;of all saved presets.</string>
+       <string>The preset currently being edited. &lt;p&gt;Click for a dropdown menu of &lt;br&gt;all saved presets.</string>
       </property>
       <property name="autoFillBackground">
        <bool>false</bool>
@@ -395,7 +395,7 @@ QComboBox::down-arrow
       </rect>
      </property>
      <property name="toolTip">
-      <string>Click to send the setlist &lt;br&gt;presets down to the SoftStep.</string>
+      <string>&quot;Engage&quot; &lt;p&gt;Click to update the presets &lt;br&gt;on your SoftStep with the &lt;br&gt;current setlist.</string>
      </property>
      <property name="styleSheet">
       <string notr="true">/*---------- QPushButton ---------*/
@@ -621,7 +621,7 @@ QPushButton:pressed
       <enum>Qt::DefaultContextMenu</enum>
      </property>
      <property name="toolTip">
-      <string>Sets the current preset's display name. &lt;br&gt; Anything entered here appears on&lt;br&gt; the SoftStep's alphanumeric display&lt;br&gt; when selected.</string>
+      <string>Sets the current preset's display name. &lt;p&gt; Anything entered here appears on&lt;br&gt; the SoftStep's alphanumeric display&lt;br&gt; when the preset is selected. &lt;p&gt;Limited to a maximum of four &lt;br&gt;characters.</string>
      </property>
      <property name="text">
       <string>NEXU</string>

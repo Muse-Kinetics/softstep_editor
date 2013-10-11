@@ -171,7 +171,17 @@ QComboBox::down-arrow
 	image: url(:/resources/modline_combobox_menu_arrows.png);
 	padding-right: 10px;
 }
-</string>
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgb(40, 40, 40);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+}</string>
   </property>
   <widget class="QLabel" name="instanceLabel">
    <property name="geometry">

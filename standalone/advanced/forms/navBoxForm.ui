@@ -64,6 +64,16 @@ QLineEdit:focus
 	color: white;
 	padding-left: 2px;
 	padding-bottom: 2px;
+}
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgb(40, 40, 40);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
 }</string>
   </property>
   <widget class="QPushButton" name="openNavWindow">

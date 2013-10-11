@@ -170,6 +170,17 @@ QPushButton {
 	border: 2px solid rgb(0,174,239);
 	background-color: rgb(58,58,60);
 	color: white;
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgb(40, 40, 40);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
 }</string>
   </property>
   <widget class="QLabel" name="label_28">
@@ -208,8 +219,8 @@ QPushButton {
     <rect>
      <x>20</x>
      <y>81</y>
-     <width>281</width>
-     <height>401</height>
+     <width>287</width>
+     <height>394</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -362,7 +373,7 @@ QComboBox
  }</string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QLabel" name="label_27">
@@ -418,6 +429,9 @@ QComboBox
        <height>20</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Turns the SoftStep backlighting on or off.</string>
+     </property>
      <property name="text">
       <string>Backlighting on/off</string>
      </property>
@@ -430,6 +444,9 @@ QComboBox
        <width>41</width>
        <height>18</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string>Adjusts the sensitivity of the keys.&lt;p&gt;Higher values = more sensitive &lt;br&gt;Lower values = less sensitive</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -448,7 +465,7 @@ QComboBox
       </rect>
      </property>
      <property name="text">
-      <string>Global Gain</string>
+      <string>Sensitivity</string>
      </property>
     </widget>
     <widget class="QFrame" name="frame">
@@ -459,6 +476,9 @@ QComboBox
        <width>101</width>
        <height>41</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string>Sets how the SoftStep sensors (one in each corner on each key) determine key pressure.&lt;p&gt;&lt;b&gt;Maximum:&lt;/b&gt; Looks at only the highest value sensor to determine current pressure value&lt;p&gt;&lt;b&gt;Average:&lt;/b&gt; Averages the four sensors together to determine key pressure value</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QRadioButton
@@ -509,6 +529,9 @@ QComboBox
        <height>61</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Sets how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key Mode:&lt;/b&gt; Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Adjacent Key Lockout:&lt;/b&gt; Keys immediately adjacent to an activated key cannot be triggered.&lt;p&gt;&lt;b&gt;Multiple Key Mode:&lt;/b&gt; Any key can be activated at any time.</string>
+     </property>
      <property name="styleSheet">
       <string notr="true">QRadioButton
 {
@@ -532,7 +555,7 @@ QComboBox
        </rect>
       </property>
       <property name="text">
-       <string>Key Lockout Mode</string>
+       <string>Single Key Mode</string>
       </property>
      </widget>
      <widget class="QRadioButton" name="adjacentkeymode">
@@ -1408,7 +1431,7 @@ QComboBox
       </rect>
      </property>
      <property name="text">
-      <string>10</string>
+      <string>0</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -4146,6 +4169,9 @@ QComboBox
       <height>23</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Click to display settings that &lt;br&gt;apply to the entire SoftStep.</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QRadioButton
 {
@@ -4186,6 +4212,9 @@ QRadioButton::indicator:checked:pressed
     <property name="text">
      <string>RadioButton</string>
     </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QRadioButton" name="settingskeybutton">
     <property name="geometry">
@@ -4195,6 +4224,9 @@ QRadioButton::indicator:checked:pressed
       <width>61</width>
       <height>23</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Click to display settings &lt;br&gt;for individual keys.</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QRadioButton
@@ -4246,6 +4278,9 @@ QRadioButton::indicator:checked:pressed
       <height>23</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Click to display MIDI and OSC input settings.</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">QRadioButton
 {
@@ -4295,6 +4330,9 @@ QRadioButton::indicator:checked:pressed
       <width>61</width>
       <height>23</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Click to display expression pedal calibration.</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QRadioButton
