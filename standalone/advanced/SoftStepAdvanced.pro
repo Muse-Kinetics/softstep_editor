@@ -68,7 +68,8 @@ HEADERS  +=     mainwindow.h \
     hosted/midiparse.h \
     hosted/datacooker.h \
     navmodline.h \
-    navkey.h
+    navkey.h \
+    ../../shared/tables.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \
