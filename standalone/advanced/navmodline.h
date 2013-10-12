@@ -35,6 +35,7 @@ public slots:
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
     void slotRawResult();
+    void slotRecallDestinationMenu();
 
     void slotSetMode(QString mode);
     void slotSetMenus(QStringList source, QStringList dest, QStringList table);

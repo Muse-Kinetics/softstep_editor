@@ -437,6 +437,7 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     navModlineForm->oscroute->setText(preset.value(QString("nav_modline%1_oscroute").arg(navInstance+1)).toString());
 
+    slotRecallDestinationMenu();
     slotConnectElements();
 }
 
@@ -454,6 +455,21 @@ void NavModline::slotRawResult()
     }
 
     //qDebug() << "initialize result value";
+}
+
+void NavModline::slotRecallDestinationMenu()
+{
+    //set the device view to change based on what is selected in the destination menu
+    if((navModlineForm->destination->currentIndex()) > 10)
+    {
+        navModlineForm->deviceViews->setCurrentIndex(0);
+        navModlineForm->deviceViewLabels->setCurrentIndex(0);
+    }
+    else
+    {
+        navModlineForm->deviceViews->setCurrentIndex(navModlineForm->destination->currentIndex());
+        navModlineForm->deviceViewLabels->setCurrentIndex(navModlineForm->destination->currentIndex());
+    }
 }
 
 void NavModline::slotSetMode(QString mode)
