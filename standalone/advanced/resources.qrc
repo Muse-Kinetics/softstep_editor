@@ -113,5 +113,15 @@
         <file>resources/openkeywindow10_inactive.png</file>
         <file>resources/openkeywindowNav_active.png</file>
         <file>resources/openkeywindowNav_inactive.png</file>
+        <file>resources/keybox_openwindow1_stylesheet.qss</file>
+        <file>resources/keybox_openwindow2_stylesheet.qss</file>
+        <file>resources/keybox_openwindow3_stylesheet.qss</file>
+        <file>resources/keybox_openwindow4_stylesheet.qss</file>
+        <file>resources/keybox_openwindow5_stylesheet.qss</file>
+        <file>resources/keybox_openwindow6_stylesheet.qss</file>
+        <file>resources/keybox_openwindow7_stylesheet.qss</file>
+        <file>resources/keybox_openwindow8_stylesheet.qss</file>
+        <file>resources/keybox_openwindow9_stylesheet.qss</file>
+        <file>resources/keybox_openwindow10_stylesheet.qss</file>
     </qresource>
 </RCC>

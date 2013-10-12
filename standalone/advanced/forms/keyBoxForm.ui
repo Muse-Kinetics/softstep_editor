@@ -19,7 +19,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background:		rgb(40, 40, 40);
+	background:		rgb(60, 60, 60);
 	border: 3px solid rgb(0,174,239);
 }
 
@@ -55,8 +55,8 @@ QPushButton:pressed
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 10pt &quot;Droid Sans Mono&quot;;
-	background: rgb(30, 30, 30);
+	font: 12pt &quot;Droid Sans Mono&quot;;
+	background: rgb(40, 40, 40);
 	border: 2px solid rgb(0,174,239);
 	border-radius: 0px;
 	color: white;
@@ -66,8 +66,8 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 10pt &quot;Droid Sans Mono&quot;;
-	background: rgb(30, 30, 30);
+	font: 12pt &quot;Droid Sans Mono&quot;;
+	background: rgb(40, 40, 40);
 	border: 1px solid white;
 	border-radius: 0px;
 	color: white;
@@ -78,7 +78,7 @@ QLineEdit:focus
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Droid Sans Mono&quot;;
+	font: 10px &quot;Futura&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -102,20 +102,23 @@ QToolTip
     </font>
    </property>
    <property name="text">
-    <string>open</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLineEdit" name="keyName">
    <property name="geometry">
     <rect>
      <x>52</x>
-     <y>23</y>
+     <y>21</y>
      <width>40</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <property name="maxLength">
     <number>4</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

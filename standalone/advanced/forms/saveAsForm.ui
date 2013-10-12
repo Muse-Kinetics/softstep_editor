@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background:	 rgb(25, 25, 25);
+	background:	 rgb(40, 40, 40);
 	border: 3px solid rgb(0,174,239);
 }
 

@@ -1,0 +1,14 @@
+/*---------- QPushButton ---------*/
+QPushButton
+{
+	background: none;
+	border: none;
+	image: url(:/resources/openkeywindow3_inactive.png)
+}
+
+QPushButton:pressed
+{
+	background: none;
+	border: none;
+	image: url(:/resources/openkeywindow3_active.png);
+}

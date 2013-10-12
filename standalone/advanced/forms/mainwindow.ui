@@ -97,8 +97,8 @@ QToolTip
     <property name="styleSheet">
      <string notr="true">QFrame
 {
-	background: rgba(255, 255, 255, 50);
-	border: rgba(255, 255, 255, 50);
+	background: rgb(60, 60, 60);
+	border: none;
 }</string>
     </property>
     <property name="frameShape">
@@ -453,8 +453,8 @@ QPushButton:pressed
     <property name="styleSheet">
      <string notr="true">QFrame
 {
-	background: rgba(255, 255, 255, 50);
-	border: rgba(255, 255, 255, 50);
+	background: rgb(60, 60, 60);
+	border: none;
 }</string>
     </property>
     <property name="frameShape">
@@ -599,7 +599,7 @@ QPushButton:pressed
      <string notr="true">QFrame
 {
 	background: rgba(190, 0, 94, 100);
-	border: 2px solid rgb(230,0,134);
+	border: 3px solid rgb(230,0,134);
 }</string>
     </property>
     <property name="frameShape">
@@ -612,8 +612,8 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>8</x>
-       <y>24</y>
-       <width>85</width>
+       <y>22</y>
+       <width>84</width>
        <height>33</height>
       </rect>
      </property>
@@ -685,8 +685,8 @@ QPushButton:pressed
     <property name="styleSheet">
      <string notr="true">QFrame
 {
-	background: rgba(255, 255, 255, 50);
-	border: rgba(255, 255, 255, 50);
+	background: rgb(60, 60, 60);
+	border: none;
 }</string>
     </property>
     <property name="frameShape">

@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background:		rgb(45, 45, 45);
+	background:		rgb(60, 60, 60);
 	border: 4px solid rgb(0,174,239);
 }
 
@@ -389,6 +389,24 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="text">
     <string>modline</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>17</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: none;
+border: none;
+image: url(:/resources/openkeywindowNav_inactive.png)</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

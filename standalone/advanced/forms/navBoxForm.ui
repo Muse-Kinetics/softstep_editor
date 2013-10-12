@@ -16,14 +16,14 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background:		rgb(35,31,32);
+	background:		rgb(60, 60, 60);
 	border: 3px solid rgb(0,174,239);
 }
 
 /* ---------- QLabels ------------*/
 QLabel
 {
-	background:		rgba(0,0,0,0);
+	background:		none;
 	color: 				white;
 	font: 				10pt &quot;Futura&quot;;
 	border:				none;
@@ -34,20 +34,26 @@ QLabel:hover
 	border:				none;
 }
 
-/* ---------- QPushButtons ------------*/
+/*---------- QPushButton ---------*/
 QPushButton
 {
-	background:		rgba(0,0,0,0);
-	color: 				white;
-	font: 				10pt &quot;Futura&quot;;
-	border:				2px solid rgb(0,174,239);
+	background: none;
+	border: none;
+	image: url(:/resources/openkeywindowNav_inactive.png)
+}
+
+QPushButton:pressed
+{
+	background: none;
+	border: none;
+	image: url(:/resources/openkeywindowNav_active.png);
 }
 
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 10pt &quot;Futura&quot;;
-	background: rgba(0,174,239,0);
+	font: 12pt &quot;Droid Sans Mono&quot;;
+	background: rgb(40, 40, 40);
 	border: 2px solid rgb(0,174,239);
 	border-radius: 0px;
 	color: white;
@@ -57,8 +63,8 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 10pt &quot;Futura&quot;;
-	background: transparent;
+	font: 12pt &quot;Droid Sans Mono&quot;;
+	background: rgb(40, 40, 40);
 	border: 1px solid white;
 	border-radius: 0px;
 	color: white;
@@ -80,10 +86,10 @@ QToolTip
   <widget class="QPushButton" name="openNavWindow">
    <property name="geometry">
     <rect>
-     <x>9</x>
-     <y>33</y>
+     <x>7</x>
+     <y>0</y>
      <width>40</width>
-     <height>22</height>
+     <height>64</height>
     </rect>
    </property>
    <property name="font">
@@ -93,51 +99,20 @@ QToolTip
     </font>
    </property>
    <property name="text">
-    <string>open</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLineEdit" name="keyName">
    <property name="geometry">
     <rect>
      <x>52</x>
-     <y>33</y>
+     <y>21</y>
      <width>40</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <property name="maxLength">
     <number>4</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="navLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>4</y>
-     <width>44</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Futura</family>
-     <pointsize>18</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel
-{
-	font: 18pt &quot;Futura&quot;;
-}</string>
-   </property>
-   <property name="text">
-    <string>NAV</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
  </widget>

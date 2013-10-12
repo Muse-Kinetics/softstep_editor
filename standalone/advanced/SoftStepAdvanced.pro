@@ -129,4 +129,14 @@ OTHER_FILES += \
     resources/modline_enable3_stylesheet.qss \
     resources/modline_enable4_stylesheet.qss \
     resources/modline_enable5_stylesheet.qss \
-    resources/modline_enable6_stylesheet.qss
+    resources/modline_enable6_stylesheet.qss \
+    resources/keybox_openwindow10_stylesheet.qss \
+    resources/keybox_openwindow9_stylesheet.qss \
+    resources/keybox_openwindow8_stylesheet.qss \
+    resources/keybox_openwindow7_stylesheet.qss \
+    resources/keybox_openwindow6_stylesheet.qss \
+    resources/keybox_openwindow5_stylesheet.qss \
+    resources/keybox_openwindow4_stylesheet.qss \
+    resources/keybox_openwindow3_stylesheet.qss \
+    resources/keybox_openwindow2_stylesheet.qss \
+    resources/keybox_openwindow1_stylesheet.qss

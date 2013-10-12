@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background:		rgb(45, 45, 45);
+	background:		rgb(60, 60, 60);
 	border: 3px solid rgb(0,174,239);
 }
 
@@ -226,7 +226,7 @@ QToolTip
    <property name="styleSheet">
     <string notr="true">QWidget
 {
-	background:		rgb(45, 45, 45);
+	background:		rgb(60, 60, 60);
 	border: none;
 }
 
