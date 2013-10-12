@@ -91,5 +91,27 @@
         <file>resources/mainWindow_editormode_uncheckedPressed.png</file>
         <file>resources/mainWindow_editormode_checked.png</file>
         <file>resources/mainWindow_editormode_unchecked.png</file>
+        <file>resources/openkeywindow1_active.png</file>
+        <file>resources/openkeywindow1_inactive.png</file>
+        <file>resources/openkeywindow2_active.png</file>
+        <file>resources/openkeywindow2_inactive.png</file>
+        <file>resources/openkeywindow3_active.png</file>
+        <file>resources/openkeywindow3_inactive.png</file>
+        <file>resources/openkeywindow4_active.png</file>
+        <file>resources/openkeywindow4_inactive.png</file>
+        <file>resources/openkeywindow5_active.png</file>
+        <file>resources/openkeywindow5_inactive.png</file>
+        <file>resources/openkeywindow6_active.png</file>
+        <file>resources/openkeywindow6_inactive.png</file>
+        <file>resources/openkeywindow7_active.png</file>
+        <file>resources/openkeywindow7_inactive.png</file>
+        <file>resources/openkeywindow8_active.png</file>
+        <file>resources/openkeywindow8_inactive.png</file>
+        <file>resources/openkeywindow9_active.png</file>
+        <file>resources/openkeywindow9_inactive.png</file>
+        <file>resources/openkeywindow10_active.png</file>
+        <file>resources/openkeywindow10_inactive.png</file>
+        <file>resources/openkeywindowNav_active.png</file>
+        <file>resources/openkeywindowNav_inactive.png</file>
     </qresource>
 </RCC>

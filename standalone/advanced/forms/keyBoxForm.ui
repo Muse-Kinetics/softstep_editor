@@ -37,24 +37,25 @@ QLabel:hover
 	border:				none;
 }
 
-/* ---------- QPushButtons ------------*/
+/*---------- QPushButton ---------*/
 QPushButton
 {
-	background:		rgb(30, 30, 30);
-	color: 				white;
-	font: 				10pt &quot;Futura&quot;;
-	border:				2px solid rgb(0,174,239);
+	background: none;
+	border: none;
+	image: url(:/resources/openkeywindow1_inactive.png)
 }
 
 QPushButton:pressed
 {
-	background: rgb(0, 174, 239)
+	background: none;
+	border: none;
+	image: url(:/resources/openkeywindow1_active.png);
 }
 
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Droid Sans Mono&quot;;
 	background: rgb(30, 30, 30);
 	border: 2px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -65,7 +66,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Droid Sans Mono&quot;;
 	background: rgb(30, 30, 30);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -77,7 +78,7 @@ QLineEdit:focus
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Droid Sans Mono&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -85,44 +86,13 @@ QToolTip
 	width: 22px;
 }</string>
   </property>
-  <widget class="QLabel" name="keyInstanceLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>2</y>
-     <width>30</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Futura</family>
-     <pointsize>18</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel
-{
-	font: 18pt &quot;Futura&quot;;
-}</string>
-   </property>
-   <property name="text">
-    <string>#</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-   </property>
-  </widget>
   <widget class="QPushButton" name="openWindow">
    <property name="geometry">
     <rect>
-     <x>9</x>
-     <y>33</y>
+     <x>7</x>
+     <y>13</y>
      <width>40</width>
-     <height>22</height>
+     <height>40</height>
     </rect>
    </property>
    <property name="font">
@@ -139,7 +109,7 @@ QToolTip
    <property name="geometry">
     <rect>
      <x>52</x>
-     <y>33</y>
+     <y>23</y>
      <width>40</width>
      <height>22</height>
     </rect>

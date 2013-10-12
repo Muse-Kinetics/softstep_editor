@@ -54,7 +54,9 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg(keyInstance+1));
 
     //What's in the Key Box?
-    keyBoxForm->keyInstanceLabel->setText(QString("%1").arg((keyInstance + 1)%10));
+
+    //Carson commented this next line out on 10/11/2013 because there is no longer a keyInstanceLabel in the key box
+    //keyBoxForm->keyInstanceLabel->setText(QString("%1").arg((keyInstance + 1)%10));
 
     connect(keyBoxForm->openWindow,SIGNAL(clicked()), this, SLOT(slotOpenWindow()));
 
