@@ -20,11 +20,19 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
 
     keyNum = instanceNum;
 
+    onThresh = 10;
+    offThresh = 5;
+
+    sensorResponse = 0; //0 - maximum 1 - avg
+
     //Init sensors
     for(int i=0; i<4; i++)
     {
         sensorVals[i] = 0;
     }
+
+    //Init raw vars
+    footOnOff = false;
 }
 
 void DataCooker::slotUpdateVals(int cc, int val)
@@ -48,28 +56,30 @@ void DataCooker::slotUpdateVals(int cc, int val)
             sensorVals[SE] = val;
         }
 
-        //qDebug() << "Key" << keyNum << "Sensor Vals" << sensorVals[NW] << sensorVals[NE] << sensorVals[SW] << sensorVals[SE];
+        qDebug() << "Key" << keyNum << "Sensor Vals" << sensorVals[NW] << sensorVals[NE] << sensorVals[SW] << sensorVals[SE];
 
-        cook();
+        cookRaw();
+
+        cookSources();
     }
 }
 
-void DataCooker::cook()
+void DataCooker::cookSources()
 {
     for(int i = 0; i < 6; i++)
     {
         //Live
         if(modlineSources.value(i) == "Pressure Live")
         {
-            emit signalTransformSource(pressureLive(), i);
+            emit signalTransformSource(pressureLive(), i, "Pressure Live");
         }
         else if(modlineSources.value(i) == "X Live")
         {
-            emit signalTransformSource(xLive(), i);
+            emit signalTransformSource(xLive(), i, "X Live");
         }
         else if(modlineSources.value(i) == "Y Live")
         {
-            emit signalTransformSource(yLive(), i);
+            emit signalTransformSource(yLive(), i, "Y Live");
         }
 
         //Latch
@@ -90,12 +100,29 @@ void DataCooker::cook()
 
 }
 
-int DataCooker::pressureLive()
+void DataCooker::cookRaw()
 {
-    bool avg = false;
+    //If raw pressure is greater than on-thresh and current state of key is off
+    if(pressureRaw() > onThresh && !footOnOff)
+    {
+        //Flip on
+        footOnOff = true;
+    }
+
+    //If pressure is below off-thresh and foot is currently on
+    else if(pressureRaw() < offThresh && footOnOff)
+    {
+        //Flip off
+        footOnOff = false;
+    }
+}
+
+int DataCooker::pressureRaw()
+{
+    //bool avg = false;
 
     //Average Sensor Val
-    if(avg)
+    if(sensorResponse) //Average
     {
         int mean = 0;
 
@@ -122,22 +149,85 @@ int DataCooker::pressureLive()
             }
         }
 
+        //qDebug() << "pressure" << max;
+
         return max;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////    Sources   //////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int DataCooker::pressureLive()
+{
+    if(footOnOff)
+    {
+
+        return (int)((float)(pressureRaw() - offThresh) / (float)(127 - offThresh) * 127.00);
+    }
+    else
+    {
+        qDebug() << "here";
+        return 0;
     }
 }
 
 int DataCooker::xLive()
 {
     int eastMass = sensorVals[NE] + sensorVals[SE];
-    int westMass = sensorVals[NW] + sensorVals[NE];
+    int westMass = sensorVals[NW] + sensorVals[SW];
     int totalMass = eastMass + westMass;
-    int xLoc = (westMass + eastMass*127) / totalMass;
-    qDebug() << "xLoc" << xLoc;
+    int xLoc;
+
+    if(totalMass)
+    {
+        xLoc = ((westMass + eastMass*128) / totalMass) - 1;
+    }
+    else
+    {
+        xLoc = 0;
+    }
+
+    return xLoc;
 }
 
 int DataCooker::yLive()
 {
 
+}
+
+int DataCooker::footOn()
+{
+    //If pressure is greater than on-thresh and current state of key is off
+    if(pressureRaw() > onThresh && !footOnOff)
+    {
+        //Flip on
+        footOnOff = true;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int DataCooker::footOff()
+{
+    //If pressure is below off-thresh and foot is currently on
+    if(pressureRaw() < offThresh && footOnOff)
+    {
+        //Flip off
+        footOnOff = false;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 void DataCooker::slotSetSource(QString source, int modlineInstance)

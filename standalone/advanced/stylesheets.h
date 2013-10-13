@@ -23,8 +23,9 @@ class StyleSheets
         QString modlineEnable5StyleSheet;
         QString modlineEnable6StyleSheet;*/
 
-        //Could also use an array here, but QList is handy and good to know how to use --Conner
+        //Could also use an array here, but QList is handy and good to know how to use
         QList<QString> modlineEnableStyleSheet;
+        QList<QString> keyBoxOpenButtonStyleSheet;
 
 };
 

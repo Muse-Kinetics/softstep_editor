@@ -15,6 +15,7 @@
 #include "setlist.h"
 #include "presetinterface.h"
 #include "mididevicemanager.h"
+#include "sysexcomposer.h"
 
 #include "ui_mainwindow.h"
 #include "ui_saveAsForm.h"
@@ -34,6 +35,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    SysExComposer* sysExComposer;
     PresetInterface* presetInterface;
     MidiDeviceManager* midiDeviceManager;
     MidiParse* midiParse;
@@ -78,6 +80,8 @@ public slots:
 
     void slotSetMode();
     void slotPopulateSourceDestLists();
+
+    void slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion);
 
 
 private:

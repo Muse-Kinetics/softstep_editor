@@ -10,6 +10,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
+    sysExComposer(new SysExComposer(this)),
     presetInterface(new PresetInterface(this)),
     midiDeviceManager(new MidiDeviceManager(this)),
     midiParse(new MidiParse()),
@@ -116,6 +117,10 @@ void MainWindow::slotConnectInterfaces()
     connect(midiDeviceManager, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
 
 
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////// Preset Storage, Recall //////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //--------------------------------------- Preset Recall
 
     //Keys
@@ -171,7 +176,7 @@ void MainWindow::slotConnectInterfaces()
 
     //Settings
     connect(ui->opensettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));
-    connect(settingsWindow, SIGNAL(signalStoreValue(QString,QVariant)), presetInterface, SLOT(slotStoreGlobal(QString,QVariant)));
+    //connect(settingsWindow, SIGNAL(signalStoreValue(QString,QVariant)), presetInterface, SLOT(slotStoreGlobal(QString,QVariant)));
     //connect(settingsWindow, SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
 
     //------------- Save, Save As, Revert, Delete
@@ -196,12 +201,15 @@ void MainWindow::slotConnectInterfaces()
     connect(deleteDialogForm->delete_2, SIGNAL(clicked()), deleteDialogWidget, SLOT(close()));
     connect(deleteDialogForm->delete_2, SIGNAL(clicked()), this, SLOT(slotPopulatePresetMenu()));
 
-    //preset menu
-    //connect(ui->presetmenu, SIGNAL(currentIndexChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
-
     //setlist
     connect(ui->opensetlist, SIGNAL(clicked()), setlist, SLOT(slotShowSetlist()));
     connect(presetInterface, SIGNAL(signalPopulateSetlistMenus(QComboBox*)), setlist, SLOT(slotPopulateMenus(QComboBox*)));
+
+    //Version Checking
+    connect(midiDeviceManager, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
+    connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString)), this, SLOT(slotReceiveVersions(int,QString, int, QString)));
+
+
 }
 
 void MainWindow::slotInitMenuBar()
@@ -281,6 +289,23 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
         //ui->update->setText("SAVE");
         //aboutForm->found->setText("Not Connected");
+    }
+}
+
+void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
+{
+    //aboutForm->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
+
+    qDebug() << QString("connected: %1,  embedded: %2").arg(connected).arg(embedded);
+
+    if(connected != embedded)
+    {
+        //fwoodDialog->expected->setText(QString("%1 %2").arg(embeddedVersion).arg(embedded));
+        //fwoodDialog->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
+        //disableWidget->show();
+        //slotEnableDisableMenu();
+        //fwoodDialogWidget->show();
+        qDebug() << "_____ Your firmware version is out of date _____";
     }
 }
 

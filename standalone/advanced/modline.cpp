@@ -16,7 +16,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     formWidget(new QWidget(this)),
     //hosted_formWidget(new QWidget(this)),
     modlineForm(new Ui::modlineForm)
-    //hosted_modlineForm(new Ui::modlineForm_hosted)
+  //hosted_modlineForm(new Ui::modlineForm_hosted)
 
 {
     keyInstance = keyInstanceNum;
@@ -569,6 +569,7 @@ void Modline::slotStreamSourceData()
     //--------------------------- Hosted
     if(mode == "hosted")
     {
+        //Get source from key data cooker
         emit signalSetSource(modlineForm->source->currentText(), modlineInstance);
     }
 }
@@ -587,11 +588,26 @@ void Modline::slotSetTransformValues()
     delay = modlineForm->delay->value();
 }
 
-void Modline::slotTransformSource(int val, int modlineNum)
+void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
+    static QString lastSource = "None";
+    static int lastVal = -1;
+
+    //Make sure this is the correct modline to receive source being emitted
     if(modlineNum == modlineInstance)
     {
-        qDebug() << "modline #: " << modlineInstance << "result: : " << val;
+        //If source is different or there is a change in value...
+        if(lastVal != val || lastSource != source)
+        {
+            //Output
+            qDebug() << "modline" << modlineForm->source->currentText() << "#: " << modlineInstance << "result: : " << val;
+            modlineForm->raw->setValue(val);
+
+        }
+
+        lastVal = val;
+        lastSource = source;
+    }
 
     //table
 
@@ -600,5 +616,5 @@ void Modline::slotTransformSource(int val, int modlineNum)
     //smooth
 
     //delay
-    }
 }
+

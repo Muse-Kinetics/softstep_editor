@@ -70,7 +70,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
 
     //Carson's attempt to dynamically update the key window instance label — shit works
     keyWindowForm->keyWindowInstanceLabel->setText(QString("%1").arg(keyInstance + 1));
-
+    keyBoxForm->openWindow->setStyleSheet(stylesheets.keyBoxOpenButtonStyleSheet.at(keyInstance));
 }
 
 void Key::slotOpenWindow()
@@ -93,7 +93,7 @@ void Key::slotConnectElements()
     for(int i = 0; i < 6; i++)
     {
         connect(modline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
-        connect(&dataCooker, SIGNAL(signalTransformSource(int, int)), modline[i], SLOT(slotTransformSource(int, int)));
+        connect(&dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
     }
 
 }

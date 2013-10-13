@@ -10,6 +10,8 @@
 #include <QVariant>
 
 #include "modline.h"
+#include "stylesheets.h"
+
 #include "ui_keyWindowForm.h"
 #include "ui_keyBoxForm.h"
 
@@ -20,6 +22,8 @@ class Key : public QWidget
     Q_OBJECT
 public:
     explicit Key(QWidget *parent = 0, int keyInstanceNum = 0);
+
+    StyleSheets stylesheets;
 
     int keyInstance;
 

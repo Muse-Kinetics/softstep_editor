@@ -10,7 +10,7 @@ MidiParse::MidiParse(QWidget *parent) :
 
 void MidiParse::slotParsePacket(const MIDIPacket* packet)
 {
-    //qDebug() << "parse midi packet" << packet->data[0] << packet->data[1] << packet->data[2];
+    qDebug() << "parse midi packet" << packet->length << packet->data[0] << packet->data[1] << packet->data[2];
 
     if(packet->data[0] == 176)
     {

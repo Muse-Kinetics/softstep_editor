@@ -59,7 +59,7 @@ public slots:
     void slotPopulateMenus(QStringList source, QStringList dest, QStringList table);
 
     //---------------------------- Hosted
-    void slotTransformSource(int val, int modlineNum);
+    void slotTransformSource(int val, int modlineNum, QString source);
     void slotSetTransformValues();
     void slotStreamSourceData();
 

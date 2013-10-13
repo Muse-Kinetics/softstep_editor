@@ -21,12 +21,19 @@ public:
 
     QMap<int, QString>  modlineSources;
 
-    void                cook();
+    void                cookRaw();
+    void                cookSources();
 
     //------------------------------- Source Cooking
+    int     pressureRaw();
+
     int     pressureLive();
     int     xLive();
     int     yLive();
+
+    int    footOn();
+    int    footOff();
+    bool   footOnOff;
 
     /*int     pressureLatch();
     int     xLatch();
@@ -35,8 +42,7 @@ public:
     int     xIncrement();
     int     yIncrement();
 
-    void    footOn();
-    void    footOff();
+
 
     void    top();
     void    bottom();
@@ -53,10 +59,16 @@ public:
     void    doubleTrigLatch();
     void    longTrigLatch();*/
 
+    //------- Settings
+    int onThresh;
+    int offThresh;
+
+    int sensorResponse; //0 - maximum 1 - avg
+
 
     
 signals:
-    void signalTransformSource(int data, int modlineNum);
+    void signalTransformSource(int data, int modlineNum, QString source);
     
 public slots:
     void slotUpdateVals(int cc, int val);
