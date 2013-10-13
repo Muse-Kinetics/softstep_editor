@@ -104,7 +104,7 @@ void MainWindow::slotConnectInterfaces()
 
 
     //-------------------------------------- Hosted MIDI
-    connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)));
+    connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)), Qt::DirectConnection);
 
     //Midi Parsing to each Key's data cooker
     for(int k = 0; k < 10; k++)
