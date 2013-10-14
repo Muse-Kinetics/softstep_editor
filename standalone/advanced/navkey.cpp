@@ -50,16 +50,58 @@ void NavKey::slotOpenWindow()
 void NavKey::slotConnectElements()
 {
     //nav name (from the nav box form)
+    connect(navBoxForm->keyName, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
 
-    //nav counter stuff?
+    //nav modulation window stuff
+    connect(navKeyWindowForm->navpadmode_modline, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+    connect(navKeyWindowForm->navpadmode_programchange, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
 }
 
 void NavKey::slotValueChanged()
 {
-    //nav name stuff
+    if(QObject::sender())
+    {
+        QString jsonName;
+        QObject *sender = QObject::sender();
+        QVariant value;
+
+        //nav name
+        if(sender == navBoxForm->keyName)
+        {
+            jsonName = "name";
+            value = navBoxForm->keyName->text();
+        }
+        else if(sender == navKeyWindowForm->navpadmode_modline)
+        {
+            jsonName = "modlinemode";
+            value = 0;
+        }
+        else if(sender == navKeyWindowForm->navpadmode_programchange)
+        {
+            jsonName = "modlinemode";
+            value = 1;
+        }
+
+        emit signalStoreValue(QString("nav_%1").arg(jsonName), value, -1);
+    }
+    emit signalCheckSavedState();
 }
 
 void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
-    //recalling stuff for nav name
+    navBoxForm->keyName->setText(preset.value(QString("nav_name")).toString());
+
+    //this stuff is to determine the modlinemode (0 is for modline, 1 is for programchange... this can be changed)
+    int modlinemode = preset.value(QString("nav_modlinemode")).toInt();
+
+    if(modlinemode == 0)
+    {
+        navKeyWindowForm->navpadmode_modline->setChecked(TRUE);
+        navKeyWindowForm->navpadmode_programchange->setChecked(FALSE);
+    }
+    else if(modlinemode == 1)
+    {
+        navKeyWindowForm->navpadmode_modline->setChecked(FALSE);
+        navKeyWindowForm->navpadmode_programchange->setChecked(TRUE);
+    }
 }
