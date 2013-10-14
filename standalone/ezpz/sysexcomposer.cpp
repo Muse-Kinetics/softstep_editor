@@ -410,7 +410,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
                     attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,0l);
                     attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,"CC");
                     attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value("midiChannel").toLongLong());
-                    attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value("navPadCC").toLongLong());
+                    attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value("pedalCC").toLongLong());
 
                     if(m == 2l)
                     {
