@@ -62,7 +62,8 @@ public slots:
     void slotReadJSON();
     void slotWriteJSON(QVariantMap jsonMap);
 
-    void slotConstructDefaultMap();
+    void slotConstructDefaultStandaloneMap();
+    void slotConstructDefaultHostedMap();
     void slotConstructGlobalDefaultMap();
     void slotRecallPreset(int i);
     void slotRecallGlobal();
