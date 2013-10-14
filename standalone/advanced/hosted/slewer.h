@@ -22,6 +22,7 @@ public:
     
 signals:
     void            signalOutput(int output);
+
 public slots:
     void            slotSlew(double target, double time);
     void            slotUpdate();

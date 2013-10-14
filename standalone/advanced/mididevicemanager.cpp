@@ -257,8 +257,6 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
 
 void MidiDeviceManager::hosted_slotParsePacket(const MIDIPacket * packet)
 {
-    qDebug() << "parse midi packet callback" << packet->data[0] << packet->data[1] << packet->data[2];
-
     emit hosted_signalParsePacket(packet);
 }
 
@@ -300,8 +298,6 @@ void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *src
 
     //iterate through midi packets and process according to type
     const MIDIPacket *packet = &pktlist->packet[0];
-
-    qDebug() << "NumPackets" << pktlist->numPackets;
 
     //for number packets in packet list
     for(int i =0; i < pktlist->numPackets; i++)

@@ -10,8 +10,8 @@
 #include <QVariant>
 
 #include "ui_modlineForm.h"
-//#include "ui_modlineForm_hosted.h"
 #include "stylesheets.h"
+#include "hosted/slewer.h"
 
 class Modline : public QWidget
 {
@@ -30,6 +30,8 @@ public:
     int modlineInstance;
 
     //-------------------- Hosted
+    Slewer slewer;
+
     //Transform variables
     float gain;
     int offset;
@@ -38,6 +40,11 @@ public:
     int max;
     int smooth;
     int delay;
+
+    //Graphical vars
+    int raw;
+    int result;
+    int value;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
@@ -62,6 +69,12 @@ public slots:
     void slotTransformSource(int val, int modlineNum, QString source);
     void slotSetTransformValues();
     void slotStreamSourceData();
+    int  slotTable(int input);
+    int  slotMinMax(int input);
+    void slotSmooth(int result);
+    int  slotDelay(int input);
+
+    void slotDisplayVars();
 
 
 private:

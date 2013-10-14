@@ -109,7 +109,7 @@ void MainWindow::slotConnectInterfaces()
     //Midi Parsing to each Key's data cooker
     for(int k = 0; k < 10; k++)
     {
-        connect(midiParse, SIGNAL(signalUpdateSensor(int,int)), &key[k]->dataCooker, SLOT(slotUpdateVals(int,int)));
+        connect(midiParse, SIGNAL(signalUpdateSensor(int,int)), &key[k]->dataCooker, SLOT(slotUpdateVals(int,int)), Qt::DirectConnection);
     }
 
 

@@ -2,7 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "modline.h"
-//#include "ui_keyWindowForm.h"
+#include "tables.h"
 
 //Constants for various modline arrangement parameters
 #define MODLINE_WINDOW_WIDTH 1100
@@ -35,6 +35,14 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     modlineForm->deviceViewLabels->setCurrentIndex(0);
     modlineForm->raw->setValue(0);
     modlineForm->enable->setStyleSheet(stylesheets.modlineEnableStyleSheet.at(modlineInstanceNum));
+
+    raw = 0;
+    result = 0;
+    value = 0;
+
+    QTimer *updateGraphicsClock = new QTimer(this);
+    connect(updateGraphicsClock, SIGNAL(timeout()), this, SLOT(slotDisplayVars()));
+    updateGraphicsClock->start(10);
 }
 
 void Modline::slotConnectElements()
@@ -117,6 +125,9 @@ void Modline::slotConnectElements()
     connect(modlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
     connect(modlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
     connect(modlineForm->offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
+
+    //----------------------- Hosted - Slewer
+    connect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmooth(int)));
 
 }
 
@@ -562,6 +573,11 @@ void Modline::slotPopulateMenus(QStringList source, QStringList dest, QStringLis
     modlineForm->destination->addItems(dest);
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////    Hosted   ///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Modline::slotStreamSourceData()
 {
 
@@ -569,6 +585,9 @@ void Modline::slotStreamSourceData()
     //--------------------------- Hosted
     if(mode == "hosted")
     {
+        //Set instance modline/transform params
+        slotSetTransformValues();
+
         //Get source from key data cooker
         emit signalSetSource(modlineForm->source->currentText(), modlineInstance);
     }
@@ -586,27 +605,73 @@ void Modline::slotSetTransformValues()
     max = modlineForm->max->value();
     smooth = modlineForm->slew->value();
     delay = modlineForm->delay->value();
+
+    //qDebug() << "modline: " << modlineInstance << gain << offset << table << min << max << smooth << delay;
 }
 
 void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
-    static QString lastSource = "None";
-    static int lastVal = -1;
+    //All streams are sent to all modlines, so we need arrays to filter
+    static QString lastSource[6] = {"None", "None", "None", "None", "None", "None"};
+    static int lastVal[6] = {-1, -1, -1, -1, -1, -1};
+
+    static int output[6] = {0,0,0,0,0,0};
 
     //Make sure this is the correct modline to receive source being emitted
     if(modlineNum == modlineInstance)
     {
-        //If source is different or there is a change in value...
-        if(lastVal != val || lastSource != source)
+        //If source value is different from last or there is a change in value...
+        if(lastVal[modlineNum] != val || lastSource[modlineNum] != source)
         {
-            //Output
-            qDebug() << "modline" << modlineForm->source->currentText() << "#: " << modlineInstance << "result: : " << val;
-            modlineForm->raw->setValue(val);
+            raw = val;
+
+            val = val*gain + offset;
+
+            result = val;
+
+            //Table
+            val = slotTable(val);
+
+            //Min Max
+            val = slotMinMax(val);
+
+            //Smooth
+            //If slew time specified
+            if(smooth != 0)
+            {
+                //Handle output from slotSlew()
+                slewer.slotSlew(output[modlineNum], modlineForm->slew->value());
+            }
+            else
+            {
+                //If delay and no slew...
+                if(delay != 0)
+                {
+
+                }
+
+                //If no delay and no slew...
+                else
+                {
+                    value = val;
+                }
+
+            }
+
+            //Delay
+
+
+
+
+
 
         }
 
-        lastVal = val;
-        lastSource = source;
+        lastVal[modlineNum] = val;
+        lastSource[modlineNum] = source;
+
+        //qDebug() << "transform modline : " << modlineNum << "raw:" <<  raw << "result: " << result << "value:"  << value << "\n";
+
     }
 
     //table
@@ -616,5 +681,81 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
     //smooth
 
     //delay
+
+    //slotDisplayVars();
+
+
 }
+
+int Modline::slotTable(int input)
+{
+    //QString table = modlineForm->table->currentText();
+
+    if( table == "Linear")
+    {
+        return linear[input];
+    }
+    else if(table == "Sine")
+    {
+        return sine[input];
+    }
+    else if(table == "Cosine")
+    {
+        return cosine[input];
+    }
+    else if(table == "Exponential")
+    {
+        return exponential[input];
+    }
+    else if(table == "Logarithmic")
+    {
+        return logarithmic[input];
+    }
+}
+
+int Modline::slotMinMax(int input)
+{
+    //If min max are flipped... Don't know... return input for now
+    if(min > max)
+    {
+        return input;
+    }
+
+    //If they're equal or max is greater than min
+    else
+    {
+        if(input < min)
+        {
+            return min;
+        }
+        else if(input > max)
+        {
+            return max;
+        }
+        else
+        {
+            return input;
+        }
+    }
+}
+
+void Modline::slotSmooth(int result)
+{
+    qDebug() << result;
+}
+
+int Modline::slotDelay(int input)
+{
+
+}
+
+void Modline::slotDisplayVars()
+{
+
+    modlineForm->raw->setValue(raw);
+    modlineForm->result->setValue(result);
+    modlineForm->outputvalue->setValue(value);
+}
+
+
 
