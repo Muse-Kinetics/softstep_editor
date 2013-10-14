@@ -297,17 +297,7 @@ void Modline::slotValueChanged()
         //Destination Menu
         else if(sender == modlineForm->destination)
         {
-            //set the device view to change based on what is selected in the destination menu
-            if((modlineForm->destination->currentIndex()) > 10)
-            {
-                modlineForm->deviceViews->setCurrentIndex(0);
-                modlineForm->deviceViewLabels->setCurrentIndex(0);
-            }
-            else
-            {
-                modlineForm->deviceViews->setCurrentIndex(modlineForm->destination->currentIndex());
-                modlineForm->deviceViewLabels->setCurrentIndex(modlineForm->destination->currentIndex());
-            }
+            slotRecallDestinationMenu();
 
             jsonName = "destination";
             value = modlineForm->destination->currentText();

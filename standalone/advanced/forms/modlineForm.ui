@@ -1261,6 +1261,11 @@ QComboBox QListView
    </property>
    <item>
     <property name="text">
+     <string>None</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
      <string>True</string>
     </property>
    </item>
@@ -1338,6 +1343,11 @@ QComboBox QListView
 	min-width: 67px;
 }</string>
    </property>
+   <item>
+    <property name="text">
+     <string>None</string>
+    </property>
+   </item>
    <item>
     <property name="text">
      <string>True</string>
