@@ -1173,7 +1173,7 @@ QComboBox::down-arrow
 </string>
    </property>
    <property name="currentIndex">
-    <number>8</number>
+    <number>9</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -1789,18 +1789,6 @@ QDoubleSpinBox::focus
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="oscDeviceView">
-    <widget class="QLineEdit" name="oscroute">
-     <property name="geometry">
-      <rect>
-       <x>104</x>
-       <y>0</y>
-       <width>116</width>
-       <height>18</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
    <widget class="QWidget" name="bendDeviceView">
     <widget class="QSpinBox" name="bendchannel">
      <property name="geometry">
@@ -1995,6 +1983,18 @@ QDoubleSpinBox::focus
     <zorder>mmcdeviceid</zorder>
     <zorder>mmcfunction</zorder>
     <zorder>mmcdevice</zorder>
+   </widget>
+   <widget class="QWidget" name="oscDeviceView">
+    <widget class="QLineEdit" name="oscroute">
+     <property name="geometry">
+      <rect>
+       <x>104</x>
+       <y>0</y>
+       <width>116</width>
+       <height>18</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="aftertouchDeviceView">
     <widget class="QComboBox" name="aftertouchdevice">
@@ -2202,7 +2202,7 @@ QLabel
 }</string>
    </property>
    <property name="currentIndex">
-    <number>8</number>
+    <number>9</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">
@@ -2441,24 +2441,6 @@ QLabel
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="oscDeviceLabel">
-    <widget class="QLabel" name="label_21">
-     <property name="geometry">
-      <rect>
-       <x>113</x>
-       <y>0</y>
-       <width>72</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Output Prefix</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </widget>
    <widget class="QWidget" name="bendDeviceLabel">
     <widget class="QLabel" name="label_23">
      <property name="geometry">
@@ -2531,6 +2513,24 @@ QLabel
      </property>
      <property name="text">
       <string>Function</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="oscDeviceLabel">
+    <widget class="QLabel" name="label_21">
+     <property name="geometry">
+      <rect>
+       <x>113</x>
+       <y>0</y>
+       <width>72</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Output Prefix</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>

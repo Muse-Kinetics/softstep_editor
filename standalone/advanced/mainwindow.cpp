@@ -447,8 +447,8 @@ void MainWindow::slotPopulateSourceDestLists()
     hostedDestinations.append("OSC");
     hostedDestinations.append("Aftertouch");
     hostedDestinations.append("Poly Aftertouch");
-    hostedDestinations.append("GarageBand");
-    hostedDestinations.append("HUI");
+    //hostedDestinations.append("GarageBand");
+    //hostedDestinations.append("HUI");
     hostedDestinations.append("Y Inc Set");
     hostedDestinations.append("X Inc Set");
 
@@ -519,14 +519,14 @@ void MainWindow::slotPopulateSourceDestLists()
     hostedSources.append("Top");
     hostedSources.append("Bottom");
 
-    hostedSources.append("Wait Trig");
+    //hostedSources.append("Wait Trig");
     hostedSources.append("Fast Trig");
     hostedSources.append("Dbl Trig");
     hostedSources.append("Long Trig");
     hostedSources.append("Off Trig");
     hostedSources.append("Delta Trig");
 
-    hostedSources.append("Wait Trig Latch");
+    //hostedSources.append("Wait Trig Latch");
     hostedSources.append("Fast Trig Latch");
     hostedSources.append("Dbl Trig Latch");
     hostedSources.append("Long Trig Latch");
@@ -586,7 +586,7 @@ void MainWindow::slotPopulateSourceDestLists()
     standaloneTables.append("Logarithmic");
 
     standaloneTables.append("Toggle");
-    standaloneTables.append("Toggle 127");
+    //standaloneTables.append("Toggle 127");
 
 
     //Hosted
@@ -597,7 +597,7 @@ void MainWindow::slotPopulateSourceDestLists()
     hostedTables.append("Logarithmic");
 
     hostedTables.append("Toggle");
-    hostedTables.append("Toggle 127s");
+    //hostedTables.append("Toggle 127s");
 
     hostedTables.append("Counter Inc");
     hostedTables.append("Counter Dec");
