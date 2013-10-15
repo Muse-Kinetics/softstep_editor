@@ -347,11 +347,13 @@ void MainWindow::slotDisplaySaveState(bool dirty)
 {
     if(dirty)
     {
-        qDebug() << "the preset is dirty";
+        //qDebug() << "the preset is dirty";
+        ui->save->setStyleSheet("background-color:red");
     }
     else
     {
-        qDebug() << "the preset is no longer dirty";
+        //qDebug() << "the preset is no longer dirty";
+        ui->save->setStyleSheet("background-color:rgb(58,58,60)");
     }
 }
 

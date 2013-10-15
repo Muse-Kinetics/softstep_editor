@@ -462,9 +462,9 @@ void NavModline::slotRecallDestinationMenu()
     }
 }
 
-void NavModline::slotSetMode(QString mode)
+void NavModline::slotSetMode(QString m)
 {
-
+    mode = m;
 }
 
 void NavModline::slotSetMenus(QStringList source, QStringList dest, QStringList table)

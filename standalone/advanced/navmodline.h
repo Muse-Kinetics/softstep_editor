@@ -20,6 +20,8 @@ public:
 
     StyleSheets stylesheets;
 
+    QString mode;
+
     QWidget* formWidget;
 
     int navInstance;
@@ -37,7 +39,7 @@ public slots:
     void slotRawResult();
     void slotRecallDestinationMenu();
 
-    void slotSetMode(QString mode);
+    void slotSetMode(QString m);
     void slotSetMenus(QStringList source, QStringList dest, QStringList table);
 
 private:
