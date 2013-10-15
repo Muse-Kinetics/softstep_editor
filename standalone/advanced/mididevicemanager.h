@@ -17,6 +17,9 @@
 #include <AudioUnit/AudioUnit.h>
 #include <vector>
 
+
+#include "hosted/midiformatoutput.h"
+
 //#include "sysexencode.h"
 
 enum{NORMAL, BOOTLOADER_POST_UPDATE_REQUEST, BOOTLOADER_NO_UPDATE_REQUEST};
@@ -76,6 +79,9 @@ public:
     QString cFStringRefToQString(CFStringRef);
 
     bool      queryReplied;
+
+    //---------------- Hosted Source Sending ---------------//
+    MidiFormatOutput midiFormatOutput;
     
 signals:
     void signalFirmwareOutOfDate(QString expectedBoot, QString foundBoot, QString expectedFirmware, QString foundFirmware);
@@ -88,7 +94,10 @@ signals:
     void signalConnected(bool);
     void signalFwBytesLeft(int);
 
+    //---------------- Hosted Source Sending ---------------//
     void hosted_signalParsePacket(const MIDIPacket*);
+
+
     
 public slots:
     void slotUpdateFirmware();
@@ -100,6 +109,7 @@ public slots:
     void slotDrainSysexFIFO();
 
     void hosted_slotParsePacket(const MIDIPacket* packet);
+    void hosted_slotSendPacket(MIDIPacket packet);
     
 };
 #else

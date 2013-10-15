@@ -23,6 +23,8 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     fwUpdateRequested = false;
     callbackClassPointer = this;
     createAppMidiClient();
+
+    connect(&midiFormatOutput, SIGNAL(signalSendMidiPacketList(MIDIPacket)), this, SLOT(hosted_slotSendPacket(MIDIPacket)));
 }
 
 void MidiDeviceManager::createAppMidiClient()
@@ -255,12 +257,33 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
     }
 }
 
+
+//------------------------------------------------------ Hosted
 void MidiDeviceManager::hosted_slotParsePacket(const MIDIPacket * packet)
 {
     emit hosted_signalParsePacket(packet);
 }
 
+void MidiDeviceManager::hosted_slotSendPacket(MIDIPacket packet)
+{
 
+    qDebug() << "hosted_slotSendPacketCalled" << packet.data[0] << packet.data[1] << packet.data[2] << packet.length << packet.timeStamp << "\n";
+
+    //Packet Size max size
+    Byte packetListSize[256];
+
+    //Allocates bytes, sets size of total packetlist
+    MIDIPacketList* packetList = (MIDIPacketList*)packetListSize;
+
+    //Initialize packet
+    MIDIPacket* pkt = MIDIPacketListInit(packetList); //Init midi packet
+
+    //Add new packet to list
+    MIDIPacketListAdd(packetList, 256, pkt, 0, packet.length, packet.data);
+
+    //Send packet to virtual source
+    MIDIReceived(appVirtualSourceRef, packetList);
+}
 
 ////////////////////////////////////////////////////////
 ////////////////Non-Class Callbacks ////////////////////

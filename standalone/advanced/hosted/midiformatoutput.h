@@ -1,0 +1,46 @@
+// Copyright (c) 2025 KMI Music, Inc.
+// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+// If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#ifndef MIDIFORMATOUTPUT_H
+#define MIDIFORMATOUTPUT_H
+
+#include <QWidget>
+#include <QDebug>
+
+#include <CoreMIDI/CoreMIDI.h>
+#include <CoreServices/CoreServices.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <AudioUnit/AudioUnit.h>
+
+class MidiFormatOutput : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit MidiFormatOutput(QWidget *parent = 0);
+    
+signals:
+
+#ifdef Q_OS_MAC
+    void signalSendMidiPacketList(MIDIPacket packet);
+#else
+
+#endif
+
+public slots:
+    void slotPreparePacket();
+
+    void slotNoteSet(QString port, int channel, int note, int velocity);
+    void slotNoteLive(int channel, int oldNote, int newNote, int velocity);
+    void slotCC(QString port, int channel, int ccNum, int ccVal);
+    void slotBank(QString port, int channel, int msb, int lsb);
+    //void slotOSC();
+    void slotProgram(QString port, int channel, int program);
+    void slotPitchBend(QString port, int channel);
+    void slotMMC(QString port, int id, QString function);
+    void slotAftertouch(QString port, int channel, int val);
+    void slotPolyAftertouch(QString port, int channel, int note, int val);
+    //void slotGarageBand();
+    //void slotHUI();
+};
+
+#endif // MIDIFORMATOUTPUT_H

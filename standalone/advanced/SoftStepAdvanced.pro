@@ -41,7 +41,8 @@ SOURCES +=      main.cpp\
     hosted/midiparse.cpp \
     hosted/datacooker.cpp \
     navmodline.cpp \
-    navkey.cpp
+    navkey.cpp \
+    hosted/midiformatoutput.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -69,7 +70,8 @@ HEADERS  +=     mainwindow.h \
     hosted/datacooker.h \
     navmodline.h \
     navkey.h \
-    ../../shared/tables.h
+    ../../shared/tables.h \
+    hosted/midiformatoutput.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \

@@ -72,8 +72,6 @@ void DataCooker::cookSources()
         //Live
         if(modlineSources.value(i) == "Pressure Live")
         {
-            qDebug() << "emit" << i;
-
             emit signalTransformSource(pressureLive(), i, "Pressure Live");
         }
         else if(modlineSources.value(i) == "X Live")

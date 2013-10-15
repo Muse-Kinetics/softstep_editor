@@ -4,6 +4,11 @@
 #include "modline.h"
 #include "tables.h"
 
+#include <CoreMIDI/CoreMIDI.h>
+#include <CoreServices/CoreServices.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <AudioUnit/AudioUnit.h>
+
 //Constants for various modline arrangement parameters
 #define MODLINE_WINDOW_WIDTH 1100
 #define MODLINE_WINDOW_HEIGHT 42
@@ -27,6 +32,11 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     //---------------------------------------- Set Up Ui
     modlineForm->setupUi(formWidget);
 
+    rawBox = modlineForm->raw;
+    resultBox = modlineForm->result;
+    valueBox = modlineForm->outputvalue;
+
+
     this->setFixedSize(MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
     this->setGeometry(MODLINE_STARTING_X_POS, MODLINE_STARTING_Y_POS + ((modlineInstance)*(MODLINE_WINDOW_HEIGHT + MODLINE_SPACING)), MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
 
@@ -40,9 +50,9 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     result = 0;
     value = 0;
 
-    QTimer *updateGraphicsClock = new QTimer(this);
-    connect(updateGraphicsClock, SIGNAL(timeout()), this, SLOT(slotDisplayVars()));
-    updateGraphicsClock->start(10);
+    //QTimer *updateGraphicsClock = new QTimer(this);
+    //connect(updateGraphicsClock, SIGNAL(timeout()), this, SLOT(slotDisplayVars()));
+    //updateGraphicsClock->start(10);
 }
 
 void Modline::slotConnectElements()
@@ -522,10 +532,26 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modlineForm->oscroute->setText(preset.value(QString("key%1_modline%2_oscroute").arg(keyInstance+1).arg(modlineInstance+1)).toString());
 
     slotRecallDestinationMenu();
+
     slotConnectElements();
 
     //---------- update hosted source streaming
     slotStreamSourceData();
+}
+
+void Modline::slotRecallDestinationMenu()
+{
+    //set the device view to change based on what is selected in the destination menu
+    if((modlineForm->destination->currentIndex()) > 10)
+    {
+        modlineForm->deviceViews->setCurrentIndex(0);
+        modlineForm->deviceViewLabels->setCurrentIndex(0);
+    }
+    else
+    {
+        modlineForm->deviceViews->setCurrentIndex(modlineForm->destination->currentIndex());
+        modlineForm->deviceViewLabels->setCurrentIndex(modlineForm->destination->currentIndex());
+    }
 }
 
 void Modline::slotRawResult()
@@ -542,21 +568,6 @@ void Modline::slotRawResult()
     }
 
     //qDebug() << "initialize result value";
-}
-
-void Modline::slotRecallDestinationMenu()
-{
-    //set the device view to change based on what is selected in the destination menu
-    if((modlineForm->destination->currentIndex()) > 10)
-    {
-        modlineForm->deviceViews->setCurrentIndex(0);
-        modlineForm->deviceViewLabels->setCurrentIndex(0);
-    }
-    else
-    {
-        modlineForm->deviceViews->setCurrentIndex(modlineForm->destination->currentIndex());
-        modlineForm->deviceViewLabels->setCurrentIndex(modlineForm->destination->currentIndex());
-    }
 }
 
 void Modline::slotSetMode(QString m)
@@ -629,10 +640,13 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
         //If source value is different from last or there is a change in value...
         if(lastVal[modlineNum] != val || lastSource[modlineNum] != source)
         {
+            //Set raw display value
             raw = val;
 
+            //Apply gain and offset
             val = val*gain + offset;
 
+            //Set result display vaule
             result = val;
 
             //Table
@@ -661,22 +675,20 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
                 {
                     value = val;
                 }
-
             }
 
             //Delay
 
-
-
-
-
-
+            qDebug() << "transform modline : " << modlineNum << "raw:" <<  raw << "result: " << result << "value:"  << value;
+            emit hosted_signalCC("SoftStep Share", 1, 7, value);
         }
 
         lastVal[modlineNum] = val;
         lastSource[modlineNum] = source;
 
-        //qDebug() << "transform modline : " << modlineNum << "raw:" <<  raw << "result: " << result << "value:"  << value << "\n";
+
+
+
 
     }
 
@@ -688,14 +700,21 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
 
     //delay
 
-    //slotDisplayVars();
-
-
+    slotDisplayVars();
 }
 
 int Modline::slotTable(int input)
 {
-    //QString table = modlineForm->table->currentText();
+    //Clip table input
+    if(input > 127)
+    {
+        input = 127;
+    }
+
+    if(input < 0)
+    {
+        input = 0;
+    }
 
     if( table == "Linear")
     {
@@ -747,7 +766,7 @@ int Modline::slotMinMax(int input)
 
 void Modline::slotSmooth(int result)
 {
-    qDebug() << result;
+    //qDebug() << result;
 }
 
 int Modline::slotDelay(int input)
@@ -757,11 +776,12 @@ int Modline::slotDelay(int input)
 
 void Modline::slotDisplayVars()
 {
-
     modlineForm->raw->setValue(raw);
     modlineForm->result->setValue(result);
     modlineForm->outputvalue->setValue(value);
 }
+
+
 
 
 
