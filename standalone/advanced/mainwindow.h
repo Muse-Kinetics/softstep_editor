@@ -80,6 +80,7 @@ public slots:
 
     void slotSetMode();
     void slotPopulateSourceDestLists();
+    void slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> externalDevices);
 
     void slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion);
 

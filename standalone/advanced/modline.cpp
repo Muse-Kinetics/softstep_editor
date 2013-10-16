@@ -132,11 +132,12 @@ void Modline::slotConnectElements()
     connect(modlineForm->ledred,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
     //connect and initialize the raw value to the result (not for preset)
-    connect(modlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
-    connect(modlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
-    connect(modlineForm->offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
+    //connect(modlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
+    //connect(modlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
+    //connect(modlineForm->offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
 
-    //----------------------- Hosted - Slewer
+    //----------------------- Hosted
+    //Slewer
     connect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmooth(int)));
 
 }
@@ -590,6 +591,72 @@ void Modline::slotPopulateMenus(QStringList source, QStringList dest, QStringLis
     modlineForm->destination->addItems(dest);
 }
 
+void Modline::hosted_slotPopulateDeviceMenu(QMap<QString, MIDIEndpointRef> externalDevices)
+{
+    //-------------------------------- Clear all device menus
+
+    //Note Set
+    modlineForm->notedevice->clear();
+
+    //Note Live
+    modlineForm->notelivedevice->clear();
+
+    //CC
+    modlineForm->controldevice->clear();
+
+    //Bank
+    modlineForm->bankdevice->clear();
+
+    //Program
+    modlineForm->programdevice->clear();
+
+    //Pitch Bend
+    modlineForm->benddevice->clear();
+
+    //MMC
+    modlineForm->mmcdevice->clear();
+
+    //Aftertouch
+    modlineForm->aftertouchdevice->clear();
+
+    //Poly Aftertouch
+    modlineForm->polydevice->clear();
+
+    //-------------------------------- Populate all menus
+    QMap<QString, MIDIEndpointRef>::iterator i;
+    for (i = externalDevices.begin(); i != externalDevices.end(); ++i)
+    {
+        //Note Set
+        modlineForm->notedevice->addItem(i.key());
+
+        //Note Live
+        modlineForm->notelivedevice->addItem(i.key());
+
+        //CC
+        modlineForm->controldevice->addItem(i.key());
+
+        //Bank
+        modlineForm->bankdevice->addItem(i.key());
+
+        //Program
+        modlineForm->programdevice->addItem(i.key());
+
+        //Pitch Bend
+        modlineForm->benddevice->addItem(i.key());
+
+        //MMC
+        modlineForm->mmcdevice->addItem(i.key());
+
+        //Aftertouch
+        modlineForm->aftertouchdevice->addItem(i.key());
+
+        //Poly Aftertouch
+        modlineForm->polydevice->addItem(i.key());
+    }
+
+
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////    Hosted   ///////////////////////////////////////////////////////////////////
@@ -598,7 +665,7 @@ void Modline::slotPopulateMenus(QStringList source, QStringList dest, QStringLis
 void Modline::slotStreamSourceData()
 {
 
-    qDebug() << modlineForm->source->currentText() << mode;
+    //qDebug() << modlineForm->source->currentText() << mode;
     //--------------------------- Hosted
     if(mode == "hosted")
     {

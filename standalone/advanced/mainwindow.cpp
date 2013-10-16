@@ -106,6 +106,11 @@ void MainWindow::slotConnectInterfaces()
     //-------------------------------------- Hosted MIDI
     connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)), Qt::DirectConnection);
 
+
+    //Device menu population
+    connect(midiDeviceManager, SIGNAL(hosted_signalPopulateDeviceMenus(QMap<QString,MIDIEndpointRef>)), this, SLOT(slotPopulateDeviceMenus(QMap<QString,MIDIEndpointRef>)));
+
+
     for(int k = 0; k < 10; k++)
     {
         //Midi Parsing to each Key's data cooker
@@ -248,7 +253,7 @@ void MainWindow::slotConnectInterfaces()
 
     //setlist
     connect(ui->opensetlist, SIGNAL(clicked()), setlist, SLOT(slotShowSetlist()));
-    connect(presetInterface, SIGNAL(signalPopulateSetlistMenus(QComboBox*)), setlist, SLOT(slotPopulateMenus(QComboBox*)));
+    connect(presetInterface, SIGNAL(signalPopulateSetlistMenus(QComboBox*)), setlist, SLOT(slotPopulateSetlistMenus(QComboBox*)));
 
     //Version Checking
     connect(midiDeviceManager, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
@@ -431,7 +436,7 @@ void MainWindow::slotSetMode()
         }
     }
 
-    midiDeviceManager->slotSetMode(mode);
+    midiDeviceManager->slotSetMode(mode); //repopulation of device menus should happen here
     presetInterface->slotSetMode(mode);
     setlist->slotSetMode(mode);
 
@@ -444,13 +449,50 @@ void MainWindow::slotSetMode()
     setlist->slotReadSetlist();
 
     //Populate preset menu and setlist menu
-    presetInterface->slotPopulatePresetMenu(ui->presetmenu); //Also calls setlist->slotPopulateMenus()
+    presetInterface->slotPopulatePresetMenu(ui->presetmenu); //Also calls setlist->slotPopulateSetlistMenus()
 
     //Set each setlist menu to correct item
     setlist->slotRefreshSetlistMenus(ui->presetmenu);
 
     //Recall Preset 1 in new mode
-    presetInterface->slotRecallPreset(1);
+    //presetInterface->slotRecallPreset(0);
+
+    //!!!!!!!!!!!!!!!!!! Preset recalled after port creation and device menu population in slotPopulateDeviceMenus
+}
+
+
+void MainWindow::slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> externalDevices)
+{
+    qDebug() << "-------------------------------- populate device menus";
+    QMap<QString, MIDIEndpointRef> standalone;
+
+    for(int i = 0; i < 10; i++)
+    {
+        for(int j = 0; j < 6; j++)
+        {
+            //Disconnect from slotValueChanged
+            key[i]->modline[j]->slotDisconnectElements();
+
+            //Populate modline menus according to mode-- doing this here to avoid having to embed source,dest, and table lists in modlines
+            if(mode == "hosted")
+            {
+                key[i]->modline[j]->hosted_slotPopulateDeviceMenu(externalDevices);
+            }
+            else
+            {
+                QMap<QString, MIDIEndpointRef> standaloneDevices;
+                standaloneDevices.insert("SSCOM Port 1", NULL);
+                standaloneDevices.insert("SoftStep Expander", NULL);
+
+                key[i]->modline[j]->hosted_slotPopulateDeviceMenu(standaloneDevices);
+            }
+
+            //Reconnect to slotValueChanged
+            key[i]->modline[j]->slotConnectElements();
+        }
+    }
+
+    presetInterface->slotRecallPreset(0);
 }
 
 void MainWindow::slotPopulateSourceDestLists()
@@ -635,3 +677,4 @@ void MainWindow::slotPopulateSourceDestLists()
     hostedTables.append("Counter Dec");
     hostedTables.append("Counter Set");
 }
+

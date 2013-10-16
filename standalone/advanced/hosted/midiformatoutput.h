@@ -21,7 +21,7 @@ public:
 signals:
 
 #ifdef Q_OS_MAC
-    void signalSendMidiPacketList(MIDIPacket packet);
+    void signalSendMidiPacketList(QString port, MIDIPacket packet);
 #else
 
 #endif

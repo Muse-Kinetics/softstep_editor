@@ -66,7 +66,7 @@ public:
     int getDestination();
     int getSource();
 
-    //Connects a source to our app
+    //Connects an SSCOM source to our app
     bool connectSource();
 
     //Describes whether or not a fw update has been requested-- useful for managing bootloader reconnects
@@ -82,6 +82,7 @@ public:
 
     //---------------- Hosted Source Sending ---------------//
     MidiFormatOutput midiFormatOutput;
+    QMap<QString, MIDIEndpointRef> externalDests;
     
 signals:
     void signalFirmwareOutOfDate(QString expectedBoot, QString foundBoot, QString expectedFirmware, QString foundFirmware);
@@ -96,6 +97,7 @@ signals:
 
     //---------------- Hosted Source Sending ---------------//
     void hosted_signalParsePacket(const MIDIPacket*);
+    void hosted_signalPopulateDeviceMenus(QMap<QString, MIDIEndpointRef>);
 
 
     
@@ -109,7 +111,9 @@ public slots:
     void slotDrainSysexFIFO();
 
     void hosted_slotParsePacket(const MIDIPacket* packet);
-    void hosted_slotSendPacket(MIDIPacket packet);
+    void hosted_slotSendPacket(QString port, MIDIPacket packet);
+    void hosted_slotRepopulateMidiSourceDests();
+    void hosted_slotSendMidiToExternalDest(QString destName, MIDIPacketList *pktlist);
     
 };
 #else

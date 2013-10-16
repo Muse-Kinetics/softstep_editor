@@ -107,7 +107,7 @@ void Setlist::slotCompileSetlist()
     slotWriteSetlist();
 }
 
-void Setlist::slotPopulateMenus(QComboBox* presetMenu)
+void Setlist::slotPopulateSetlistMenus(QComboBox* presetMenu)
 {
     qDebug() << "populate setlist menus";
     repopulating = true;

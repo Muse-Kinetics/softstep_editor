@@ -39,7 +39,7 @@ void MidiFormatOutput::slotNoteSet(QString port, int channel, int note, int velo
     packet.data[1] = note;
     packet.data[2] = velocity;
 
-    emit signalSendMidiPacketList(packet);
+    emit signalSendMidiPacketList(port, packet);
 }
 
 void MidiFormatOutput::slotNoteLive(QString port, int channel, int oldNote, int newNote, int velocity)
@@ -57,7 +57,7 @@ void MidiFormatOutput::slotNoteLive(QString port, int channel, int oldNote, int 
         packet.data[1] = oldNote;
         packet.data[2] = 0;
 
-        emit signalSendMidiPacketList(packet);
+        emit signalSendMidiPacketList(port, packet);
     }
 
     //New Note
@@ -65,7 +65,7 @@ void MidiFormatOutput::slotNoteLive(QString port, int channel, int oldNote, int 
     packet.data[1] = newNote;
     packet.data[2] = velocity;
 
-    emit signalSendMidiPacketList(packet);
+    emit signalSendMidiPacketList(port, packet);
 }
 
 void MidiFormatOutput::slotCC(QString port, int channel, int ccNum, int ccVal)
@@ -81,7 +81,7 @@ void MidiFormatOutput::slotCC(QString port, int channel, int ccNum, int ccVal)
     packet.data[1] = ccNum;
     packet.data[2] = ccVal;
 
-    emit signalSendMidiPacketList(packet);
+    emit signalSendMidiPacketList(port, packet);
 }
 
 void MidiFormatOutput::slotBank(QString port, int channel, int msb, int lsb)
@@ -99,7 +99,7 @@ void MidiFormatOutput::slotBank(QString port, int channel, int msb, int lsb)
     packet.data[4] = 32;
     packet.data[5] = lsb;
 
-    emit signalSendMidiPacketList(packet);
+    emit signalSendMidiPacketList(port, packet);
 }
 
 void MidiFormatOutput::slotProgram(QString port, int channel, int program)
@@ -111,7 +111,7 @@ void MidiFormatOutput::slotProgram(QString port, int channel, int program)
     packet.data[0] = 191 + channel;
     packet.data[1] = program;
 
-    emit signalSendMidiPacketList(packet);
+    emit signalSendMidiPacketList(port, packet);
 }
 
 void MidiFormatOutput::slotPitchBend(QString port, int channel, int lsb, int msb)
@@ -124,7 +124,7 @@ void MidiFormatOutput::slotPitchBend(QString port, int channel, int lsb, int msb
     packet.data[1] = lsb;
     packet.data[2] = msb;
 
-    emit signalSendMidiPacketList(packet);
+    emit signalSendMidiPacketList(port, packet);
 }
 
 void MidiFormatOutput::slotMMC(QString port, int id, QString function)
@@ -177,7 +177,7 @@ void MidiFormatOutput::slotMMC(QString port, int id, QString function)
         packet.data[4] = functionNum;
         packet.data[5] = 247;
 
-        emit signalSendMidiPacketList(packet);
+        emit signalSendMidiPacketList(port, packet);
     }
 }
 
@@ -190,7 +190,7 @@ void MidiFormatOutput::slotAftertouch(QString port, int channel, int val)
     packet.data[0] = 207 + channel;
     packet.data[1] = val;
 
-    emit signalSendMidiPacketList(packet);
+    emit signalSendMidiPacketList(port, packet);
 }
 
 void MidiFormatOutput::slotPolyAftertouch(QString port, int channel, int note, int val)
@@ -203,5 +203,5 @@ void MidiFormatOutput::slotPolyAftertouch(QString port, int channel, int note, i
     packet.data[1] = note;
     packet.data[2] = val;
 
-    emit signalSendMidiPacketList(packet);
+    emit signalSendMidiPacketList(port, packet);
 }

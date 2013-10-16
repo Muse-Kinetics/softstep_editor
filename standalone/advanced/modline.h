@@ -9,6 +9,12 @@
 #include <QDebug>
 #include <QVariant>
 
+#ifdef Q_OS_MAC
+#include <CoreMIDI/CoreMIDI.h>
+#else
+
+#endif //Q_OS_MAC
+
 #include "ui_modlineForm.h"
 #include "stylesheets.h"
 #include "hosted/slewer.h"
@@ -93,6 +99,7 @@ public slots:
     int  slotDelay(int input);
 
     void hosted_slotOutputMidi(int outputVal);
+    void hosted_slotPopulateDeviceMenu(QMap<QString, MIDIEndpointRef> externalDevices);
 
     void slotDisplayVars();
 

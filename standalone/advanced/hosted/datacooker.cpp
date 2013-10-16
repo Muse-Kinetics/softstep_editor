@@ -253,10 +253,10 @@ void DataCooker::slotSetSource(QString source, int modlineInstance)
 {
     modlineSources.insert(modlineInstance, source);
 
-    for(int i = 0; i < modlineSources.size(); i++)
+   /* for(int i = 0; i < modlineSources.size(); i++)
     {
         qDebug () << i << modlineSources.value(i);
-    }
+    }*/
 }
 
 void DataCooker::slotCloseSource(QString source, int modlineInstance)

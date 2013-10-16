@@ -24,7 +24,7 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     callbackClassPointer = this;
     createAppMidiClient();
 
-    connect(&midiFormatOutput, SIGNAL(signalSendMidiPacketList(MIDIPacket)), this, SLOT(hosted_slotSendPacket(MIDIPacket)));
+    connect(&midiFormatOutput, SIGNAL(signalSendMidiPacketList(QString, MIDIPacket)), this, SLOT(hosted_slotSendPacket(QString,MIDIPacket)));
 }
 
 void MidiDeviceManager::createAppMidiClient()
@@ -65,6 +65,8 @@ void MidiDeviceManager::slotSetMode(QString m)
     {
         MIDISourceCreate(appClientRef, CFSTR("SoftStep Share"), &appVirtualSourceRef);
         MIDIDestinationCreate(appClientRef, CFSTR("SoftStep Share"), virtualIncomingMidi, NULL, &appVirtualDestRef);
+
+        //hosted_slotRepopulateMidiSourceDests called here because new port is created
 
         slotHostedOnOff(true);
     }
@@ -265,7 +267,7 @@ void MidiDeviceManager::hosted_slotParsePacket(const MIDIPacket * packet)
     emit hosted_signalParsePacket(packet);
 }
 
-void MidiDeviceManager::hosted_slotSendPacket(MIDIPacket packet)
+void MidiDeviceManager::hosted_slotSendPacket(QString port, MIDIPacket packet)
 {
 
     qDebug() << "hosted_slotSendPacketCalled" << packet.data[0] << packet.data[1] << packet.data[2] << packet.length << packet.timeStamp << "\n";
@@ -282,24 +284,96 @@ void MidiDeviceManager::hosted_slotSendPacket(MIDIPacket packet)
     //Add new packet to list
     MIDIPacketListAdd(packetList, 256, pkt, 0, packet.length, packet.data);
 
-    //Send packet to virtual source
-    MIDIReceived(appVirtualSourceRef, packetList);
+    //---------------------------- Send packet to virtual source
+
+    if(port == "SoftStep Share")
+    {
+        MIDIReceived(appVirtualSourceRef, packetList);
+    }
+    else
+    {
+        MIDISend(appOutPortRef, externalDests.value(port), packetList);
+    }
+
 }
 
-////////////////////////////////////////////////////////
-////////////////Non-Class Callbacks ////////////////////
-////////////////////////////////////////////////////////
+void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
+{
+    //Called when midi system changes, automaticall called on hosted to standlaone/switch because of "SoftStep Share"
+
+    //Get non SSCOM sources
+    for(int i=0; i<MIDIGetNumberOfSources(); i++)
+    {
+        if(!getDisplayName(MIDIGetSource(i)).contains("SSCOM") && !getDisplayName(MIDIGetDestination(i)).contains("SoftStep Share"))
+        {
+            //qDebug() << "Non-SoftStep Source: " << getDisplayName(MIDIGetSource(i));
+        }
+    }
+
+    //Get non SSCOM destinations
+    externalDests.clear();
+
+    externalDests.insert("SoftStep Share", NULL);
+
+    for(int i=0; i<MIDIGetNumberOfDestinations(); i++)
+    {
+        if(!getDisplayName(MIDIGetDestination(i)).contains("SSCOM") && !getDisplayName(MIDIGetDestination(i)).contains("SoftStep Share"))
+        {
+            //qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetSource(i));
+
+            //Store name of dest and it's endpoint ref
+            externalDests.insert(getDisplayName(MIDIGetDestination(i)), MIDIGetDestination(i));
+        }
+    }
+
+    qDebug() << "Modline Device Menus:" << externalDests.keys();
+
+    emit hosted_signalPopulateDeviceMenus(externalDests);
+}
+
+void MidiDeviceManager::hosted_slotSendMidiToExternalDest(QString destName, MIDIPacketList* pktlist)
+{
+
+    //MIDISend(appOutPortRef, ,)
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////       Callbacks       /////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void midiSystemChanged(const MIDINotification *message, void *refCon)
 {
+    bool repopulateMidiSourceDests = false;
+
     if(message->messageID == kMIDIMsgObjectAdded)
     {
         MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
 
+        //If object added is a source...
         if(msg->childType == kMIDIObjectType_Source)
         {
             if(callbackClassPointer->getDisplayName(msg->child).contains("SSCOM") && callbackClassPointer->getDisplayName(msg->child).contains("1"))
             {
                 callbackClassPointer->connectSource();
+            }
+
+            //Non softstep source added
+            if(!callbackClassPointer->getDisplayName(msg->child).contains("SSCOM"))
+            {
+                qDebug() << "non-softstep source added";
+                repopulateMidiSourceDests = true;
+            }
+        }
+
+        if(msg->childType == kMIDIObjectType_Destination)
+        {
+
+            //Non softstep destination removed
+            if(!callbackClassPointer->getDisplayName(msg->child).contains("SSCOM"))
+            {
+                qDebug() << "non-softstep destination added";
+                repopulateMidiSourceDests = true;
             }
         }
     }
@@ -314,7 +388,30 @@ void midiSystemChanged(const MIDINotification *message, void *refCon)
             {
                 callbackClassPointer->connectSource();
             }
+
+            //Non softstep source removed
+            if(!callbackClassPointer->getDisplayName(msg->child).contains("SSCOM"))
+            {
+                qDebug() << "non-softstep source removed";
+                repopulateMidiSourceDests = true;
+            }
         }
+
+        if(msg->childType == kMIDIObjectType_Destination)
+        {
+            //Non softstep destination removed
+            if(!callbackClassPointer->getDisplayName(msg->child).contains("SSCOM"))
+            {
+                qDebug() << "non-softstep destination removed";
+                repopulateMidiSourceDests = true;
+            }
+        }
+    }
+
+    //If midi system changed (not including softstep)
+    if(repopulateMidiSourceDests)
+    {
+        callbackClassPointer->hosted_slotRepopulateMidiSourceDests();
     }
 }
 
