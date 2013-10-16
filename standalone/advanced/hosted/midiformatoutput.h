@@ -30,12 +30,12 @@ public slots:
     void slotPreparePacket();
 
     void slotNoteSet(QString port, int channel, int note, int velocity);
-    void slotNoteLive(int channel, int oldNote, int newNote, int velocity);
+    void slotNoteLive(QString port, int channel, int oldNote, int newNote, int velocity);
     void slotCC(QString port, int channel, int ccNum, int ccVal);
     void slotBank(QString port, int channel, int msb, int lsb);
     //void slotOSC();
     void slotProgram(QString port, int channel, int program);
-    void slotPitchBend(QString port, int channel);
+    void slotPitchBend(QString port, int channel, int lsb, int msb);
     void slotMMC(QString port, int id, QString function);
     void slotAftertouch(QString port, int channel, int val);
     void slotPolyAftertouch(QString port, int channel, int note, int val);

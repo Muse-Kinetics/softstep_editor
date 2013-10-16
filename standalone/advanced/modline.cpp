@@ -32,9 +32,9 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     //---------------------------------------- Set Up Ui
     modlineForm->setupUi(formWidget);
 
-    rawBox = modlineForm->raw;
-    resultBox = modlineForm->result;
-    valueBox = modlineForm->outputvalue;
+    //rawBox = modlineForm->raw;
+    //resultBox = modlineForm->result;
+    //valueBox = modlineForm->outputvalue;
 
 
     this->setFixedSize(MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
@@ -623,6 +623,8 @@ void Modline::slotSetTransformValues()
     smooth = modlineForm->slew->value();
     delay = modlineForm->delay->value();
 
+    outputType = modlineForm->destination->currentText();
+
     //qDebug() << "modline: " << modlineInstance << gain << offset << table << min << max << smooth << delay;
 }
 
@@ -673,33 +675,23 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
                 //If no delay and no slew...
                 else
                 {
+                    //Output
+                    hosted_slotOutputMidi(val);
                     value = val;
                 }
             }
 
             //Delay
 
-            qDebug() << "transform modline : " << modlineNum << "raw:" <<  raw << "result: " << result << "value:"  << value;
-            emit hosted_signalCC("SoftStep Share", 1, 7, value);
+            //qDebug() << "transform modline : " << modlineNum << "raw:" <<  raw << "result: " << result << "value:"  << value;
+
+            lastVal[modlineNum] = val;
+            lastSource[modlineNum] = source;
         }
-
-        lastVal[modlineNum] = val;
-        lastSource[modlineNum] = source;
-
-
-
-
 
     }
 
-    //table
-
-    //min, max
-
-    //smooth
-
-    //delay
-
+    //Update graphics only after outupt
     slotDisplayVars();
 }
 
@@ -781,7 +773,86 @@ void Modline::slotDisplayVars()
     modlineForm->outputvalue->setValue(value);
 }
 
+void Modline::hosted_slotOutputMidi(int outputVal)
+{
+    if(outputType == "Note Set")
+    {
+        if(outputVal)
+        {
+            emit hosted_signalNoteSet(modlineForm->notedevice->currentText(), modlineForm->notechannel->value(), modlineForm->notenumber->value(), modlineForm->notevelocity->value());
+        }
+        else
+        {
+            emit hosted_signalNoteSet(modlineForm->notedevice->currentText(), modlineForm->notechannel->value(), modlineForm->notenumber->value(), 0);
+        }
+    }
+    else if(outputType == "Note Live")
+    {
+        static int lastNote = -1;
 
+        emit hosted_signalNoteLive(modlineForm->notelivedevice->currentText(), modlineForm->notelivechannel->value(), lastNote, outputVal, modlineForm->notelivevelocity->value());
+
+        lastNote = outputVal;
+    }
+    else if(outputType == "CC")
+    {
+        emit hosted_signalCC(modlineForm->controldevice->currentText(), modlineForm->controlchannel->value(), modlineForm->cc->value(), outputVal);
+    }
+    else if(outputType == "Bank")
+    {
+        emit hosted_signalBank(modlineForm->bankdevice->currentText(),  modlineForm->bankchannel->value(), modlineForm->bankmsb->value(), outputVal);
+    }
+    else if(outputType == "Program")
+    {
+        emit hosted_signalProgram(modlineForm->programdevice->currentText(), modlineForm->programchannel->value(), outputVal);
+    }
+    else if(outputType == "Pitch Bend")
+    {
+        emit hosted_signalPitchBend(modlineForm->benddevice->currentText(), modlineForm->bendchannel->value(), 0, outputVal);
+    }
+    else if(outputType == "MMC")
+    {
+        static bool toggleOn = false;
+
+        if(outputVal && !toggleOn)
+        {
+            emit hosted_signalMMC(modlineForm->mmcdevice->currentText(), modlineForm->mmcdeviceid->value(), modlineForm->mmcfunction->currentText());
+            toggleOn = true;
+        }
+        else if(!outputVal)
+        {
+            toggleOn = false;
+        }
+    }
+    else if(outputType == "OSC")
+    {
+
+    }
+    else if(outputType == "Aftertouch")
+    {
+        emit hosted_signalAftertouch(modlineForm->aftertouchdevice->currentText(), modlineForm->aftertouchchannel->value(), outputVal);
+    }
+    else if(outputType == "Poly Aftertouch")
+    {
+        emit hosted_signalPolyAftertouch(modlineForm->polydevice->currentText(), modlineForm->polychannel->value(), modlineForm->polynote->value(), outputVal);
+    }
+    else if(outputType == "GarageBand")
+    {
+
+    }
+    else if(outputType == "HUI")
+    {
+
+    }
+    else if(outputType == "Y Inc Set")
+    {
+
+    }
+    else if(outputType == "X Inc Set")
+    {
+
+    }
+}
 
 
 

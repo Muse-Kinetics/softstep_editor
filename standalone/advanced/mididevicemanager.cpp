@@ -106,6 +106,7 @@ int MidiDeviceManager::getDestination()
 
 void MidiDeviceManager::slotHostedOnOff(bool onOff)
 {
+    //FIFO necessary because firmware requires delay between messages
     if(!onOff)
     {
         mode = "standalone";

@@ -113,8 +113,39 @@ void MainWindow::slotConnectInterfaces()
 
         for(int m = 0; m < 6; m++)
         {
+            //Output signals listed in modline.h, slots in midiformat.h
+            //Note Live
+            connect(key[k]->modline[m], SIGNAL(hosted_signalNoteLive(QString,int,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotNoteLive(QString,int,int,int,int)));
+
+            //Note Set
+            connect(key[k]->modline[m], SIGNAL(hosted_signalNoteSet(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotNoteSet(QString,int,int,int)));
+
             //CCs
             connect(key[k]->modline[m], SIGNAL(hosted_signalCC(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotCC(QString,int,int,int)));
+
+            //Bank
+            connect(key[k]->modline[m], SIGNAL(hosted_signalBank(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotBank(QString,int,int,int)));
+
+            //OSC goes here ----------------------
+
+            //Program
+            connect(key[k]->modline[m], SIGNAL(hosted_signalProgram(QString,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotProgram(QString,int,int)));
+
+            //Pitch Bend
+            connect(key[k]->modline[m], SIGNAL(hosted_signalPitchBend(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotPitchBend(QString,int,int,int)));
+
+            //MMC
+            connect(key[k]->modline[m], SIGNAL(hosted_signalMMC(QString,int,QString)),&midiDeviceManager->midiFormatOutput, SLOT(slotMMC(QString,int,QString)));
+
+            //Aftertouch
+            connect(key[k]->modline[m], SIGNAL(hosted_signalAftertouch(QString,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotAftertouch(QString,int,int)));
+
+            //PolyAftertouch
+            connect(key[k]->modline[m], SIGNAL(hosted_signalPolyAftertouch(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotPolyAftertouch(QString,int,int,int)));
+
+            //Garageband goes here -------------
+            //HUI goes here --------------------
+
         }
     }
 

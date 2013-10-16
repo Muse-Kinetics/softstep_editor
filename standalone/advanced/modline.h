@@ -40,15 +40,14 @@ public:
     int max;
     int smooth;
     int delay;
+    QString outputType;
+    QString outputPort;
 
     //Graphical vars
     int raw;
     int result;
     int value;
 
-    QSpinBox *rawBox;
-    QSpinBox *resultBox;
-    QSpinBox *valueBox;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
@@ -59,18 +58,19 @@ signals:
 
     //Midi output
     void hosted_signalNoteSet(QString port, int channel, int note, int velocity);
-    void hosted_signalNoteLive(int channel, int oldNote, int newNote, int velocity);
+    void hosted_signalNoteLive(QString port,int channel, int oldNote, int newNote, int velocity);
     void hosted_signalCC(QString port, int channel, int ccNum, int ccVal);
     void hosted_signalBank(QString port, int channel, int msb, int lsb);
     //void hosted_signalOSC();
     void hosted_signalProgram(QString port, int channel, int program);
-    void hosted_signalPitchBend(QString port, int channel);
+    void hosted_signalPitchBend(QString port, int channel, int lsb, int msb);
     void hosted_signalMMC(QString port, int id, QString function);
     void hosted_signalAftertouch(QString port, int channel, int val);
     void hosted_signalPolyAftertouch(QString port, int channel, int note, int val);
     //void hosted_signalGarageBand();
     //void hosted_signalHUI();
-    
+
+
 public slots:
     void slotConnectElements();
     void slotDisconnectElements();
@@ -91,6 +91,8 @@ public slots:
     int  slotMinMax(int input);
     void slotSmooth(int result);
     int  slotDelay(int input);
+
+    void hosted_slotOutputMidi(int outputVal);
 
     void slotDisplayVars();
 
