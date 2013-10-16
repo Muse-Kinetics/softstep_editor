@@ -227,6 +227,8 @@ void MainWindow::slotConnectInterfaces()
     connect(presetInterface, SIGNAL(signalUpdateStarted()), this, SLOT(slotDisconnectUpdate()));
     connect(presetInterface, SIGNAL(signalAttributeFormatPreset(QVariantMap,QVariantMap, qlonglong)), sysExComposer, SLOT(slotComposeAttributeListFromPreset(QVariantMap,QVariantMap, qlonglong)));
     connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectUpdate()));
+    //set initial update button text
+    ui->update->setText("SAVE");
 
     //Standalone Download
     connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
@@ -354,7 +356,7 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setText("CONNECTED");
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");
         ui->update->setText("SAVE + SEND");
-    }
+        presetInterface->connected = true;    }
     else
     {
         //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
@@ -363,6 +365,7 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
         ui->update->setText("SAVE");
         aboutForm->found->setText("Not Connected");
+        presetInterface->connected = false;
     }
 }
 

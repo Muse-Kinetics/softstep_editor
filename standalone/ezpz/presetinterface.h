@@ -36,7 +36,7 @@ public:
 
     int     currentPresetNum;
     QVariantMap currentPresetMap;
-
+    bool connected; //is softstep connected? used to prevent download if not connected.
     void closeEvent(QCloseEvent *);
 
     void writeDefualtJSON();

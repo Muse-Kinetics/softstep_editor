@@ -6,6 +6,7 @@
 PresetInterface::PresetInterface(QWidget *parent) :
     QWidget(parent)
 {
+    connected = false;
     settings = new QSettings(this);
 
     jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
@@ -590,10 +591,11 @@ void PresetInterface::slotUpdateClicked()
     jsonMasterMap.insert("sensitivity", jsonMasterMapCopy.value("sensitivity"));
     jsonMasterMap.insert("backlight", jsonMasterMapCopy.value("backlight").toBool());
 
-
-    qDebug() << "update with this preset" << currentPresetNum;
-    emit signalUpdateStarted(); //disable the button then start the download
-    emit signalAttributeFormatPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMap, (qlonglong)currentPresetNum);
+    if(connected){
+        qDebug() << "update with this preset" << currentPresetNum;
+        emit signalUpdateStarted(); //disable the button then start the download
+        emit signalAttributeFormatPreset(jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMap, (qlonglong)currentPresetNum);
+    }
 
     slotCheckSaveState();
 }
