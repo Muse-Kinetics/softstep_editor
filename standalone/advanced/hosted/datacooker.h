@@ -35,14 +35,14 @@ public:
     int    footOff();
     bool   footOnOff;
 
+    int    modlineOutput(int modlineNum);
+
     /*int     pressureLatch();
     int     xLatch();
     int     yLatch();
 
     int     xIncrement();
     int     yIncrement();
-
-
 
     void    top();
     void    bottom();
@@ -72,6 +72,8 @@ signals:
     
 public slots:
     void slotUpdateVals(int cc, int val);
+    void slotReceiveModlineOutput(int modlineNum, int val);
+
     void slotSetSource(QString source, int modlineInstance);
     void slotCloseSource(QString source, int modlineInstance);
 };

@@ -691,6 +691,7 @@ void Modline::slotSetTransformValues()
     delay = modlineForm->delay->value();
 
     outputType = modlineForm->destination->currentText();
+    source = modlineForm->source->currentText();
 
     //qDebug() << "modline: " << modlineInstance << gain << offset << table << min << max << smooth << delay;
 }
@@ -748,10 +749,12 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
                 }
             }
 
-            //Delay
-
             //qDebug() << "transform modline : " << modlineNum << "raw:" <<  raw << "result: " << result << "value:"  << value;
 
+            //Send modline output to dataCooker
+            emit hosted_signalSendModlineOutput(modlineNum, val);
+
+            //Variables to filter out repititions
             lastVal[modlineNum] = val;
             lastSource[modlineNum] = source;
         }
@@ -919,6 +922,7 @@ void Modline::hosted_slotOutputMidi(int outputVal)
     {
 
     }
+
 }
 
 

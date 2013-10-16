@@ -48,6 +48,7 @@ public:
     int delay;
     QString outputType;
     QString outputPort;
+    QString source;
 
     //Graphical vars
     int raw;
@@ -61,6 +62,8 @@ signals:
 
     //---------------------------- Hosted
     void signalSetSource(QString sourceName, int modlineNum);
+    void hosted_signalSendModlineOutput(int modlineNum, int val);
+
 
     //Midi output
     void hosted_signalNoteSet(QString port, int channel, int note, int velocity);

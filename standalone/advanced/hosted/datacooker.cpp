@@ -64,12 +64,32 @@ void DataCooker::slotUpdateVals(int cc, int val)
     }
 }
 
+void DataCooker::slotReceiveModlineOutput(int modlineNum, int val)
+{
+    //qDebug() << modlineNum << val;
+
+    //For each modline
+    for(int i = 0; i < 6; i++)
+    {
+        //qDebug() << i <<modlineSources.value(i) << modlineNum << val;
+
+        if(i != modlineNum)
+        {
+            if(modlineSources.value(i).contains(QString("Modline %1 Output").arg(modlineNum + 1)))
+            {
+
+                emit signalTransformSource(val, i, QString("Modline %1 Output").arg(modlineNum + 1));
+            }
+        }
+    }
+}
+
 void DataCooker::cookSources()
 {
     //For each modline
     for(int i = 0; i < 6; i++)
     {
-        //Live
+        //-------- Live
         if(modlineSources.value(i) == "Pressure Live")
         {
             emit signalTransformSource(pressureLive(), i, "Pressure Live");
@@ -83,7 +103,7 @@ void DataCooker::cookSources()
             emit signalTransformSource(yLive(), i, "Y Live");
         }
 
-        //Latch
+        //-------- Latch
         else if(modlineSources.value(i) == "Pressure Latch")
         {
             //pressureLive();
@@ -97,7 +117,7 @@ void DataCooker::cookSources()
             //pressureLive();
         }
 
-        //Foot On/Off
+        //-------- Foot On/Off
         else if(modlineSources.value(i) == "Foot On")
         {
             emit signalTransformSource(footOn(), i, "Foot On");
@@ -106,9 +126,7 @@ void DataCooker::cookSources()
         {
             emit signalTransformSource(footOff(), i, "Foot Off");
         }
-
     }
-
 }
 
 void DataCooker::cookRaw()
@@ -253,7 +271,7 @@ void DataCooker::slotSetSource(QString source, int modlineInstance)
 {
     modlineSources.insert(modlineInstance, source);
 
-   /* for(int i = 0; i < modlineSources.size(); i++)
+    /* for(int i = 0; i < modlineSources.size(); i++)
     {
         qDebug () << i << modlineSources.value(i);
     }*/
