@@ -70,8 +70,8 @@ MainWindow::MainWindow(QWidget *parent) :
     slotSetMode();
 
     //presetInterface->slotPopulatePresetMenu(ui->presetmenu);
-    //presetInterface->slotRecallPreset(1);
     presetInterface->slotRecallGlobal();
+    slotSetPresetMenu(0);
 
 #ifdef Q_OS_MAC
     midiDeviceManager->connectSource();
@@ -86,6 +86,12 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::slotSetPresetMenu(int presetNum)
+{
+    ui->presetmenu->setCurrentIndex(presetNum);
+    presetInterface->slotRecallPreset(presetNum);
 }
 
 void MainWindow::slotConnectInterfaces()
@@ -160,6 +166,8 @@ void MainWindow::slotConnectInterfaces()
     //Connected Indicator
     connect(midiDeviceManager, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
 
+    //connect the preset interface to the preset menu
+    connect(presetInterface, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -188,7 +196,6 @@ void MainWindow::slotConnectInterfaces()
 
     //Settings
     connect(presetInterface, SIGNAL(signalRecallGlobal(QVariantMap,QVariantMap)),settingsWindow,SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
-
 
     //--------------------------------------- Parameter Storage
 

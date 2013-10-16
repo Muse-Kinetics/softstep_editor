@@ -52,6 +52,7 @@ signals:
     void signalPopulateSetlistMenus(QComboBox* presetMenu);
     void signalAddRemovePreset();
     void signalPresetDirty(bool);
+    void signalPresetMenu(int goToPresetNum);
     
 public slots:
     void slotStoreValue(QString name, QVariant value, int presetNum);

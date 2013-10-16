@@ -314,6 +314,9 @@ void PresetInterface::slotSavePresetAs(QString presetName)
 {
     qDebug() << "Save As: " << presetName << slotGetNumPresetsInJson();
 
+    //copy json maps into the preset lists
+    slotPopulatePresetLists();
+
     //Get preset params into map
     QVariantMap preset = presetListCopy.at(currentPresetNum);
 
@@ -327,11 +330,17 @@ void PresetInterface::slotSavePresetAs(QString presetName)
     //Add and order json maps
     slotOrderPresetsInJson();
 
+    slotRevertPreset();
+
     //Save json file
     slotWriteJSON(jsonMasterMap);
 
     //Repopulate preset menu-- calls slotPopulatePresetMenu()
     emit signalAddRemovePreset();
+
+    int goToPresetNum = slotGetNumPresetsInJson();
+
+    emit signalPresetMenu(goToPresetNum-1);
 }
 
 void PresetInterface::slotRevertPreset()
@@ -368,6 +377,7 @@ void PresetInterface::slotDeletePreset()
 
     //Repopulate preset menu-- calls slotPopulatePresetMenu()
     emit signalAddRemovePreset();
+    emit signalPresetMenu(0);
 }
 
 void PresetInterface::slotPopulatePresetLists()
