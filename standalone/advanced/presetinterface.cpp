@@ -47,25 +47,17 @@ void PresetInterface::slotPopulatePresetMenu(QComboBox* presetMenu)
 {
     disconnect(presetMenu, SIGNAL(currentIndexChanged(int)), this, SLOT(slotRecallPreset(int)));
 
-    presetMenu->clear();
-
     //All presets should be stored and arranged in JSON before calling this function!
-    presetListCopy.clear();
-    presetListMaster.clear();
+    slotPopulatePresetLists();
 
+    presetMenu->clear();
 
     int numPresets = slotGetNumPresetsInJson();
 
     //Iterate through presets in numerical order, which is not garunteed by map iterator
     for(int i = 0; i < numPresets; i++)
     {
-        QString presetName;
-
-        presetName = jsonMasterMapCopy.value(slotGetPresetStringFromInt(i)).toMap().value("preset_name").toString();
-
-        //Populate preset QList in numerical order, for easy modifaction
-        presetListCopy.append(jsonMasterMapCopy.value(slotGetPresetStringFromInt(i)).toMap());
-        presetListMaster.append(jsonMasterMap.value(slotGetPresetStringFromInt(i)).toMap());
+        QString presetName = jsonMasterMapCopy.value(slotGetPresetStringFromInt(i)).toMap().value("preset_name").toString();
 
         presetMenu->addItem(presetName, 0);
     }
@@ -313,6 +305,9 @@ void PresetInterface::slotSavePreset()
     slotCheckSaveState();
 
     slotWriteJSON(jsonMasterMap);
+
+    //call function to repopulate preset lists
+    slotPopulatePresetLists();
 }
 
 void PresetInterface::slotSavePresetAs(QString presetName)
@@ -373,6 +368,21 @@ void PresetInterface::slotDeletePreset()
 
     //Repopulate preset menu-- calls slotPopulatePresetMenu()
     emit signalAddRemovePreset();
+}
+
+void PresetInterface::slotPopulatePresetLists()
+{
+    //All presets should be stored and arranged in the JSON before calling this function
+    presetListCopy.clear();
+    presetListMaster.clear();
+
+    int numPresets = slotGetNumPresetsInJson();
+
+    for(int i = 0; i < numPresets; i++)
+    {
+        presetListCopy.append(jsonMasterMapCopy.value(slotGetPresetStringFromInt(i)).toMap());
+        presetListMaster.append(jsonMasterMap.value(slotGetPresetStringFromInt(i)).toMap());
+    }
 }
 
 void PresetInterface::slotOrderPresetsInJson()

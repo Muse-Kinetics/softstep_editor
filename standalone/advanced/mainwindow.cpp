@@ -522,6 +522,7 @@ void MainWindow::slotPopulateSourceDestLists()
     standaloneSources.append("Key 8 Pressed");
     standaloneSources.append("Key 9 Pressed");
     standaloneSources.append("Key 0 Pressed");
+    standaloneSources.append("Other Key Pressed");
 
     standaloneSources.append("Modline 1 Output");
     standaloneSources.append("Modline 2 Output");

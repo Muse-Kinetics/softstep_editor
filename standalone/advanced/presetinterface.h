@@ -71,6 +71,7 @@ public slots:
     void slotSavePreset();
     void slotSavePresetAs(QString presetName);
     void slotDeletePreset();
+    void slotPopulatePresetLists();
     void slotRevertPreset();
 
     void slotPopulatePresetMenu(QComboBox* presetMenu);
