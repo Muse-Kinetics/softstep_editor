@@ -55,6 +55,26 @@ void NavKey::slotConnectElements()
     //nav modulation window stuff
     connect(navKeyWindowForm->navpadmode_modline, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
     connect(navKeyWindowForm->navpadmode_programchange, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+
+    //display stuff
+    connect(navKeyWindowForm->displayprefix,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
+    connect(navKeyWindowForm->keyname,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
+    connect(navKeyWindowForm->leddisplaymode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+}
+
+void NavKey::slotDisconnectElements()
+{
+    //nav name (from the nav box form)
+    disconnect(navBoxForm->keyName, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
+
+    //nav modulation window stuff
+    disconnect(navKeyWindowForm->navpadmode_modline, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+    disconnect(navKeyWindowForm->navpadmode_programchange, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+
+    //display stuff
+    disconnect(navKeyWindowForm->displayprefix,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
+    disconnect(navKeyWindowForm->keyname,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
+    disconnect(navKeyWindowForm->leddisplaymode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 }
 
 void NavKey::slotValueChanged()
@@ -81,6 +101,22 @@ void NavKey::slotValueChanged()
             jsonName = "modlinemode";
             value = 1;
         }
+        //display stuff
+        else if(sender == navKeyWindowForm->displayprefix)
+        {
+            jsonName = "prefix";
+            value = navKeyWindowForm->displayprefix->text();
+        }
+        else if(sender == navKeyWindowForm->keyname)
+        {
+            jsonName = "name";
+            value = navKeyWindowForm->keyname->text();
+        }
+        else if(sender == navKeyWindowForm->leddisplaymode)
+        {
+            jsonName = "displaymode";
+            value = navKeyWindowForm->leddisplaymode->currentText();
+        }
 
         emit signalStoreValue(QString("nav_%1").arg(jsonName), value, -1);
     }
@@ -89,6 +125,8 @@ void NavKey::slotValueChanged()
 
 void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
+    slotDisconnectElements();
+
     navBoxForm->keyName->setText(preset.value(QString("nav_name")).toString());
 
     //this stuff is to determine the modlinemode (0 is for modline, 1 is for programchange... this can be changed)
@@ -104,4 +142,11 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
         navKeyWindowForm->navpadmode_modline->setChecked(FALSE);
         navKeyWindowForm->navpadmode_programchange->setChecked(TRUE);
     }
+
+    //display stuff
+    navKeyWindowForm->displayprefix->setText(preset.value(QString("nav_prefix")).toString());
+    navKeyWindowForm->keyname->setText(preset.value(QString("nav_name")).toString());
+    navKeyWindowForm->leddisplaymode->setCurrentIndex(navKeyWindowForm->leddisplaymode->findText(preset.value(QString("nav_displaymode")).toString()));
+
+    slotConnectElements();
 }

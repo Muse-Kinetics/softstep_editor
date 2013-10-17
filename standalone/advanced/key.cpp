@@ -89,6 +89,11 @@ void Key::slotConnectElements()
     connect(keyWindowForm->counterMax,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     connect(keyWindowForm->counterWrap,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
 
+    //display stuff
+    connect(keyWindowForm->displayprefix,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
+    connect(keyWindowForm->keyname,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
+    connect(keyWindowForm->leddisplaymode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+
     //Hosted streaming
     for(int i = 0; i < 6; i++)
     {
@@ -96,7 +101,30 @@ void Key::slotConnectElements()
         connect(&dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
         connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
     }
+}
 
+void Key::slotDisconnectElements()
+{
+    //key name (from the keyBoxForm)
+    disconnect(keyBoxForm->keyName,SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
+
+    //key counter stuff
+    disconnect(keyWindowForm->counterMin,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    disconnect(keyWindowForm->counterMax,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    disconnect(keyWindowForm->counterWrap,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+
+    //display stuff
+    disconnect(keyWindowForm->displayprefix,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
+    disconnect(keyWindowForm->keyname,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
+    disconnect(keyWindowForm->leddisplaymode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+
+    //Hosted streaming
+    for(int i = 0; i < 6; i++)
+    {
+        disconnect(modline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
+        disconnect(&dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
+        disconnect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
+    }
 }
 
 void Key::slotValueChanged()
@@ -129,6 +157,22 @@ void Key::slotValueChanged()
             jsonName = "counter_wrap";
             value = keyWindowForm->counterWrap->isChecked();
         }
+        //display stuff
+        else if(sender == keyWindowForm->displayprefix)
+        {
+            jsonName = "prefix";
+            value = keyWindowForm->displayprefix->text();
+        }
+        else if(sender == keyWindowForm->keyname)
+        {
+            jsonName = "name";
+            value = keyWindowForm->keyname->text();
+        }
+        else if(sender == keyWindowForm->leddisplaymode)
+        {
+            jsonName = "displaymode";
+            value = keyWindowForm->leddisplaymode->currentText();
+        }
 
         emit signalStoreValue(QString("%1_key_").arg(keyInstance+1) + jsonName, value, -1);
     }
@@ -137,11 +181,19 @@ void Key::slotValueChanged()
 
 void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
+    slotDisconnectElements();
+
     keyBoxForm->keyName->setText(preset.value(QString("%1_key_name").arg(keyInstance+1)).toString());
 
     keyWindowForm->counterMin->setValue(preset.value(QString("%1_key_counter_min").arg(keyInstance+1)).toInt());
     keyWindowForm->counterMax->setValue(preset.value(QString("%1_key_counter_max").arg(keyInstance+1)).toInt());
     keyWindowForm->counterWrap->setChecked(preset.value(QString("%1_key_counter_wrap").arg(keyInstance+1)).toBool());
+
+    keyWindowForm->displayprefix->setText(preset.value(QString("%1_key_prefix").arg(keyInstance+1)).toString());
+    keyWindowForm->keyname->setText(preset.value(QString("%1_key_name").arg(keyInstance+1)).toString());
+    keyWindowForm->leddisplaymode->setCurrentIndex(keyWindowForm->leddisplaymode->findText(preset.value(QString("%1_key_displaymode").arg(keyInstance+1)).toString()));
+
+    slotConnectElements();
 }
 
 void Key::slotSetMode(QString mode)

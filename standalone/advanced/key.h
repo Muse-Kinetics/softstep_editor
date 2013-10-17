@@ -43,6 +43,7 @@ signals:
 public slots:
     void slotOpenWindow();
     void slotConnectElements();
+    void slotDisconnectElements();
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
 
