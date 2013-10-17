@@ -46,6 +46,8 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     modlineForm->raw->setValue(0);
     modlineForm->enable->setStyleSheet(stylesheets.modlineEnableStyleSheet.at(modlineInstanceNum));
 
+    displayLinkButton = modlineForm->modlinedisplayenable;
+
     raw = 0;
     result = 0;
     value = 0;

@@ -24,6 +24,7 @@ public:
     explicit Key(QWidget *parent = 0, int keyInstanceNum = 0);
 
     StyleSheets stylesheets;
+    QButtonGroup displayLinkedButtonGroup;
 
     int keyInstance;
 

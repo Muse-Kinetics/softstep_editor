@@ -66,6 +66,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     {
         modline[i] = new Modline(keyWindowWidget, keyInstance, i);
         modline[i]->slotConnectElements();
+        displayLinkedButtonGroup.addButton(modline[i]->displayLinkButton, i);
     }
 
     //Carson's attempt to dynamically update the key window instance label — shit works
