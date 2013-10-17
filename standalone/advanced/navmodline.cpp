@@ -69,6 +69,11 @@ void NavModline::slotConnectElements()
             QLineEdit* lineedit = qobject_cast<QLineEdit *>(widget);
             connect(lineedit, SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
         }
+        else if(widget->metaObject()->className() == QString("QRadioButton"))
+        {
+            QRadioButton* radiobutton = qobject_cast<QRadioButton *>(widget);
+            connect(radiobutton, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+        }
     }
 
     //connect and initialize the raw value to the result (not for presets)
@@ -116,6 +121,11 @@ void NavModline::slotDisconnectElements()
             QLineEdit* lineedit = qobject_cast<QLineEdit *>(widget);
             disconnect(lineedit, SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
         }
+        else if(widget->metaObject()->className() == QString("QRadioButton"))
+        {
+            QRadioButton* radiobutton = qobject_cast<QRadioButton *>(widget);
+            disconnect(radiobutton, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+        }
     }
 }
 
@@ -133,77 +143,66 @@ void NavModline::slotValueChanged()
             jsonName = "enable";
             value = navModlineForm->enable->isChecked();
         }
-
         //initMode
         else if(sender == navModlineForm->initmode)
         {
             jsonName = "initmode";
             value = navModlineForm->initmode->currentText();
         }
-
         //initValue
         else if(sender == navModlineForm->initvalue)
         {
             jsonName = "initvalue";
             value = navModlineForm->initvalue->value();
         }
-
         //Source Menu
         else if(sender == navModlineForm->source)
         {
             jsonName = "source";
             value = navModlineForm->source->currentText();
         }
-
         //Gain
         else if(sender == navModlineForm->gain)
         {
             jsonName = "gain";
             value = navModlineForm->gain->value();
         }
-
         //Offset
         else if(sender == navModlineForm->offset)
         {
             jsonName = "offset";
             value = navModlineForm->offset->value();
         }
-
         //Table Menu
         else if(sender == navModlineForm->table)
         {
             jsonName = "table";
             value = navModlineForm->table->currentText();
         }
-
         //Min
         else if(sender == navModlineForm->min)
         {
             jsonName = "min";
             value = navModlineForm->min->value();
         }
-
         //Max
         else if(sender == navModlineForm->max)
         {
             jsonName = "max";
             value = navModlineForm->max->value();
         }
-
         //slew
         else if(sender == navModlineForm->slew)
         {
             jsonName = "slew";
             value = navModlineForm->slew->value();
         }
-
         //delay
         else if(sender == navModlineForm->delay)
         {
             jsonName = "delay";
             value = navModlineForm->delay->value();
         }
-
         //Destination Menu
         else if(sender == navModlineForm->destination)
         {
@@ -212,9 +211,7 @@ void NavModline::slotValueChanged()
             jsonName = "destination";
             value = navModlineForm->destination->currentText();
         }
-
         //destination parameters
-
         else if(sender == navModlineForm->notenumber)
         {
             jsonName = "note";
@@ -245,7 +242,7 @@ void NavModline::slotValueChanged()
             jsonName = "note";
             value = navModlineForm->polynote->value();
         }
-
+        //channels
         else if(sender == navModlineForm->notechannel)
         {
             jsonName = "channel";
@@ -286,7 +283,7 @@ void NavModline::slotValueChanged()
             jsonName = "channel";
             value = navModlineForm->polychannel->value();
         }
-
+        //devices
         else if(sender == navModlineForm->notedevice)
         {
             jsonName = "device";
@@ -327,7 +324,6 @@ void NavModline::slotValueChanged()
             jsonName = "device";
             value = navModlineForm->polydevice->currentText();
         }
-
         else if(sender == navModlineForm->mmcdeviceid)
         {
             jsonName = "mmcid";
@@ -343,27 +339,16 @@ void NavModline::slotValueChanged()
             jsonName = "device";
             value = navModlineForm->mmcdevice->currentText();
         }
-
         else if(sender == navModlineForm->oscroute)
         {
             jsonName = "oscroute";
             value = navModlineForm->oscroute->text();
         }
-/*
-        //Green LED
-        else if(sender == navModlineForm->ledgreen)
+        else if(sender == navModlineForm->modlinedisplayenable)
         {
-            jsonName = "ledgreen";
-            value = navModlineForm->ledgreen->currentText();
+            jsonName = "displaylinked";
+            value = navModlineForm->modlinedisplayenable->isChecked();
         }
-
-        //Red LED
-        else if(sender == navModlineForm->ledred)
-        {
-            jsonName = "ledred";
-            value = navModlineForm->ledred->currentText();
-        }
-*/
         emit signalStoreValue(QString("nav_modline%1_").arg(navInstance+1) + jsonName, value, -1);
     }
 
@@ -388,14 +373,8 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
     navModlineForm->delay->setValue(preset.value(QString("nav_modline%1_delay").arg(navInstance+1)).toInt());
     navModlineForm->destination->setCurrentIndex(navModlineForm->destination->findText(preset.value(QString("nav_modline%1_destination").arg(navInstance+1)).toString()));
 
-    //LED parameters
-    //navModlineForm->ledgreen->setCurrentIndex(navModlineForm->ledgreen->findText(preset.value(QString("nav_modline%1_ledgreen").arg(navInstance+1)).toString()));
-    //navModlineForm->ledred->setCurrentIndex(navModlineForm->ledred->findText(preset.value(QString("nav_modline%1_ledred").arg(navInstance+1)).toString()));
-
-
     //destination parameters
     navModlineForm->notenumber->setValue(preset.value(QString("nav_modline%1_note").arg(navInstance+1)).toInt());
-    //navModlineForm->noteLiveNumber->setValue(preset.value(QString("nav_modline%1_note").arg(navInstance+1)).toInt());
     navModlineForm->polynote->setValue(preset.value(QString("nav_modline%1_note").arg(navInstance+1)).toInt());
 
     navModlineForm->notevelocity->setValue(preset.value(QString("nav_modline%1_velocity").arg(navInstance+1)).toInt());
@@ -427,6 +406,7 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     navModlineForm->oscroute->setText(preset.value(QString("nav_modline%1_oscroute").arg(navInstance+1)).toString());
 
+    navModlineForm->modlinedisplayenable->setChecked(preset.value(QString("nav_modline%1_displaylinked").arg(navInstance+1)).toBool());
     slotRecallDestinationMenu();
     slotConnectElements();
 }

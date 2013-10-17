@@ -131,6 +131,9 @@ void Modline::slotConnectElements()
     //red LED
     connect(modlineForm->ledred,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
+    //display linking
+    connect(modlineForm->modlinedisplayenable,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+
     //connect and initialize the raw value to the result (not for preset)
     //connect(modlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
     //connect(modlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
@@ -217,6 +220,9 @@ void Modline::slotDisconnectElements()
 
     //red LED
     disconnect(modlineForm->ledred,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+
+    //display linking
+    disconnect(modlineForm->modlinedisplayenable,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
 }
 
 void Modline::slotValueChanged()
@@ -234,77 +240,66 @@ void Modline::slotValueChanged()
             jsonName = "enable";
             value = modlineForm->enable->isChecked();
         }
-
         //initMode
         else if(sender == modlineForm->initmode)
         {
             jsonName = "initmode";
             value = modlineForm->initmode->currentText();
         }
-
         //initValue
         else if(sender == modlineForm->initvalue)
         {
             jsonName = "initvalue";
             value = modlineForm->initvalue->value();
         }
-
         //Source Menu
         else if(sender == modlineForm->source)
         {
             jsonName = "source";
             value = modlineForm->source->currentText();
         }
-
         //Gain
         else if(sender == modlineForm->gain)
         {
             jsonName = "gain";
             value = modlineForm->gain->value();
         }
-
         //Offset
         else if(sender == modlineForm->offset)
         {
             jsonName = "offset";
             value = modlineForm->offset->value();
         }
-
         //Table Menu
         else if(sender == modlineForm->table)
         {
             jsonName = "table";
             value = modlineForm->table->currentText();
         }
-
         //Min
         else if(sender == modlineForm->min)
         {
             jsonName = "min";
             value = modlineForm->min->value();
         }
-
         //Max
         else if(sender == modlineForm->max)
         {
             jsonName = "max";
             value = modlineForm->max->value();
         }
-
         //slew
         else if(sender == modlineForm->slew)
         {
             jsonName = "slew";
             value = modlineForm->slew->value();
         }
-
         //delay
         else if(sender == modlineForm->delay)
         {
             jsonName = "delay";
             value = modlineForm->delay->value();
         }
-
         //Destination Menu
         else if(sender == modlineForm->destination)
         {
@@ -313,9 +308,7 @@ void Modline::slotValueChanged()
             jsonName = "destination";
             value = modlineForm->destination->currentText();
         }
-
         //destination parameters
-
         else if(sender == modlineForm->notenumber)
         {
             jsonName = "note";
@@ -346,7 +339,7 @@ void Modline::slotValueChanged()
             jsonName = "note";
             value = modlineForm->polynote->value();
         }
-
+        //channels
         else if(sender == modlineForm->notechannel)
         {
             jsonName = "channel";
@@ -387,7 +380,7 @@ void Modline::slotValueChanged()
             jsonName = "channel";
             value = modlineForm->polychannel->value();
         }
-
+        //devices
         else if(sender == modlineForm->notedevice)
         {
             jsonName = "device";
@@ -428,7 +421,6 @@ void Modline::slotValueChanged()
             jsonName = "device";
             value = modlineForm->polydevice->currentText();
         }
-
         else if(sender == modlineForm->mmcdeviceid)
         {
             jsonName = "mmcid";
@@ -444,25 +436,28 @@ void Modline::slotValueChanged()
             jsonName = "device";
             value = modlineForm->mmcdevice->currentText();
         }
-
         else if(sender == modlineForm->oscroute)
         {
             jsonName = "oscroute";
             value = modlineForm->oscroute->text();
         }
-
         //Green LED
         else if(sender == modlineForm->ledgreen)
         {
             jsonName = "ledgreen";
             value = modlineForm->ledgreen->currentText();
         }
-
         //Red LED
         else if(sender == modlineForm->ledred)
         {
             jsonName = "ledred";
             value = modlineForm->ledred->currentText();
+        }
+        //display linking
+        else if(sender == modlineForm->modlinedisplayenable)
+        {
+            jsonName = "displaylinked";
+            value = modlineForm->modlinedisplayenable->isChecked();
         }
 
         emit signalStoreValue(QString("key%1_modline%2_").arg(keyInstance+1).arg(modlineInstance+1) + jsonName, value, -1);
@@ -531,6 +526,8 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modlineForm->mmcdevice->setCurrentIndex(modlineForm->mmcdevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
 
     modlineForm->oscroute->setText(preset.value(QString("key%1_modline%2_oscroute").arg(keyInstance+1).arg(modlineInstance+1)).toString());
+
+    modlineForm->modlinedisplayenable->setChecked(preset.value(QString("key%1_modline%2_displaylinked").arg(keyInstance+1).arg(modlineInstance+1)).toBool());
 
     slotRecallDestinationMenu();
 
