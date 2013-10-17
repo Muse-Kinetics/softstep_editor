@@ -65,6 +65,88 @@ QCheckBox:focus
 	background: none;
 }
 
+/* ---------- QLineEdit ------------*/
+QLineEdit
+{
+	font: 8pt &quot;Tahoma&quot;;
+	background: rgb(18, 18, 18);
+	border: 1px solid rgb(0,174,239);
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+QLineEdit:focus
+{
+	font: 8pt &quot;Tahoma&quot;;
+	background: rgb(0,174,239);
+	border: 1px solid white;
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 3px 1px 4px;
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 35px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+
 /*-------QToolTip-------*/
 QToolTip
 {
@@ -407,6 +489,121 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="displayprefix">
+   <property name="geometry">
+    <rect>
+     <x>1073</x>
+     <y>75</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>1006</x>
+     <y>60</y>
+     <width>60</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+</string>
+   </property>
+   <property name="text">
+    <string>Display Mode</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="keyname">
+   <property name="geometry">
+    <rect>
+     <x>938</x>
+     <y>75</y>
+     <width>60</width>
+     <height>18</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>1073</x>
+     <y>60</y>
+     <width>30</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+</string>
+   </property>
+   <property name="text">
+    <string>Prefix</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="leddisplaymode">
+   <property name="geometry">
+    <rect>
+     <x>1006</x>
+     <y>75</y>
+     <width>60</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>None</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Always</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Once</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Initial/Return</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Immed Param</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>938</x>
+     <y>60</y>
+     <width>60</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+</string>
+   </property>
+   <property name="text">
+    <string>Key Name</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>
