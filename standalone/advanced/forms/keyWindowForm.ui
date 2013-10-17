@@ -200,7 +200,7 @@ QToolTip
   <widget class="QCheckBox" name="ledDisplayCheckBox">
    <property name="geometry">
     <rect>
-     <x>592</x>
+     <x>760</x>
      <y>14</y>
      <width>160</width>
      <height>24</height>

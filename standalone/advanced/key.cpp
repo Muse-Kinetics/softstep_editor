@@ -69,7 +69,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     }
 
     //Carson's attempt to dynamically update the key window instance label — shit works
-    keyWindowForm->keyWindowInstanceLabel->setText(QString("%1").arg(keyInstance + 1));
+    keyWindowForm->keyWindowInstanceLabel->setText(QString("%1").arg((keyInstance + 1) % 10));
     keyBoxForm->openWindow->setStyleSheet(stylesheets.keyBoxOpenButtonStyleSheet.at(keyInstance));
 }
 
