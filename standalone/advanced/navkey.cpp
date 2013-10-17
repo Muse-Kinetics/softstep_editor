@@ -39,6 +39,7 @@ NavKey::NavKey(QWidget *parent) :
     {
         navModline[i] = new NavModline(navKeyWindowWidget, i); //construct modlines
         navModline[i]->slotConnectElements(); //connect modlines
+        displayLinkedButtonGroup.addButton(navModline[i]->displayLinkButton, i);
     }
 }
 

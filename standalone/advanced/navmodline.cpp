@@ -29,6 +29,8 @@ NavModline::NavModline(QWidget *parent, int navInstanceNum) :
 
     //dynamically set the stylesheet for the "enable" checkbox
     navModlineForm->enable->setStyleSheet(stylesheets.modlineEnableStyleSheet.at(navInstance));
+
+    displayLinkButton = navModlineForm->modlinedisplayenable;
 }
 
 void NavModline::slotConnectElements()

@@ -24,6 +24,7 @@ public:
 
     //Ui Elements
     NavModline *navModline[6];
+    QButtonGroup displayLinkedButtonGroup;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);

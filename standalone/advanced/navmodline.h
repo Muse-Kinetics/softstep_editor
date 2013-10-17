@@ -19,6 +19,7 @@ public:
     explicit NavModline(QWidget *parent = 0, int navInstanceNum = 0);
 
     StyleSheets stylesheets;
+    QRadioButton* displayLinkButton;
 
     QString mode;
 
