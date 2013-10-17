@@ -42,7 +42,8 @@ SOURCES +=      main.cpp\
     hosted/datacooker.cpp \
     navmodline.cpp \
     navkey.cpp \
-    hosted/midiformatoutput.cpp
+    hosted/midiformatoutput.cpp \
+    hosted/latcher.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -71,7 +72,8 @@ HEADERS  +=     mainwindow.h \
     navmodline.h \
     navkey.h \
     ../../shared/tables.h \
-    hosted/midiformatoutput.h
+    hosted/midiformatoutput.h \
+    hosted/latcher.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \

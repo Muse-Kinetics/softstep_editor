@@ -7,6 +7,8 @@
 #include <QWidget>
 #include <QMap>
 
+#include "hosted/latcher.h"
+
 enum {NW, NE, SW, SE};
 
 class DataCooker : public QWidget
@@ -37,11 +39,11 @@ public:
 
     int    modlineOutput(int modlineNum);
 
-    /*int     pressureLatch();
+    int     pressureLatch();
     int     xLatch();
     int     yLatch();
 
-    int     xIncrement();
+    /*int     xIncrement();
     int     yIncrement();
 
     void    top();
@@ -75,7 +77,6 @@ public slots:
     void slotReceiveModlineOutput(int modlineNum, int val);
 
     void slotSetSource(QString source, int modlineInstance);
-    void slotCloseSource(QString source, int modlineInstance);
 };
 
 #endif // DATACOOKER_H

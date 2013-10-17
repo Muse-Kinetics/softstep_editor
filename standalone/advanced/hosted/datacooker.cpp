@@ -35,6 +35,16 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     footOnOff = false;
 }
 
+void DataCooker::slotSetSource(QString source, int modlineInstance)
+{
+    modlineSources.insert(modlineInstance, source);
+
+    /* for(int i = 0; i < modlineSources.size(); i++)
+    {
+        qDebug () << i << modlineSources.value(i);
+    }*/
+}
+
 void DataCooker::slotUpdateVals(int cc, int val)
 {
     if(cc >= keySensorBaseCcMap[keyNum] && cc <= keySensorBaseCcMap[keyNum] + 3)
@@ -191,6 +201,7 @@ int DataCooker::pressureRaw()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//---------------------------------- Live
 int DataCooker::pressureLive()
 {
     if(footOnOff)
@@ -241,6 +252,38 @@ int DataCooker::yLive()
     return yLoc;
 }
 
+//---------------------------------- Latching
+int DataCooker::pressureLatch()
+{
+
+    if(footOnOff)
+    {
+        Latcher* latcher = new Latcher();
+
+        latcher->latchInput(pressureLive());
+    }
+
+
+    if(footOnOff)
+    {
+        return (int)((float)(pressureRaw() - offThresh) / (float)(127 - offThresh) * 127.00);
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int DataCooker::xLatch()
+{
+
+}
+
+int DataCooker::yLatch()
+{
+
+}
+
 int DataCooker::footOn()
 {
     //If pressure is greater than on-thresh and current state of key is off
@@ -267,17 +310,4 @@ int DataCooker::footOff()
     }
 }
 
-void DataCooker::slotSetSource(QString source, int modlineInstance)
-{
-    modlineSources.insert(modlineInstance, source);
 
-    /* for(int i = 0; i < modlineSources.size(); i++)
-    {
-        qDebug () << i << modlineSources.value(i);
-    }*/
-}
-
-void DataCooker::slotCloseSource(QString source, int modlineInstance)
-{
-
-}
