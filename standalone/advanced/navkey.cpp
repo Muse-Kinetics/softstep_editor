@@ -5,7 +5,7 @@
 
 //-------NAV PAD WINDOW SIZE CONSTANTS------------//
 #define NAVWINDOW_WIDTH 1118
-#define NAVWINDOW_HEIGHT 400
+#define NAVWINDOW_HEIGHT 410
 
 //-------NAV BOX SIZE CONSTANTS-------//
 #define NAVBOX_WIDTH 101

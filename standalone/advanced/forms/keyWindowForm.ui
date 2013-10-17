@@ -269,11 +269,14 @@ QToolTip
   <widget class="QCheckBox" name="counterWrap">
    <property name="geometry">
     <rect>
-     <x>145</x>
-     <y>31</y>
-     <width>21</width>
+     <x>147</x>
+     <y>30</y>
+     <width>23</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>
@@ -355,7 +358,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QFrame" name="keyWindowInstanceLabel_background">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>430</x>
      <y>17</y>
      <width>25</width>
      <height>25</height>
@@ -391,7 +394,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="keyWindowInstanceLabel">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>430</x>
      <y>17</y>
      <width>25</width>
      <height>25</height>
