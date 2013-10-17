@@ -94,6 +94,40 @@ void MainWindow::slotSetPresetMenu(int presetNum)
     presetInterface->slotRecallPreset(presetNum);
 }
 
+void MainWindow::slotConnectElements()
+{
+    connect(ui->displayName, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
+}
+
+void MainWindow::slotDisconnectElements()
+{
+    disconnect(ui->displayName, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
+}
+
+void MainWindow::slotValueChanged()
+{
+    if(QObject::sender())
+    {
+        QObject *sender = QObject::sender();
+
+        //display name
+        if(sender == ui->displayName)
+        {
+            emit signalStoreValue(QString("preset_displayname"), ui->displayName->text(), -1);
+        }
+    }
+    emit signalCheckSavedState();
+}
+
+void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap)
+{
+    slotDisconnectElements();
+
+    ui->displayName->setText(preset.value(QString("preset_displayname")).toString());
+
+    slotConnectElements();
+}
+
 void MainWindow::slotConnectInterfaces()
 {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -175,6 +209,9 @@ void MainWindow::slotConnectInterfaces()
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //--------------------------------------- Preset Recall
 
+    //MainWindow -- display name
+    connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), this, SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
+
     //Keys
     for(int k = 0; k < 10; k++)
     {
@@ -198,6 +235,10 @@ void MainWindow::slotConnectInterfaces()
     connect(presetInterface, SIGNAL(signalRecallGlobal(QVariantMap,QVariantMap)),settingsWindow,SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
 
     //--------------------------------------- Parameter Storage
+
+    //Main Window -- display name
+    connect(this, SIGNAL(signalStoreValue(QString,QVariant,int)), presetInterface, SLOT(slotStoreValue(QString,QVariant,int)));
+    connect(this, SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
 
     //Keys
     for(int k = 0; k < 10; k++)

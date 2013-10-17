@@ -608,7 +608,7 @@ QPushButton:pressed
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="displayName">
      <property name="geometry">
       <rect>
        <x>8</x>
@@ -625,6 +625,9 @@ QPushButton:pressed
      </property>
      <property name="text">
       <string>NEXU</string>
+     </property>
+     <property name="maxLength">
+      <number>4</number>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

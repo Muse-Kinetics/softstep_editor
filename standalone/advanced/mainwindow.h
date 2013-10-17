@@ -67,10 +67,17 @@ public:
 signals:
     void signalSaveAs(QString presetName);
     void signalSetMode(QString mode);
+    void signalStoreValue(QString name, QVariant value, int presetNum);
+    void signalCheckSavedState();
 
 public slots:
     void slotConnectInterfaces();
+    void slotConnectElements();
+    void slotDisconnectElements();
     void slotInitMenuBar();
+
+    void slotValueChanged();
+    void slotRecallPreset(QVariantMap, QVariantMap);
 
     void slotConnected(bool);
 
