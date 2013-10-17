@@ -107,7 +107,7 @@ QToolTip
     <string>Enter a name for your preset here.</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="cancel">
+  <widget class="QToolButton" name="cancel">
    <property name="geometry">
     <rect>
      <x>24</x>
@@ -123,7 +123,7 @@ QToolTip
     <string>CANCEL</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="save">
+  <widget class="QToolButton" name="save">
    <property name="geometry">
     <rect>
      <x>81</x>

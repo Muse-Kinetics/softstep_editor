@@ -500,6 +500,9 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
      <height>18</height>
     </rect>
    </property>
+   <property name="maxLength">
+    <number>2</number>
+   </property>
   </widget>
   <widget class="QLabel" name="label_5">
    <property name="geometry">
@@ -529,6 +532,9 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
      <width>60</width>
      <height>18</height>
     </rect>
+   </property>
+   <property name="maxLength">
+    <number>4</number>
    </property>
   </widget>
   <widget class="QLabel" name="label_6">
