@@ -38,14 +38,14 @@ QLabel:hover
 }
 
 /*---------- QPushButton ---------*/
-QPushButton
+QToolButton
 {
 	background: none;
 	border: none;
-	image: url(:/resources/openkeywindow1_inactive.png)
+	image: url(:/resources/openkeywindow1_inactive.png);
 }
 
-QPushButton:pressed
+QToolButton:pressed
 {
 	background: none;
 	border: none;
@@ -86,7 +86,7 @@ QToolTip
 	width: 22px;
 }</string>
   </property>
-  <widget class="QPushButton" name="openWindow">
+  <widget class="QToolButton" name="openWindow">
    <property name="geometry">
     <rect>
      <x>7</x>

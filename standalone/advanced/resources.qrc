@@ -2,12 +2,8 @@
     <qresource prefix="/">
         <file>resources/radio_off.svg</file>
         <file>resources/radio_on.svg</file>
-        <file>resources/keyWindow_addModline_button_clicked.png</file>
-        <file>resources/keyWindow_addModline_button_not_clicked.png</file>
         <file>resources/keyWindow_dataModifiers_label.png</file>
         <file>resources/keyWindow_dataSources_label.png</file>
-        <file>resources/keyWindow_deleteModline_button_clicked.png</file>
-        <file>resources/keyWindow_deleteModline_button_not_clicked.png</file>
         <file>resources/keyWindow_inits_label.png</file>
         <file>resources/keyWindow_ledSettings_toggle_off.png</file>
         <file>resources/keyWindow_ledSettings_toggle_on.png</file>
@@ -123,5 +119,9 @@
         <file>resources/keybox_openwindow8_stylesheet.qss</file>
         <file>resources/keybox_openwindow9_stylesheet.qss</file>
         <file>resources/keybox_openwindow10_stylesheet.qss</file>
+        <file>resources/keyWindow_addModline_button_clicked.png</file>
+        <file>resources/keyWindow_deleteModline_button_clicked.png</file>
+        <file>resources/keyWindow_addModline_button_not_clicked.png</file>
+        <file>resources/keyWindow_deleteModline_button_not_clicked.png</file>
     </qresource>
 </RCC>

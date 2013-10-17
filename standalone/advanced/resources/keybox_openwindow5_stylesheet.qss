@@ -1,12 +1,12 @@
-/*---------- QPushButton ---------*/
-QPushButton
+/*---------- QToolButton ---------*/
+QToolButton
 {
 	background: none;
 	border: none;
 	image: url(:/resources/openkeywindow5_inactive.png)
 }
 
-QPushButton:pressed
+QToolButton:pressed
 {
 	background: none;
 	border: none;

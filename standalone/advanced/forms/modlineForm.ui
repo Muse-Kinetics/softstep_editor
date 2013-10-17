@@ -3318,7 +3318,7 @@ QLabel
   <widget class="QRadioButton" name="modlinedisplayenable">
    <property name="geometry">
     <rect>
-     <x>1113</x>
+     <x>1112</x>
      <y>18</y>
      <width>20</width>
      <height>20</height>
@@ -3331,7 +3331,7 @@ QLabel
   <widget class="QLabel" name="label_48">
    <property name="geometry">
     <rect>
-     <x>1109</x>
+     <x>1108</x>
      <y>3</y>
      <width>20</width>
      <height>16</height>
