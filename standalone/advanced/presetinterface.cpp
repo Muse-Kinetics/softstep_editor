@@ -266,14 +266,14 @@ void PresetInterface::slotStoreGlobal(QString name, QVariant value)
 
 void PresetInterface::slotCheckSaveState()
 {
-    QStringList keyList = jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().keys();
+    QStringList keyList = jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap().keys();
 
     bool dirty = false;
 
     for(int i = 0; i < keyList.size(); i++)
     {
-        if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) !=
-                jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)))
+        if(jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap().value(keyList.at(i)) !=
+                jsonMasterMap.value(slotGetPresetStringFromInt(currentPresetNum)).toMap().value(keyList.at(i)))
         {
             //qDebug() << "--------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
             dirty = true;
