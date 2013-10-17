@@ -232,7 +232,13 @@ void MainWindow::slotConnectInterfaces()
 
     //Standalone Download
     connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
-
+    //Load stylesheet and set initial text for connectedLabel
+    ui->connectedLabel->setText("NOT CONNECTED");
+#ifdef Q_OS_MAC
+    ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
+#else
+    ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255);");
+#endif
 
 }
 
@@ -354,7 +360,11 @@ void MainWindow::slotConnected(bool connection)
     if(connection)
     {
         ui->connectedLabel->setText("CONNECTED");
+#ifdef Q_OS_MAC
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");
+#else
+        ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(0,200,0,255);");
+#endif
         ui->update->setText("SAVE + SEND");
         presetInterface->connected = true;    }
     else
@@ -362,7 +372,11 @@ void MainWindow::slotConnected(bool connection)
         //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
         //ui->connectedLabel->setText("Not Connected");
         ui->connectedLabel->setText("NOT CONNECTED");
+#ifdef Q_OS_MAC
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
+#else
+        ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255);");
+#endif
         ui->update->setText("SAVE");
         aboutForm->found->setText("Not Connected");
         presetInterface->connected = false;
