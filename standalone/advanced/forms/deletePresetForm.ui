@@ -47,6 +47,21 @@ QPushButton:pressed
 	background-color: rgb(0, 174, 239);
 }
 
+/*-------QToolButton-------*/
+QToolButton
+{
+	font: 9px &quot;Futura&quot;;
+	color: white;
+	border: 2px solid rgb(0, 174, 239);
+}
+
+QToolButton:pressed
+{
+	background-color: rgb(0, 174, 239);
+}
+
+
+
 /*-------QToolTip-------*/
 QToolTip
 {
@@ -74,7 +89,7 @@ QToolTip
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="cancel">
+  <widget class="QToolButton" name="cancel">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -90,7 +105,7 @@ QToolTip
     <string>No. Cancel.</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="delete_2">
+  <widget class="QToolButton" name="delete_2">
    <property name="geometry">
     <rect>
      <x>130</x>

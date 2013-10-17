@@ -143,6 +143,25 @@ QPushButton:pressed
 	padding: 0, 1, 0, 0;
 }
 
+/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(58,58,60);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 9pt &quot;Futura&quot;;
+	padding: 0,1,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: none;
+	font: 9pt &quot;Futura&quot;;
+	padding: 0, 1, 0, 0;
+}
+
 /*----------- QLabel ------------*/
 QLabel
 {
@@ -216,7 +235,7 @@ QComboBox::down-arrow
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QPushButton" name="save">
+     <widget class="QToolButton" name="save">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -232,7 +251,7 @@ QComboBox::down-arrow
        <string>SAVE</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="saveas">
+     <widget class="QToolButton" name="saveas">
       <property name="geometry">
        <rect>
         <x>80</x>
@@ -248,7 +267,7 @@ QComboBox::down-arrow
        <string>SAVE AS</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="revert">
+     <widget class="QToolButton" name="revert">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -264,7 +283,7 @@ QComboBox::down-arrow
        <string>REVERT</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="deletepreset">
+     <widget class="QToolButton" name="deletepreset">
       <property name="geometry">
        <rect>
         <x>180</x>
@@ -385,7 +404,7 @@ QComboBox::down-arrow
       </property>
      </widget>
     </widget>
-    <widget class="QPushButton" name="update">
+    <widget class="QToolButton" name="update">
      <property name="geometry">
       <rect>
        <x>5</x>
@@ -408,6 +427,23 @@ QPushButton
 }
 
 QPushButton:pressed
+{
+	background: rgba(0,174,239,255);
+	border: none;
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}
+
+/*---------- QToolButton ---------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	border: 2px solid rgba(0,174,239,255);
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}
+
+QToolButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: none;
