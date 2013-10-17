@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>967</width>
     <height>42</height>
    </rect>
   </property>
@@ -170,6 +170,32 @@ QComboBox::down-arrow
 	background: none;
 	image: url(:/resources/modline_combobox_menu_arrows.png);
 	padding-right: 10px;
+}
+
+/*-------QRadioButton-------*/
+QRadioButton
+{
+	background: none;
+}
+
+QRadioButton::indicator:unchecked
+{
+	image: url(:/resources/modline_display_enable_off.png);
+}
+
+QRadioButton::indicator:unchecked:pressed
+{
+	image: url(:/resources/modline_display_enable_on.png);
+}
+
+QRadioButton::indicator:checked
+{
+	image: url(:/resources/modline_display_enable_on.png);
+}
+
+QRadioButton::indicator:checked:pressed
+{
+	image: url(:/resources/modline_display_enable_off.png);
 }
 
 /*-------QToolTip-------*/
@@ -374,96 +400,6 @@ QToolTip
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QComboBox" name="ledgreen">
-   <property name="geometry">
-    <rect>
-     <x>952</x>
-     <y>18</y>
-     <width>60</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Tahoma</family>
-     <pointsize>8</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="contextMenuPolicy">
-    <enum>Qt::DefaultContextMenu</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-}
-</string>
-   </property>
-   <item>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>True</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>False</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Flash True</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Flash False</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Flash Fast True</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Flash Fast False</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Blink True</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Blink False</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Off</string>
-    </property>
-   </item>
-  </widget>
   <widget class="QSpinBox" name="delay">
    <property name="geometry">
     <rect>
@@ -594,90 +530,6 @@ QComboBox QListView
    <property name="maximum">
     <number>127</number>
    </property>
-  </widget>
-  <widget class="QComboBox" name="ledred">
-   <property name="geometry">
-    <rect>
-     <x>1016</x>
-     <y>18</y>
-     <width>60</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Tahoma</family>
-     <pointsize>8</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="contextMenuPolicy">
-    <enum>Qt::DefaultContextMenu</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	min-width: 67px;
-}</string>
-   </property>
-   <item>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>True</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>False</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Flash True</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Flash False</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Flash Fast True</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Flash Fast False</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Blink True</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Blink False</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Off</string>
-    </property>
-   </item>
   </widget>
   <widget class="QSpinBox" name="max">
    <property name="geometry">
@@ -3049,6 +2901,52 @@ QComboBox QListView
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_48">
+   <property name="geometry">
+    <rect>
+     <x>940</x>
+     <y>5</y>
+     <width>20</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: none;
+image: url(:/resources/modline_led_display_arrow.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="modlinedisplayenable">
+   <property name="geometry">
+    <rect>
+     <x>944</x>
+     <y>18</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>914</x>
+     <y>0</y>
+     <width>20</width>
+     <height>42</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: rgb(60, 60, 60);</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

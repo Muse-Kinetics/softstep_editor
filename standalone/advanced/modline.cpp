@@ -10,7 +10,7 @@
 #include <AudioUnit/AudioUnit.h>
 
 //Constants for various modline arrangement parameters
-#define MODLINE_WINDOW_WIDTH 1100
+#define MODLINE_WINDOW_WIDTH 1132
 #define MODLINE_WINDOW_HEIGHT 42
 #define MODLINE_SPACING 5
 #define MODLINE_STARTING_X_POS 9

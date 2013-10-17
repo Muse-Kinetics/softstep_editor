@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>1132</width>
     <height>42</height>
    </rect>
   </property>
@@ -170,6 +170,32 @@ QComboBox::down-arrow
 	background: none;
 	image: url(:/resources/modline_combobox_menu_arrows.png);
 	padding-right: 10px;
+}
+
+/*-------QRadioButton-------*/
+QRadioButton
+{
+	background: none;
+}
+
+QRadioButton::indicator:unchecked
+{
+	image: url(:/resources/modline_display_enable_off.png);
+}
+
+QRadioButton::indicator:unchecked:pressed
+{
+	image: url(:/resources/modline_display_enable_on.png);
+}
+
+QRadioButton::indicator:checked
+{
+	image: url(:/resources/modline_display_enable_on.png);
+}
+
+QRadioButton::indicator:checked:pressed
+{
+	image: url(:/resources/modline_display_enable_off.png);
 }
 
 /*-------QToolTip-------*/
@@ -1223,9 +1249,9 @@ QComboBox QListView
   <widget class="QComboBox" name="ledgreen">
    <property name="geometry">
     <rect>
-     <x>950</x>
+     <x>942</x>
      <y>19</y>
-     <width>60</width>
+     <width>80</width>
      <height>18</height>
     </rect>
    </property>
@@ -1313,9 +1339,9 @@ QComboBox QListView
   <widget class="QComboBox" name="ledred">
    <property name="geometry">
     <rect>
-     <x>1014</x>
+     <x>1026</x>
      <y>19</y>
-     <width>60</width>
+     <width>80</width>
      <height>18</height>
     </rect>
    </property>
@@ -1547,7 +1573,7 @@ QComboBox::down-arrow
 </string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -3241,6 +3267,84 @@ QLabel
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QLabel" name="label_46">
+   <property name="geometry">
+    <rect>
+     <x>942</x>
+     <y>1</y>
+     <width>80</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Green LED</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_47">
+   <property name="geometry">
+    <rect>
+     <x>1026</x>
+     <y>1</y>
+     <width>80</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Red LED</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>914</x>
+     <y>0</y>
+     <width>20</width>
+     <height>42</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: rgb(60, 60, 60);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="modlinedisplayenable">
+   <property name="geometry">
+    <rect>
+     <x>1113</x>
+     <y>18</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_48">
+   <property name="geometry">
+    <rect>
+     <x>1109</x>
+     <y>3</y>
+     <width>20</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: none;
+image: url(:/resources/modline_led_display_arrow.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
   <zorder>enable</zorder>
   <zorder>instanceLabel</zorder>
   <zorder>initmode</zorder>
@@ -3278,6 +3382,11 @@ QLabel
   <zorder>label_43</zorder>
   <zorder>label_44</zorder>
   <zorder>label_45</zorder>
+  <zorder>label_46</zorder>
+  <zorder>label_47</zorder>
+  <zorder>label_4</zorder>
+  <zorder>modlinedisplayenable</zorder>
+  <zorder>label_48</zorder>
  </widget>
  <resources/>
  <connections/>

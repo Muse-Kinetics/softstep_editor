@@ -4,7 +4,7 @@
 #include "navmodline.h"
 
 //constants for various modline arrangement parameters
-#define MODLINE_WINDOW_WIDTH 1100
+#define MODLINE_WINDOW_WIDTH 967
 #define MODLINE_WINDOW_HEIGHT 42
 #define MODLINE_SPACING 5
 #define MODLINE_STARTING_X_POS 9
@@ -349,7 +349,7 @@ void NavModline::slotValueChanged()
             jsonName = "oscroute";
             value = navModlineForm->oscroute->text();
         }
-
+/*
         //Green LED
         else if(sender == navModlineForm->ledgreen)
         {
@@ -363,7 +363,7 @@ void NavModline::slotValueChanged()
             jsonName = "ledred";
             value = navModlineForm->ledred->currentText();
         }
-
+*/
         emit signalStoreValue(QString("nav_modline%1_").arg(navInstance+1) + jsonName, value, -1);
     }
 
@@ -389,8 +389,8 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
     navModlineForm->destination->setCurrentIndex(navModlineForm->destination->findText(preset.value(QString("nav_modline%1_destination").arg(navInstance+1)).toString()));
 
     //LED parameters
-    navModlineForm->ledgreen->setCurrentIndex(navModlineForm->ledgreen->findText(preset.value(QString("nav_modline%1_ledgreen").arg(navInstance+1)).toString()));
-    navModlineForm->ledred->setCurrentIndex(navModlineForm->ledred->findText(preset.value(QString("nav_modline%1_ledred").arg(navInstance+1)).toString()));
+    //navModlineForm->ledgreen->setCurrentIndex(navModlineForm->ledgreen->findText(preset.value(QString("nav_modline%1_ledgreen").arg(navInstance+1)).toString()));
+    //navModlineForm->ledred->setCurrentIndex(navModlineForm->ledred->findText(preset.value(QString("nav_modline%1_ledred").arg(navInstance+1)).toString()));
 
 
     //destination parameters
