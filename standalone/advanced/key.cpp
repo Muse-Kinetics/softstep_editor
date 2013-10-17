@@ -84,6 +84,8 @@ void Key::slotConnectElements()
 {
     //key name (from the keyBoxForm)
     connect(keyBoxForm->keyName,SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
+    connect(keyBoxForm->keyName,SIGNAL(textEdited(QString)),keyWindowForm->keyname, SLOT(setText(QString)));
+    connect(keyWindowForm->keyname,SIGNAL(textEdited(QString)),keyBoxForm->keyName, SLOT(setText(QString)));
 
     //key counter stuff
     connect(keyWindowForm->counterMin,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));

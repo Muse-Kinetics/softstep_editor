@@ -52,6 +52,8 @@ void NavKey::slotConnectElements()
 {
     //nav name (from the nav box form)
     connect(navBoxForm->keyName, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
+    connect(navBoxForm->keyName, SIGNAL(textEdited(QString)), navKeyWindowForm->keyname, SLOT(setText(QString)));
+    connect(navKeyWindowForm->keyname, SIGNAL(textEdited(QString)), navBoxForm->keyName, SLOT(setText(QString)));
 
     //nav modulation window stuff
     connect(navKeyWindowForm->navpadmode_modline, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
