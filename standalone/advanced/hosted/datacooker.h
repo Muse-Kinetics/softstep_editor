@@ -23,6 +23,8 @@ public:
 
     QMap<int, QString>  modlineSources;
 
+    Latcher latcher;
+
     void                cookRaw();
     void                cookSources();
 
@@ -39,7 +41,7 @@ public:
 
     int    modlineOutput(int modlineNum);
 
-    int     pressureLatch();
+    int     pressureLatch(int modlineNum);
     int     xLatch();
     int     yLatch();
 
@@ -77,6 +79,9 @@ public slots:
     void slotReceiveModlineOutput(int modlineNum, int val);
 
     void slotSetSource(QString source, int modlineInstance);
+
+    //----------------------------- Latching Return Slots
+    void slotPressureLatchReturn(int val, int modlineNum);
 };
 
 #endif // DATACOOKER_H

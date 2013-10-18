@@ -5,18 +5,62 @@
 #define LATCHER_H
 
 #include <QTimer>
+#include <QThread>
+#include <QDebug>
+
+#include "hosted/slewer.h"
 
 class Latcher : public QTimer
 {
+    Q_OBJECT
+    QThread workerThread;
+
 public:
+
     Latcher();
+    ~Latcher();
 
-    QList<int> fifo;
+    QList<int> buffer;
+    int currentModline;
+    bool latchOpen;
 
-    int latchInput(int);
+    int currentTime;
+    int delayTime;
+
+    void receiveInput(int val, int modlineNum);
+    int latchInput();
+
+signals:
+    void signalProcessInput(const int &val);
+    void signalReturnValue(int val, int modlineNum);
+
 
 public slots:
-    int slotDrainFIFO();
+    void slotInputFromStream(const int &val);
+    void slotReceiveLatchedValue(const int &val);
+};
+
+class LatcherWorker : public QObject
+{
+    Q_OBJECT
+
+
+
+public:
+    LatcherWorker();
+    ~LatcherWorker();
+
+    Slewer slewer;
+    QList<int> input;
+
+signals:
+    void signalSendLatchedValue(const int &val);
+
+public slots:
+    void slotProcessInput(const int &val);
+    void slotDelayInput();
+    void slotReturnInput(int val);
+
 };
 
 #endif // LATCHER_H

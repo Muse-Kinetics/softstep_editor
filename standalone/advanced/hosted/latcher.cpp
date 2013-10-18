@@ -5,33 +5,101 @@
 
 Latcher::Latcher()
 {
-    connect(this, SIGNAL(timeout()), this, SLOT(slotDrainFIFO()));
+    //start timer
+    currentTime = 0;
+    delayTime = 1000;
+    //start(1);
+    //connect(this, SIGNAL(timeout()), this, SLOT(slotDrainFIFO()));
+
+    //Create a latcher worker and move it to a new thread
+    LatcherWorker* latcherWorker = new LatcherWorker;
+    latcherWorker->moveToThread(&workerThread);
+
+    latchOpen = false;
+
+    connect(this, SIGNAL(signalProcessInput(int)), latcherWorker, SLOT(slotProcessInput(int)));
+    connect(&latcherWorker->slewer, SIGNAL(signalOutput(int)), latcherWorker, SLOT(slotReturnInput(int)));
+    connect(latcherWorker, SIGNAL(signalSendLatchedValue(int)), this, SLOT(slotReceiveLatchedValue(int)));
+
+    workerThread.start();
+
 }
 
-int Latcher::latchInput(int input)
+Latcher::~Latcher()
 {
-    //Put input in the buffer
-    fifo.append(input);
+    workerThread.quit();
+    workerThread.wait();
+}
 
-    if(!isActive())
+void Latcher::receiveInput(int val, int modlineNum)
+{
+    if(latchOpen)
     {
-        start(100);
+        currentModline = modlineNum;
+        //qDebug() << "input from source stream" << input;
+
+        emit signalProcessInput(val);
     }
 }
 
-int Latcher::slotDrainFIFO()
+void Latcher::slotInputFromStream(const int &val)
 {
-    //Return off the oldest value in the list
-    if(fifo.count())
-    {
-        return fifo.first();
-    }
+    //qDebug() << "latch buffer" << buffer.first();
+    //buffer.removeFirst();
+}
 
-    //If nothing in buffer, turn off timer
+void Latcher::slotReceiveLatchedValue(const int &val)
+{
+    if(latchOpen)
+    {
+        emit signalReturnValue(val, currentModline);
+    }
     else
     {
-        stop();
+        buffer.clear();
     }
+
 }
 
+int Latcher::latchInput()
+{
+
+}
+
+//----------------- Latcher Worker
+LatcherWorker::LatcherWorker()
+{
+
+}
+
+LatcherWorker::~LatcherWorker()
+{
+
+}
+
+void LatcherWorker::slotProcessInput(const int &val)
+{
+    input.append(val);
+    QTimer::singleShot(100, this, SLOT(slotDelayInput()));
+}
+
+void LatcherWorker::slotDelayInput()
+{
+    emit signalSendLatchedValue(input.first());
+    //slewer.slotSlew(input.first(), 1);
+    input.removeFirst();
+    //qDebug() << "dealyed output" << input;
+}
+
+void LatcherWorker::slotReturnInput(int val)
+{
+    static int lastVal = -1;
+
+    if(lastVal != val)
+    {
+        emit signalSendLatchedValue(val);
+        lastVal = val;
+    }
+
+}
 

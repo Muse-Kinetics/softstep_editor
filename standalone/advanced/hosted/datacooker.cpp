@@ -33,6 +33,8 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
 
     //Init raw vars
     footOnOff = false;
+
+    connect(&latcher, SIGNAL(signalReturnValue(int,int)), this, SLOT(slotPressureLatchReturn(int,int)));
 }
 
 void DataCooker::slotSetSource(QString source, int modlineInstance)
@@ -116,7 +118,7 @@ void DataCooker::cookSources()
         //-------- Latch
         else if(modlineSources.value(i) == "Pressure Latch")
         {
-            //pressureLive();
+            pressureLatch(i);
         }
         else if(modlineSources.value(i) == "X Latch")
         {
@@ -206,7 +208,14 @@ int DataCooker::pressureLive()
 {
     if(footOnOff)
     {
-        return (int)((float)(pressureRaw() - offThresh) / (float)(127 - offThresh) * 127.00);
+        if((int)((float)(pressureRaw() - onThresh) / (float)(127 - onThresh) * 127.00) > 0)
+        {
+            return (int)((float)(pressureRaw() - onThresh) / (float)(127 - onThresh) * 127.00);
+        }
+        else
+        {
+            return 0;
+        }
     }
     else
     {
@@ -253,25 +262,25 @@ int DataCooker::yLive()
 }
 
 //---------------------------------- Latching
-int DataCooker::pressureLatch()
+int DataCooker::pressureLatch(int modlineNum)
 {
 
     if(footOnOff)
     {
-        Latcher* latcher = new Latcher();
-
-        latcher->latchInput(pressureLive());
-    }
-
-
-    if(footOnOff)
-    {
-        return (int)((float)(pressureRaw() - offThresh) / (float)(127 - offThresh) * 127.00);
+        latcher.latchOpen = true;
+        latcher.receiveInput(pressureLive(), modlineNum);
     }
     else
     {
-        return 0;
+        latcher.latchOpen = false;
     }
+}
+
+void DataCooker::slotPressureLatchReturn(int val, int modlineNum)
+{
+    qDebug() << "pressure latch return" << val << modlineNum;
+
+    emit signalTransformSource(val, modlineNum, "Pressure Latch");
 }
 
 int DataCooker::xLatch()
