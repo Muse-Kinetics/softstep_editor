@@ -2,6 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "navmodline.h"
+//#include "tables.h"
 
 //constants for various modline arrangement parameters
 #define MODLINE_WINDOW_WIDTH 967
@@ -449,7 +450,9 @@ void NavModline::slotSetMode(QString m)
     mode = m;
 }
 
-void NavModline::slotSetMenus(QStringList source, QStringList dest, QStringList table)
+
+
+void NavModline::slotPopulateMenus(QStringList source, QStringList dest, QStringList table)
 {
     //set source menu
     navModlineForm->source->clear();

@@ -484,6 +484,30 @@ void MainWindow::slotSetMode()
         }
     }
 
+    //Nav Pad and Nav Modlines
+    //navKey->slotSetMode(mode);
+    for(int i = 0; i < 6; i++)
+    {
+        //nav modlines
+        navKey->navModline[i]->slotSetMode(mode);
+
+        //disconnect from slotValueChanged
+        navKey->navModline[i]->slotDisconnectElements();
+
+        //populate modline menus according to mode
+        if(mode == "hosted")
+        {
+            navKey->navModline[i]->slotPopulateMenus(hostedNavSources, hostedDestinations, hostedNavTables);
+        }
+        else
+        {
+            navKey->navModline[i]->slotPopulateMenus(standaloneNavSources, standaloneDestinations, standaloneTables);
+        }
+
+        //reconnect to slotValueChanged
+        navKey->navModline[i]->slotConnectElements();
+    }
+
     midiDeviceManager->slotSetMode(mode); //repopulation of device menus should happen here
     presetInterface->slotSetMode(mode);
     setlist->slotSetMode(mode);
@@ -621,6 +645,14 @@ void MainWindow::slotPopulateSourceDestLists()
     standaloneSources.append("Modline 5 Output");
     standaloneSources.append("Modline 6 Output");
 
+    //Standalone Nav Pad
+    standaloneNavSources.append("None");
+
+    standaloneNavSources.append("Nav Y Inc-Dec");
+
+    standaloneNavSources.append("Pedal");
+    standaloneNavSources.append("Init");
+
     //Hosted
     hostedSources.append("None");
 
@@ -699,6 +731,40 @@ void MainWindow::slotPopulateSourceDestLists()
     hostedSources.append("OSC G");
     hostedSources.append("OSC H");
 
+    //Hosted Nav Pad
+    hostedNavSources.append("None");
+
+    hostedNavSources.append("Nav Y");
+    hostedNavSources.append("Nav Y Decade");
+    hostedNavSources.append("Nav Y Inc-Dec");
+
+    hostedNavSources.append("Nav N Foot On");
+    hostedNavSources.append("Nav S Foot On");
+
+    hostedNavSources.append("Nav N Foot Off");
+    hostedNavSources.append("Nav S Foot Off");
+
+    hostedNavSources.append("Nav N Trig");
+    hostedNavSources.append("Nav N Trig Fast");
+    hostedNavSources.append("Nav N Trig Dbl");
+    hostedNavSources.append("Nav N Trig Long");
+
+    hostedNavSources.append("Nav S Trig");
+    hostedNavSources.append("Nav S Trig Fast");
+    hostedNavSources.append("Nav S Trig Dbl");
+    hostedNavSources.append("Nav S Trig Long");
+
+    hostedNavSources.append("Pedal");
+
+    hostedNavSources.append("MIDI A");
+    hostedNavSources.append("MIDI B");
+    hostedNavSources.append("MIDI C");
+    hostedNavSources.append("MIDI D");
+    hostedNavSources.append("MIDI E");
+    hostedNavSources.append("MIDI F");
+    hostedNavSources.append("MIDI G");
+    hostedNavSources.append("MIDI H");
+
     //--------- Tables
     //Standalone
     standaloneTables.append("Linear");
@@ -709,7 +775,6 @@ void MainWindow::slotPopulateSourceDestLists()
 
     standaloneTables.append("Toggle");
     //standaloneTables.append("Toggle 127");
-
 
     //Hosted
     hostedTables.append("Linear");
@@ -724,5 +789,14 @@ void MainWindow::slotPopulateSourceDestLists()
     hostedTables.append("Counter Inc");
     hostedTables.append("Counter Dec");
     hostedTables.append("Counter Set");
+
+    //Hosted Nav Pad
+    hostedNavTables.append("Linear");
+    hostedNavTables.append("Sine");
+    hostedNavTables.append("Cosine");
+    hostedNavTables.append("Exponential");
+    hostedNavTables.append("Logarithmic");
+
+    hostedNavTables.append("Toggle");
 }
 

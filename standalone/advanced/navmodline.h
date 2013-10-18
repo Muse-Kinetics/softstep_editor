@@ -41,7 +41,7 @@ public slots:
     void slotRecallDestinationMenu();
 
     void slotSetMode(QString m);
-    void slotSetMenus(QStringList source, QStringList dest, QStringList table);
+    void slotPopulateMenus(QStringList source, QStringList dest, QStringList table);
 
 private:
     Ui::navModlineForm* navModlineForm;

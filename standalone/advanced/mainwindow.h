@@ -49,6 +49,10 @@ public:
     QStringList hostedDestinations;
     QStringList hostedSources;
     QStringList hostedTables;
+    QStringList standaloneNavSources;
+    QStringList standaloneNavTables;
+    QStringList hostedNavSources;
+    QStringList hostedNavTables;
 
     //Dialogs
     QWidget* saveAsDialogWidget;
