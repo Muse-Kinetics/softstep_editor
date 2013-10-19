@@ -25,6 +25,8 @@ public:
     //Ui Elements
     NavModline *navModline[6];
     QButtonGroup displayLinkedButtonGroup;
+
+    int numModlines;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
@@ -36,6 +38,9 @@ public slots:
     void slotDisconnectElements();
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
+    void slotShowDisplaySettings(bool);
+    void slotRecallShowModlines(QVariantMap, QVariantMap);
+    void slotAddSubtractModlines();
 
 private:
     Ui::navBoxForm *navBoxForm;

@@ -2949,6 +2949,28 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="hide_border_bleed">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>916</x>
+     <y>0</y>
+     <width>10</width>
+     <height>42</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel
+{
+	border-right: 4px solid rgb(0,174,239);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

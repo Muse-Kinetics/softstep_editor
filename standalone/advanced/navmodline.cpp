@@ -450,8 +450,6 @@ void NavModline::slotSetMode(QString m)
     mode = m;
 }
 
-
-
 void NavModline::slotPopulateMenus(QStringList source, QStringList dest, QStringList table)
 {
     //set source menu

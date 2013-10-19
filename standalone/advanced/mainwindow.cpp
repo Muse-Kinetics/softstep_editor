@@ -226,6 +226,7 @@ void MainWindow::slotConnectInterfaces()
 
     //Nav Pad
     connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), navKey, SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
+    connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), navKey, SLOT(slotRecallShowModlines(QVariantMap,QVariantMap)));
     for(int i = 0; i < 6; i++)
     {
         connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), navKey->navModline[i], SLOT(slotRecallPreset(QVariantMap,QVariantMap)));

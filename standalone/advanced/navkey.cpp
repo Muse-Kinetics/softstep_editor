@@ -4,7 +4,8 @@
 #include "navkey.h"
 
 //-------NAV PAD WINDOW SIZE CONSTANTS------------//
-#define NAVWINDOW_WIDTH 1118
+#define NAVWINDOW_LG_WIDTH 1118
+#define NAVWINDOW_SM_WIDTH 935
 #define NAVWINDOW_HEIGHT 410
 
 //-------NAV BOX SIZE CONSTANTS-------//
@@ -28,7 +29,7 @@ NavKey::NavKey(QWidget *parent) :
 
     //set ub the nav pad window
     navKeyWindowForm->setupUi(navKeyWindowWidget);
-    navKeyWindowWidget->setFixedSize(NAVWINDOW_WIDTH,NAVWINDOW_HEIGHT);
+    navKeyWindowWidget->setFixedSize(NAVWINDOW_SM_WIDTH,NAVWINDOW_HEIGHT);
     navKeyWindowWidget->setWindowTitle(QString("Nav Pad Modulation"));
 
     //what's in the nav pad box?
@@ -41,6 +42,63 @@ NavKey::NavKey(QWidget *parent) :
         navModline[i]->slotConnectElements(); //connect modlines
         displayLinkedButtonGroup.addButton(navModline[i]->displayLinkButton, i);
     }
+    connect(navKeyWindowForm->showLEDSettings, SIGNAL(toggled(bool)), this, SLOT(slotShowDisplaySettings(bool)));
+    connect(navKeyWindowForm->addmodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
+    connect(navKeyWindowForm->deletemodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
+}
+
+void NavKey::slotRecallShowModlines(QVariantMap preset, QVariantMap)
+{
+    numModlines = 2;
+
+    //first determine how many modlines should be showing based on which preset is recalled
+    for(int i = 0; i < 6; i++)
+    {
+        bool modlineEnabled;
+
+        modlineEnabled = preset.value(QString("nav_modline%1_enable").arg(i+1)).toBool();
+
+        if(i>1 && modlineEnabled == TRUE)
+        {
+            numModlines = i+1;
+        }
+    }
+
+    qDebug() << QString("show %1 nav modlines").arg(numModlines);
+}
+
+void NavKey::slotAddSubtractModlines()
+{
+    //then add or subtract modlines when the buttons are clicked
+    if(QObject::sender())
+    {
+        QObject *sender = QObject::sender();
+
+        if(sender == navKeyWindowForm->addmodline)
+        {
+            numModlines++;
+        }
+        else if(sender == navKeyWindowForm->deletemodline)
+        {
+            numModlines--;
+        }
+    }
+    if(numModlines > 6)
+    {
+        numModlines = 6;
+        navKeyWindowForm->addmodline->setCheckable(FALSE);
+    }
+    else if(numModlines < 2)
+    {
+        numModlines = 2;
+        navKeyWindowForm->deletemodline->setCheckable(FALSE);
+    }
+    else
+    {
+        navKeyWindowForm->addmodline->setCheckable(TRUE);
+        navKeyWindowForm->deletemodline->setCheckable(TRUE);
+    }
+    qDebug() << QString("show %1 nav modlines").arg(numModlines);
 }
 
 void NavKey::slotOpenWindow()
@@ -134,7 +192,6 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     //this stuff is to determine the modlinemode (0 is for modline, 1 is for programchange... this can be changed)
     int modlinemode = preset.value(QString("nav_modlinemode")).toInt();
-
     if(modlinemode == 0)
     {
         navKeyWindowForm->navpadmode_modline->setChecked(TRUE);
@@ -152,4 +209,16 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
     navKeyWindowForm->leddisplaymode->setCurrentIndex(navKeyWindowForm->leddisplaymode->findText(preset.value(QString("nav_displaymode")).toString()));
 
     slotConnectElements();
+}
+
+void NavKey::slotShowDisplaySettings(bool show)
+{
+    if(show == TRUE)
+    {
+        navKeyWindowWidget->setFixedWidth(NAVWINDOW_LG_WIDTH);
+    }
+    else
+    {
+        navKeyWindowWidget->setFixedWidth(NAVWINDOW_SM_WIDTH);
+    }
 }
