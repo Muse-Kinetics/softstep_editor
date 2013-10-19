@@ -114,6 +114,9 @@ QToolTip
      <height>26</height>
     </rect>
    </property>
+   <property name="inputMethodHints">
+    <set>Qt::ImhNone</set>
+   </property>
    <property name="maxLength">
     <number>4</number>
    </property>

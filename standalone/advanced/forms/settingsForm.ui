@@ -423,8 +423,8 @@ QComboBox
     <widget class="QCheckBox" name="backlighting_enable">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>50</y>
+       <x>6</x>
+       <y>22</y>
        <width>121</width>
        <height>20</height>
       </rect>
@@ -439,8 +439,8 @@ QComboBox
     <widget class="QDoubleSpinBox" name="global_gain">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>120</y>
+       <x>9</x>
+       <y>56</y>
        <width>41</width>
        <height>18</height>
       </rect>
@@ -454,12 +454,15 @@ QComboBox
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
+     <property name="value">
+      <double>1.000000000000000</double>
+     </property>
     </widget>
     <widget class="QLabel" name="label_62">
      <property name="geometry">
       <rect>
-       <x>192</x>
-       <y>100</y>
+       <x>54</x>
+       <y>58</y>
        <width>62</width>
        <height>16</height>
       </rect>
