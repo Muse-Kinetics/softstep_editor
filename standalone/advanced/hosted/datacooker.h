@@ -8,6 +8,7 @@
 #include <QMap>
 
 #include "hosted/latcher.h"
+#include "hosted/trigger.h"
 
 enum {NW, NE, SW, SE};
 
@@ -23,7 +24,23 @@ public:
 
     QMap<int, QString>  modlineSources;
 
-    Latcher latcher;
+    //Latching sources
+    Latcher pressureLatcher;
+    Latcher xLatcher;
+    Latcher yLatcher;
+
+    //Inc Dec
+    QTimer* yIncClock;
+    bool    yIncOrDec; //True means inc and False means dec, of course.
+    QTimer* xIncClock;
+    bool    xIncOrDec;
+    int     yIncCount;
+    int     xIncCount;
+    int     yIncModlineNum;
+    int     xIncModlineNum;
+
+    //Triggers
+    Trigger trigger;
 
     void                cookRaw();
     void                cookSources();
@@ -42,14 +59,15 @@ public:
     int    modlineOutput(int modlineNum);
 
     int     pressureLatch(int modlineNum);
-    int     xLatch();
-    int     yLatch();
+    int     xLatch(int modlineNum);
+    int     yLatch(int modlineNum);
 
-    /*int     xIncrement();
-    int     yIncrement();
+    void     xIncrement();
+    void     yIncrement();
 
-    void    top();
-    void    bottom();
+    int top();
+    int bottom();
+
 
     void    waitTrig();
     void    fastTrig();
@@ -58,17 +76,24 @@ public:
     void    offTrig();
     void    deltaTrig();
 
+/*
     void    waitTrigLatch();
     void    fastTrigLatch();
     void    doubleTrigLatch();
-    void    longTrigLatch();*/
+    void    longTrigLatch();
+*/
 
     //------- Settings
     int onThresh;
     int offThresh;
+    int yDeadZone;
+    int xDeadZone;
+    int yAccel;
+    int xAccel;
 
     int sensorResponse; //0 - maximum 1 - avg
-
+    float globalGain;
+    int keySafetyMode;
 
     
 signals:
@@ -82,6 +107,12 @@ public slots:
 
     //----------------------------- Latching Return Slots
     void slotPressureLatchReturn(int val, int modlineNum);
+    void slotXLatchReturn(int val, int modlineNum);
+    void slotYLatchReturn(int val, int modlineNum);
+
+    //----------------------------- IncDec Clock Slots
+    void slotTickXIncrementClock();
+    void slotTickYIncrementClock();
 };
 
 #endif // DATACOOKER_H

@@ -32,6 +32,8 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
 {
     keyInstance = keyInstanceNum;
 
+    dataCooker.hide();
+
     //Set up the Key Box
     //keyBoxWidget = new QWidget(this);
     keyBoxForm->setupUi(keyBoxWidget);

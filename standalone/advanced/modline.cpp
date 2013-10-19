@@ -690,7 +690,7 @@ void Modline::slotSetTransformValues()
     delay = modlineForm->delay->value();
 
     outputType = modlineForm->destination->currentText();
-    source = modlineForm->source->currentText();
+    thisModlineSource = modlineForm->source->currentText();
 
     //qDebug() << "modline: " << modlineInstance << gain << offset << table << min << max << smooth << delay;
 }
@@ -704,7 +704,7 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
     static int output[6] = {0,0,0,0,0,0};
 
     //Make sure this is the correct modline to receive source being emitted
-    if(modlineNum == modlineInstance)
+    if(modlineNum == modlineInstance && source == thisModlineSource)
     {
         //If source value is different from last or there is a change in value...
         if(lastVal[modlineNum] != val || lastSource[modlineNum] != source)

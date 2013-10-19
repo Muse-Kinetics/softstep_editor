@@ -20,8 +20,21 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
 
     keyNum = instanceNum;
 
+    //------------------------------ Init settings
     onThresh = 10;
     offThresh = 5;
+
+    yDeadZone = 16;
+    xDeadZone = 16;
+
+    yAccel = 10;
+    xAccel = 10;
+
+    //Init counters
+    yIncClock = new QTimer(this);
+    xIncClock = new QTimer(this);
+    yIncCount = 0;
+    xIncCount = 0;
 
     sensorResponse = 0; //0 - maximum 1 - avg
 
@@ -34,7 +47,15 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     //Init raw vars
     footOnOff = false;
 
-    connect(&latcher, SIGNAL(signalReturnValue(int,int)), this, SLOT(slotPressureLatchReturn(int,int)));
+    //Connect Latchers
+    connect(&pressureLatcher, SIGNAL(signalReturnValue(int,int)), this, SLOT(slotPressureLatchReturn(int,int)));
+    connect(&xLatcher, SIGNAL(signalReturnValue(int,int)), this, SLOT(slotXLatchReturn(int,int)));
+    connect(&yLatcher, SIGNAL(signalReturnValue(int,int)), this, SLOT(slotYLatchReturn(int,int)));
+
+    //Connect Inc/Dec Clocks
+    connect(yIncClock, SIGNAL(timeout()), this, SLOT(slotTickYIncrementClock()));
+    connect(xIncClock, SIGNAL(timeout()), this, SLOT(slotTickXIncrementClock()));
+
 }
 
 void DataCooker::slotSetSource(QString source, int modlineInstance)
@@ -122,11 +143,11 @@ void DataCooker::cookSources()
         }
         else if(modlineSources.value(i) == "X Latch")
         {
-            //pressureLive();
+            xLatch(i);
         }
         else if(modlineSources.value(i) == "Y Latch")
         {
-            //pressureLive();
+            yLatch(i);
         }
 
         //-------- Foot On/Off
@@ -137,6 +158,54 @@ void DataCooker::cookSources()
         else if(modlineSources.value(i) == "Foot Off")
         {
             emit signalTransformSource(footOff(), i, "Foot Off");
+        }
+
+        //-------- X/Y Increment
+        else if(modlineSources.value(i) == "X Increment")
+        {
+            xIncrement();
+        }
+        else if(modlineSources.value(i) == "Y Increment")
+        {
+            yIncrement();
+        }
+
+        //-------- Top/Bottom
+        else if(modlineSources.value(i) == "Top")
+        {
+            emit signalTransformSource(top(), i, "Top");
+        }
+        else if(modlineSources.value(i) == "Bottom")
+        {
+            emit signalTransformSource(bottom(), i, "Bottom");
+        }
+
+        //-------- Wait/Trig
+        else if(modlineSources.value(i) == "Wait Trig")
+        {
+            //emit signalTransformSource(top(), i, "Wait Trig");
+            //waitTrig();
+        }
+        else if(modlineSources.value(i) == "Fast Trig")
+        {
+            //emit signalTransformSource(bottom(), i, "Fast Trig");
+            fastTrig();
+        }
+        else if(modlineSources.value(i) == "Dbl Trig")
+        {
+            //emit signalTransformSource(top(), i, "Dbl Trig");
+        }
+        else if(modlineSources.value(i) == "Long Trig")
+        {
+            //emit signalTransformSource(bottom(), i, "Long Trig");
+        }
+        else if(modlineSources.value(i) == "Off Trig")
+        {
+            //emit signalTransformSource(top(), i, "Off Trig");
+        }
+        else if(modlineSources.value(i) == "Delta Trig")
+        {
+            //emit signalTransformSource(bottom(), i, "Delta Trig");
         }
     }
 }
@@ -202,97 +271,7 @@ int DataCooker::pressureRaw()
 ////////////////////////////////////////////////////////////////    Sources   //////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//---------------------------------- Live
-int DataCooker::pressureLive()
-{
-    if(footOnOff)
-    {
-        if((int)((float)(pressureRaw() - onThresh) / (float)(127 - onThresh) * 127.00) > 0)
-        {
-            return (int)((float)(pressureRaw() - onThresh) / (float)(127 - onThresh) * 127.00);
-        }
-        else
-        {
-            return 0;
-        }
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-int DataCooker::xLive()
-{
-    int eastMass = sensorVals[NE] + sensorVals[SE];
-    int westMass = sensorVals[NW] + sensorVals[SW];
-    int totalMass = eastMass + westMass;
-    int xLoc;
-
-    if(totalMass)
-    {
-        xLoc = ((westMass + eastMass*128) / totalMass) - 1;
-    }
-    else
-    {
-        xLoc = 0;
-    }
-
-    return xLoc;
-}
-
-int DataCooker::yLive()
-{
-    int northMass = sensorVals[NE] + sensorVals[NW];
-    int southMass = sensorVals[SE] + sensorVals[SW];
-    int totalMass = northMass + southMass;
-    int yLoc;
-
-    if(totalMass)
-    {
-        yLoc = ((southMass + northMass*128) / totalMass) - 1;
-    }
-    else
-    {
-        yLoc = 0;
-    }
-
-    return yLoc;
-}
-
-//---------------------------------- Latching
-int DataCooker::pressureLatch(int modlineNum)
-{
-
-    if(footOnOff)
-    {
-        latcher.latchOpen = true;
-        latcher.receiveInput(pressureLive(), modlineNum);
-    }
-    else
-    {
-        latcher.latchOpen = false;
-    }
-}
-
-void DataCooker::slotPressureLatchReturn(int val, int modlineNum)
-{
-    qDebug() << "pressure latch return" << val << modlineNum;
-
-    emit signalTransformSource(val, modlineNum, "Pressure Latch");
-}
-
-int DataCooker::xLatch()
-{
-
-}
-
-int DataCooker::yLatch()
-{
-
-}
-
+//-------------------------------------------------------------------- Foot On/Off
 int DataCooker::footOn()
 {
     //If pressure is greater than on-thresh and current state of key is off
@@ -319,4 +298,409 @@ int DataCooker::footOff()
     }
 }
 
+//-------------------------------------------------------------------- Live
+int DataCooker::pressureLive()
+{
+    if(footOnOff)
+    {
+        if((int)((float)(pressureRaw() - onThresh) / (float)(127 - onThresh) * 127.00) > 0)
+        {
+            return (int)((float)(pressureRaw() - onThresh) / (float)(127 - onThresh) * 127.00);
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    else
+    {
+        return 0;
+    }
+}
 
+int DataCooker::xLive()
+{
+    int eastMass = sensorVals[NE] + sensorVals[SE];
+    int westMass = sensorVals[NW] + sensorVals[SW];
+    int totalMass = eastMass + westMass;
+    int xLoc;
+
+    if(footOnOff)
+    {
+        if(totalMass)
+        {
+            xLoc = ((westMass + eastMass*128) / totalMass) - 1;
+        }
+        else
+        {
+            xLoc = 0;
+        }
+    }
+    else
+    {
+        xLoc = 63;
+    }
+
+    return xLoc;
+}
+
+int DataCooker::yLive()
+{
+    int northMass = sensorVals[NE] + sensorVals[NW];
+    int southMass = sensorVals[SE] + sensorVals[SW];
+    int totalMass = northMass + southMass;
+    int yLoc;
+
+    if(footOnOff)
+    {
+        if(totalMass)
+        {
+            yLoc = ((southMass + northMass*128) / totalMass) - 1;
+        }
+        else
+        {
+            yLoc = 0;
+        }
+    }
+    else
+    {
+        yLoc = 63;
+    }
+
+    return yLoc;
+}
+
+//-------------------------------------------------------------------- Latching
+int DataCooker::pressureLatch(int modlineNum)
+{
+    if(footOnOff)
+    {
+        pressureLatcher.latchOpen = true;
+        pressureLatcher.receiveInput(pressureLive(), modlineNum);
+    }
+    else
+    {
+        pressureLatcher.latchOpen = false;
+    }
+}
+
+void DataCooker::slotPressureLatchReturn(int val, int modlineNum)
+{
+    qDebug() << "pressure latch return" << val << modlineNum;
+
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(val, i, "Pressure Latch");
+    }
+}
+
+int DataCooker::xLatch(int modlineNum)
+{
+    if(footOnOff)
+    {
+        xLatcher.latchOpen = true;
+        xLatcher.receiveInput(xLive(), modlineNum);
+    }
+    else
+    {
+        xLatcher.latchOpen = false;
+    }
+}
+
+void DataCooker::slotXLatchReturn(int val, int modlineNum)
+{
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(val, i, "X Latch");
+    }
+}
+
+int DataCooker::yLatch(int modlineNum)
+{
+    if(footOnOff)
+    {
+        yLatcher.latchOpen = true;
+        yLatcher.receiveInput(yLive(), modlineNum);
+    }
+    else
+    {
+        yLatcher.latchOpen = false;
+    }
+}
+
+void DataCooker::slotYLatchReturn(int val, int modlineNum)
+{
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(val, i, "Y Latch");
+    }
+}
+
+//-------------------------------------------------------------------- x,y Inc/Dec
+void DataCooker::xIncrement()
+{
+    //If key is active
+    if(footOnOff)
+    {
+        //If greater than dead zone
+        if(xLive() > (63 + xDeadZone/2.5))
+        {
+            //Set inc/dec mode to inc
+            xIncOrDec = true;
+
+            //If clock is not running already
+            if(!xIncClock->isActive())
+            {
+                //Start it...
+                xIncClock->start(xAccel); //Need to implement scaling here
+            }
+        }
+
+        //If less than dead zone
+        else if(xLive() < (63 - xDeadZone/2.5))
+        {
+            //Set inc/dec mod to dec
+            xIncOrDec = false;
+
+            //If clock is not running already
+            if(!xIncClock->isActive())
+            {
+                //Start it...
+                xIncClock->start(xAccel); //Need to implement scaling here
+            }
+        }
+
+        //If in dead zone, but foot is on
+        else
+        {
+            //Stop clock
+            xIncClock->stop();
+        }
+    }
+
+    //If foot off, stop clock
+    else
+    {
+        xIncClock->stop();
+    }
+}
+
+void DataCooker::slotTickXIncrementClock()
+{
+    static int lastCount = -1;
+
+    //Double check foot on, probably unnecessary but safe
+    if(footOnOff)
+    {
+
+        if(xIncOrDec && xIncCount < 127) //True means inc, False means dec
+        {
+            xIncCount++;
+        }
+        else if(!xIncOrDec && xIncCount > 0)
+        {
+            xIncCount--;
+        }
+
+        if(lastCount != xIncCount)
+        {
+            //Emit to all modlines because it's time based and has multiple processing threads
+            for(int i = 0; i < 6; i++)
+            {
+                emit signalTransformSource(xIncCount, i, "X Increment");
+            }
+
+
+            lastCount = xIncCount;
+        }
+    }
+
+    //If foot off, stop clock
+    else
+    {
+        xIncClock->stop();
+    }
+}
+
+void DataCooker::yIncrement()
+{
+    //If key is active
+    if(footOnOff)
+    {
+        //If greater than dead zone
+        if(yLive() > (63 + yDeadZone/2.5))
+        {
+            //Set inc/dec mode to inc
+            yIncOrDec = true;
+
+            //If clock is not running already
+            if(!yIncClock->isActive())
+            {
+                //Start it...
+                yIncClock->start(yAccel); //Need to implement scaling here
+            }
+        }
+
+        //If less than dead zone
+        else if(yLive() < (63 - yDeadZone/2.5))
+        {
+            //Set inc/dec mod to dec
+            yIncOrDec = false;
+
+            //If clock is not running already
+            if(!yIncClock->isActive())
+            {
+                //Start it...
+                yIncClock->start(yAccel); //Need to implement scaling here
+            }
+        }
+
+        //If in dead zone, but foot is on
+        else
+        {
+            //Stop clock
+            yIncClock->stop();
+        }
+    }
+
+    //If foot off, stop clock
+    else
+    {
+        yIncClock->stop();
+    }
+}
+
+void DataCooker::slotTickYIncrementClock()
+{
+    static int lastCount = -1;
+
+    //Double check foot on, probably unnecessary but safe
+    if(footOnOff)
+    {
+        if(yIncOrDec && yIncCount < 127) //True means inc, False means dec
+        {
+            yIncCount++;
+        }
+        else if(!yIncOrDec && yIncCount > 0)
+        {
+            yIncCount--;
+        }
+
+        if(lastCount != yIncCount)
+        {
+            for(int i = 0; i < 6; i++)
+            {
+                emit signalTransformSource(yIncCount, i, "Y Increment");
+            }
+
+            lastCount = yIncCount;
+        }
+    }
+    else
+    {
+        yIncClock->stop();
+    }
+}
+
+//-------------------------------------------------------------------- Top/Bottom
+int DataCooker::top()
+{
+    //If key is active
+    if(footOnOff)
+    {
+        //If greater than dead zone
+        if(yLive() > (63 + yDeadZone/2.5))
+        {
+            return 1;
+        }
+
+        //If in not in top
+        else
+        {
+            return 0;
+        }
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int DataCooker::bottom()
+{
+    //If key is active
+    if(footOnOff)
+    {
+        //If greater than dead zone
+        if(yLive() < (63 - yDeadZone/2.5))
+        {
+            return 1;
+        }
+
+        //If in not bottom
+        else
+        {
+            return 0;
+        }
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+//-------------------------------------------------------------------- Trigs
+void DataCooker::waitTrig()
+{
+    static bool state = false;
+
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOff && !state)
+    {
+        state = true;
+    }
+
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOff && state)
+    {
+        state = false;
+    }
+}
+
+void DataCooker::fastTrig()
+{
+    static bool state = false;
+
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOff && !state)
+    {
+        trigger.slotFastTrigger();
+        state = true;
+    }
+
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOff && state)
+    {
+        state = false;
+    }
+}
+
+void DataCooker::doubleTrig()
+{
+
+}
+
+void DataCooker::longTrig()
+{
+
+}
+
+void DataCooker::offTrig()
+{
+
+}
+
+void DataCooker::deltaTrig()
+{
+
+}

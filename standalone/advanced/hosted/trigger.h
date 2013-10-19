@@ -1,0 +1,59 @@
+// Copyright (c) 2025 KMI Music, Inc.
+// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+// If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#ifndef TRIGGER_H
+#define TRIGGER_H
+
+#include <QTimer>
+#include <QThread>
+#include <QDebug>
+
+class Trigger : public QObject
+{
+    Q_OBJECT
+    QThread waitTriggerThread;
+    QThread fastTriggerThread;
+    QThread dblTriggerThread;
+    QThread offTriggerThread;
+    QThread deltaTriggerThread;
+
+public:
+    Trigger();
+
+signals:
+
+
+public slots:
+    void slotWaitTrigger();
+    void slotWaitTriggerReturn();
+
+    void slotFastTrigger();
+    void slotFastTriggerReturn();
+
+    void slotDblTrigger();
+    void slotDblTriggerReturn();
+
+    void slotOffTrigger();
+    void slotOffTriggerReturn();
+
+    void slotDeltaTrigger();
+    void slotDeltaTriggerReturn();
+};
+
+class TriggerWorker : public QObject
+{
+    Q_OBJECT
+
+public:
+    TriggerWorker();
+    ~TriggerWorker();
+
+signals:
+    void signalSendTriggerTimeout();
+
+public slots:
+    void slotStartTriggerClock();
+    void slotReturnTriggerTimeout();
+
+};
+#endif // TRIGGER_H

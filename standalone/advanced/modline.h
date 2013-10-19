@@ -49,7 +49,7 @@ public:
     int delay;
     QString outputType;
     QString outputPort;
-    QString source;
+    QString thisModlineSource;
 
     //Graphical vars
     int raw;
