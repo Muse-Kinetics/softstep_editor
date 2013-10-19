@@ -87,7 +87,12 @@ FORMS    +=     forms/mainwindow.ui \
     forms/deletePresetForm.ui \
     forms/navModlineForm.ui \
     forms/navKeyWindowForm.ui \
-    forms/navBoxForm.ui
+    forms/navBoxForm.ui \
+    forms/aboutform.ui \
+    forms/fwprogressform.ui \
+    forms/fwoodform.ui \
+    forms/updatefwform.ui \
+    forms/fwupdatecompleteform.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#

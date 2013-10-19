@@ -101,6 +101,9 @@ QToolTip
      <pointsize>10</pointsize>
     </font>
    </property>
+   <property name="toolTip">
+    <string>Open this key's modulation window.</string>
+   </property>
    <property name="text">
     <string/>
    </property>
@@ -113,6 +116,9 @@ QToolTip
      <width>40</width>
      <height>26</height>
     </rect>
+   </property>
+   <property name="toolTip">
+    <string notr="true">&lt;b&gt;Key Name&lt;/b&gt;&lt;p&gt;Sets the name of this key (for use with the SoftStep's alphanumeric display).</string>
    </property>
    <property name="inputMethodHints">
     <set>Qt::ImhNone</set>

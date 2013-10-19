@@ -744,7 +744,7 @@ QPushButton:pressed
       </rect>
      </property>
      <property name="toolTip">
-      <string>Click to change the current editor mode.</string>
+      <string>Click to switch between Hosted and Standalone mode.</string>
      </property>
      <property name="styleSheet">
       <string notr="true"> /* ---------- QCheckBox ------------*/

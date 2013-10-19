@@ -16,8 +16,8 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-	background:	 rgb(40, 40, 40);
-	border: 3px solid rgb(0,174,239);
+	background:	 rgb(60, 60, 60);
+	border: 4px solid rgb(0,174,239);
 }
 
 /* ---------- QLabels ------------*/
@@ -40,6 +40,7 @@ QPushButton
 	font: 9px &quot;Futura&quot;;
 	color: white;
 	border: 2px solid rgb(0, 174, 239);
+	background: rgb(20, 20, 20);
 }
 
 QPushButton:pressed
@@ -53,6 +54,7 @@ QToolButton
 	font: 9px &quot;Futura&quot;;
 	color: white;
 	border: 2px solid rgb(0, 174, 239);
+	background: rgb(40, 40, 40);
 }
 
 QToolButton:pressed

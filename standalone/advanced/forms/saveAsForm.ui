@@ -104,7 +104,7 @@ QToolTip
     </rect>
    </property>
    <property name="toolTip">
-    <string>Enter a name for your preset here.</string>
+    <string>You shall be called...</string>
    </property>
   </widget>
   <widget class="QToolButton" name="cancel">
@@ -117,7 +117,7 @@ QToolTip
     </rect>
    </property>
    <property name="toolTip">
-    <string>I've changed my mind. &lt;br&gt;I don't want a new preset.</string>
+    <string>I've changed my mind. &lt;br&gt;I don't want a new preset. Not yet...</string>
    </property>
    <property name="text">
     <string>CANCEL</string>

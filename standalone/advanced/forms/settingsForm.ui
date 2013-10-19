@@ -37,7 +37,7 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 9px &quot;Futura&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(25, 25, 25);
 	color: white;
@@ -52,7 +52,7 @@ QSpinBox::focus
 
 QDoubleSpinBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 9px &quot;Futura&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(25, 25, 25);
 	color: white;
@@ -69,7 +69,7 @@ QDoubleSpinBox::focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 9px &quot;Futura&quot;;
 	background: rgba(0,174,239,0);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -80,7 +80,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 9px &quot;Futura&quot;;
 	background: rgb(0,174,239);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -253,7 +253,7 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
@@ -268,7 +268,7 @@ QSpinBox::focus
 
 QDoubleSpinBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
@@ -284,7 +284,7 @@ QDoubleSpinBox::focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -295,7 +295,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura&quot;;
 	background: rgb(0,174,239);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -307,7 +307,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-    font: 10pt &quot;Futura&quot;;
+    font: 9pt &quot;Futura&quot;;
 }
 
 QCheckBox::indicator
@@ -365,7 +365,7 @@ QCheckBox::indicator:checked:pressed:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -431,6 +431,9 @@ QComboBox
      </property>
      <property name="toolTip">
       <string>Turns the SoftStep backlighting on or off.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: none;</string>
      </property>
      <property name="text">
       <string>Backlighting on/off</string>
