@@ -260,7 +260,7 @@ QPushButton:pressed
 </string>
      </property>
      <property name="text">
-      <string>About SoftStep Easy Editor</string>
+      <string>About SoftStep Editor</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
