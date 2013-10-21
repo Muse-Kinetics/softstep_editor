@@ -56,6 +56,9 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     connect(yIncClock, SIGNAL(timeout()), this, SLOT(slotTickYIncrementClock()));
     connect(xIncClock, SIGNAL(timeout()), this, SLOT(slotTickXIncrementClock()));
 
+    //Trigger Returns
+    connect(&trigger, SIGNAL(signalFastTriggerReturn()), this, SLOT(slotFastTriggerReturn()));
+
 }
 
 void DataCooker::slotSetSource(QString source, int modlineInstance)
@@ -674,7 +677,7 @@ void DataCooker::fastTrig()
     //If foot is on and state is false, flip state on - this represents a trigger scenario
     if(footOnOff && !state)
     {
-        trigger.slotFastTrigger();
+        trigger.fastTrigger();
         state = true;
     }
 
@@ -682,6 +685,29 @@ void DataCooker::fastTrig()
     else if(!footOnOff && state)
     {
         state = false;
+    }
+}
+
+void DataCooker::slotFastTriggerReturn()
+{
+    int outputVal = pressureLive(); //Only call once, send duplicates
+
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(outputVal, i, "Fast Trig");
+    }
+
+    QTimer::singleShot(100, this, SLOT(slotFastTriggerOff()));
+
+}
+
+void DataCooker::slotFastTriggerOff()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Fast Trig");
     }
 }
 

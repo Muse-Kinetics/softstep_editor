@@ -5,39 +5,49 @@
 
 Trigger::Trigger()
 {
-    TriggerWorker fastTriggerWorker;
-    //TriggerWorker dblTriggerWorker;
+
+    TriggerWorker* fastTriggerWorker = new TriggerWorker;
+    TriggerWorker* longTriggerWorker = new TriggerWorker;
     //TriggerWorker offTriggerWorker;
     //TriggerWorker deltaTriggerWorker;
 
-    fastTriggerWorker.moveToThread(&fastTriggerThread);
-    connect(&fastTriggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotFastTriggerReturn()));
-    waitTriggerThread.start();
+    //Fast
+    fastTriggerWorker->moveToThread(&fastTriggerThread);
+    connect(this, SIGNAL(signalStartFastTriggerClock()), fastTriggerWorker, SLOT(slotStartTriggerClock()));
+    connect(fastTriggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotFastTriggerReturn()));
+
+    //Long
+    longTriggerWorker->moveToThread(&fastTriggerThread);
+    connect(this, SIGNAL(signalStartLongTriggerClock()), longTriggerWorker, SLOT(slotStartTriggerClock()));
+    connect(longTriggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotLongTriggerReturn()));
 }
 
-void Trigger::slotWaitTrigger()
+void Trigger::longTrigger()
 {
-    //triggerWorker->slotStartTriggerClock();
+    longTriggerThread.start();
+    emit signalStartLongTriggerClock();
 }
 
-void Trigger::slotWaitTriggerReturn()
+void Trigger::slotLongTriggerReturn()
 {
-    qDebug() << "Wait Returned";
+    qDebug() << "Long Returned";
     //waitTriggerThread.quit();
 }
 
-void Trigger::slotFastTrigger()
+void Trigger::fastTrigger()
 {
     qDebug() << "slotFastTriggerCalled";
 
     fastTriggerThread.start();
-    //triggerWorker->slotStartTriggerClock();
+    emit signalStartFastTriggerClock();
+    //fastTriggerWorker->slotStartTriggerClock();
 }
 
 void Trigger::slotFastTriggerReturn()
 {
     qDebug() << "fast trigger return quit";
     fastTriggerThread.quit();
+    emit signalFastTriggerReturn();
 }
 
 void Trigger::slotDblTrigger()

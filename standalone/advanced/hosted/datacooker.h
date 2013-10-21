@@ -113,6 +113,10 @@ public slots:
     //----------------------------- IncDec Clock Slots
     void slotTickXIncrementClock();
     void slotTickYIncrementClock();
+
+    //----------------------------- Trigger Return and Off Slots
+    void slotFastTriggerReturn();
+    void slotFastTriggerOff();
 };
 
 #endif // DATACOOKER_H
