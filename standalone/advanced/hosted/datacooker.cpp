@@ -58,7 +58,9 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
 
     //Trigger Returns
     connect(&trigger, SIGNAL(signalFastTriggerReturn()), this, SLOT(slotFastTriggerReturn()));
-
+    connect(&trigger, SIGNAL(signalLongTriggerReturn()), this, SLOT(slotLongTriggerReturn()));
+    connect(&trigger, SIGNAL(signalDblTriggerReturn()), this, SLOT(slotDblTriggerReturn()));
+    connect(&trigger, SIGNAL(signalOffTriggerReturn()), this, SLOT(slotOffTriggerReturn()));
 }
 
 void DataCooker::slotSetSource(QString source, int modlineInstance)
@@ -183,7 +185,7 @@ void DataCooker::cookSources()
             emit signalTransformSource(bottom(), i, "Bottom");
         }
 
-        //-------- Wait/Trig
+        //-------- Trig
         else if(modlineSources.value(i) == "Wait Trig")
         {
             //emit signalTransformSource(top(), i, "Wait Trig");
@@ -191,20 +193,19 @@ void DataCooker::cookSources()
         }
         else if(modlineSources.value(i) == "Fast Trig")
         {
-            //emit signalTransformSource(bottom(), i, "Fast Trig");
             fastTrig();
         }
         else if(modlineSources.value(i) == "Dbl Trig")
         {
-            //emit signalTransformSource(top(), i, "Dbl Trig");
+            dblTrig();
         }
         else if(modlineSources.value(i) == "Long Trig")
         {
-            //emit signalTransformSource(bottom(), i, "Long Trig");
+            longTrig();
         }
         else if(modlineSources.value(i) == "Off Trig")
         {
-            //emit signalTransformSource(top(), i, "Off Trig");
+            offTrig();
         }
         else if(modlineSources.value(i) == "Delta Trig")
         {
@@ -653,23 +654,7 @@ int DataCooker::bottom()
 }
 
 //-------------------------------------------------------------------- Trigs
-void DataCooker::waitTrig()
-{
-    static bool state = false;
-
-    //If foot is on and state is false, flip state on - this represents a trigger scenario
-    if(footOnOff && !state)
-    {
-        state = true;
-    }
-
-    //If foot is off (regardless of state), flip state off
-    else if(!footOnOff && state)
-    {
-        state = false;
-    }
-}
-
+//----------------------------- Fast
 void DataCooker::fastTrig()
 {
     static bool state = false;
@@ -711,19 +696,129 @@ void DataCooker::slotFastTriggerOff()
     }
 }
 
-void DataCooker::doubleTrig()
+//----------------------------- Dbl
+void DataCooker::dblTrig()
 {
+    static bool state = false;
 
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOff && !state)
+    {
+        trigger.dblTriggerHit();
+        state = true;
+    }
+
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOff && state)
+    {
+        state = false;
+    }
 }
 
+void DataCooker::slotDblTriggerReturn()
+{
+    int outputVal = pressureLive(); //Only call once, send duplicates
+
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(outputVal, i, "Dbl Trig");
+    }
+
+    QTimer::singleShot(100, this, SLOT(slotDblTriggerOff()));
+}
+
+void DataCooker::slotDblTriggerOff()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Dbl Trig");
+    }
+}
+
+//----------------------------- Long
 void DataCooker::longTrig()
 {
 
+    static bool state = false;
+
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOff && !state)
+    {
+        trigger.longTriggerStart();
+        state = true;
+    }
+
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOff && state)
+    {
+        trigger.longTriggerAbort();
+        state = false;
+    }
 }
 
+void DataCooker::slotLongTriggerReturn()
+{
+    int outputVal = pressureLive(); //Only call once, send duplicates
+
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(outputVal, i, "Long Trig");
+    }
+
+    QTimer::singleShot(100, this, SLOT(slotLongTriggerOff()));
+}
+
+void DataCooker::slotLongTriggerOff()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Long Trig");
+    }
+}
+
+//----------------------------- Off
 void DataCooker::offTrig()
 {
+    static bool state = false;
 
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOff && !state)
+    {
+        slotOffTriggerOff();
+        state = true;
+    }
+
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOff && state)
+    {
+        trigger.offTrigger();
+        state = false;
+    }
+}
+
+void DataCooker::slotOffTriggerReturn()
+{
+    qDebug() << "Off Trigger";
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(1, i, "Off Trig");
+    }
+
+    QTimer::singleShot(100, this, SLOT(slotOffTriggerOff()));
+}
+
+void DataCooker::slotOffTriggerOff()
+{
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Off Trig");
+    }
 }
 
 void DataCooker::deltaTrig()

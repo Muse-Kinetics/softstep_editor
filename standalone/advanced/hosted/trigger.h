@@ -21,28 +21,32 @@ public:
     Trigger();
 
     void fastTrigger();
-    void longTrigger();
+
+    void longTriggerStart();
+    void longTriggerAbort();
+
+    void dblTriggerHit();
+    void dblTriggerAbort();
+    bool dblWindowIsOpen;
+    int  dblHitCount;
+
+    void offTrigger();
 
 signals:
     //To DataCooker
     void signalFastTriggerReturn();
     void signalLongTriggerReturn();
+    void signalDblTriggerReturn();
+    void signalOffTriggerReturn();
 
     //To Trigger Worker
-    void signalStartFastTriggerClock();
-    void signalStartLongTriggerClock();
-
+    void signalStartTriggerClock(int timeout);
+    void signalAbortClock();
 
 public slots:
     void slotFastTriggerReturn();
     void slotLongTriggerReturn();
-
-
-
-    void slotDblTrigger();
     void slotDblTriggerReturn();
-
-    void slotOffTrigger();
     void slotOffTriggerReturn();
 
     void slotDeltaTrigger();
@@ -59,11 +63,14 @@ public:
     TriggerWorker();
     ~TriggerWorker();
 
+    QTimer* clock;
+
 signals:
     void signalSendTriggerTimeout();
 
 public slots:
-    void slotStartTriggerClock();
+    void slotStartTriggerClock(int timeout);
+    void slotAbortTriggerClock();
     void slotReturnTriggerTimeout();
 
 };

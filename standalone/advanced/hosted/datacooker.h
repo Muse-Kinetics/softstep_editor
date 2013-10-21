@@ -69,9 +69,9 @@ public:
     int bottom();
 
 
-    void    waitTrig();
+    //void    waitTrig();
     void    fastTrig();
-    void    doubleTrig();
+    void    dblTrig();
     void    longTrig();
     void    offTrig();
     void    deltaTrig();
@@ -115,8 +115,23 @@ public slots:
     void slotTickYIncrementClock();
 
     //----------------------------- Trigger Return and Off Slots
+    //Fast
     void slotFastTriggerReturn();
     void slotFastTriggerOff();
+
+    //Long
+    void slotLongTriggerReturn();
+    void slotLongTriggerOff();
+
+    //Dbl
+    void slotDblTriggerReturn();
+    void slotDblTriggerOff();
+
+    //Off
+    void slotOffTriggerReturn();
+    void slotOffTriggerOff();
+
+    //Delta
 };
 
 #endif // DATACOOKER_H
