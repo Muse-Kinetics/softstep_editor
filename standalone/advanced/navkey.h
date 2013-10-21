@@ -41,6 +41,7 @@ public slots:
     void slotShowDisplaySettings(bool);
     void slotRecallShowModlines(QVariantMap, QVariantMap);
     void slotAddSubtractModlines();
+    void slotWindowHeight(int);
 
 private:
     Ui::navBoxForm *navBoxForm;

@@ -47,60 +47,6 @@ NavKey::NavKey(QWidget *parent) :
     connect(navKeyWindowForm->deletemodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
 }
 
-void NavKey::slotRecallShowModlines(QVariantMap preset, QVariantMap)
-{
-    numModlines = 2;
-
-    //first determine how many modlines should be showing based on which preset is recalled
-    for(int i = 0; i < 6; i++)
-    {
-        bool modlineEnabled;
-
-        modlineEnabled = preset.value(QString("nav_modline%1_enable").arg(i+1)).toBool();
-
-        if(i>1 && modlineEnabled == TRUE)
-        {
-            numModlines = i+1;
-        }
-    }
-
-    qDebug() << QString("show %1 nav modlines").arg(numModlines);
-}
-
-void NavKey::slotAddSubtractModlines()
-{
-    //then add or subtract modlines when the buttons are clicked
-    if(QObject::sender())
-    {
-        QObject *sender = QObject::sender();
-
-        if(sender == navKeyWindowForm->addmodline)
-        {
-            numModlines++;
-        }
-        else if(sender == navKeyWindowForm->deletemodline)
-        {
-            numModlines--;
-        }
-    }
-    if(numModlines > 6)
-    {
-        numModlines = 6;
-        navKeyWindowForm->addmodline->setCheckable(FALSE);
-    }
-    else if(numModlines < 2)
-    {
-        numModlines = 2;
-        navKeyWindowForm->deletemodline->setCheckable(FALSE);
-    }
-    else
-    {
-        navKeyWindowForm->addmodline->setCheckable(TRUE);
-        navKeyWindowForm->deletemodline->setCheckable(TRUE);
-    }
-    qDebug() << QString("show %1 nav modlines").arg(numModlines);
-}
-
 void NavKey::slotOpenWindow()
 {
     navKeyWindowWidget->show();
@@ -221,4 +167,116 @@ void NavKey::slotShowDisplaySettings(bool show)
     {
         navKeyWindowWidget->setFixedWidth(NAVWINDOW_SM_WIDTH);
     }
+}
+
+void NavKey::slotWindowHeight(int modlinesShowing)
+{
+    if(modlinesShowing == 2)
+    {
+        navKeyWindowWidget->setFixedHeight(NAVWINDOW_HEIGHT-188);
+        navKeyWindowForm->addmodline->setGeometry(9,192,22,22);
+        navKeyWindowForm->deletemodline->setGeometry(35,192,22,22);
+        navModline[2]->hide();
+        navModline[3]->hide();
+        navModline[4]->hide();
+        navModline[5]->hide();
+    }
+    else if(modlinesShowing == 3)
+    {
+        navKeyWindowWidget->setFixedHeight(NAVWINDOW_HEIGHT-141);
+        navKeyWindowForm->addmodline->setGeometry(9,239,22,22);
+        navKeyWindowForm->deletemodline->setGeometry(35,239,22,22);
+        navModline[2]->show();
+        navModline[3]->hide();
+        navModline[4]->hide();
+        navModline[5]->hide();
+    }
+    else if(modlinesShowing == 4)
+    {
+        navKeyWindowWidget->setFixedHeight(NAVWINDOW_HEIGHT-94);
+        navKeyWindowForm->addmodline->setGeometry(9,286,22,22);
+        navKeyWindowForm->deletemodline->setGeometry(35,286,22,22);
+        navModline[2]->show();
+        navModline[3]->show();
+        navModline[4]->hide();
+        navModline[5]->hide();
+    }
+    else if(modlinesShowing == 5)
+    {
+        navKeyWindowWidget->setFixedHeight(NAVWINDOW_HEIGHT-47);
+        navKeyWindowForm->addmodline->setGeometry(9,333,22,22);
+        navKeyWindowForm->deletemodline->setGeometry(35,333,22,22);
+        navModline[2]->show();
+        navModline[3]->show();
+        navModline[4]->show();
+        navModline[5]->hide();
+    }
+    else if(modlinesShowing == 6)
+    {
+        navKeyWindowWidget->setFixedHeight(NAVWINDOW_HEIGHT);
+        navKeyWindowForm->addmodline->setGeometry(9,380,22,22);
+        navKeyWindowForm->deletemodline->setGeometry(35,380,22,22);
+        navModline[2]->show();
+        navModline[3]->show();
+        navModline[4]->show();
+        navModline[5]->show();
+    }
+}
+
+void NavKey::slotRecallShowModlines(QVariantMap preset, QVariantMap)
+{
+    numModlines = 2;
+
+    //first determine how many modlines should be showing based on which preset is recalled
+    for(int i = 0; i < 6; i++)
+    {
+        bool modlineEnabled;
+
+        modlineEnabled = preset.value(QString("nav_modline%1_enable").arg(i+1)).toBool();
+
+        if(i>1 && modlineEnabled == TRUE)
+        {
+            numModlines = i+1;
+        }
+    }
+
+    slotWindowHeight(numModlines);
+
+    qDebug() << QString("show %1 nav modlines").arg(numModlines);
+}
+
+void NavKey::slotAddSubtractModlines()
+{
+    //then add or subtract modlines when the buttons are clicked
+    if(QObject::sender())
+    {
+        QObject *sender = QObject::sender();
+
+        if(sender == navKeyWindowForm->addmodline)
+        {
+            numModlines++;
+        }
+        else if(sender == navKeyWindowForm->deletemodline)
+        {
+            numModlines--;
+        }
+    }
+    if(numModlines > 6)
+    {
+        numModlines = 6;
+        navKeyWindowForm->addmodline->setCheckable(FALSE);
+    }
+    else if(numModlines < 2)
+    {
+        numModlines = 2;
+        navKeyWindowForm->deletemodline->setCheckable(FALSE);
+    }
+    else
+    {
+        navKeyWindowForm->addmodline->setCheckable(TRUE);
+        navKeyWindowForm->deletemodline->setCheckable(TRUE);
+    }
+
+    slotWindowHeight(numModlines);
+    qDebug() << QString("show %1 nav modlines").arg(numModlines);
 }
