@@ -14,6 +14,10 @@
 #define NAVBOX_STARTING_X_POS 579
 #define NAVBOX_STARTING_Y_POS 228
 
+//-------NAV PAD WINDOW LINE SEPARATOR WIDTHS-------//
+#define LINE_SEPARATOR_LG 1098
+#define LINE_SEPARATOR_SM 915
+
 NavKey::NavKey(QWidget *parent) :
     QWidget(parent),
     navBoxForm(new Ui::navBoxForm),
@@ -161,11 +165,17 @@ void NavKey::slotShowDisplaySettings(bool show)
 {
     if(show == TRUE)
     {
+        //show large window
         navKeyWindowWidget->setFixedWidth(NAVWINDOW_LG_WIDTH);
+        //show large line separator
+        navKeyWindowForm->label->setFixedWidth(LINE_SEPARATOR_LG);
     }
     else
     {
+        //show small window
         navKeyWindowWidget->setFixedWidth(NAVWINDOW_SM_WIDTH);
+        //show small line separator
+        navKeyWindowForm->label->setFixedWidth(LINE_SEPARATOR_SM);
     }
 }
 
