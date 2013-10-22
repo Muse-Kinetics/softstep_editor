@@ -61,6 +61,10 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     connect(&trigger, SIGNAL(signalLongTriggerReturn()), this, SLOT(slotLongTriggerReturn()));
     connect(&trigger, SIGNAL(signalDblTriggerReturn()), this, SLOT(slotDblTriggerReturn()));
     connect(&trigger, SIGNAL(signalOffTriggerReturn()), this, SLOT(slotOffTriggerReturn()));
+    connect(&trigger, SIGNAL(signalFastTriggerLatchReturn()), this, SLOT(slotFastTriggerLatchReturn()));
+    connect(&trigger, SIGNAL(signalLongTriggerLatchReturn()), this, SLOT(slotLongTriggerLatchReturn()));
+    connect(&trigger, SIGNAL(signalDblTriggerLatchReturn()), this, SLOT(slotDblTriggerLatchReturn()));
+
 }
 
 void DataCooker::slotSetSource(QString source, int modlineInstance)
@@ -186,11 +190,6 @@ void DataCooker::cookSources()
         }
 
         //-------- Trig
-        else if(modlineSources.value(i) == "Wait Trig")
-        {
-            //emit signalTransformSource(top(), i, "Wait Trig");
-            //waitTrig();
-        }
         else if(modlineSources.value(i) == "Fast Trig")
         {
             fastTrig();
@@ -209,7 +208,21 @@ void DataCooker::cookSources()
         }
         else if(modlineSources.value(i) == "Delta Trig")
         {
-            //emit signalTransformSource(bottom(), i, "Delta Trig");
+            deltaTrig();
+        }
+
+        //-------- Trig Latch
+        else if(modlineSources.value(i) == "Fast Trig Latch")
+        {
+            fastTrigLatch();
+        }
+        else if(modlineSources.value(i) == "Dbl Trig Latch")
+        {
+            dblTrigLatch();
+        }
+        else if(modlineSources.value(i) == "Long Trig Latch")
+        {
+            longTrigLatch();
         }
     }
 }
@@ -746,7 +759,7 @@ void DataCooker::longTrig()
     //If foot is on and state is false, flip state on - this represents a trigger scenario
     if(footOnOff && !state)
     {
-        trigger.longTriggerStart();
+        trigger.longTrigger();
         state = true;
     }
 
@@ -823,5 +836,136 @@ void DataCooker::slotOffTriggerOff()
 
 void DataCooker::deltaTrig()
 {
+    static int bucket[2] = {0,0};
 
+    qDebug() << pressureLive();
+
+    bucket[1] = bucket[0];
+    bucket[0] = pressureLive();
+
+    if(bucket[0] - bucket[1] > 10)
+    {
+        trigger.deltaTrigger();
+    }
+
+}
+
+//-------------------------------------------------------------------- Trig Latch
+void DataCooker::fastTrigLatch()
+{
+    static bool state = false;
+
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOff && !state)
+    {
+        trigger.fastTriggerLatch();
+        state = true;
+    }
+
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOff && state)
+    {
+        state = false;
+    }
+}
+//----------------------------- Fast
+void DataCooker::slotFastTriggerLatchReturn()
+{
+    qDebug() << "fast trig latch return";
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Fast Trig Latch");
+    }
+
+    QTimer::singleShot(30, this, SLOT(slotFastTriggerLatchOff()));
+}
+
+void DataCooker::slotFastTriggerLatchOff()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(pressureLive(), i, "Fast Trig Latch");
+    }
+}
+
+//----------------------------- Dbl
+void DataCooker::dblTrigLatch()
+{
+    static bool state = false;
+
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOff && !state)
+    {
+        trigger.dblTriggerLatchHit();
+        state = true;
+    }
+
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOff && state)
+    {
+        state = false;
+    }
+}
+
+void DataCooker::slotDblTriggerLatchReturn()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Dbl Trig Latch");
+    }
+
+    QTimer::singleShot(30, this, SLOT(slotDblTriggerLatchOff()));
+}
+
+void DataCooker::slotDblTriggerLatchOff()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(pressureLive(), i, "Dbl Trig Latch");
+    }
+}
+
+//----------------------------- Long
+void DataCooker::longTrigLatch()
+{
+
+    static bool state = false;
+
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOff && !state)
+    {
+        trigger.longTriggerLatch();
+        state = true;
+    }
+
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOff && state)
+    {
+        trigger.longTriggerLatchAbort();
+        state = false;
+    }
+}
+
+void DataCooker::slotLongTriggerLatchReturn()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Long Trig Latch");
+    }
+
+    QTimer::singleShot(30, this, SLOT(slotLongTriggerLatchOff()));
+}
+
+void DataCooker::slotLongTriggerLatchOff()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(pressureLive(), i, "Long Trig Latch");
+    }
 }

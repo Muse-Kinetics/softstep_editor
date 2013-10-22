@@ -68,22 +68,17 @@ public:
     int top();
     int bottom();
 
-
-    //void    waitTrig();
     void    fastTrig();
     void    dblTrig();
     void    longTrig();
     void    offTrig();
     void    deltaTrig();
 
-/*
-    void    waitTrigLatch();
     void    fastTrigLatch();
-    void    doubleTrigLatch();
+    void    dblTrigLatch();
     void    longTrigLatch();
-*/
 
-    //------- Settings
+    //------------------------ Settings
     int onThresh;
     int offThresh;
     int yDeadZone;
@@ -131,7 +126,19 @@ public slots:
     void slotOffTriggerReturn();
     void slotOffTriggerOff();
 
-    //Delta
+    //--------- Trigger Latch
+    //Fast
+    void slotFastTriggerLatchReturn();
+    void slotFastTriggerLatchOff();
+
+    //Long
+    void slotLongTriggerLatchReturn();
+    void slotLongTriggerLatchOff();
+
+    //Dbl
+    void slotDblTriggerLatchReturn();
+    void slotDblTriggerLatchOff();
+
 };
 
 #endif // DATACOOKER_H

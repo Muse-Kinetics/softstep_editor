@@ -7,6 +7,7 @@
 #define OFF_TRIG_TIMEOUT 0
 #define LONG_TRIG_TIMEOUT 1000
 #define DBL_TRIG_WINDOW 600
+#define LATCH_TRIG_TIMEOUT 30
 
 Trigger::Trigger()
 {
@@ -16,7 +17,9 @@ Trigger::Trigger()
     TriggerWorker* dblTriggerWorker = new TriggerWorker;
     TriggerWorker* offTriggerWorker = new TriggerWorker;
 
-    //TriggerWorker deltaTriggerWorker;
+    TriggerWorker* fastTriggerLatchWorker = new TriggerWorker;
+    TriggerWorker* longTriggerLatchWorker = new TriggerWorker;
+    TriggerWorker* dblTriggerLatchWorker = new TriggerWorker;
 
     //Fast
     fastTriggerWorker->moveToThread(&fastTriggerThread);
@@ -43,10 +46,33 @@ Trigger::Trigger()
     connect(this, SIGNAL(signalStartTriggerClock(int)), offTriggerWorker, SLOT(slotStartTriggerClock(int)));
     connect(offTriggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotOffTriggerReturn()));
     connect(this, SIGNAL(signalAbortClock()), offTriggerWorker, SLOT(slotAbortTriggerClock()));
+
+    //----- Latch
+    //Fast
+    fastTriggerLatchWorker->moveToThread(&fastTriggerLatchThread);
+    connect(this, SIGNAL(signalStartTriggerClock(int)), fastTriggerLatchWorker, SLOT(slotStartTriggerClock(int)));
+    connect(fastTriggerLatchWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotFastTriggerLatchReturn()));
+    connect(this, SIGNAL(signalAbortClock()), fastTriggerLatchWorker, SLOT(slotAbortTriggerClock()));
+
+    //Long
+    longTriggerLatchWorker->moveToThread(&longTriggerLatchThread);
+    connect(this, SIGNAL(signalStartTriggerClock(int)), longTriggerLatchWorker, SLOT(slotStartTriggerClock(int)));
+    connect(longTriggerLatchWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotLongTriggerLatchReturn()));
+    connect(this, SIGNAL(signalAbortClock()), longTriggerLatchWorker, SLOT(slotAbortTriggerClock()));
+
+    //Dbl
+    dblLatchWindowIsOpen = false;
+    dblLatchHitCount = 0;
+    dblTriggerLatchWorker->moveToThread(&dblTriggerLatchThread);
+    connect(this, SIGNAL(signalStartTriggerClock(int)), dblTriggerLatchWorker, SLOT(slotStartTriggerClock(int)));
+    connect(dblTriggerLatchWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotDblTriggerLatchReturn()));
+    connect(this, SIGNAL(signalAbortClock()), dblTriggerLatchWorker, SLOT(slotAbortTriggerClock()));
+
+
 }
 
 //---------------------------------------- Long
-void Trigger::longTriggerStart()
+void Trigger::longTrigger()
 {
     longTriggerThread.start();
     emit signalStartTriggerClock(LONG_TRIG_TIMEOUT);
@@ -64,6 +90,24 @@ void Trigger::slotLongTriggerReturn()
     emit signalLongTriggerReturn();
 }
 
+void Trigger::longTriggerLatch()
+{
+    longTriggerLatchThread.start();
+    emit signalStartTriggerClock(LONG_TRIG_TIMEOUT);
+}
+
+void Trigger::longTriggerLatchAbort()
+{
+    emit signalAbortClock();
+    longTriggerLatchThread.quit();
+}
+
+void Trigger::slotLongTriggerLatchReturn()
+{
+    longTriggerLatchThread.quit();
+    emit signalLongTriggerLatchReturn();
+}
+
 //---------------------------------------- Fast
 void Trigger::fastTrigger()
 {
@@ -76,6 +120,18 @@ void Trigger::slotFastTriggerReturn()
 {
     fastTriggerThread.quit();
     emit signalFastTriggerReturn();
+}
+
+void Trigger::fastTriggerLatch()
+{
+    fastTriggerLatchThread.start();
+    emit signalStartTriggerClock(FAST_TRIG_TIMEOUT);
+}
+
+void Trigger::slotFastTriggerLatchReturn()
+{
+    fastTriggerLatchThread.quit();
+    emit signalFastTriggerLatchReturn();
 }
 
 //---------------------------------------- Dbl
@@ -110,6 +166,38 @@ void Trigger::slotDblTriggerReturn()
     dblWindowIsOpen = false;
 }
 
+void Trigger::dblTriggerLatchHit()
+{
+
+    if(!dblLatchWindowIsOpen)
+    {
+        dblLatchHitCount = 1;
+        dblLatchWindowIsOpen = true;
+        dblTriggerLatchThread.start();
+        emit signalStartTriggerClock(DBL_TRIG_WINDOW);
+    }
+    else
+    {
+        dblLatchHitCount = 0;
+        dblLatchWindowIsOpen = false;
+        emit signalAbortClock();
+        emit signalDblTriggerLatchReturn();
+        dblTriggerLatchThread.quit();
+    }
+}
+
+void Trigger::dblTriggerLatchAbort()
+{
+    emit signalAbortClock();
+}
+
+void Trigger::slotDblTriggerLatchReturn()
+{
+    dblTriggerLatchThread.quit();
+    dblLatchHitCount = 0;
+    dblLatchWindowIsOpen = false;
+}
+
 //---------------------------------------- Off
 void Trigger::offTrigger()
 {
@@ -125,7 +213,7 @@ void Trigger::slotOffTriggerReturn()
     emit signalOffTriggerReturn();
 }
 
-void Trigger::slotDeltaTrigger()
+void Trigger::deltaTrigger()
 {
 
 }

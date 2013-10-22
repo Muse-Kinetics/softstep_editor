@@ -17,12 +17,16 @@ class Trigger : public QObject
     QThread offTriggerThread;
     QThread deltaTriggerThread;
 
+    QThread longTriggerLatchThread;
+    QThread fastTriggerLatchThread;
+    QThread dblTriggerLatchThread;
+
 public:
     Trigger();
 
     void fastTrigger();
 
-    void longTriggerStart();
+    void longTrigger();
     void longTriggerAbort();
 
     void dblTriggerHit();
@@ -32,12 +36,30 @@ public:
 
     void offTrigger();
 
+    void deltaTrigger();
+
+    //---------- Latch
+    void fastTriggerLatch();
+
+    void dblTriggerLatchHit();
+    void dblTriggerLatchAbort();
+    bool dblLatchWindowIsOpen;
+    int  dblLatchHitCount;
+
+    void longTriggerLatch();
+    void longTriggerLatchAbort();
+
 signals:
     //To DataCooker
     void signalFastTriggerReturn();
     void signalLongTriggerReturn();
     void signalDblTriggerReturn();
     void signalOffTriggerReturn();
+
+    //---- Latch
+    void signalFastTriggerLatchReturn();
+    void signalDblTriggerLatchReturn();
+    void signalLongTriggerLatchReturn();
 
     //To Trigger Worker
     void signalStartTriggerClock(int timeout);
@@ -48,11 +70,12 @@ public slots:
     void slotLongTriggerReturn();
     void slotDblTriggerReturn();
     void slotOffTriggerReturn();
-
-    void slotDeltaTrigger();
     void slotDeltaTriggerReturn();
 
-    //void slotAbortTrigger();
+    //---- Latch
+    void slotFastTriggerLatchReturn();
+    void slotDblTriggerLatchReturn();
+    void slotLongTriggerLatchReturn();
 };
 
 class TriggerWorker : public QObject

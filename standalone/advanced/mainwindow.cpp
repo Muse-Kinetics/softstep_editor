@@ -679,7 +679,7 @@ void MainWindow::slotPopulateSourceDestLists()
     hostedSources.append("Dbl Trig");
     hostedSources.append("Long Trig");
     hostedSources.append("Off Trig");
-    hostedSources.append("Delta Trig");
+    //hostedSources.append("Delta Trig");
 
     //hostedSources.append("Wait Trig Latch");
     hostedSources.append("Fast Trig Latch");

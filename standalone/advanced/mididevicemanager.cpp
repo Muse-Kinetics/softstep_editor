@@ -270,7 +270,7 @@ void MidiDeviceManager::hosted_slotParsePacket(const MIDIPacket * packet)
 void MidiDeviceManager::hosted_slotSendPacket(QString port, MIDIPacket packet)
 {
 
-    qDebug() << "hosted_slotSendPacketCalled" << packet.data[0] << packet.data[1] << packet.data[2] << packet.length << packet.timeStamp << "\n";
+    qDebug() << "hosted_slotSendPacketCalled - data:" << packet.data[0] << packet.data[1] << packet.data[2] << "length, time : " << packet.length << packet.timeStamp << "\n";
 
     //Packet Size max size
     Byte packetListSize[256];
