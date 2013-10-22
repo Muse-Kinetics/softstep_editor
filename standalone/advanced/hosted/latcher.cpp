@@ -93,7 +93,7 @@ void LatcherWorker::slotDelayInput()
 
 void LatcherWorker::slotReturnInput(int val)
 {
-    static int lastVal = -1;
+    lastVal = -1;
 
     if(lastVal != val)
     {

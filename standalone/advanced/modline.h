@@ -36,6 +36,10 @@ public:
     int keyInstance;
     int modlineInstance;
 
+    QString lastSource;
+    int lastVal;
+    int output;
+
     //-------------------- Hosted
     Slewer slewer;
 
@@ -55,6 +59,9 @@ public:
     int raw;
     int result;
     int value;
+
+    int lastNote;
+    bool toggleOn;
 
     
 signals:

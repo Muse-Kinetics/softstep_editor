@@ -4,6 +4,8 @@
 #include "datacooker.h"
 #include <QDebug>
 
+#define PEDAL_CC 86
+
 DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     QWidget(parent)
 {
@@ -36,7 +38,19 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     yIncCount = 0;
     xIncCount = 0;
 
+    lastXCount = -1;
+    lastYCount = -1;
+
     sensorResponse = 0; //0 - maximum 1 - avg
+
+    fastTrigState = false;
+    dblTrigState = false;
+    longTrigState = false;
+    offTrigState = false;
+    fastTrigLatchState = false;
+    dblTrigLatchState = false;
+    longTrigLatchState = false;
+
 
     //Init sensors
     for(int i=0; i<4; i++)
@@ -71,10 +85,10 @@ void DataCooker::slotSetSource(QString source, int modlineInstance)
 {
     modlineSources.insert(modlineInstance, source);
 
-    /* for(int i = 0; i < modlineSources.size(); i++)
+    for(int i = 0; i < modlineSources.size(); i++)
     {
-        qDebug () << i << modlineSources.value(i);
-    }*/
+        qDebug () << "key" << keyNum << i << modlineSources.value(i);
+    }
 }
 
 void DataCooker::slotUpdateVals(int cc, int val)
@@ -103,6 +117,20 @@ void DataCooker::slotUpdateVals(int cc, int val)
         cookRaw();
 
         cookSources();
+    }
+    else if(cc == PEDAL_CC)
+    {
+        //Will need to use calibration pedal class in future
+        pedalVal = val;
+
+        for(int i = 0; i < 6; i++)
+        {
+            if(modlineSources.value(i) == "Pedal")
+            {
+                qDebug () << "key" << keyNum << pedalVal << i;
+                emit signalTransformSource(pedalVal, i, "Pedal");
+            }
+        }
     }
 }
 
@@ -223,6 +251,12 @@ void DataCooker::cookSources()
         else if(modlineSources.value(i) == "Long Trig Latch")
         {
             longTrigLatch();
+        }
+
+        //------- Pedal
+        else if(modlineSources.value(i) == "Pedal")
+        {
+            //emit signalTransformSource(pedalVal, i, "Pedal");
         }
     }
 }
@@ -504,8 +538,6 @@ void DataCooker::xIncrement()
 
 void DataCooker::slotTickXIncrementClock()
 {
-    static int lastCount = -1;
-
     //Double check foot on, probably unnecessary but safe
     if(footOnOff)
     {
@@ -519,7 +551,7 @@ void DataCooker::slotTickXIncrementClock()
             xIncCount--;
         }
 
-        if(lastCount != xIncCount)
+        if(lastXCount != xIncCount)
         {
             //Emit to all modlines because it's time based and has multiple processing threads
             for(int i = 0; i < 6; i++)
@@ -528,7 +560,7 @@ void DataCooker::slotTickXIncrementClock()
             }
 
 
-            lastCount = xIncCount;
+            lastXCount = xIncCount;
         }
     }
 
@@ -589,8 +621,6 @@ void DataCooker::yIncrement()
 
 void DataCooker::slotTickYIncrementClock()
 {
-    static int lastCount = -1;
-
     //Double check foot on, probably unnecessary but safe
     if(footOnOff)
     {
@@ -603,14 +633,14 @@ void DataCooker::slotTickYIncrementClock()
             yIncCount--;
         }
 
-        if(lastCount != yIncCount)
+        if(lastYCount != yIncCount)
         {
             for(int i = 0; i < 6; i++)
             {
                 emit signalTransformSource(yIncCount, i, "Y Increment");
             }
 
-            lastCount = yIncCount;
+            lastYCount = yIncCount;
         }
     }
     else
@@ -670,19 +700,17 @@ int DataCooker::bottom()
 //----------------------------- Fast
 void DataCooker::fastTrig()
 {
-    static bool state = false;
-
     //If foot is on and state is false, flip state on - this represents a trigger scenario
-    if(footOnOff && !state)
+    if(footOnOff && !fastTrigState)
     {
         trigger.fastTrigger();
-        state = true;
+        fastTrigState = true;
     }
 
     //If foot is off (regardless of state), flip state off
-    else if(!footOnOff && state)
+    else if(!footOnOff && fastTrigState)
     {
-        state = false;
+        fastTrigState = false;
     }
 }
 
@@ -712,19 +740,17 @@ void DataCooker::slotFastTriggerOff()
 //----------------------------- Dbl
 void DataCooker::dblTrig()
 {
-    static bool state = false;
-
     //If foot is on and state is false, flip state on - this represents a trigger scenario
-    if(footOnOff && !state)
+    if(footOnOff && !dblTrigState)
     {
         trigger.dblTriggerHit();
-        state = true;
+        dblTrigState = true;
     }
 
     //If foot is off (regardless of state), flip state off
-    else if(!footOnOff && state)
+    else if(!footOnOff && dblTrigState)
     {
-        state = false;
+        dblTrigState = false;
     }
 }
 
@@ -753,21 +779,18 @@ void DataCooker::slotDblTriggerOff()
 //----------------------------- Long
 void DataCooker::longTrig()
 {
-
-    static bool state = false;
-
     //If foot is on and state is false, flip state on - this represents a trigger scenario
-    if(footOnOff && !state)
+    if(footOnOff && !longTrigState)
     {
         trigger.longTrigger();
-        state = true;
+        longTrigState = true;
     }
 
     //If foot is off (regardless of state), flip state off
-    else if(!footOnOff && state)
+    else if(!footOnOff && longTrigState)
     {
         trigger.longTriggerAbort();
-        state = false;
+        longTrigState = false;
     }
 }
 
@@ -796,20 +819,18 @@ void DataCooker::slotLongTriggerOff()
 //----------------------------- Off
 void DataCooker::offTrig()
 {
-    static bool state = false;
-
     //If foot is on and state is false, flip state on - this represents a trigger scenario
-    if(footOnOff && !state)
+    if(footOnOff && !offTrigState)
     {
         slotOffTriggerOff();
-        state = true;
+        offTrigState = true;
     }
 
     //If foot is off (regardless of state), flip state off
-    else if(!footOnOff && state)
+    else if(!footOnOff && offTrigState)
     {
         trigger.offTrigger();
-        state = false;
+        offTrigState = false;
     }
 }
 
@@ -853,19 +874,19 @@ void DataCooker::deltaTrig()
 //-------------------------------------------------------------------- Trig Latch
 void DataCooker::fastTrigLatch()
 {
-    static bool state = false;
+
 
     //If foot is on and state is false, flip state on - this represents a trigger scenario
-    if(footOnOff && !state)
+    if(footOnOff && !fastTrigLatchState)
     {
         trigger.fastTriggerLatch();
-        state = true;
+        fastTrigLatchState = true;
     }
 
     //If foot is off (regardless of state), flip state off
-    else if(!footOnOff && state)
+    else if(!footOnOff && fastTrigLatchState)
     {
-        state = false;
+        fastTrigLatchState = false;
     }
 }
 //----------------------------- Fast
@@ -893,19 +914,18 @@ void DataCooker::slotFastTriggerLatchOff()
 //----------------------------- Dbl
 void DataCooker::dblTrigLatch()
 {
-    static bool state = false;
 
     //If foot is on and state is false, flip state on - this represents a trigger scenario
-    if(footOnOff && !state)
+    if(footOnOff && !dblTrigLatchState)
     {
         trigger.dblTriggerLatchHit();
-        state = true;
+        dblTrigLatchState = true;
     }
 
     //If foot is off (regardless of state), flip state off
-    else if(!footOnOff && state)
+    else if(!footOnOff && dblTrigLatchState)
     {
-        state = false;
+        dblTrigLatchState = false;
     }
 }
 
@@ -932,21 +952,18 @@ void DataCooker::slotDblTriggerLatchOff()
 //----------------------------- Long
 void DataCooker::longTrigLatch()
 {
-
-    static bool state = false;
-
     //If foot is on and state is false, flip state on - this represents a trigger scenario
-    if(footOnOff && !state)
+    if(footOnOff && !longTrigLatchState)
     {
         trigger.longTriggerLatch();
-        state = true;
+        longTrigLatchState = true;
     }
 
     //If foot is off (regardless of state), flip state off
-    else if(!footOnOff && state)
+    else if(!footOnOff && longTrigLatchState)
     {
         trigger.longTriggerLatchAbort();
-        state = false;
+        longTrigLatchState = false;
     }
 }
 

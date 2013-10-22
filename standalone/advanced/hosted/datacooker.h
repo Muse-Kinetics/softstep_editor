@@ -18,6 +18,8 @@ class DataCooker : public QWidget
 public:
     explicit DataCooker(int instanceNum, QWidget *parent = 0);
 
+    int pedalVal;
+
     int                 sensorVals[4];
     int                 keyNum;
     QMap<int, int>      keySensorBaseCcMap;
@@ -38,9 +40,18 @@ public:
     int     xIncCount;
     int     yIncModlineNum;
     int     xIncModlineNum;
+    int     lastYCount;
+    int     lastXCount;
 
     //Triggers
     Trigger trigger;
+    bool fastTrigState;
+    bool dblTrigState;
+    bool longTrigState;
+    bool offTrigState;
+    bool fastTrigLatchState;
+    bool dblTrigLatchState;
+    bool longTrigLatchState;
 
     void                cookRaw();
     void                cookSources();

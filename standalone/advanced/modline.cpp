@@ -26,6 +26,12 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
 {
     keyInstance = keyInstanceNum;
     modlineInstance = modlineInstanceNum;
+    lastSource = "None";
+    lastVal = -1;
+    output = -1;
+
+    lastNote = -1;
+    toggleOn = false;
 
     this->setObjectName(QString("%1_Key_%2_Modline").arg(keyInstance+1).arg(modlineInstance+1));
 
@@ -697,17 +703,12 @@ void Modline::slotSetTransformValues()
 
 void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
-    //All streams are sent to all modlines, so we need arrays to filter
-    static QString lastSource[6] = {"None", "None", "None", "None", "None", "None"};
-    static int lastVal[6] = {-1, -1, -1, -1, -1, -1};
-
-    static int output[6] = {0,0,0,0,0,0};
 
     //Make sure this is the correct modline to receive source being emitted
     if(modlineNum == modlineInstance && source == thisModlineSource)
     {
         //If source value is different from last or there is a change in value...
-        if(lastVal[modlineNum] != val || lastSource[modlineNum] != source || source.contains("Trig"))
+        if(lastVal != val || lastSource != source || source.contains("Trig"))
         {
             //Set raw display value
             raw = val;
@@ -729,7 +730,7 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
             if(smooth != 0)
             {
                 //Handle output from slotSlew()
-                slewer.slotSlew(output[modlineNum], modlineForm->slew->value());
+                slewer.slotSlew(output, modlineForm->slew->value());
             }
             else
             {
@@ -754,8 +755,8 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
             emit hosted_signalSendModlineOutput(modlineNum, val);
 
             //Variables to filter out repititions
-            lastVal[modlineNum] = val;
-            lastSource[modlineNum] = source;
+            lastVal= val;
+            lastSource = source;
         }
 
     }
@@ -857,8 +858,6 @@ void Modline::hosted_slotOutputMidi(int outputVal)
     }
     else if(outputType == "Note Live")
     {
-        static int lastNote = -1;
-
         emit hosted_signalNoteLive(modlineForm->notelivedevice->currentText(), modlineForm->notelivechannel->value(), lastNote, outputVal, modlineForm->notelivevelocity->value());
 
         lastNote = outputVal;
@@ -881,7 +880,7 @@ void Modline::hosted_slotOutputMidi(int outputVal)
     }
     else if(outputType == "MMC")
     {
-        static bool toggleOn = false;
+        toggleOn = false;
 
         if(outputVal && !toggleOn)
         {

@@ -50,6 +50,8 @@ public:
     LatcherWorker();
     ~LatcherWorker();
 
+        int lastVal;
+
     Slewer slewer;
     QList<int> input;
 
