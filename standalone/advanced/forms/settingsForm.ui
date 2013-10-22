@@ -307,7 +307,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-    font: 9pt &quot;Futura&quot;;
+    font: 10pt &quot;Futura&quot;;
 }
 
 QCheckBox::indicator
@@ -370,121 +370,60 @@ QComboBox
 	background: rgb(18, 18, 18);
 	color: white;
 	padding: 1px 3px 1px 4px;
- }</string>
+ }
+
+/*-------QRadioButton-------*/
+
+QRadioButton
+{
+	color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QRadioButton::indicator  {
+    width: 16px;
+    height: 16px;
+}
+ 
+QRadioButton::indicator::unchecked  {
+    image: url(:/resources/radiobutton_unchecked.png);
+}
+ 
+QRadioButton::indicator:unchecked:hover  {
+    image: url(:/resources/radiobutton_unchecked.png);
+}
+ 
+QRadioButton::indicator:unchecked:pressed  {
+    image: url(:/resources/radiobutton_pressed.png);
+}
+ 
+QRadioButton::indicator::checked  {
+    image: url(:/resources/radiobutton_checked.png);
+}
+ 
+QRadioButton::indicator:checked:hover  {
+    image: url(:/resources/radiobutton_checked.png);
+}
+ 
+QRadioButton::indicator:checked:pressed  {
+    image: url(:/resources/radiobutton_pressed.png);
+}</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
-    <widget class="QLabel" name="label_27">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>160</y>
-       <width>101</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Futura</family>
-       <pointsize>-1</pointsize>
-       <weight>75</weight>
-       <italic>false</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">font: bold 12px;</string>
-     </property>
-     <property name="text">
-      <string>Key Safety</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>270</y>
-       <width>101</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">font: bold 12px;</string>
-     </property>
-     <property name="text">
-      <string>Sensor Response</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="backlighting_enable">
-     <property name="geometry">
-      <rect>
-       <x>6</x>
-       <y>22</y>
-       <width>121</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string>Turns the SoftStep backlighting on or off.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: none;</string>
-     </property>
-     <property name="text">
-      <string>Backlighting on/off</string>
-     </property>
-    </widget>
-    <widget class="QDoubleSpinBox" name="global_gain">
-     <property name="geometry">
-      <rect>
-       <x>9</x>
-       <y>56</y>
-       <width>41</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string>Adjusts the sensitivity of the keys.&lt;p&gt;Higher values = more sensitive &lt;br&gt;Lower values = less sensitive</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="value">
-      <double>1.000000000000000</double>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_62">
-     <property name="geometry">
-      <rect>
-       <x>54</x>
-       <y>58</y>
-       <width>62</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Sensitivity</string>
-     </property>
-    </widget>
     <widget class="QFrame" name="frame">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>300</y>
+       <x>160</x>
+       <y>26</y>
        <width>101</width>
-       <height>41</height>
+       <height>63</height>
       </rect>
      </property>
      <property name="toolTip">
-      <string>Sets how the SoftStep sensors (one in each corner on each key) determine key pressure.&lt;p&gt;&lt;b&gt;Maximum:&lt;/b&gt; Looks at only the highest value sensor to determine current pressure value&lt;p&gt;&lt;b&gt;Average:&lt;/b&gt; Averages the four sensors together to determine key pressure value</string>
+      <string>Sets how the SoftStep sensors (one in each corner on each key) determine key pressure.&lt;p&gt;&lt;b&gt;Maximum:&lt;/b&gt; Looks at only the highest valued sensor to determine current pressure value&lt;p&gt;&lt;b&gt;Average:&lt;/b&gt; Averages the four sensors together to determine key pressure value</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QRadioButton
@@ -503,26 +442,42 @@ QComboBox
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>22</y>
         <width>81</width>
         <height>18</height>
        </rect>
       </property>
       <property name="text">
-       <string>Maximum</string>
+       <string> Maximum</string>
       </property>
      </widget>
      <widget class="QRadioButton" name="sensorresponse_max">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>20</y>
+        <y>42</y>
         <width>81</width>
         <height>18</height>
        </rect>
       </property>
       <property name="text">
-       <string>Average</string>
+       <string> Average</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 12px;</string>
+      </property>
+      <property name="text">
+       <string>Sensor Response</string>
       </property>
      </widget>
     </widget>
@@ -530,20 +485,16 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>190</y>
+       <y>106</y>
        <width>141</width>
-       <height>61</height>
+       <height>82</height>
       </rect>
      </property>
      <property name="toolTip">
       <string>Sets how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key Mode:&lt;/b&gt; Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Adjacent Key Lockout:&lt;/b&gt; Keys immediately adjacent to an activated key cannot be triggered.&lt;p&gt;&lt;b&gt;Multiple Key Mode:&lt;/b&gt; Any key can be activated at any time.</string>
      </property>
      <property name="styleSheet">
-      <string notr="true">QRadioButton
-{
-	color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -555,39 +506,183 @@ QComboBox
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>22</y>
         <width>111</width>
         <height>18</height>
        </rect>
       </property>
       <property name="text">
-       <string>Single Key Mode</string>
+       <string> Single Key Mode</string>
       </property>
      </widget>
      <widget class="QRadioButton" name="adjacentkeymode">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>20</y>
+        <y>42</y>
         <width>131</width>
         <height>18</height>
        </rect>
       </property>
       <property name="text">
-       <string>Adjacent Key Lockout</string>
+       <string> Adjacent Key Lockout</string>
       </property>
      </widget>
      <widget class="QRadioButton" name="multiplekeymode">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>40</y>
+        <y>62</y>
         <width>131</width>
         <height>18</height>
        </rect>
       </property>
       <property name="text">
-       <string>Multiple Key Mode</string>
+       <string> Multiple Key Mode</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_27">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>101</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura</family>
+        <pointsize>-1</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 12px;</string>
+      </property>
+      <property name="text">
+       <string>Key Safety</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QFrame" name="frame_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>26</y>
+       <width>112</width>
+       <height>72</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QCheckBox" name="backlighting_enable">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>22</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Turns the SoftStep backlighting on or off.</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+}</string>
+      </property>
+      <property name="text">
+       <string> Backlighting on/off</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="global_gain">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>44</y>
+        <width>41</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Adjusts the sensitivity of the keys.&lt;p&gt;Higher values = more sensitive &lt;br&gt;Lower values = less sensitive</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="buttonSymbols">
+       <enum>QAbstractSpinBox::NoButtons</enum>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_62">
+      <property name="geometry">
+       <rect>
+        <x>49</x>
+        <y>44</y>
+        <width>62</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Adjusts the sensitivity of the keys.&lt;p&gt;Higher values = more sensitive &lt;br&gt;Lower values = less sensitive</string>
+      </property>
+      <property name="text">
+       <string>Sensitivity</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_63">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>101</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Futura</family>
+        <pointsize>-1</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 12px;</string>
+      </property>
+      <property name="text">
+       <string>General</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
     </widget>
@@ -597,7 +692,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>185</x>
-       <y>30</y>
+       <y>40</y>
        <width>31</width>
        <height>26</height>
       </rect>
@@ -616,7 +711,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>145</x>
-       <y>80</y>
+       <y>90</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -635,7 +730,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>330</y>
+       <y>350</y>
        <width>51</width>
        <height>18</height>
       </rect>
@@ -650,9 +745,9 @@ QComboBox
     <widget class="QLabel" name="label_25">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>290</y>
-       <width>31</width>
+       <x>172</x>
+       <y>310</y>
+       <width>30</width>
        <height>18</height>
       </rect>
      </property>
@@ -669,8 +764,8 @@ QComboBox
     <widget class="QSpinBox" name="nav_east_settings_offthresh">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>330</y>
+       <x>132</x>
+       <y>350</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -689,7 +784,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>105</x>
-       <y>100</y>
+       <y>110</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -707,8 +802,8 @@ QComboBox
     <widget class="QSpinBox" name="nav_settings_yaccel">
      <property name="geometry">
       <rect>
-       <x>210</x>
-       <y>320</y>
+       <x>214</x>
+       <y>340</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -727,7 +822,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>185</x>
-       <y>80</y>
+       <y>90</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -746,7 +841,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>105</x>
-       <y>140</y>
+       <y>150</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -765,7 +860,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>200</y>
+       <y>210</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -784,7 +879,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>60</y>
+       <y>70</y>
        <width>16</width>
        <height>18</height>
       </rect>
@@ -800,7 +895,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>105</x>
-       <y>220</y>
+       <y>230</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -819,7 +914,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>-5</x>
-       <y>0</y>
+       <y>10</y>
        <width>281</width>
        <height>20</height>
       </rect>
@@ -838,7 +933,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>105</x>
-       <y>160</y>
+       <y>170</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -857,7 +952,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>145</x>
-       <y>60</y>
+       <y>70</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -876,7 +971,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>105</x>
-       <y>240</y>
+       <y>250</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -895,7 +990,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>225</x>
-       <y>200</y>
+       <y>210</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -913,8 +1008,8 @@ QComboBox
     <widget class="QLabel" name="label_22">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>290</y>
+       <x>52</x>
+       <y>310</y>
        <width>31</width>
        <height>18</height>
       </rect>
@@ -933,7 +1028,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>65</x>
-       <y>120</y>
+       <y>130</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -952,7 +1047,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>240</y>
+       <y>250</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -971,7 +1066,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>225</x>
-       <y>180</y>
+       <y>190</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -990,7 +1085,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>145</x>
-       <y>160</y>
+       <y>170</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1009,7 +1104,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>180</y>
+       <y>190</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1028,7 +1123,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>160</y>
+       <y>170</y>
        <width>16</width>
        <height>18</height>
       </rect>
@@ -1044,7 +1139,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>145</x>
-       <y>120</y>
+       <y>130</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1063,7 +1158,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>185</x>
-       <y>60</y>
+       <y>70</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1082,7 +1177,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>120</y>
+       <y>130</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1101,7 +1196,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>105</x>
-       <y>180</y>
+       <y>190</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1119,8 +1214,8 @@ QComboBox
     <widget class="QSpinBox" name="nav_north_settings_onthresh">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>310</y>
+       <x>52</x>
+       <y>330</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1139,7 +1234,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>185</x>
-       <y>100</y>
+       <y>110</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1158,7 +1253,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>185</x>
-       <y>120</y>
+       <y>130</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1177,7 +1272,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>225</x>
-       <y>100</y>
+       <y>110</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1196,7 +1291,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>105</x>
-       <y>60</y>
+       <y>70</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1215,7 +1310,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>65</x>
-       <y>140</y>
+       <y>150</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1234,7 +1329,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>140</y>
+       <y>150</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1253,7 +1348,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>145</x>
-       <y>30</y>
+       <y>40</y>
        <width>31</width>
        <height>26</height>
       </rect>
@@ -1272,7 +1367,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>145</x>
-       <y>200</y>
+       <y>210</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1291,7 +1386,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>310</y>
+       <y>330</y>
        <width>41</width>
        <height>18</height>
       </rect>
@@ -1307,7 +1402,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>105</x>
-       <y>120</y>
+       <y>130</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1326,7 +1421,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>140</y>
+       <y>150</y>
        <width>16</width>
        <height>18</height>
       </rect>
@@ -1342,7 +1437,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>185</x>
-       <y>240</y>
+       <y>250</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1361,7 +1456,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>220</y>
+       <y>230</y>
        <width>16</width>
        <height>18</height>
       </rect>
@@ -1377,7 +1472,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>65</x>
-       <y>220</y>
+       <y>230</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1395,8 +1490,8 @@ QComboBox
     <widget class="QSpinBox" name="nav_west_settings_offthresh">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>330</y>
+       <x>172</x>
+       <y>350</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1415,7 +1510,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>180</y>
+       <y>190</y>
        <width>16</width>
        <height>18</height>
       </rect>
@@ -1431,7 +1526,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>240</y>
+       <y>250</y>
        <width>16</width>
        <height>18</height>
       </rect>
@@ -1447,7 +1542,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>145</x>
-       <y>220</y>
+       <y>230</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1466,7 +1561,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>225</x>
-       <y>80</y>
+       <y>90</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1484,8 +1579,8 @@ QComboBox
     <widget class="QLabel" name="label_26">
      <property name="geometry">
       <rect>
-       <x>206</x>
-       <y>290</y>
+       <x>208</x>
+       <y>310</y>
        <width>41</width>
        <height>26</height>
       </rect>
@@ -1504,7 +1599,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>105</x>
-       <y>30</y>
+       <y>40</y>
        <width>31</width>
        <height>26</height>
       </rect>
@@ -1522,8 +1617,8 @@ QComboBox
     <widget class="QSpinBox" name="nav_south_settings_onthresh">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>310</y>
+       <x>92</x>
+       <y>330</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1542,7 +1637,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>65</x>
-       <y>160</y>
+       <y>170</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1561,7 +1656,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>185</x>
-       <y>160</y>
+       <y>170</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1580,7 +1675,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>225</x>
-       <y>220</y>
+       <y>230</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1599,7 +1694,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>105</x>
-       <y>200</y>
+       <y>210</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1618,7 +1713,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>65</x>
-       <y>180</y>
+       <y>190</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1637,7 +1732,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>185</x>
-       <y>180</y>
+       <y>190</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1656,7 +1751,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>185</x>
-       <y>140</y>
+       <y>150</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1675,7 +1770,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>100</y>
+       <y>110</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1694,7 +1789,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>65</x>
-       <y>30</y>
+       <y>40</y>
        <width>31</width>
        <height>26</height>
       </rect>
@@ -1713,7 +1808,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>225</x>
-       <y>30</y>
+       <y>40</y>
        <width>31</width>
        <height>26</height>
       </rect>
@@ -1732,7 +1827,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>225</x>
-       <y>240</y>
+       <y>250</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1751,7 +1846,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>65</x>
-       <y>60</y>
+       <y>70</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1770,7 +1865,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>60</y>
+       <y>70</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1789,7 +1884,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>160</y>
+       <y>170</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1808,7 +1903,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>225</x>
-       <y>120</y>
+       <y>130</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1827,7 +1922,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>225</x>
-       <y>60</y>
+       <y>70</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1845,9 +1940,9 @@ QComboBox
     <widget class="QLabel" name="label_19">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>270</y>
-       <width>255</width>
+       <x>-5</x>
+       <y>291</y>
+       <width>281</width>
        <height>16</height>
       </rect>
      </property>
@@ -1866,7 +1961,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>200</y>
+       <y>210</y>
        <width>16</width>
        <height>18</height>
       </rect>
@@ -1882,7 +1977,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>220</y>
+       <y>230</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1901,7 +1996,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>30</y>
+       <y>40</y>
        <width>31</width>
        <height>26</height>
       </rect>
@@ -1919,8 +2014,8 @@ QComboBox
     <widget class="QSpinBox" name="nav_south_settings_offthresh">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>330</y>
+       <x>92</x>
+       <y>350</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1939,7 +2034,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>145</x>
-       <y>180</y>
+       <y>190</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1957,8 +2052,8 @@ QComboBox
     <widget class="QSpinBox" name="nav_east_settings_onthresh">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>310</y>
+       <x>132</x>
+       <y>330</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1977,7 +2072,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>145</x>
-       <y>100</y>
+       <y>110</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -1996,7 +2091,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>25</x>
-       <y>80</y>
+       <y>90</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2014,8 +2109,8 @@ QComboBox
     <widget class="QSpinBox" name="nav_north_settings_offthresh">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>330</y>
+       <x>52</x>
+       <y>350</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2034,7 +2129,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>65</x>
-       <y>200</y>
+       <y>210</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2052,8 +2147,8 @@ QComboBox
     <widget class="QSpinBox" name="nav_west_settings_onthresh">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>310</y>
+       <x>172</x>
+       <y>330</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2072,7 +2167,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>185</x>
-       <y>220</y>
+       <y>230</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2091,7 +2186,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>120</y>
+       <y>130</y>
        <width>16</width>
        <height>18</height>
       </rect>
@@ -2106,9 +2201,9 @@ QComboBox
     <widget class="QLabel" name="label_20">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>290</y>
-       <width>31</width>
+       <x>92</x>
+       <y>310</y>
+       <width>30</width>
        <height>18</height>
       </rect>
      </property>
@@ -2126,7 +2221,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>80</y>
+       <y>90</y>
        <width>16</width>
        <height>18</height>
       </rect>
@@ -2142,7 +2237,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>65</x>
-       <y>80</y>
+       <y>90</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2161,7 +2256,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>65</x>
-       <y>240</y>
+       <y>250</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2180,7 +2275,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>65</x>
-       <y>100</y>
+       <y>110</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2199,7 +2294,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>185</x>
-       <y>200</y>
+       <y>210</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2218,7 +2313,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>145</x>
-       <y>140</y>
+       <y>150</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2236,9 +2331,9 @@ QComboBox
     <widget class="QLabel" name="label_21">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>290</y>
-       <width>31</width>
+       <x>132</x>
+       <y>310</y>
+       <width>30</width>
        <height>18</height>
       </rect>
      </property>
@@ -2256,7 +2351,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>225</x>
-       <y>140</y>
+       <y>150</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2275,7 +2370,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>225</x>
-       <y>160</y>
+       <y>170</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2294,7 +2389,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>145</x>
-       <y>240</y>
+       <y>250</y>
        <width>30</width>
        <height>18</height>
       </rect>
@@ -2313,7 +2408,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>100</y>
+       <y>110</y>
        <width>16</width>
        <height>18</height>
       </rect>
@@ -2329,7 +2424,7 @@ QComboBox
      <property name="geometry">
       <rect>
        <x>105</x>
-       <y>80</y>
+       <y>90</y>
        <width>30</width>
        <height>18</height>
       </rect>

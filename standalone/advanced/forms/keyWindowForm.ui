@@ -467,9 +467,9 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>53</y>
-     <width>1116</width>
+     <width>1130</width>
      <height>16</height>
     </rect>
    </property>
@@ -486,7 +486,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="initsBracketLabel">
    <property name="geometry">
     <rect>
-     <x>37</x>
+     <x>38</x>
      <y>82</y>
      <width>53</width>
      <height>11</height>
@@ -507,7 +507,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>47</x>
+     <x>48</x>
      <y>64</y>
      <width>31</width>
      <height>11</height>
@@ -813,7 +813,7 @@ QToolButton:pressed
     </rect>
    </property>
    <property name="toolTip">
-    <string>Delete the lowest modline (minimum of 2)</string>
+    <string>Delete the bottom modline (minimum of 2)</string>
    </property>
    <property name="styleSheet">
     <string notr="true">QToolButton

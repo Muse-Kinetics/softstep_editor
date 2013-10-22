@@ -234,9 +234,9 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>53</y>
-     <width>1080</width>
+     <width>1098</width>
      <height>16</height>
     </rect>
    </property>
@@ -253,7 +253,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>47</x>
+     <x>49</x>
      <y>64</y>
      <width>31</width>
      <height>11</height>
@@ -337,7 +337,7 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="initsBracketLabel">
    <property name="geometry">
     <rect>
-     <x>37</x>
+     <x>39</x>
      <y>82</y>
      <width>53</width>
      <height>11</height>
@@ -441,15 +441,46 @@ QCheckBox::indicator:checked:pressed:focus
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QRadioButton
+    <string notr="true">/*-------QRadioButton-------*/
+
+QRadioButton
 {
-	border: none;
-	color: white;
+	color: rgba(255,255,255,250);
 	font: 10pt &quot;Futura&quot;;
+	border: none;
+}
+
+QRadioButton::indicator  {
+    width: 16px;
+    height: 16px;
+}
+ 
+QRadioButton::indicator::unchecked  {
+    image: url(:/resources/radiobutton_unchecked.png);
+}
+ 
+QRadioButton::indicator:unchecked:hover  {
+    image: url(:/resources/radiobutton_unchecked.png);
+}
+ 
+QRadioButton::indicator:unchecked:pressed  {
+    image: url(:/resources/radiobutton_pressed.png);
+}
+ 
+QRadioButton::indicator::checked  {
+    image: url(:/resources/radiobutton_checked.png);
+}
+ 
+QRadioButton::indicator:checked:hover  {
+    image: url(:/resources/radiobutton_checked.png);
+}
+ 
+QRadioButton::indicator:checked:pressed  {
+    image: url(:/resources/radiobutton_pressed.png);
 }</string>
    </property>
    <property name="text">
-    <string>program change</string>
+    <string> program change</string>
    </property>
   </widget>
   <widget class="QRadioButton" name="navpadmode_modline">
@@ -462,15 +493,46 @@ QCheckBox::indicator:checked:pressed:focus
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QRadioButton
+    <string notr="true">/*-------QRadioButton-------*/
+
+QRadioButton
 {
-	border: none;
-	color: white;
+	color: rgba(255,255,255,250);
 	font: 10pt &quot;Futura&quot;;
+	border: none;
+}
+
+QRadioButton::indicator  {
+    width: 16px;
+    height: 16px;
+}
+ 
+QRadioButton::indicator::unchecked  {
+    image: url(:/resources/radiobutton_unchecked.png);
+}
+ 
+QRadioButton::indicator:unchecked:hover  {
+    image: url(:/resources/radiobutton_unchecked.png);
+}
+ 
+QRadioButton::indicator:unchecked:pressed  {
+    image: url(:/resources/radiobutton_pressed.png);
+}
+ 
+QRadioButton::indicator::checked  {
+    image: url(:/resources/radiobutton_checked.png);
+}
+ 
+QRadioButton::indicator:checked:hover  {
+    image: url(:/resources/radiobutton_checked.png);
+}
+ 
+QRadioButton::indicator:checked:pressed  {
+    image: url(:/resources/radiobutton_pressed.png);
 }</string>
    </property>
    <property name="text">
-    <string>modline</string>
+    <string> modline</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">

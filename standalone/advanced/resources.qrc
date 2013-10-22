@@ -123,5 +123,8 @@
         <file>resources/keyWindow_deleteModline_button_clicked.png</file>
         <file>resources/keyWindow_addModline_button_not_clicked.png</file>
         <file>resources/keyWindow_deleteModline_button_not_clicked.png</file>
+        <file>resources/radiobutton_checked.png</file>
+        <file>resources/radiobutton_unchecked.png</file>
+        <file>resources/radiobutton_pressed.png</file>
     </qresource>
 </RCC>
