@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("SoftStep Advanced Editor");
     this->setFixedSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
+    this->setGeometry(300, 50, MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
 
     //Populates source and dest lists for modes
     slotPopulateSourceDestLists();

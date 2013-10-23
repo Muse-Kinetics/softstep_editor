@@ -34,6 +34,7 @@ NavKey::NavKey(QWidget *parent) :
     //set ub the nav pad window
     navKeyWindowForm->setupUi(navKeyWindowWidget);
     navKeyWindowWidget->setFixedSize(NAVWINDOW_SM_WIDTH,NAVWINDOW_HEIGHT);
+    navKeyWindowWidget->setGeometry(220, 600, NAVWINDOW_SM_WIDTH, NAVWINDOW_HEIGHT);
     navKeyWindowWidget->setWindowTitle(QString("Nav Pad Modulation"));
 
     //what's in the nav pad box?

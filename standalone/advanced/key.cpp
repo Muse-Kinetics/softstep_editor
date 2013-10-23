@@ -56,6 +56,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     //keyWindowWidget = new QWidget();
     keyWindowForm->setupUi(keyWindowWidget);
     keyWindowWidget->setFixedSize(KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
+    keyWindowWidget->setGeometry(20 + (keyInstance * 20), 400 + (keyInstance * 20), KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
     keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg(keyInstance+1));
 
     //What's in the Key Box?
