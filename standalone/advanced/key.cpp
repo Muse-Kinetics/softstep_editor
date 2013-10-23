@@ -6,8 +6,11 @@
 #include <QDebug>
 
 /*-------KEYWINDOW SIZE CONSTANTS-------*/
-#define KEYWINDOW_WIDTH 1150
+#define KEYWINDOW_LG_WIDTH 1150
+#define KEYWINDOW_SM_WIDTH 935
 #define KEYWINDOW_HEIGHT 410
+#define LINE_SEPARATOR_LG 1130
+#define LINE_SEPARATOR_SM 915
 
 /*-------KEYBOX SIZE AND SPACING CONSTANTS-------*/
 
@@ -52,24 +55,22 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     //Set up the Key Window
     //keyWindowWidget = new QWidget();
     keyWindowForm->setupUi(keyWindowWidget);
-    keyWindowWidget->setFixedSize(KEYWINDOW_WIDTH, KEYWINDOW_HEIGHT);
+    keyWindowWidget->setFixedSize(KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
     keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg(keyInstance+1));
 
     //What's in the Key Box?
-
-    //Carson commented this next line out on 10/11/2013 because there is no longer a keyInstanceLabel in the key box
-    //keyBoxForm->keyInstanceLabel->setText(QString("%1").arg((keyInstance + 1)%10));
-
     connect(keyBoxForm->openWindow,SIGNAL(clicked()), this, SLOT(slotOpenWindow()));
 
-
-    //Construct Modlines
+    //What's in the Key Window?
     for(int i = 0; i < 6; i++)
     {
         modline[i] = new Modline(keyWindowWidget, keyInstance, i);
         modline[i]->slotConnectElements();
         displayLinkedButtonGroup.addButton(modline[i]->displayLinkButton, i);
     }
+    connect(keyWindowForm->ledDisplayCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotShowDisplaySettings(bool)));
+    connect(keyWindowForm->addmodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
+    connect(keyWindowForm->deletemodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
 
     //Carson's attempt to dynamically update the key window instance label — shit works
     keyWindowForm->keyWindowInstanceLabel->setText(QString("%1").arg((keyInstance + 1) % 10));
@@ -199,6 +200,135 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
     keyWindowForm->leddisplaymode->setCurrentIndex(keyWindowForm->leddisplaymode->findText(preset.value(QString("%1_key_displaymode").arg(keyInstance+1)).toString()));
 
     slotConnectElements();
+}
+
+void Key::slotShowDisplaySettings(bool show)
+{
+    if(show == TRUE)
+    {
+        //show large window
+        keyWindowWidget->setFixedWidth(KEYWINDOW_LG_WIDTH);
+        //show large line separator
+        keyWindowForm->label->setFixedWidth(LINE_SEPARATOR_LG);
+    }
+    else
+    {
+        //show small window
+        keyWindowWidget->setFixedWidth(KEYWINDOW_SM_WIDTH);
+        //show small line separator
+        keyWindowForm->label->setFixedWidth(LINE_SEPARATOR_SM);
+    }
+}
+
+void Key::slotWindowHeight(int modlinesShowing)
+{
+    if(modlinesShowing == 2)
+    {
+        keyWindowWidget->setFixedHeight(KEYWINDOW_HEIGHT-188);
+        keyWindowForm->addmodline->setGeometry(9,192,22,22);
+        keyWindowForm->deletemodline->setGeometry(35,192,22,22);
+        modline[2]->hide();
+        modline[3]->hide();
+        modline[4]->hide();
+        modline[5]->hide();
+    }
+    else if(modlinesShowing == 3)
+    {
+        keyWindowWidget->setFixedHeight(KEYWINDOW_HEIGHT-141);
+        keyWindowForm->addmodline->setGeometry(9,239,22,22);
+        keyWindowForm->deletemodline->setGeometry(35,239,22,22);
+        modline[2]->show();
+        modline[3]->hide();
+        modline[4]->hide();
+        modline[5]->hide();
+    }
+    else if(modlinesShowing == 4)
+    {
+        keyWindowWidget->setFixedHeight(KEYWINDOW_HEIGHT-94);
+        keyWindowForm->addmodline->setGeometry(9,286,22,22);
+        keyWindowForm->deletemodline->setGeometry(35,286,22,22);
+        modline[2]->show();
+        modline[3]->show();
+        modline[4]->hide();
+        modline[5]->hide();
+    }
+    else if(modlinesShowing == 5)
+    {
+        keyWindowWidget->setFixedHeight(KEYWINDOW_HEIGHT-47);
+        keyWindowForm->addmodline->setGeometry(9,333,22,22);
+        keyWindowForm->deletemodline->setGeometry(35,333,22,22);
+        modline[2]->show();
+        modline[3]->show();
+        modline[4]->show();
+        modline[5]->hide();
+    }
+    else if(modlinesShowing == 6)
+    {
+        keyWindowWidget->setFixedHeight(KEYWINDOW_HEIGHT);
+        keyWindowForm->addmodline->setGeometry(9,380,22,22);
+        keyWindowForm->deletemodline->setGeometry(35,380,22,22);
+        modline[2]->show();
+        modline[3]->show();
+        modline[4]->show();
+        modline[5]->show();
+    }
+}
+
+void Key::slotRecallShowModlines(QVariantMap preset, QVariantMap)
+{
+    numModlines = 2;
+
+    //first determine how many modlines should be showing based on which preset is recalled
+    for(int i = 0; i < 6; i++)
+    {
+        bool modlineEnabled;
+
+        modlineEnabled = preset.value(QString("key%1_modline%2_enable").arg(keyInstance+1).arg(i+1)).toBool();
+
+        if(i>1 && modlineEnabled == TRUE)
+        {
+            numModlines = i+1;
+        }
+    }
+
+    slotWindowHeight(numModlines);
+    //qDebug() << QString("show %1 key %2 modlines").arg(numModlines).arg(keyInstance+1);
+}
+
+void Key::slotAddSubtractModlines()
+{
+    //then add or subtract modlines when the buttons are clicked
+    if(QObject::sender())
+    {
+        QObject *sender = QObject::sender();
+
+        if(sender == keyWindowForm->addmodline)
+        {
+            numModlines++;
+        }
+        else if(sender == keyWindowForm->deletemodline)
+        {
+            numModlines--;
+        }
+    }
+    if(numModlines > 6)
+    {
+        numModlines = 6;
+        keyWindowForm->addmodline->setCheckable(FALSE);
+    }
+    else if(numModlines < 2)
+    {
+        numModlines = 2;
+        keyWindowForm->deletemodline->setCheckable(FALSE);
+    }
+    else
+    {
+        keyWindowForm->addmodline->setCheckable(TRUE);
+        keyWindowForm->deletemodline->setCheckable(TRUE);
+    }
+
+    slotWindowHeight(numModlines);
+    //qDebug() << QString("show %1 key %2 modlines").arg(numModlines).arg(keyInstance+1);
 }
 
 void Key::slotSetMode(QString mode)

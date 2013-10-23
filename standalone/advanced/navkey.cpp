@@ -252,7 +252,7 @@ void NavKey::slotRecallShowModlines(QVariantMap preset, QVariantMap)
 
     slotWindowHeight(numModlines);
 
-    qDebug() << QString("show %1 nav modlines").arg(numModlines);
+    //qDebug() << QString("show %1 nav modlines").arg(numModlines);
 }
 
 void NavKey::slotAddSubtractModlines()
@@ -288,5 +288,5 @@ void NavKey::slotAddSubtractModlines()
     }
 
     slotWindowHeight(numModlines);
-    qDebug() << QString("show %1 nav modlines").arg(numModlines);
+    //qDebug() << QString("show %1 nav modlines").arg(numModlines);
 }

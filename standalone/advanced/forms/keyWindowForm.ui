@@ -469,7 +469,7 @@ QCheckBox::indicator:checked:pressed:focus
     <rect>
      <x>10</x>
      <y>53</y>
-     <width>1130</width>
+     <width>915</width>
      <height>16</height>
     </rect>
    </property>

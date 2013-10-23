@@ -34,6 +34,8 @@ public:
     //Ui Elements
     Modline *modline[6];
 
+    int numModlines;
+
     //------------------ Hosted ------------------//
     DataCooker dataCooker;
     
@@ -49,6 +51,12 @@ public slots:
     void slotRecallPreset(QVariantMap, QVariantMap);
 
     void slotSetMode(QString mode);
+
+    //window resizing functions for the add/subtract buttons and the display settings button
+    void slotShowDisplaySettings(bool);
+    void slotRecallShowModlines(QVariantMap, QVariantMap);
+    void slotAddSubtractModlines();
+    void slotWindowHeight(int);
 
 private:
     Ui::keyBoxForm *keyBoxForm;

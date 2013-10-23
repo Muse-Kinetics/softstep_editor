@@ -225,6 +225,7 @@ void MainWindow::slotConnectInterfaces()
     for(int k = 0; k < 10; k++)
     {
         connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), key[k], SLOT(slotRecallPreset(QVariantMap, QVariantMap)));
+        connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), key[k], SLOT(slotRecallShowModlines(QVariantMap,QVariantMap)));
 
         //Modlines
         for(int m = 0; m < 6; m++)
