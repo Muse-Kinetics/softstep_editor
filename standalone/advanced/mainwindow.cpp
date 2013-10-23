@@ -194,7 +194,14 @@ void MainWindow::slotConnectInterfaces()
         }
     }
 
-    //Modline Outputs to MidiFormatOutput
+    //Hosted Key Pressed Source Routing
+    for(int k = 0; k < 10; k++)
+    {
+        for(int l = 0; l < 10; l++)
+        {
+            connect(&key[k]->dataCooker, SIGNAL(signalThisKeyPressed(int)), &key[l]->dataCooker, SLOT(slotReceiveKeyPressed(int)));
+        }
+    }
 
 
     //Connected Indicator

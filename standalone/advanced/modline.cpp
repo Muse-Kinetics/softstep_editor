@@ -708,7 +708,7 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
     if(modlineNum == modlineInstance && source == thisModlineSource)
     {
         //If source value is different from last or there is a change in value...
-        if(lastVal != val || lastSource != source || source.contains("Trig"))
+        if(lastVal != val || lastSource != source || source.contains("Trig") || source.contains("Key"))
         {
             //Set raw display value
             raw = val;

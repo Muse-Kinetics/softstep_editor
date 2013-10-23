@@ -112,7 +112,7 @@ void DataCooker::slotUpdateVals(int cc, int val)
             sensorVals[SE] = val;
         }
 
-        //qDebug() << "Key" << keyNum << "Sensor Vals" << sensorVals[NW] << sensorVals[NE] << sensorVals[SW] << sensorVals[SE];
+        qDebug() << "Key" << keyNum << "Sensor Vals" << sensorVals[NW] << sensorVals[NE] << sensorVals[SW] << sensorVals[SE];
 
         cookRaw();
 
@@ -134,25 +134,6 @@ void DataCooker::slotUpdateVals(int cc, int val)
     }
 }
 
-void DataCooker::slotReceiveModlineOutput(int modlineNum, int val)
-{
-    //qDebug() << modlineNum << val;
-
-    //For each modline
-    for(int i = 0; i < 6; i++)
-    {
-        //qDebug() << i <<modlineSources.value(i) << modlineNum << val;
-
-        if(i != modlineNum)
-        {
-            if(modlineSources.value(i).contains(QString("Modline %1 Output").arg(modlineNum + 1)))
-            {
-
-                emit signalTransformSource(val, i, QString("Modline %1 Output").arg(modlineNum + 1));
-            }
-        }
-    }
-}
 
 void DataCooker::cookSources()
 {
@@ -268,6 +249,7 @@ void DataCooker::cookRaw()
     {
         //Flip on
         footOnOff = true;
+        emit signalThisKeyPressed(keyNum);
     }
 
     //If pressure is below off-thresh and foot is currently on
@@ -328,6 +310,7 @@ int DataCooker::footOn()
     //If pressure is greater than on-thresh and current state of key is off
     if(footOnOff)
     {
+
         return 1;
     }
     else
@@ -986,3 +969,84 @@ void DataCooker::slotLongTriggerLatchOff()
         emit signalTransformSource(pressureLive(), i, "Long Trig Latch");
     }
 }
+
+//-------------------------------------------------------------------- Nav
+
+
+//-------------------------------------------------------------------- Key Specific Sources
+void DataCooker::slotReceiveKeyPressed(int keyPressed)
+{
+    keyPressed = (keyPressed + 1)%10;
+
+    static int previousKeyPressed[2] = {-1, -1};
+
+    previousKeyPressed[1] = previousKeyPressed[0];
+    previousKeyPressed[0] = keyPressed;
+
+    qDebug() << "this key:" << keyNum << "key pressed" << keyPressed;
+
+    //For each modline
+    for(int i = 0; i < 6; i++)
+    {
+        //------- Key Sources
+        if(modlineSources.value(i) == "Any Key Value")
+        {
+            emit signalTransformSource(keyPressed, i, "Any Key Value");
+        }
+        else if(modlineSources.value(i) == "This Key Value")
+        {
+            if(keyPressed == (keyNum + 1)%10)
+            {
+               emit signalTransformSource(keyPressed, i, "This Key Value");
+            }
+        }
+        else if(modlineSources.value(i) == "Prev Key Value")
+        {
+            if(previousKeyPressed[1] != -1)
+            {
+                emit signalTransformSource(previousKeyPressed[1], i, "Prev Key Value");
+            }
+        }
+        else if(modlineSources.value(i).contains("Key") && modlineSources.value(i).contains("Pressed"))
+        {
+            emit signalTransformSource(0, i, QString("Key %1 Pressed").arg(keyPressed));
+            emit signalTransformSource(1, i, QString("Key %1 Pressed").arg(keyPressed));
+        }
+        else if((modlineSources.value(i) == "Other Key Pressed") && (keyPressed != (keyNum + 1)%10))
+        {
+            emit signalTransformSource(0, i, "Other Key Pressed");
+            emit signalTransformSource(1, i, "Other Key Pressed");
+        }
+    }
+}
+
+//-------------------------------------------------------------------- Key # Pressed, Other Key Pressed
+void DataCooker::slotKeyPressed()
+{
+
+}
+
+//------------------------------------------------------------------- Modline # Output
+void DataCooker::slotReceiveModlineOutput(int modlineNum, int val)
+{
+    //qDebug() << modlineNum << val;
+
+    //For each modline
+    for(int i = 0; i < 6; i++)
+    {
+        //qDebug() << i <<modlineSources.value(i) << modlineNum << val;
+
+        if(i != modlineNum)
+        {
+            if(modlineSources.value(i).contains(QString("Modline %1 Output").arg(modlineNum + 1)))
+            {
+
+                emit signalTransformSource(val, i, QString("Modline %1 Output").arg(modlineNum + 1));
+            }
+        }
+    }
+}
+
+//-------------------------------------------------------------------- MIDI Input
+
+//-------------------------------------------------------------------- OSC Input

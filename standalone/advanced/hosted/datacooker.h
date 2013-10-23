@@ -104,6 +104,7 @@ public:
     
 signals:
     void signalTransformSource(int data, int modlineNum, QString source);
+    void signalThisKeyPressed(int keyPressed);
     
 public slots:
     void slotUpdateVals(int cc, int val);
@@ -149,6 +150,12 @@ public slots:
     //Dbl
     void slotDblTriggerLatchReturn();
     void slotDblTriggerLatchOff();
+
+    //------------------------------------------------------ Keys
+    void slotReceiveKeyPressed(int keyPressed);
+
+    //----------------------------- Key # Pressed
+    void slotKeyPressed();
 
 };
 
