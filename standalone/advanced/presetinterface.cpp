@@ -439,6 +439,12 @@ int PresetInterface::slotGetNumPresetsInJson()
     return numPresets;
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////   Importing and Exporting Presets  /////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void PresetInterface::slotImportPreset()
 {
     //QString sender = QObject::sender()->objectName();
@@ -458,8 +464,17 @@ void PresetInterface::slotImportPreset()
 
         QVariantMap importedPresetMap = parser.parse(presetByteArray, &ok).toMap();
 
-        /*
+
         //------------- Check for MISSING Parameters in the Imported Preset ----------------
+        if(mode == "hosted")
+        {
+            slotConstructDefaultHostedMap();
+        }
+        else if(mode == "standalone")
+        {
+            slotConstructDefaultStandaloneMap();
+        }
+
         QMapIterator<QString, QVariant> i(defaultPresetMap);
 
         //Iterate through default map and compare with imported preset
@@ -471,9 +486,9 @@ void PresetInterface::slotImportPreset()
             {
                 //if imported preset map does not contain a value in the default map, insert it
                 importedPresetMap.insert(i.key(), i.value());
+                qDebug() << "From slotImportPreset - This was MISSING:" << i.key() << i.value();
             }
         }
-        /*
         //------------ Check for EXTRA parameters in the Imported Preset -------------------
         QMapIterator<QString, QVariant> j(importedPresetMap);
 
@@ -488,17 +503,16 @@ void PresetInterface::slotImportPreset()
             {
                 //add to list of bad keys
                 badKeys.append(j.key());
+                qDebug() << "From slotImportPreset - This was EXTRA:" << j.key() << j.value();
             }
         }
-
         //Iterate through the bad keys and remove from preset
         for(int i = 0; i<badKeys.count(); i++)
         {
             importedPresetMap.remove(badKeys.at(i));
         }
-        */
 
-        //----------- Set Imported Preset to New preset and Update
+        //----------- Set Imported Preset to New preset and Update ----------
         presetListCopy.clear();
         presetListMaster.clear();
 
@@ -573,7 +587,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
 
     //------------------------ Key 1 ------------------------//
     defaultPresetMap["1_key_name"] = "1KEY";
-    defaultPresetMap["1_key_displaymode"] = 1;
+    defaultPresetMap["1_key_displaymode"] = "None";
     defaultPresetMap["1_key_prefix"] = "";
     defaultPresetMap["1_key_counter_min"] = 0;
     defaultPresetMap["1_key_counter_max"] = 127;
@@ -738,7 +752,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
 
     //------------------------ Key 2 ------------------------//
     defaultPresetMap["2_key_name"] = "2KEY";
-    defaultPresetMap["2_key_displaymode"] = 1;
+    defaultPresetMap["2_key_displaymode"] = "None";
     defaultPresetMap["2_key_prefix"] = "";
     defaultPresetMap["2_key_counter_min"] = 0;
     defaultPresetMap["2_key_counter_max"] = 127;
@@ -903,7 +917,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
 
     //------------------------ Key 3 ------------------------//
     defaultPresetMap["3_key_name"] = "3KEY";
-    defaultPresetMap["3_key_displaymode"] = 1;
+    defaultPresetMap["3_key_displaymode"] = "None";
     defaultPresetMap["3_key_prefix"] = "";
     defaultPresetMap["3_key_counter_min"] = 0;
     defaultPresetMap["3_key_counter_max"] = 127;
@@ -1068,7 +1082,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
 
     //------------------------ Key 4 ------------------------//
     defaultPresetMap["4_key_name"] = "4KEY";
-    defaultPresetMap["4_key_displaymode"] = 1;
+    defaultPresetMap["4_key_displaymode"] = "None";
     defaultPresetMap["4_key_prefix"] = "";
     defaultPresetMap["4_key_counter_min"] = 0;
     defaultPresetMap["4_key_counter_max"] = 127;
@@ -1232,7 +1246,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
 
     //------------------------ Key 5 ------------------------//
     defaultPresetMap["5_key_name"] = "5KEY";
-    defaultPresetMap["5_key_displaymode"] = 1;
+    defaultPresetMap["5_key_displaymode"] = "None";
     defaultPresetMap["5_key_prefix"] = "";
     defaultPresetMap["5_key_counter_min"] = 0;
     defaultPresetMap["5_key_counter_max"] = 127;
@@ -1397,7 +1411,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
 
     //------------------------ Key 6 ------------------------//
     defaultPresetMap["6_key_name"] = "6KEY";
-    defaultPresetMap["6_key_displaymode"] = 1;
+    defaultPresetMap["6_key_displaymode"] = "None";
     defaultPresetMap["6_key_prefix"] = "";
     defaultPresetMap["6_key_counter_min"] = 0;
     defaultPresetMap["6_key_counter_max"] = 127;
@@ -1562,7 +1576,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
 
     //------------------------ Key 7 ------------------------//
     defaultPresetMap["7_key_name"] = "7KEY";
-    defaultPresetMap["7_key_displaymode"] = 1;
+    defaultPresetMap["7_key_displaymode"] = "None";
     defaultPresetMap["7_key_prefix"] = "";
     defaultPresetMap["7_key_counter_min"] = 0;
     defaultPresetMap["7_key_counter_max"] = 127;
@@ -1726,7 +1740,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
 
     //------------------------ Key 8 ------------------------//
     defaultPresetMap["8_key_name"] = "8KEY";
-    defaultPresetMap["8_key_displaymode"] = 1;
+    defaultPresetMap["8_key_displaymode"] = "None";
     defaultPresetMap["8_key_prefix"] = "";
     defaultPresetMap["8_key_counter_min"] = 0;
     defaultPresetMap["8_key_counter_max"] = 127;
@@ -1891,7 +1905,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
 
     //------------------------ Key 9 ------------------------//
     defaultPresetMap["9_key_name"] = "9KEY";
-    defaultPresetMap["9_key_displaymode"] = 1;
+    defaultPresetMap["9_key_displaymode"] = "None";
     defaultPresetMap["9_key_prefix"] = "";
     defaultPresetMap["9_key_counter_min"] = 0;
     defaultPresetMap["9_key_counter_max"] = 127;
@@ -2056,7 +2070,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
 
     //------------------------ Key 10 ------------------------//
     defaultPresetMap["10_key_name"] = "0KEY";
-    defaultPresetMap["10_key_displaymode"] = 1;
+    defaultPresetMap["10_key_displaymode"] = "None";
     defaultPresetMap["10_key_prefix"] = "";
     defaultPresetMap["10_key_counter_min"] = 0;
     defaultPresetMap["10_key_counter_max"] = 127;
@@ -2220,7 +2234,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
 
     //------------------------ Nav ------------------------//
     defaultPresetMap["nav_name"] = "1KEY";
-    defaultPresetMap["nav_displaymode"] = 1;
+    defaultPresetMap["nav_displaymode"] = "None";
     defaultPresetMap["nav_modlinemode"] = 1;
     defaultPresetMap["nav_prefix"] = "";
     defaultPresetMap["nav_counter_min"] = 0;
@@ -2379,7 +2393,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
 
     //------------------------ Key 1 ------------------------//
     defaultPresetMap["1_key_name"] = "1KEY";
-    defaultPresetMap["1_key_displaymode"] = 1;
+    defaultPresetMap["1_key_displaymode"] = "None";
     defaultPresetMap["1_key_prefix"] = "";
     defaultPresetMap["1_key_counter_min"] = 0;
     defaultPresetMap["1_key_counter_max"] = 127;
@@ -2544,7 +2558,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
 
     //------------------------ Key 2 ------------------------//
     defaultPresetMap["2_key_name"] = "2KEY";
-    defaultPresetMap["2_key_displaymode"] = 1;
+    defaultPresetMap["2_key_displaymode"] = "None";
     defaultPresetMap["2_key_prefix"] = "";
     defaultPresetMap["2_key_counter_min"] = 0;
     defaultPresetMap["2_key_counter_max"] = 127;
@@ -2709,7 +2723,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
 
     //------------------------ Key 3 ------------------------//
     defaultPresetMap["3_key_name"] = "3KEY";
-    defaultPresetMap["3_key_displaymode"] = 1;
+    defaultPresetMap["3_key_displaymode"] = "None";
     defaultPresetMap["3_key_prefix"] = "";
     defaultPresetMap["3_key_counter_min"] = 0;
     defaultPresetMap["3_key_counter_max"] = 127;
@@ -2874,7 +2888,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
 
     //------------------------ Key 4 ------------------------//
     defaultPresetMap["4_key_name"] = "4KEY";
-    defaultPresetMap["4_key_displaymode"] = 1;
+    defaultPresetMap["4_key_displaymode"] = "None";
     defaultPresetMap["4_key_prefix"] = "";
     defaultPresetMap["4_key_counter_min"] = 0;
     defaultPresetMap["4_key_counter_max"] = 127;
@@ -3038,7 +3052,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
 
     //------------------------ Key 5 ------------------------//
     defaultPresetMap["5_key_name"] = "5KEY";
-    defaultPresetMap["5_key_displaymode"] = 1;
+    defaultPresetMap["5_key_displaymode"] = "None";
     defaultPresetMap["5_key_prefix"] = "";
     defaultPresetMap["5_key_counter_min"] = 0;
     defaultPresetMap["5_key_counter_max"] = 127;
@@ -3203,7 +3217,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
 
     //------------------------ Key 6 ------------------------//
     defaultPresetMap["6_key_name"] = "6KEY";
-    defaultPresetMap["6_key_displaymode"] = 1;
+    defaultPresetMap["6_key_displaymode"] = "None";
     defaultPresetMap["6_key_prefix"] = "";
     defaultPresetMap["6_key_counter_min"] = 0;
     defaultPresetMap["6_key_counter_max"] = 127;
@@ -3368,7 +3382,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
 
     //------------------------ Key 7 ------------------------//
     defaultPresetMap["7_key_name"] = "7KEY";
-    defaultPresetMap["7_key_displaymode"] = 1;
+    defaultPresetMap["7_key_displaymode"] = "None";
     defaultPresetMap["7_key_prefix"] = "";
     defaultPresetMap["7_key_counter_min"] = 0;
     defaultPresetMap["7_key_counter_max"] = 127;
@@ -3532,7 +3546,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
 
     //------------------------ Key 8 ------------------------//
     defaultPresetMap["8_key_name"] = "8KEY";
-    defaultPresetMap["8_key_displaymode"] = 1;
+    defaultPresetMap["8_key_displaymode"] = "None";
     defaultPresetMap["8_key_prefix"] = "";
     defaultPresetMap["8_key_counter_min"] = 0;
     defaultPresetMap["8_key_counter_max"] = 127;
@@ -3697,7 +3711,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
 
     //------------------------ Key 9 ------------------------//
     defaultPresetMap["9_key_name"] = "9KEY";
-    defaultPresetMap["9_key_displaymode"] = 1;
+    defaultPresetMap["9_key_displaymode"] = "None";
     defaultPresetMap["9_key_prefix"] = "";
     defaultPresetMap["9_key_counter_min"] = 0;
     defaultPresetMap["9_key_counter_max"] = 127;
@@ -3862,7 +3876,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
 
     //------------------------ Key 10 ------------------------//
     defaultPresetMap["10_key_name"] = "0KEY";
-    defaultPresetMap["10_key_displaymode"] = 1;
+    defaultPresetMap["10_key_displaymode"] = "None";
     defaultPresetMap["10_key_prefix"] = "";
     defaultPresetMap["10_key_counter_min"] = 0;
     defaultPresetMap["10_key_counter_max"] = 127;
@@ -4026,7 +4040,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
 
     //------------------------ Nav ------------------------//
     defaultPresetMap["nav_name"] = "1KEY";
-    defaultPresetMap["nav_displaymode"] = 1;
+    defaultPresetMap["nav_displaymode"] = "None";
     defaultPresetMap["nav_modlinemode"] = 1;
     defaultPresetMap["nav_prefix"] = "";
     defaultPresetMap["nav_counter_min"] = 0;
