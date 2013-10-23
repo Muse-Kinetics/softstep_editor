@@ -53,11 +53,18 @@ void Settings::slotConnectElements()
         else if(widget->metaObject()->className() == QString("QCheckBox"))
         {
             QCheckBox* checkbox = qobject_cast<QCheckBox *>(widget);
+
             connect(checkbox, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
         }
         else if(widget->metaObject()->className() == QString("QComboBox"))
         {
             QComboBox* combobox = qobject_cast<QComboBox *>(widget);
+
+            if(combobox->objectName().contains("_settings_device"))
+            {
+                midiInputDeviceMenus.append(combobox);
+            }
+
             connect(combobox, SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
         }
         else if(widget->metaObject()->className() == QString("QLineEdit"))
@@ -203,4 +210,23 @@ void Settings::slotViewSelector()
             settingsForm->settingsViews->setCurrentIndex(3);
         }
     }
+}
+
+void Settings::slotPopulateInputMenus(QMap<QString, MIDIEndpointRef> midiSources)
+{
+    qDebug() << "slot populate input menus" << midiSources.keys();
+
+
+
+    //Iterate through menus
+    for(int m = 0;  m < midiInputDeviceMenus.size(); m++)
+    {
+        midiInputDeviceMenus.at(m)->clear();
+        midiInputDeviceMenus.at(m)->addItems(midiSources.keys());
+    }
+}
+
+void Settings::slotSetMode(QString m)
+{
+
 }

@@ -9,6 +9,8 @@
 #include <QDebug>
 #include <QVariant>
 
+#include <CoreMIDI/CoreMIDI.h>
+
 #include "ui_settingsForm.h"
 
 class Settings : public QWidget
@@ -18,6 +20,8 @@ public:
     explicit Settings(QWidget *parent = 0);
 
     QWidget* settingsWidget;
+
+    QList<QComboBox *> midiInputDeviceMenus;
     
 signals:
     void signalStoreValue(QString name, QVariant value);
@@ -28,6 +32,9 @@ public slots:
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
     void slotViewSelector();
+
+    void slotSetMode(QString m);
+    void slotPopulateInputMenus(QMap<QString,MIDIEndpointRef> midiSources);
 
 private:
     Ui::settingsForm *settingsForm;

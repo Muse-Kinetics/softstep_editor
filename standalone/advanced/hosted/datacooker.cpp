@@ -87,7 +87,7 @@ void DataCooker::slotSetSource(QString source, int modlineInstance)
 
     for(int i = 0; i < modlineSources.size(); i++)
     {
-        qDebug () << "key" << keyNum << i << modlineSources.value(i);
+        //qDebug () << "key" << keyNum << i << modlineSources.value(i);
     }
 }
 
@@ -1002,7 +1002,7 @@ void DataCooker::slotReceiveKeyPressed(int keyPressed)
         }
         else if(modlineSources.value(i) == "Prev Key Value")
         {
-            if(previousKeyPressed[1] != -1 && )
+            if(previousKeyPressed[1] != -1)
             {
                 emit signalTransformSource(previousKeyPressed[1], i, "Prev Key Value");
             }

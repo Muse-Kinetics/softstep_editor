@@ -301,25 +301,38 @@ void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
 {
     //Called when midi system changes, automaticall called on hosted to standlaone/switch because of "SoftStep Share"
 
-    //Get non SSCOM sources
+    //----------------------- Get non SSCOM sources
+    midiInputSources.clear();
+
+    midiInputSources.insert("SoftStep Expander", NULL);
+
     for(int i=0; i<MIDIGetNumberOfSources(); i++)
     {
-        if(!getDisplayName(MIDIGetSource(i)).contains("SSCOM") && !getDisplayName(MIDIGetDestination(i)).contains("SoftStep Share"))
+        if(!getDisplayName(MIDIGetSource(i)).contains("SSCOM") && !getDisplayName(MIDIGetSource(i)).contains("SoftStep Share"))
         {
             //qDebug() << "Non-SoftStep Source: " << getDisplayName(MIDIGetSource(i));
+
+            //Store name of midi input source and it's endpoint ref
+            midiInputSources.insert(getDisplayName(MIDIGetSource(i)), MIDIGetSource(i));
         }
     }
 
-    //Get non SSCOM destinations
+    //Sends sources to midi input in settings page, connected in mainwindow
+    emit hosted_signalMidiInputSourceMenus(midiInputSources);
+
+    //----------------------- Get non SSCOM destinations
     externalDests.clear();
 
+    //Make sure SoftStep Share is in there but points to nothing
     externalDests.insert("SoftStep Share", NULL);
 
     for(int i=0; i<MIDIGetNumberOfDestinations(); i++)
     {
+        ///qDebug() << "Destinations: " << getDisplayName(MIDIGetSource(i));
+
         if(!getDisplayName(MIDIGetDestination(i)).contains("SSCOM") && !getDisplayName(MIDIGetDestination(i)).contains("SoftStep Share"))
         {
-            //qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetSource(i));
+            qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetDestination(i));
 
             //Store name of dest and it's endpoint ref
             externalDests.insert(getDisplayName(MIDIGetDestination(i)), MIDIGetDestination(i));
@@ -328,6 +341,7 @@ void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
 
     qDebug() << "Modline Device Menus:" << externalDests.keys();
 
+    //Sneds destinations to device menus in modlines
     emit hosted_signalPopulateDeviceMenus(externalDests);
 }
 
@@ -344,10 +358,14 @@ void MidiDeviceManager::hosted_slotSendMidiToExternalDest(QString destName, MIDI
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void midiSystemChanged(const MIDINotification *message, void *refCon)
 {
+
+    //------------------------------------------- this function needs optimization, too many calls to repopulate menus, but will do for now
     bool repopulateMidiSourceDests = false;
 
     if(message->messageID == kMIDIMsgObjectAdded)
     {
+        qDebug() << "object added";
+
         MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
 
         //If object added is a source...
@@ -406,6 +424,13 @@ void midiSystemChanged(const MIDINotification *message, void *refCon)
                 repopulateMidiSourceDests = true;
             }
         }
+    }
+    else if(message->messageID == kMIDIMsgSetupChanged)
+    {
+        MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
+
+        qDebug() << "midi setup changed" << message->messageID << msg->childType << callbackClassPointer->getDisplayName(msg->child);
+        repopulateMidiSourceDests = true;
     }
 
     //If midi system changed (not including softstep)

@@ -150,6 +150,8 @@ void MainWindow::slotConnectInterfaces()
     //Device menu population
     connect(midiDeviceManager, SIGNAL(hosted_signalPopulateDeviceMenus(QMap<QString,MIDIEndpointRef>)), this, SLOT(slotPopulateDeviceMenus(QMap<QString,MIDIEndpointRef>)));
 
+    //Midi input menu population
+    connect(midiDeviceManager, SIGNAL(hosted_signalMidiInputSourceMenus(QMap<QString,MIDIEndpointRef>)), settingsWindow, SLOT(slotPopulateInputMenus(QMap<QString,MIDIEndpointRef>)));
 
     for(int k = 0; k < 10; k++)
     {

@@ -83,6 +83,7 @@ public:
     //---------------- Hosted Source Sending ---------------//
     MidiFormatOutput midiFormatOutput;
     QMap<QString, MIDIEndpointRef> externalDests;
+    QMap<QString, MIDIEndpointRef> midiInputSources;
     
 signals:
     void signalFirmwareOutOfDate(QString expectedBoot, QString foundBoot, QString expectedFirmware, QString foundFirmware);
@@ -98,6 +99,7 @@ signals:
     //---------------- Hosted Source Sending ---------------//
     void hosted_signalParsePacket(const MIDIPacket*);
     void hosted_signalPopulateDeviceMenus(QMap<QString, MIDIEndpointRef>);
+    void hosted_signalMidiInputSourceMenus(QMap<QString, MIDIEndpointRef>);
 
 
     
