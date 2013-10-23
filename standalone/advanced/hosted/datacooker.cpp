@@ -1002,7 +1002,7 @@ void DataCooker::slotReceiveKeyPressed(int keyPressed)
         }
         else if(modlineSources.value(i) == "Prev Key Value")
         {
-            if(previousKeyPressed[1] != -1)
+            if(previousKeyPressed[1] != -1 && )
             {
                 emit signalTransformSource(previousKeyPressed[1], i, "Prev Key Value");
             }
