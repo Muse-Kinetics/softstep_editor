@@ -75,6 +75,9 @@ public slots:
     void slotPopulatePresetLists();
     void slotRevertPreset();
 
+    void slotImportPreset();
+    void slotExportPreset();
+
     void slotPopulatePresetMenu(QComboBox* presetMenu);
     void slotPopulateSetlistMenus();
 

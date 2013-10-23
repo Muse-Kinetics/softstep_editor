@@ -332,6 +332,18 @@ void MainWindow::slotInitMenuBar()
     QMenu* file = new QMenu("File");
     qDebug() << file;
     file->setObjectName("FileMenu");
+
+    //----------------- Import / Export ------------------//
+    QAction* exportPreset = new QAction("Export Preset", file);
+    exportPreset->setObjectName("exportPreset");
+    connect(exportPreset, SIGNAL(triggered()), presetInterface, SLOT(slotExportPreset()));
+    file->addAction(exportPreset);
+
+    QAction* importPreset = new QAction("Import Preset", file);
+    importPreset->setObjectName("importPreset");
+    connect(importPreset, SIGNAL(triggered()), presetInterface, SLOT(slotImportPreset()));
+    file->addAction(importPreset);
+
     menubar->addMenu(file);
 
 

@@ -439,6 +439,123 @@ int PresetInterface::slotGetNumPresetsInJson()
     return numPresets;
 }
 
+void PresetInterface::slotImportPreset()
+{
+    //QString sender = QObject::sender()->objectName();
+    QString filename = NULL;
+
+    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), QString("./"), tr("SoftStep Preset Files (*.softsteppreset)"));
+
+    //If file is selected
+    if(filename != NULL)
+    {
+        //open file
+        QFile* presetFile = new QFile(filename);
+        presetFile->open(QIODevice::ReadOnly);
+
+        QByteArray presetByteArray = presetFile->readAll();
+        presetFile->close();
+
+        QVariantMap importedPresetMap = parser.parse(presetByteArray, &ok).toMap();
+
+        /*
+        //------------- Check for MISSING Parameters in the Imported Preset ----------------
+        QMapIterator<QString, QVariant> i(defaultPresetMap);
+
+        //Iterate through default map and compare with imported preset
+        while(i.hasNext())
+        {
+            i.next();
+
+            if(!importedPresetMap.contains(i.key()))
+            {
+                //if imported preset map does not contain a value in the default map, insert it
+                importedPresetMap.insert(i.key(), i.value());
+            }
+        }
+        /*
+        //------------ Check for EXTRA parameters in the Imported Preset -------------------
+        QMapIterator<QString, QVariant> j(importedPresetMap);
+
+        QStringList badKeys;  //stores keys we need to remove from the map
+
+        while(j.hasNext())
+        {
+            j.next();
+
+            //If the default map does not contain something in the preset
+            if(!defaultPresetMap.contains(j.key()))
+            {
+                //add to list of bad keys
+                badKeys.append(j.key());
+            }
+        }
+
+        //Iterate through the bad keys and remove from preset
+        for(int i = 0; i<badKeys.count(); i++)
+        {
+            importedPresetMap.remove(badKeys.at(i));
+        }
+        */
+
+        //----------- Set Imported Preset to New preset and Update
+        presetListCopy.clear();
+        presetListMaster.clear();
+
+        int numPresets = slotGetNumPresetsInJson();
+
+        for(int i = 0; i < numPresets; i++)
+        {
+            presetListCopy.append(jsonMasterMapCopy.value(slotGetPresetStringFromInt(i)).toMap());
+            presetListMaster.append(jsonMasterMapCopy.value(slotGetPresetStringFromInt(i)).toMap());
+        }
+        presetListCopy.append(importedPresetMap);
+        presetListMaster.append(importedPresetMap);
+
+        slotOrderPresetsInJson();
+        slotWriteJSON(jsonMasterMap);
+        emit signalAddRemovePreset();
+        emit signalPresetMenu(numPresets);
+    }
+    else
+    {
+        qDebug("nothing selected");
+    }
+}
+
+void PresetInterface::slotExportPreset()
+{
+    QVariantMap exportedPresetMap = jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap();
+
+    //set path and filename (default filename is the preset name
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("./%1").arg(exportedPresetMap.value("preset_name").toString()), tr("SoftStep Preset Files (*.softsteppreset)"));
+
+    //This gets the file name without the path
+    QFileInfo fileInfo(filename);
+
+    //open new file to be saved
+    QFile* presetFile = new QFile(filename);
+
+    //remove extension from filename
+    QString exportedPresetName = fileInfo.fileName().remove(".softsteppreset");
+
+    qDebug() << QString("filename: %1").arg(exportedPresetName);
+
+    //replace "preset_name" with filename typed in dialog
+    exportedPresetMap.insert("preset_name", exportedPresetName);
+
+    //------------------ Open, Write, and Close
+    presetFile->open(QIODevice::WriteOnly);
+
+    QByteArray presetByteArray = serializer.serialize(exportedPresetMap);
+
+    presetFile->resize(0);
+    presetFile->write(presetByteArray);
+    presetFile->close();
+
+    presetByteArray.clear();
+}
+
 void PresetInterface::closeEvent(QCloseEvent *)
 {
     //qDebug() << "closing...";
