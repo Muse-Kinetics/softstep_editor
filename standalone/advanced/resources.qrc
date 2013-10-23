@@ -126,5 +126,10 @@
         <file>resources/radiobutton_checked.png</file>
         <file>resources/radiobutton_unchecked.png</file>
         <file>resources/radiobutton_pressed.png</file>
+        <file>resources/pedal_base.png</file>
+        <file>resources/pedal_top.png</file>
+        <file>resources/pedal_top_big.png</file>
+        <file>resources/pedal_base_big.png</file>
+        <file>resources/pedal_arrow.png</file>
     </qresource>
 </RCC>

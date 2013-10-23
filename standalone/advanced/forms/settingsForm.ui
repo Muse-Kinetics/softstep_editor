@@ -220,7 +220,7 @@ QToolTip
      <x>20</x>
      <y>81</y>
      <width>287</width>
-     <height>394</height>
+     <height>404</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -410,7 +410,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame">
@@ -4237,7 +4237,143 @@ QToolTip
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="settingspedalpage"/>
+   <widget class="QWidget" name="settingspedalpage">
+    <widget class="QFrame" name="pedal_frame">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>79</y>
+       <width>281</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="pedal_top">
+      <property name="geometry">
+       <rect>
+        <x>45</x>
+        <y>40</y>
+        <width>182</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">image: url(:/resources/pedal_top_big.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="pedal_base">
+      <property name="geometry">
+       <rect>
+        <x>45</x>
+        <y>51</y>
+        <width>182</width>
+        <height>42</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">image: url(:/resources/pedal_base_big.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="pedal_arrow">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>32</y>
+        <width>26</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">image: url(:/resources/pedal_arrow.png)</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QSpinBox" name="pedalsmoothing">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>377</y>
+       <width>31</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>8</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="pedalsmoothing_label">
+     <property name="geometry">
+      <rect>
+       <x>39</x>
+       <y>378</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Pedal Smoothing</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="startcalibration_button">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>281</width>
+       <height>45</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Click to display MIDI and OSC input settings.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*----------- QPushButton ------------*/
+QPushButton
+{
+	background: rgb(58,58,60);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 16pt &quot;Futura&quot;;
+	padding: 0,1,0,0;
+}
+
+QPushButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: none;
+	font: 16pt &quot;Futura&quot;;
+	padding: 0, 1, 0, 0;
+}</string>
+     </property>
+     <property name="text">
+      <string>START CALIBRATION</string>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QFrame" name="tabsframe">
    <property name="geometry">
