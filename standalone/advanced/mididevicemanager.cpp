@@ -7,10 +7,12 @@
 #ifdef Q_OS_MAC
 MidiDeviceManager *callbackClassPointer;
 void midiSystemChanged(const MIDINotification *message, void *refCon);                          //Called when the system's MIDI has changed
-void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon);    //Called upon incoming midi from connected port
+void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon);    //Called upon incoming midi from connected port (SSCOM)
 void sysExComplete(MIDISysexSendRequest*);                                                      //Called when sysex event has been completely sent
-void virtualIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon);
 
+void midiInputIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon); //Midi input from settings' input
+
+MIDIEndpointRef er;
 
 MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     QWidget(parent)
@@ -36,7 +38,6 @@ void MidiDeviceManager::createAppMidiClient()
 
 bool MidiDeviceManager::connectSource()
 {
-
     if(getSource() != -1)
     {
         //qDebug() << "connect source called";
@@ -61,12 +62,18 @@ void MidiDeviceManager::slotSetMode(QString m)
 {
     mode = m;
 
+    qDebug() << "slot set mode";
+
     if(mode == "hosted")
     {
+        //Virtual Source Creation "SoftStep Share"
         MIDISourceCreate(appClientRef, CFSTR("SoftStep Share"), &appVirtualSourceRef);
-        MIDIDestinationCreate(appClientRef, CFSTR("SoftStep Share"), virtualIncomingMidi, NULL, &appVirtualDestRef);
 
         //hosted_slotRepopulateMidiSourceDests called here because new port is created
+
+        //Create entirely new port for external midi inputs
+        MIDIInputPortCreate(appClientRef, CFSTR("SoftStep External MIDI In Port"), midiInputIncomingMidi, this, &midiInputPort);
+        //hosted_slotConnectExternalMidiInputSources();
 
         slotHostedOnOff(true);
     }
@@ -74,6 +81,10 @@ void MidiDeviceManager::slotSetMode(QString m)
     {
         MIDIEndpointDispose(appVirtualSourceRef);
         MIDIEndpointDispose(appVirtualDestRef);
+
+        //Delete external midi input port
+        MIDIPortDispose(midiInputPort);
+
         slotHostedOnOff(false);
     }
 }
@@ -97,6 +108,9 @@ int MidiDeviceManager::getDestination()
     //Returns index of first instance of SSCOM Port 1
     for(int i=0; i<MIDIGetNumberOfDestinations(); i++)
     {
+
+        //qDebug() << "destination namE" << getDisplayName(MIDIGetDestination(i)) << i;
+
         if(getDisplayName(MIDIGetDestination(i)).contains("SSCOM") && getDisplayName(MIDIGetDestination(i)).contains("1"))
         {
             return i;
@@ -193,8 +207,10 @@ void MidiDeviceManager::slotDrainSysexFIFO()
 
 void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char* bytes, int len, QString destinationName)
 {
-    if(int dest = getDestination())
+    if(getDestination() > -1)
     {
+
+        int dest = getDestination();
         //Creat char array to hold sysex bytes
         //unsigned char* sysExCharData = new unsigned char(sysExMessageByteArray.size());
 
@@ -264,13 +280,14 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
 //------------------------------------------------------ Hosted
 void MidiDeviceManager::hosted_slotParsePacket(const MIDIPacket * packet)
 {
+    //Sends raw packet to be parsed from SSCOM Port 1
     emit hosted_signalParsePacket(packet);
 }
 
 void MidiDeviceManager::hosted_slotSendPacket(QString port, MIDIPacket packet)
 {
-
-    qDebug() << "hosted_slotSendPacketCalled - data:" << packet.data[0] << packet.data[1] << packet.data[2] << "length, time : " << packet.length << packet.timeStamp << "\n";
+    //Semds Packet to external dest
+    //qDebug() << "hosted_slotSendPacketCalled - data:" << packet.data[0] << packet.data[1] << packet.data[2] << "length, time : " << packet.length << packet.timeStamp << "\n";
 
     //Packet Size max size
     Byte packetListSize[256];
@@ -345,10 +362,32 @@ void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
     emit hosted_signalPopulateDeviceMenus(externalDests);
 }
 
-void MidiDeviceManager::hosted_slotSendMidiToExternalDest(QString destName, MIDIPacketList* pktlist)
+void MidiDeviceManager::hosted_slotParseMidiInputPacket(const MIDIPacket *packet)
 {
 
-    //MIDISend(appOutPortRef, ,)
+}
+
+void MidiDeviceManager::hosted_slotConnectExternalMidiInputSources()
+{
+    er = midiInputSources.value(getDisplayName(MIDIGetSource(0)));
+
+    for(int i=0; i<MIDIGetNumberOfSources(); i++)
+    {
+        if(getDisplayName(MIDIGetSource(i)).contains("SSCOM") && getDisplayName(MIDIGetSource(i)).contains("1"))
+        {
+            //Filter out SSCOM Port 1 and
+        }
+        else
+        {
+            //midiInputSources.value(getDisplayName(MIDIGetSource(i)));
+
+            qDebug() << "----------------------------" << "slot connect external midi sources" << midiInputSources.keys();
+
+
+
+            MIDIPortConnectSource(midiInputPort, MIDIGetSource(i), &er);
+        }
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -364,7 +403,7 @@ void midiSystemChanged(const MIDINotification *message, void *refCon)
 
     if(message->messageID == kMIDIMsgObjectAdded)
     {
-        qDebug() << "object added";
+        //qDebug() << "object added";
 
         MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
 
@@ -379,7 +418,7 @@ void midiSystemChanged(const MIDINotification *message, void *refCon)
             //Non softstep source added
             if(!callbackClassPointer->getDisplayName(msg->child).contains("SSCOM"))
             {
-                qDebug() << "non-softstep source added";
+                //qDebug() << "non-softstep source added";
                 repopulateMidiSourceDests = true;
             }
         }
@@ -390,7 +429,7 @@ void midiSystemChanged(const MIDINotification *message, void *refCon)
             //Non softstep destination removed
             if(!callbackClassPointer->getDisplayName(msg->child).contains("SSCOM"))
             {
-                qDebug() << "non-softstep destination added";
+                //qDebug() << "non-softstep destination added";
                 repopulateMidiSourceDests = true;
             }
         }
@@ -410,7 +449,7 @@ void midiSystemChanged(const MIDINotification *message, void *refCon)
             //Non softstep source removed
             if(!callbackClassPointer->getDisplayName(msg->child).contains("SSCOM"))
             {
-                qDebug() << "non-softstep source removed";
+                //qDebug() << "non-softstep source removed";
                 repopulateMidiSourceDests = true;
             }
         }
@@ -420,7 +459,7 @@ void midiSystemChanged(const MIDINotification *message, void *refCon)
             //Non softstep destination removed
             if(!callbackClassPointer->getDisplayName(msg->child).contains("SSCOM"))
             {
-                qDebug() << "non-softstep destination removed";
+                //qDebug() << "non-softstep destination removed";
                 repopulateMidiSourceDests = true;
             }
         }
@@ -429,7 +468,7 @@ void midiSystemChanged(const MIDINotification *message, void *refCon)
     {
         MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
 
-        qDebug() << "midi setup changed" << message->messageID << msg->childType << callbackClassPointer->getDisplayName(msg->child);
+        //qDebug() << "midi setup changed" << message->messageID << msg->childType << callbackClassPointer->getDisplayName(msg->child);
         repopulateMidiSourceDests = true;
     }
 
@@ -437,11 +476,13 @@ void midiSystemChanged(const MIDINotification *message, void *refCon)
     if(repopulateMidiSourceDests)
     {
         callbackClassPointer->hosted_slotRepopulateMidiSourceDests();
+        callbackClassPointer->hosted_slotConnectExternalMidiInputSources();
     }
 }
 
 void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon){
 
+    //qDebug() << "incoming midi";
     //iterate through midi packets and process according to type
     const MIDIPacket *packet = &pktlist->packet[0];
 
@@ -475,6 +516,7 @@ void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *src
                 callbackClassPointer->sysExMessage.append(packet->data[j]);
                 //qDebug() << "----- SysEx In ----- :" << packet->data[j];
             }
+
             else if(packet->data[j] != 247)
             {
                 //qDebug() << "MIDI Channel Event: " << packet->data[j];
@@ -492,7 +534,10 @@ void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *src
     }
 }
 
-void virtualIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon){
+void midiInputIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon){
+
+    //Receives midi from SoftStep Share
+    MIDIEndpointRef* erp = (MIDIEndpointRef*)srcConnRefCon;
 
     //iterate through midi packets and process according to type
     const MIDIPacket *packet = &pktlist->packet[0];
@@ -503,7 +548,7 @@ void virtualIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, vo
         //for length of packet
         for(int j = 0; j < packet->length; j++)
         {
-            qDebug() << "MIDI Channel Event: " << packet->data[j];
+            qDebug() << "Extermal MIDI Channel Event: " << packet->data[j] << callbackClassPointer->getDisplayName(*erp);
         }
 
         //advance packet in midi packet list

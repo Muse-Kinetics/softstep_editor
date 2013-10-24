@@ -112,7 +112,7 @@ void DataCooker::slotUpdateVals(int cc, int val)
             sensorVals[SE] = val;
         }
 
-        qDebug() << "Key" << keyNum << "Sensor Vals" << sensorVals[NW] << sensorVals[NE] << sensorVals[SW] << sensorVals[SE];
+        //qDebug() << "Key" << keyNum << "Sensor Vals" << sensorVals[NW] << sensorVals[NE] << sensorVals[SW] << sensorVals[SE];
 
         cookRaw();
 

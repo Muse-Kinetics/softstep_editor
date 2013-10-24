@@ -42,6 +42,9 @@ public:
     MIDIPortRef appOutPortRef;
     MIDIEndpointRef appVirtualSourceRef;
     MIDIEndpointRef appVirtualDestRef;
+    MIDIPortRef midiInputPort;
+
+    QMap<MIDIEndpointRef*,QString> midiInputRefConns;
 
     char bootloaderVersion[3];
     char firmwareVersion[3];
@@ -115,8 +118,11 @@ public slots:
     void hosted_slotParsePacket(const MIDIPacket* packet);
     void hosted_slotSendPacket(QString port, MIDIPacket packet);
     void hosted_slotRepopulateMidiSourceDests();
-    void hosted_slotSendMidiToExternalDest(QString destName, MIDIPacketList *pktlist);
-    
+
+    //-------------------------- MIDI Input from Settings
+    void hosted_slotParseMidiInputPacket(const MIDIPacket* packet);
+    void hosted_slotConnectExternalMidiInputSources();
+
 };
 #else
 #include <Windows.h>

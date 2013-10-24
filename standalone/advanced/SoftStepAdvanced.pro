@@ -45,7 +45,8 @@ SOURCES +=      main.cpp\
     hosted/midiformatoutput.cpp \
     hosted/latcher.cpp \
     hosted/trigger.cpp \
-    pedal.cpp
+    pedal.cpp \
+    hosted/midiinput.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -77,7 +78,8 @@ HEADERS  +=     mainwindow.h \
     hosted/midiformatoutput.h \
     hosted/latcher.h \
     hosted/trigger.h \
-    pedal.h
+    pedal.h \
+    hosted/midiinput.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \

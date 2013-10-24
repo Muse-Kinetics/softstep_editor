@@ -8,6 +8,7 @@ MidiParse::MidiParse(QWidget *parent) :
 {
 }
 
+//Used only for SSCOM Port 1 data, tethered data
 void MidiParse::slotParsePacket(const MIDIPacket* packet)
 {
     if(packet->data[0] == 176)
