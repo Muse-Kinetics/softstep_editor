@@ -4242,7 +4242,7 @@ QToolTip
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>79</y>
+       <y>60</y>
        <width>281</width>
        <height>101</height>
       </rect>
@@ -4305,11 +4305,14 @@ QToolTip
     <widget class="QSpinBox" name="pedalsmoothing">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>377</y>
-       <width>31</width>
+       <x>46</x>
+       <y>378</y>
+       <width>40</width>
        <height>18</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string>Ranged 1-10, this sets the amount of smoothing applied to the pedal data.&lt;p&gt;Higher values = more smoothing&lt;br&gt;Lower values = less smoothing</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -4327,21 +4330,24 @@ QToolTip
     <widget class="QLabel" name="pedalsmoothing_label">
      <property name="geometry">
       <rect>
-       <x>39</x>
-       <y>378</y>
-       <width>81</width>
+       <x>91</x>
+       <y>379</y>
+       <width>55</width>
        <height>16</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Ranged 1-10, this sets the amount of smoothing applied to the pedal data.&lt;p&gt;Higher values = more smoothing&lt;br&gt;Lower values = less smoothing</string>
+     </property>
      <property name="text">
-      <string>Pedal Smoothing</string>
+      <string>Smoothing</string>
      </property>
     </widget>
     <widget class="QPushButton" name="startcalibration_button">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>20</y>
+       <y>10</y>
        <width>281</width>
        <height>45</height>
       </rect>
@@ -4353,7 +4359,7 @@ QToolTip
       <string notr="true">/*----------- QPushButton ------------*/
 QPushButton
 {
-	background: rgb(58,58,60);
+	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
 	font: 16pt &quot;Futura&quot;;
@@ -4371,6 +4377,74 @@ QPushButton:pressed
      </property>
      <property name="text">
       <string>START CALIBRATION</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="startcalibration_button_2">
+     <property name="geometry">
+      <rect>
+       <x>188</x>
+       <y>378</y>
+       <width>40</width>
+       <height>18</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Resets the pedal calibration &lt;br&gt;settings to default values.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*----------- QPushButton ------------*/
+QPushButton
+{
+	background: rgb(58,58,60);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 9pt &quot;Futura&quot;;
+	padding: 0,1,0,0;
+}
+
+QPushButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: none;
+	font: 9pt &quot;Futura&quot;;
+	padding: 0, 1, 0, 0;
+}</string>
+     </property>
+     <property name="text">
+      <string>RESET</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_64">
+     <property name="geometry">
+      <rect>
+       <x>23</x>
+       <y>170</y>
+       <width>226</width>
+       <height>187</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:/resources/pedal_graph.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_65">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>366</y>
+       <width>279</width>
+       <height>6</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-top: 2px solid rgb(200, 200, 200);</string>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>
