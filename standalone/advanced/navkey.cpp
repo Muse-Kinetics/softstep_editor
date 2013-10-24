@@ -28,13 +28,13 @@ NavKey::NavKey(QWidget *parent) :
     //set up the nav pad box
     navBoxForm->setupUi(navBoxWidget);
     navBoxWidget->setFixedSize(NAVBOX_WIDTH,NAVBOX_HEIGHT);
-
     this->setGeometry(NAVBOX_STARTING_X_POS, NAVBOX_STARTING_Y_POS, NAVBOX_WIDTH, NAVBOX_HEIGHT);
 
     //set ub the nav pad window
     navKeyWindowForm->setupUi(navKeyWindowWidget);
     navKeyWindowWidget->setFixedSize(NAVWINDOW_SM_WIDTH,NAVWINDOW_HEIGHT);
-    navKeyWindowWidget->setGeometry(220, 600, NAVWINDOW_SM_WIDTH, NAVWINDOW_HEIGHT);
+    QRect screenGeometry = QApplication::desktop()->availableGeometry();
+    navKeyWindowWidget->setGeometry(170, (screenGeometry.height() / 2) + 150, NAVWINDOW_SM_WIDTH, NAVWINDOW_HEIGHT);
     navKeyWindowWidget->setWindowTitle(QString("Nav Pad Modulation"));
 
     //what's in the nav pad box?
@@ -55,6 +55,7 @@ NavKey::NavKey(QWidget *parent) :
 void NavKey::slotOpenWindow()
 {
     navKeyWindowWidget->show();
+    navKeyWindowWidget->raise();
 }
 
 void NavKey::slotConnectElements()

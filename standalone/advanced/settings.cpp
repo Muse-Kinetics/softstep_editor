@@ -27,8 +27,8 @@ Settings::Settings(QWidget *parent) :
 
 void Settings::slotOpenSettings()
 {
-    qDebug() << QString("open settings window");
     settingsWidget->show();
+    settingsWidget->raise();
 }
 
 void Settings::slotConnectElements()

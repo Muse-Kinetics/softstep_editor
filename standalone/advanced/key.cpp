@@ -56,7 +56,8 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     //keyWindowWidget = new QWidget();
     keyWindowForm->setupUi(keyWindowWidget);
     keyWindowWidget->setFixedSize(KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
-    keyWindowWidget->setGeometry(20 + (keyInstance * 20), 400 + (keyInstance * 20), KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
+    QRect screenGeometry = QApplication::desktop()->availableGeometry();
+    keyWindowWidget->setGeometry(20 + (keyInstance * 15), (screenGeometry.height() / 2) + (keyInstance * 15), KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
     keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg(keyInstance+1));
 
     //What's in the Key Box?
@@ -82,6 +83,7 @@ void Key::slotOpenWindow()
 {
     //qDebug() << QString("Open Key %1 Button clicked! Open the window!").arg(keyInstance+1);
     keyWindowWidget->show();
+    keyWindowWidget->raise();
 }
 
 void Key::slotConnectElements()

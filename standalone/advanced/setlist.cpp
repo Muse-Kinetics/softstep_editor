@@ -90,6 +90,7 @@ void Setlist::slotInitComponents()
 void Setlist::slotShowSetlist()
 {
     setlistWidget->show();
+    setlistWidget->raise();
 }
 
 void Setlist::slotCompileSetlist()
