@@ -6,13 +6,12 @@
 
 #ifdef Q_OS_MAC
 MidiDeviceManager *callbackClassPointer;
-void midiSystemChanged(const MIDINotification *message, void *refCon);                          //Called when the system's MIDI has changed
-void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon);    //Called upon incoming midi from connected port (SSCOM)
-void sysExComplete(MIDISysexSendRequest*);                                                      //Called when sysex event has been completely sent
+void midiSystemChanged(const MIDINotification *message, void *refCon);                                  //Called when the system's MIDI has changed
+void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon);            //Called upon incoming midi from connected port (SSCOM)
+void sysExComplete(MIDISysexSendRequest*);                                                              //Called when sysex event has been completely sent
+void midiInputIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon);   //Midi input from settings' input
 
-void midiInputIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon); //Midi input from settings' input
-
-MIDIEndpointRef er;
+MIDIEndpointRef* midiInputSourcePointers;
 
 MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     QWidget(parent)
@@ -321,16 +320,29 @@ void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
     //----------------------- Get non SSCOM sources
     midiInputSources.clear();
 
-    midiInputSources.insert("SoftStep Expander", NULL);
-
     for(int i=0; i<MIDIGetNumberOfSources(); i++)
     {
+        //Allocate new array of endpoint pointers for passing as refcon
+        midiInputSourcePointers = new MIDIEndpointRef[MIDIGetNumberOfSources()];
+
+        //Expander
+        if(getDisplayName(MIDIGetSource(i)).contains("SSCOM") && getDisplayName(MIDIGetSource(i)).contains("2"))
+        {
+            midiInputSources.insert("SoftStep Expander", MIDIGetSource(i));
+
+            //Insert MIDIEndpointRef into array
+            //midiInputSourcePointers[i] = MIDIGetSource(i);
+        }
+
         if(!getDisplayName(MIDIGetSource(i)).contains("SSCOM") && !getDisplayName(MIDIGetSource(i)).contains("SoftStep Share"))
         {
             //qDebug() << "Non-SoftStep Source: " << getDisplayName(MIDIGetSource(i));
 
             //Store name of midi input source and it's endpoint ref
             midiInputSources.insert(getDisplayName(MIDIGetSource(i)), MIDIGetSource(i));
+
+            //Insert MIDIEndpointRef into array
+            //midiInputSourcePointers[i] = MIDIGetSource(i);
         }
     }
 
@@ -362,14 +374,15 @@ void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
     emit hosted_signalPopulateDeviceMenus(externalDests);
 }
 
-void MidiDeviceManager::hosted_slotParseMidiInputPacket(const MIDIPacket *packet)
+void MidiDeviceManager::hosted_slotParseMidiInputPacket(const MIDIPacket *packet, QString deviceName)
 {
-
+    //Sends raw packet to be parsed from SSCOM Port 1
+    emit hosted_signalParseMidiInputPacket(packet, deviceName);
 }
 
 void MidiDeviceManager::hosted_slotConnectExternalMidiInputSources()
 {
-    er = midiInputSources.value(getDisplayName(MIDIGetSource(0)));
+    //er = midiInputSources.value(getDisplayName(MIDIGetSource(0)));
 
     for(int i=0; i<MIDIGetNumberOfSources(); i++)
     {
@@ -381,11 +394,13 @@ void MidiDeviceManager::hosted_slotConnectExternalMidiInputSources()
         {
             //midiInputSources.value(getDisplayName(MIDIGetSource(i)));
 
-            qDebug() << "----------------------------" << "slot connect external midi sources" << midiInputSources.keys();
+            //MIDIEndpointRef* epr = &midiInputSourcePointers[i];
 
+            midiInputSourcePointers[i] = MIDIGetSource(i);
 
+            qDebug() << "----------------------------" << "slot connect external midi sources" << getDisplayName(MIDIGetSource(i)) << midiInputSourcePointers[i];
 
-            MIDIPortConnectSource(midiInputPort, MIDIGetSource(i), &er);
+            MIDIPortConnectSource(midiInputPort, MIDIGetSource(i), (void*)&midiInputSourcePointers[i]);
         }
     }
 }
@@ -537,7 +552,7 @@ void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *src
 void midiInputIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon){
 
     //Receives midi from SoftStep Share
-    MIDIEndpointRef* erp = (MIDIEndpointRef*)srcConnRefCon;
+    MIDIEndpointRef* epr = (MIDIEndpointRef*)srcConnRefCon;
 
     //iterate through midi packets and process according to type
     const MIDIPacket *packet = &pktlist->packet[0];
@@ -548,8 +563,11 @@ void midiInputIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, 
         //for length of packet
         for(int j = 0; j < packet->length; j++)
         {
-            qDebug() << "Extermal MIDI Channel Event: " << packet->data[j] << callbackClassPointer->getDisplayName(*erp);
+            qDebug() << "Extermal MIDI Channel Event: " << packet->data[j] << callbackClassPointer->getDisplayName(*epr);// << *string;
         }
+
+        //emit pack to be parsed by midi input
+        callbackClassPointer->hosted_slotParseMidiInputPacket(packet, callbackClassPointer->getDisplayName(*epr));
 
         //advance packet in midi packet list
         packet = MIDIPacketNext(packet);

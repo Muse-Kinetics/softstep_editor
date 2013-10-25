@@ -997,7 +997,7 @@ void DataCooker::slotReceiveKeyPressed(int keyPressed)
         {
             if(keyPressed == (keyNum + 1)%10)
             {
-               emit signalTransformSource(keyPressed, i, "This Key Value");
+                emit signalTransformSource(keyPressed, i, "This Key Value");
             }
         }
         else if(modlineSources.value(i) == "Prev Key Value")
@@ -1048,5 +1048,20 @@ void DataCooker::slotReceiveModlineOutput(int modlineNum, int val)
 }
 
 //-------------------------------------------------------------------- MIDI Input
+void DataCooker::slotReceiveMidiInput(int val, QString instance)
+{
+    qDebug() << "midi input:" << val;
+
+    //For each modline
+    for(int i = 0; i < 6; i++)
+    {
+        //qDebug() << i <<modlineSources.value(i) << modlineNum << val;
+
+        if(modlineSources.value(i).contains(QString("MIDI %1").arg(instance)))
+        {
+            emit signalTransformSource(val, i, QString("MIDI %1").arg(instance));
+        }
+    }
+}
 
 //-------------------------------------------------------------------- OSC Input

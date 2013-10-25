@@ -103,6 +103,7 @@ signals:
     void hosted_signalParsePacket(const MIDIPacket*);
     void hosted_signalPopulateDeviceMenus(QMap<QString, MIDIEndpointRef>);
     void hosted_signalMidiInputSourceMenus(QMap<QString, MIDIEndpointRef>);
+    void hosted_signalParseMidiInputPacket(const MIDIPacket*, QString);
 
 
     
@@ -120,7 +121,7 @@ public slots:
     void hosted_slotRepopulateMidiSourceDests();
 
     //-------------------------- MIDI Input from Settings
-    void hosted_slotParseMidiInputPacket(const MIDIPacket* packet);
+    void hosted_slotParseMidiInputPacket(const MIDIPacket* packet, QString deviceName);
     void hosted_slotConnectExternalMidiInputSources();
 
 };

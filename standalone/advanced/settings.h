@@ -13,6 +13,10 @@
 
 #include "ui_settingsForm.h"
 
+#include "hosted/midiinput.h"
+
+#define NUM_MIDI_INPUTS 8
+
 class Settings : public QWidget
 {
     Q_OBJECT
@@ -22,6 +26,8 @@ public:
     QWidget* settingsWidget;
 
     QList<QComboBox *> midiInputDeviceMenus;
+
+    MidiInput midiInputLine[NUM_MIDI_INPUTS];
     
 signals:
     void signalStoreValue(QString name, QVariant value);
@@ -35,6 +41,8 @@ public slots:
 
     void slotSetMode(QString m);
     void slotPopulateInputMenus(QMap<QString,MIDIEndpointRef> midiSources);
+
+    void slotSetMidiInputLineParams();
 
 private:
     Ui::settingsForm *settingsForm;

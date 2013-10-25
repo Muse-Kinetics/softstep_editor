@@ -5,16 +5,27 @@
 #define MIDIINPUT_H
 
 #include <QWidget>
+#include <QDebug>
+#include <CoreMIDI/CoreMIDI.h>
 
 class MidiInput : public QWidget
 {
     Q_OBJECT
 public:
     explicit MidiInput(QWidget *parent = 0);
+
+    bool enable;
+    QString device;
+    int channel;
+    QString type;
+    int number;
+    QString instance;
     
 signals:
+    void signalSendInputToModlines(int val, QString instnace);
     
 public slots:
+    void slotReceiveInput(const MIDIPacket *packet, QString deviceName);
     
 };
 

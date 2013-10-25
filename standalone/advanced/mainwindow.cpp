@@ -148,6 +148,18 @@ void MainWindow::slotConnectInterfaces()
     //-------------------------------------- Hosted MIDI
     connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)), Qt::DirectConnection);
 
+    //Midi Inputs from Settings
+    for(int i=0; i < 8; i++)
+    {
+        //get signal from midi device manager
+        connect(midiDeviceManager, SIGNAL(hosted_signalParseMidiInputPacket(const MIDIPacket*, QString)), &settingsWindow->midiInputLine[i], SLOT(slotReceiveInput(const MIDIPacket*, QString)),Qt::DirectConnection);
+
+        //send signal from midi input lines to
+        for(int k = 0; k < 10; k++)
+        {
+            connect(&settingsWindow->midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), &key[k]->dataCooker, SLOT(slotReceiveMidiInput(int,QString)));
+        }
+    }
 
     //Device menu population
     connect(midiDeviceManager, SIGNAL(hosted_signalPopulateDeviceMenus(QMap<QString,MIDIEndpointRef>)), this, SLOT(slotPopulateDeviceMenus(QMap<QString,MIDIEndpointRef>)));

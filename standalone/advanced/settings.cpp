@@ -14,6 +14,44 @@ Settings::Settings(QWidget *parent) :
     //settingsWidget->setFixedSize(320,492);
     settingsWidget->setWindowTitle(QString("Settings"));
 
+    for(int i = 0; i < NUM_MIDI_INPUTS; i++)
+    {
+        midiInputLine[i].hide();
+
+        if(i == 0)
+        {
+            midiInputLine[i].instance = "A";
+        }
+        else if(i == 1)
+        {
+            midiInputLine[i].instance = "B";
+        }
+        else if(i == 2)
+        {
+            midiInputLine[i].instance = "C";
+        }
+        else if(i == 3)
+        {
+            midiInputLine[i].instance = "D";
+        }
+        else if(i == 4)
+        {
+            midiInputLine[i].instance = "E";
+        }
+        else if(i == 5)
+        {
+            midiInputLine[i].instance = "F";
+        }
+        else if(i == 6)
+        {
+            midiInputLine[i].instance = "G";
+        }
+        else if(i == 7)
+        {
+            midiInputLine[i].instance = "H";
+        }
+    }
+
     slotConnectElements();
 
     //set which stacked widget to initiallize in and connect the buttons to the view selector--I chose the global page for now
@@ -33,6 +71,8 @@ void Settings::slotOpenSettings()
 
 void Settings::slotConnectElements()
 {
+
+    //---------------------- General Settings Widgets
     foreach(QWidget* widget, settingsWidget->findChildren<QWidget *>())
     {
         //Check object type here
@@ -79,6 +119,42 @@ void Settings::slotConnectElements()
             {
                 connect(radiobutton, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
             }
+        }
+    }
+
+    for(int i = 0; i < NUM_MIDI_INPUTS; i++)
+    {
+        if(i == 0)
+        {
+            connect(&midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), settingsForm->midia_settings_inputvalue, SLOT(setValue(int)));
+        }
+        else if(i == 1)
+        {
+            connect(&midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), settingsForm->midib_settings_inputvalue, SLOT(setValue(int)));
+        }
+        else if(i == 2)
+        {
+            connect(&midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), settingsForm->midic_settings_inputvalue, SLOT(setValue(int)));
+        }
+        else if(i == 3)
+        {
+            connect(&midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), settingsForm->midid_settings_inputvalue, SLOT(setValue(int)));
+        }
+        else if(i == 4)
+        {
+            connect(&midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), settingsForm->midie_settings_inputvalue, SLOT(setValue(int)));
+        }
+        else if(i == 5)
+        {
+            connect(&midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), settingsForm->midif_settings_inputvalue, SLOT(setValue(int)));
+        }
+        else if(i == 6)
+        {
+            connect(&midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), settingsForm->midig_settings_inputvalue, SLOT(setValue(int)));
+        }
+        else if(i == 7)
+        {
+            connect(&midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), settingsForm->midih_settings_inputvalue, SLOT(setValue(int)));
         }
     }
 }
@@ -137,7 +213,10 @@ void Settings::slotValueChanged()
         }
         emit signalStoreValue(jsonName,value);
     }
-    //qDebug() << "value changed" << QObject::sender()->objectName();
+
+    qDebug() << "value changed" << QObject::sender()->objectName();
+
+    slotSetMidiInputLineParams();
 }
 
 void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
@@ -229,4 +308,78 @@ void Settings::slotPopulateInputMenus(QMap<QString, MIDIEndpointRef> midiSources
 void Settings::slotSetMode(QString m)
 {
 
+}
+
+void Settings::slotSetMidiInputLineParams()
+{
+
+    //There must be a better way to do this...
+
+    for(int i = 0; i < NUM_MIDI_INPUTS; i++)
+    {
+        if(i == 0)
+        {
+            midiInputLine[i].enable = settingsForm->midia_settings_enable->isChecked();
+            midiInputLine[i].device = settingsForm->midia_settings_device->currentText();
+            midiInputLine[i].channel = settingsForm->midia_settings_channel->value();
+            midiInputLine[i].type = settingsForm->midia_settings_messagetype->currentText();
+            midiInputLine[i].number = settingsForm->midia_settings_number->value();
+        }
+        else if(i == 1)
+        {
+            midiInputLine[i].enable = settingsForm->midib_settings_enable->isChecked();
+            midiInputLine[i].device = settingsForm->midib_settings_device->currentText();
+            midiInputLine[i].channel = settingsForm->midib_settings_channel->value();
+            midiInputLine[i].type = settingsForm->midib_settings_messagetype->currentText();
+            midiInputLine[i].number = settingsForm->midib_settings_number->value();
+        }
+        else if(i == 2)
+        {
+            midiInputLine[i].enable = settingsForm->midic_settings_enable->isChecked();
+            midiInputLine[i].device = settingsForm->midic_settings_device->currentText();
+            midiInputLine[i].channel = settingsForm->midic_settings_channel->value();
+            midiInputLine[i].type = settingsForm->midic_settings_messagetype->currentText();
+            midiInputLine[i].number = settingsForm->midic_settings_number->value();
+        }
+        else if(i == 3)
+        {
+            midiInputLine[i].enable = settingsForm->midid_settings_enable->isChecked();
+            midiInputLine[i].device = settingsForm->midid_settings_device->currentText();
+            midiInputLine[i].channel = settingsForm->midid_settings_channel->value();
+            midiInputLine[i].type = settingsForm->midid_settings_messagetype->currentText();
+            midiInputLine[i].number = settingsForm->midid_settings_number->value();
+        }
+        else if(i == 4)
+        {
+            midiInputLine[i].enable = settingsForm->midie_settings_enable->isChecked();
+            midiInputLine[i].device = settingsForm->midie_settings_device->currentText();
+            midiInputLine[i].channel = settingsForm->midie_settings_channel->value();
+            midiInputLine[i].type = settingsForm->midie_settings_messagetype->currentText();
+            midiInputLine[i].number = settingsForm->midie_settings_number->value();
+        }
+        else if(i == 5)
+        {
+            midiInputLine[i].enable = settingsForm->midif_settings_enable->isChecked();
+            midiInputLine[i].device = settingsForm->midif_settings_device->currentText();
+            midiInputLine[i].channel = settingsForm->midif_settings_channel->value();
+            midiInputLine[i].type = settingsForm->midif_settings_messagetype->currentText();
+            midiInputLine[i].number = settingsForm->midif_settings_number->value();
+        }
+        else if(i == 6)
+        {
+            midiInputLine[i].enable = settingsForm->midig_settings_enable->isChecked();
+            midiInputLine[i].device = settingsForm->midig_settings_device->currentText();
+            midiInputLine[i].channel = settingsForm->midig_settings_channel->value();
+            midiInputLine[i].type = settingsForm->midig_settings_messagetype->currentText();
+            midiInputLine[i].number = settingsForm->midig_settings_number->value();
+        }
+        else if(i == 7)
+        {
+            midiInputLine[i].enable = settingsForm->midih_settings_enable->isChecked();
+            midiInputLine[i].device = settingsForm->midih_settings_device->currentText();
+            midiInputLine[i].channel = settingsForm->midih_settings_channel->value();
+            midiInputLine[i].type = settingsForm->midih_settings_messagetype->currentText();
+            midiInputLine[i].number = settingsForm->midih_settings_number->value();
+        }
+    }
 }

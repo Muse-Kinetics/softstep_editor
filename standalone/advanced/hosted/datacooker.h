@@ -157,6 +157,9 @@ public slots:
     //----------------------------- Key # Pressed
     void slotKeyPressed();
 
+    //------------------------------------------------------ Midi Input
+    void slotReceiveMidiInput(int val, QString instance);
+
 };
 
 #endif // DATACOOKER_H
