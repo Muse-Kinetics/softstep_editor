@@ -20,6 +20,8 @@ Key::Key(QWidget *parent, int instanceNum) :
 
     keyForm.instanceLabel->setText(QString("%1").arg((instanceNum)%10));
 
+
+#ifdef Q_OS_MAC
     if(instanceNum < 6)
     {
         this->setGeometry(10 + ((instanceNum - 1)*167),177,157,157);
@@ -28,6 +30,16 @@ Key::Key(QWidget *parent, int instanceNum) :
     {
         this->setGeometry(10 + ((instanceNum - 6)*167),10,157,157);
     }
+#else
+    if(instanceNum < 6)
+    {
+        this->setGeometry(10 + ((instanceNum - 1)*167),197,157,157);
+    }
+    else
+    {
+        this->setGeometry(10 + ((instanceNum - 6)*167),30,157,157);
+    }
+#endif
 
     //---------------------------------------- Populate Checkbox list
     checkBoxes.append(keyForm.sourceNote);

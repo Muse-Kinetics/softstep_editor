@@ -416,7 +416,7 @@ void MainWindow::slotUpdateFwProgressBar(int bytes)
 
 void MainWindow::slotInitMenuBar()
 {
-    menubar = new QMenuBar(0);
+    menubar = new QMenuBar(this);
 
 #ifdef Q_OS_MAC
 #else
