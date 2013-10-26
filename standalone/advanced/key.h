@@ -16,6 +16,7 @@
 #include "ui_keyBoxForm.h"
 
 #include "hosted/datacooker.h"
+#include "hosted/alphanummanager.h"
 
 class Key : public QWidget
 {
@@ -38,6 +39,7 @@ public:
 
     //------------------ Hosted ------------------//
     DataCooker dataCooker;
+    AlphaNumManager alphaNumManager;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
@@ -51,6 +53,11 @@ public slots:
     void slotRecallPreset(QVariantMap, QVariantMap);
 
     void slotSetMode(QString mode);
+
+    //------------------ Hosted ------------------//
+    void slotSetDataCookerSettings();
+    void slotSetAlphaNumSettings();
+
 
     //window resizing functions for the add/subtract buttons and the display settings button
     void slotShowDisplaySettings(bool);

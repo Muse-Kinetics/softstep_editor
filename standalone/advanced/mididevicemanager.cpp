@@ -112,6 +112,7 @@ int MidiDeviceManager::getDestination()
 
         if(getDisplayName(MIDIGetDestination(i)).contains("SSCOM") && getDisplayName(MIDIGetDestination(i)).contains("1"))
         {
+            sscomPort1DestRef = MIDIGetDestination(i);
             return i;
         }
     }
@@ -305,6 +306,11 @@ void MidiDeviceManager::hosted_slotSendPacket(QString port, MIDIPacket packet)
     if(port == "SoftStep Share")
     {
         MIDIReceived(appVirtualSourceRef, packetList);
+    }
+    else if(port.contains("SSCOM") && port.contains("1"))
+    {
+        qDebug() << "send message to SSCOM1";
+        MIDISend(appOutPortRef, sscomPort1DestRef, packetList);
     }
     else
     {
@@ -563,7 +569,7 @@ void midiInputIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, 
         //for length of packet
         for(int j = 0; j < packet->length; j++)
         {
-            qDebug() << "Extermal MIDI Channel Event: " << packet->data[j] << callbackClassPointer->getDisplayName(*epr);// << *string;
+            //qDebug() << "Extermal MIDI Channel Event: " << packet->data[j] << callbackClassPointer->getDisplayName(*epr);// << *string;
         }
 
         //emit pack to be parsed by midi input

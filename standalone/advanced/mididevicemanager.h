@@ -43,6 +43,7 @@ public:
     MIDIEndpointRef appVirtualSourceRef;
     MIDIEndpointRef appVirtualDestRef;
     MIDIPortRef midiInputPort;
+    MIDIEndpointRef sscomPort1DestRef;
 
     QMap<MIDIEndpointRef*,QString> midiInputRefConns;
 

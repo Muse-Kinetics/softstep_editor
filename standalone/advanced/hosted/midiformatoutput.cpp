@@ -70,7 +70,7 @@ void MidiFormatOutput::slotNoteLive(QString port, int channel, int oldNote, int 
 
 void MidiFormatOutput::slotCC(QString port, int channel, int ccNum, int ccVal)
 {
-    qDebug() << "slotCC called" << ccVal;
+    //qDebug() << "slotCC called" << ccVal;
     MIDIPacket packet;
 
     //Byte packetData[3] = {176, ccNum, ccVal};

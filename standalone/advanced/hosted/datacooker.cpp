@@ -249,6 +249,7 @@ void DataCooker::cookRaw()
     {
         //Flip on
         footOnOff = true;
+        //qDebug() << "emit key presed";
         emit signalThisKeyPressed(keyNum);
     }
 
@@ -983,7 +984,7 @@ void DataCooker::slotReceiveKeyPressed(int keyPressed)
     previousKeyPressed[1] = previousKeyPressed[0];
     previousKeyPressed[0] = keyPressed;
 
-    qDebug() << "this key:" << keyNum << "key pressed" << keyPressed;
+    //qDebug() << "this key:" << keyNum << "key pressed" << keyPressed;
 
     //For each modline
     for(int i = 0; i < 6; i++)

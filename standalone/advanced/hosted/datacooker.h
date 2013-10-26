@@ -105,6 +105,7 @@ public:
 signals:
     void signalTransformSource(int data, int modlineNum, QString source);
     void signalThisKeyPressed(int keyPressed);
+
     
 public slots:
     void slotUpdateVals(int cc, int val);

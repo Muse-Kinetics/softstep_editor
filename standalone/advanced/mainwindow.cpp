@@ -208,6 +208,14 @@ void MainWindow::slotConnectInterfaces()
             //HUI goes here --------------------
 
         }
+
+        //Alphanumeric midi out
+        connect(&key[k]->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,MIDIPacket)), midiDeviceManager, SLOT(hosted_slotSendPacket(QString,MIDIPacket)));
+
+        for(int l = 0; l < 10; l++)
+        {
+            connect(&key[k]->dataCooker, SIGNAL(signalThisKeyPressed(int)), &key[l]->alphaNumManager, SLOT(slotDisplayKeyName(int)));
+        }
     }
 
     //Hosted Key Pressed Source Routing
@@ -218,7 +226,6 @@ void MainWindow::slotConnectInterfaces()
             connect(&key[k]->dataCooker, SIGNAL(signalThisKeyPressed(int)), &key[l]->dataCooker, SLOT(slotReceiveKeyPressed(int)));
         }
     }
-
 
     //Connected Indicator
     connect(midiDeviceManager, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));

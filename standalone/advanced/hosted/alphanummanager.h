@@ -1,0 +1,38 @@
+// Copyright (c) 2025 KMI Music, Inc.
+// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+// If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#ifndef ALPHANUMMANAGER_H
+#define ALPHANUMMANAGER_H
+
+#include <QObject>
+#include <QDebug>
+#include <QTimer>
+
+#include <CoreMIDI/CoreMIDI.h>
+
+class AlphaNumManager : public QObject
+{
+    Q_OBJECT
+public:
+    explicit AlphaNumManager(QObject *parent = 0);
+
+    int instanceNum;
+    QString displayMode;
+    QString keyName;
+    QString prefix;
+
+    bool paramDisplay;
+    
+signals:
+    void signalSendDisplayVals(QString port, MIDIPacket packet);
+    
+public slots:
+    void slotDisplayKeyName(int keyNum);
+    void slotDisplayParam(int modlineNum, int val);
+
+    //---------------------- Gates
+    void slotOpenParamDisplay();
+    
+};
+
+#endif // ALPHANUMMANAGER_H

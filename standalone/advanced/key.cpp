@@ -35,6 +35,8 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
 {
     keyInstance = keyInstanceNum;
 
+    alphaNumManager.instanceNum = keyInstance;
+
     dataCooker.hide();
 
     //Set up the Key Box
@@ -109,7 +111,14 @@ void Key::slotConnectElements()
         connect(modline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
         connect(&dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
         connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
+
+        //alphanumeric display
+        connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
     }
+
+    //alphanumeric display - handled in main window
+    //connect(&dataCooker, SIGNAL(signalThisKeyPressed(int)), &alphaNumManager, SLOT(slotDisplayKeyName()));
+
 }
 
 void Key::slotDisconnectElements()
@@ -143,12 +152,14 @@ void Key::slotValueChanged()
         QString jsonName;
         QObject *sender = QObject::sender();
         QVariant value;
+        bool updateAlphaDisplayParams = false;
 
         //key name (from the keyBoxForm
         if(sender == keyBoxForm->keyName)
         {
             jsonName = "name";
             value = keyBoxForm->keyName->text();
+            updateAlphaDisplayParams = true;
         }
         //key counter stuff
         else if(sender == keyWindowForm->counterMin)
@@ -171,20 +182,32 @@ void Key::slotValueChanged()
         {
             jsonName = "prefix";
             value = keyWindowForm->displayprefix->text();
+            updateAlphaDisplayParams = true;
         }
         else if(sender == keyWindowForm->keyname)
         {
             jsonName = "name";
             value = keyWindowForm->keyname->text();
+            updateAlphaDisplayParams = true;
         }
         else if(sender == keyWindowForm->leddisplaymode)
         {
             jsonName = "displaymode";
             value = keyWindowForm->leddisplaymode->currentText();
+            updateAlphaDisplayParams = true;
         }
 
         emit signalStoreValue(QString("%1_key_").arg(keyInstance+1) + jsonName, value, -1);
+
+        //If an alphanum param was modified update it's members
+        if(updateAlphaDisplayParams = true)
+        {
+            slotSetAlphaNumSettings();
+        }
     }
+
+
+
     emit signalCheckSavedState();
 }
 
@@ -203,6 +226,8 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
     keyWindowForm->leddisplaymode->setCurrentIndex(keyWindowForm->leddisplaymode->findText(preset.value(QString("%1_key_displaymode").arg(keyInstance+1)).toString()));
 
     slotConnectElements();
+
+    slotSetAlphaNumSettings();
 }
 
 void Key::slotShowDisplaySettings(bool show)
@@ -338,3 +363,16 @@ void Key::slotSetMode(QString mode)
 {
 
 }
+
+void Key::slotSetDataCookerSettings()
+{
+
+}
+
+void Key::slotSetAlphaNumSettings()
+{
+    alphaNumManager.displayMode = keyWindowForm->leddisplaymode->currentText();
+    alphaNumManager.keyName = keyWindowForm->keyname->text();
+    alphaNumManager.prefix = keyWindowForm->displayprefix->text();
+}
+
