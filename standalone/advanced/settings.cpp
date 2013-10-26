@@ -14,6 +14,11 @@ Settings::Settings(QWidget *parent) :
     //settingsWidget->setFixedSize(320,492);
     settingsWidget->setWindowTitle(QString("Settings"));
 
+    pedal = new Pedal();
+
+    //point dat pedallever to the pedal_top QLabel in the Settings form
+    pedal->slotSetLeverPointer(settingsForm->pedal_top);
+
     for(int i = 0; i < NUM_MIDI_INPUTS; i++)
     {
         midiInputLine[i].hide();

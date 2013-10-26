@@ -4359,7 +4359,7 @@ QToolTip
      <widget class="QLabel" name="label_64">
       <property name="geometry">
        <rect>
-        <x>15</x>
+        <x>13</x>
         <y>15</y>
         <width>115</width>
         <height>115</height>
@@ -4404,7 +4404,7 @@ QToolTip
 background: none;</string>
        </property>
        <property name="text">
-        <string/>
+        <string>chomsky</string>
        </property>
       </widget>
       <widget class="QLabel" name="pedal_arrow">
@@ -4486,7 +4486,7 @@ background: none;</string>
      <widget class="QSlider" name="livepedalvalue">
       <property name="geometry">
        <rect>
-        <x>135</x>
+        <x>133</x>
         <y>15</y>
         <width>10</width>
         <height>115</height>
@@ -4634,8 +4634,14 @@ QPushButton:pressed
      <property name="maximum">
       <number>100</number>
      </property>
+     <property name="value">
+      <number>10</number>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="tickPosition">
+      <enum>QSlider::TicksAbove</enum>
      </property>
     </widget>
    </widget>

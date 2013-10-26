@@ -6,4 +6,25 @@
 Pedal::Pedal(QWidget *parent) :
     QWidget(parent)
 {
+
+    pixmap.load(QString::fromUtf8("resources/pedal_top.png"));
+
+    QPainter painter(&pixmap);
+    painter.rotate(90);
+    painter.translate(22, 66);
+
+}
+
+
+void Pedal::slotSetLeverPointer(QLabel *lever)
+{
+    pedallever = lever;
+    pedallever->setPixmap(pixmap);
+    pedallever->setText("Chomsky");
+    pedallever->show();
+}
+
+void Pedal::slotRotateLever(int degrees)
+{
+
 }

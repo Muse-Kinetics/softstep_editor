@@ -5,16 +5,23 @@
 #define PEDAL_H
 
 #include <QWidget>
+#include <QtGui>
 
 class Pedal : public QWidget
 {
     Q_OBJECT
 public:
     explicit Pedal(QWidget *parent = 0);
+
+    QLabel* pedallever;
+    QPixmap pixmap;
     
 signals:
     
 public slots:
+
+    void slotSetLeverPointer(QLabel *lever);
+    void slotRotateLever(int degrees);
     
 };
 

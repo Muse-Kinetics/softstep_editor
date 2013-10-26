@@ -14,6 +14,7 @@
 #include "ui_settingsForm.h"
 
 #include "hosted/midiinput.h"
+#include "pedal.h"
 
 #define NUM_MIDI_INPUTS 8
 
@@ -28,6 +29,8 @@ public:
     QList<QComboBox *> midiInputDeviceMenus;
 
     MidiInput midiInputLine[NUM_MIDI_INPUTS];
+
+    Pedal* pedal;
     
 signals:
     void signalStoreValue(QString name, QVariant value);
