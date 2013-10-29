@@ -754,6 +754,13 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
             //Send modline output to dataCooker
             emit hosted_signalSendModlineOutput(modlineNum, val);
 
+            //If line is display linked, send it to alphanum
+            if(displayLinkButton->isChecked())
+            {
+                qDebug() << "emit display called";
+                emit hosted_signalSendParamDisplayOutput(modlineNum, val);
+            }
+
             //Variables to filter out repititions
             lastVal= val;
             lastSource = source;

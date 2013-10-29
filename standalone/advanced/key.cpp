@@ -113,7 +113,7 @@ void Key::slotConnectElements()
         connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
 
         //alphanumeric display
-        connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
+        connect(modline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
     }
 
     //alphanumeric display - handled in main window
@@ -142,6 +142,9 @@ void Key::slotDisconnectElements()
         disconnect(modline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
         disconnect(&dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
         disconnect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
+
+        disconnect(modline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
+
     }
 }
 

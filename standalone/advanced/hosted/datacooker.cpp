@@ -258,6 +258,7 @@ void DataCooker::cookRaw()
     {
         //Flip off
         footOnOff = false;
+        emit signalThisKeyOff(keyNum);
     }
 }
 

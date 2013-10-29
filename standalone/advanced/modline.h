@@ -71,6 +71,7 @@ signals:
     //---------------------------- Hosted
     void signalSetSource(QString sourceName, int modlineNum);
     void hosted_signalSendModlineOutput(int modlineNum, int val);
+    void hosted_signalSendParamDisplayOutput(int modlineNum, int val);
 
 
     //Midi output

@@ -151,7 +151,7 @@ void MidiDeviceManager::slotHostedOnOff(bool onOff)
 
 void MidiDeviceManager::slotUpdateFirmware()
 {
-    qDebug() << "Send the firmware!" << firmwareByteArray;
+    qDebug() << "Send the firmware" << firmwareByteArray;
     emit signalProgressDialog("setup", firmwareByteArray.size());
     //slotSendSysEx(firmwareByteArray, "QuNexus Port 1");
 }
@@ -309,7 +309,7 @@ void MidiDeviceManager::hosted_slotSendPacket(QString port, MIDIPacket packet)
     }
     else if(port.contains("SSCOM") && port.contains("1"))
     {
-        qDebug() << "send message to SSCOM1";
+        //qDebug() << "send message to SSCOM1";
         MIDISend(appOutPortRef, sscomPort1DestRef, packetList);
     }
     else

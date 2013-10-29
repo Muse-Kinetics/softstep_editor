@@ -9,6 +9,7 @@
 
 #include "hosted/latcher.h"
 #include "hosted/trigger.h"
+#include "hosted/slewer.h"
 
 enum {NW, NE, SW, SE};
 
@@ -105,6 +106,7 @@ public:
 signals:
     void signalTransformSource(int data, int modlineNum, QString source);
     void signalThisKeyPressed(int keyPressed);
+    void signalThisKeyOff(int keyOff);
 
     
 public slots:

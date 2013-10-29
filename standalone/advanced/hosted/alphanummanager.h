@@ -22,6 +22,10 @@ public:
     QString prefix;
 
     bool paramDisplay;
+
+    bool keyOnOff;
+
+    QTimer keyOffTimeout;
     
 signals:
     void signalSendDisplayVals(QString port, MIDIPacket packet);
@@ -29,9 +33,15 @@ signals:
 public slots:
     void slotDisplayKeyName(int keyNum);
     void slotDisplayParam(int modlineNum, int val);
+    void slotFormatAndOutputString(QString displayString);
+    void slotReturnToKeyName();
+    void slotKeyOff(int keyNum);
+    void slotKeyOffTimeout();
 
     //---------------------- Gates
     void slotOpenParamDisplay();
+
+
     
 };
 

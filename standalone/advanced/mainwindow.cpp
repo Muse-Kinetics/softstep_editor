@@ -215,6 +215,7 @@ void MainWindow::slotConnectInterfaces()
         for(int l = 0; l < 10; l++)
         {
             connect(&key[k]->dataCooker, SIGNAL(signalThisKeyPressed(int)), &key[l]->alphaNumManager, SLOT(slotDisplayKeyName(int)));
+            connect(&key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), &key[l]->alphaNumManager, SLOT(slotKeyOff(int)));
         }
     }
 
