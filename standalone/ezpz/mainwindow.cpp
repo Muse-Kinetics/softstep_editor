@@ -31,7 +31,6 @@ MainWindow::MainWindow(QWidget *parent) :
     mdm = new MidiDeviceManager(this);
 
     //Mainwindow Ui
-    this->setWindowTitle("SoftStep Easy Editor");
     ui->setupUi(this);
 
     this->installEventFilter(this);
@@ -497,7 +496,7 @@ void MainWindow::slotInitMenuBar()
     help->setObjectName("HelpMenu");
 
     //About
-    QAction* about = new QAction("About SoftStep Easy Editor", help);
+    QAction* about = new QAction("About SoftStep Editor", help);
     actionList.append(about);
     connect(about, SIGNAL(triggered()), disableWidget, SLOT(show()));
     connect(about, SIGNAL(triggered()), aboutFormWidget, SLOT(show()));
