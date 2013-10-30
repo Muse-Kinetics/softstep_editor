@@ -210,10 +210,10 @@ void MainWindow::slotConnectInterfaces()
         }
 
         //Alphanumeric midi out
-        connect(&key[k]->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,MIDIPacket)), &displaySink, SLOT(slotAddAlphaPacket(QString,MIDIPacket)));
+        connect(&key[k]->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddAlphaPacket(QString,QList<MIDIPacket>)),Qt::DirectConnection);
 
         //Led and Display midi out
-        connect(&key[k]->ledManager, SIGNAL(signalSendLEDControl(QString,MIDIPacket)), &displaySink, SLOT(slotAddLEDPacket(QString,MIDIPacket)));
+        connect(&key[k]->ledManager, SIGNAL(signalSendLEDControl(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddLEDPacket(QString,QList<MIDIPacket>)),Qt::DirectConnection);
 
 
 
@@ -224,7 +224,7 @@ void MainWindow::slotConnectInterfaces()
         }
     }
 
-    connect(&displaySink, SIGNAL(signalSendPacket(QString,MIDIPacket)), midiDeviceManager, SLOT(hosted_slotSendPacket(QString,MIDIPacket)));
+    connect(&displaySink, SIGNAL(signalSendPacket(QString,MIDIPacket)), midiDeviceManager, SLOT(hosted_slotSendPacket(QString,MIDIPacket)),Qt::DirectConnection);
 
     //Hosted Key Pressed Source Routing
     for(int k = 0; k < 10; k++)

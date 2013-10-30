@@ -72,7 +72,10 @@ void AlphaNumManager::slotDisplayParam(int modlineNum, int val)
 void AlphaNumManager::slotFormatAndOutputString(QString displayString)
 {
 
-    qDebug() << "displayString" << displayString << "sender name" << QObject::sender()->objectName();
+    //qDebug() << "displayString" << displayString << "sender name" << QObject::sender()->objectName();
+
+    packetList.clear();
+
     ushort vals[displayString.size()];
 
     for(int i = 0; i < displayString.size(); i++)
@@ -87,15 +90,10 @@ void AlphaNumManager::slotFormatAndOutputString(QString displayString)
         packet.data[1] = 50 + i;
         packet.data[2] = vals[i];
 
-        packetFIFOList.append(packet);
-
-        emit signalSendDisplayVals("SSCOM Port 1", packet);
-
-        if(packetFIFOList.size() && !fifoClock.isActive())
-        {
-            //fifoClock.start(10);
-        }
+        packetList.append(packet);
     }
+
+    emit signalSendDisplayVals("SSCOM Port 1", packetList);
 }
 
 void AlphaNumManager::slotDisplayKeyName(int keyNum)
@@ -189,7 +187,7 @@ void AlphaNumManager::slotDrainFIFO()
     }
     else
     {
-        emit signalSendDisplayVals("SSCOM Port 1", packetFIFOList.first());
+        //emit signalSendDisplayVals("SSCOM Port 1", packetFIFOList.first());
         packetFIFOList.removeFirst();
     }
 }

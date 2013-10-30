@@ -766,7 +766,7 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
             //If line is display linked, send it to alphanum
             if(displayLinkButton->isChecked())
             {
-                qDebug() << "emit display called";
+                //qDebug() << "emit display called";
                 emit hosted_signalSendParamDisplayOutput(modlineNum, val);
             }
 

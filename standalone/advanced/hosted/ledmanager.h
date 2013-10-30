@@ -18,6 +18,7 @@ public:
 
     QTimer fifoClock;
     QList<MIDIPacket> packetFIFOList;
+    QList<MIDIPacket> packetList;
 
     int keyInstanceNum;
 
@@ -29,7 +30,7 @@ public:
     bool state[6];
     
 signals:
-    void signalSendLEDControl(QString port, MIDIPacket packet);
+    void signalSendLEDControl(QString port, QList<MIDIPacket> pktlst);
     
 public slots:
     void slotReceiveModlineOutput(int modlineNum, int val);

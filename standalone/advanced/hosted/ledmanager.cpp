@@ -29,12 +29,14 @@ LEDManager::LEDManager(QObject *parent) :
 void LEDManager::processLED(int modlineNum, int greenOrRed, QString mode)
 {
 
-    qDebug() << "key: " << keyInstanceNum << "greenOrRed:" << greenOrRed << modlineNum << state[modlineNum];
 
     int ledType = -1;
 
     if(!mode.contains("None"))
     {
+
+        qDebug() << "     key:" << keyInstanceNum << "     greenOrRed:" << greenOrRed << "     modlineNum:" << modlineNum << "     state:" << state[modlineNum];
+
         if(state[modlineNum])
         {
             if(mode == "True")
@@ -81,6 +83,8 @@ void LEDManager::processLED(int modlineNum, int greenOrRed, QString mode)
         //If type specified send packet
         if(ledType != -1)
         {
+            packetList.clear();
+
             //-------- Send Key Num
             MIDIPacket keyPacket;
             keyPacket.timeStamp = 0;
@@ -92,7 +96,7 @@ void LEDManager::processLED(int modlineNum, int greenOrRed, QString mode)
             keyPacket.data[1] = 40;
             keyPacket.data[2] = keyInstanceNum;
 
-            emit signalSendLEDControl("SSCOM Port 1", keyPacket);
+            packetList.append(keyPacket);
 
             MIDIPacket colorPacket;
             colorPacket.timeStamp = 0;
@@ -103,7 +107,7 @@ void LEDManager::processLED(int modlineNum, int greenOrRed, QString mode)
             colorPacket.data[1] = 41;
             colorPacket.data[2] = greenOrRed;
 
-            emit signalSendLEDControl("SSCOM Port 1", colorPacket);
+            packetList.append(colorPacket);
 
             MIDIPacket typePacket;
             typePacket.timeStamp = 0;
@@ -118,13 +122,10 @@ void LEDManager::processLED(int modlineNum, int greenOrRed, QString mode)
             packetFIFOList.append(colorPacket);
             packetFIFOList.append(typePacket);
 
-            emit signalSendLEDControl("SSCOM Port 1", typePacket);
+            packetList.append(typePacket);
         }
-    }
 
-    if(packetFIFOList.size() && !fifoClock.isActive())
-    {
-        //fifoClock.start(15);
+        emit signalSendLEDControl("SSCOM Port 1", packetList);
     }
 }
 
@@ -162,7 +163,7 @@ void LEDManager::slotDrainFIFO()
     }
     else
     {
-        emit signalSendLEDControl("SSCOM Port 1", packetFIFOList.first());
+        //emit signalSendLEDControl("SSCOM Port 1", packetFIFOList.first());
         packetFIFOList.removeFirst();
     }
 }

@@ -3,67 +3,141 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "displaysink.h"
 
+#define ALPHA_CLOCK_SPEED 75
+
 DisplaySink::DisplaySink(QObject *parent) :
     QObject(parent)
 {
-    connect(&ledFIFOClock, SIGNAL(timeout()), this, SLOT(slotDrainLEDList()));
-    connect(&alphaFIFOClock, SIGNAL(timeout()), this, SLOT(slotDrainAlphaList()));
-}
+    connect(&alphaFIFOClock, SIGNAL(timeout()), this, SLOT(slotPollAlphaList()));
+    connect(&displayFIFOClock, SIGNAL(timeout()), this, SLOT(slotDrainDisplayFIFO()));
 
-void DisplaySink::slotAddAlphaPacket(QString port, MIDIPacket packet)
-{
-    qDebug() << "add alpha packet";
-    alphaFIFOList.append(packet);
+    MIDIPacket voidPacket;
+    voidPacket.timeStamp = 0;
+    voidPacket.length = 3;
 
-    slotCheckAlphaList();
-}
+    //Led mode type
+    voidPacket.data[0] = -1;
+    voidPacket.data[1] = -1;
+    voidPacket.data[2] = -1;
 
-void DisplaySink::slotAddLEDPacket(QString port, MIDIPacket packet)
-{
-    qDebug() << "add LED packet";
-    ledFIFOList.append(packet);
-
-    slotCheckAlphaList(); //Always check alpha list first
-}
-
-void DisplaySink::slotCheckAlphaList()
-{
-    qDebug() << "check alpha list";
-
-    if(!alphaFIFOList.isEmpty() && !alphaFIFOClock.isActive())
+    for(int i = 0; i < 4; i++)
     {
-        ledFIFOClock.stop();
-        alphaFIFOClock.start(1);
+        alphaLastPacketList.append(voidPacket);
     }
-    else if(alphaFIFOList.isEmpty())
+
+    for(int i = 0; i < 3; i++)
     {
-        alphaFIFOClock.stop();
-        slotCheckLEDList();
+        ledLastPacketList.append(voidPacket);
+    }
+
+    displayFIFOClock.start(1);
+    alphaFIFOClock.start(ALPHA_CLOCK_SPEED);
+}
+
+void DisplaySink::slotAddAlphaPacket(QString port, QList<MIDIPacket> packetList)
+{
+    //qDebug() << "add alpha packet" << alphaLastPacketList.size() << packetList.size();// << alphaLastPacketList.at(0).data[0];s
+
+    bool newPacket = false;
+
+    for(int i = 0; i < packetList.size(); i++)
+    {
+        //Check each packet in list for new data, if anything new, output
+
+        if(packetList.at(i).data[0] != alphaLastPacketList.at(i).data[0])
+        {
+            newPacket = true;
+            break;
+        }
+        else if(packetList.at(i).data[1] != alphaLastPacketList.at(i).data[1])
+        {
+            newPacket = true;
+            break;
+        }
+        else if(packetList.at(i).data[2] != alphaLastPacketList.at(i).data[2])
+        {
+            newPacket = true;
+            break;
+        }
+    }
+
+    //If newest packet is not a duplicate, output
+    if(newPacket)
+    {
+        mostRecentAlphaList.clear();
+
+        //Iterate through packets and emit them
+        for(int i = 0; i < packetList.size(); i++)
+        {
+            mostRecentAlphaList.append(packetList.at(i));
+            //emit signalSendPacket("SSCOM Port 1", packetList.at(i));
+        }
+
+        if(!alphaFIFOClock.isActive())
+        {
+            alphaFIFOClock.start(ALPHA_CLOCK_SPEED);
+        }
+
+        //Set last packet to newest packet to maintain change filter
+        alphaLastPacketList = packetList;
     }
 }
 
-void DisplaySink::slotCheckLEDList()
+void DisplaySink::slotAddLEDPacket(QString port, QList<MIDIPacket> packetList)
 {
-    qDebug() << "check led list" << ledFIFOList.size();
+    bool newPacket = false;
 
-    if(!ledFIFOList.isEmpty() && !ledFIFOClock.isActive())
+    //Only three packets in list, always
+    for(int i = 0; i < packetList.size(); i++)
     {
-        ledFIFOClock.start(1);
+        //Check each packet in list for new data, if anything new, output
+
+        if(packetList.at(i).data[0] != ledLastPacketList.at(i).data[0])
+        {
+            newPacket = true;
+            break;
+        }
+        else if(packetList.at(i).data[1] != ledLastPacketList.at(i).data[1])
+        {
+            newPacket = true;
+            break;
+        }
+        else if(packetList.at(i).data[2] != ledLastPacketList.at(i).data[2])
+        {
+            newPacket = true;
+            break;
+        }
     }
-    else if(ledFIFOList.isEmpty())
+
+    //If newest packet is not a duplicate, output
+    if(newPacket)
     {
-        ledFIFOClock.stop();
+        //Iterate through packets and emit them
+        for(int i = 0; i < packetList.size(); i++)
+        {
+            //emit signalSendPacket("SSCOM Port 1", packetList.at(i));
+
+            displayFIFO.append(packetList.at(i));
+        }
+
+        //Set last packet to newest packet to maintain change filter
+        ledLastPacketList = packetList;
     }
 }
 
-void DisplaySink::slotDrainAlphaList()
+void DisplaySink::slotPollAlphaList()
 {
-    qDebug() << "drain alpha list" << alphaFIFOList.size();
+    qDebug() << "drain alpha list";
 
-    if(!alphaFIFOList.isEmpty())
+    if(!mostRecentAlphaList.isEmpty())
     {
-        emit signalSendPacket("SSCOM Port 1", alphaFIFOList.first());
-        alphaFIFOList.removeFirst();
+        //emit signalSendPacket("SSCOM Port 1", alphaFIFOList.first());
+        for(int i = 0; i < mostRecentAlphaList.size(); i++)
+        {
+            displayFIFO.append(mostRecentAlphaList.at(i));
+        }
+
+        mostRecentAlphaList.clear();
     }
     else
     {
@@ -71,17 +145,11 @@ void DisplaySink::slotDrainAlphaList()
     }
 }
 
-void DisplaySink::slotDrainLEDList()
+void DisplaySink::slotDrainDisplayFIFO()
 {
-    qDebug() << "drain led list";
-
-    if(!ledFIFOList.isEmpty())
+    if(!displayFIFO.isEmpty())
     {
-        emit signalSendPacket("SSCOM Port 1", ledFIFOList.first());
-        ledFIFOList.removeFirst();
-    }
-    else
-    {
-        ledFIFOClock.stop();
+        emit signalSendPacket("SSCOM Port 1", displayFIFO.first());
+        displayFIFO.removeFirst();
     }
 }

@@ -16,24 +16,26 @@ class DisplaySink : public QObject
 public:
     explicit DisplaySink(QObject *parent = 0);
 
-    QTimer ledFIFOClock;
-    QList<MIDIPacket> ledFIFOList;
+    QList<MIDIPacket> ledLastPacketList; //Most recent led message group, for filtering changes
 
-    QTimer alphaFIFOClock;
-    QList<MIDIPacket> alphaFIFOList;
+    QTimer alphaFIFOClock; //Clock for polling most recent display message
+    QList<MIDIPacket> mostRecentAlphaList; //Most recent display message group
+    QList<MIDIPacket> alphaLastPacketList; //last alpah message received, for change filtering
+
+
+    QList<MIDIPacket> displayFIFO; //queue of display messages (led, alphanumerics)
+    QTimer displayFIFOClock; //Clock for draining display messages
     
 signals:
     void signalSendPacket(QString port, MIDIPacket packet);
     
 public slots:
-    void slotAddLEDPacket(QString port, MIDIPacket packet);
-    void slotAddAlphaPacket(QString port, MIDIPacket packet);
+    void slotAddLEDPacket(QString port, QList<MIDIPacket> packetList);
+    void slotAddAlphaPacket(QString port, QList<MIDIPacket> packetList);
 
-    void slotDrainLEDList();
-    void slotDrainAlphaList();
+    void slotPollAlphaList();
 
-    void slotCheckLEDList();
-    void slotCheckAlphaList();
+    void slotDrainDisplayFIFO();
 };
 
 #endif // DISPLAYSINK_H

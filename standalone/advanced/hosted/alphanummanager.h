@@ -18,6 +18,7 @@ public:
 
     QTimer fifoClock;
     QList<MIDIPacket> packetFIFOList;
+    QList<MIDIPacket> packetList;
 
     int instanceNum;
     QString displayMode;
@@ -31,7 +32,7 @@ public:
     QTimer keyOffTimeout;
     
 signals:
-    void signalSendDisplayVals(QString port, MIDIPacket packet);
+    void signalSendDisplayVals(QString port, QList<MIDIPacket> packet);
     
 public slots:
     void slotDisplayKeyName(int keyNum);
