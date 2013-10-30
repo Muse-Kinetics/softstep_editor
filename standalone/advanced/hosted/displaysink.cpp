@@ -3,7 +3,7 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "displaysink.h"
 
-#define ALPHA_CLOCK_SPEED 75
+#define ALPHA_CLOCK_SPEED 100
 
 DisplaySink::DisplaySink(QObject *parent) :
     QObject(parent)

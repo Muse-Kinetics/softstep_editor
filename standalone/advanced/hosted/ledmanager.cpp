@@ -28,14 +28,11 @@ LEDManager::LEDManager(QObject *parent) :
 
 void LEDManager::processLED(int modlineNum, int greenOrRed, QString mode)
 {
-
-
     int ledType = -1;
 
     if(!mode.contains("None"))
     {
-
-        qDebug() << "     key:" << keyInstanceNum << "     greenOrRed:" << greenOrRed << "     modlineNum:" << modlineNum << "     state:" << state[modlineNum];
+        //qDebug() << "     key:" << keyInstanceNum << "     greenOrRed:" << greenOrRed << "     modlineNum:" << modlineNum << "     state:" << state[modlineNum];
 
         if(state[modlineNum])
         {
@@ -59,6 +56,10 @@ void LEDManager::processLED(int modlineNum, int greenOrRed, QString mode)
             {
                 ledType = LED_OFF;
             }
+            else
+            {
+                ledType = LED_OFF;
+            }
         }
         else
         {
@@ -77,6 +78,10 @@ void LEDManager::processLED(int modlineNum, int greenOrRed, QString mode)
             else if(mode == "Blink False")
             {
                 ledType = LED_BLINK;
+            }
+            else
+            {
+                ledType = LED_OFF;
             }
         }
 
