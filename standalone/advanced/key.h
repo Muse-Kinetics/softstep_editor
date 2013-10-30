@@ -17,6 +17,7 @@
 
 #include "hosted/datacooker.h"
 #include "hosted/alphanummanager.h"
+#include "hosted/ledmanager.h"
 
 class Key : public QWidget
 {
@@ -40,6 +41,7 @@ public:
     //------------------ Hosted ------------------//
     DataCooker dataCooker;
     AlphaNumManager alphaNumManager;
+    LEDManager ledManager;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);

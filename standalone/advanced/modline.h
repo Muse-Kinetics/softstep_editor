@@ -18,6 +18,7 @@
 #include "ui_modlineForm.h"
 #include "stylesheets.h"
 #include "hosted/slewer.h"
+#include "hosted/ledmanager.h"
 
 class Modline : public QWidget
 {
@@ -63,6 +64,8 @@ public:
     int lastNote;
     bool toggleOn;
 
+    LEDManager ledManager;
+
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
@@ -87,6 +90,8 @@ signals:
     void hosted_signalPolyAftertouch(QString port, int channel, int note, int val);
     //void hosted_signalGarageBand();
     //void hosted_signalHUI();
+
+    void hosted_signalSetLEDMode(int modlieNum, QString greenMode, QString redMode);
 
 
 public slots:

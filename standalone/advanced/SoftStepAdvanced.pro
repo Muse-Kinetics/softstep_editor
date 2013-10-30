@@ -47,7 +47,9 @@ SOURCES +=      main.cpp\
     hosted/trigger.cpp \
     pedal.cpp \
     hosted/midiinput.cpp \
-    hosted/alphanummanager.cpp
+    hosted/alphanummanager.cpp \
+    hosted/ledmanager.cpp \
+    hosted/displaysink.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -81,7 +83,9 @@ HEADERS  +=     mainwindow.h \
     hosted/trigger.h \
     pedal.h \
     hosted/midiinput.h \
-    hosted/alphanummanager.h
+    hosted/alphanummanager.h \
+    hosted/ledmanager.h \
+    hosted/displaysink.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \

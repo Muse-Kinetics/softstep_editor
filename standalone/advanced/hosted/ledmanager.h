@@ -1,0 +1,42 @@
+// Copyright (c) 2025 KMI Music, Inc.
+// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+// If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#ifndef LEDMANAGER_H
+#define LEDMANAGER_H
+
+#include <QObject>
+#include <QDebug>
+#include <QTimer>
+
+#include <CoreMIDI/CoreMIDI.h>
+
+class LEDManager : public QObject
+{
+    Q_OBJECT
+public:
+    explicit LEDManager(QObject *parent = 0);
+
+    QTimer fifoClock;
+    QList<MIDIPacket> packetFIFOList;
+
+    int keyInstanceNum;
+
+    QString greenMode[6];
+    QString redMode[6];
+
+    void processLED(int modlineNum, int greenOrRed, QString mode);
+
+    bool state[6];
+    
+signals:
+    void signalSendLEDControl(QString port, MIDIPacket packet);
+    
+public slots:
+    void slotReceiveModlineOutput(int modlineNum, int val);
+    void slotSetLedModes(int modlineNum, QString gm, QString rm);
+
+    void slotDrainFIFO();
+    
+};
+
+#endif // LEDMANAGER_H

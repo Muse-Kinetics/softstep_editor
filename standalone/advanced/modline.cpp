@@ -26,6 +26,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
 {
     keyInstance = keyInstanceNum;
     modlineInstance = modlineInstanceNum;
+
     lastSource = "None";
     lastVal = -1;
     output = -1;
@@ -151,6 +152,7 @@ void Modline::slotConnectElements()
     //Slewer
     connect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmooth(int)));
 
+    //connect(this, SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
 }
 
 void Modline::slotDisconnectElements()
@@ -231,6 +233,12 @@ void Modline::slotDisconnectElements()
 
     //display linking
     disconnect(modlineForm->modlinedisplayenable,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+
+    //----------------------- Hosted
+    //Slewer
+    disconnect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmooth(int)));
+
+    //disconnect(this, SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
 }
 
 void Modline::slotValueChanged()
@@ -475,6 +483,7 @@ void Modline::slotValueChanged()
 
     //---------- update hosted source streaming
     slotStreamSourceData();
+    emit hosted_signalSetLEDMode(modlineInstance, modlineForm->ledgreen->currentText(), modlineForm->ledred->currentText());
 }
 
 void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
@@ -543,6 +552,7 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     //---------- update hosted source streaming
     slotStreamSourceData();
+    emit hosted_signalSetLEDMode(modlineInstance, modlineForm->ledgreen->currentText(), modlineForm->ledred->currentText());
 }
 
 void Modline::slotRecallDestinationMenu()
@@ -703,7 +713,6 @@ void Modline::slotSetTransformValues()
 
 void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
-
     //Make sure this is the correct modline to receive source being emitted
     if(modlineNum == modlineInstance && source == thisModlineSource)
     {

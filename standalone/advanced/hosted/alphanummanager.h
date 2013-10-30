@@ -16,6 +16,9 @@ class AlphaNumManager : public QObject
 public:
     explicit AlphaNumManager(QObject *parent = 0);
 
+    QTimer fifoClock;
+    QList<MIDIPacket> packetFIFOList;
+
     int instanceNum;
     QString displayMode;
     QString keyName;
@@ -40,6 +43,8 @@ public slots:
 
     //---------------------- Gates
     void slotOpenParamDisplay();
+
+    void slotDrainFIFO();
 
 
     

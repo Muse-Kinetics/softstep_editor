@@ -22,6 +22,7 @@
 #include "ui_deletePresetForm.h"
 
 #include "hosted/midiparse.h"
+#include "hosted/displaysink.h"
 
 namespace Ui {
 class MainWindow;
@@ -39,6 +40,7 @@ public:
     PresetInterface* presetInterface;
     MidiDeviceManager* midiDeviceManager;
     MidiParse* midiParse;
+    DisplaySink displaySink;
 
     //--------------------------------- Mode Switching
     QString mode;

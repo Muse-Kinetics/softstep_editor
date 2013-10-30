@@ -210,7 +210,12 @@ void MainWindow::slotConnectInterfaces()
         }
 
         //Alphanumeric midi out
-        connect(&key[k]->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,MIDIPacket)), midiDeviceManager, SLOT(hosted_slotSendPacket(QString,MIDIPacket)));
+        connect(&key[k]->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,MIDIPacket)), &displaySink, SLOT(slotAddAlphaPacket(QString,MIDIPacket)));
+
+        //Led and Display midi out
+        connect(&key[k]->ledManager, SIGNAL(signalSendLEDControl(QString,MIDIPacket)), &displaySink, SLOT(slotAddLEDPacket(QString,MIDIPacket)));
+
+
 
         for(int l = 0; l < 10; l++)
         {
@@ -218,6 +223,8 @@ void MainWindow::slotConnectInterfaces()
             connect(&key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), &key[l]->alphaNumManager, SLOT(slotKeyOff(int)));
         }
     }
+
+    connect(&displaySink, SIGNAL(signalSendPacket(QString,MIDIPacket)), midiDeviceManager, SLOT(hosted_slotSendPacket(QString,MIDIPacket)));
 
     //Hosted Key Pressed Source Routing
     for(int k = 0; k < 10; k++)

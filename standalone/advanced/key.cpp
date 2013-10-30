@@ -36,6 +36,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     keyInstance = keyInstanceNum;
 
     alphaNumManager.instanceNum = keyInstance;
+    ledManager.keyInstanceNum = keyInstance;
 
     dataCooker.hide();
 
@@ -112,7 +113,11 @@ void Key::slotConnectElements()
         connect(&dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
         connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
 
-        //alphanumeric display
+        //leds -- used modline output because all lines' logic is checked
+        connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
+        connect(modline[i], SIGNAL(hosted_signalSetLEDMode(int, QString,QString)), &ledManager, SLOT(slotSetLedModes(int,QString,QString)));
+
+        //alphanumeric display -- needs special slot because it is display linked
         connect(modline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
     }
 
@@ -144,7 +149,6 @@ void Key::slotDisconnectElements()
         disconnect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
 
         disconnect(modline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
-
     }
 }
 

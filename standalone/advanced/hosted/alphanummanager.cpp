@@ -6,6 +6,7 @@
 AlphaNumManager::AlphaNumManager(QObject *parent) :
     QObject(parent)
 {
+    connect(&fifoClock, SIGNAL(timeout()), this, SLOT(slotDrainFIFO()));
     connect(&keyOffTimeout, SIGNAL(timeout()), this, SLOT(slotKeyOffTimeout()));
     keyOnOff = false;
 
@@ -49,20 +50,20 @@ void AlphaNumManager::slotDisplayParam(int modlineNum, int val)
     if(displayMode.contains("Once") && paramDisplay)
     {
         slotFormatAndOutputString(outputString);
-        qDebug() << "once";
+        //qDebug() << "once";
     }
 
     //Initial/Return
     if(displayMode.contains("Initial/Return") && paramDisplay)
     {
         slotFormatAndOutputString(outputString);
-        qDebug() << "initial retrn";
+        //qDebug() << "initial retrn";
     }
 
     if(displayMode.contains("Immed Param") && paramDisplay)
     {
         slotFormatAndOutputString(outputString);
-        qDebug() << "immed param";
+        //qDebug() << "immed param";
     }
 
 
@@ -71,7 +72,7 @@ void AlphaNumManager::slotDisplayParam(int modlineNum, int val)
 void AlphaNumManager::slotFormatAndOutputString(QString displayString)
 {
 
-    //qDebug() << "displayString" << displayString << "sender name" << QObject::sender()->objectName();
+    qDebug() << "displayString" << displayString << "sender name" << QObject::sender()->objectName();
     ushort vals[displayString.size()];
 
     for(int i = 0; i < displayString.size(); i++)
@@ -86,7 +87,14 @@ void AlphaNumManager::slotFormatAndOutputString(QString displayString)
         packet.data[1] = 50 + i;
         packet.data[2] = vals[i];
 
+        packetFIFOList.append(packet);
+
         emit signalSendDisplayVals("SSCOM Port 1", packet);
+
+        if(packetFIFOList.size() && !fifoClock.isActive())
+        {
+            //fifoClock.start(10);
+        }
     }
 }
 
@@ -138,7 +146,7 @@ void AlphaNumManager::slotDisplayKeyName(int keyNum)
 
 void AlphaNumManager::slotKeyOff(int keyNum)
 {
-    qDebug() << "key off called" << keyNum;
+    //qDebug() << "key off called" << keyNum;
 
     if(instanceNum == keyNum)
     {
@@ -171,4 +179,17 @@ void AlphaNumManager::slotReturnToKeyName()
 void AlphaNumManager::slotOpenParamDisplay()
 {
     paramDisplay = true;
+}
+
+void AlphaNumManager::slotDrainFIFO()
+{
+    if(!packetFIFOList.size())
+    {
+        fifoClock.stop();
+    }
+    else
+    {
+        emit signalSendDisplayVals("SSCOM Port 1", packetFIFOList.first());
+        packetFIFOList.removeFirst();
+    }
 }
