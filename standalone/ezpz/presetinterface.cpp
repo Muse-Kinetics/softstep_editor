@@ -598,6 +598,7 @@ void PresetInterface::slotUpdateClicked()
     }
 
     slotCheckSaveState();
+    slotWriteJSON(jsonMasterMap);
 }
 
 void PresetInterface::slotSetCurrentPresetToFactory()

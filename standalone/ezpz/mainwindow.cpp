@@ -149,7 +149,7 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 void MainWindow::closeEvent(QCloseEvent *)
 {
     qDebug() << "closing...";
-    presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
+    //presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
 }
 
 void MainWindow::slotConnectInterfaces()
