@@ -56,6 +56,8 @@ public:
     QString outputPort;
     QString thisModlineSource;
 
+    bool resultState; //positive or negative? easy way to detect state changes
+
     //Graphical vars
     int raw;
     int result;
@@ -65,6 +67,8 @@ public:
     bool toggleOn;
 
     LEDManager ledManager;
+
+    int counter;
 
     
 signals:
@@ -82,16 +86,18 @@ signals:
     void hosted_signalNoteLive(QString port,int channel, int oldNote, int newNote, int velocity);
     void hosted_signalCC(QString port, int channel, int ccNum, int ccVal);
     void hosted_signalBank(QString port, int channel, int msb, int lsb);
-    //void hosted_signalOSC();
+    void hosted_signalOSC();
     void hosted_signalProgram(QString port, int channel, int program);
     void hosted_signalPitchBend(QString port, int channel, int lsb, int msb);
     void hosted_signalMMC(QString port, int id, QString function);
     void hosted_signalAftertouch(QString port, int channel, int val);
     void hosted_signalPolyAftertouch(QString port, int channel, int note, int val);
-    //void hosted_signalGarageBand();
-    //void hosted_signalHUI();
+    void hosted_signalGarageBand();
+    void hosted_signalHUI();
 
     void hosted_signalSetLEDMode(int modlieNum, QString greenMode, QString redMode);
+
+    void hosted_signalCounter(QString whatToDo, int val);
 
 
 public slots:
@@ -107,6 +113,8 @@ public slots:
     void slotPopulateMenus(QStringList source, QStringList dest, QStringList table);
 
     //---------------------------- Hosted
+
+    //Modline processing
     void slotTransformSource(int val, int modlineNum, QString source);
     void slotSetTransformValues();
     void slotStreamSourceData();
@@ -114,6 +122,9 @@ public slots:
     int  slotMinMax(int input);
     void slotSmooth(int result);
     int  slotDelay(int input);
+
+    //Counter
+    void slotCounter(int val);
 
     void hosted_slotOutputMidi(int outputVal);
     void hosted_slotPopulateDeviceMenu(QMap<QString, MIDIEndpointRef> externalDevices);

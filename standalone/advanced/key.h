@@ -42,10 +42,14 @@ public:
     DataCooker dataCooker;
     AlphaNumManager alphaNumManager;
     LEDManager ledManager;
+
+    int counter;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
     void signalCheckSavedState();
+
+    void signalCounterValue(int val);
     
 public slots:
     void slotOpenWindow();
@@ -59,6 +63,8 @@ public slots:
     //------------------ Hosted ------------------//
     void slotSetDataCookerSettings();
     void slotSetAlphaNumSettings();
+
+    void slotCounter(QString whatToDo, int val);
 
 
     //window resizing functions for the add/subtract buttons and the display settings button

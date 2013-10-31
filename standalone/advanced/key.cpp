@@ -80,6 +80,8 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     //Carson's attempt to dynamically update the key window instance label — shit works
     keyWindowForm->keyWindowInstanceLabel->setText(QString("%1").arg((keyInstance + 1) % 10));
     keyBoxForm->openWindow->setStyleSheet(stylesheets.keyBoxOpenButtonStyleSheet.at(keyInstance));
+
+    counter = 0;
 }
 
 void Key::slotOpenWindow()
@@ -119,10 +121,16 @@ void Key::slotConnectElements()
 
         //alphanumeric display -- needs special slot because it is display linked
         connect(modline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
+
+        //Counter
+        connect(modline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
+        connect(this, SIGNAL(signalCounterValue(int)), modline[i], SLOT(slotCounter(int)));
+
     }
 
     //alphanumeric display - handled in main window
     //connect(&dataCooker, SIGNAL(signalThisKeyPressed(int)), &alphaNumManager, SLOT(slotDisplayKeyName()));
+
 
 }
 
@@ -148,7 +156,14 @@ void Key::slotDisconnectElements()
         disconnect(&dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
         disconnect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
 
+        //leds -- used modline output because all lines' logic is checked
+        disconnect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
+        disconnect(modline[i], SIGNAL(hosted_signalSetLEDMode(int, QString,QString)), &ledManager, SLOT(slotSetLedModes(int,QString,QString)));
+
         disconnect(modline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
+
+        disconnect(modline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
+        disconnect(this, SIGNAL(signalCounterValue(int)), modline[i], SLOT(slotCounter(int)));
     }
 }
 
@@ -381,5 +396,25 @@ void Key::slotSetAlphaNumSettings()
     alphaNumManager.displayMode = keyWindowForm->leddisplaymode->currentText();
     alphaNumManager.keyName = keyWindowForm->keyname->text();
     alphaNumManager.prefix = keyWindowForm->displayprefix->text();
+}
+
+void Key::slotCounter(QString whatToDo, int val)
+{
+    qDebug() << keyInstance << whatToDo << val;
+
+    if(whatToDo == "Inc")
+    {
+        counter++;
+    }
+    else if(whatToDo == "Dec")
+    {
+        counter--;
+    }
+    else if(whatToDo == "Set")
+    {
+        counter = val;
+    }
+
+    emit signalCounterValue(counter);
 }
 

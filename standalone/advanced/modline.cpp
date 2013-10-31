@@ -728,8 +728,22 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
             //Set result display vaule
             result = val;
 
-            //Table
-            val = slotTable(val);
+            qDebug() << "result" << result;
+
+            if(slotTable(val) == -1) //Counter function
+            {
+                qDebug() << "last Val" << val;
+                lastVal = val;
+                lastSource = source;
+
+                slotDisplayVars();
+                return;
+            }
+            else
+            {
+                //Table
+                val = slotTable(val);
+            }
 
             //Min Max
             val = slotMinMax(val);
@@ -813,6 +827,31 @@ int Modline::slotTable(int input)
     else if(table == "Logarithmic")
     {
         return logarithmic[input];
+    }
+    else if(table == "Counter Inc")
+    {
+        qDebug() << "input" << input;
+
+        if(!lastVal && input)
+        {
+            emit hosted_signalCounter("Inc", -1);
+        }
+
+        return -1;
+    }
+    else if(table == "Counter Dec")
+    {
+        if(!lastVal && input)
+        {
+            emit hosted_signalCounter("Dec", -1);
+        }
+
+        return -1;
+    }
+    else if(table == "Counter Set")
+    {
+        emit hosted_signalCounter("Set", input);
+        return -1;
     }
 }
 
@@ -936,8 +975,16 @@ void Modline::hosted_slotOutputMidi(int outputVal)
     {
 
     }
-
 }
 
+//---------------------------------------------------------------------------------------------//
+//------------------------------------------ Counter ------------------------------------------//
+//---------------------------------------------------------------------------------------------//
 
-
+void Modline::slotCounter(int val)
+{
+    if(modlineForm->table->currentText().contains("Counter"))
+    {
+        qDebug() << "key: " << keyInstance  << "modline: " << modlineInstance << "val: " << val;
+    }
+}
