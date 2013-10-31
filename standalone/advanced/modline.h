@@ -19,6 +19,7 @@
 #include "stylesheets.h"
 #include "hosted/slewer.h"
 #include "hosted/ledmanager.h"
+#include "hosted/delay.h"
 
 class Modline : public QWidget
 {
@@ -42,8 +43,11 @@ public:
     int lastVal;
     int output;
 
+    bool firstCall; //used to filter changes until first output routine called
+
     //-------------------- Hosted
     Slewer slewer;
+    Delay delayer;
 
     //Transform variables
     bool enabled;

@@ -49,7 +49,8 @@ SOURCES +=      main.cpp\
     hosted/midiinput.cpp \
     hosted/alphanummanager.cpp \
     hosted/ledmanager.cpp \
-    hosted/displaysink.cpp
+    hosted/displaysink.cpp \
+    hosted/delay.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -85,7 +86,8 @@ HEADERS  +=     mainwindow.h \
     hosted/midiinput.h \
     hosted/alphanummanager.h \
     hosted/ledmanager.h \
-    hosted/displaysink.h
+    hosted/displaysink.h \
+    hosted/delay.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \

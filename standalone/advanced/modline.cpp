@@ -31,6 +31,8 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     lastVal = -1;
     output = -1;
 
+    firstCall = true;
+
     lastNote = -1;
     toggleOn = false;
 
@@ -152,6 +154,9 @@ void Modline::slotConnectElements()
     //Slewer
     connect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmoothReturn(int)));
 
+    //Delay
+    connect(&delayer, SIGNAL(signalDelayedOutput(int)), this, SLOT(slotDelayReturn(int)));
+
     //connect(this, SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
 }
 
@@ -237,6 +242,9 @@ void Modline::slotDisconnectElements()
     //----------------------- Hosted
     //Slewer
     disconnect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmoothReturn(int)));
+
+    //Delay
+    disconnect(&delayer, SIGNAL(signalDelayedOutput(int)), this, SLOT(slotDelayReturn(int)));
 
     //disconnect(this, SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
 }
@@ -705,6 +713,7 @@ void Modline::slotSetTransformValues()
     max = modlineForm->max->value();
     smooth = modlineForm->slew->value();
     delay = modlineForm->delay->value();
+    delayer.delayTime = delay;
 
     outputType = modlineForm->destination->currentText();
     thisModlineSource = modlineForm->source->currentText();
@@ -791,6 +800,7 @@ void Modline::slotTable(int input)
         }
 
         lastVal = input;
+        lastSource = newSource;
         return;
     }
     else if(table == "Counter Dec")
@@ -801,12 +811,14 @@ void Modline::slotTable(int input)
         }
 
         lastVal = input;
+        lastSource = newSource;
         return;
     }
     else if(table == "Counter Set")
     {
         emit hosted_signalCounter("Set", input);
         lastVal = input;
+        lastSource = newSource;
         return;
     }
 
@@ -822,6 +834,8 @@ void Modline::slotCounterReturn(int val)
             //Only display counter val
             value = val;
             slotDisplayVars();
+            lastVal = input;
+            lastSource = newSource;
             return;
         }
         else
@@ -868,6 +882,8 @@ void Modline::slotSmooth(int input)
     if(smooth)
     {
         //do something with slewer here and retun in slotSmoothReturn
+        lastVal = input;
+        lastSource = newSource;
         return;
     }
     else
@@ -887,9 +903,15 @@ void Modline::slotSmoothReturn(int input)
 //------------------------------------------------------------------------------------------- Delay
 void Modline::slotDelay(int input)
 {
+
     if(delay)
     {
+        qDebug() << "delay called" << delay << input;
+
         //Do something with latcher, or delay here
+        delayer.slotInputToDealy(input);
+        lastVal = input;
+        lastSource = newSource;
         return;
     }
     else
@@ -900,6 +922,7 @@ void Modline::slotDelay(int input)
 
 void Modline::slotDelayReturn(int input)
 {
+    qDebug() << "delayed signal" << input;
     slotOutputRoutine(input);
 }
 
@@ -1010,7 +1033,5 @@ void Modline::hosted_slotOutputMidi(int outputVal)
 
 void Modline::slotDisplayVars()
 {
-    //modlineForm->raw->setValue(raw);
-    //modlineForm->result->setValue(result);
     modlineForm->outputvalue->setValue(value);
 }
