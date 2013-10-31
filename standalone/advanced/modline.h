@@ -39,7 +39,6 @@ public:
 
     QString newSource;
     QString lastSource;
-    int newVal;
     int lastVal;
     int output;
 
@@ -47,6 +46,7 @@ public:
     Slewer slewer;
 
     //Transform variables
+    bool enabled;
     float gain;
     int offset;
     QString table;
@@ -96,6 +96,8 @@ signals:
     void hosted_signalPolyAftertouch(QString port, int channel, int note, int val);
     void hosted_signalGarageBand();
     void hosted_signalHUI();
+    void hosted_signalYIncSet(int);
+    void hosted_signalXIncSet(int);
 
     void hosted_signalSetLEDMode(int modlieNum, QString greenMode, QString redMode);
 

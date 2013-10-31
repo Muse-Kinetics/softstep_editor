@@ -556,6 +556,11 @@ void DataCooker::slotTickXIncrementClock()
     }
 }
 
+void DataCooker::slotXIncSet(int i)
+{
+    xIncCount = i;
+}
+
 void DataCooker::yIncrement()
 {
     //If key is active
@@ -632,6 +637,11 @@ void DataCooker::slotTickYIncrementClock()
     {
         yIncClock->stop();
     }
+}
+
+void DataCooker::slotYIncSet(int i)
+{
+    yIncCount = i;
 }
 
 //-------------------------------------------------------------------- Top/Bottom

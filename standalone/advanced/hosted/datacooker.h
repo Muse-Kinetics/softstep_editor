@@ -123,6 +123,8 @@ public slots:
     //----------------------------- IncDec Clock Slots
     void slotTickXIncrementClock();
     void slotTickYIncrementClock();
+    void slotYIncSet(int);
+    void slotXIncSet(int);
 
     //----------------------------- Trigger Return and Off Slots
     //Fast

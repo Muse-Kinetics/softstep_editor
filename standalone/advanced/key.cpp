@@ -114,6 +114,8 @@ void Key::slotConnectElements()
         connect(modline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
         connect(&dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
         connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
+        connect(modline[i], SIGNAL(hosted_signalYIncSet(int)), &dataCooker, SLOT(slotYIncSet(int)));
+        connect(modline[i], SIGNAL(hosted_signalXIncSet(int)), &dataCooker, SLOT(slotXIncSet(int)));
 
         //leds -- used modline output because all lines' logic is checked
         connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
@@ -155,6 +157,8 @@ void Key::slotDisconnectElements()
         disconnect(modline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
         disconnect(&dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
         disconnect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
+        disconnect(modline[i], SIGNAL(hosted_signalYIncSet(int)), &dataCooker, SLOT(slotYIncSet(int)));
+        disconnect(modline[i], SIGNAL(hosted_signalXIncSet(int)), &dataCooker, SLOT(slotXIncSet(int)));
 
         //leds -- used modline output because all lines' logic is checked
         disconnect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));

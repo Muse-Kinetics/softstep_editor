@@ -694,6 +694,7 @@ void Modline::slotStreamSourceData()
 
 void Modline::slotSetTransformValues()
 {
+    enabled = modlineForm->enable->isChecked();
     gain = modlineForm->gain->value();
     offset = modlineForm->offset->value();
 
@@ -715,7 +716,6 @@ void Modline::slotSetTransformValues()
 void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
     newSource = source;
-    newVal = val;
 
     //Make sure this is the correct modline to receive source being emitted
     if(modlineNum == modlineInstance && source == thisModlineSource)
@@ -738,8 +738,11 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
             //Display Result
             modlineForm->result->setValue(result);
 
-            //Go to slotTable, signal continues from there
-            slotTable(val);
+            if(enabled)
+            {
+                //Go to slotTable, signal continues from there
+                slotTable(val);
+            }
         }
     }
 }
@@ -909,10 +912,10 @@ void Modline::slotOutputRoutine(int input)
     //Set value for display
     value = input;
 
-    //Send modline output to dataCooker for Modline # Sources
+    //Send modline output to dataCooker for Modline # Sources, also used for key alpha and led display
     emit hosted_signalSendModlineOutput(modlineInstance, input);
 
-    //If line is display linked, send it to alphanum
+    //If line is display linked, send param it to alphanum
     if(displayLinkButton->isChecked())
     {
         emit hosted_signalSendParamDisplayOutput(modlineInstance, input);
@@ -997,11 +1000,11 @@ void Modline::hosted_slotOutputMidi(int outputVal)
     }
     else if(outputType == "Y Inc Set")
     {
-
+        emit hosted_signalYIncSet(outputVal);
     }
     else if(outputType == "X Inc Set")
     {
-
+        emit hosted_signalXIncSet(outputVal);
     }
 }
 
