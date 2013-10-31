@@ -19,6 +19,8 @@ public:
     double          destination;
     double          velocity;
     QTimer*         timer;
+
+    int lastOutput;
     
 signals:
     void            signalOutput(int output);

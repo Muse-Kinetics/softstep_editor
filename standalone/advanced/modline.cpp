@@ -834,7 +834,7 @@ void Modline::slotCounterReturn(int val)
             //Only display counter val
             value = val;
             slotDisplayVars();
-            lastVal = input;
+            lastVal = val;
             lastSource = newSource;
             return;
         }
@@ -882,6 +882,7 @@ void Modline::slotSmooth(int input)
     if(smooth)
     {
         //do something with slewer here and retun in slotSmoothReturn
+        slewer.slotSlew(input, smooth);
         lastVal = input;
         lastSource = newSource;
         return;
@@ -895,7 +896,7 @@ void Modline::slotSmooth(int input)
 
 void Modline::slotSmoothReturn(int input)
 {
-    //qDebug() << result;
+    qDebug() << "slew return" << input;
 
     slotDelay(input);
 }

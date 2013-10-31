@@ -11,6 +11,8 @@ Slewer::Slewer(QWidget *parent):
     position = 0;
     velocity = 0;
 
+    lastOutput = -1;
+
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdate()));
 
 }
@@ -41,6 +43,12 @@ void Slewer::slotUpdate()
         timer->stop();
     }
 
-    emit signalOutput(position);
+    if(lastOutput != (int)position)
+    {
+        emit signalOutput(position);
+        lastOutput = position;
+    }
+
+
 }
 
