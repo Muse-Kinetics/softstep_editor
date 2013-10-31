@@ -124,7 +124,7 @@ void Key::slotConnectElements()
 
         //Counter
         connect(modline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
-        connect(this, SIGNAL(signalCounterValue(int)), modline[i], SLOT(slotCounter(int)));
+        connect(this, SIGNAL(signalCounterValue(int)), modline[i], SLOT(slotCounterReturn(int)));
 
     }
 
@@ -163,7 +163,7 @@ void Key::slotDisconnectElements()
         disconnect(modline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
 
         disconnect(modline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
-        disconnect(this, SIGNAL(signalCounterValue(int)), modline[i], SLOT(slotCounter(int)));
+        disconnect(this, SIGNAL(signalCounterValue(int)), modline[i], SLOT(slotCounterReturn(int)));
     }
 }
 
@@ -400,21 +400,56 @@ void Key::slotSetAlphaNumSettings()
 
 void Key::slotCounter(QString whatToDo, int val)
 {
-    qDebug() << keyInstance << whatToDo << val;
+    //qDebug() << keyInstance << whatToDo << val;
+
+    bool wrap = keyWindowForm->counterWrap->isChecked();
+    int min = keyWindowForm->counterMin->value();
+    int max = keyWindowForm->counterMax->value();
 
     if(whatToDo == "Inc")
     {
-        counter++;
+        if(wrap && counter == max)
+        {
+            counter = min;
+        }
+        else if(!wrap && counter == max)
+        {
+            counter == max;
+        }
+        else
+        {
+            counter++;
+        }
     }
     else if(whatToDo == "Dec")
     {
-        counter--;
+        if(wrap && counter == min)
+        {
+            counter = max;
+        }
+        else if(!wrap && counter == min)
+        {
+            counter == min;
+        }
+        else
+        {
+            counter--;
+        }
     }
     else if(whatToDo == "Set")
     {
+        if(val > max)
+        {
+            val = max;
+        }
+
+        if(val < min)
+        {
+            val = min;
+        }
+
         counter = val;
     }
 
     emit signalCounterValue(counter);
 }
-

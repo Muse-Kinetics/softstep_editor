@@ -150,7 +150,7 @@ void Modline::slotConnectElements()
 
     //----------------------- Hosted
     //Slewer
-    connect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmooth(int)));
+    connect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmoothReturn(int)));
 
     //connect(this, SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
 }
@@ -236,7 +236,7 @@ void Modline::slotDisconnectElements()
 
     //----------------------- Hosted
     //Slewer
-    disconnect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmooth(int)));
+    disconnect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmoothReturn(int)));
 
     //disconnect(this, SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
 }
@@ -711,8 +711,12 @@ void Modline::slotSetTransformValues()
     //qDebug() << "modline: " << modlineInstance << gain << offset << table << min << max << smooth << delay;
 }
 
+//------------------------------------------------------------------------------------------- Gain / Offset
 void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
+    newSource = source;
+    newVal = val;
+
     //Make sure this is the correct modline to receive source being emitted
     if(modlineNum == modlineInstance && source == thisModlineSource)
     {
@@ -722,80 +726,26 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
             //Set raw display value
             raw = val;
 
+            //Display Raw
+            modlineForm->raw->setValue(val);
+
             //Apply gain and offset
             val = val*gain + offset;
 
             //Set result display vaule
             result = val;
 
-            qDebug() << "result" << result;
+            //Display Result
+            modlineForm->result->setValue(result);
 
-            if(slotTable(val) == -1) //Counter function
-            {
-                qDebug() << "last Val" << val;
-                lastVal = val;
-                lastSource = source;
-
-                slotDisplayVars();
-                return;
-            }
-            else
-            {
-                //Table
-                val = slotTable(val);
-            }
-
-            //Min Max
-            val = slotMinMax(val);
-
-            //Smooth
-            //If slew time specified
-            if(smooth != 0)
-            {
-                //Handle output from slotSlew()
-                slewer.slotSlew(output, modlineForm->slew->value());
-            }
-            else
-            {
-                //If delay and no slew...
-                if(delay != 0)
-                {
-
-                }
-
-                //If no delay and no slew...
-                else
-                {
-                    //Output
-                    hosted_slotOutputMidi(val);
-                    value = val;
-                }
-            }
-
-            //qDebug() << "transform modline : " << modlineNum << "raw:" <<  raw << "result: " << result << "value:"  << value;
-
-            //Send modline output to dataCooker
-            emit hosted_signalSendModlineOutput(modlineNum, val);
-
-            //If line is display linked, send it to alphanum
-            if(displayLinkButton->isChecked())
-            {
-                //qDebug() << "emit display called";
-                emit hosted_signalSendParamDisplayOutput(modlineNum, val);
-            }
-
-            //Variables to filter out repititions
-            lastVal= val;
-            lastSource = source;
+            //Go to slotTable, signal continues from there
+            slotTable(val);
         }
-
     }
-
-    //Update graphics only after outupt
-    slotDisplayVars();
 }
 
-int Modline::slotTable(int input)
+//------------------------------------------------------------------------------------------- Table / Counter
+void Modline::slotTable(int input)
 {
     //Clip table input
     if(input > 127)
@@ -810,34 +760,35 @@ int Modline::slotTable(int input)
 
     if( table == "Linear")
     {
-        return linear[input];
+        input =  linear[input];
     }
     else if(table == "Sine")
     {
-        return sine[input];
+        input =  sine[input];
     }
     else if(table == "Cosine")
     {
-        return cosine[input];
+        input =  cosine[input];
     }
     else if(table == "Exponential")
     {
-        return exponential[input];
+        input =  exponential[input];
     }
     else if(table == "Logarithmic")
     {
-        return logarithmic[input];
+        input =  logarithmic[input];
     }
     else if(table == "Counter Inc")
     {
-        qDebug() << "input" << input;
+        //qDebug() << "last val: " << lastVal << "input: " << input;
 
         if(!lastVal && input)
         {
             emit hosted_signalCounter("Inc", -1);
         }
 
-        return -1;
+        lastVal = input;
+        return;
     }
     else if(table == "Counter Dec")
     {
@@ -846,21 +797,46 @@ int Modline::slotTable(int input)
             emit hosted_signalCounter("Dec", -1);
         }
 
-        return -1;
+        lastVal = input;
+        return;
     }
     else if(table == "Counter Set")
     {
         emit hosted_signalCounter("Set", input);
-        return -1;
+        lastVal = input;
+        return;
+    }
+
+    slotMinMax(input);
+}
+
+void Modline::slotCounterReturn(int val)
+{
+    if(modlineForm->table->currentText().contains("Counter"))
+    {
+        if(modlineForm->table->currentText().contains("Set"))
+        {
+            //Only display counter val
+            value = val;
+            slotDisplayVars();
+            return;
+        }
+        else
+        {
+            slotMinMax(val);
+        }
+
+        //qDebug() << "key: " << keyInstance  << "modline: " << modlineInstance << "val: " << val;
     }
 }
 
-int Modline::slotMinMax(int input)
+//------------------------------------------------------------------------------------------- Min / Max
+void Modline::slotMinMax(int input)
 {
     //If min max are flipped... Don't know... return input for now
     if(min > max)
     {
-        return input;
+        //return input;
     }
 
     //If they're equal or max is greater than min
@@ -868,34 +844,86 @@ int Modline::slotMinMax(int input)
     {
         if(input < min)
         {
-            return min;
+            input = min;
         }
         else if(input > max)
         {
-            return max;
+            input = max;
         }
         else
         {
-            return input;
+            input = input;
         }
+    }
+
+    slotSmooth(input);
+}
+
+//------------------------------------------------------------------------------------------- Smooth
+void Modline::slotSmooth(int input)
+{
+    if(smooth)
+    {
+        //do something with slewer here and retun in slotSmoothReturn
+        return;
+    }
+    else
+    {
+        slotDelay(input);
+    }
+
+}
+
+void Modline::slotSmoothReturn(int input)
+{
+    //qDebug() << result;
+
+    slotDelay(input);
+}
+
+//------------------------------------------------------------------------------------------- Delay
+void Modline::slotDelay(int input)
+{
+    if(delay)
+    {
+        //Do something with latcher, or delay here
+        return;
+    }
+    else
+    {
+        slotOutputRoutine(input);
     }
 }
 
-void Modline::slotSmooth(int result)
+void Modline::slotDelayReturn(int input)
 {
-    //qDebug() << result;
+    slotOutputRoutine(input);
 }
 
-int Modline::slotDelay(int input)
+//------------------------------------------------------------------------------------------- Output
+void Modline::slotOutputRoutine(int input)
 {
+    //Prepares message type to be formatted by midiformat, and then output via mididevicemanager
+    hosted_slotOutputMidi(input);
 
-}
+    //Set value for display
+    value = input;
 
-void Modline::slotDisplayVars()
-{
-    modlineForm->raw->setValue(raw);
-    modlineForm->result->setValue(result);
-    modlineForm->outputvalue->setValue(value);
+    //Send modline output to dataCooker for Modline # Sources
+    emit hosted_signalSendModlineOutput(modlineInstance, input);
+
+    //If line is display linked, send it to alphanum
+    if(displayLinkButton->isChecked())
+    {
+        emit hosted_signalSendParamDisplayOutput(modlineInstance, input);
+    }
+
+    //Update graphics only after outupt
+    slotDisplayVars();
+
+    //Variables to filter out repititions
+    lastVal = input;
+    lastSource = newSource;
 }
 
 void Modline::hosted_slotOutputMidi(int outputVal)
@@ -977,14 +1005,9 @@ void Modline::hosted_slotOutputMidi(int outputVal)
     }
 }
 
-//---------------------------------------------------------------------------------------------//
-//------------------------------------------ Counter ------------------------------------------//
-//---------------------------------------------------------------------------------------------//
-
-void Modline::slotCounter(int val)
+void Modline::slotDisplayVars()
 {
-    if(modlineForm->table->currentText().contains("Counter"))
-    {
-        qDebug() << "key: " << keyInstance  << "modline: " << modlineInstance << "val: " << val;
-    }
+    //modlineForm->raw->setValue(raw);
+    //modlineForm->result->setValue(result);
+    modlineForm->outputvalue->setValue(value);
 }

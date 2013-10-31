@@ -37,7 +37,9 @@ public:
     int keyInstance;
     int modlineInstance;
 
+    QString newSource;
     QString lastSource;
+    int newVal;
     int lastVal;
     int output;
 
@@ -118,13 +120,16 @@ public slots:
     void slotTransformSource(int val, int modlineNum, QString source);
     void slotSetTransformValues();
     void slotStreamSourceData();
-    int  slotTable(int input);
-    int  slotMinMax(int input);
-    void slotSmooth(int result);
-    int  slotDelay(int input);
+    void  slotTable(int input);
+    void slotCounterReturn(int i);
+    void slotMinMax(int input);
+    void slotSmooth(int input);
+    void slotSmoothReturn(int input);
+    void  slotDelay(int input);
+    void slotDelayReturn(int input);
+    void slotOutputRoutine(int input);
 
-    //Counter
-    void slotCounter(int val);
+
 
     void hosted_slotOutputMidi(int outputVal);
     void hosted_slotPopulateDeviceMenu(QMap<QString, MIDIEndpointRef> externalDevices);
