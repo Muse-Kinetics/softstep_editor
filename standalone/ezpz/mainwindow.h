@@ -69,6 +69,8 @@ public:
     //Menubar
     QMenuBar *menubar;
     QList<QAction *> actionList;
+    QAction* useCustom; //used for enabling/disabling Use Custom Preset menu item.
+    bool useCustomEnabled;
 
     //Ui Elements
     Key *key[10];
@@ -114,6 +116,7 @@ public slots:
     void slotDisconnectUpdate();
     void slotConnectUpdate();
     void slotDisplaySaveState(bool);
+    void slotEnableDisableUseCustomPreset(bool);
 
     void slotEnableDisableMenu();
 

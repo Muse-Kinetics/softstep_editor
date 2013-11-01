@@ -268,6 +268,7 @@ void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap master)
         ui->displayName->setFocusPolicy(Qt::NoFocus);
 
         ui->currentPreset->setFocus();
+        slotEnableDisableUseCustomPreset(true);
     }
     else
     {
@@ -278,6 +279,7 @@ void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap master)
 
         factoryPresetCoverWidget1->hide();
         factoryPresetNameLabel->hide();
+        slotEnableDisableUseCustomPreset(false);
     }
 
     //Disable Keys
@@ -436,7 +438,7 @@ void MainWindow::slotInitMenuBar()
     menubar->addMenu(edit);
 
     //Custom Preset
-    QAction* useCustom = new QAction("Use Custom Preset", edit);
+    useCustom = new QAction("Use Custom Preset", edit);
     actionList.append(useCustom);
     connect(useCustom, SIGNAL(triggered()), presetInterface, SLOT(slotSetCurrentPresetToFactory()));
     connect(useCustom, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
@@ -511,12 +513,33 @@ void MainWindow::slotInitMenuBar()
     menubar->addMenu(help);
 }
 
+void MainWindow::slotEnableDisableUseCustomPreset(bool enable){
+    if(enable){
+        useCustom->setEnabled(true);
+        useCustomEnabled = true;
+    }
+    else{
+        useCustom->setEnabled(false);
+        useCustomEnabled = false;
+    }
+}
+
 void MainWindow::slotEnableDisableMenu()
 {
     //Disable Menubar actions
     for(int i = 0; i < actionList.size(); i++)
     {
         actionList.at(i)->setEnabled(!disableWidget->isVisible());
+    }
+
+    //Separately Enable/Disable Use Custom Preset edit menu item.
+    if(!disableWidget->isVisible()){ //if all menu items are not all disabled
+        if(useCustomEnabled){        //then enable or disable Use Custom.
+            useCustom->setEnabled(true);
+        }
+        else{
+            useCustom->setEnabled(false);
+        }
     }
 
     //Disable MainWindow UI
