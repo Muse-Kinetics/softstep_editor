@@ -6,10 +6,13 @@
 Setlist::Setlist(QWidget *parent) :
     QWidget(parent),
     setlistForm(new Ui::setlistForm),
-    setlistWidget(new QWidget())
+    setlistWidget(new QWidget(this))
 {
+    setlistWidget->hide();
+    setlistWidget->setWindowFlags(Qt::Tool | Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint| Qt::WindowStaysOnTopHint);
     //setlistWidget = new QWidget();
     setlistForm->setupUi(setlistWidget);
+
 
     slotInitComponents();
 

@@ -30,7 +30,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     keyBoxForm(new Ui::keyBoxForm),
     keyWindowForm(new Ui::keyWindowForm),
     dataCooker(keyInstanceNum, this),
-    keyWindowWidget(new QWidget()),
+    keyWindowWidget(new QWidget(this)),
     keyBoxWidget(new QWidget(this))
 {
     keyInstance = keyInstanceNum;
@@ -61,7 +61,9 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     keyWindowWidget->setFixedSize(KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
     QRect screenGeometry = QApplication::desktop()->availableGeometry();
     keyWindowWidget->setGeometry(20 + (keyInstance * 15), (screenGeometry.height() / 2) + (keyInstance * 15), KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
-    keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg(keyInstance+1));
+    keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg((keyInstance+1)%10));
+    //keyWindowWidget->setParent(this);
+    keyWindowWidget->setWindowFlags(Qt::Tool | Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint| Qt::WindowStaysOnTopHint);
 
     //What's in the Key Box?
     connect(keyBoxForm->openWindow,SIGNAL(clicked()), this, SLOT(slotOpenWindow()));
@@ -73,6 +75,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
         modline[i]->slotConnectElements();
         displayLinkedButtonGroup.addButton(modline[i]->displayLinkButton, i);
     }
+
     connect(keyWindowForm->ledDisplayCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotShowDisplaySettings(bool)));
     connect(keyWindowForm->addmodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
     connect(keyWindowForm->deletemodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));

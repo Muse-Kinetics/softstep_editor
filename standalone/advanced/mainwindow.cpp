@@ -15,7 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     midiDeviceManager(new MidiDeviceManager(this)),
     midiParse(new MidiParse()),
     saveAsDialogForm(new Ui::saveAsDialogForm),
-    deleteDialogForm(new Ui::deleteDialogForm)
+    deleteDialogForm(new Ui::deleteDialogForm),
+    disableWidget(new QWidget(this))
 
 {
     //Mainwindow Ui
@@ -24,6 +25,10 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setFixedSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
     QRect screenGeometry = QApplication::desktop()->availableGeometry();
     this->setGeometry(screenGeometry.width() / 4, 50, MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
+
+    disableWidget->hide();
+    disableWidget->setGeometry(0,0,MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
+    disableWidget->setStyleSheet("background: rgba(0,0,0,200);");
 
     //Populates source and dest lists for modes
     slotPopulateSourceDestLists();
@@ -38,12 +43,20 @@ MainWindow::MainWindow(QWidget *parent) :
     navKey = new NavKey(this);
 
     //------------------------------------- Dialogs
+
+    //Some bizarre positioning happening here to center these.... don't get it at the moment.
+
     //SaveAs
-    saveAsDialogWidget = new QWidget();
+    saveAsDialogWidget = new QWidget(this);
+    saveAsDialogWidget->hide();
+    saveAsDialogWidget->setGeometry(MAINWINDOW_WIDTH/2 - saveAsDialogWidget->width()/2, MAINWINDOW_HEIGHT/2 - saveAsDialogWidget->height(), saveAsDialogWidget->width(), saveAsDialogWidget->height());
+    //saveAsDialogWidget->setWindowFlags();
     saveAsDialogForm->setupUi(saveAsDialogWidget);
 
     //Delete
-    deleteDialogWidget = new QWidget();
+    deleteDialogWidget = new QWidget(this);
+    deleteDialogWidget->hide();
+    deleteDialogWidget->setGeometry(MAINWINDOW_WIDTH/2 - deleteDialogWidget->width(), MAINWINDOW_HEIGHT/2 - deleteDialogWidget->height(), deleteDialogWidget->width(), deleteDialogWidget->height());
     deleteDialogForm->setupUi(deleteDialogWidget);
 
 
@@ -326,16 +339,23 @@ void MainWindow::slotConnectInterfaces()
     connect(presetInterface, SIGNAL(signalPresetDirty(bool)), this, SLOT(slotDisplaySaveState(bool)));
 
     //Save As
+    connect(ui->saveas, SIGNAL(clicked()), disableWidget, SLOT(show()));
     connect(ui->saveas, SIGNAL(clicked()), saveAsDialogWidget, SLOT(show()));
     connect(saveAsDialogForm->cancel, SIGNAL(clicked()), saveAsDialogWidget, SLOT(close()));
+    connect(saveAsDialogForm->cancel, SIGNAL(clicked()), disableWidget, SLOT(close()));
     connect(saveAsDialogForm->save, SIGNAL(clicked()), this, SLOT(slotSaveAs()));
+    connect(saveAsDialogForm->save, SIGNAL(clicked()), disableWidget, SLOT(close()));
+    connect(saveAsDialogForm->save, SIGNAL(clicked()), saveAsDialogWidget, SLOT(close()));
     connect(this, SIGNAL(signalSaveAs(QString)), presetInterface, SLOT(slotSavePresetAs(QString)));
     connect(presetInterface, SIGNAL(signalAddRemovePreset()), this, SLOT(slotPopulatePresetMenu()));
 
     //Delete
+    connect(ui->deletepreset, SIGNAL(clicked()), disableWidget, SLOT(show()));
     connect(ui->deletepreset, SIGNAL(clicked()), deleteDialogWidget, SLOT(show()));
+    connect(deleteDialogForm->cancel, SIGNAL(clicked()), disableWidget, SLOT(close()));
     connect(deleteDialogForm->cancel, SIGNAL(clicked()), deleteDialogWidget, SLOT(close()));
     connect(deleteDialogForm->delete_2, SIGNAL(clicked()), presetInterface, SLOT(slotDeletePreset()));
+    connect(deleteDialogForm->delete_2, SIGNAL(clicked()), disableWidget, SLOT(close()));
     connect(deleteDialogForm->delete_2, SIGNAL(clicked()), deleteDialogWidget, SLOT(close()));
     connect(deleteDialogForm->delete_2, SIGNAL(clicked()), this, SLOT(slotPopulatePresetMenu()));
 

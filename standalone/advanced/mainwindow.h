@@ -56,6 +56,9 @@ public:
     QStringList hostedNavSources;
     QStringList hostedNavTables;
 
+    //Disabling Widget
+    QWidget* disableWidget;
+
     //Dialogs
     QWidget* saveAsDialogWidget;
     QWidget* deleteDialogWidget;

@@ -9,7 +9,9 @@ Settings::Settings(QWidget *parent) :
     QWidget(parent),settingsForm(new Ui::settingsForm)
 {
     //set up settings window
-    settingsWidget = new QWidget();
+    settingsWidget = new QWidget(this);
+    settingsWidget->hide();
+    settingsWidget->setWindowFlags(Qt::Tool | Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint| Qt::WindowStaysOnTopHint);
     settingsForm->setupUi(settingsWidget);
     //settingsWidget->setFixedSize(320,492);
     settingsWidget->setWindowTitle(QString("Settings"));
