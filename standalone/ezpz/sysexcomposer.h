@@ -44,6 +44,9 @@ public slots:
     void    slotGetEmbeddedVersion();
     void    slotUpdateFirmware();
     void    slotComposeFactoryPreset(long p, QString factoryPresetName, t_softstep *x);
+
+    void    slotSettingsSent();
+    void    slotPresetsSent();
 };
 
 #endif // SYSEXCOMPOSER_H

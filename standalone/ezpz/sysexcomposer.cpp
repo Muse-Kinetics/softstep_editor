@@ -454,16 +454,35 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
         //qDebug() << "byte" << image[i];
     }
 
-    emit signalSendSysEx(QString("standalone image"), image, imageLength, QString("SSCOM Port 1"));
-    qDebug("freeing image");
-    free(image);
 
-    emit signalSendSysEx(QString("standalone image"), settings, settingsLength, QString("SSCOM Port 1"));
+
+    //Send Settings
+    emit signalSendSysEx(QString("settings image"), settings, settingsLength, QString("SSCOM Port 1"));
+
+
+
+
+}
+
+void SysExComposer::slotSettingsSent()
+{
     qDebug("freeing settings");
     free(settings);
 
+    emit signalSendSysEx(QString("preset image"), image, imageLength, QString("SSCOM Port 1"));
+
+
+}
+
+void SysExComposer::slotPresetsSent()
+{
+    qDebug("freeing image");
+    free(image);
+
     //sysex message complete
     emit signalUpdateComplete();
+
+
 }
 
 void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, t_softstep* x)
@@ -527,7 +546,13 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
             }
 
             attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
-            attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
+            //qDebug() << "------------------ " << preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData();
+            QString deviceTest = preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString();
+            if(deviceTest.contains("SSCOM_Port_1") || deviceTest.contains("SoftStep_Expander"))
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
+            }
+
             attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,preset.value(QString("key%1_modline%2_ledred").arg(k).arg(m)).toString().toUtf8().constData());
             attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,preset.value(QString("key%1_modline%2_ledgreen").arg(k).arg(m)).toString().toUtf8().constData());
             attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("key%1_modline%2_displaylinked").arg(k).arg(m)).toString().toUtf8().constData());
@@ -580,7 +605,13 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
 
         attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,preset.value(QString("%1_modline%2_destination").arg(k).arg(m)).toString().toUtf8().constData());
         attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("%1_modline%2_channel").arg(k).arg(m)).toLongLong());
-        attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
+
+        QString deviceTest = preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString();
+        if(deviceTest.contains("SSCOM_Port_1") || deviceTest.contains("SoftStep_Expander"))
+        {
+            attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
+        }
+
         attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("%1_modline%2_displaylinked").arg(k).arg(m)).toString().toUtf8().constData());
     }
 

@@ -46,6 +46,7 @@ public:
     PresetInterface *presetInterface;
     SysExComposer   *sysExComposer;
 
+    QThread midiThread;
     MidiDeviceManager *mdm;
 
     bool connected;
