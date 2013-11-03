@@ -350,23 +350,19 @@ void sysExComplete(MIDISysexSendRequest* request)
 }
 #else
 
-MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
+MidiDeviceManager::MidiDeviceManager(QObject *parent) :
     QObject(parent)
 {
-
 
     numDevices = 0;
 
     sysExType = "None";
     globals.clear();
 
-    //qDebug() <<"ERROR" << MMSYSERR_ALLOCATED;
+    qDebug() <<"ERROR" << MMSYSERR_ALLOCATED;
 
     inBootloader = false;
     fwUpdateRequested = false;
-
-    settingsSent = true;
-    presetsSent = true;
 
     //Load Firmware File into a byte array
     firmware = new QFile(":firmware/resources/firmware/QuNexus_Firmware.syx");
@@ -400,8 +396,7 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
 
     inHandle = NULL;
     outHandle = NULL;
-    inConnected = false;
-    outConnected = false;
+    connected = false;
     refreshDevices = true;
 
     //------------------------------- Polling
@@ -415,15 +410,6 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     versionPoller = new QTimer(this);
     connect(versionPoller, SIGNAL(timeout()), this, SLOT(slotPollVersion()));
     versionReply = false;
-
-    //appEventProcessorThread = new QThread(this);
-    //appEventProcessor = new QTimer(this); // No parent
-    //appEventProcessor->setInterval(100);
-    //appEventProcessor->moveToThread(appEventProcessorThread);
-    //connect(appEventProcessor, SIGNAL(timeout()), this, SLOT(slotProcessAppEvents()));
-    //connect(this, SIGNAL(signalStartAppEventProcessorTimer()), appEventProcessor, SLOT(start()));
-    //appEventProcessorThread->start();
-    //emit signalStartAppEventProcessorTimer();
 }
 
 bool MidiDeviceManager::connectSource()
@@ -435,14 +421,8 @@ bool MidiDeviceManager::connectSource()
         slotCloseMidiOut();
         slotOpenMidiIn(getSource());
         slotOpenMidiOut(getDestination());
-
-        if(inConnected && outConnected)
-        {
-            qDebug() << "-------------------------- start version reply";
-            versionReply = false;
-            versionPoller->start(1);
-        }
-
+        versionReply = false;
+        versionPoller->start(1);
         return true;
     }
     else
@@ -477,7 +457,6 @@ void MidiDeviceManager::slotOpenMidiIn(int index){
                     sysExInHdr.dwFlags = 0; //no flags
 
                     err = midiInPrepareHeader(inHandle, &sysExInHdr, sizeof(MIDIHDR)); //prepare the header (return MMRESULT err)
-
                     if(err == MMSYSERR_NOERROR)
                     { //if not error...
                         err = midiInAddBuffer(inHandle, &sysExInHdr, sizeof(MIDIHDR)); //add the buffer to our current device
@@ -487,11 +466,9 @@ void MidiDeviceManager::slotOpenMidiIn(int index){
                             if(err != MMSYSERR_NOERROR)
                             { //if error in starting...
                                 qDebug("couldn't open midi in"); //print error
-                                inConnected = true;
                             }
                             else
                             {
-                                inConnected = true;
                                 qDebug("device open"); //if successful, print device open
                             }
                         }
@@ -503,13 +480,13 @@ void MidiDeviceManager::slotOpenMidiIn(int index){
             if (!(err = midiInStart(inHandle)))
             {
 
-                return;
+                //return(0);
             }
 
             /* ============== ERROR ============== */
 
             /* Close MIDI In and zero handle */
-            slotCloseMidiIn();
+            //slotCloseMidiIn();
 
 
         }
@@ -530,8 +507,7 @@ void MidiDeviceManager::slotOpenMidiOut(int index){
         /* Open MIDI Output. */
         if (!(err = midiOutOpen(&outHandle, index, (DWORD_PTR)midiOutCallback, (DWORD_PTR)this, CALLBACK_FUNCTION)))
         {
-            outConnected = true;
-            return;
+            //return(0);
         }
 
         /* ============== ERROR ============== */
@@ -539,7 +515,6 @@ void MidiDeviceManager::slotOpenMidiOut(int index){
 
     /* Return the error */
     qDebug() << "OPEN MIDI OUT ERR:"<< (err);
-    outConnected = false;
 
 }
 
@@ -705,18 +680,7 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, i
         fwUpdateRequested = true;
     }
 
-    if(messageID == "preset image")
-    {
-        presetsSent = false;
-    }
-
-    if(messageID == "settings image")
-    {
-        settingsSent = false;
-    }
-
-    qDebug() << "sysex bytes" << len << messageID;
-
+    qDebug() << "sysex bytes" << len;
     UINT err;
 
     sysExOutBuffer = GlobalAlloc(GHND, len);
@@ -734,11 +698,7 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, i
 
         qDebug() << "SysEx Out Header Flags: " << sysExOutHdr.dwFlags << MHDR_DONE << MHDR_INQUEUE << MHDR_ISSTRM << MHDR_PREPARED;
 
-
-        //appEventProcessor.start(100);
         err = midiOutLongMsg(outHandle, &sysExOutHdr, sizeof(MIDIHDR));
-
-        qDebug() << "-------------------- midi out long message";
 
         if(err)
         {
@@ -776,33 +736,15 @@ void MidiDeviceManager::slotPollVersion()
 {
     if(!versionReply)
     {
-
-        if(outConnected && inConnected)
-        {
-            slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
-        }
-        else
-        {
-            connectSource();
-        }
-
+        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
         emit signalConnected(false);
-
     }
     else
     {
-        qDebug() << "STOP VERSION POLLING";
-
-        versionPoller->stop();
-
+        qDebug() << "STOP";
         emit signalConnected(true);
+        versionPoller->stop();
     }
-}
-
-void MidiDeviceManager::slotProcessAppEvents()
-{
-    qDebug() << "process events";
-    QCoreApplication::processEvents(QEventLoop::AllEvents);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -894,26 +836,14 @@ void CALLBACK MidiDeviceManager::midiOutCallback(HMIDIOUT handle, UINT uMsg, DWO
         GlobalFree(mda->sysExOutBuffer);
         //qDebug() << "MEMORy DEALLOCATED";
 
-        //Handle Firmware Update Completion
         if(mda->fwUpdateRequested == true)
         {
             mda->fwUpdateRequested = false;
             emit mda->signalFwBytesLeft(0);
             //mda->slotCloseMidiIn();
             //mda->slotCloseMidiIn();
-            mda->numDevices = 0; //Resets polling
+            //mda->numDevices = 0; //Resets polling
             //qDebug() << "Get Source" << mda->getSource();
-        }
-        else if(mda->settingsSent == false)
-        {
-            mda->settingsSent = true;
-            emit mda->signalSettingsSent();
-        }
-
-        else if(mda->presetsSent == false)
-        {
-            mda->presetsSent = true;
-            emit mda->signalPresetsSent();
         }
     }
 }

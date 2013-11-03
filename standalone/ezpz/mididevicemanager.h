@@ -101,7 +101,7 @@ class MidiDeviceManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit MidiDeviceManager(QWidget *parent = 0);
+    explicit MidiDeviceManager(QObject *parent = 0);
 
     //----------------------------------------- Windows MIDI & Windowing Services -----------------------------------------//
     MIDIOUTCAPS     mocs;
@@ -114,14 +114,11 @@ public:
     MIDIHDR         sysExInHdr;
     HANDLE          hBuffer;
 
-    QThread* appEventProcessorThread;
-    QTimer* appEventProcessor;
 
     static void CALLBACK midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_PTR dwInstance,DWORD_PTR dwParam1,DWORD_PTR dwParam2);
     static void CALLBACK midiOutCallback(HMIDIOUT handle, UINT uMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam, DWORD_PTR dwParam1);
 
-    bool inConnected;
-    bool outConnected;
+    bool connected;
     bool refreshDevices;
 
     char bootloaderVersion[3];
@@ -153,10 +150,6 @@ public:
     bool fwUpdateRequested;
     bool inBootloader;
 
-    //Settings & Presets sent
-    bool settingsSent;
-    bool presetsSent;
-
     bool queryReplied;
 
     QByteArray globals;
@@ -181,11 +174,6 @@ signals:
     void signalConnected(bool);
     void signalFwBytesLeft(int);
 
-    void signalStartAppEventProcessorTimer();
-
-    void signalSettingsSent();
-    void signalPresetsSent();
-
 public slots:
     void slotSendSysEx(QString messageID, unsigned char *sysEx, int len, QString destinationName);
     void slotProcessSysEx(QByteArray sysExMessageByteArray);
@@ -197,8 +185,6 @@ public slots:
 
     void slotPollDevices();
     void slotPollVersion();
-
-    void slotProcessAppEvents();
 };
 
 #endif // Q_OS_MAC

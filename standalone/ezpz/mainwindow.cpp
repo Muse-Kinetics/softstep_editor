@@ -28,9 +28,17 @@ MainWindow::MainWindow(QWidget *parent) :
     //Construct Children
     presetInterface = new PresetInterface(this);
     sysExComposer = new SysExComposer(this);
+
+
+
+#ifdef Q_OS_MAC
+    mdm = new MidiDeviceManager(this);
+#else
+    midiThread = new QThread(this);
     mdm = new MidiDeviceManager(0);
-    mdm->moveToThread(&midiThread);
-    midiThread.start();
+    mdm->moveToThread(midiThread);
+    midiThread->start();
+#endif
 
     //Mainwindow Ui
     ui->setupUi(this);
@@ -233,8 +241,8 @@ void MainWindow::slotConnectInterfaces()
 
     //Standalone Download
     connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
-    connect(mdm, SIGNAL(signalSettingsSent()), sysExComposer, SLOT(slotSettingsSent()));
-    connect(mdm, SIGNAL(signalPresetsSent()), sysExComposer, SLOT(slotPresetsSent()));
+    //connect(mdm, SIGNAL(signalSettingsSent()), sysExComposer, SLOT(slotSettingsSent()));
+    //connect(mdm, SIGNAL(signalPresetsSent()), sysExComposer, SLOT(slotPresetsSent()));
 
 
     //!!!!!!!!!!!!!! Why is this happening in connect interfaces?
