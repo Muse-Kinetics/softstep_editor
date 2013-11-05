@@ -503,12 +503,12 @@ void MainWindow::slotDisplaySaveState(bool dirty)
     if(dirty)
     {
         //qDebug() << "the preset is dirty";
-        ui->save->setStyleSheet("background-color:red");
+        ui->save->setStyleSheet("QToolButton { background:red } QToolButton:pressed { background: rgb(230,0,134) }");
     }
     else
     {
         //qDebug() << "the preset is no longer dirty";
-        ui->save->setStyleSheet("background-color:rgb(58,58,60)");
+        ui->save->setStyleSheet("QToolButton { background-color:rgb(40,40,40) } QToolButton:pressed { background: rgb(230,0,134) }");
     }
 }
 

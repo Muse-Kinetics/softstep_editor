@@ -121,8 +121,6 @@ QToolTip
 QFrame
 {
 	background: rgba(0, 174, 239, 150);
-/*background: rgba(90,136,158, 150);*/
-/*border: 2px solid rgb(78,78,80);*/
 }
 
 /*----------- QPushButton ------------*/
@@ -249,7 +247,24 @@ QComboBox::down-arrow
        <string>Saves any changes to the &lt;br&gt;current preset.</string>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 9pt &quot;Futura&quot;;
+	padding: 0,1,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: 2px solid rgb(230, 0, 134);
+	font: 9pt &quot;Futura&quot;;
+	padding: 0, 1, 0, 0;
+}</string>
       </property>
       <property name="text">
        <string>SAVE</string>
