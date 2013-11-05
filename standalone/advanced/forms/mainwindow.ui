@@ -120,14 +120,15 @@ QToolTip
       <string notr="true">/*----------- QFrame ------------*/
 QFrame
 {
-background: rgb(90,136,158);
-border: 2px solid rgb(78,78,80);
+	background: rgba(0, 174, 239, 150);
+/*background: rgba(90,136,158, 150);*/
+/*border: 2px solid rgb(78,78,80);*/
 }
 
 /*----------- QPushButton ------------*/
 QPushButton
 {
-	background: rgb(58,58,60);
+	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
 	font: 9pt &quot;Futura&quot;;
@@ -146,7 +147,7 @@ QPushButton:pressed
 /*----------- QToolButton ------------*/
 QToolButton
 {
-	background: rgb(58,58,60);
+	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
 	font: 9pt &quot;Futura&quot;;
@@ -157,7 +158,7 @@ QToolButton:pressed
 {
 	background: rgb(230, 0, 134);
 	color: white;
-	border: none;
+	border: 2px solid rgb(230, 0, 134);
 	font: 9pt &quot;Futura&quot;;
 	padding: 0, 1, 0, 0;
 }
@@ -238,14 +239,17 @@ QComboBox::down-arrow
      <widget class="QToolButton" name="save">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>40</y>
+        <x>24</x>
+        <y>42</y>
         <width>45</width>
         <height>20</height>
        </rect>
       </property>
       <property name="toolTip">
        <string>Saves any changes to the &lt;br&gt;current preset.</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>SAVE</string>
@@ -254,8 +258,8 @@ QComboBox::down-arrow
      <widget class="QToolButton" name="saveas">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>40</y>
+        <x>76</x>
+        <y>42</y>
         <width>45</width>
         <height>20</height>
        </rect>
@@ -270,8 +274,8 @@ QComboBox::down-arrow
      <widget class="QToolButton" name="revert">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>40</y>
+        <x>128</x>
+        <y>42</y>
         <width>45</width>
         <height>20</height>
        </rect>
@@ -287,7 +291,7 @@ QComboBox::down-arrow
       <property name="geometry">
        <rect>
         <x>180</x>
-        <y>40</y>
+        <y>42</y>
         <width>45</width>
         <height>20</height>
        </rect>
@@ -302,9 +306,9 @@ QComboBox::down-arrow
      <widget class="QComboBox" name="presetmenu">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>24</x>
         <y>10</y>
-        <width>195</width>
+        <width>201</width>
         <height>26</height>
        </rect>
       </property>
@@ -481,9 +485,9 @@ QToolButton:pressed
     <property name="geometry">
      <rect>
       <x>264</x>
-      <y>88</y>
-      <width>212</width>
-      <height>45</height>
+      <y>86</y>
+      <width>214</width>
+      <height>47</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -502,8 +506,8 @@ QToolButton:pressed
     <widget class="QPushButton" name="opensetlist">
      <property name="geometry">
       <rect>
-       <x>6</x>
-       <y>6</y>
+       <x>7</x>
+       <y>7</y>
        <width>96</width>
        <height>33</height>
       </rect>
@@ -563,8 +567,8 @@ QPushButton:pressed
     <widget class="QPushButton" name="opensettings">
      <property name="geometry">
       <rect>
-       <x>109</x>
-       <y>6</y>
+       <x>110</x>
+       <y>7</y>
        <width>96</width>
        <height>33</height>
       </rect>
@@ -717,8 +721,8 @@ QPushButton:pressed
      <rect>
       <x>264</x>
       <y>10</y>
-      <width>212</width>
-      <height>68</height>
+      <width>214</width>
+      <height>60</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -737,8 +741,8 @@ QPushButton:pressed
     <widget class="QCheckBox" name="mode">
      <property name="geometry">
       <rect>
-       <x>6</x>
-       <y>11</y>
+       <x>7</x>
+       <y>7</y>
        <width>200</width>
        <height>45</height>
       </rect>
