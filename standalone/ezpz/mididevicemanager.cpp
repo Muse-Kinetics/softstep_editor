@@ -383,6 +383,8 @@ void sysExComplete(MIDISysexSendRequest* request)
 MidiDeviceManager::MidiDeviceManager(QObject *parent) :
     QObject(parent)
 {
+    settingsSent = true;
+    presetsSent = true;
 
     sysexFIFOClock = new QTimer(this);
     connect(sysexFIFOClock, SIGNAL(timeout()), this, SLOT(slotDrainSysexFIFO()));
@@ -741,6 +743,14 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, i
     {
         fwUpdateRequested = true;
     }
+    if(messageID == "settings image")
+    {
+        settingsSent = false;
+    }
+    if(messageID == "presets image")
+    {
+        presetsSent = false;
+    }
 
     qDebug() << "sysex bytes" << len;
     UINT err;
@@ -762,15 +772,33 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, i
 
         err = midiOutLongMsg(outHandle, &sysExOutHdr, sizeof(MIDIHDR));
 
-        midiOutUnprepareHeader(outHandle, &sysExOutHdr, sizeof(MIDIHDR));
-        GlobalUnlock(sysExOutBuffer);
-        GlobalFree(sysExOutBuffer);
+
 
         if(err)
         {
             char errMsg[120];
             midiOutGetErrorText(err, (LPWSTR)errMsg, 120);
             qDebug()<<"Midi Out Long err:" << errMsg;
+        }
+        else
+        {
+            midiOutUnprepareHeader(outHandle, &sysExOutHdr, sizeof(MIDIHDR));
+            GlobalUnlock(sysExOutBuffer);
+            GlobalFree(sysExOutBuffer);
+
+            qDebug() << "MEMORY DEALLOCATED";
+
+            if(messageID == "presets image")
+            {
+                qDebug() << "MDM -- Presets sent";
+                emit signalPresetsSent();
+            }
+
+            if(messageID == "settings image")
+            {
+                qDebug() << "MDM -- Settings sent";
+                emit signalSettingsSent();
+            }
         }
     }
 }

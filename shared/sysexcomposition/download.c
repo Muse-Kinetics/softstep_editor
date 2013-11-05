@@ -44,7 +44,7 @@ int firmware_compatable(int build_num)
 {
 	// VK, VK1 55
 	// VK2 56
-	post("checking firmware compatable against %d\n",build_num);
+    //post("checking firmware compatable against %d\n",build_num);
 	switch(build_num)
 	{
             //		case 55: // VK, VK1
@@ -207,7 +207,7 @@ void send_standalone_image(t_softstep *x)
 	}
 	
 	
-	post("modline length is %ld bytes\n",sizeof(MODLINE));
+    //post("modline length is %ld bytes\n",sizeof(MODLINE));
 	//	post("send_sa_image: found %d presets",count);
 	
 	midi_sx_header(x->device_softstep,x->device_12step,x->device_qunexus);
@@ -280,7 +280,7 @@ void send_standalone_image(t_softstep *x)
 							else
                                 if (list->preset_image.modlines[key][m].source == get_index_str(source_list_d,"Pedal"))
 								{
-									post("---------------- Found a pedal on key[%d] Modline[%d]",key,num_modlines);
+                                    //post("---------------- Found a pedal on key[%d] Modline[%d]\n",key,num_modlines);
 									{
 										pedal_info[pedal_count].key = key;
 										pedal_info[pedal_count++].index = num_modlines;

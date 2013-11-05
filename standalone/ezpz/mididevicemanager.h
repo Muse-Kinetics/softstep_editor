@@ -170,6 +170,9 @@ public:
 
     int numDevices;
 
+    bool settingsSent;
+    bool presetsSent;
+
 signals:
     void signalFirmwareOutOfDate(QString expectedBoot, QString foundBoot, QString expectedFirmware, QString foundFirmware);
     void signalProgressDialog(QString messageType, int val);
@@ -180,6 +183,9 @@ signals:
     void signalProcessFwQueryReply(QByteArray);
     void signalConnected(bool);
     void signalFwBytesLeft(int);
+
+    void signalPresetsSent();
+    void signalSettingsSent();
 
 public slots:
     void slotSendSysEx(QString messageID, unsigned char *sysEx, int len, QString destinationName);

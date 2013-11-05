@@ -56,7 +56,7 @@ int xlate_key_num(int in)
 	if (in >= 11)
 		out = 10;
 	
-    post("xlate key[%d] to key[%d]",in,out);
+    //post("xlate key[%d] to key[%d]",in,out);
 	
 	return out;
 }
@@ -64,18 +64,18 @@ int xlate_key_num(int in)
 void attribute_process(t_softstep *x, short argc, t_atom *argv)
 {
 
-    printf("\n");
-    fflush(stdout);
+    //printf("\n");
+    //fflush(stdout);
     //post_par_list(argc, argv, "");
 
     if (argc==3 && argv[1].a_type==A_SYM && argv[2].a_type==A_SYM)
     {
-        post("comparing %s %s\n",argv[1].a_w.w_sym->s_name,argv[2].a_w.w_sym->s_name);
+        //post("comparing %s %s\n",argv[1].a_w.w_sym->s_name,argv[2].a_w.w_sym->s_name);
     }
 
     if ( par_match(argc,argv,A_SYM,"download",A_SYM,0,-1))
     {
-        post("download file %s\n",argv[1].a_w.w_sym->s_name);
+        //post("download file %s\n",argv[1].a_w.w_sym->s_name);
         download_file_open(x,argv[1].a_w.w_sym->s_name);
 
         download_start(x);
@@ -121,9 +121,9 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
                 if (*list)
                 {
                     memset(*list,0,sizeof(PRESET_LIST));
-                    post("create preset_list size[%d] at[%p]\n",sizeof(PRESET_LIST),*list);
+                    //post("create preset_list size[%d] at[%p]\n",sizeof(PRESET_LIST),*list);
                     (*list)->strings.size = 1; // so a zero pointer points to null string
-                    post("create preset_image size[%d] at[%p]\n",sizeof(PRESET_IMAGE),(*list)->preset_image);
+                    //post("create preset_image size[%d] at[%p]\n",sizeof(PRESET_IMAGE),(*list)->preset_image);
                     (*list)->next = NULL;
                     just_created = true;
                 }
@@ -139,20 +139,20 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Modline",A_LONG,0l,-1) )
     {
-                post("Modline matched");
+        //post("Modline matched");
         x->mod_num_current = (int) argv[2].a_w.w_long - 1;
 
 
         x->current_modline = &x->current_image->modlines[x->key_num][x->mod_num_current];
 
-        post("--- %s key[%d] modline[%d]",x->current_list->strings.data + LE_short(x->current_image->nm.name_index),x->key_num,x->mod_num_current);
+        //post("--- %s key[%d] modline[%d]",x->current_list->strings.data + LE_short(x->current_image->nm.name_index),x->key_num,x->mod_num_current);
         return;
     }
 
 
     if (par_match(argc,argv,A_SYM,"key",A_SYM,"nav",-1))
     {
-        post("************************************ found key nav *********************************");
+        //post("************************************ found key nav *********************************");
         x->key_num = NUM_KEYS - 1;
         return;
     }
@@ -166,21 +166,21 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     if (par_match(argc,argv,A_SYM,"set",A_SYM,"On",A_LONG,0l,-1))
     {
         x->current_list->enables[x->key_num][x->mod_num_current] = argv[2].a_w.w_long;
-        post("************* set On key[%d][%d]=%d",x->key_num,x->mod_num_current,x->current_list->enables[x->key_num][x->mod_num_current]);
+        //post("************* set On key[%d][%d]=%d",x->key_num,x->mod_num_current,x->current_list->enables[x->key_num][x->mod_num_current]);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,0l,-1))
     {
         x->current_image->nm.key[x->key_num].display_mode = LIMIT_255(argv[2].a_w.w_long);
-        post("Display Mode[%d]",x->current_image->nm.key[x->key_num].display_mode);
+        //post("Display Mode[%d]",x->current_image->nm.key[x->key_num].display_mode);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Nav_Modline_Mode",A_LONG,0l,-1))
     {
         x->current_image->nm.key[x->key_num].nav_y_mode = argv[2].a_w.w_long;
-        post("Nav Modline Mode [%d]", x->current_image->nm.key[x->key_num].nav_y_mode);
+        //post("Nav Modline Mode [%d]", x->current_image->nm.key[x->key_num].nav_y_mode);
         return;
     }
 
@@ -188,7 +188,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         x->current_image->nm.key[x->key_num].key_name_index = LE_short(x->current_list->strings.size);
         strcpy(x->current_list->strings.data+x->current_list->strings.size,argv[2].a_w.w_sym->s_name);
         x->current_list->strings.size += strlen(argv[2].a_w.w_sym->s_name) + 1;
-        post("Key_Name[%s] key[%d] index[%d]",argv[2].a_w.w_sym->s_name,x->key_num,LE_short(x->current_image->nm.key[x->key_num].key_name_index));
+        //post("Key_Name[%s] key[%d] index[%d]",argv[2].a_w.w_sym->s_name,x->key_num,LE_short(x->current_image->nm.key[x->key_num].key_name_index));
         return;
     }
 
@@ -218,48 +218,48 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Dead_X",A_LONG,0l,-1)){
 
         x->settings.key[x->key_settings_index].dead_x = LIMIT_255(argv[2].a_w.w_long);
-        post("Dead X [%d]\n", x->settings.key[x->key_settings_index].dead_x);
+        //post("Dead X [%d]\n", x->settings.key[x->key_settings_index].dead_x);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Accel_X",A_LONG,0l,-1))
     {
         x->settings.key[x->key_settings_index].accel_x = LIMIT_255(argv[2].a_w.w_long);
-        post("Accel_X [%d]\n", x->settings.key[x->key_settings_index].accel_x);
+        //post("Accel_X [%d]\n", x->settings.key[x->key_settings_index].accel_x);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Dead_Y",A_LONG,0l,-1))
     {
         x->settings.key[x->key_settings_index].dead_y = LIMIT_255(argv[2].a_w.w_long);
-        post("Dead Y [%d]\n",  x->settings.key[x->key_settings_index].dead_y);
+        //post("Dead Y [%d]\n",  x->settings.key[x->key_settings_index].dead_y);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,0l,-1))
     {
         x->settings.key[x->key_settings_index].accel_y = LIMIT_255(argv[2].a_w.w_long);
-        post("Accel Y [%d]\n", x->settings.key[x->key_settings_index].accel_y);
+        //post("Accel Y [%d]\n", x->settings.key[x->key_settings_index].accel_y);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"On_Sens",A_LONG,0l,-1))
     {
         x->settings.key[x->key_settings_index].on_sense=argv[2].a_w.w_long;
-        post("On_Sens [%d]\n", x->settings.key[x->key_settings_index].on_sense);
+        //post("On_Sens [%d]\n", x->settings.key[x->key_settings_index].on_sense);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Off_Sens",A_LONG,0l,-1)){
         x->settings.key[x->key_settings_index].off_sense=argv[2].a_w.w_long;
-        post("Off_Sense [%d]\n", x->settings.key[x->key_settings_index].off_sense);
+        //post("Off_Sense [%d]\n", x->settings.key[x->key_settings_index].off_sense);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Delta",A_LONG,0l,-1))
     {
         x->settings.key[x->key_settings_index].delta=argv[2].a_w.w_long;
-        post("Delta [%d]\n", x->settings.key[x->key_settings_index].delta);
+        //post("Delta [%d]\n", x->settings.key[x->key_settings_index].delta);
         return;
     }
 
@@ -314,28 +314,28 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"key",A_SYM,"keynum",A_LONG,0l,-1))
     {
         x->key_settings_index = (int) argv[3].a_w.w_long-1;
-        post("key settings index [%d]\n", x->key_settings_index);
+        //post("key settings index [%d]\n", x->key_settings_index);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Key_Mode",A_LONG,0l,-1))
     {
         x->settings.key_mode = argv[2].a_w.w_long;
-        post("key mode [%d]\n",  x->settings.key_mode);
+        //post("key mode [%d]\n",  x->settings.key_mode);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Key_Response",A_LONG,0l,-1))
     {
         x->settings.key_response = argv[2].a_w.w_long;
-        post("key response [%d]\n", x->settings.key_response);
+        //post("key response [%d]\n", x->settings.key_response);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,0l,-1))
     {
         x->settings.el_offon = argv[2].a_w.w_long;
-        post("el mode", x->settings.el_offon);
+        //post("el mode", x->settings.el_offon);
         return;
     }
 
@@ -380,7 +380,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Global_Gain",A_FLOAT,0.0,-1))
     {
         float_fix(&x->settings.Global_Gain,argv[2].a_w.w_float);
-        post("$ global gain [%f]\n", argv[2].a_w.w_float);
+        //post("$ global gain [%f]\n", argv[2].a_w.w_float);
         return;
     }
 
@@ -409,7 +409,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Note_Channel",A_LONG,0l,-1) )
     {
         x->current_modline->channel = argv[2].a_w.w_long-1;
-        post("Note Channel\n", x->current_modline->channel);
+        //post("Note Channel\n", x->current_modline->channel);
         return;
     }
 
@@ -418,14 +418,14 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
          par_match(argc,argv,A_SYM,"set",A_SYM,"Velocity",A_LONG,0l,-1)	)
     {
         x->current_modline->ms.note.velocity = argv[2].a_w.w_long;
-                post("setting velocity[%d]\n",argv[2].a_w.w_long);
+        //post("setting velocity[%d]\n",argv[2].a_w.w_long);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Note_Number",A_LONG,0l,-1) )
     {
         x->current_modline->ms.note.number = argv[2].a_w.w_long;
-        post("Note Number [%d]\n", x->current_modline->ms.note.number);
+        //post("Note Number [%d]\n", x->current_modline->ms.note.number);
         return;
     }
 
@@ -436,21 +436,21 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
             par_match(argc,argv,A_SYM,"set",A_SYM,"Program_Channel",A_LONG,0l,-1) )
     {
         x->current_modline->channel = argv[2].a_w.w_long-1;
-        post("channel [%d]\n", x->current_modline->channel);
+        //post("channel [%d]\n", x->current_modline->channel);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Control_Number",A_LONG,0l,-1) )
     {
         x->current_modline->ms.controller = argv[2].a_w.w_long;
-        post("control number [%d]\n", x->current_modline->ms.controller);
+        //post("control number [%d]\n", x->current_modline->ms.controller);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"MMC_Device_ID",A_LONG,0l,-1) )
     {
         x->current_modline->ms.mmc.device_id = argv[2].a_w.w_long;
-        post("MMC device Id [%d]\n", x->current_modline->ms.mmc.device_id);
+        //post("MMC device Id [%d]\n", x->current_modline->ms.mmc.device_id);
         return;
     }
 
@@ -481,14 +481,14 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Min",A_LONG,0l,-1) )
     {
         x->current_modline->min = argv[2].a_w.w_long;
-        post("mind [%d]\n", x->current_modline->min);
+        //post("mind [%d]\n", x->current_modline->min);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Max",A_LONG,0l,-1) )
     {
         x->current_modline->max = argv[2].a_w.w_long;
-        post("Max [%d]\n", x->current_modline->max);
+        //post("Max [%d]\n", x->current_modline->max);
         return;
     }
 
@@ -501,7 +501,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         else
             x->current_modline->slew = 0;
 
-        post("Slew [%d]\n", x->current_modline->max);
+        //post("Slew [%d]\n", x->current_modline->max);
 
         return;
     }
@@ -516,7 +516,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
             x->current_modline->source = get_index(source_list,source_xlate,argv + 2);
             //			get_index_verbose = 0;
         }
-        post("source: %d *******\n",x->current_modline->source);
+        //post("source: %d *******\n",x->current_modline->source);
         return;
     }
     if (par_match(argc,argv,A_SYM,"set",A_SYM,"Device",A_SYM,0,-1) ||
@@ -528,13 +528,13 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
             par_match(argc,argv,A_SYM,"set",A_SYM,"Bend_Device",A_SYM,0,-1)	)
     {
         x->current_modline->port = get_index(destination_list,NULL,argv + 2);   
-        post("Device [%s]",argv[2].a_w.w_sym->s_name);
+        //post("Device [%s]",argv[2].a_w.w_sym->s_name);
         return;
     }
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Destination",A_SYM,0,-1))
     {
         x->current_modline->dest = get_index(dest_list,NULL,argv + 2);
-        post("destination [%d]\n", x->current_modline->dest);
+        //post("destination [%d]\n", x->current_modline->dest);
         return;
     }
 
@@ -542,7 +542,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     {
         //		post("*************** set Table %d %d",argv[2].a_type,A_SYM);
         x->current_modline->table = get_index(table_list,NULL,argv + 2);
-        post("table [%d]\n", x->current_modline->table);
+        //post("table [%d]\n", x->current_modline->table);
         return;
     }
 
@@ -562,7 +562,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
                 //post("set fixed point %f: %x:%x",oval,x->current_modline->gain.u.upper,x->current_modline->gain.u.lower);
 
                 //set_fixed_point(&x->current_image->gain,argv + 2);
-        post("gain [%f]\n", argv[2].a_w.w_float);
+        //post("gain [%f]\n", argv[2].a_w.w_float);
         return;
     }
 
@@ -604,7 +604,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Scene_Name",A_SYM,0,-1))
     {
-        post("setting scene name[%s] at name_index[%d]",argv[2].a_w.w_sym->s_name,x->current_list->strings.size);
+        //post("setting scene name[%s] at name_index[%d]\n",argv[2].a_w.w_sym->s_name,x->current_list->strings.size);
         x->current_image->nm.name_index = LE_short(x->current_list->strings.size);
         strcpy(x->current_list->strings.data+x->current_list->strings.size,argv[2].a_w.w_sym->s_name);
         x->current_list->strings.size += strlen(argv[2].a_w.w_sym->s_name) + 1;
@@ -884,7 +884,7 @@ void write_c(char *title,void *data,int length,t_softstep *x)
 }
 void par_error(t_softstep *x,short argc,t_atom *argv,char *msg)
 {
-    post_par_list(argc,argv,"**************  No match for %s: key[%d] ************",msg,x->key_num);
+    //post_par_list(argc,argv,"**************  No match for %s: key[%d] ************",msg,x->key_num);
 }
 
 int get_index_verbose = 0;
@@ -921,7 +921,7 @@ int get_index(char *list[],char *listXlate[],t_atom *argv)
         list++;
         index++;
     }
-    post("error trying to match: %s ******************************\n",source);
+    //post("error trying to match: %s ******************************\n",source);
     return 0;
 }
 int get_index_str(char *list[],char *str)
@@ -936,7 +936,7 @@ int get_index_str(char *list[],char *str)
         list++;
         index++;
     }
-    post("error trying to match: %s ******************************\n",str);
+    //post("error trying to match: %s ******************************\n",str);
     return 0;
 }
 void sx_send_list(t_softstep *x,int type,char *description) {
