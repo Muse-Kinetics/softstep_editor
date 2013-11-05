@@ -86,6 +86,9 @@ signals:
     void signalProcessFwQueryReply(QByteArray);
     void signalConnected(bool);
     void signalFwBytesLeft(int);
+
+    void signalPresetsSent();
+    void signalSettingsSent();
     
 public slots:
     void slotRequestFirmwareUpdate();

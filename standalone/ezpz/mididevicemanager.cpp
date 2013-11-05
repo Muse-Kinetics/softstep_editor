@@ -64,7 +64,7 @@ void MidiDeviceManager::slotStandaloneOn()
     sysexFIFOsQueue.append(_fw_standalone_on);
     sysexFIFOsQueue.append(_fw_scenechange_on_persist);
     sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
-    sysexFIFOsQueue.append(_fw_nav_tether_off);
+    //sysexFIFOsQueue.append(_fw_nav_tether_off);
     sysexFIFOClock->start(100);
 }
 
@@ -265,6 +265,18 @@ void MidiDeviceManager::slotSendSysEx(QString messageID,unsigned char* bytes, in
                 }
             }
             //qDebug() << "sysEx msg bytes left:" << bytes;
+        }
+
+        if(messageID == "presets image")
+        {
+            qDebug() << "MDM -- Presets sent";
+            emit signalPresetsSent();
+        }
+
+        if(messageID == "settings image")
+        {
+            qDebug() << "MDM -- Settings sent";
+            emit signalSettingsSent();
         }
 
     }
