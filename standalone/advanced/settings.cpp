@@ -100,6 +100,11 @@ void Settings::slotConnectElements()
             QDoubleSpinBox* doublespinbox = qobject_cast<QDoubleSpinBox *>(widget);
             connect(doublespinbox, SIGNAL(valueChanged(double)),this,SLOT(slotValueChanged()));
         }
+        else if(widget->metaObject()->className() == QString("QSlider"))
+        {
+            QSlider* slider = qobject_cast<QSlider *>(widget);
+            connect(slider, SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+        }
         else if(widget->metaObject()->className() == QString("QCheckBox"))
         {
             QCheckBox* checkbox = qobject_cast<QCheckBox *>(widget);
@@ -191,6 +196,11 @@ void Settings::slotDisconnectElements()
         {
             QDoubleSpinBox* doublespinbox = qobject_cast<QDoubleSpinBox *>(widget);
             disconnect(doublespinbox, SIGNAL(valueChanged(double)),this,SLOT(slotValueChanged()));
+        }
+        else if(widget->metaObject()->className() == QString("QSlider"))
+        {
+            QSlider* slider = qobject_cast<QSlider *>(widget);
+            disconnect(slider, SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
         }
         else if(widget->metaObject()->className() == QString("QCheckBox"))
         {
@@ -285,6 +295,17 @@ void Settings::slotValueChanged()
             jsonName = doublespinbox->objectName();
             value = doublespinbox->value();
         }
+        //sliders
+        else if(senderClass == "QSlider")
+        {
+            QSlider *slider = reinterpret_cast<QSlider*>(QObject::sender());
+            if(slider->objectName() == "global_gain_slider")
+            {
+                jsonName = "global_gain";
+                double gain = slider->value() * 0.01;
+                value = gain;
+            }
+        }
         //checkboxes
         else if(senderClass == "QCheckBox")
         {
@@ -349,6 +370,16 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
             QString objectName = widget->objectName();
             doublespinbox->setValue(preset.value(objectName).toDouble());
         }
+        else if(widget->metaObject()->className() == QString("QSlider"))
+        {
+            QSlider* slider = qobject_cast<QSlider *>(widget);
+            QString objectName = widget->objectName();
+            if(objectName == "global_gain_slider")
+            {
+                int gain = preset.value("global_gain").toDouble() * 100;
+                slider->setValue(gain);
+            }
+        }
         else if(widget->metaObject()->className() == QString("QCheckBox"))
         {
             QCheckBox* checkbox = qobject_cast<QCheckBox *>(widget);
@@ -381,7 +412,7 @@ void Settings::slotRecallSettings()
 {
     emit signalRecallSettings(settings.value(QString("Global")).toMap(),settings);
 
-    qDebug() << "Recall Settings" << settings;
+    //qDebug() << "Recall Settings" << settings;
 }
 
 void Settings::slotViewSelector()
