@@ -384,6 +384,9 @@ MidiDeviceManager::MidiDeviceManager(QObject *parent) :
     QObject(parent)
 {
 
+    sysexFIFOClock = new QTimer(this);
+    connect(sysexFIFOClock, SIGNAL(timeout()), this, SLOT(slotDrainSysexFIFO()));
+
     numDevices = 0;
 
     sysExType = "None";
@@ -442,6 +445,35 @@ MidiDeviceManager::MidiDeviceManager(QObject *parent) :
     versionReply = false;
 }
 
+void MidiDeviceManager::slotStandaloneOn()
+{
+    sysexFIFOClock->stop();
+    sysexFIFOsQueue.clear();
+    sysexFIFOsQueue.append(_fw_tether_off);
+    sysexFIFOsQueue.append(_fw_standalone_on);
+    sysexFIFOsQueue.append(_fw_scenechange_on_persist);
+    sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
+    //May need conditional here for VK2A
+    //sysexFIFOsQueue.append(_fw_nav_tether_off);
+    sysexFIFOClock->start(100);
+}
+
+void MidiDeviceManager::slotDrainSysexFIFO()
+{
+    //If anything in list, send the next message
+    if(!sysexFIFOsQueue.isEmpty())
+    {
+        slotSendSysEx("message", sysexFIFOsQueue.first(), 43, "SSCOM Port 1");
+        sysexFIFOsQueue.removeFirst();
+    }
+
+    //Otherwise stop calling function
+    else
+    {
+        sysexFIFOClock->stop();
+    }
+}
+
 bool MidiDeviceManager::connectSource()
 {
     if(getSource() != -1)
@@ -459,7 +491,7 @@ bool MidiDeviceManager::connectSource()
     {
         slotCloseMidiIn();
         slotCloseMidiOut();
-        emit signalConnected(false);
+        //emit signalConnected(false);
         return false;
     }
 }
@@ -730,6 +762,10 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, i
 
         err = midiOutLongMsg(outHandle, &sysExOutHdr, sizeof(MIDIHDR));
 
+        midiOutUnprepareHeader(outHandle, &sysExOutHdr, sizeof(MIDIHDR));
+        GlobalUnlock(sysExOutBuffer);
+        GlobalFree(sysExOutBuffer);
+
         if(err)
         {
             char errMsg[120];
@@ -774,6 +810,8 @@ void MidiDeviceManager::slotPollVersion()
         qDebug() << "STOP";
         emit signalConnected(true);
         versionPoller->stop();
+
+        slotStandaloneOn();
     }
 }
 
@@ -861,9 +899,9 @@ void CALLBACK MidiDeviceManager::midiOutCallback(HMIDIOUT handle, UINT uMsg, DWO
     MidiDeviceManager *mda = (MidiDeviceManager *) dwInstance;
 
     if(uMsg == MOM_DONE){
-        midiOutUnprepareHeader(mda->outHandle, &mda->sysExOutHdr, sizeof(MIDIHDR));
-        GlobalUnlock(mda->sysExOutBuffer);
-        GlobalFree(mda->sysExOutBuffer);
+        //midiOutUnprepareHeader(mda->outHandle, &mda->sysExOutHdr, sizeof(MIDIHDR));
+        //GlobalUnlock(mda->sysExOutBuffer);
+        //GlobalFree(mda->sysExOutBuffer);
         //qDebug() << "MEMORy DEALLOCATED";
 
         if(mda->fwUpdateRequested == true)

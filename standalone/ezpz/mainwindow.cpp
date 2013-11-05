@@ -16,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     connected = false;
 
+    connectedVersionString = "Not Connected";
+    connectedVersionInt = -1;
+
     //StyleSheets
     styleSheets = new StyleSheets();
 
@@ -27,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Construct Children
     presetInterface = new PresetInterface(this);
-    sysExComposer = new SysExComposer(this);
+    sysExComposer = new SysExComposer(0);
 
 
 
@@ -235,14 +238,16 @@ void MainWindow::slotConnectInterfaces()
     connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
     connect(presetInterface, SIGNAL(signalUpdateStarted()), this, SLOT(slotDisconnectUpdate()));
     connect(presetInterface, SIGNAL(signalAttributeFormatPreset(QVariantMap,QVariantMap, qlonglong)), sysExComposer, SLOT(slotComposeAttributeListFromPreset(QVariantMap,QVariantMap, qlonglong)));
-    connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectUpdate()));
+    connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectUpdate()), Qt::DirectConnection);
     //set initial update button text
     ui->update->setText("SAVE");
 
     //Standalone Download
-    connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)), Qt::DirectConnection);
+    connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)),Qt::DirectConnection);
+    connect(this, SIGNAL(signalStandaloneOn()), mdm, SLOT(slotStandaloneOn()));
     //connect(mdm, SIGNAL(signalSettingsSent()), sysExComposer, SLOT(slotSettingsSent()));
     //connect(mdm, SIGNAL(signalPresetsSent()), sysExComposer, SLOT(slotPresetsSent()));
+
 
 
     //!!!!!!!!!!!!!! Why is this happening in connect interfaces?
@@ -358,7 +363,12 @@ void MainWindow::slotDisplaySaveState(bool dirty)
 
 void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
 {
-    aboutForm->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
+    qDebug() << "slotReceiveVersions called connected:" << connectedVersion << connected;
+
+    connectedVersionString = connectedVersion;
+    connectedVersionInt = connected;
+
+    aboutForm->found->setText(QString("%1 %2").arg(connectedVersionString).arg(connectedVersionInt));
 
     if(connected != embedded)
     {
@@ -371,11 +381,14 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
     }
 
     //End of sysex inquiry process, put board into standalone mode
-    mdm->slotStandaloneOn();
+    emit signalStandaloneOn();
 }
 
 void MainWindow::slotConnected(bool connection)
 {
+
+    qDebug() << "slotConnected Called" << connection;
+
     if(connection)
     {
         ui->connectedLabel->setText("CONNECTED");
@@ -385,7 +398,9 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(0,200,0,255);");
 #endif
         ui->update->setText("SAVE + SEND");
-        presetInterface->connected = true;    }
+        aboutForm->found->setText(QString("%1 %2").arg(connectedVersionString).arg(connectedVersionInt));
+        presetInterface->connected = true;
+    }
     else
     {
         //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
@@ -397,6 +412,7 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255);");
 #endif
         ui->update->setText("SAVE");
+
         aboutForm->found->setText("Not Connected");
         presetInterface->connected = false;
     }
@@ -623,7 +639,6 @@ void MainWindow::slotDisconnectUpdate()
     qDebug("download preset started");
     disconnect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
 }
-
 
 void MainWindow::slotConnectUpdate(){
     qDebug("download preset ended");

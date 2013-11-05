@@ -119,6 +119,8 @@ public:
     MIDIHDR         sysExInHdr;
     HANDLE          hBuffer;
 
+    QTimer* sysexFIFOClock;
+    QList<unsigned char*> sysexFIFOsQueue;
 
     static void CALLBACK midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_PTR dwInstance,DWORD_PTR dwParam1,DWORD_PTR dwParam2);
     static void CALLBACK midiOutCallback(HMIDIOUT handle, UINT uMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam, DWORD_PTR dwParam1);
@@ -190,6 +192,9 @@ public slots:
 
     void slotPollDevices();
     void slotPollVersion();
+
+    void slotStandaloneOn();
+    void slotDrainSysexFIFO();
 };
 
 #endif // Q_OS_MAC

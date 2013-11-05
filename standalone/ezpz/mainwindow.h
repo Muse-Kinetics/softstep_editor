@@ -83,6 +83,8 @@ public:
 
     QComboBox *sceneTemplate;
 
+    QString connectedVersionString;
+    int connectedVersionInt;
 
 
     QLabel *midiChannelLabel;
@@ -104,6 +106,9 @@ public:
     bool shiftDown;
     void closeEvent(QCloseEvent *);
     void keyPressEvent(QKeyEvent *);
+
+signals:
+    void signalStandaloneOn();
 
 public slots:
     void slotConnectInterfaces();
