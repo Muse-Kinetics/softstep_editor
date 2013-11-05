@@ -48,7 +48,6 @@ public:
     
 signals:
     void signalRecallPreset(QVariantMap preset, QVariantMap jsonMasterMapCopy);
-    void signalRecallGlobal(QVariantMap preset, QVariantMap jsonMasterMapCopy);
     void signalPopulateSetlistMenus(QComboBox* presetMenu);
     void signalAddRemovePreset();
     void signalPresetDirty(bool);
@@ -56,7 +55,6 @@ signals:
     
 public slots:
     void slotStoreValue(QString name, QVariant value, int presetNum);
-    void slotStoreGlobal(QString name, QVariant value);
     void slotCheckSaveState();
 
     void slotUpdateJSONPath();
@@ -65,9 +63,7 @@ public slots:
 
     void slotConstructDefaultStandaloneMap();
     void slotConstructDefaultHostedMap();
-    void slotConstructGlobalDefaultMap();
     void slotRecallPreset(int i);
-    void slotRecallGlobal();
 
     void slotSavePreset();
     void slotSavePresetAs(QString presetName);

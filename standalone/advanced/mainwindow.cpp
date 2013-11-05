@@ -80,12 +80,14 @@ MainWindow::MainWindow(QWidget *parent) :
     slotInitMenuBar();
 
     //Connect Settings Window Stuff
+    settingsWindow->slotReadSettings();
     settingsWindow->slotConnectElements();
+    settingsWindow->slotRecallSettings();
 
     slotSetMode();
 
     //presetInterface->slotPopulatePresetMenu(ui->presetmenu);
-    presetInterface->slotRecallGlobal();
+    //presetInterface->slotRecallGlobal();
     slotSetPresetMenu(0);
 
 #ifdef Q_OS_MAC
@@ -284,8 +286,7 @@ void MainWindow::slotConnectInterfaces()
         connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), navKey->navModline[i], SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
     }
 
-    //Settings
-    connect(presetInterface, SIGNAL(signalRecallGlobal(QVariantMap,QVariantMap)),settingsWindow,SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
+    //Settings -- see settings class
 
     //--------------------------------------- Parameter Storage
 
@@ -327,8 +328,6 @@ void MainWindow::slotConnectInterfaces()
 
     //Settings
     connect(ui->opensettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));
-    //connect(settingsWindow, SIGNAL(signalStoreValue(QString,QVariant)), presetInterface, SLOT(slotStoreGlobal(QString,QVariant)));
-    //connect(settingsWindow, SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
 
     //------------- Save, Save As, Revert, Delete
     //Save Button

@@ -8,10 +8,6 @@ PresetInterface::PresetInterface(QWidget *parent) :
 {
     settings = new QSettings(this);
 
-
-    //slotSetJSONPath();
-    //slotReadJSON();
-
     //writeDefualtJSON();
 }
 
@@ -161,21 +157,17 @@ void PresetInterface::slotWriteJSON(QVariantMap jsonMap)
 void PresetInterface::writeDefualtJSON()
 {
 
-    slotConstructGlobalDefaultMap();
-
     for(int i = 0; i < 2; i++)
     {
         if(i == 0)
         {
             slotConstructDefaultStandaloneMap();
-            //slotConstructGlobalDefaultStandaloneMap();
 
             jsonPath = QString("./presets/softstepadvanced.json");
         }
         else if(i == 1)
         {
             slotConstructDefaultHostedMap();
-            //slotConstructGlobalDefaultHostedMap();
 
             jsonPath = QString("./presets/hosted_softstepadvanced.json");
         }
@@ -186,9 +178,6 @@ void PresetInterface::writeDefualtJSON()
             jsonMasterMap.insert(slotGetPresetStringFromInt(j),defaultPresetMap);
         }
 
-        jsonMasterMap.insert(QString("Global"),defaultGlobalMap);
-
-        //here's were the new stuff starts
         //Load json into QFile
         QFile *jsonFile = new QFile(jsonPath);
 
@@ -230,11 +219,6 @@ void PresetInterface::slotRecallPreset(int i)
 
 }
 
-void PresetInterface::slotRecallGlobal()
-{
-    emit signalRecallGlobal(jsonMasterMapCopy.value(QString("Global")).toMap(),jsonMasterMapCopy);
-}
-
 void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum)
 {
     //qDebug() << "name" << name << "value" << value << "preset" << presetNum;
@@ -249,19 +233,6 @@ void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum
     jsonMasterMapCopy.insert(slotGetPresetStringFromInt(presetNum), presetMap);
 
     //slotCheckSaveState();
-}
-
-void PresetInterface::slotStoreGlobal(QString name, QVariant value)
-{
-    QVariantMap globalMap = jsonMasterMapCopy.value(QString("Global")).toMap();
-    globalMap.insert(name, value);
-    jsonMasterMapCopy.insert(QString("Global"), globalMap);
-
-    //------------------------------------store the settings globals in master preset here----------------------------------------
-    //this happens every time a parameter is modified  - it slows down the app's open time since each parameter is recalled and writes to the master copy individually
-    jsonMasterMap.insert(QString("Global"), jsonMasterMapCopy.value(QString("Global")).toMap());
-    qDebug() << "update the settings preset";
-    slotWriteJSON(jsonMasterMap);
 }
 
 void PresetInterface::slotCheckSaveState()
@@ -4190,171 +4161,4 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["nav_modline6_device"] = "SoftStep Expander";
     defaultPresetMap["nav_modline6_oscroute"] = "";
     defaultPresetMap["nav_modline6_displaylinked"] = 0;
-}
-
-void PresetInterface::slotConstructGlobalDefaultMap()
-{
-    //------------------ Global Page -------------------//
-    defaultGlobalMap["sensorresponse_average"] = 1;
-    defaultGlobalMap["sensorresponse_max"] = 0;
-    defaultGlobalMap["adjacentkeymode"] = 0;
-    defaultGlobalMap["keylockoutmode"] = 0;
-    defaultGlobalMap["multiplekeymode"] = 1;
-
-    defaultGlobalMap["global_gain"] = 1.00;
-    defaultGlobalMap["backlighting_enable"] = 1;
-
-    //-------------------- Key Page --------------------//
-    defaultGlobalMap["key1_settings_xdead"] = 0;
-    defaultGlobalMap["key1_settings_ydead"] = 0;
-    defaultGlobalMap["key1_settings_xaccel"] = 0;
-    defaultGlobalMap["key1_settings_ydead"] = 0;
-    defaultGlobalMap["key1_settings_onthresh"] = 10;
-    defaultGlobalMap["key1_settings_offthresh"] = 5;
-
-    defaultGlobalMap["key2_settings_xdead"] = 0;
-    defaultGlobalMap["key2_settings_ydead"] = 0;
-    defaultGlobalMap["key2_settings_xaccel"] = 0;
-    defaultGlobalMap["key2_settings_ydead"] = 0;
-    defaultGlobalMap["key2_settings_onthresh"] = 10;
-    defaultGlobalMap["key2_settings_offthresh"] = 5;
-
-    defaultGlobalMap["key3_settings_xdead"] = 0;
-    defaultGlobalMap["key3_settings_ydead"] = 0;
-    defaultGlobalMap["key3_settings_xaccel"] = 0;
-    defaultGlobalMap["key3_settings_ydead"] = 0;
-    defaultGlobalMap["key3_settings_onthresh"] = 10;
-    defaultGlobalMap["key3_settings_offthresh"] = 5;
-
-    defaultGlobalMap["key4_settings_xdead"] = 0;
-    defaultGlobalMap["key4_settings_ydead"] = 0;
-    defaultGlobalMap["key4_settings_xaccel"] = 0;
-    defaultGlobalMap["key4_settings_ydead"] = 0;
-    defaultGlobalMap["key4_settings_onthresh"] = 10;
-    defaultGlobalMap["key4_settings_offthresh"] = 5;
-
-    defaultGlobalMap["key5_settings_xdead"] = 0;
-    defaultGlobalMap["key5_settings_ydead"] = 0;
-    defaultGlobalMap["key5_settings_xaccel"] = 0;
-    defaultGlobalMap["key5_settings_ydead"] = 0;
-    defaultGlobalMap["key5_settings_onthresh"] = 10;
-    defaultGlobalMap["key5_settings_offthresh"] = 5;
-
-    defaultGlobalMap["key6_settings_xdead"] = 0;
-    defaultGlobalMap["key6_settings_ydead"] = 0;
-    defaultGlobalMap["key6_settings_xaccel"] = 0;
-    defaultGlobalMap["key6_settings_ydead"] = 0;
-    defaultGlobalMap["key6_settings_onthresh"] = 10;
-    defaultGlobalMap["key6_settings_offthresh"] = 5;
-
-    defaultGlobalMap["key7_settings_xdead"] = 0;
-    defaultGlobalMap["key7_settings_ydead"] = 0;
-    defaultGlobalMap["key7_settings_xaccel"] = 0;
-    defaultGlobalMap["key7_settings_ydead"] = 0;
-    defaultGlobalMap["key7_settings_onthresh"] = 10;
-    defaultGlobalMap["key7_settings_offthresh"] = 5;
-
-    defaultGlobalMap["key8_settings_xdead"] = 0;
-    defaultGlobalMap["key8_settings_ydead"] = 0;
-    defaultGlobalMap["key8_settings_xaccel"] = 0;
-    defaultGlobalMap["key8_settings_ydead"] = 0;
-    defaultGlobalMap["key8_settings_onthresh"] = 10;
-    defaultGlobalMap["key8_settings_offthresh"] = 5;
-
-    defaultGlobalMap["key9_settings_xdead"] = 0;
-    defaultGlobalMap["key9_settings_ydead"] = 0;
-    defaultGlobalMap["key9_settings_xaccel"] = 0;
-    defaultGlobalMap["key9_settings_ydead"] = 0;
-    defaultGlobalMap["key9_settings_onthresh"] = 10;
-    defaultGlobalMap["key9_settings_offthresh"] = 5;
-
-    defaultGlobalMap["key10_settings_xdead"] = 0;
-    defaultGlobalMap["key10_settings_ydead"] = 0;
-    defaultGlobalMap["key10_settings_xaccel"] = 0;
-    defaultGlobalMap["key10_settings_ydead"] = 0;
-    defaultGlobalMap["key10_settings_onthresh"] = 10;
-    defaultGlobalMap["key10_settings_offthresh"] = 5;
-
-    defaultGlobalMap["nav_north_settings_onthresh"] = 10;
-    defaultGlobalMap["nav_north_settings_offthresh"] = 5;
-    defaultGlobalMap["nav_south_settings_onthresh"] = 10;
-    defaultGlobalMap["nav_south_settings_offthresh"] = 5;
-    defaultGlobalMap["nav_east_settings_onthresh"] = 10;
-    defaultGlobalMap["nav_east_settings_offthresh"] = 5;
-    defaultGlobalMap["nav_west_settings_onthresh"] = 10;
-    defaultGlobalMap["nav_west_settings_offthresh"] = 5;
-    defaultGlobalMap["nav_settings_yaccel"] = 0;
-
-    //---------------------- Input Page ---------------------//
-    defaultGlobalMap["midia_settings_enable"] = 0;
-    defaultGlobalMap["midia_settings_device"] = "IAC Driver Bus";
-    defaultGlobalMap["midia_settings_channel"] = 1;
-    defaultGlobalMap["midia_settings_messagetype"] = "Note";
-    defaultGlobalMap["midia_settings_number"] = 60;
-
-    defaultGlobalMap["midib_settings_enable"] = 0;
-    defaultGlobalMap["midib_settings_device"] = "IAC Driver Bus";
-    defaultGlobalMap["midib_settings_channel"] = 1;
-    defaultGlobalMap["midib_settings_messagetype"] = "Note";
-    defaultGlobalMap["midib_settings_number"] = 60;
-
-    defaultGlobalMap["midic_settings_enable"] = 0;
-    defaultGlobalMap["midic_settings_device"] = "IAC Driver Bus";
-    defaultGlobalMap["midic_settings_channel"] = 1;
-    defaultGlobalMap["midic_settings_messagetype"] = "Note";
-    defaultGlobalMap["midic_settings_number"] = 60;
-
-    defaultGlobalMap["midid_settings_enable"] = 0;
-    defaultGlobalMap["midid_settings_device"] = "IAC Driver Bus";
-    defaultGlobalMap["midid_settings_channel"] = 1;
-    defaultGlobalMap["midid_settings_messagetype"] = "Note";
-    defaultGlobalMap["midid_settings_number"] = 60;
-
-    defaultGlobalMap["midie_settings_enable"] = 0;
-    defaultGlobalMap["midie_settings_device"] = "IAC Driver Bus";
-    defaultGlobalMap["midie_settings_channel"] = 1;
-    defaultGlobalMap["midie_settings_messagetype"] = "Note";
-    defaultGlobalMap["midie_settings_number"] = 60;
-
-    defaultGlobalMap["midif_settings_enable"] = 0;
-    defaultGlobalMap["midif_settings_device"] = "IAC Driver Bus";
-    defaultGlobalMap["midif_settings_channel"] = 1;
-    defaultGlobalMap["midif_settings_messagetype"] = "Note";
-    defaultGlobalMap["midif_settings_number"] = 60;
-
-    defaultGlobalMap["midig_settings_enable"] = 0;
-    defaultGlobalMap["midig_settings_device"] = "IAC Driver Bus";
-    defaultGlobalMap["midig_settings_channel"] = 1;
-    defaultGlobalMap["midig_settings_messagetype"] = "Note";
-    defaultGlobalMap["midig_settings_number"] = 60;
-
-    defaultGlobalMap["midih_settings_enable"] = 0;
-    defaultGlobalMap["midih_settings_device"] = "IAC Driver Bus";
-    defaultGlobalMap["midih_settings_channel"] = 1;
-    defaultGlobalMap["midih_settings_messagetype"] = "Note";
-    defaultGlobalMap["midih_settings_number"] = 60;
-
-    defaultGlobalMap["osca_input_enable"] = 0;
-    defaultGlobalMap["osca_input_route"] = "";
-    defaultGlobalMap["oscb_input_enable"] = 0;
-    defaultGlobalMap["oscb_input_route"] = "";
-    defaultGlobalMap["oscc_input_enable"] = 0;
-    defaultGlobalMap["oscc_input_route"] = "";
-    defaultGlobalMap["oscd_input_enable"] = 0;
-    defaultGlobalMap["oscd_input_route"] = "";
-    defaultGlobalMap["osce_input_enable"] = 0;
-    defaultGlobalMap["osce_input_route"] = "";
-    defaultGlobalMap["oscf_input_enable"] = 0;
-    defaultGlobalMap["oscf_input_route"] = "";
-    defaultGlobalMap["oscg_input_enable"] = 0;
-    defaultGlobalMap["oscg_input_route"] = "";
-    defaultGlobalMap["osch_input_enable"] = 0;
-    defaultGlobalMap["osch_input_route"] = "";
-
-    defaultGlobalMap["osc_ip_1"] = 0;
-    defaultGlobalMap["osc_ip_2"] = 0;
-    defaultGlobalMap["osc_ip_3"] = 0;
-    defaultGlobalMap["osc_ip_4"] = 0;
-    defaultGlobalMap["osc_out_port"] = 0;
-    defaultGlobalMap["osc_in_port"] = 0;
 }
