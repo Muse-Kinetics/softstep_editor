@@ -143,7 +143,7 @@ void Modline::slotConnectElements()
     connect(modlineForm->ledred,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
     //display linking
-    connect(modlineForm->modlinedisplayenable,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+    connect(modlineForm->modlinedisplayenable,SIGNAL(toggled(bool)),this,SLOT(slotValueChanged()));
 
     //connect and initialize the raw value to the result (not for preset)
     //connect(modlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
@@ -237,7 +237,7 @@ void Modline::slotDisconnectElements()
     disconnect(modlineForm->ledred,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
     //display linking
-    disconnect(modlineForm->modlinedisplayenable,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+    disconnect(modlineForm->modlinedisplayenable,SIGNAL(toggled(bool)),this,SLOT(slotValueChanged()));
 
     //----------------------- Hosted
     //Slewer

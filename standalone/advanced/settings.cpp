@@ -132,7 +132,7 @@ void Settings::slotConnectElements()
             QRadioButton* radiobutton = qobject_cast<QRadioButton *>(widget);
             if(QString(radiobutton->objectName()).contains("sensorresponse") || QString(radiobutton->objectName()).contains("mode"))
             {
-                connect(radiobutton, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+                connect(radiobutton, SIGNAL(toggled(bool)),this,SLOT(slotValueChanged()));
             }
         }
     }
@@ -229,7 +229,7 @@ void Settings::slotDisconnectElements()
             QRadioButton* radiobutton = qobject_cast<QRadioButton *>(widget);
             if(QString(radiobutton->objectName()).contains("sensorresponse") || QString(radiobutton->objectName()).contains("mode"))
             {
-                disconnect(radiobutton, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+                disconnect(radiobutton, SIGNAL(toggled(bool)),this,SLOT(slotValueChanged()));
             }
         }
     }

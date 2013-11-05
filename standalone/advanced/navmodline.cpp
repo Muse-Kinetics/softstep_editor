@@ -75,7 +75,7 @@ void NavModline::slotConnectElements()
         else if(widget->metaObject()->className() == QString("QRadioButton"))
         {
             QRadioButton* radiobutton = qobject_cast<QRadioButton *>(widget);
-            connect(radiobutton, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+            connect(radiobutton, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
         }
     }
 
@@ -127,7 +127,7 @@ void NavModline::slotDisconnectElements()
         else if(widget->metaObject()->className() == QString("QRadioButton"))
         {
             QRadioButton* radiobutton = qobject_cast<QRadioButton *>(widget);
-            disconnect(radiobutton, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+            disconnect(radiobutton, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
         }
     }
 }
