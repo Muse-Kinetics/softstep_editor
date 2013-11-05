@@ -454,8 +454,6 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
         //qDebug() << "byte" << image[i];
     }
 
-
-
     //Send Settings
     emit signalSendSysEx(QString("settings image"), settings, settingsLength, QString("SSCOM Port 1"));
     qDebug("freeing settings");
@@ -467,7 +465,6 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
 
     //sysex message complete
     emit signalUpdateComplete();
-
 }
 
 void SysExComposer::slotSettingsSent()
@@ -615,7 +612,6 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
 
 void SysExComposer::slotGetConnectedVersion(QByteArray msg)
 {
-
     t_softstep *x = softstep_init();
 
     for(int i =0 ; i < msg.count(); i++)

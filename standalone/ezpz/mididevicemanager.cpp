@@ -17,6 +17,9 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     inBootloader = false;
     fwUpdateRequested = false;
 
+    sysexFIFOClock = new QTimer();
+    connect(sysexFIFOClock, SIGNAL(timeout()), this, SLOT(slotDrainSysexFIFO()));
+
     //Load Firmware File into a byte array
     firmware = new QFile(":firmware/resources/firmware/QuNexus_Firmware.syx");
     firmware->open(QIODevice::ReadOnly);
@@ -51,7 +54,34 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
 
     createAppMidiClient();
 
+}
 
+void MidiDeviceManager::slotStandaloneOn()
+{
+    sysexFIFOClock->stop();
+    sysexFIFOsQueue.clear();
+    sysexFIFOsQueue.append(_fw_tether_off);
+    sysexFIFOsQueue.append(_fw_standalone_on);
+    sysexFIFOsQueue.append(_fw_scenechange_on_persist);
+    sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
+    sysexFIFOsQueue.append(_fw_nav_tether_off);
+    sysexFIFOClock->start(100);
+}
+
+void MidiDeviceManager::slotDrainSysexFIFO()
+{
+    //If anything in list, send the next message
+    if(!sysexFIFOsQueue.isEmpty())
+    {
+        slotSendSysEx("message", sysexFIFOsQueue.first(), 43, "SSCOM Port 1");
+        sysexFIFOsQueue.removeFirst();
+    }
+
+    //Otherwise stop calling function
+    else
+    {
+        sysexFIFOClock->stop();
+    }
 }
 
 void MidiDeviceManager::createAppMidiClient()

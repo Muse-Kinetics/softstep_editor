@@ -240,7 +240,7 @@ void MainWindow::slotConnectInterfaces()
     ui->update->setText("SAVE");
 
     //Standalone Download
-    connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
+    connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)), Qt::DirectConnection);
     //connect(mdm, SIGNAL(signalSettingsSent()), sysExComposer, SLOT(slotSettingsSent()));
     //connect(mdm, SIGNAL(signalPresetsSent()), sysExComposer, SLOT(slotPresetsSent()));
 
@@ -369,6 +369,9 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
         fwoodDialogWidget->show();
         //qDebug() << "_____ Your firmware version is out of date _____";
     }
+
+    //End of sysex inquiry process, put board into standalone mode
+    mdm->slotStandaloneOn();
 }
 
 void MainWindow::slotConnected(bool connection)

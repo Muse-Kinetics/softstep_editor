@@ -29,6 +29,9 @@ public:
 
     //SysExEncode*        sysExEncode;
 
+    QTimer* sysexFIFOClock;
+    QList<unsigned char*> sysexFIFOsQueue;
+
     //Application MIDI Variables so out App can rx/tx MIDI
     MIDIClientRef appClientRef;
     MIDIPortRef appInPortRef;
@@ -90,7 +93,9 @@ public slots:
     void slotEnterBootloader();
     void slotSendSysEx(QString messageID, unsigned char* bytes, int len, QString destinationName);
     void slotProcessSysEx(QByteArray sysExMessageByteArray);
-    
+
+    void slotStandaloneOn();
+    void slotDrainSysexFIFO();
 };
 #else
 #include <Windows.h>
