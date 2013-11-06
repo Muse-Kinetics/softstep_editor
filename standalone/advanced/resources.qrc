@@ -132,5 +132,9 @@
         <file>resources/pedal_graph.png</file>
         <file>resources/settingsWindow_tab_input_disabled.png</file>
         <file>resources/settingsWindow_tab_input_enabled.png</file>
+        <file>resources/settings_toggle_OFF_active.png</file>
+        <file>resources/settings_toggle_OFF_inactive.png</file>
+        <file>resources/settings_toggle_ON_active.png</file>
+        <file>resources/settings_toggle_ON_inactive.png</file>
     </qresource>
 </RCC>
