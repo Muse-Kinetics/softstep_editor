@@ -136,5 +136,23 @@
         <file>resources/settings_toggle_OFF_inactive.png</file>
         <file>resources/settings_toggle_ON_active.png</file>
         <file>resources/settings_toggle_ON_inactive.png</file>
+        <file>resources/backlighting_off_active.png</file>
+        <file>resources/backlighting_off_inactive.png</file>
+        <file>resources/backlighting_on_active.png</file>
+        <file>resources/backlighting_on_inactive.png</file>
+        <file>resources/scenechanging_off_active.png</file>
+        <file>resources/scenechanging_off_inactive.png</file>
+        <file>resources/scenechanging_on_active.png</file>
+        <file>resources/scenechanging_on_inactive.png</file>
+        <file>resources/keysafety_adjacentkey_active.png</file>
+        <file>resources/keysafety_adjacentkey_inactive.png</file>
+        <file>resources/keysafety_multiplekey_active.png</file>
+        <file>resources/keysafety_multiplekey_inactive.png</file>
+        <file>resources/keysafety_singlekey_active.png</file>
+        <file>resources/keysafety_singlekey_inactive.png</file>
+        <file>resources/sensorresponse_average_active.png</file>
+        <file>resources/sensorresponse_average_inactive.png</file>
+        <file>resources/sensorresponse_max_active.png</file>
+        <file>resources/sensorresponse_max_inactive.png</file>
     </qresource>
 </RCC>
