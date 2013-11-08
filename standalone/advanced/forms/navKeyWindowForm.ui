@@ -730,6 +730,145 @@ QToolButton:pressed
     <string/>
    </property>
   </widget>
+  <widget class="QSpinBox" name="counterMax">
+   <property name="geometry">
+    <rect>
+     <x>685</x>
+     <y>25</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the maximum value for the key counter.&lt;br&gt;No values above this number will be output.</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_21">
+   <property name="geometry">
+    <rect>
+     <x>689</x>
+     <y>10</y>
+     <width>21</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Max</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="counterMin">
+   <property name="geometry">
+    <rect>
+     <x>652</x>
+     <y>25</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the minimum value for the key counter.&lt;br&gt;No values below this number will be output.</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="counterWrap">
+   <property name="geometry">
+    <rect>
+     <x>724</x>
+     <y>25</y>
+     <width>23</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>When checked, the key counter&lt;br&gt; will loop back to the minimum &lt;br&gt;value when the maximum &lt;br&gt;value is exceeded (and vice versa).&lt;p&gt;When unchecked, the counter will stop &lt;br&gt;once the minimum or maximum &lt;br&gt;values are reached.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_20">
+   <property name="geometry">
+    <rect>
+     <x>657</x>
+     <y>10</y>
+     <width>21</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Min</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_19">
+   <property name="geometry">
+    <rect>
+     <x>584</x>
+     <y>25</y>
+     <width>61</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Key Counter</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_22">
+   <property name="geometry">
+    <rect>
+     <x>720</x>
+     <y>10</y>
+     <width>31</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Wrap</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

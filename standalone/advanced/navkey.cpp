@@ -22,9 +22,14 @@ NavKey::NavKey(QWidget *parent) :
     QWidget(parent),
     navBoxForm(new Ui::navBoxForm),
     navKeyWindowForm(new Ui::navKeyWindowForm),
+    dataCooker(this),
     navBoxWidget(new QWidget(this)),
     navKeyWindowWidget(new QWidget(this))
 {
+    alphaNumManager.instanceNum = 0;
+
+    dataCooker.hide();
+
     //set up the nav pad box
     navBoxForm->setupUi(navBoxWidget);
     navBoxWidget->setFixedSize(NAVBOX_WIDTH,NAVBOX_HEIGHT);
@@ -52,6 +57,8 @@ NavKey::NavKey(QWidget *parent) :
     connect(navKeyWindowForm->showLEDSettings, SIGNAL(toggled(bool)), this, SLOT(slotShowDisplaySettings(bool)));
     connect(navKeyWindowForm->addmodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
     connect(navKeyWindowForm->deletemodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
+
+    counter = 0;
 }
 
 void NavKey::slotOpenWindow()
@@ -71,10 +78,30 @@ void NavKey::slotConnectElements()
     connect(navKeyWindowForm->navpadmode_modline, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
     connect(navKeyWindowForm->navpadmode_programchange, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
 
+    //counter stuff
+    connect(navKeyWindowForm->counterMin, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    connect(navKeyWindowForm->counterMax, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    connect(navKeyWindowForm->counterWrap, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+
     //display stuff
     connect(navKeyWindowForm->displayprefix,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
     connect(navKeyWindowForm->keyname,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
     connect(navKeyWindowForm->leddisplaymode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+
+    //Hosted streaming
+    for(int i = 0; i < 6; i++)
+    {
+        connect(navModline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
+        //connect(&dataCooker, SIGNAL(signalTransformSource(int,int,QString)), navModline[i], SLOT(slotTransformSource(int,int,QString)));
+        connect(navModline[i], SIGNAL(hosted_signalYIncSet(int)), &dataCooker, SLOT(slotYIncSet(int)));
+
+        //alphanumeric display -- needs special slot because it is display linked
+        connect(navModline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
+
+        //counter
+        connect(navModline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
+        connect(this, SIGNAL(signalCounterValue(int)), navModline[i], SLOT(slotCounterReturn(int)));
+    }
 }
 
 void NavKey::slotDisconnectElements()
@@ -86,10 +113,30 @@ void NavKey::slotDisconnectElements()
     disconnect(navKeyWindowForm->navpadmode_modline, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
     disconnect(navKeyWindowForm->navpadmode_programchange, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
 
+    //counter stuff
+    disconnect(navKeyWindowForm->counterMin, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(navKeyWindowForm->counterMax, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(navKeyWindowForm->counterWrap, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+
     //display stuff
     disconnect(navKeyWindowForm->displayprefix,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
     disconnect(navKeyWindowForm->keyname,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
     disconnect(navKeyWindowForm->leddisplaymode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+
+    //Hosted streaming
+    for(int i = 0; i < 6; i++)
+    {
+        disconnect(navModline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
+        //disconnect(&dataCooker, SIGNAL(signalTransformSource(int,int,QString)), navModline[i], SLOT(slotTransformSource(int,int,QString)));
+        disconnect(navModline[i], SIGNAL(hosted_signalYIncSet(int)), &dataCooker, SLOT(slotYIncSet(int)));
+
+        //alphanumeric display -- needs special slot because it is display linked
+        disconnect(navModline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
+
+        //counter
+        disconnect(navModline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
+        disconnect(this, SIGNAL(signalCounterValue(int)), navModline[i], SLOT(slotCounterReturn(int)));
+    }
 }
 
 void NavKey::slotValueChanged()
@@ -99,13 +146,32 @@ void NavKey::slotValueChanged()
         QString jsonName;
         QObject *sender = QObject::sender();
         QVariant value;
+        bool updateAlphaDisplayParams = false;
 
         //nav name
         if(sender == navBoxForm->keyName)
         {
             jsonName = "name";
             value = navBoxForm->keyName->text();
+            updateAlphaDisplayParams = true;
         }
+        //key counter stuff
+        else if(sender == navKeyWindowForm->counterMin)
+        {
+            jsonName = "counter_min";
+            value = navKeyWindowForm->counterMin->value();
+        }
+        else if(sender == navKeyWindowForm->counterMax)
+        {
+            jsonName = "counter_max";
+            value = navKeyWindowForm->counterMax->value();
+        }
+        else if(sender == navKeyWindowForm->counterWrap)
+        {
+            jsonName = "counter_wrap";
+            value = navKeyWindowForm->counterWrap->isChecked();
+        }
+        //modline mode stuff
         else if(sender == navKeyWindowForm->navpadmode_modline)
         {
             jsonName = "modlinemode";
@@ -121,19 +187,28 @@ void NavKey::slotValueChanged()
         {
             jsonName = "prefix";
             value = navKeyWindowForm->displayprefix->text();
+            updateAlphaDisplayParams = true;
         }
         else if(sender == navKeyWindowForm->keyname)
         {
             jsonName = "name";
             value = navKeyWindowForm->keyname->text();
+            updateAlphaDisplayParams = true;
         }
         else if(sender == navKeyWindowForm->leddisplaymode)
         {
             jsonName = "displaymode";
             value = navKeyWindowForm->leddisplaymode->currentText();
+            updateAlphaDisplayParams = true;
         }
 
         emit signalStoreValue(QString("nav_%1").arg(jsonName), value, -1);
+
+        //if an alphanum param was modified update its members
+        if(updateAlphaDisplayParams = true)
+        {
+            slotSetAlphaNumSettings();
+        }
     }
     emit signalCheckSavedState();
 }
@@ -157,12 +232,19 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
         navKeyWindowForm->navpadmode_programchange->setChecked(TRUE);
     }
 
+    //counter stuff
+    navKeyWindowForm->counterMin->setValue(preset.value(QString("nav_counter_min")).toInt());
+    navKeyWindowForm->counterMax->setValue(preset.value(QString("nav_counter_max")).toInt());
+    navKeyWindowForm->counterWrap->setChecked(preset.value(QString("nav_counter_wrap")).toInt());
+
     //display stuff
     navKeyWindowForm->displayprefix->setText(preset.value(QString("nav_prefix")).toString());
     navKeyWindowForm->keyname->setText(preset.value(QString("nav_name")).toString());
     navKeyWindowForm->leddisplaymode->setCurrentIndex(navKeyWindowForm->leddisplaymode->findText(preset.value(QString("nav_displaymode")).toString()));
 
     slotConnectElements();
+
+    slotSetAlphaNumSettings();
 }
 
 void NavKey::slotShowDisplaySettings(bool show)
@@ -255,7 +337,6 @@ void NavKey::slotRecallShowModlines(QVariantMap preset, QVariantMap)
     }
 
     slotWindowHeight(numModlines);
-
     //qDebug() << QString("show %1 nav modlines").arg(numModlines);
 }
 
@@ -293,4 +374,75 @@ void NavKey::slotAddSubtractModlines()
 
     slotWindowHeight(numModlines);
     //qDebug() << QString("show %1 nav modlines").arg(numModlines);
+}
+
+void NavKey::slotSetMode(QString m)
+{
+    mode = m;
+}
+
+void NavKey::slotSetDataCookerSettings()
+{
+
+}
+
+void NavKey::slotSetAlphaNumSettings()
+{
+    alphaNumManager.displayMode = navKeyWindowForm->leddisplaymode->currentText();
+    alphaNumManager.keyName = navKeyWindowForm->keyname->text();
+    alphaNumManager.prefix = navKeyWindowForm->displayprefix->text();
+}
+
+void NavKey::slotCounter(QString whatToDo, int val)
+{
+    bool wrap = navKeyWindowForm->counterWrap->isChecked();
+    int min = navKeyWindowForm->counterMin->value();
+    int max = navKeyWindowForm->counterMax->value();
+
+    if(whatToDo == "Inc")
+    {
+        if(wrap && counter == max)
+        {
+            counter = min;
+        }
+        else if(!wrap && counter == max)
+        {
+            counter == max;
+        }
+        else
+        {
+            counter++;
+        }
+    }
+    else if(whatToDo == "Dec")
+    {
+        if(wrap && counter == min)
+        {
+            counter = max;
+        }
+        else if(!wrap && counter == min)
+        {
+            counter == min;
+        }
+        else
+        {
+            counter--;
+        }
+    }
+    else if(whatToDo == "Set")
+    {
+        if(val > max)
+        {
+            val = max;
+        }
+
+        if(val < min)
+        {
+            val = min;
+        }
+
+        counter = val;
+    }
+
+    emit signalCounterValue(counter);
 }

@@ -2,7 +2,6 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "navmodline.h"
-//#include "tables.h"
 
 //constants for various modline arrangement parameters
 #define MODLINE_WINDOW_WIDTH 967
@@ -18,6 +17,15 @@ NavModline::NavModline(QWidget *parent, int navInstanceNum) :
 {
     navInstance = navInstanceNum;
 
+    lastSource = "None";
+    lastVal = -1;
+    output = -1;
+
+    firstCall = true;
+
+    lastNote = -1;
+    toggleOn = false;
+
     //---------------- Set up Ui
     navModlineForm->setupUi(formWidget);
     this->setFixedSize(MODLINE_WINDOW_WIDTH,MODLINE_WINDOW_HEIGHT);
@@ -32,6 +40,10 @@ NavModline::NavModline(QWidget *parent, int navInstanceNum) :
     navModlineForm->enable->setStyleSheet(stylesheets.modlineEnableStyleSheet.at(navInstance));
 
     displayLinkButton = navModlineForm->modlinedisplayenable;
+
+    raw = 0;
+    result = 0;
+    value = 0;
 }
 
 void NavModline::slotConnectElements()
@@ -80,10 +92,16 @@ void NavModline::slotConnectElements()
     }
 
     //connect and initialize the raw value to the result (not for presets)
-    connect(navModlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
-    connect(navModlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
-    connect(navModlineForm->offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
+    //connect(navModlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
+    //connect(navModlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
+    //connect(navModlineForm->offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
 
+    //-------------------- Hosted
+    //slewer
+    connect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmoothReturn(int)));
+
+    //delay
+    connect(&delayer, SIGNAL(signalDelayedOutput(int)), this, SLOT(slotDelayReturn(int)));
 }
 
 void NavModline::slotDisconnectElements()
@@ -130,6 +148,13 @@ void NavModline::slotDisconnectElements()
             disconnect(radiobutton, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
         }
     }
+
+    //-------------------- Hosted
+    //slewer
+    connect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmoothReturn(int)));
+
+    //delay
+    connect(&delayer, SIGNAL(signalDelayedOutput(int)), this, SLOT(slotDelayReturn(int)));
 }
 
 void NavModline::slotValueChanged()
@@ -356,6 +381,9 @@ void NavModline::slotValueChanged()
     }
 
     emit signalCheckSavedState();
+
+    //---------- update hosted source streaming
+    slotStreamSourceData();
 }
 
 void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
@@ -412,6 +440,9 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
     navModlineForm->modlinedisplayenable->setChecked(preset.value(QString("nav_modline%1_displaylinked").arg(navInstance+1)).toBool());
     slotRecallDestinationMenu();
     slotConnectElements();
+
+    //--------------- update hosted source streaming
+    slotStreamSourceData();
 }
 
 void NavModline::slotRawResult()
@@ -463,4 +494,403 @@ void NavModline::slotPopulateMenus(QStringList source, QStringList dest, QString
     //set destination menus
     navModlineForm->destination->clear();
     navModlineForm->destination->addItems(dest);
+}
+
+void NavModline::hosted_slotPopulateDeviceMenu(QMap<QString, MIDIEndpointRef> externalDevices)
+{
+    //------------------------------- Clear all device menus
+
+    //Note Set
+    navModlineForm->notedevice->clear();
+
+    //Note Live
+    navModlineForm->notelivedevice->clear();
+
+    //CC
+    navModlineForm->controldevice->clear();
+
+    //Bank
+    navModlineForm->bankdevice->clear();
+
+    //Program
+    navModlineForm->programdevice->clear();
+
+    //Pitch Bend
+    navModlineForm->benddevice->clear();
+
+    //MMC
+    navModlineForm->mmcdevice->clear();
+
+    //Aftertouch
+    navModlineForm->aftertouchdevice->clear();
+
+    //Poly Aftertouch
+    navModlineForm->polydevice->clear();
+
+    //-------------------------------- Populate all menus
+    QMap<QString, MIDIEndpointRef>::iterator i;
+    for (i = externalDevices.begin(); i != externalDevices.end(); ++i)
+    {
+        //Note Set
+        navModlineForm->notedevice->addItem(i.key());
+
+        //Note Live
+        navModlineForm->notelivedevice->addItem(i.key());
+
+        //CC
+        navModlineForm->controldevice->addItem(i.key());
+
+        //Bank
+        navModlineForm->bankdevice->addItem(i.key());
+
+        //Program
+        navModlineForm->programdevice->addItem(i.key());
+
+        //Pitch Bend
+        navModlineForm->benddevice->addItem(i.key());
+
+        //MMC
+        navModlineForm->mmcdevice->addItem(i.key());
+
+        //Aftertouch
+        navModlineForm->aftertouchdevice->addItem(i.key());
+
+        //Poly Aftertouch
+        navModlineForm->polydevice->addItem(i.key());
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////    Hosted   ///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void NavModline::slotStreamSourceData()
+{
+    //--------------------- Hosted
+    if(mode == "hosted")
+    {
+        //set instance modline/transform params
+        slotSetTransformValues();
+
+        //get source from key data cooker
+        emit signalSetSource(navModlineForm->source->currentText(), navInstance);
+    }
+}
+
+void NavModline::slotSetTransformValues()
+{
+    enabled = navModlineForm->enable->isChecked();
+    gain = navModlineForm->gain->value();
+    offset = navModlineForm->offset->value();
+
+    //set table array here later
+    table = navModlineForm->table->currentText();
+
+    min = navModlineForm->min->value();
+    max = navModlineForm->max->value();
+    smooth = navModlineForm->slew->value();
+    delay = navModlineForm->delay->value();
+    delayer.delayTime = delay;
+
+    outputType = navModlineForm->destination->currentText();
+    thisModlineSource = navModlineForm->source->currentText();
+}
+
+void NavModline::slotTransformSource(int val, int modlineNum, QString source)
+{
+    newSource = source;
+
+    //Make sure this is the correct modline to receive source being emitted
+    if(modlineNum == navInstance && source == thisModlineSource)
+    {
+        //If source value is different from last or there is a change in value...
+        if(lastVal != val || lastSource != source || source.contains("Trig") || source.contains("Key"))
+        {
+            //set raw display value
+            raw = val;
+
+            //display raw
+            navModlineForm->raw->setValue(val);
+
+            //apply gain and offset
+            val = val*gain + offset;
+
+            //set result display value
+            result = val;
+
+            //display result
+            navModlineForm->result->setValue(result);
+
+            if(enabled)
+            {
+                //go to slotTable, signal continues from there
+                slotTable(val);
+            }
+        }
+    }
+}
+
+//--------------------------------------------------------- Table / Counter
+void NavModline::slotTable(int input)
+{
+    //clip table input
+    if(input > 127)
+    {
+        input = 127;
+    }
+
+    if(input < 0)
+    {
+        input = 0;
+    }
+
+    if(table == "Counter Inc")
+    {
+        //qDebug() << "last val: " << lastVal << "input: " << input;
+
+        if(!lastVal && input)
+        {
+            emit hosted_signalCounter("Inc", -1);
+        }
+
+        lastVal = input;
+        lastSource = newSource;
+        return;
+    }
+    else if(table == "Counter Dec")
+    {
+        if(!lastVal && input)
+        {
+            emit hosted_signalCounter("Dec", -1);
+        }
+
+        lastVal = input;
+        lastSource = newSource;
+        return;
+    }
+    else if(table == "Counter Set")
+    {
+        emit hosted_signalCounter("Set", input);
+        lastVal = input;
+        lastSource = newSource;
+        return;
+    }
+    else if(table == "Toggle")
+    {
+        //put something here
+    }
+    else
+    {
+        input = tablesClass.tableMap.value(table)[input];
+    }
+
+    slotMinMax(input);
+}
+
+void NavModline::slotCounterReturn(int val)
+{
+    if(navModlineForm->table->currentText().contains("Counter"))
+    {
+        if(navModlineForm->table->currentText().contains("Set"))
+        {
+            //only display counter val
+            value = val;
+            slotDisplayVars();
+            lastVal = val;
+            lastSource = newSource;
+            return;
+        }
+        else
+        {
+            slotMinMax(val);
+        }
+    }
+}
+
+//-------------------------------------------------------------- Min / Max
+void NavModline::slotMinMax(int input)
+{
+    //if min max are flipped... don't know... return input for now
+    if(min > max)
+    {
+        //return input;
+    }
+    else
+    {
+        if(input < min)
+        {
+            input = min;
+        }
+        else if(input > max)
+        {
+            input = max;
+        }
+        else
+        {
+            input = input;
+        }
+    }
+    slotSmooth(input);
+}
+
+//----------------------------------------------------------------- Smooth
+void NavModline::slotSmooth(int input)
+{
+    if(smooth)
+    {
+        //do something with slewer here and retun in slotSmoothReturn
+        slewer.slotSlew(input, smooth);
+        lastVal = input;
+        lastSource = newSource;
+        return;
+    }
+    else
+    {
+        slotDelay(input);
+    }
+
+}
+
+void NavModline::slotSmoothReturn(int input)
+{
+    qDebug() << "slew return" << input;
+
+    slotDelay(input);
+}
+
+//-------------------------------------------------------------------- Delay
+void NavModline::slotDelay(int input)
+{
+
+    if(delay)
+    {
+        qDebug() << "delay called" << delay << input;
+
+        //Do something with latcher, or delay here
+        delayer.slotInputToDealy(input);
+        lastVal = input;
+        lastSource = newSource;
+        return;
+    }
+    else
+    {
+        slotOutputRoutine(input);
+    }
+}
+
+void NavModline::slotDelayReturn(int input)
+{
+    qDebug() << "delayed signal" << input;
+    slotOutputRoutine(input);
+}
+
+//-------------------------------------------------------------------- Output
+void NavModline::slotOutputRoutine(int input)
+{
+    //Prepares message type to be formatted by midiformat, and then output via mididevicemanager
+    hosted_slotOutputMidi(input);
+
+    //Set value for display
+    value = input;
+
+    //Send modline output to dataCooker for Modline # Sources, also used for key alpha and led display
+    emit hosted_signalSendModlineOutput(navInstance, input);
+
+    //If line is display linked, send param it to alphanum
+    if(displayLinkButton->isChecked())
+    {
+        emit hosted_signalSendParamDisplayOutput(navInstance, input);
+    }
+
+    //Update graphics only after outupt
+    slotDisplayVars();
+
+    //Variables to filter out repititions
+    lastVal = input;
+    lastSource = newSource;
+}
+
+void NavModline::hosted_slotOutputMidi(int outputVal)
+{
+    if(outputType == "Note Set")
+    {
+        if(outputVal)
+        {
+            emit hosted_signalNoteSet(navModlineForm->notedevice->currentText(), navModlineForm->notechannel->value(), navModlineForm->notenumber->value(), navModlineForm->notevelocity->value());
+        }
+        else
+        {
+            emit hosted_signalNoteSet(navModlineForm->notedevice->currentText(), navModlineForm->notechannel->value(), navModlineForm->notenumber->value(), 0);
+        }
+    }
+    else if(outputType == "Note Live")
+    {
+        emit hosted_signalNoteLive(navModlineForm->notelivedevice->currentText(), navModlineForm->notelivechannel->value(), lastNote, outputVal, navModlineForm->notelivevelocity->value());
+
+        lastNote = outputVal;
+    }
+    else if(outputType == "CC")
+    {
+        emit hosted_signalCC(navModlineForm->controldevice->currentText(), navModlineForm->controlchannel->value(), navModlineForm->cc->value(), outputVal);
+    }
+    else if(outputType == "Bank")
+    {
+        emit hosted_signalBank(navModlineForm->bankdevice->currentText(),  navModlineForm->bankchannel->value(), navModlineForm->bankmsb->value(), outputVal);
+    }
+    else if(outputType == "Program")
+    {
+        emit hosted_signalProgram(navModlineForm->programdevice->currentText(), navModlineForm->programchannel->value(), outputVal);
+    }
+    else if(outputType == "Pitch Bend")
+    {
+        emit hosted_signalPitchBend(navModlineForm->benddevice->currentText(), navModlineForm->bendchannel->value(), 0, outputVal);
+    }
+    else if(outputType == "MMC")
+    {
+        toggleOn = false;
+
+        if(outputVal && !toggleOn)
+        {
+            emit hosted_signalMMC(navModlineForm->mmcdevice->currentText(), navModlineForm->mmcdeviceid->value(), navModlineForm->mmcfunction->currentText());
+            toggleOn = true;
+        }
+        else if(!outputVal)
+        {
+            toggleOn = false;
+        }
+    }
+    else if(outputType == "OSC")
+    {
+
+    }
+    else if(outputType == "Aftertouch")
+    {
+        emit hosted_signalAftertouch(navModlineForm->aftertouchdevice->currentText(), navModlineForm->aftertouchchannel->value(), outputVal);
+    }
+    else if(outputType == "Poly Aftertouch")
+    {
+        emit hosted_signalPolyAftertouch(navModlineForm->polydevice->currentText(), navModlineForm->polychannel->value(), navModlineForm->polynote->value(), outputVal);
+    }
+    /*else if(outputType == "GarageBand")
+    {
+
+    }
+    else if(outputType == "HUI")
+    {
+
+    }*/
+    else if(outputType == "Y Inc Set")
+    {
+        emit hosted_signalYIncSet(outputVal);
+    }
+    else if(outputType == "X Inc Set")
+    {
+        emit hosted_signalXIncSet(outputVal);
+    }
+}
+
+void NavModline::slotDisplayVars()
+{
+    navModlineForm->outputvalue->setValue(value);
 }

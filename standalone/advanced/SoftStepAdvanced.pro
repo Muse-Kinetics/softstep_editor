@@ -50,7 +50,9 @@ SOURCES +=      main.cpp\
     hosted/alphanummanager.cpp \
     hosted/ledmanager.cpp \
     hosted/displaysink.cpp \
-    hosted/delay.cpp
+    hosted/delay.cpp \
+    tables.cpp \
+    hosted/navdatacooker.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -78,7 +80,6 @@ HEADERS  +=     mainwindow.h \
     hosted/datacooker.h \
     navmodline.h \
     navkey.h \
-    ../../shared/tables.h \
     hosted/midiformatoutput.h \
     hosted/latcher.h \
     hosted/trigger.h \
@@ -87,7 +88,9 @@ HEADERS  +=     mainwindow.h \
     hosted/alphanummanager.h \
     hosted/ledmanager.h \
     hosted/displaysink.h \
-    hosted/delay.h
+    hosted/delay.h \
+    tables.h \
+    hosted/navdatacooker.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \

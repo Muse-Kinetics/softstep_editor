@@ -2,7 +2,6 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "modline.h"
-#include "tables.h"
 
 #include <CoreMIDI/CoreMIDI.h>
 #include <CoreServices/CoreServices.h>
@@ -770,27 +769,7 @@ void Modline::slotTable(int input)
         input = 0;
     }
 
-    if( table == "Linear")
-    {
-        input =  linear[input];
-    }
-    else if(table == "Sine")
-    {
-        input =  sine[input];
-    }
-    else if(table == "Cosine")
-    {
-        input =  cosine[input];
-    }
-    else if(table == "Exponential")
-    {
-        input =  exponential[input];
-    }
-    else if(table == "Logarithmic")
-    {
-        input =  logarithmic[input];
-    }
-    else if(table == "Counter Inc")
+    if(table == "Counter Inc")
     {
         //qDebug() << "last val: " << lastVal << "input: " << input;
 
@@ -820,6 +799,14 @@ void Modline::slotTable(int input)
         lastVal = input;
         lastSource = newSource;
         return;
+    }
+    else if(table == "Toggle")
+    {
+        //something
+    }
+    else
+    {
+        input = tablesClass.tableMap.value(table)[input];
     }
 
     slotMinMax(input);

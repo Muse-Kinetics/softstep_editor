@@ -17,6 +17,7 @@
 
 #include "ui_modlineForm.h"
 #include "stylesheets.h"
+#include "tables.h"
 #include "hosted/slewer.h"
 #include "hosted/ledmanager.h"
 #include "hosted/delay.h"
@@ -28,6 +29,7 @@ public:
     explicit Modline(QWidget *parent = 0, int keyInstanceNum = 0, int modlineInstanceNum = 0);
 
     StyleSheets stylesheets;
+    Tables tablesClass;
     QRadioButton* displayLinkButton;
 
     QString mode;

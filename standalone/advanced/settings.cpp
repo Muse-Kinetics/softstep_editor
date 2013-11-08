@@ -348,7 +348,7 @@ void Settings::slotStoreSettings(QString name, QVariant value)
     globalMap.insert(name,value);
     settings.insert(QString("Global"), globalMap);
 
-    qDebug() << "update the settings preset";
+    //qDebug() << "update the settings preset";
     slotWriteSettings();
 }
 
@@ -457,7 +457,6 @@ void Settings::slotPopulateInputMenus(QMap<QString, MIDIEndpointRef> midiSources
 
 void Settings::slotSetMidiInputLineParams()
 {
-
     //There must be a better way to do this...
 
     for(int i = 0; i < NUM_MIDI_INPUTS; i++)

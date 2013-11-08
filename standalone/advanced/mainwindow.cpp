@@ -153,12 +153,21 @@ void MainWindow::slotConnectInterfaces()
 
     //-------------------------------------- Mode Switching
     connect(ui->mode, SIGNAL(clicked()), this, SLOT(slotSetMode()));
-
+    //key modulation window modes
     for(int k = 0; k < 10; k++)
     {
         connect(this, SIGNAL(signalSetMode(QString)), key[k], SLOT(slotSetMode(QString)));
+        /*for(int j = 0; j < 6; j++)
+        {
+            connect(this, SIGNAL(signalSetMode(QString)), key[k]->modline[j], SLOT(slotSetMode(QString)));
+        }*/
     }
-
+    //nav pad modes
+    connect(this, SIGNAL(signalSetMode(QString)), navKey, SLOT(slotSetMode(QString)));
+    /*for(int n = 0; n < 6; n++)
+    {
+        connect(this, SIGNAL(signalSetMode(QString)), navKey->navModline[n], SLOT(slotSetMode(QString)));
+    }*/
 
     //-------------------------------------- Hosted MIDI
     connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)), Qt::DirectConnection);
@@ -174,6 +183,7 @@ void MainWindow::slotConnectInterfaces()
         {
             connect(&settingsWindow->midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), &key[k]->dataCooker, SLOT(slotReceiveMidiInput(int,QString)));
         }
+        connect(&settingsWindow->midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), &navKey->dataCooker, SLOT(slotReceiveMidiInput(int,QString)));
     }
 
     //Device menu population
@@ -238,6 +248,46 @@ void MainWindow::slotConnectInterfaces()
             connect(&key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), &key[l]->alphaNumManager, SLOT(slotKeyOff(int)));
         }
     }
+    //nav pad
+    connect(midiParse, SIGNAL(signalUpdateSensor(int,int)), &navKey->dataCooker, SLOT(slotUpdateVals(int,int)), Qt::DirectConnection);
+    for(int n = 0; n < 6; n++)
+    {
+        //output signals listed in navModline.h, slots in midiformat.h
+        //Note Live
+        connect(navKey->navModline[n], SIGNAL(hosted_signalNoteLive(QString,int,int,int,int)), &midiDeviceManager->midiFormatOutput, SLOT(slotNoteLive(QString,int,int,int,int)));
+
+        //Note Set
+        connect(navKey->navModline[n], SIGNAL(hosted_signalNoteSet(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotNoteSet(QString,int,int,int)));
+
+        //CCs
+        connect(navKey->navModline[n], SIGNAL(hosted_signalCC(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotCC(QString,int,int,int)));
+
+        //Bank
+        connect(navKey->navModline[n], SIGNAL(hosted_signalBank(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotBank(QString,int,int,int)));
+
+        //OSC goes here ----------------------
+
+        //Program
+        connect(navKey->navModline[n], SIGNAL(hosted_signalProgram(QString,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotProgram(QString,int,int)));
+
+        //Pitch Bend
+        connect(navKey->navModline[n], SIGNAL(hosted_signalPitchBend(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotPitchBend(QString,int,int,int)));
+
+        //MMC
+        connect(navKey->navModline[n], SIGNAL(hosted_signalMMC(QString,int,QString)),&midiDeviceManager->midiFormatOutput, SLOT(slotMMC(QString,int,QString)));
+
+        //Aftertouch
+        connect(navKey->navModline[n], SIGNAL(hosted_signalAftertouch(QString,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotAftertouch(QString,int,int)));
+
+        //PolyAftertouch
+        connect(navKey->navModline[n], SIGNAL(hosted_signalPolyAftertouch(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotPolyAftertouch(QString,int,int,int)));
+
+        //Garageband goes here -------------
+        //HUI goes here --------------------
+    }
+
+    //Alphanumeric MIDI Out
+    connect(&navKey->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddAlphaPacket(QString,QList<MIDIPacket>)), Qt::DirectConnection);
 
     connect(&displaySink, SIGNAL(signalSendPacket(QString,MIDIPacket)), midiDeviceManager, SLOT(hosted_slotSendPacket(QString,MIDIPacket)),Qt::DirectConnection);
 
@@ -556,7 +606,7 @@ void MainWindow::slotSetMode()
     }
 
     //Nav Pad and Nav Modlines
-    //navKey->slotSetMode(mode);
+    navKey->slotSetMode(mode);
     for(int i = 0; i < 6; i++)
     {
         //nav modlines
@@ -633,6 +683,29 @@ void MainWindow::slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> external
             //Reconnect to slotValueChanged
             key[i]->modline[j]->slotConnectElements();
         }
+    }
+    //nav pad
+    for(int n = 0; n < 6; n++)
+    {
+        //disconnect from slotValueChanged
+        navKey->navModline[n]->slotDisconnectElements();
+
+        //populate modline menus according to mode-- doing this here to avoid having to embed source, dest, and table lists in modlines
+        if(mode == "hosted")
+        {
+            navKey->navModline[n]->hosted_slotPopulateDeviceMenu(externalDevices);
+        }
+        else
+        {
+            QMap<QString, MIDIEndpointRef> standaloneDevices;
+            standaloneDevices.insert("SSCOM PORT 1", NULL);
+            standaloneDevices.insert("SoftStep Expander", NULL);
+
+            navKey->navModline[n]->hosted_slotPopulateDeviceMenu(standaloneDevices);
+        }
+
+        //reconnect to slotValueChanged
+        navKey->navModline[n]->slotConnectElements();
     }
 
     presetInterface->slotRecallPreset(0);
