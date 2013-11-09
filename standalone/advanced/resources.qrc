@@ -144,15 +144,24 @@
         <file>resources/scenechanging_off_inactive.png</file>
         <file>resources/scenechanging_on_active.png</file>
         <file>resources/scenechanging_on_inactive.png</file>
-        <file>resources/keysafety_adjacentkey_active.png</file>
-        <file>resources/keysafety_adjacentkey_inactive.png</file>
-        <file>resources/keysafety_multiplekey_active.png</file>
-        <file>resources/keysafety_multiplekey_inactive.png</file>
-        <file>resources/keysafety_singlekey_active.png</file>
-        <file>resources/keysafety_singlekey_inactive.png</file>
         <file>resources/sensorresponse_average_active.png</file>
         <file>resources/sensorresponse_average_inactive.png</file>
         <file>resources/sensorresponse_max_active.png</file>
         <file>resources/sensorresponse_max_inactive.png</file>
+        <file>resources/keysafety_adjacentlockout_active.png</file>
+        <file>resources/keysafety_adjacentlockout_inactive.png</file>
+        <file>resources/keysafety_adjacentlockout_pressed.png</file>
+        <file>resources/keysafety_allkeys_active.png</file>
+        <file>resources/keysafety_allkeys_inactive.png</file>
+        <file>resources/keysafety_allkeys_pressed.png</file>
+        <file>resources/keysafety_singlekey_active.png</file>
+        <file>resources/keysafety_singlekey_inactive.png</file>
+        <file>resources/keysafety_singlekey_pressed.png</file>
+        <file>resources/keysafety_bracket.png</file>
+        <file>resources/keysafety_multiplekey_inactive.png</file>
+        <file>resources/keysafety_multiplekey_active.png</file>
+        <file>resources/keysafety_adjacentkey_active.png</file>
+        <file>resources/keysafety_adjacentkey_inactive.png</file>
+        <file>resources/keysafety_bracket_wider.png</file>
     </qresource>
 </RCC>
