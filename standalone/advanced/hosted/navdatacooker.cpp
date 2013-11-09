@@ -21,6 +21,13 @@ NavDataCooker::NavDataCooker(QWidget *parent) :
     onThreshW = 10;
     offThreshW = 5;
 
+    //Set temporarily here until settings are hooked up
+    globalGain = 1.00;
+    navNGain = 1.1;
+    navSGain = 1.1;
+    navEGain = 1.0;
+    navWGain = 1.0;
+
     yAccel = 10;
 
     //Init counters
@@ -69,22 +76,22 @@ void NavDataCooker::slotUpdateVals(int cc, int val)
     {
         if(cc == keySensorBaseCcMap)
         {
-            sensorVals[W] = val;
+            sensorVals[W] = val*globalGain*navWGain;
         }
         else if(cc == keySensorBaseCcMap + 1)
         {
-            sensorVals[E] = val;
+            sensorVals[E] = val*globalGain*navEGain;
         }
         else if(cc == keySensorBaseCcMap + 2)
         {
-            sensorVals[N] = val;
+            sensorVals[N] = val*globalGain*navNGain;
         }
         else if(cc == keySensorBaseCcMap + 3)
         {
-            sensorVals[S] = val;
+            sensorVals[S] = val*globalGain*navSGain;
         }
 
-        //cookRaw();
+        cookRaw();
         cookSources();
     }
     else if(cc == PEDAL_CC)
@@ -104,6 +111,55 @@ void NavDataCooker::slotUpdateVals(int cc, int val)
     qDebug() << cc << val;
 }
 
+void NavDataCooker::cookRaw()
+{
+    //----- North
+    if(sensorVals[N] > onThreshN && !footOnOffN)
+    {
+        footOnOffN = true;
+    }
+    else if(sensorVals[N] < offThreshN && footOnOffN)
+    {
+        footOnOffN = false;
+    }
+
+    //----- South
+    if(sensorVals[S] > onThreshS && !footOnOffS)
+    {
+        footOnOffS = true;
+    }
+    else if(sensorVals[S] < offThreshS && footOnOffS)
+    {
+        footOnOffS = false;
+    }
+
+    //----- East
+    if(sensorVals[E] > onThreshE && !footOnOffE)
+    {
+        footOnOffE = true;
+    }
+    else if(sensorVals[E] < onThreshE && footOnOffE)
+    {
+        footOnOffE = false;
+    }
+
+    ///----- West
+    if(sensorVals[W] > onThreshW && !footOnOffW)
+    {
+        footOnOffW = true;
+    }
+    else if(sensorVals[W] < onThreshW && footOnOffW)
+    {
+        footOnOffW = false;
+    }
+
+    //------------ Open Counter Gates
+    if(!footOnOffN && !footOnOffS)
+    {
+        navYGate = true;
+    }
+}
+
 void NavDataCooker::cookSources()
 {
     //For each modline
@@ -111,11 +167,11 @@ void NavDataCooker::cookSources()
     {
         if(modlineSources.value(i) == "Nav Y")
         {
-            navY();
+            emit signalTransformSource(navY(), i, "Nav Y");
         }
         else if(modlineSources.value(i) == "Nav Y Decade")
         {
-            navYDecade();
+            emit signalTransformSource(navY()*10, i, "Nav Y Decade");
         }
         else if(modlineSources.value(i) == "Nav Y Inc-Dec")
         {
@@ -123,19 +179,19 @@ void NavDataCooker::cookSources()
         }
         else if(modlineSources.value(i) == "Nav N Foot On")
         {
-            navNFootOn();
+            emit signalTransformSource(navNFootOn(), i, "Nav N Foot On");
         }
         else if(modlineSources.value(i) == "Nav S Foot On")
         {
-            navSFootOn();
+            emit signalTransformSource(navSFootOn(), i, "Nav S Foot On");
         }
         else if(modlineSources.value(i) == "Nav N Foot Off")
         {
-            navNFootOff();
+            emit signalTransformSource(navNFootOff(), i, "Nav N Foot Off");
         }
         else if(modlineSources.value(i) == "Nav S Foot Off")
         {
-            navSFootOff();
+            emit signalTransformSource(navNFootOff(), i, "Nav S Foot Off");
         }
         else if(modlineSources.value(i) == "Nav N Trig")
         {
@@ -174,47 +230,135 @@ void NavDataCooker::cookSources()
 
 int NavDataCooker::navY()
 {
+    if(navNFootOn() && navYGate)
+    {
+        navYGate = false;
+        navYCount++;
+    }
+    else if(navSFootOn() && navYGate)
+    {
+        navYGate = false;
+        navYCount--;
+    }
 
+    return navYCount;
 }
 
 int NavDataCooker::navYDecade()
 {
-
+    //Just multiply navY() in cookSources()
 }
 
 int NavDataCooker::navYIncDec()
 {
+    //If key is active
+    if(footOnOffN || footOnOffS)
+    {
+        //Weird... copied from max, probably works, brain soggy so not sure
+        //If pulled northward
+        if(sensorVals[N] - sensorVals[S] > navYDeadZone/2.5)
+        {
+            yIncOrDec = true; //True for inc
 
+            if(!yIncClock->isActive())
+            {
+                yIncClock->start(yAccel);
+            }
+        }
+
+        //If pulled southward
+        else if(sensorVals[S] - sensorVals[N] > navYDeadZone/2.5)
+        {
+            yIncOrDec = false; //False for dec
+
+            if(!yIncClock->isActive())
+            {
+                yIncClock->start();
+            }
+        }
+
+        //If in dead zone stop clock
+        else
+        {
+            yIncClock->stop();
+        }
+    }
+
+    //If foot off, stop clock
+    else
+    {
+        yIncClock->stop();
+    }
 }
 
 void NavDataCooker::slotTickYIncrementClock()
 {
+    if(yIncOrDec && yIncCount < 127) //True means inc, False means dec
+    {
+        yIncCount++;
+    }
+    else if(!yIncOrDec && yIncCount > 0)
+    {
+        yIncCount--;
+    }
 
-}
+    if(lastYCount != yIncCount)
+    {
+        for(int i = 0; i < 6; i++)
+        {
+            emit signalTransformSource(yIncCount, i, "Nav Y Inc-Dec");
+        }
 
-void NavDataCooker::slotYIncSet(int i)
-{
-
+        lastYCount = yIncCount;
+    }
 }
 
 int NavDataCooker::navNFootOn()
 {
-
+    if(footOnOffN)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 int NavDataCooker::navSFootOn()
 {
-
+    if(footOnOffS)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 int NavDataCooker::navNFootOff()
 {
-
+    if(!footOnOffN)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 int NavDataCooker::navSFootOff()
 {
-
+    if(!footOnOffS)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 void NavDataCooker::navNTrig()
@@ -283,11 +427,6 @@ void NavDataCooker::navSTrigDbl()
 }
 
 void NavDataCooker::navSTrigLong()
-{
-
-}
-
-void NavDataCooker::slotReceiveModlineOutput(int modlineNum, int val)
 {
 
 }

@@ -39,10 +39,19 @@ public:
     bool dblTrigState;
     bool longTrigState;
 
-    void                cookSources();
+    void cookSources();
+    void cookRaw();
+
+    int footOnOffN;
+    int footOnOffS;
+    int footOnOffE;
+    int footOnOffW;
 
     //-------------------------------- Source Cooking
+    bool navYGate;
+    int navYCount;
     int navY();
+
     int navYDecade();
     int navYIncDec();
 
@@ -70,8 +79,13 @@ public:
     int onThreshW;
     int offThreshW;
     int yAccel;
+    int navYDeadZone;
 
     float globalGain;
+    float navNGain;
+    float navSGain;
+    float navEGain;
+    float navWGain;
     
 signals:
     //void signalTransformSource(int data, int modlineNum, QString source);
@@ -84,7 +98,6 @@ public slots:
 
     //------------------------ IncDec clock slots
     void slotTickYIncrementClock();
-    void slotYIncSet(int);
 
     //------------------------- Trigger Return Slots
     //Fast

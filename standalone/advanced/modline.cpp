@@ -932,7 +932,7 @@ void Modline::slotOutputRoutine(int input)
         emit hosted_signalSendParamDisplayOutput(modlineInstance, input);
     }
 
-    //Update graphics only after outupt
+    //Update graphics onl3y after outupt
     slotDisplayVars();
 
     //Variables to filter out repititions

@@ -293,6 +293,12 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
     if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 91 && !queryReplied)
     {
         qDebug() << "Got the reply" << sysExMessageByteArray.count();
+
+        for(int i = 0; i < sysExMessageByteArray.count(); i++)
+        {
+            qDebug() << "bytes" << (unsigned char)sysExMessageByteArray.at(i);
+        }
+
         queryReplied = true;
 
         //qDebug() << foundBootloaderVersion;
