@@ -291,9 +291,13 @@ void MainWindow::slotConnectInterfaces()
 
     connect(&displaySink, SIGNAL(signalSendPacket(QString,MIDIPacket)), midiDeviceManager, SLOT(hosted_slotSendPacket(QString,MIDIPacket)),Qt::DirectConnection);
 
-    //Hosted Key Pressed Source Routing
+    //Hosted Key Pressed Source Routing, Nav Y sources
     for(int k = 0; k < 10; k++)
     {
+        //Nav Y sources
+        connect(&navKey->dataCooker, SIGNAL(signalNavDecade(int)), &key[k]->dataCooker, SLOT(slotReceiveNavDecade(int)));
+        connect(&navKey->dataCooker, SIGNAL(signalNavY(int)), &key[k]->dataCooker, SLOT(slotReceiveNavY(int)));
+
         for(int l = 0; l < 10; l++)
         {
             connect(&key[k]->dataCooker, SIGNAL(signalThisKeyPressed(int)), &key[l]->dataCooker, SLOT(slotReceiveKeyPressed(int)));

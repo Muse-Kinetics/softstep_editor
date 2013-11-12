@@ -64,6 +64,9 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     //updateGraphicsClock->start(10);
 
     toggleTable = false;
+    tableToggleGate = true;
+
+    counterGate = true;
 }
 
 void Modline::slotConnectElements()
@@ -732,6 +735,10 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
         //If source value is different from last or there is a change in value...
         if(lastVal != val || lastSource != source || source.contains("Trig") || source.contains("Key"))
         {
+            //Filter out repititions
+            lastVal = val;
+            lastSource = source;
+
             //Set raw display value
             raw = val;
 
@@ -774,54 +781,82 @@ void Modline::slotTable(int input)
     {
         //qDebug() << "last val: " << lastVal << "input: " << input;
 
-        if(!lastVal && input)
+        //If input is positive and gate is open
+        if(input && counterGate)
         {
+            counterGate = false; //Close gate
             emit hosted_signalCounter("Inc", -1);
         }
 
-        lastVal = input;
-        lastSource = newSource;
+        //If input goes false, repopen the gate
+        else if(!input)
+        {
+            //qDebug() << "set toggle gate true";
+            counterGate = true;
+        }
+
         return;
     }
     else if(table == "Counter Dec")
     {
-        if(!lastVal && input)
+        //If input is positive and gate is open
+        if(input && counterGate)
         {
+            counterGate = false; //Close gate
             emit hosted_signalCounter("Dec", -1);
+            return;
         }
 
-        lastVal = input;
-        lastSource = newSource;
+        //If input goes false, repopen the gate
+        else if(!input)
+        {
+            //qDebug() << "set toggle gate true";
+            counterGate = true;
+        }
+
         return;
     }
     else if(table == "Counter Set")
     {
         emit hosted_signalCounter("Set", input);
-        lastVal = input;
-        lastSource = newSource;
         return;
     }
     else if(table == "Toggle")
     {
-        qDebug() << "toggle called" << input << lastVal;
+        //qDebug() << "toggle called" << input << lastVal;
 
-        if(lastVal != input)
+        //If input is positive and gate is open
+        if(input && tableToggleGate)
         {
+            tableToggleGate = false; //Close gate
+
+            //false to true transition, so flip toggle state
             toggleTable = !toggleTable;
 
-            qDebug() << "toggle?" << toggleTable;
+            //Output according to
+            if(toggleTable)
+            {
+                input = 127;
+            }
+            else
+            {
+                input = 0;
+            }
         }
 
-        if(toggleTable)
+        //If input goes false, repopen the gate
+        else if(!input)
         {
-            input = 127;
+            //qDebug() << "set toggle gate true";
+            tableToggleGate = true;
+            return;
         }
         else
         {
-            input = 0;
+            return;
         }
 
-        //return;
+
     }
     else
     {
@@ -889,8 +924,6 @@ void Modline::slotSmooth(int input)
     {
         //do something with slewer here and retun in slotSmoothReturn
         slewer.slotSlew(input, smooth);
-        lastVal = input;
-        lastSource = newSource;
         return;
     }
     else
@@ -913,12 +946,8 @@ void Modline::slotDelay(int input)
 
     if(delay)
     {
-        qDebug() << "delay called" << delay << input;
-
         //Do something with latcher, or delay here
         delayer.slotInputToDealy(input);
-        lastVal = input;
-        lastSource = newSource;
         return;
     }
     else
@@ -953,10 +982,6 @@ void Modline::slotOutputRoutine(int input)
 
     //Update graphics onl3y after outupt
     slotDisplayVars();
-
-    //Variables to filter out repititions
-    lastVal = input;
-    lastSource = newSource;
 }
 
 void Modline::hosted_slotOutputMidi(int outputVal)

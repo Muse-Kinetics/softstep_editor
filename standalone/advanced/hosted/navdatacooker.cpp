@@ -244,6 +244,10 @@ void NavDataCooker::cookSources()
             navSTrigLong();
         }
     }
+
+    //Emit Y Counters every time
+    emit signalNavY(navY());
+    emit signalNavDecade(navYDecade());
 }
 
 //----------------------------------------------- Counter
@@ -299,7 +303,6 @@ int NavDataCooker::navY()
 
 int NavDataCooker::navYDecade()
 {
-    //Just multiply navY() in cookSources()
     return navY()*10;
 }
 
@@ -420,6 +423,7 @@ int NavDataCooker::navSFootOff()
 }
 
 //----------------------------------------------- Triggers
+//--------------- North
 void NavDataCooker::navNTrig()
 {
     //If foot is on and state is false, flip state on - this represents a trigger scenario
@@ -573,7 +577,6 @@ void NavDataCooker::slotLongTriggerOffN()
 }
 
 //--------------- South
-
 void NavDataCooker::navSTrig()
 {
     //If foot is on and state is false, flip state on - this represents a trigger scenario
@@ -725,8 +728,6 @@ void NavDataCooker::slotLongTriggerOffS()
         emit signalTransformSource(0, i, "Nav S Trig Long");
     }
 }
-
-
 
 void NavDataCooker::slotReceiveMidiInput(int val, QString instance)
 {

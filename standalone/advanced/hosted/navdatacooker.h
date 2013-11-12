@@ -99,6 +99,8 @@ public:
     
 signals:
     void signalTransformSource(int data, int modlineNum, QString source);
+    void signalNavY(int yCount);
+    void signalNavDecade(int yDecade);
     
 public slots:
     void slotUpdateVals(int cc, int val);

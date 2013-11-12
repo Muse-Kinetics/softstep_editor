@@ -102,6 +102,10 @@ public:
     float globalGain;
     int keySafetyMode;
 
+    //Probably don't need both of these, but just to be sure initially
+    int navYCount;
+    int navYDecade;
+
     
 signals:
     void signalTransformSource(int data, int modlineNum, QString source);
@@ -164,6 +168,9 @@ public slots:
 
     //------------------------------------------------------ Midi Input
     void slotReceiveMidiInput(int val, QString instance);
+
+    void slotReceiveNavY(int count);
+    void slotReceiveNavDecade(int decade);
 
 };
 

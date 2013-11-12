@@ -51,6 +51,9 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     dblTrigLatchState = false;
     longTrigLatchState = false;
 
+    navYCount = 0;
+    navYDecade = 0;
+
 
     //Init sensors
     for(int i=0; i<4; i++)
@@ -133,7 +136,6 @@ void DataCooker::slotUpdateVals(int cc, int val)
         }
     }
 }
-
 
 void DataCooker::cookSources()
 {
@@ -238,6 +240,11 @@ void DataCooker::cookSources()
         else if(modlineSources.value(i) == "Pedal")
         {
             //emit signalTransformSource(pedalVal, i, "Pedal");
+        }
+
+        else if(modlineSources.value(i) == "Nav Yx10 & Key")
+        {
+            //emit signalTransformSource(navYCountFunc(), i, "Nav Yx10 & Key");
         }
     }
 }
@@ -1019,7 +1026,7 @@ void DataCooker::slotReceiveKeyPressed(int keyPressed)
                 emit signalTransformSource(previousKeyPressed[1], i, "Prev Key Value");
             }
         }
-        else if(modlineSources.value(i).contains("Key") && modlineSources.value(i).contains("Pressed"))
+        else if(modlineSources.value(i).contains("Key") && modlineSources.value(i).contains("Pressed") && !modlineSources.value(i).contains("Other"))
         {
             emit signalTransformSource(0, i, QString("Key %1 Pressed").arg(keyPressed));
             emit signalTransformSource(1, i, QString("Key %1 Pressed").arg(keyPressed));
@@ -1028,6 +1035,10 @@ void DataCooker::slotReceiveKeyPressed(int keyPressed)
         {
             emit signalTransformSource(0, i, "Other Key Pressed");
             emit signalTransformSource(1, i, "Other Key Pressed");
+        }
+        else if(modlineSources.value(i) == "Nav Yx10 & Key")
+        {
+            emit signalTransformSource(navYDecade + keyPressed, i, "Nav Yx10 & Key");
         }
     }
 }
@@ -1052,7 +1063,6 @@ void DataCooker::slotReceiveModlineOutput(int modlineNum, int val)
         {
             if(modlineSources.value(i).contains(QString("Modline %1 Output").arg(modlineNum + 1)))
             {
-
                 emit signalTransformSource(val, i, QString("Modline %1 Output").arg(modlineNum + 1));
             }
         }
@@ -1077,3 +1087,23 @@ void DataCooker::slotReceiveMidiInput(int val, QString instance)
 }
 
 //-------------------------------------------------------------------- OSC Input
+
+//-------------------------------------------------------------------- Nav Sources
+void DataCooker::slotReceiveNavY(int count)
+{
+    //For each modline
+    for(int i = 0; i < 6; i++)
+    {
+        if(modlineSources.value(i) == "Nav Y")
+        {
+            qDebug() << "nav y count in key" << count << i;
+
+            emit signalTransformSource(count, i, "Nav Y");
+        }
+    }
+}
+
+void DataCooker::slotReceiveNavDecade(int decade)
+{
+    navYDecade = decade;
+}

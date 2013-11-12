@@ -76,6 +76,9 @@ public:
 
     int counter;
 
+    bool toggleTable;
+    bool tableToggleGate;
+
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
     void signalCheckSavedState();

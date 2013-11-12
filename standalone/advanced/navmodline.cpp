@@ -609,6 +609,9 @@ void NavModline::slotTransformSource(int val, int modlineNum, QString source)
         {
             qDebug() << val << modlineNum << source;
 
+            lastVal = val;
+            lastSource = newSource;
+
             //set raw display value
             raw = val;
 
@@ -647,41 +650,42 @@ void NavModline::slotTable(int input)
     {
         input = 0;
     }
-
-    if(table == "Counter Inc")
+    if(table == "Toggle")
     {
-        //qDebug() << "last val: " << lastVal << "input: " << input;
+        //qDebug() << "toggle called" << input << lastVal;
 
-        if(!lastVal && input)
+        //If input is positive and gate is open
+        if(input && tableToggleGate)
         {
-            emit hosted_signalCounter("Inc", -1);
+            //qDebug() << "flip toggle" << toggleTable;
+
+            tableToggleGate = false; //Close gate
+
+            //false to true transition, so flip toggle state
+            toggleTable = !toggleTable;
+
+            //Output according to
+            if(toggleTable)
+            {
+                input = 127;
+            }
+            else
+            {
+                input = 0;
+            }
         }
 
-        lastVal = input;
-        lastSource = newSource;
-        return;
-    }
-    else if(table == "Counter Dec")
-    {
-        if(!lastVal && input)
+        //If input goes false, repopen the gate
+        else if(!input)
         {
-            emit hosted_signalCounter("Dec", -1);
+            //qDebug() << "set toggle gate true";
+            tableToggleGate = true;
+            return;
         }
-
-        lastVal = input;
-        lastSource = newSource;
-        return;
-    }
-    else if(table == "Counter Set")
-    {
-        emit hosted_signalCounter("Set", input);
-        lastVal = input;
-        lastSource = newSource;
-        return;
-    }
-    else if(table == "Toggle")
-    {
-        //put something here
+        else
+        {
+            return;
+        }
     }
     else
     {
@@ -700,8 +704,6 @@ void NavModline::slotCounterReturn(int val)
             //only display counter val
             value = val;
             slotDisplayVars();
-            lastVal = val;
-            lastSource = newSource;
             return;
         }
         else
@@ -772,8 +774,6 @@ void NavModline::slotDelay(int input)
 
         //Do something with latcher, or delay here
         delayer.slotInputToDealy(input);
-        lastVal = input;
-        lastSource = newSource;
         return;
     }
     else
@@ -808,10 +808,6 @@ void NavModline::slotOutputRoutine(int input)
 
     //Update graphics only after outupt
     slotDisplayVars();
-
-    //Variables to filter out repititions
-    lastVal = input;
-    lastSource = newSource;
 }
 
 void NavModline::hosted_slotOutputMidi(int outputVal)

@@ -75,11 +75,13 @@ public:
     bool toggleOnMMC;
 
     bool toggleTable;
+    bool tableToggleGate;
+
+    bool counterGate;
 
     LEDManager ledManager;
 
     int counter;
-
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
