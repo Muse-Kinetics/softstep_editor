@@ -72,7 +72,9 @@ public:
     int value;
 
     int lastNote;
-    bool toggleOn;
+    bool toggleOnMMC;
+
+    bool toggleTable;
 
     LEDManager ledManager;
 

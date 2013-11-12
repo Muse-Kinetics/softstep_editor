@@ -24,7 +24,7 @@ NavModline::NavModline(QWidget *parent, int navInstanceNum) :
     firstCall = true;
 
     lastNote = -1;
-    toggleOn = false;
+    toggleOnMMC = false;
 
     //---------------- Set up Ui
     navModlineForm->setupUi(formWidget);
@@ -851,16 +851,16 @@ void NavModline::hosted_slotOutputMidi(int outputVal)
     }
     else if(outputType == "MMC")
     {
-        toggleOn = false;
+        toggleOnMMC = false;
 
-        if(outputVal && !toggleOn)
+        if(outputVal && !toggleOnMMC)
         {
             emit hosted_signalMMC(navModlineForm->mmcdevice->currentText(), navModlineForm->mmcdeviceid->value(), navModlineForm->mmcfunction->currentText());
-            toggleOn = true;
+            toggleOnMMC = true;
         }
         else if(!outputVal)
         {
-            toggleOn = false;
+            toggleOnMMC = false;
         }
     }
     else if(outputType == "OSC")

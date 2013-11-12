@@ -33,7 +33,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     firstCall = true;
 
     lastNote = -1;
-    toggleOn = false;
+    toggleOnMMC = false;
 
     this->setObjectName(QString("%1_Key_%2_Modline").arg(keyInstance+1).arg(modlineInstance+1));
 
@@ -43,7 +43,6 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     //rawBox = modlineForm->raw;
     //resultBox = modlineForm->result;
     //valueBox = modlineForm->outputvalue;
-
 
     this->setFixedSize(MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
     this->setGeometry(MODLINE_STARTING_X_POS, MODLINE_STARTING_Y_POS + ((modlineInstance)*(MODLINE_WINDOW_HEIGHT + MODLINE_SPACING)), MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
@@ -63,6 +62,8 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     //QTimer *updateGraphicsClock = new QTimer(this);
     //connect(updateGraphicsClock, SIGNAL(timeout()), this, SLOT(slotDisplayVars()));
     //updateGraphicsClock->start(10);
+
+    toggleTable = false;
 }
 
 void Modline::slotConnectElements()
@@ -802,7 +803,25 @@ void Modline::slotTable(int input)
     }
     else if(table == "Toggle")
     {
-        //something
+        qDebug() << "toggle called" << input << lastVal;
+
+        if(lastVal != input)
+        {
+            toggleTable = !toggleTable;
+
+            qDebug() << "toggle?" << toggleTable;
+        }
+
+        if(toggleTable)
+        {
+            input = 127;
+        }
+        else
+        {
+            input = 0;
+        }
+
+        //return;
     }
     else
     {
@@ -977,16 +996,16 @@ void Modline::hosted_slotOutputMidi(int outputVal)
     }
     else if(outputType == "MMC")
     {
-        toggleOn = false;
+        toggleOnMMC = false;
 
-        if(outputVal && !toggleOn)
+        if(outputVal && !toggleOnMMC)
         {
             emit hosted_signalMMC(modlineForm->mmcdevice->currentText(), modlineForm->mmcdeviceid->value(), modlineForm->mmcfunction->currentText());
-            toggleOn = true;
+            toggleOnMMC = true;
         }
         else if(!outputVal)
         {
-            toggleOn = false;
+            toggleOnMMC = false;
         }
     }
     else if(outputType == "OSC")
