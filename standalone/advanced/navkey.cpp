@@ -99,8 +99,8 @@ void NavKey::slotConnectElements()
         connect(navModline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
 
         //counter
-        connect(navModline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
-        connect(this, SIGNAL(signalCounterValue(int)), navModline[i], SLOT(slotCounterReturn(int)));
+        //connect(navModline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
+        //connect(this, SIGNAL(signalCounterValue(int)), navModline[i], SLOT(slotCounterReturn(int)));
     }
 }
 
@@ -133,8 +133,8 @@ void NavKey::slotDisconnectElements()
         disconnect(navModline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
 
         //counter
-        disconnect(navModline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
-        disconnect(this, SIGNAL(signalCounterValue(int)), navModline[i], SLOT(slotCounterReturn(int)));
+        //disconnect(navModline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
+        //disconnect(this, SIGNAL(signalCounterValue(int)), navModline[i], SLOT(slotCounterReturn(int)));
     }
 }
 

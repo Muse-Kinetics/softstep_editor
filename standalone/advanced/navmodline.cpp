@@ -61,7 +61,7 @@ void NavModline::slotConnectElements()
                     (!spinName.contains("result")) &&
                     (!spinName.contains("outputValue"))) //these parameters should not be saved in presets
             {
-                connect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+                disconnect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
             }
         }
         else if(widget->metaObject()->className() == QString("QDoubleSpinBox"))
@@ -151,10 +151,10 @@ void NavModline::slotDisconnectElements()
 
     //-------------------- Hosted
     //slewer
-    connect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmoothReturn(int)));
+    disconnect(&slewer, SIGNAL(signalOutput(int)), this, SLOT(slotSmoothReturn(int)));
 
     //delay
-    connect(&delayer, SIGNAL(signalDelayedOutput(int)), this, SLOT(slotDelayReturn(int)));
+    disconnect(&delayer, SIGNAL(signalDelayedOutput(int)), this, SLOT(slotDelayReturn(int)));
 }
 
 void NavModline::slotValueChanged()
@@ -615,6 +615,7 @@ void NavModline::slotTransformSource(int val, int modlineNum, QString source)
             //display raw
             navModlineForm->raw->setValue(val);
 
+
             //apply gain and offset
             val = val*gain + offset;
 
@@ -797,7 +798,7 @@ void NavModline::slotOutputRoutine(int input)
     value = input;
 
     //Send modline output to dataCooker for Modline # Sources, also used for key alpha and led display
-    emit hosted_signalSendModlineOutput(navInstance, input);
+    //emit hosted_signalSendModlineOutput(navInstance, input);
 
     //If line is display linked, send param it to alphanum
     if(displayLinkButton->isChecked())
@@ -894,5 +895,6 @@ void NavModline::hosted_slotOutputMidi(int outputVal)
 
 void NavModline::slotDisplayVars()
 {
+    qDebug() << "nav output value display" << value;
     navModlineForm->outputvalue->setValue(value);
 }

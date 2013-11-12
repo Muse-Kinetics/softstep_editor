@@ -115,7 +115,7 @@ void NavDataCooker::slotUpdateVals(int cc, int val)
             if(modlineSources.value(i) == "Pedal")
             {
                 qDebug() << "nav pad" << pedalVal << i;
-                //emit signalTransformSource(pedalVal, i, "Pedal");
+                emit signalTransformSource(pedalVal, i, "Pedal");
             }
         }
     }
@@ -730,5 +730,14 @@ void NavDataCooker::slotLongTriggerOffS()
 
 void NavDataCooker::slotReceiveMidiInput(int val, QString instance)
 {
+    //For each modline
+    for(int i = 0; i < 6; i++)
+    {
+        //qDebug() << i <<modlineSources.value(i) << modlineNum << val;
 
+        if(modlineSources.value(i).contains(QString("MIDI %1").arg(instance)))
+        {
+            emit signalTransformSource(val, i, QString("MIDI %1").arg(instance));
+        }
+    }
 }

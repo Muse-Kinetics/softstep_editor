@@ -1062,7 +1062,7 @@ void DataCooker::slotReceiveModlineOutput(int modlineNum, int val)
 //-------------------------------------------------------------------- MIDI Input
 void DataCooker::slotReceiveMidiInput(int val, QString instance)
 {
-    qDebug() << "midi input:" << val;
+    //qDebug() << "midi input:" << val;
 
     //For each modline
     for(int i = 0; i < 6; i++)
