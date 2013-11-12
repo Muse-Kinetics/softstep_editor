@@ -92,8 +92,8 @@ void NavKey::slotConnectElements()
     for(int i = 0; i < 6; i++)
     {
         connect(navModline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
-        //connect(&dataCooker, SIGNAL(signalTransformSource(int,int,QString)), navModline[i], SLOT(slotTransformSource(int,int,QString)));
-        connect(navModline[i], SIGNAL(hosted_signalYIncSet(int)), &dataCooker, SLOT(slotYIncSet(int)));
+        connect(&dataCooker, SIGNAL(signalTransformSource(int,int,QString)), navModline[i], SLOT(slotTransformSource(int,int,QString)));
+        //connect(navModline[i], SIGNAL(hosted_signalYIncSet(int)), &dataCooker, SLOT(slotYIncSet(int)));
 
         //alphanumeric display -- needs special slot because it is display linked
         connect(navModline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
@@ -127,8 +127,7 @@ void NavKey::slotDisconnectElements()
     for(int i = 0; i < 6; i++)
     {
         disconnect(navModline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
-        //disconnect(&dataCooker, SIGNAL(signalTransformSource(int,int,QString)), navModline[i], SLOT(slotTransformSource(int,int,QString)));
-        disconnect(navModline[i], SIGNAL(hosted_signalYIncSet(int)), &dataCooker, SLOT(slotYIncSet(int)));
+        disconnect(&dataCooker, SIGNAL(signalTransformSource(int,int,QString)), navModline[i], SLOT(slotTransformSource(int,int,QString)));
 
         //alphanumeric display -- needs special slot because it is display linked
         disconnect(navModline[i], SIGNAL(hosted_signalSendParamDisplayOutput(int,int)), &alphaNumManager, SLOT(slotDisplayParam(int,int)));
@@ -210,6 +209,9 @@ void NavKey::slotValueChanged()
             slotSetAlphaNumSettings();
         }
     }
+
+    dataCooker.slotSetCounterParams(navKeyWindowForm->counterMin->value(),navKeyWindowForm->counterMax->value(), navKeyWindowForm->counterWrap->isChecked());
+
     emit signalCheckSavedState();
 }
 
@@ -245,7 +247,8 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
     slotConnectElements();
 
     slotSetAlphaNumSettings();
-}
+
+    dataCooker.slotSetCounterParams(navKeyWindowForm->counterMin->value(),navKeyWindowForm->counterMax->value(), navKeyWindowForm->counterWrap->isChecked());}
 
 void NavKey::slotShowDisplaySettings(bool show)
 {

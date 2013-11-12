@@ -11,6 +11,7 @@
 class Trigger : public QObject
 {
     Q_OBJECT
+    QThread triggerThread;
     QThread longTriggerThread;
     QThread fastTriggerThread;
     QThread dblTriggerThread;
@@ -23,6 +24,8 @@ class Trigger : public QObject
 
 public:
     Trigger();
+
+    void trigger();
 
     void fastTrigger();
 
@@ -51,6 +54,7 @@ public:
 
 signals:
     //To DataCooker
+    void signalTriggerReturn();
     void signalFastTriggerReturn();
     void signalLongTriggerReturn();
     void signalDblTriggerReturn();
@@ -66,6 +70,7 @@ signals:
     void signalAbortClock();
 
 public slots:
+    void slotTriggerReturn();
     void slotFastTriggerReturn();
     void slotLongTriggerReturn();
     void slotDblTriggerReturn();

@@ -3,6 +3,7 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "trigger.h"
 
+#define TRIGGER_TIMEOUT 500
 #define FAST_TRIG_TIMEOUT 0
 #define OFF_TRIG_TIMEOUT 0
 #define LONG_TRIG_TIMEOUT 1000
@@ -12,6 +13,7 @@
 Trigger::Trigger()
 {
 
+    TriggerWorker* triggerWorker = new TriggerWorker;
     TriggerWorker* fastTriggerWorker = new TriggerWorker;
     TriggerWorker* longTriggerWorker = new TriggerWorker;
     TriggerWorker* dblTriggerWorker = new TriggerWorker;
@@ -20,6 +22,12 @@ Trigger::Trigger()
     TriggerWorker* fastTriggerLatchWorker = new TriggerWorker;
     TriggerWorker* longTriggerLatchWorker = new TriggerWorker;
     TriggerWorker* dblTriggerLatchWorker = new TriggerWorker;
+
+    //Regular
+    triggerWorker->moveToThread(&triggerThread);
+    connect(this, SIGNAL(signalStartTriggerClock(int)), triggerWorker, SLOT(slotStartTriggerClock(int)));
+    connect(triggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotTriggerReturn()));
+    connect(this, SIGNAL(signalAbortClock()), triggerWorker, SLOT(slotAbortTriggerClock()));
 
     //Fast
     fastTriggerWorker->moveToThread(&fastTriggerThread);
@@ -69,6 +77,20 @@ Trigger::Trigger()
     connect(this, SIGNAL(signalAbortClock()), dblTriggerLatchWorker, SLOT(slotAbortTriggerClock()));
 
 
+}
+
+//---------------------------------------- Trigger
+void Trigger::trigger()
+{
+    //No delay on trigger, but still need extra thread for delayed trigger-off message
+    triggerThread.start();
+    emit signalStartTriggerClock(TRIGGER_TIMEOUT);
+}
+
+void Trigger::slotTriggerReturn()
+{
+    triggerThread.quit();
+    emit signalTriggerReturn();
 }
 
 //---------------------------------------- Long

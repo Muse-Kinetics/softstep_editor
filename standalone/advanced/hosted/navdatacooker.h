@@ -32,12 +32,22 @@ public:
     int     yIncCount;
     int     yIncModlineNum;
     int     lastYCount;
+    int     counterMin;
+    int     counterMax;
+    bool    counterWrap;
 
     //Triggers
-    Trigger trigger;
-    bool fastTrigState;
-    bool dblTrigState;
-    bool longTrigState;
+    Trigger triggerN;
+    bool trigStateN;
+    bool fastTrigStateN;
+    bool dblTrigStateN;
+    bool longTrigStateN;
+
+    Trigger triggerS;
+    bool trigStateS;
+    bool fastTrigStateS;
+    bool dblTrigStateS;
+    bool longTrigStateS;
 
     void cookSources();
     void cookRaw();
@@ -88,29 +98,49 @@ public:
     float navWGain;
     
 signals:
-    //void signalTransformSource(int data, int modlineNum, QString source);
+    void signalTransformSource(int data, int modlineNum, QString source);
     
 public slots:
     void slotUpdateVals(int cc, int val);
-    void slotReceiveModlineOutput(int modlineNum, int val);
 
     void slotSetSource(QString source, int modlineInstance);
+
+    void slotSetCounterParams(int min, int max, bool wrap);
 
     //------------------------ IncDec clock slots
     void slotTickYIncrementClock();
 
-    //------------------------- Trigger Return Slots
+    //------------------------- Trigger Return Slots North
+    void slotTriggerReturnN();
+    void slotTriggerOffN();
+
     //Fast
-    void slotFastTriggerReturn();
-    void slotFastTriggerOff();
+    void slotFastTriggerReturnN();
+    void slotFastTriggerOffN();
 
     //Long
-    void slotLongTriggerReturn();
-    void slotLongTriggerOff();
+    void slotLongTriggerReturnN();
+    void slotLongTriggerOffN();
 
     //Dbl
-    void slotDblTriggerReturn();
-    void slotDblTriggerOff();
+    void slotDblTriggerReturnN();
+    void slotDblTriggerOffN();
+
+    //------------------------- Trigger Return Slots South
+    void slotTriggerReturnS();
+    void slotTriggerOffS();
+
+    //Fast
+    void slotFastTriggerReturnS();
+    void slotFastTriggerOffS();
+
+    //Long
+    void slotLongTriggerReturnS();
+    void slotLongTriggerOffS();
+
+    //Dbl
+    void slotDblTriggerReturnS();
+    void slotDblTriggerOffS();
 
     //-------------------------- MIDI Input
     void slotReceiveMidiInput(int val, QString instance);

@@ -36,9 +36,14 @@ NavDataCooker::NavDataCooker(QWidget *parent) :
 
     lastYCount = -1;
 
-    fastTrigState = false;
-    dblTrigState = false;
-    longTrigState = false;
+
+    fastTrigStateN = false;
+    dblTrigStateN = false;
+    longTrigStateN = false;
+
+    fastTrigStateS = false;
+    dblTrigStateS = false;
+    longTrigStateS = false;
     //offTrigState = false;
 
     //init sensors
@@ -54,10 +59,16 @@ NavDataCooker::NavDataCooker(QWidget *parent) :
     connect(yIncClock, SIGNAL(timeout()), this, SLOT(slotTickYIncrementClock()));
 
     //Trigger Returns
-    connect(&trigger, SIGNAL(signalFastTriggerReturn()), this, SLOT(slotFastTriggerReturn()));
-    connect(&trigger, SIGNAL(signalLongTriggerReturn()), this, SLOT(slotLongTriggerReturn()));
-    connect(&trigger, SIGNAL(signalDblTriggerReturn()), this, SLOT(slotDblTriggerReturn()));
-    //connect(&trigger, SIGNAL(signalOffTriggerReturn()), this, SLOT(slotOffTriggerOff()));
+    connect(&triggerN, SIGNAL(signalTriggerReturn()), this, SLOT(slotTriggerReturnN()));
+    connect(&triggerN, SIGNAL(signalFastTriggerReturn()), this, SLOT(slotFastTriggerReturnN()));
+    connect(&triggerN, SIGNAL(signalLongTriggerReturn()), this, SLOT(slotLongTriggerReturnN()));
+    connect(&triggerN, SIGNAL(signalDblTriggerReturn()), this, SLOT(slotDblTriggerReturnN()));
+
+    connect(&triggerS, SIGNAL(signalTriggerReturn()), this, SLOT(slotTriggerReturnS()));
+    connect(&triggerS, SIGNAL(signalFastTriggerReturn()), this, SLOT(slotFastTriggerReturnS()));
+    connect(&triggerS, SIGNAL(signalLongTriggerReturn()), this, SLOT(slotLongTriggerReturnS()));
+    connect(&triggerS, SIGNAL(signalDblTriggerReturn()), this, SLOT(slotDblTriggerReturnS()));
+
 }
 
 void NavDataCooker::slotSetSource(QString source, int modlineInstance)
@@ -108,7 +119,14 @@ void NavDataCooker::slotUpdateVals(int cc, int val)
             }
         }
     }
-    qDebug() << cc << val;
+    //qDebug() << cc << val;
+}
+
+void NavDataCooker::slotSetCounterParams(int min, int max, bool wrap)
+{
+    counterMin = min;
+    counterMax = max;
+    counterWrap = wrap;
 }
 
 void NavDataCooker::cookRaw()
@@ -171,7 +189,7 @@ void NavDataCooker::cookSources()
         }
         else if(modlineSources.value(i) == "Nav Y Decade")
         {
-            emit signalTransformSource(navY()*10, i, "Nav Y Decade");
+            emit signalTransformSource(navYDecade(), i, "Nav Y Decade");
         }
         else if(modlineSources.value(i) == "Nav Y Inc-Dec")
         {
@@ -191,7 +209,7 @@ void NavDataCooker::cookSources()
         }
         else if(modlineSources.value(i) == "Nav S Foot Off")
         {
-            emit signalTransformSource(navNFootOff(), i, "Nav S Foot Off");
+            emit signalTransformSource(navSFootOff(), i, "Nav S Foot Off");
         }
         else if(modlineSources.value(i) == "Nav N Trig")
         {
@@ -228,18 +246,53 @@ void NavDataCooker::cookSources()
     }
 }
 
+//----------------------------------------------- Counter
 int NavDataCooker::navY()
 {
+    //---- Inc
     if(navNFootOn() && navYGate)
     {
         navYGate = false;
         navYCount++;
+
+        if(navYCount > counterMax)
+        {
+            if(counterWrap)
+            {
+                navYCount = counterMin;
+            }
+            else
+            {
+                navYCount = counterMax;
+            }
+        }
+
+        qDebug() << "nav y count" << navYCount;
+
     }
+
+    //---- Dec
     else if(navSFootOn() && navYGate)
     {
         navYGate = false;
         navYCount--;
+
+        if(navYCount < counterMin)
+        {
+            if(counterWrap)
+            {
+                navYCount = counterMax;
+            }
+            else
+            {
+                navYCount = counterMin;
+            }
+        }
+
+        qDebug() << "nav y count" << navYCount;
     }
+
+
 
     return navYCount;
 }
@@ -247,8 +300,10 @@ int NavDataCooker::navY()
 int NavDataCooker::navYDecade()
 {
     //Just multiply navY() in cookSources()
+    return navY()*10;
 }
 
+//----------------------------------------------- Inc/Dec
 int NavDataCooker::navYIncDec()
 {
     //If key is active
@@ -309,10 +364,13 @@ void NavDataCooker::slotTickYIncrementClock()
             emit signalTransformSource(yIncCount, i, "Nav Y Inc-Dec");
         }
 
+        //qDebug() << "y inc count" << yIncCount;
+
         lastYCount = yIncCount;
     }
 }
 
+//----------------------------------------------- Foot On/Off per Quadrant
 int NavDataCooker::navNFootOn()
 {
     if(footOnOffN)
@@ -361,75 +419,314 @@ int NavDataCooker::navSFootOff()
     }
 }
 
+//----------------------------------------------- Triggers
 void NavDataCooker::navNTrig()
 {
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOffN && !trigStateN)
+    {
+        triggerN.trigger();
+        trigStateN = true;
+    }
 
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOffN && trigStateN)
+    {
+        trigStateN = false;
+    }
+}
+
+void NavDataCooker::slotTriggerReturnN()
+{
+    int outputVal = sensorVals[N]; //Only call once, send duplicates
+
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(outputVal, i, "Nav N Trig");
+    }
+
+    QTimer::singleShot(100, this, SLOT(slotTriggerOffN()));
+}
+
+void NavDataCooker::slotTriggerOffN()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Nav N Trig");
+    }
 }
 
 void NavDataCooker::navNTrigFast()
 {
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOffN && !fastTrigStateN)
+    {
+        triggerN.fastTrigger();
+        fastTrigStateN = true;
+    }
 
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOffN && fastTrigStateN)
+    {
+        fastTrigStateN = false;
+    }
 }
 
-void NavDataCooker::slotFastTriggerReturn()
+void NavDataCooker::slotFastTriggerReturnN()
 {
+    int outputVal = sensorVals[N]; //Only call once, send duplicates
 
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(outputVal, i, "Nav N Trig Fast");
+    }
+
+    QTimer::singleShot(100, this, SLOT(slotFastTriggerOffN()));
 }
 
-void NavDataCooker::slotFastTriggerOff()
+void NavDataCooker::slotFastTriggerOffN()
 {
-
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Nav N Trig Fast");
+    }
 }
 
 void NavDataCooker::navNTrigDbl()
 {
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOffN && !dblTrigStateN)
+    {
+        triggerN.dblTriggerHit();
+        dblTrigStateN = true;
+    }
 
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOffN && dblTrigStateN)
+    {
+        dblTrigStateN = false;
+    }
 }
 
-void NavDataCooker::slotDblTriggerReturn()
+void NavDataCooker::slotDblTriggerReturnN()
 {
+    int outputVal = sensorVals[N]; //Only call once, send duplicates
 
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(outputVal, i, "Nav N Trig Dbl");
+    }
+
+    QTimer::singleShot(100, this, SLOT(slotDblTriggerOffN()));
 }
 
-void NavDataCooker::slotDblTriggerOff()
+void NavDataCooker::slotDblTriggerOffN()
 {
-
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Nav N Trig Dbl");
+    }
 }
 
 void NavDataCooker::navNTrigLong()
 {
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOffN && !longTrigStateN)
+    {
+        triggerN.longTrigger();
+        longTrigStateN = true;
+    }
 
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOffN && longTrigStateN)
+    {
+        longTrigStateN = false;
+    }
 }
 
-void NavDataCooker::slotLongTriggerReturn()
+void NavDataCooker::slotLongTriggerReturnN()
 {
+    int outputVal = sensorVals[N]; //Only call once, send duplicates
 
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(outputVal, i, "Nav N Trig Long");
+    }
+
+    QTimer::singleShot(100, this, SLOT(slotLongTriggerOffN()));
 }
 
-void NavDataCooker::slotLongTriggerOff()
+void NavDataCooker::slotLongTriggerOffN()
 {
-
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Nav N Trig Long");
+    }
 }
+
+//--------------- South
 
 void NavDataCooker::navSTrig()
 {
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOffS && !trigStateS)
+    {
+        triggerS.trigger();
+        trigStateS = true;
+    }
 
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOffS && trigStateS)
+    {
+        trigStateS = false;
+    }
+}
+
+void NavDataCooker::slotTriggerReturnS()
+{
+    int outputVal = sensorVals[S]; //Only call once, send duplicates
+
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(outputVal, i, "Nav S Trig");
+    }
+
+    QTimer::singleShot(100, this, SLOT(slotTriggerOffS()));
+}
+
+void NavDataCooker::slotTriggerOffS()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Nav S Trig");
+    }
 }
 
 void NavDataCooker::navSTrigFast()
 {
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOffS && !fastTrigStateS)
+    {
+        triggerS.fastTrigger();
+        fastTrigStateS = true;
+    }
 
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOffS && fastTrigStateS)
+    {
+        fastTrigStateS = false;
+    }
+}
+
+void NavDataCooker::slotFastTriggerReturnS()
+{
+    int outputVal = sensorVals[S]; //Only call once, send duplicates
+
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(outputVal, i, "Nav S Trig Fast");
+    }
+
+    QTimer::singleShot(100, this, SLOT(slotFastTriggerOffS()));
+}
+
+void NavDataCooker::slotFastTriggerOffS()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Nav S Trig Fast");
+    }
 }
 
 void NavDataCooker::navSTrigDbl()
 {
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOffS && !dblTrigStateS)
+    {
+        triggerS.dblTriggerHit();
+        dblTrigStateS = true;
+    }
 
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOffS && dblTrigStateS)
+    {
+        dblTrigStateS = false;
+    }
+}
+
+void NavDataCooker::slotDblTriggerReturnS()
+{
+    int outputVal = sensorVals[S]; //Only call once, send duplicates
+
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(outputVal, i, "Nav S Trig Dbl");
+    }
+
+    QTimer::singleShot(100, this, SLOT(slotDblTriggerOffS()));
+}
+
+void NavDataCooker::slotDblTriggerOffS()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Nav S Trig Dbl");
+    }
 }
 
 void NavDataCooker::navSTrigLong()
 {
+    //If foot is on and state is false, flip state on - this represents a trigger scenario
+    if(footOnOffS && !longTrigStateS)
+    {
+        triggerS.longTrigger();
+        longTrigStateS = true;
+    }
 
+    //If foot is off (regardless of state), flip state off
+    else if(!footOnOffS && longTrigStateS)
+    {
+        longTrigStateS = false;
+    }
 }
+
+void NavDataCooker::slotLongTriggerReturnS()
+{
+    int outputVal = sensorVals[S]; //Only call once, send duplicates
+
+    //Emit positive
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(outputVal, i, "Nav S Trig Long");
+    }
+
+    QTimer::singleShot(100, this, SLOT(slotLongTriggerOffS()));
+}
+
+void NavDataCooker::slotLongTriggerOffS()
+{
+    //Emit zero
+    for(int i = 0; i < 6; i++)
+    {
+        emit signalTransformSource(0, i, "Nav S Trig Long");
+    }
+}
+
+
 
 void NavDataCooker::slotReceiveMidiInput(int val, QString instance)
 {
