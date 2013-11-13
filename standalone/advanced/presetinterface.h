@@ -82,11 +82,6 @@ public slots:
     int slotGetNumPresetsInJson();
 
     void slotSetMode(QString);
-
-
-
-
-    
 };
 
 #endif // PRESETINTERFACE_H

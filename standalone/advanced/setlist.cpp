@@ -13,12 +13,11 @@ Setlist::Setlist(QWidget *parent) :
     //setlistWidget = new QWidget();
     setlistForm->setupUi(setlistWidget);
 
-
     slotInitComponents();
 
     repopulating = false;
 
-
+    currentSetlistSlot = -1;
 }
 
 bool Setlist::eventFilter(QObject *obj, QEvent *event)
@@ -100,12 +99,18 @@ void Setlist::slotCompileSetlist()
 {
     //Clears the setlist read from json
     setlist.clear();
+    setlistEmpty = true;
 
     //Iterate through the setlist window's menus
     for(int i = 0; i < menus.size(); i++)
     {
         //Compiles setlist from contents of setlist window menus
         setlist.insert(QString("%1").arg(i), menus.at(i)->currentText());
+
+        if(!menus.at(i)->currentText().contains("(EMPTY)"))
+        {
+            setlistEmpty = false;
+        }
     }
 
     slotWriteSetlist();
@@ -227,4 +232,79 @@ void Setlist::slotWriteSetlist()
     }
 
     jsonFile->close();
+}
+
+void Setlist::slotChangePreset(bool prevOrNext)
+{
+    //If setlist is NOT empty
+    if(!setlistEmpty)
+    {
+        int initialSlot = currentSetlistSlot;
+
+        //If move to next command...
+        if(prevOrNext)
+        {
+            qDebug() << "current setlist slot" << currentSetlistSlot << menus.size();
+
+            currentSetlistSlot++;
+
+            if(currentSetlistSlot == -1 || (currentSetlistSlot > menus.size() - 1))
+            {
+                currentSetlistSlot = 0;
+            }
+
+            //Inc to next non empty slot
+            while(menus.at(currentSetlistSlot)->currentText().contains("[EMPTY]") && currentSetlistSlot != initialSlot)
+            {
+                //qDebug() << "current setlist slot in loope" << currentSetlistSlot << menus.size();
+                if(currentSetlistSlot < menus.size() -1)
+                {
+                    currentSetlistSlot++;
+                }
+                else
+                {
+                    currentSetlistSlot = initialSlot;
+                    break;
+                }
+            }
+        }
+
+        //If move to prev command...
+        else
+        {
+            currentSetlistSlot--;
+
+            if(currentSetlistSlot == -1 || currentSetlistSlot == 0)
+            {
+                currentSetlistSlot = menus.size() - 1;
+            }
+
+            //Inc to next non empty slot
+            while(menus.at(currentSetlistSlot)->currentText().contains("[EMPTY]"))
+            {
+                if(currentSetlistSlot > 0)
+                {
+                    currentSetlistSlot--;
+                }
+                else
+                {
+                    currentSetlistSlot = initialSlot;
+                    break;
+                }
+            }
+        }
+
+        //Recall this preset
+        if(currentSetlistSlot != -1)
+        {
+            emit signalRecallPresetFromSetlist(setlist.value(QString("%1").arg(currentSetlistSlot)).toString());
+            //setlist.value(QString("%1").arg(currentSetlistSlot));
+        }
+    }
+
+    //If setlist is empty
+    else
+    {
+        currentSetlistSlot = -1;
+    }
 }

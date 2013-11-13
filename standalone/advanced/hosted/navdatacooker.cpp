@@ -55,6 +55,8 @@ NavDataCooker::NavDataCooker(QWidget *parent) :
     //init raw vars
     //footOnOff = false;
 
+    presetChangeGate = true;
+
     //Connect Inc/Dec Clocks
     connect(yIncClock, SIGNAL(timeout()), this, SLOT(slotTickYIncrementClock()));
 
@@ -180,74 +182,95 @@ void NavDataCooker::cookRaw()
 
 void NavDataCooker::cookSources()
 {
-    //For each modline
-    for(int i = 0; i < 6; i++)
+    if(!navEFootOn() && !navWFootOn())
     {
-        if(modlineSources.value(i) == "Nav Y")
-        {
-            emit signalTransformSource(navY(), i, "Nav Y");
-        }
-        else if(modlineSources.value(i) == "Nav Y Decade")
-        {
-            emit signalTransformSource(navYDecade(), i, "Nav Y Decade");
-        }
-        else if(modlineSources.value(i) == "Nav Y Inc-Dec")
-        {
-            navYIncDec();
-        }
-        else if(modlineSources.value(i) == "Nav N Foot On")
-        {
-            emit signalTransformSource(navNFootOn(), i, "Nav N Foot On");
-        }
-        else if(modlineSources.value(i) == "Nav S Foot On")
-        {
-            emit signalTransformSource(navSFootOn(), i, "Nav S Foot On");
-        }
-        else if(modlineSources.value(i) == "Nav N Foot Off")
-        {
-            emit signalTransformSource(navNFootOff(), i, "Nav N Foot Off");
-        }
-        else if(modlineSources.value(i) == "Nav S Foot Off")
-        {
-            emit signalTransformSource(navSFootOff(), i, "Nav S Foot Off");
-        }
-        else if(modlineSources.value(i) == "Nav N Trig")
-        {
-            navNTrig();
-        }
-        else if(modlineSources.value(i) == "Nav N Trig Fast")
-        {
-            navNTrigFast();
-        }
-        else if(modlineSources.value(i) == "Nav N Trig Dbl")
-        {
-            navNTrigDbl();
-        }
-        else if(modlineSources.value(i) == "Nav N Trig Long")
-        {
-            navNTrigLong();
-        }
-        else if(modlineSources.value(i) == "Nav S Trig")
-        {
-            navSTrig();
-        }
-        else if(modlineSources.value(i) == "Nav S Trig Fast")
-        {
-            navSTrigFast();
-        }
-        else if(modlineSources.value(i) == "Nav S Trig Dbl")
-        {
-            navSTrigDbl();
-        }
-        else if(modlineSources.value(i) == "Nav S Trig Long")
-        {
-            navSTrigLong();
-        }
+        presetChangeGate = true;
     }
 
-    //Emit Y Counters every time
-    emit signalNavY(navY());
-    emit signalNavDecade(navYDecade());
+    //If preset change
+    if(navEFootOn() && presetChangeGate)
+    {
+        presetChangeGate = false;
+        emit signalPresetChange(true);
+    }
+    else if(navWFootOn() && presetChangeGate)
+    {
+        presetChangeGate = false;
+        emit signalPresetChange(false);
+    }
+
+    //If not a preset change
+    else
+    {
+        //For each modline
+        for(int i = 0; i < 6; i++)
+        {
+            if(modlineSources.value(i) == "Nav Y")
+            {
+                emit signalTransformSource(navY(), i, "Nav Y");
+            }
+            else if(modlineSources.value(i) == "Nav Y Decade")
+            {
+                emit signalTransformSource(navYDecade(), i, "Nav Y Decade");
+            }
+            else if(modlineSources.value(i) == "Nav Y Inc-Dec")
+            {
+                navYIncDec();
+            }
+            else if(modlineSources.value(i) == "Nav N Foot On")
+            {
+                emit signalTransformSource(navNFootOn(), i, "Nav N Foot On");
+            }
+            else if(modlineSources.value(i) == "Nav S Foot On")
+            {
+                emit signalTransformSource(navSFootOn(), i, "Nav S Foot On");
+            }
+            else if(modlineSources.value(i) == "Nav N Foot Off")
+            {
+                emit signalTransformSource(navNFootOff(), i, "Nav N Foot Off");
+            }
+            else if(modlineSources.value(i) == "Nav S Foot Off")
+            {
+                emit signalTransformSource(navSFootOff(), i, "Nav S Foot Off");
+            }
+            else if(modlineSources.value(i) == "Nav N Trig")
+            {
+                navNTrig();
+            }
+            else if(modlineSources.value(i) == "Nav N Trig Fast")
+            {
+                navNTrigFast();
+            }
+            else if(modlineSources.value(i) == "Nav N Trig Dbl")
+            {
+                navNTrigDbl();
+            }
+            else if(modlineSources.value(i) == "Nav N Trig Long")
+            {
+                navNTrigLong();
+            }
+            else if(modlineSources.value(i) == "Nav S Trig")
+            {
+                navSTrig();
+            }
+            else if(modlineSources.value(i) == "Nav S Trig Fast")
+            {
+                navSTrigFast();
+            }
+            else if(modlineSources.value(i) == "Nav S Trig Dbl")
+            {
+                navSTrigDbl();
+            }
+            else if(modlineSources.value(i) == "Nav S Trig Long")
+            {
+                navSTrigLong();
+            }
+        }
+
+        //Emit Y Counters every time
+        emit signalNavY(navY());
+        emit signalNavDecade(navYDecade());
+    }
 }
 
 //----------------------------------------------- Counter
@@ -422,6 +445,29 @@ int NavDataCooker::navSFootOff()
     }
 }
 
+int NavDataCooker::navWFootOn()
+{
+    if(footOnOffW)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int NavDataCooker::navEFootOn()
+{
+    if(footOnOffE)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
 //----------------------------------------------- Triggers
 //--------------- North
 void NavDataCooker::navNTrig()

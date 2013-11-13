@@ -342,6 +342,10 @@ void MainWindow::slotConnectInterfaces()
 
     //Settings -- see settings class
 
+    //Setlist
+    connect(&navKey->dataCooker, SIGNAL(signalPresetChange(bool)), setlist, SLOT(slotChangePreset(bool)));
+    connect(setlist, SIGNAL(signalRecallPresetFromSetlist(QString)), this, SLOT(slotRecallPresetFromSetlist(QString)));
+
     //--------------------------------------- Parameter Storage
 
     //Main Window -- display name
@@ -550,6 +554,12 @@ void MainWindow::slotPopulatePresetMenu()
     qDebug() << "add preset";
     presetInterface->slotPopulatePresetMenu(ui->presetmenu);
     setlist->slotRefreshSetlistMenus(ui->presetmenu);
+}
+
+void MainWindow::slotRecallPresetFromSetlist(QString presetName)
+{
+    qDebug() << "recall this preset from the setlist" << presetName;
+    ui->presetmenu->setCurrentIndex(ui->presetmenu->findText(presetName));
 }
 
 void MainWindow::slotDisplaySaveState(bool dirty)

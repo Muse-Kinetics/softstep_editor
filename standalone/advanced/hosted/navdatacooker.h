@@ -57,6 +57,8 @@ public:
     int footOnOffE;
     int footOnOffW;
 
+    bool presetChangeGate;
+
     //-------------------------------- Source Cooking
     bool navYGate;
     int navYCount;
@@ -69,6 +71,10 @@ public:
     int navSFootOn();
     int navNFootOff();
     int navSFootOff();
+
+    int navEFootOn();
+    int navWFootOn();
+
 
     void navNTrig();
     void navNTrigFast();
@@ -101,6 +107,7 @@ signals:
     void signalTransformSource(int data, int modlineNum, QString source);
     void signalNavY(int yCount);
     void signalNavDecade(int yDecade);
+    void signalPresetChange(bool); //true for next, false for previous
     
 public slots:
     void slotUpdateVals(int cc, int val);

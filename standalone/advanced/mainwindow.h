@@ -101,6 +101,7 @@ public slots:
 
     void slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion);
 
+    void slotRecallPresetFromSetlist(QString presetName);
 
 private:
     Ui::MainWindow *ui;

@@ -42,7 +42,11 @@ public:
 
     bool repopulating;
 
+    int currentSetlistSlot;
+    bool setlistEmpty;
+
 signals:
+    void signalRecallPresetFromSetlist(QString presetName);
     
 public slots:
     void slotMenuChanged(int menuNum);
@@ -57,6 +61,8 @@ public slots:
     void slotUpdateJSONPath();
     void slotReadSetlist();
     void slotWriteSetlist();
+
+    void slotChangePreset(bool prevOrNext);
 
 
 private:
