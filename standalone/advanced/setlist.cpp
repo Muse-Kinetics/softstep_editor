@@ -97,6 +97,8 @@ void Setlist::slotShowSetlist()
 
 void Setlist::slotCompileSetlist()
 {
+    qDebug() << "slot compile setlist called";
+
     //Clears the setlist read from json
     setlist.clear();
     setlistEmpty = true;
@@ -107,7 +109,7 @@ void Setlist::slotCompileSetlist()
         //Compiles setlist from contents of setlist window menus
         setlist.insert(QString("%1").arg(i), menus.at(i)->currentText());
 
-        if(!menus.at(i)->currentText().contains("(EMPTY)"))
+        if(!menus.at(i)->currentText().contains("[EMPTY]"))
         {
             setlistEmpty = false;
         }
@@ -236,6 +238,7 @@ void Setlist::slotWriteSetlist()
 
 void Setlist::slotChangePreset(bool prevOrNext)
 {
+    qDebug() << "setlist empty" << setlistEmpty;
     //If setlist is NOT empty
     if(!setlistEmpty)
     {
@@ -246,15 +249,17 @@ void Setlist::slotChangePreset(bool prevOrNext)
         {
             qDebug() << "current setlist slot" << currentSetlistSlot << menus.size();
 
+            //Inc setlist slot
             currentSetlistSlot++;
 
+            //If setlist current slot is greater than number of slots, set to 0
             if(currentSetlistSlot == -1 || (currentSetlistSlot > menus.size() - 1))
             {
                 currentSetlistSlot = 0;
             }
 
-            //Inc to next non empty slot
-            while(menus.at(currentSetlistSlot)->currentText().contains("[EMPTY]") && currentSetlistSlot != initialSlot)
+            //If new slot is empty search for next NON-EMPTY slot
+            while(menus.at(currentSetlistSlot)->currentText().contains("[EMPTY]"))
             {
                 //qDebug() << "current setlist slot in loope" << currentSetlistSlot << menus.size();
                 if(currentSetlistSlot < menus.size() -1)
@@ -263,8 +268,7 @@ void Setlist::slotChangePreset(bool prevOrNext)
                 }
                 else
                 {
-                    currentSetlistSlot = initialSlot;
-                    break;
+                    currentSetlistSlot = 0;
                 }
             }
         }
@@ -272,14 +276,16 @@ void Setlist::slotChangePreset(bool prevOrNext)
         //If move to prev command...
         else
         {
+            //Dec setlist slot
             currentSetlistSlot--;
 
-            if(currentSetlistSlot == -1 || currentSetlistSlot == 0)
+            //If slot is less than 0, wrap to last (greatest) slot
+            if(currentSetlistSlot < 0)
             {
                 currentSetlistSlot = menus.size() - 1;
             }
 
-            //Inc to next non empty slot
+            //If new slot is empty, search backwards for next NON-EMPTY slot
             while(menus.at(currentSetlistSlot)->currentText().contains("[EMPTY]"))
             {
                 if(currentSetlistSlot > 0)
@@ -288,8 +294,7 @@ void Setlist::slotChangePreset(bool prevOrNext)
                 }
                 else
                 {
-                    currentSetlistSlot = initialSlot;
-                    break;
+                    currentSetlistSlot = menus.size() - 1;
                 }
             }
         }
