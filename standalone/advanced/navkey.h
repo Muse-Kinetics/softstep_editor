@@ -69,6 +69,8 @@ public slots:
     void slotAddSubtractModlines();
     void slotWindowHeight(int);
 
+    void slotSetPresetName(QString);
+
 private:
     Ui::navBoxForm *navBoxForm;
     Ui::navKeyWindowForm *navKeyWindowForm;

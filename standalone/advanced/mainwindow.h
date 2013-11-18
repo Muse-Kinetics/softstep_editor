@@ -79,6 +79,8 @@ signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
     void signalCheckSavedState();
 
+    void signalSetPresetNameInKeys(QString);
+
 public slots:
     void slotConnectInterfaces();
     void slotConnectElements();

@@ -137,6 +137,7 @@ void NavDataCooker::cookRaw()
     if(sensorVals[N] > onThreshN && !footOnOffN)
     {
         footOnOffN = true;
+        emit signalThisKeyPressed(0);
     }
     else if(sensorVals[N] < offThreshN && footOnOffN)
     {
@@ -147,6 +148,7 @@ void NavDataCooker::cookRaw()
     if(sensorVals[S] > onThreshS && !footOnOffS)
     {
         footOnOffS = true;
+        emit signalThisKeyPressed(0);
     }
     else if(sensorVals[S] < offThreshS && footOnOffS)
     {

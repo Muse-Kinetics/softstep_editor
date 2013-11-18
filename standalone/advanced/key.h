@@ -73,6 +73,8 @@ public slots:
     void slotAddSubtractModlines();
     void slotWindowHeight(int);
 
+    void slotSetPresetName(QString);
+
 private:
     Ui::keyBoxForm *keyBoxForm;
     Ui::keyWindowForm *keyWindowForm;

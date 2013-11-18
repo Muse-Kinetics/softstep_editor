@@ -108,6 +108,7 @@ signals:
     void signalNavY(int yCount);
     void signalNavDecade(int yDecade);
     void signalPresetChange(bool); //true for next, false for previous
+    void signalThisKeyPressed(int);
     
 public slots:
     void slotUpdateVals(int cc, int val);

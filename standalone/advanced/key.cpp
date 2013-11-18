@@ -183,6 +183,7 @@ void Key::slotValueChanged()
         QVariant value;
         bool updateAlphaDisplayParams = false;
 
+
         //key name (from the keyBoxForm
         if(sender == keyBoxForm->keyName)
         {
@@ -255,6 +256,8 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
     keyWindowForm->leddisplaymode->setCurrentIndex(keyWindowForm->leddisplaymode->findText(preset.value(QString("%1_key_displaymode").arg(keyInstance+1)).toString()));
 
     slotConnectElements();
+
+    alphaNumManager.paramDisplay = false; //close gate initially
 
     slotSetAlphaNumSettings();
 }
@@ -398,8 +401,14 @@ void Key::slotSetDataCookerSettings()
 
 }
 
+void Key::slotSetPresetName(QString name)
+{
+    alphaNumManager.currentPresetName = name;
+}
+
 void Key::slotSetAlphaNumSettings()
 {
+
     alphaNumManager.displayMode = keyWindowForm->leddisplaymode->currentText();
     alphaNumManager.keyName = keyWindowForm->keyname->text();
     alphaNumManager.prefix = keyWindowForm->displayprefix->text();

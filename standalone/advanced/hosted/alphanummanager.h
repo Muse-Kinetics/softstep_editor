@@ -25,6 +25,8 @@ public:
     QString keyName;
     QString prefix;
 
+    QString currentPresetName;
+
     bool paramDisplay;
 
     bool keyOnOff;
@@ -37,6 +39,7 @@ signals:
 public slots:
     void slotDisplayKeyName(int keyNum);
     void slotDisplayParam(int modlineNum, int val);
+    void slotPresetChangeDisplayPresetName();
     void slotFormatAndOutputString(QString displayString);
     void slotReturnToKeyName();
     void slotKeyOff(int keyNum);

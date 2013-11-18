@@ -114,11 +114,25 @@ void MainWindow::slotSetPresetMenu(int presetNum)
 void MainWindow::slotConnectElements()
 {
     connect(ui->displayName, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
+
+    for(int k = 0; k < 10; k++)
+    {
+        connect(this, SIGNAL(signalSetPresetNameInKeys(QString)), key[k], SLOT(slotSetPresetName(QString)));
+    }
+
+    connect(this, SIGNAL(signalSetPresetNameInKeys(QString)), navKey, SLOT(slotSetPresetName(QString)));
 }
 
 void MainWindow::slotDisconnectElements()
 {
     disconnect(ui->displayName, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
+
+    for(int k = 0; k < 10; k++)
+    {
+        disconnect(this, SIGNAL(signalSetPresetNameInKeys(QString)), key[k], SLOT(slotSetPresetName(QString)));
+    }
+
+    disconnect(this, SIGNAL(signalSetPresetNameInKeys(QString)), navKey, SLOT(slotSetPresetName(QString)));
 }
 
 void MainWindow::slotValueChanged()
@@ -131,6 +145,7 @@ void MainWindow::slotValueChanged()
         if(sender == ui->displayName)
         {
             emit signalStoreValue(QString("preset_displayname"), ui->displayName->text(), -1);
+            emit signalSetPresetNameInKeys(ui->displayName->text());
         }
     }
     emit signalCheckSavedState();
@@ -143,6 +158,8 @@ void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap)
     ui->displayName->setText(preset.value(QString("preset_displayname")).toString());
 
     slotConnectElements();
+
+    emit signalSetPresetNameInKeys(ui->displayName->text());
 }
 
 void MainWindow::slotConnectInterfaces()
@@ -240,8 +257,6 @@ void MainWindow::slotConnectInterfaces()
         //Led and Display midi out
         connect(&key[k]->ledManager, SIGNAL(signalSendLEDControl(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddLEDPacket(QString,QList<MIDIPacket>)),Qt::DirectConnection);
 
-
-
         for(int l = 0; l < 10; l++)
         {
             connect(&key[k]->dataCooker, SIGNAL(signalThisKeyPressed(int)), &key[l]->alphaNumManager, SLOT(slotDisplayKeyName(int)));
@@ -288,6 +303,8 @@ void MainWindow::slotConnectInterfaces()
 
     //Alphanumeric MIDI Out
     connect(&navKey->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddAlphaPacket(QString,QList<MIDIPacket>)), Qt::DirectConnection);
+    connect(&navKey->dataCooker, SIGNAL(signalThisKeyPressed(int)), &navKey->alphaNumManager, SLOT(slotDisplayKeyName(int)));
+
 
     connect(&displaySink, SIGNAL(signalSendPacket(QString,MIDIPacket)), midiDeviceManager, SLOT(hosted_slotSendPacket(QString,MIDIPacket)),Qt::DirectConnection);
 
@@ -666,7 +683,6 @@ void MainWindow::slotSetMode()
 
     //!!!!!!!!!!!!!!!!!! Preset recalled after port creation and device menu population in slotPopulateDeviceMenus
 }
-
 
 void MainWindow::slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> externalDevices)
 {

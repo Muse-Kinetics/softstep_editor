@@ -65,8 +65,6 @@ void AlphaNumManager::slotDisplayParam(int modlineNum, int val)
         slotFormatAndOutputString(outputString);
         //qDebug() << "immed param";
     }
-
-
 }
 
 void AlphaNumManager::slotFormatAndOutputString(QString displayString)
@@ -98,14 +96,26 @@ void AlphaNumManager::slotFormatAndOutputString(QString displayString)
 
 void AlphaNumManager::slotDisplayKeyName(int keyNum)
 {
+    //Called in Mainwindow -- connect(&key[k]->dataCooker, SIGNAL(signalThisKeyPressed(int)), &key[l]->alphaNumManager, SLOT(slotDisplayKeyName(int)));
+
+
     if(instanceNum == keyNum)
     {
+
+        qDebug() << "display!!!!!!!!!";
         keyOnOff = true;
 
         //qDebug() << "display key name" << keyName << keyNum << instanceNum;
 
-        //None, Immed Param
-        if(displayMode.contains("Immed Param") || displayMode.contains("None"))
+        //None
+        if(displayMode.contains("None"))
+        {
+            //qDebug() << "show this name" << currentPresetName;
+            slotFormatAndOutputString(currentPresetName);
+        }
+
+        //Immed Param
+        else if(displayMode.contains("Immed Param"))
         {
             slotOpenParamDisplay();
         }
@@ -190,4 +200,9 @@ void AlphaNumManager::slotDrainFIFO()
         //emit signalSendDisplayVals("SSCOM Port 1", packetFIFOList.first());
         packetFIFOList.removeFirst();
     }
+}
+
+void AlphaNumManager::slotPresetChangeDisplayPresetName()
+{
+    slotFormatAndOutputString(currentPresetName);
 }

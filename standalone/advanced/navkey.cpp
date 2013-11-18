@@ -246,7 +246,9 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     slotConnectElements();
 
+    alphaNumManager.paramDisplay = false; //close gate initially, on preset change
     slotSetAlphaNumSettings();
+    alphaNumManager.slotPresetChangeDisplayPresetName();
 
     dataCooker.slotSetCounterParams(navKeyWindowForm->counterMin->value(),navKeyWindowForm->counterMax->value(), navKeyWindowForm->counterWrap->isChecked());}
 
@@ -387,6 +389,11 @@ void NavKey::slotSetMode(QString m)
 void NavKey::slotSetDataCookerSettings()
 {
 
+}
+
+void NavKey::slotSetPresetName(QString name)
+{
+    alphaNumManager.currentPresetName = name;
 }
 
 void NavKey::slotSetAlphaNumSettings()
