@@ -250,7 +250,8 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
     slotSetAlphaNumSettings();
     alphaNumManager.slotPresetChangeDisplayPresetName();
 
-    dataCooker.slotSetCounterParams(navKeyWindowForm->counterMin->value(),navKeyWindowForm->counterMax->value(), navKeyWindowForm->counterWrap->isChecked());}
+    dataCooker.slotSetCounterParams(navKeyWindowForm->counterMin->value(),navKeyWindowForm->counterMax->value(), navKeyWindowForm->counterWrap->isChecked());
+}
 
 void NavKey::slotShowDisplaySettings(bool show)
 {

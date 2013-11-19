@@ -337,7 +337,7 @@ void Settings::slotValueChanged()
         emit signalStoreValue(jsonName,value);
     }
 
-    qDebug() << "value changed" << QObject::sender()->objectName();
+    //qDebug() << "value changed" << QObject::sender()->objectName();
 
     slotSetMidiInputLineParams();
 }

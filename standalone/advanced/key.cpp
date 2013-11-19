@@ -243,8 +243,12 @@ void Key::slotValueChanged()
 
 void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
+    qDebug() << "Key State Recall" << keyInstance;
+
+    //Disconnect UI Elements, to avoid looping call
     slotDisconnectElements();
 
+    //Change UI Elements
     keyBoxForm->keyName->setText(preset.value(QString("%1_key_name").arg(keyInstance+1)).toString());
 
     keyWindowForm->counterMin->setValue(preset.value(QString("%1_key_counter_min").arg(keyInstance+1)).toInt());
@@ -255,11 +259,17 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
     keyWindowForm->keyname->setText(preset.value(QString("%1_key_name").arg(keyInstance+1)).toString());
     keyWindowForm->leddisplaymode->setCurrentIndex(keyWindowForm->leddisplaymode->findText(preset.value(QString("%1_key_displaymode").arg(keyInstance+1)).toString()));
 
+    //Reconnect UI Elements
     slotConnectElements();
 
+    //Reset Alphanumeric Display
     alphaNumManager.paramDisplay = false; //close gate initially
-
     slotSetAlphaNumSettings();
+
+    //Recall State
+    //stateRecaller
+
+
 }
 
 void Key::slotShowDisplaySettings(bool show)

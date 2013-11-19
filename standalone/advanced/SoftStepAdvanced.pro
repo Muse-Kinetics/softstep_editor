@@ -52,7 +52,8 @@ SOURCES +=      main.cpp\
     hosted/displaysink.cpp \
     hosted/delay.cpp \
     tables.cpp \
-    hosted/navdatacooker.cpp
+    hosted/navdatacooker.cpp \
+    hosted/staterecall.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -90,7 +91,8 @@ HEADERS  +=     mainwindow.h \
     hosted/displaysink.h \
     hosted/delay.h \
     tables.h \
-    hosted/navdatacooker.h
+    hosted/navdatacooker.h \
+    hosted/staterecall.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \

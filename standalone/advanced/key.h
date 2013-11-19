@@ -18,12 +18,15 @@
 #include "hosted/datacooker.h"
 #include "hosted/alphanummanager.h"
 #include "hosted/ledmanager.h"
+#include "hosted/staterecall.h"
 
 class Key : public QWidget
 {
     Q_OBJECT
 public:
     explicit Key(QWidget *parent = 0, int keyInstanceNum = 0);
+
+    StateRecall stateRecaller;
 
     StyleSheets stylesheets;
     QButtonGroup displayLinkedButtonGroup;
