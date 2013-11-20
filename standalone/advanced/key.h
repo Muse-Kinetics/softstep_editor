@@ -47,6 +47,8 @@ public:
     LEDManager ledManager;
 
     int counter;
+
+    QString currentPreset;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);

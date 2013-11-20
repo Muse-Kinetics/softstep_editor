@@ -19,6 +19,7 @@ public:
     QTimer fifoClock;
     QList<MIDIPacket> packetFIFOList;
     QList<MIDIPacket> packetList;
+    QList<MIDIPacket> lastPacketListSent;
 
     int keyInstanceNum;
 
@@ -35,6 +36,7 @@ signals:
 public slots:
     void slotReceiveModlineOutput(int modlineNum, int val);
     void slotSetLedModes(int modlineNum, QString gm, QString rm);
+    void slotStateRecallLedLastPacket(QList<MIDIPacket> pktlst);
 
     void slotDrainFIFO();
     

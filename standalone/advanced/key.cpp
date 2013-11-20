@@ -111,16 +111,17 @@ void Key::slotConnectElements()
     connect(keyWindowForm->keyname,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
     connect(keyWindowForm->leddisplaymode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
-    //Hosted streaming
+    //Modlines
     for(int i = 0; i < 6; i++)
     {
+        //Source Streaming
         connect(modline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
         connect(&dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
         connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
         connect(modline[i], SIGNAL(hosted_signalYIncSet(int)), &dataCooker, SLOT(slotYIncSet(int)));
         connect(modline[i], SIGNAL(hosted_signalXIncSet(int)), &dataCooker, SLOT(slotXIncSet(int)));
 
-        //leds -- used modline output because all lines' logic is checked
+        //Leds -- used modline output because all lines' logic is checked
         connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
         connect(modline[i], SIGNAL(hosted_signalSetLEDMode(int, QString,QString)), &ledManager, SLOT(slotSetLedModes(int,QString,QString)));
 
@@ -130,6 +131,11 @@ void Key::slotConnectElements()
         //Counter
         connect(modline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
         connect(this, SIGNAL(signalCounterValue(int)), modline[i], SLOT(slotCounterReturn(int)));
+
+        //State Recall
+        //connect(modline[i], SIGNAL(hosted_signalStoreToggleState(int,bool)), &stateRecaller, SLOT(slotStoreToggleStates(int,bool)));
+
+        connect(&stateRecaller, SIGNAL(signalStateRecallLedLastPacketList(QList<MIDIPacket>)), &ledManager, SLOT(slotStateRecallLedLastPacket(QList<MIDIPacket>)));
 
     }
 
@@ -172,6 +178,8 @@ void Key::slotDisconnectElements()
         disconnect(modline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
         disconnect(this, SIGNAL(signalCounterValue(int)), modline[i], SLOT(slotCounterReturn(int)));
     }
+
+    disconnect(&stateRecaller, SIGNAL(signalStateRecallLedLastPacketList(QList<MIDIPacket>)), &ledManager, SLOT(slotStateRecallLedLastPacket(QList<MIDIPacket>)));
 }
 
 void Key::slotValueChanged()
@@ -243,10 +251,35 @@ void Key::slotValueChanged()
 
 void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
-    qDebug() << "Key State Recall" << keyInstance;
+    //qDebug() << "Key State Recall" << keyInstance;
 
     //Disconnect UI Elements, to avoid looping call
     slotDisconnectElements();
+
+
+    //--------------------------------------------- Store states from older preset, using "old" preset name (updated below after recall)
+    stateRecaller.presetName = currentPreset;
+
+    //Key Counter
+    stateRecaller.slotStoreCounterState(counter);
+
+    //Inc-Dec Counters
+    stateRecaller.slotStoreIncDecState(dataCooker.xIncCount, dataCooker.yIncCount);
+
+    for(int i=0; i < 6; i++)
+    {
+        //Toggle
+        stateRecaller.slotStoreToggleStates(i, modline[i]->toggleTable);
+
+        //LEDs
+        stateRecaller.slotStoreLedStates(i, ledManager.state[i]);
+    }
+    //(LEDs)
+    stateRecaller.slotStoreLedLastPacketList(ledManager.lastPacketListSent);
+
+    //Set new preset name
+    stateRecaller.presetName = preset.value("preset_name").toString();
+    currentPreset = preset.value("preset_name").toString();
 
     //Change UI Elements
     keyBoxForm->keyName->setText(preset.value(QString("%1_key_name").arg(keyInstance+1)).toString());
@@ -266,9 +299,8 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
     alphaNumManager.paramDisplay = false; //close gate initially
     slotSetAlphaNumSettings();
 
-    //Recall State
-    //stateRecaller
-
+    //--------------------------------------------- Recall states from current preset
+    stateRecaller.slotRecallState(currentPreset);
 
 }
 

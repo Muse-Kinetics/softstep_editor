@@ -7,31 +7,57 @@
 #include <QObject>
 #include <QMap>
 
+#include <CoreMIDI/CoreMIDI.h>
+
 class StateRecall : public QObject
 {
     Q_OBJECT
 public:
     explicit StateRecall(QObject *parent = 0);
-    
-private:
 
-    QMap<QString, bool>     toggleStates[6];
-    QMap<QString, int>      counterState;
-    QMap<QString, int>      incDecState;
+    bool                    initGate;
+    bool                    parentIsNavPad;
+    QString                 presetName;
+    QMap<QString, bool>                 toggleStates[6];
+    QMap<QString, int>                  counterState;
+    QMap<QString, int>                  yIncDecState;
+    QMap<QString, int>                  xIncDecState;
+    QMap<QString, bool>                 ledStates[6];
+    QMap< QString, QList <MIDIPacket> > lastMidiPacketList;
 
 signals:
-    void signalStateRecallToggles();
+    //Toggle
+    void signalStateRecallToggles(int modlineNum, bool state);
+
+    //Counter
     void signalStateRecallCounter(int);
+
+    //Inc-Dec
     void signalStateRecallIncDec(int);
-    void signalStateRecallLeds();
+
+    //LEDs
+    void signalStateRecallLedStates(int modlineNum, bool state);
+    void signalStateRecallLedLastPacketList(QList <MIDIPacket> pktlst);
     
 public slots:
-    void slotStoreToggleStates();
-    void slotStoreCounterState(int);
-    void slotStoreIncDecState(int);
-    void slotStoreLedStates();
+    //Init
+    void slotInit(QStringList presetNames, int keyNum);
 
-    void slotRecallState();
+    //Toggle
+    void slotStoreToggleStates(int modlineNum, bool state);
+
+    //Counter
+    void slotStoreCounterState(int val);
+
+    //Inc-Dec
+    void slotStoreIncDecState(int x, int y);
+
+    //LEDs
+    void slotStoreLedStates(int modlineNum, bool state);
+    void slotStoreLedLastPacketList(QList <MIDIPacket> pktlst);
+
+    //-------- Recall
+    void slotRecallState(QString name);
     
 };
 

@@ -127,7 +127,7 @@ void DisplaySink::slotAddLEDPacket(QString port, QList<MIDIPacket> packetList)
 
 void DisplaySink::slotPollAlphaList()
 {
-    qDebug() << "drain alpha list";
+    //qDebug() << "drain alpha list";
 
     if(!mostRecentAlphaList.isEmpty())
     {

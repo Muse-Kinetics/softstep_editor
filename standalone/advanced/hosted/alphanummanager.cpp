@@ -101,8 +101,6 @@ void AlphaNumManager::slotDisplayKeyName(int keyNum)
 
     if(instanceNum == keyNum)
     {
-
-        qDebug() << "display!!!!!!!!!";
         keyOnOff = true;
 
         //qDebug() << "display key name" << keyName << keyNum << instanceNum;

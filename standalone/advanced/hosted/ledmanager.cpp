@@ -128,9 +128,10 @@ void LEDManager::processLED(int modlineNum, int greenOrRed, QString mode)
             packetFIFOList.append(typePacket);
 
             packetList.append(typePacket);
-        }
 
-        emit signalSendLEDControl("SSCOM Port 1", packetList);
+            emit signalSendLEDControl("SSCOM Port 1", packetList);
+            lastPacketListSent = packetList;
+        }
     }
 }
 
@@ -171,4 +172,10 @@ void LEDManager::slotDrainFIFO()
         //emit signalSendLEDControl("SSCOM Port 1", packetFIFOList.first());
         packetFIFOList.removeFirst();
     }
+}
+
+void LEDManager::slotStateRecallLedLastPacket(QList<MIDIPacket> pktlst)
+{
+    emit signalSendLEDControl("SSCOM Port 1", pktlst);
+    lastPacketListSent = pktlst;
 }

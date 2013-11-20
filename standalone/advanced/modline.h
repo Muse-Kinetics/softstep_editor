@@ -113,6 +113,9 @@ signals:
 
     void hosted_signalCounter(QString whatToDo, int val);
 
+    //---------- State Recall
+    void hosted_signalStoreToggleState(int modlineNum, bool state);
+
 
 public slots:
     void slotConnectElements();

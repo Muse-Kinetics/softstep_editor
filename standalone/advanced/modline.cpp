@@ -842,6 +842,9 @@ void Modline::slotTable(int input)
             {
                 input = 0;
             }
+
+            //Store toggle state here
+            emit hosted_signalStoreToggleState(modlineInstance, toggleTable);
         }
 
         //If input goes false, repopen the gate
@@ -855,8 +858,6 @@ void Modline::slotTable(int input)
         {
             return;
         }
-
-
     }
     else
     {

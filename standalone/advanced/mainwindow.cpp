@@ -575,6 +575,7 @@ void MainWindow::slotPopulatePresetMenu()
 
 void MainWindow::slotRecallPresetFromSetlist(QString presetName)
 {
+    //Just uses menu change to initiate preset recall
     qDebug() << "recall this preset from the setlist" << presetName;
     ui->presetmenu->setCurrentIndex(ui->presetmenu->findText(presetName));
 }
