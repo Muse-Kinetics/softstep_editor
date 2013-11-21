@@ -47,6 +47,8 @@ public:
 
     bool firstCall; //used to filter changes until first output routine called
 
+
+
     //-------------------- Hosted
     Slewer slewer;
     Delay delayer;
@@ -82,6 +84,9 @@ public:
     LEDManager ledManager;
 
     int counter;
+
+    bool initModeOnceCalled;
+    int initModeVal;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
@@ -144,12 +149,14 @@ public slots:
     void slotDelayReturn(int input);
     void slotOutputRoutine(int input);
 
-
-
     void hosted_slotOutputMidi(int outputVal);
     void hosted_slotPopulateDeviceMenu(QMap<QString, MIDIEndpointRef> externalDevices);
 
     void slotDisplayVars();
+
+    //------------------------ State Recall
+    void slotStateRecallToggle(int modlineNum, bool state);
+
 
 
 private:

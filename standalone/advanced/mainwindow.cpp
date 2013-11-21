@@ -683,6 +683,24 @@ void MainWindow::slotSetMode()
     //presetInterface->slotRecallPreset(0);
 
     //!!!!!!!!!!!!!!!!!! Preset recalled after port creation and device menu population in slotPopulateDeviceMenus
+
+    if(mode == "hosted")
+    {
+        QList<QString> presetNames;
+
+        //--------- State Recall
+        for(int i = 0; i < ui->presetmenu->count(); i++)
+        {
+            qDebug() << "state recall check" << i << ": " << ui->presetmenu->itemText(i);
+            presetNames.append(ui->presetmenu->itemText(i));
+        }
+
+        for(int k = 0; k < 10; k++)
+        {
+            //If init has been called previously, each instance of stateRecaller blocks re-initialization
+            key[k]->stateRecaller.slotInit(presetNames, k);
+        }
+    }
 }
 
 void MainWindow::slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> externalDevices)

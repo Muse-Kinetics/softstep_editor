@@ -60,6 +60,8 @@ void PresetInterface::slotPopulatePresetMenu(QComboBox* presetMenu)
 
     connect(presetMenu, SIGNAL(currentIndexChanged(int)), this, SLOT(slotRecallPreset(int)));
 
+    //emit signalInitStateRecallers();
+
     emit signalPopulateSetlistMenus(presetMenu);
 }
 

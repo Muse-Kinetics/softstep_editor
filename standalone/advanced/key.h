@@ -41,6 +41,8 @@ public:
 
     int numModlines;
 
+    QString mode;
+
     //------------------ Hosted ------------------//
     DataCooker dataCooker;
     AlphaNumManager alphaNumManager;
@@ -63,7 +65,7 @@ public slots:
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
 
-    void slotSetMode(QString mode);
+    void slotSetMode(QString m);
 
     //------------------ Hosted ------------------//
     void slotSetDataCookerSettings();

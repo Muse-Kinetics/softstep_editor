@@ -67,6 +67,8 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     tableToggleGate = true;
 
     counterGate = true;
+
+    initModeOnceCalled = false;
 }
 
 void Modline::slotConnectElements()
@@ -564,6 +566,17 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     //---------- update hosted source streaming
     slotStreamSourceData();
     emit hosted_signalSetLEDMode(modlineInstance, modlineForm->ledgreen->currentText(), modlineForm->ledred->currentText());
+
+    //---------- Init Mode on Preset Change
+    if(modlineForm->initmode->currentText() == "Once" && !initModeOnceCalled)
+    {
+        initModeOnceCalled = true;
+        slotTransformSource(modlineForm->initvalue->value(), modlineInstance, "Init");
+    }
+    else if(modlineForm->initmode->currentText() == "Always")
+    {
+        slotTransformSource(modlineForm->initvalue->value(), modlineInstance, "Init");
+    }
 }
 
 void Modline::slotRecallDestinationMenu()
@@ -1067,4 +1080,15 @@ void Modline::hosted_slotOutputMidi(int outputVal)
 void Modline::slotDisplayVars()
 {
     modlineForm->outputvalue->setValue(value);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////// State Recall /////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+void Modline::slotStateRecallToggle(int modlineNum, bool state)
+{
+    if(modlineNum == modlineInstance)
+    {
+        toggleTable = state;
+    }
 }

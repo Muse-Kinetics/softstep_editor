@@ -54,6 +54,8 @@ public:
     bool dblTrigLatchState;
     bool longTrigLatchState;
 
+    int previousKeyPressed[2];
+
     void                cookRaw();
     void                cookSources();
 
@@ -171,6 +173,11 @@ public slots:
 
     void slotReceiveNavY(int count);
     void slotReceiveNavDecade(int decade);
+
+    //------------------------------------------------------ State Recall
+    void slotStateRecallYIncDec(int);
+    void slotStateRecallXIncDec(int);
+
 
 };
 

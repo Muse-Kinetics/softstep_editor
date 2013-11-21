@@ -256,30 +256,38 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
     //Disconnect UI Elements, to avoid looping call
     slotDisconnectElements();
 
-
-    //--------------------------------------------- Store states from older preset, using "old" preset name (updated below after recall)
-    stateRecaller.presetName = currentPreset;
-
-    //Key Counter
-    stateRecaller.slotStoreCounterState(counter);
-
-    //Inc-Dec Counters
-    stateRecaller.slotStoreIncDecState(dataCooker.xIncCount, dataCooker.yIncCount);
-
-    for(int i=0; i < 6; i++)
+    if(mode == "hosted")
     {
-        //Toggle
-        stateRecaller.slotStoreToggleStates(i, modline[i]->toggleTable);
+        //--------------------------------------------- Store states from older preset, using "old" preset name (updated below after recall)
+        stateRecaller.presetName = currentPreset;
 
-        //LEDs
-        stateRecaller.slotStoreLedStates(i, ledManager.state[i]);
+        //Key Counter
+        stateRecaller.slotStoreCounterState(counter);
+
+        //Inc-Dec Counters
+        stateRecaller.slotStoreIncDecState(dataCooker.xIncCount, dataCooker.yIncCount);
+
+        //Previous Key Pressed
+        stateRecaller.slotStorePreviousKeyValueState(dataCooker.previousKeyPressed[1]);
+
+        for(int i=0; i < 6; i++)
+        {
+            //Init Modes
+            stateRecaller.slotStoreInitModeState(i, modline[i]->initModeOnceCalled);
+
+            //Toggle
+            stateRecaller.slotStoreToggleStates(i, modline[i]->toggleTable);
+
+            //LEDs
+            stateRecaller.slotStoreLedStates(i, ledManager.state[i]);
+        }
+        //(LEDs)
+        stateRecaller.slotStoreLedLastPacketList(ledManager.lastPacketListSent);
+
+        //Set new preset name
+        stateRecaller.presetName = preset.value("preset_name").toString();
+        currentPreset = preset.value("preset_name").toString();
     }
-    //(LEDs)
-    stateRecaller.slotStoreLedLastPacketList(ledManager.lastPacketListSent);
-
-    //Set new preset name
-    stateRecaller.presetName = preset.value("preset_name").toString();
-    currentPreset = preset.value("preset_name").toString();
 
     //Change UI Elements
     keyBoxForm->keyName->setText(preset.value(QString("%1_key_name").arg(keyInstance+1)).toString());
@@ -299,9 +307,31 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
     alphaNumManager.paramDisplay = false; //close gate initially
     slotSetAlphaNumSettings();
 
-    //--------------------------------------------- Recall states from current preset
-    stateRecaller.slotRecallState(currentPreset);
+    if(mode == "hosted")
+    {
+        //--------------------------------------------- Recall states from current preset
+        //Counter
+        counter = stateRecaller.counterState.value(currentPreset);
 
+        //Inc-Dec
+        dataCooker.yIncCount = stateRecaller.yIncDecState.value(currentPreset);
+        dataCooker.xIncOrDec = stateRecaller.xIncDecState.value(currentPreset);
+
+        for(int i = 0; i < 6; i++)
+        {
+            //Init Modes
+            modline[i]->initModeOnceCalled = stateRecaller.initModeOnceCalledState[i].value(currentPreset);
+
+            //Toggle
+            modline[i]->toggleTable = stateRecaller.toggleStates[i].value(currentPreset);
+
+            //LEDs -- state
+            ledManager.state[i] = stateRecaller.ledStates[i].value(currentPreset);
+        }
+
+        //LEDs -- last packet
+        ledManager.slotStateRecallLedLastPacket(stateRecaller.lastMidiPacketList.value(currentPreset));
+    }
 }
 
 void Key::slotShowDisplaySettings(bool show)
@@ -433,9 +463,9 @@ void Key::slotAddSubtractModlines()
     //qDebug() << QString("show %1 key %2 modlines").arg(numModlines).arg(keyInstance+1);
 }
 
-void Key::slotSetMode(QString mode)
+void Key::slotSetMode(QString m)
 {
-
+    mode = m;
 }
 
 void Key::slotSetDataCookerSettings()

@@ -82,6 +82,9 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     connect(&trigger, SIGNAL(signalLongTriggerLatchReturn()), this, SLOT(slotLongTriggerLatchReturn()));
     connect(&trigger, SIGNAL(signalDblTriggerLatchReturn()), this, SLOT(slotDblTriggerLatchReturn()));
 
+    previousKeyPressed[0] = -1;
+    previousKeyPressed[1] = -1;
+
 }
 
 void DataCooker::slotSetSource(QString source, int modlineInstance)
@@ -997,8 +1000,6 @@ void DataCooker::slotReceiveKeyPressed(int keyPressed)
 {
     keyPressed = (keyPressed + 1)%10;
 
-    static int previousKeyPressed[2] = {-1, -1};
-
     previousKeyPressed[1] = previousKeyPressed[0];
     previousKeyPressed[0] = keyPressed;
 
@@ -1107,3 +1108,20 @@ void DataCooker::slotReceiveNavDecade(int decade)
 {
     navYDecade = decade;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////// State Recall /////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+void DataCooker::slotStateRecallXIncDec(int val)
+{
+    xIncCount = val;
+}
+
+void DataCooker::slotStateRecallYIncDec(int val)
+{
+    yIncCount = val;
+}
+
+
+
+

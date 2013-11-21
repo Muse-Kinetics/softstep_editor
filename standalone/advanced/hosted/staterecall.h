@@ -6,6 +6,7 @@
 
 #include <QObject>
 #include <QMap>
+#include <QDebug>
 
 #include <CoreMIDI/CoreMIDI.h>
 
@@ -15,33 +16,41 @@ class StateRecall : public QObject
 public:
     explicit StateRecall(QObject *parent = 0);
 
-    bool                    initGate;
-    bool                    parentIsNavPad;
-    QString                 presetName;
+    int                                 keyNum;
+    bool                                initGate;
+    bool                                parentIsNavPad;
+    QString                             presetName;
+
+    QList<MIDIPacket>                   getInitMIDIPacketList();
+
     QMap<QString, bool>                 toggleStates[6];
     QMap<QString, int>                  counterState;
     QMap<QString, int>                  yIncDecState;
     QMap<QString, int>                  xIncDecState;
     QMap<QString, bool>                 ledStates[6];
-    QMap< QString, QList <MIDIPacket> > lastMidiPacketList;
+    QMap<QString, QList <MIDIPacket> >  lastMidiPacketList;
+    QMap<QString, int>                  previousKeyValueState;
+    QMap<QString, bool>                 initModeOnceCalledState[6];
 
 signals:
-    //Toggle
+    //Toggle -- received in modline.cpp
     void signalStateRecallToggles(int modlineNum, bool state);
 
-    //Counter
+    //Counter -- received in key.cpp
     void signalStateRecallCounter(int);
 
-    //Inc-Dec
-    void signalStateRecallIncDec(int);
+    //Inc-Dec -- received in datacooker.cpp
+    void signalStateRecallYIncDec(int);
+    void signalStateRecallXIncDec(int);
 
-    //LEDs
+    //LEDs -- received in ledmanager.cpp
     void signalStateRecallLedStates(int modlineNum, bool state);
     void signalStateRecallLedLastPacketList(QList <MIDIPacket> pktlst);
     
 public slots:
     //Init
-    void slotInit(QStringList presetNames, int keyNum);
+    void slotInit(QList<QString> presetNames, int keyNumVal);
+    void slotInitNewPreset(QString presetName);
 
     //Toggle
     void slotStoreToggleStates(int modlineNum, bool state);
@@ -55,6 +64,12 @@ public slots:
     //LEDs
     void slotStoreLedStates(int modlineNum, bool state);
     void slotStoreLedLastPacketList(QList <MIDIPacket> pktlst);
+
+    //Previous Key Value
+    void slotStorePreviousKeyValueState(int val);
+
+    //Init Mode
+    void slotStoreInitModeState(int modlineNum, bool called);
 
     //-------- Recall
     void slotRecallState(QString name);
