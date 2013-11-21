@@ -575,6 +575,7 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     }
     else if(modlineForm->initmode->currentText() == "Always")
     {
+        qDebug() << "send init always val" << modlineForm->initvalue->value();
         slotTransformSource(modlineForm->initvalue->value(), modlineInstance, "Init");
     }
 }
@@ -740,40 +741,67 @@ void Modline::slotSetTransformValues()
 //------------------------------------------------------------------------------------------- Gain / Offset
 void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
-    newSource = source;
-
-    //Make sure this is the correct modline to receive source being emitted
-    if(modlineNum == modlineInstance && source == thisModlineSource)
+    if(source == "Init")
     {
-        //If source value is different from last or there is a change in value...
-        if(lastVal != val || lastSource != source || source.contains("Trig") || source.contains("Key"))
+        //Set raw display value
+        raw = val;
+
+        //Display Raw
+        modlineForm->raw->setValue(val);
+
+        //Apply gain and offset
+        val = val*gain + offset;
+
+        //Set result display vaule
+        result = val;
+
+        //Display Result
+        modlineForm->result->setValue(result);
+
+        if(enabled)
         {
-            //Filter out repititions
-            lastVal = val;
-            lastSource = source;
+            //Go to slotTable, signal continues from there
+            slotTable(val);
+        }
+    }
+    else
+    {
+        newSource = source;
 
-            //Set raw display value
-            raw = val;
-
-            //Display Raw
-            modlineForm->raw->setValue(val);
-
-            //Apply gain and offset
-            val = val*gain + offset;
-
-            //Set result display vaule
-            result = val;
-
-            //Display Result
-            modlineForm->result->setValue(result);
-
-            if(enabled)
+        //Make sure this is the correct modline to receive source being emitted
+        if((modlineNum == modlineInstance && source == thisModlineSource) || source == "Init")
+        {
+            //If source value is different from last or there is a change in value...
+            if(lastVal != val || lastSource != source || source.contains("Trig") || source.contains("Key"))
             {
-                //Go to slotTable, signal continues from there
-                slotTable(val);
+                //Filter out repititions
+                lastVal = val;
+                lastSource = source;
+
+                //Set raw display value
+                raw = val;
+
+                //Display Raw
+                modlineForm->raw->setValue(val);
+
+                //Apply gain and offset
+                val = val*gain + offset;
+
+                //Set result display vaule
+                result = val;
+
+                //Display Result
+                modlineForm->result->setValue(result);
+
+                if(enabled)
+                {
+                    //Go to slotTable, signal continues from there
+                    slotTable(val);
+                }
             }
         }
     }
+
 }
 
 //------------------------------------------------------------------------------------------- Table / Counter
@@ -889,8 +917,8 @@ void Modline::slotCounterReturn(int val)
             //Only display counter val
             value = val;
             slotDisplayVars();
-            lastVal = val;
-            lastSource = newSource;
+            //lastVal = val;
+            //lastSource = newSource;
             return;
         }
         else
