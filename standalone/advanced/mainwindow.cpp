@@ -418,8 +418,8 @@ void MainWindow::slotConnectInterfaces()
     connect(saveAsDialogForm->cancel, SIGNAL(clicked()), saveAsDialogWidget, SLOT(close()));
     connect(saveAsDialogForm->cancel, SIGNAL(clicked()), disableWidget, SLOT(close()));
     connect(saveAsDialogForm->save, SIGNAL(clicked()), this, SLOT(slotSaveAs()));
-    connect(saveAsDialogForm->save, SIGNAL(clicked()), disableWidget, SLOT(close()));
-    connect(saveAsDialogForm->save, SIGNAL(clicked()), saveAsDialogWidget, SLOT(close()));
+    //connect(saveAsDialogForm->save, SIGNAL(clicked()), disableWidget, SLOT(close()));
+    //connect(saveAsDialogForm->save, SIGNAL(clicked()), saveAsDialogWidget, SLOT(close()));
     connect(this, SIGNAL(signalSaveAs(QString)), presetInterface, SLOT(slotSavePresetAs(QString)));
     connect(presetInterface, SIGNAL(signalAddRemovePreset()), this, SLOT(slotPopulatePresetMenu()));
 
@@ -555,14 +555,32 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
 
 void MainWindow::slotSaveAs()
 {
-    if(saveAsDialogForm->name->text() != "")
+    bool matchExisting = FALSE;
+    int numPresets = presetInterface->slotGetNumPresetsInJson();
+    QString presetName;
+    QVariantMap preset;
+
+    //here I set the matchExisting variable to true or false depending on whether the preset name typed into the save dialoge matches an existing preset's name
+    for(int i = 0; i < numPresets; i++)
+    {
+        preset = presetInterface->jsonMasterMap.value(presetInterface->slotGetPresetStringFromInt(i)).toMap();
+        presetName = preset.value(QString("preset_name")).toString();
+        //qDebug() << "SAVE AS: check preset names:" << presetName;
+        if(saveAsDialogForm->name->text() == presetName || matchExisting)
+        {
+            matchExisting = TRUE;
+        }
+    }
+
+    if(saveAsDialogForm->name->text() != "" && saveAsDialogForm->name->text() != "[EMPTY]" && !matchExisting)
     {
         emit signalSaveAs(saveAsDialogForm->name->text());
         saveAsDialogWidget->close();
+        disableWidget->close();
     }
     else
     {
-
+        //qDebug() << "nothing should happen here";
     }
 }
 
