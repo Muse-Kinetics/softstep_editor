@@ -219,6 +219,31 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
     slotDisconnectElements();
 
+    if(mode == "hosted")
+    {
+        //--------------------------------------------- Store states from older preset, using "old" preset name (updated below after recall)
+        stateRecaller.presetName = currentPreset;
+
+        //Key Counter
+        stateRecaller.slotStoreCounterState(counter);
+
+        //Inc-Dec -- -1 one for x value because it's not used
+        stateRecaller.slotStoreIncDecState(-1, dataCooker.yIncCount);
+
+        for(int i=0; i < 6; i++)
+        {
+            //Init Modes
+            stateRecaller.slotStoreInitModeState(i, navModline[i]->initModeOnceCalled);
+
+            //Toggle
+            stateRecaller.slotStoreToggleStates(i, navModline[i]->toggleTable);
+        }
+
+        //Set new preset name
+        stateRecaller.presetName = preset.value("preset_name").toString();
+        currentPreset = preset.value("preset_name").toString();
+    }
+
     navBoxForm->keyName->setText(preset.value(QString("nav_name")).toString());
 
     //this stuff is to determine the modlinemode (0 is for modline, 1 is for programchange... this can be changed)
@@ -251,6 +276,25 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
     alphaNumManager.slotPresetChangeDisplayPresetName();
 
     dataCooker.slotSetCounterParams(navKeyWindowForm->counterMin->value(),navKeyWindowForm->counterMax->value(), navKeyWindowForm->counterWrap->isChecked());
+    if(mode == "hosted")
+    {
+        //--------------------------------------------- Recall states from current preset
+        //Counter
+        counter = stateRecaller.counterState.value(currentPreset);
+
+        //Inc-Dec
+        dataCooker.yIncCount = stateRecaller.yIncDecState.value(currentPreset);
+
+        for(int i = 0; i < 6; i++)
+        {
+            //Init Modes
+            navModline[i]->initModeOnceCalled = stateRecaller.initModeOnceCalledState[i].value(currentPreset);
+
+            //Toggle
+            navModline[i]->toggleTable = stateRecaller.toggleStates[i].value(currentPreset);
+        }
+    }
+
 }
 
 void NavKey::slotShowDisplaySettings(bool show)

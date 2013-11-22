@@ -567,16 +567,19 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     slotStreamSourceData();
     emit hosted_signalSetLEDMode(modlineInstance, modlineForm->ledgreen->currentText(), modlineForm->ledred->currentText());
 
-    //---------- Init Mode on Preset Change
-    if(modlineForm->initmode->currentText() == "Once" && !initModeOnceCalled)
+    if(mode == "hosted")
     {
-        initModeOnceCalled = true;
-        slotTransformSource(modlineForm->initvalue->value(), modlineInstance, "Init");
-    }
-    else if(modlineForm->initmode->currentText() == "Always")
-    {
-        qDebug() << "send init always val" << modlineForm->initvalue->value();
-        slotTransformSource(modlineForm->initvalue->value(), modlineInstance, "Init");
+        //---------- Init Mode on Preset Change
+        if(modlineForm->initmode->currentText() == "Once" && !initModeOnceCalled)
+        {
+            initModeOnceCalled = true;
+            slotTransformSource(modlineForm->initvalue->value(), modlineInstance, "Init");
+        }
+        else if(modlineForm->initmode->currentText() == "Always")
+        {
+            qDebug() << "send init always val" << modlineForm->initvalue->value();
+            slotTransformSource(modlineForm->initvalue->value(), modlineInstance, "Init");
+        }
     }
 }
 

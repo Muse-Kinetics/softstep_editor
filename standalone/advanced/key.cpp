@@ -141,8 +141,6 @@ void Key::slotConnectElements()
 
     //alphanumeric display - handled in main window
     //connect(&dataCooker, SIGNAL(signalThisKeyPressed(int)), &alphaNumManager, SLOT(slotDisplayKeyName()));
-
-
 }
 
 void Key::slotDisconnectElements()

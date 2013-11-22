@@ -443,6 +443,21 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     //--------------- update hosted source streaming
     slotStreamSourceData();
+
+    if(mode == "hosted")
+    {
+        //---------- Init Mode on Preset Change
+        if(navModlineForm->initmode->currentText() == "Once" && !initModeOnceCalled)
+        {
+            initModeOnceCalled = true;
+            slotTransformSource(navModlineForm->initvalue->value(), navInstance, "Init");
+        }
+        else if(navModlineForm->initmode->currentText() == "Always")
+        {
+            qDebug() << "send init always val" << navModlineForm->initvalue->value();
+            slotTransformSource(navModlineForm->initvalue->value(), navInstance, "Init");
+        }
+    }
 }
 
 void NavModline::slotRawResult()
@@ -599,39 +614,65 @@ void NavModline::slotSetTransformValues()
 
 void NavModline::slotTransformSource(int val, int modlineNum, QString source)
 {
-    newSource = source;
-
-    //Make sure this is the correct modline to receive source being emitted
-    if(modlineNum == navInstance && source == thisModlineSource)
+    if(source == "Init")
     {
-        //If source value is different from last or there is a change in value...
-        if(lastVal != val || lastSource != source || source.contains("Trig") || source.contains("Key"))
+        //Set raw display value
+        raw = val;
+
+        //Display Raw
+        navModlineForm->raw->setValue(val);
+
+        //Apply gain and offset
+        val = val*gain + offset;
+
+        //Set result display vaule
+        result = val;
+
+        //Display Result
+        navModlineForm->result->setValue(result);
+
+        if(enabled)
         {
-            qDebug() << val << modlineNum << source;
+            //Go to slotTable, signal continues from there
+            slotTable(val);
+        }
+    }
+    else
+    {
+        newSource = source;
 
-            lastVal = val;
-            lastSource = newSource;
-
-            //set raw display value
-            raw = val;
-
-            //display raw
-            navModlineForm->raw->setValue(val);
-
-
-            //apply gain and offset
-            val = val*gain + offset;
-
-            //set result display value
-            result = val;
-
-            //display result
-            navModlineForm->result->setValue(result);
-
-            if(enabled)
+        //Make sure this is the correct modline to receive source being emitted
+        if(modlineNum == navInstance && source == thisModlineSource)
+        {
+            //If source value is different from last or there is a change in value...
+            if(lastVal != val || lastSource != source || source.contains("Trig") || source.contains("Key"))
             {
-                //go to slotTable, signal continues from there
-                slotTable(val);
+                qDebug() << val << modlineNum << source;
+
+                lastVal = val;
+                lastSource = newSource;
+
+                //set raw display value
+                raw = val;
+
+                //display raw
+                navModlineForm->raw->setValue(val);
+
+
+                //apply gain and offset
+                val = val*gain + offset;
+
+                //set result display value
+                result = val;
+
+                //display result
+                navModlineForm->result->setValue(result);
+
+                if(enabled)
+                {
+                    //go to slotTable, signal continues from there
+                    slotTable(val);
+                }
             }
         }
     }
@@ -893,4 +934,15 @@ void NavModline::slotDisplayVars()
 {
     qDebug() << "nav output value display" << value;
     navModlineForm->outputvalue->setValue(value);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////// State Recall /////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+void NavModline::slotStateRecallToggle(int modlineNum, bool state)
+{
+    if(modlineNum == navInstance)
+    {
+        toggleTable = state;
+    }
 }

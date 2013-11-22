@@ -79,6 +79,9 @@ public:
     bool toggleTable;
     bool tableToggleGate;
 
+    bool initModeOnceCalled;
+    int initModeVal;
+
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
     void signalCheckSavedState();
@@ -107,6 +110,9 @@ signals:
     //void hosted_signalSetLEDMode(int modlieNum, QString greenMode, QString redMode);
 
     void hosted_signalCounter(QString whatToDo, int val);
+
+    //---------- State Recall
+    void hosted_signalStoreToggleState(int modlineNum, bool state);
 
 public slots:
     void slotConnectElements();
@@ -139,6 +145,9 @@ public slots:
     void hosted_slotPopulateDeviceMenu(QMap<QString, MIDIEndpointRef> externalDevices);
 
     void slotDisplayVars();
+
+    //------------------------ State Recall
+    void slotStateRecallToggle(int modlineNum, bool state);
 
 private:
     Ui::navModlineForm* navModlineForm;

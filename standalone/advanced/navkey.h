@@ -18,6 +18,7 @@
 #include "hosted/navdatacooker.h"
 #include "hosted/alphanummanager.h"
 //#include "hosted/ledmanager.h"
+#include "hosted/staterecall.h"
 
 class NavKey : public QWidget
 {
@@ -39,8 +40,11 @@ public:
     NavDataCooker dataCooker;
     AlphaNumManager alphaNumManager;
     //LEDManager ledManager;
+    StateRecall stateRecaller;
 
     int counter;
+
+    QString currentPreset;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
