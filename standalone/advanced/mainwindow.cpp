@@ -88,7 +88,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //presetInterface->slotPopulatePresetMenu(ui->presetmenu);
     //presetInterface->slotRecallGlobal();
-    //slotSetPresetMenu(0);
+    slotSetPresetMenu(0);
 
 #ifdef Q_OS_MAC
     midiDeviceManager->connectSource();

@@ -61,7 +61,7 @@ void NavModline::slotConnectElements()
                     (!spinName.contains("result")) &&
                     (!spinName.contains("outputValue"))) //these parameters should not be saved in presets
             {
-                disconnect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+                connect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
             }
         }
         else if(widget->metaObject()->className() == QString("QDoubleSpinBox"))
@@ -119,7 +119,7 @@ void NavModline::slotDisconnectElements()
                     (!spinName.contains("result")) &&
                     (!spinName.contains("outputValue"))) //these parameters should not be saved in presets
             {
-                connect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+                disconnect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
             }
         }
         else if(widget->metaObject()->className() == QString("QDoubleSpinBox"))
