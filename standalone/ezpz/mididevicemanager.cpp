@@ -496,6 +496,8 @@ void MidiDeviceManager::slotDrainSysexFIFO()
 
 bool MidiDeviceManager::connectSource()
 {
+    qDebug() << "connect source" << getSource();
+
     if(getSource() != -1)
     {
         //Connect Source
@@ -511,7 +513,7 @@ bool MidiDeviceManager::connectSource()
     {
         slotCloseMidiIn();
         slotCloseMidiOut();
-        //emit signalConnected(false);
+        emit signalConnected(false);
         return false;
     }
 }
@@ -650,6 +652,8 @@ void MidiDeviceManager::slotCloseMidiOut(){
 
 int MidiDeviceManager::getSource()
 {
+    qDebug() << "get source";
+
     if(QSysInfo::windowsVersion() == QSysInfo::WV_XP)
     {
         for(uint i =0; i<midiInGetNumDevs(); i++)
@@ -663,9 +667,12 @@ int MidiDeviceManager::getSource()
     }
     else
     {
+        qDebug() << "getSource win 7";
 
         for(uint i =0; i<midiInGetNumDevs(); i++)
         {
+            qDebug() << i << getDisplayName(i, "In");
+
             if(getDisplayName(i, "In") == "SSCOM")
             {
                 qDebug() << i << getDisplayName(i, "In");
@@ -829,16 +836,19 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
     {
         qDebug() << "Got the reply" << sysExMessageByteArray.count();
         versionReply = true;
+        Sleep(500);
         emit signalProcessFwQueryReply(sysExMessageByteArray);
     }
 }
 
 void MidiDeviceManager::slotPollDevices()
 {
+
     //static int numDevices = 0;
 
     if(numDevices != midiInGetNumDevs())
     {
+        qDebug() << "poll devices -- attempt to connect source";
         numDevices = midiInGetNumDevs();
         connectSource();
     }

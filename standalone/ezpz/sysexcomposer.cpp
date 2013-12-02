@@ -619,6 +619,8 @@ void SysExComposer::slotGetConnectedVersion(QByteArray msg)
 
     for(int i =0 ; i < msg.count(); i++)
     {
+        Sleep(5);
+        qDebug() << "firmware version msg" << msg.at(i) << (unsigned char)msg.at(i);
         softstep_midi_process(x,&x->version_connected, msg.at(i));
     }
 

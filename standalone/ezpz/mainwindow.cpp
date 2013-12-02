@@ -183,7 +183,7 @@ void MainWindow::slotConnectInterfaces()
     connect(aboutForm->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //SysEx
-    connect(mdm, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
+    connect(mdm, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)), Qt::DirectConnection);
     connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString)), this, SLOT(slotReceiveVersions(int,QString, int, QString)));
 
     //----------------------------- Firmware Updating
