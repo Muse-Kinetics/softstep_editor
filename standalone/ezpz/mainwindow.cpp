@@ -14,6 +14,11 @@ MainWindow::MainWindow(QWidget *parent) :
     fwUpdateDialog(new Ui::UpdateFirmwareForm),
     aboutForm(new Ui::AboutForm)
 {
+
+    //Mainwindow Ui
+    ui->setupUi(this);
+
+
     connected = false;
 
     connectedVersionString = "Not Connected";
@@ -27,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QCoreApplication::setOrganizationName("KeithMcMillenInstruments");
     QCoreApplication::setOrganizationDomain("keithmcmillen.com");
     settings = new QSettings();
+
 
     //Construct Children
     presetInterface = new PresetInterface(this);
@@ -43,9 +49,6 @@ MainWindow::MainWindow(QWidget *parent) :
     midiThread->start();
 #endif
 
-    //Mainwindow Ui
-    ui->setupUi(this);
-
     this->installEventFilter(this);
 
     //QList<QWidget*> widgets = findChildren<QWidget*>();
@@ -57,19 +60,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //Disable system focus boxt on Mac
-    /*ui->backlight->setAttribute(Qt::WA_MacShowFocusRect, false);
+    ui->backlight->setAttribute(Qt::WA_MacShowFocusRect, false);
     ui->sensitivity->setAttribute(Qt::WA_MacShowFocusRect, false);
     ui->midiChannel->setAttribute(Qt::WA_MacShowFocusRect, false);
     ui->navPadCC->setAttribute(Qt::WA_MacShowFocusRect, false);
     ui->pedalCC->setAttribute(Qt::WA_MacShowFocusRect, false);
     ui->currentPreset->setAttribute(Qt::WA_MacShowFocusRect, false);
-    ui->displayName->setAttribute(Qt::WA_MacShowFocusRect, false);*/
+    ui->displayName->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     //Construct Keys
     for(int i = 1; i < 11; i++)
     {
         key[i-1] = new Key(ui->centralWidget, i);
     }
+
 
 
     //Coverup for factory presets
@@ -118,6 +122,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     aboutForm->expected->setText(QString("%1 %2").arg(sysExComposer->embeddedVersion).arg(sysExComposer->embeddedbuildNum));
 
+
+
     //this->installEventFilter(this);
 
     slotInitMenuBar();
@@ -144,6 +150,7 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
 
     //menubar->actions().at(0)->setEnabled(false);
+
 }
 
 MainWindow::~MainWindow()
