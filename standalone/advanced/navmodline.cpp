@@ -57,7 +57,14 @@ void NavModline::slotConnectElements()
 
             QString spinName = spinbox->objectName();
 
-            if((!spinName.contains("raw")) &&
+            if(spinName.contains("initvalue"))  //initvalue only exists in hosted mode
+            {
+                if(mode == "hosted")
+                {
+                    connect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+                }
+            }
+            else if((!spinName.contains("raw")) &&
                     (!spinName.contains("result")) &&
                     (!spinName.contains("outputValue"))) //these parameters should not be saved in presets
             {
@@ -77,7 +84,19 @@ void NavModline::slotConnectElements()
         else if(widget->metaObject()->className() == QString("QComboBox"))
         {
             QComboBox* combobox = qobject_cast<QComboBox *>(widget);
-            connect(combobox, SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+            QString comboName = combobox->objectName();
+
+            if(comboName == "initmode") //initmode only exists in hosted mode
+            {
+                if(mode == "hosted")
+                {
+                    connect(combobox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+                }
+            }
+            else
+            {
+                connect(combobox, SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+            }
         }
         else if(widget->metaObject()->className() == QString("QLineEdit"))
         {
@@ -115,7 +134,14 @@ void NavModline::slotDisconnectElements()
 
             QString spinName = spinbox->objectName();
 
-            if((!spinName.contains("raw")) &&
+            if(spinName.contains("initvalue")) //initvalue only exists in hosted mode
+            {
+                if(mode == "hosted")
+                {
+                    disconnect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+                }
+            }
+            else if((!spinName.contains("raw")) &&
                     (!spinName.contains("result")) &&
                     (!spinName.contains("outputValue"))) //these parameters should not be saved in presets
             {
@@ -135,7 +161,19 @@ void NavModline::slotDisconnectElements()
         else if(widget->metaObject()->className() == QString("QComboBox"))
         {
             QComboBox* combobox = qobject_cast<QComboBox *>(widget);
-            disconnect(combobox, SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+            QString comboName = combobox->objectName();
+
+            if(comboName == "initvalue") //initvalue only exists in hosted mode
+            {
+                if(mode == "hosted")
+                {
+                    disconnect(combobox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+                }
+            }
+            else
+            {
+                disconnect(combobox, SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+            }
         }
         else if(widget->metaObject()->className() == QString("QLineEdit"))
         {

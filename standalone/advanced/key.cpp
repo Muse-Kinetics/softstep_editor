@@ -102,9 +102,12 @@ void Key::slotConnectElements()
     connect(keyWindowForm->keyname,SIGNAL(textEdited(QString)),keyBoxForm->keyName, SLOT(setText(QString)));
 
     //key counter stuff
-    connect(keyWindowForm->counterMin,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(keyWindowForm->counterMax,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(keyWindowForm->counterWrap,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+    if(mode == "hosted")
+    {
+        connect(keyWindowForm->counterMin,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+        connect(keyWindowForm->counterMax,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+        connect(keyWindowForm->counterWrap,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+    }
 
     //display stuff
     connect(keyWindowForm->displayprefix,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
@@ -149,9 +152,12 @@ void Key::slotDisconnectElements()
     disconnect(keyBoxForm->keyName,SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
 
     //key counter stuff
-    disconnect(keyWindowForm->counterMin,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(keyWindowForm->counterMax,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(keyWindowForm->counterWrap,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+    if(mode == "hosted")
+    {
+        disconnect(keyWindowForm->counterMin,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+        disconnect(keyWindowForm->counterMax,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+        disconnect(keyWindowForm->counterWrap,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
+    }
 
     //display stuff
     disconnect(keyWindowForm->displayprefix,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
@@ -290,9 +296,12 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
     //Change UI Elements
     keyBoxForm->keyName->setText(preset.value(QString("%1_key_name").arg(keyInstance+1)).toString());
 
-    keyWindowForm->counterMin->setValue(preset.value(QString("%1_key_counter_min").arg(keyInstance+1)).toInt());
-    keyWindowForm->counterMax->setValue(preset.value(QString("%1_key_counter_max").arg(keyInstance+1)).toInt());
-    keyWindowForm->counterWrap->setChecked(preset.value(QString("%1_key_counter_wrap").arg(keyInstance+1)).toBool());
+    if(mode == "hosted")
+    {
+        keyWindowForm->counterMin->setValue(preset.value(QString("%1_key_counter_min").arg(keyInstance+1)).toInt());
+        keyWindowForm->counterMax->setValue(preset.value(QString("%1_key_counter_max").arg(keyInstance+1)).toInt());
+        keyWindowForm->counterWrap->setChecked(preset.value(QString("%1_key_counter_wrap").arg(keyInstance+1)).toBool());
+    }
 
     keyWindowForm->displayprefix->setText(preset.value(QString("%1_key_prefix").arg(keyInstance+1)).toString());
     keyWindowForm->keyname->setText(preset.value(QString("%1_key_name").arg(keyInstance+1)).toString());
@@ -464,6 +473,19 @@ void Key::slotAddSubtractModlines()
 void Key::slotSetMode(QString m)
 {
     mode = m;
+
+    if(mode == "hosted")
+    {
+        keyWindowForm->counterMax->setEnabled(true);
+        keyWindowForm->counterMin->setEnabled(true);
+        keyWindowForm->counterWrap->setEnabled(true);
+    }
+    else
+    {
+        keyWindowForm->counterMax->setEnabled(false);
+        keyWindowForm->counterMin->setEnabled(false);
+        keyWindowForm->counterWrap->setEnabled(false);
+    }
 }
 
 void Key::slotSetDataCookerSettings()

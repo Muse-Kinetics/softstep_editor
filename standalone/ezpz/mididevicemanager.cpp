@@ -28,9 +28,9 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
 void MidiDeviceManager::slotStandaloneOn()
 {
     //Post VK2A
-    /*
     sysexFIFOClock->stop();
     sysexFIFOsQueue.clear();
+    /*
     sysexFIFOsQueue.append(_fw_tether_off);
     sysexFIFOsQueue.append(_fw_standalone_on);
     sysexFIFOsQueue.append(_fw_scenechange_on_persist);

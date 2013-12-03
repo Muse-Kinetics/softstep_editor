@@ -79,9 +79,12 @@ void NavKey::slotConnectElements()
     connect(navKeyWindowForm->navpadmode_programchange, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
 
     //counter stuff
-    connect(navKeyWindowForm->counterMin, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-    connect(navKeyWindowForm->counterMax, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-    connect(navKeyWindowForm->counterWrap, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+    if(mode == "hosted")
+    {
+        connect(navKeyWindowForm->counterMin, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+        connect(navKeyWindowForm->counterMax, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+        connect(navKeyWindowForm->counterWrap, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+    }
 
     //display stuff
     connect(navKeyWindowForm->displayprefix,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
@@ -114,9 +117,12 @@ void NavKey::slotDisconnectElements()
     disconnect(navKeyWindowForm->navpadmode_programchange, SIGNAL(clicked()),this,SLOT(slotValueChanged()));
 
     //counter stuff
-    disconnect(navKeyWindowForm->counterMin, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-    disconnect(navKeyWindowForm->counterMax, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-    disconnect(navKeyWindowForm->counterWrap, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+    if(mode == "hosted")
+    {
+        disconnect(navKeyWindowForm->counterMin, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+        disconnect(navKeyWindowForm->counterMax, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+        disconnect(navKeyWindowForm->counterWrap, SIGNAL(clicked()), this, SLOT(slotValueChanged()));
+    }
 
     //display stuff
     disconnect(navKeyWindowForm->displayprefix,SIGNAL(textChanged(QString)),this,SLOT(slotValueChanged()));
@@ -260,9 +266,12 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
     }
 
     //counter stuff
-    navKeyWindowForm->counterMin->setValue(preset.value(QString("nav_counter_min")).toInt());
-    navKeyWindowForm->counterMax->setValue(preset.value(QString("nav_counter_max")).toInt());
-    navKeyWindowForm->counterWrap->setChecked(preset.value(QString("nav_counter_wrap")).toInt());
+    if(mode == "hosted")
+    {
+        navKeyWindowForm->counterMin->setValue(preset.value(QString("nav_counter_min")).toInt());
+        navKeyWindowForm->counterMax->setValue(preset.value(QString("nav_counter_max")).toInt());
+        navKeyWindowForm->counterWrap->setChecked(preset.value(QString("nav_counter_wrap")).toInt());
+    }
 
     //display stuff
     navKeyWindowForm->displayprefix->setText(preset.value(QString("nav_prefix")).toString());
@@ -429,6 +438,19 @@ void NavKey::slotAddSubtractModlines()
 void NavKey::slotSetMode(QString m)
 {
     mode = m;
+
+    if(mode == "hosted")
+    {
+        navKeyWindowForm->counterMax->setEnabled(true);
+        navKeyWindowForm->counterMin->setEnabled(true);
+        navKeyWindowForm->counterWrap->setEnabled(true);
+    }
+    else
+    {
+        navKeyWindowForm->counterMax->setEnabled(false);
+        navKeyWindowForm->counterMin->setEnabled(false);
+        navKeyWindowForm->counterWrap->setEnabled(false);
+    }
 }
 
 void NavKey::slotSetDataCookerSettings()

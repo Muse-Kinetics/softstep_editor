@@ -76,11 +76,19 @@ void Modline::slotConnectElements()
     //enable checkbox
     connect(modlineForm->enable,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
 
-    //init mode
-    connect(modlineForm->initmode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
-    //init value
-    connect(modlineForm->initvalue,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    //hosted only parameters
+    if(mode == "hosted")
+    {
+        //init mode
+        connect(modlineForm->initmode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+
+        //init value
+        connect(modlineForm->initvalue,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+
+        //delay
+        connect(modlineForm->delay,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    }
 
     //source
     connect(modlineForm->source,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
@@ -102,9 +110,6 @@ void Modline::slotConnectElements()
 
     //slew
     connect(modlineForm->slew,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-
-    //delay
-    connect(modlineForm->delay,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
 
     //parameter destination menu
     connect(modlineForm->destination,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
@@ -170,11 +175,18 @@ void Modline::slotDisconnectElements()
     //enable checkbox
     disconnect(modlineForm->enable,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
 
-    //init mode
-    disconnect(modlineForm->initmode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+    //hosted only parameters
+    if(mode == "hosted")
+    {
+        //init mode
+        disconnect(modlineForm->initmode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
-    //init value
-    disconnect(modlineForm->initvalue,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+        //init value
+        disconnect(modlineForm->initvalue,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+
+        //delay
+        disconnect(modlineForm->delay,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    }
 
     //source
     disconnect(modlineForm->source,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
@@ -196,9 +208,6 @@ void Modline::slotDisconnectElements()
 
     //slew
     disconnect(modlineForm->slew,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-
-    //delay
-    disconnect(modlineForm->delay,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
 
     //parameter destination menu
     disconnect(modlineForm->destination,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
@@ -506,8 +515,12 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     //basic modline parameters
     modlineForm->enable->setChecked(preset.value(QString("key%1_modline%2_enable").arg(keyInstance+1).arg(modlineInstance+1)).toBool());
-    modlineForm->initvalue->setValue(preset.value(QString("key%1_modline%2_initvalue").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->initmode->setCurrentIndex(modlineForm->initmode->findText(preset.value(QString("key%1_modline%2_initmode").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    if(mode == "hosted")  //hosted only parameters
+    {
+        modlineForm->initvalue->setValue(preset.value(QString("key%1_modline%2_initvalue").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+        modlineForm->initmode->setCurrentIndex(modlineForm->initmode->findText(preset.value(QString("key%1_modline%2_initmode").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+        modlineForm->delay->setValue(preset.value(QString("key%1_modline%2_delay").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    }
     modlineForm->source->setCurrentIndex(modlineForm->source->findText(preset.value(QString("key%1_modline%2_source").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
     modlineForm->gain->setValue(preset.value(QString("key%1_modline%2_gain").arg(keyInstance+1).arg(modlineInstance+1)).toDouble());
     modlineForm->offset->setValue(preset.value(QString("key%1_modline%2_offset").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
@@ -515,7 +528,6 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modlineForm->min->setValue(preset.value(QString("key%1_modline%2_min").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm->max->setValue(preset.value(QString("key%1_modline%2_max").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm->slew->setValue(preset.value(QString("key%1_modline%2_slew").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->delay->setValue(preset.value(QString("key%1_modline%2_delay").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm->destination->setCurrentIndex(modlineForm->destination->findText(preset.value(QString("key%1_modline%2_destination").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
 
     //LED parameters
@@ -617,6 +629,19 @@ void Modline::slotRawResult()
 void Modline::slotSetMode(QString m)
 {
     mode = m;
+
+    if(mode == "hosted")
+    {
+        modlineForm->initmode->setEnabled(true);
+        modlineForm->initvalue->setEnabled(true);
+        modlineForm->delay->setEnabled(true);
+    }
+    else
+    {
+        modlineForm->initmode->setEnabled(false);
+        modlineForm->initvalue->setEnabled(false);
+        modlineForm->delay->setEnabled(false);
+    }
 }
 
 void Modline::slotPopulateMenus(QStringList source, QStringList dest, QStringList table)
