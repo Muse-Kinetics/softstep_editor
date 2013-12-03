@@ -178,6 +178,19 @@ public slots:
     void slotStateRecallYIncDec(int);
     void slotStateRecallXIncDec(int);
 
+    //------------------------------------------------------ Settings
+    void slotSetOnThresh(int key, int threshold);
+    void slotSetOffThresh(int key, int threshold);
+    void slotSetYDeadZone(int key, int deadZone);
+    void slotSetXDeadZone(int key, int deadZone);
+    void slotSetYAccel(int key, int accel);
+    void slotSetXAccel(int key, int accel);
+
+    void slotSetGlobalGain(float val);
+    void slotSetSensorResponse(int response);
+    void slotSetKeySafetyMode(int mode);
+
+
 
 };
 

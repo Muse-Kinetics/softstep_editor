@@ -52,6 +52,38 @@ public:
 signals:
     void signalStoreValue(QString name, QVariant value);
     void signalRecallSettings(QVariantMap preset, QVariantMap settings);
+
+    //---- Globals
+    void signalSetGlobalGain(float gain);
+    void signalSetSensorResponse(int response);
+    void signalSetKeySafetyMode(int mode);
+
+    void signalSetSceneChanging(bool onOff); //Nav
+    void signalSetBacklight(bool onOff);
+
+    //---- Keys
+    void signalSetKeyOnThresh(int key, int onThresh);
+    void signalSetKeyOffThresh(int key, int offThresh);
+    void signalSetKeyYDeadZone(int key, int deadZone);
+    void signalSetKeyXDeadZone(int key, int deadZone);
+    void signalSetKeyYAccel(int key, int accel);
+    void signalSetKeyXAccel(int key, int accel);
+
+    //---- Nav Pad
+    void signalSetNavNorthOnThresh(int threshold);
+    void signalSetNavNorthOffThresh(int threshold);
+
+    void signalSetNavSouthOnThresh(int threshold);
+    void signalSetNavSouthOffThres(int threshold);
+
+    void signalSetNavEastOnThresh(int threshold);
+    void signalSetNavEastOffThresh(int threshold);
+
+    void signalSetNavWestOnThresh(int threshold);
+    void signalSetNavWestOffThresh(int threshold);
+
+    void signalSetNavYIncAccel(int accel);
+
     
 public slots:
     void slotOpenSettings();
@@ -75,6 +107,9 @@ public slots:
     void slotWriteDefaultSettings();
     void slotStoreSettings(QString name, QVariant value);
     void slotConstructSettingsDefaultMap();
+
+    void slotEmitAllSettings();
+
 
 private:
     Ui::settingsForm *settingsForm;

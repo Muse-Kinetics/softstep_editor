@@ -20,51 +20,25 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     sysexFIFOClock = new QTimer();
     connect(sysexFIFOClock, SIGNAL(timeout()), this, SLOT(slotDrainSysexFIFO()));
 
-    //Load Firmware File into a byte array
-    firmware = new QFile(":firmware/resources/firmware/QuNexus_Firmware.syx");
-    firmware->open(QIODevice::ReadOnly);
-    firmwareByteArray = firmware->readAll();
-
-    //------------------------------------- Set Version Expectations & Initialize Found Strings
-    bootloaderVersion[0] = 0x01;
-    bootloaderVersion[1] = 0x00;
-    bootloaderVersion[2] = 0x00;
-
-    firmwareVersion[0] = 0x01;
-    firmwareVersion[1] = 0x00;
-    firmwareVersion[2] = 0x01;
-
-    versionSum = 0;
-
-    foundBootloaderVersion = QString("Found Bootloader Version: Not Connected\n");
-
-    foundFirmwwareVersion = QString("Found Firmware Version: Not Connected\n");
-
-    expectedBootloaderVersion = QString("Expected Bootloader Version: %1.%2.%3\n")
-            .arg(int(bootloaderVersion[0]))
-            .arg(int(bootloaderVersion[1]))
-            .arg(int(bootloaderVersion[2]));
-
-    expectedFirmwareVersion = QString("Expected Firmware Version: %1.%2.%3\n")
-            .arg(int(firmwareVersion[0]))
-            .arg(int(firmwareVersion[1]))
-            .arg(int(firmwareVersion[2]));
-
     callbackClassPointer = this;
 
     createAppMidiClient();
-
 }
 
 void MidiDeviceManager::slotStandaloneOn()
 {
+    //Post VK2A
+    /*
     sysexFIFOClock->stop();
     sysexFIFOsQueue.clear();
     sysexFIFOsQueue.append(_fw_tether_off);
     sysexFIFOsQueue.append(_fw_standalone_on);
     sysexFIFOsQueue.append(_fw_scenechange_on_persist);
     sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
-    //sysexFIFOsQueue.append(_fw_nav_tether_off);
+    */
+
+    //VK2A
+    sysexFIFOsQueue.append(_fw_nav_tether_off);
     sysexFIFOClock->start(100);
 }
 
@@ -148,46 +122,17 @@ int MidiDeviceManager::getDestination()
 
 void MidiDeviceManager::slotRequestFirmwareUpdate()
 {
-
-    fwUpdateRequested = true;
-
-    if(inBootloader)
-    {
-        qDebug() << "Update Firmware Called from slot requested";
-        slotUpdateFirmware();
-    }
-    else
-    {
-        char sens[17] = { 0xF0 , 0x00 , 0x01 , 0x5F , 0x7A , 0x19 , 0x00 , 0x01 , 0x00 , 0x02 , 0x50 , 0x01 , 0x74 , 0x3E , 0x00 , 0x10 , 0xF7};
-        QByteArray sensitivitiesBA = QByteArray(sens, 17);
-
-        qDebug() << "enter bootloader called from firmware request" << "zero" << (int)firmwareVersion[0] << "two" << (int)firmwareVersion[2];
-
-        if(versionSum >= 101)
-        {
-            //slotSendSysEx("RequestPerKeySensitivities", sensitivitiesBA, "QuNexus Port 1");
-        }
-        else
-        {
-            slotEnterBootloader();
-        }
-    }
+    //No bootloader for softstep -- QuNexus legacy
 }
 
 void MidiDeviceManager::slotEnterBootloader()
 {
-    //-------------- Enter Bootloader ---------------//
-    char bytes[] = {0xF0, 0x00, 0x01, 0x5F, 0x7A, 0x19, 0x00, 0x01,  0x00, 0x02, 0x11, 0x00, 0x5A, 0x62, 0x00, 0x30, 0xF7};
-    QByteArray byteArray(bytes, 17);
-
-    //slotSendSysEx("Enter Bootloader" , byteArray, "QuNexus Port 1");
+    //No bootloader for softstep -- QuNexus legacy
 }
 
 void MidiDeviceManager::slotUpdateFirmware()
 {
-    qDebug() << "Send the firmware!" << firmwareByteArray;
-    emit signalProgressDialog("setup", firmwareByteArray.size());
-    //slotSendSysEx(firmwareByteArray, "QuNexus Port 1");
+    //Not used -- handled in sysex composer
 }
 
 

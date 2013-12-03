@@ -405,7 +405,10 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
             radiobutton->setChecked(preset.value(objectName).toBool());
         }
     }
+
     slotConnectElements();
+
+    slotEmitSettings();
 }
 
 void Settings::slotRecallSettings()
@@ -756,4 +759,83 @@ void Settings::slotConstructSettingsDefaultMap()
     defaultGlobalMap["osc_ip_4"] = 0;
     defaultGlobalMap["osc_out_port"] = 0;
     defaultGlobalMap["osc_in_port"] = 0;
+}
+
+void Settings::slotEmitAllSettings()
+{
+
+    //Cannot escape brute force.
+
+    //Keys
+    emit signalSetKeyOnThresh(0, settingsForm->key1_settings_onthresh->value());
+    emit signalSetKeyOffThresh(0, settingsForm->key1_settings_offthresh->value());
+    emit signalSetKeyYDeadZone(0, settingsForm->key1_settings_ydead->value());
+    emit signalSetKeyXDeadZone(0, settingsForm->key1_settings_xdead->value());
+    emit signalSetKeyYAccel(0, settingsForm->key1_settings_yaccel->value());
+    emit signalSetKeyXAccel(0, settingsForm->key1_settings_xaccel->value());
+
+    emit signalSetKeyOnThresh(1, settingsForm->key2_settings_onthresh->value());
+    emit signalSetKeyOffThresh(1, settingsForm->key2_settings_offthresh->value());
+    emit signalSetKeyYDeadZone(1, settingsForm->key2_settings_ydead->value());
+    emit signalSetKeyXDeadZone(1, settingsForm->key2_settings_xdead->value());
+    emit signalSetKeyYAccel(1, settingsForm->key2_settings_yaccel->value());
+    emit signalSetKeyXAccel(1, settingsForm->key2_settings_xaccel->value());
+
+    emit signalSetKeyOnThresh(2, settingsForm->key3_settings_onthresh->value());
+    emit signalSetKeyOffThresh(2, settingsForm->key3_settings_offthresh->value());
+    emit signalSetKeyYDeadZone(2, settingsForm->key3_settings_ydead->value());
+    emit signalSetKeyXDeadZone(2, settingsForm->key3_settings_xdead->value());
+    emit signalSetKeyYAccel(2, settingsForm->key3_settings_yaccel->value());
+    emit signalSetKeyXAccel(2, settingsForm->key3_settings_xaccel->value());
+
+    emit signalSetKeyOnThresh(3, settingsForm->key4_settings_onthresh->value());
+    emit signalSetKeyOffThresh(3, settingsForm->key4_settings_offthresh->value());
+    emit signalSetKeyYDeadZone(3, settingsForm->key4_settings_ydead->value());
+    emit signalSetKeyXDeadZone(3, settingsForm->key4_settings_xdead->value());
+    emit signalSetKeyYAccel(3, settingsForm->key4_settings_yaccel->value());
+    emit signalSetKeyXAccel(3, settingsForm->key4_settings_xaccel->value());
+
+    emit signalSetKeyOnThresh(4, settingsForm->key5_settings_onthresh->value());
+    emit signalSetKeyOffThresh(4, settingsForm->key5_settings_offthresh->value());
+    emit signalSetKeyYDeadZone(4, settingsForm->key5_settings_ydead->value());
+    emit signalSetKeyXDeadZone(4, settingsForm->key5_settings_xdead->value());
+    emit signalSetKeyYAccel(4, settingsForm->key5_settings_yaccel->value());
+    emit signalSetKeyXAccel(4, settingsForm->key5_settings_xaccel->value());
+
+    emit signalSetKeyOnThresh(5, settingsForm->key6_settings_onthresh->value());
+    emit signalSetKeyOffThresh(5, settingsForm->key6_settings_offthresh->value());
+    emit signalSetKeyYDeadZone(5, settingsForm->key6_settings_ydead->value());
+    emit signalSetKeyXDeadZone(5, settingsForm->key6_settings_xdead->value());
+    emit signalSetKeyYAccel(5, settingsForm->key6_settings_yaccel->value());
+    emit signalSetKeyXAccel(5, settingsForm->key6_settings_xaccel->value());
+
+    emit signalSetKeyOnThresh(6, settingsForm->key7_settings_onthresh->value());
+    emit signalSetKeyOffThresh(6, settingsForm->key7_settings_offthresh->value());
+    emit signalSetKeyYDeadZone(6, settingsForm->key7_settings_ydead->value());
+    emit signalSetKeyXDeadZone(6, settingsForm->key7_settings_xdead->value());
+    emit signalSetKeyYAccel(6, settingsForm->key7_settings_yaccel->value());
+    emit signalSetKeyXAccel(6, settingsForm->key7_settings_xaccel->value());
+
+    emit signalSetKeyOnThresh(7, settingsForm->key8_settings_onthresh->value());
+    emit signalSetKeyOffThresh(7, settingsForm->key8_settings_offthresh->value());
+    emit signalSetKeyYDeadZone(7, settingsForm->key8_settings_ydead->value());
+    emit signalSetKeyXDeadZone(7, settingsForm->key8_settings_xdead->value());
+    emit signalSetKeyYAccel(7, settingsForm->key8_settings_yaccel->value());
+    emit signalSetKeyXAccel(7, settingsForm->key8_settings_xaccel->value());
+
+    emit signalSetKeyOnThresh(8, settingsForm->key9_settings_onthresh->value());
+    emit signalSetKeyOffThresh(8, settingsForm->key9_settings_offthresh->value());
+    emit signalSetKeyYDeadZone(8, settingsForm->key9_settings_ydead->value());
+    emit signalSetKeyXDeadZone(8, settingsForm->key9_settings_xdead->value());
+    emit signalSetKeyYAccel(8, settingsForm->key9_settings_yaccel->value());
+    emit signalSetKeyXAccel(8, settingsForm->key9_settings_xaccel->value());
+
+    emit signalSetKeyOnThresh(9, settingsForm->key10_settings_onthresh->value());
+    emit signalSetKeyOffThresh(9, settingsForm->key10_settings_offthresh->value());
+    emit signalSetKeyYDeadZone(9, settingsForm->key10_settings_ydead->value());
+    emit signalSetKeyXDeadZone(9, settingsForm->key10_settings_xdead->value());
+    emit signalSetKeyYAccel(9, settingsForm->key10_settings_yaccel->value());
+    emit signalSetKeyXAccel(9, settingsForm->key10_settings_xaccel->value());
+
+    //Nav Pad
 }

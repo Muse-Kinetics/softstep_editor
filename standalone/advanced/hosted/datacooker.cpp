@@ -873,14 +873,11 @@ void DataCooker::deltaTrig()
     {
         trigger.deltaTrigger();
     }
-
 }
 
 //-------------------------------------------------------------------- Trig Latch
 void DataCooker::fastTrigLatch()
 {
-
-
     //If foot is on and state is false, flip state on - this represents a trigger scenario
     if(footOnOff && !fastTrigLatchState)
     {
@@ -1122,6 +1119,50 @@ void DataCooker::slotStateRecallYIncDec(int val)
     yIncCount = val;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////// Settings ///////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+void DataCooker::slotSetOnThresh(int key, int threshold)
+{
+    onThresh = threshold;
+}
 
+void DataCooker::slotSetOffThresh(int key, int threshold)
+{
+    offThresh = threshold;
+}
 
+void DataCooker::slotSetYDeadZone(int key, int deadZone)
+{
+    yDeadZone = deadZone;
+}
 
+void DataCooker::slotSetXDeadZone(int key, int deadZone)
+{
+    xDeadZone = deadZone;
+}
+
+void DataCooker::slotSetYAccel(int key, int accel)
+{
+    yAccel = accel;
+}
+
+void DataCooker::slotSetXAccel(int key, int accel)
+{
+    xAccel = accel;
+}
+
+void DataCooker::slotSetGlobalGain(float val)
+{
+    globalGain = val;
+}
+
+void DataCooker::slotSetSensorResponse(int response)
+{
+    sensorResponse = response;
+}
+
+void DataCooker::slotSetKeySafetyMode(int mode)
+{
+    keySafetyMode = mode;
+}

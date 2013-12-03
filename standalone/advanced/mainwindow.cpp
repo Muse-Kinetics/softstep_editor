@@ -401,8 +401,24 @@ void MainWindow::slotConnectInterfaces()
         connect(navKey->navModline[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
     }
 
-    //Settings
+    //------------------------------------------------------------------------------------ Settings
     connect(ui->opensettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));
+
+    //Keys
+    for(int i = 0; i < 10; i++)
+    {
+        //Globals
+        connect(settingsWindow, SIGNAL(signalSetGlobalGain(float)), &key[i]->dataCooker, SLOT(slotSetGlobalGain(float)));
+        connect(settingsWindow, SIGNAL(signalSetSensorResponse(int)), &key[i]->dataCooker, SLOT(slotSetSensorResponse(int)));
+        connect(settingsWindow, SIGNAL(signalSetKeySafetyMode(int)), &key[i]->dataCooker, SLOT(slotSetKeySafetyMode(int)));
+
+        connect(settingsWindow, SIGNAL(signalSetKeyOnThresh(int,int)), &key[i]->dataCooker, SLOT(slotSetOnThresh(int,int)));
+        connect(settingsWindow, SIGNAL(signalSetKeyOffThresh(int,int)), &key[i]->dataCooker, SLOT(slotSetOffThresh(int,int)));
+        connect(settingsWindow, SIGNAL(signalSetKeyXAccel(int,int)), &key[i]->dataCooker, SLOT(slotSetXAccel(int,int)));
+        connect(settingsWindow, SIGNAL(signalSetKeyXDeadZone(int,int)), &key[i]->dataCooker, SLOT(slotSetXDeadZone(int,int)));
+        connect(settingsWindow, SIGNAL(signalSetKeyYAccel(int,int)), &key[i]->dataCooker, SLOT(slotSetYAccel(int,int)));
+        connect(settingsWindow, SIGNAL(signalSetKeyYDeadZone(int,int)), &key[i]->dataCooker, SLOT(slotSetYDeadZone(int,int)));
+    }
 
     //------------- Save, Save As, Revert, Delete
     //Save Button
