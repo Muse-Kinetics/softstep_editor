@@ -75,7 +75,6 @@ public:
     int navEFootOn();
     int navWFootOn();
 
-
     void navNTrig();
     void navNTrigFast();
     void navNTrigDbl();
@@ -154,6 +153,30 @@ public slots:
 
     //-------------------------- MIDI Input
     void slotReceiveMidiInput(int val, QString instance);
+
+    //------------------------------- Settings
+    //Global Gain
+    void slotSetGlobalGain(float);
+
+    //N
+    void slotSetOnThreshN(int);
+    void slotSetOffThreshN(int);
+
+    //S
+    void slotSetOnThreshS(int);
+    void slotSetOffThreshS(int);
+
+    //E
+    void slotSetOnThreshE(int);
+    void slotSetOffThreshE(int);
+
+    //W
+    void slotSetOnThreshW(int);
+    void slotSetOffThreshW(int);
+
+    //Y Accel
+    void slotSetYAccel(int);
+
 
 };
 

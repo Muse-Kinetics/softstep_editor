@@ -408,7 +408,10 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     slotConnectElements();
 
-    slotEmitSettings();
+    if(mode == "hosted")
+    {
+        slotEmitAllSettings();
+    }
 }
 
 void Settings::slotRecallSettings()
@@ -838,4 +841,22 @@ void Settings::slotEmitAllSettings()
     emit signalSetKeyXAccel(9, settingsForm->key10_settings_xaccel->value());
 
     //Nav Pad
+    //N
+    emit signalSetNavNorthOnThresh(settingsForm->nav_north_settings_onthresh->value());
+    emit signalSetNavNorthOffThresh(settingsForm->nav_north_settings_offthresh->value());
+
+    //S
+    emit signalSetNavSouthOnThresh(settingsForm->nav_south_settings_onthresh->value());
+    emit signalSetNavSouthOffThresh(settingsForm->nav_south_settings_offthresh->value());
+
+    //E
+    emit signalSetNavEastOnThresh(settingsForm->nav_east_settings_onthresh->value());
+    emit signalSetNavEastOffThresh(settingsForm->nav_east_settings_offthresh->value());
+
+    //W
+    emit signalSetNavSouthOnThresh(settingsForm->nav_west_settings_onthresh->value());
+    emit signalSetNavSouthOffThresh(settingsForm->nav_west_settings_offthresh->value());
+
+    //Y Accel
+    emit signalSetNavYIncAccel(settingsForm->nav_settings_yaccel->value());
 }

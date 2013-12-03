@@ -790,3 +790,54 @@ void NavDataCooker::slotReceiveMidiInput(int val, QString instance)
         }
     }
 }
+
+//----------------------------------------------------------------------------------- Settings
+void NavDataCooker::slotSetGlobalGain(float gain)
+{
+    globalGain = gain;
+}
+
+void NavDataCooker::slotSetOnThreshN(int threshold)
+{
+    onThreshN = threshold;
+}
+
+void NavDataCooker::slotSetOffThreshN(int threshold)
+{
+    offThreshN = threshold;
+}
+
+void NavDataCooker::slotSetOnThreshS(int threshold)
+{
+    onThreshS = threshold;
+}
+
+void NavDataCooker::slotSetOffThreshS(int threshold)
+{
+    offThreshS = threshold;
+}
+
+void NavDataCooker::slotSetOnThreshE(int threshold)
+{
+    onThreshE = threshold;
+}
+
+void NavDataCooker::slotSetOffThreshE(int threshold)
+{
+    offThreshE = threshold;
+}
+
+void NavDataCooker::slotSetOnThreshW(int threshold)
+{
+    onThreshW = threshold;
+}
+
+void NavDataCooker::slotSetOffThreshW(int threshold)
+{
+    offThreshW = threshold;
+}
+
+void NavDataCooker::slotSetYAccel(int accel)
+{
+    yAccel = accel;
+}

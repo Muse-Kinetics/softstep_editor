@@ -48,6 +48,8 @@ public:
     //bool eventFilter(QObject *obj, QEvent *event);
 
     Pedal* pedal;
+
+    QString mode;
     
 signals:
     void signalStoreValue(QString name, QVariant value);
@@ -74,7 +76,7 @@ signals:
     void signalSetNavNorthOffThresh(int threshold);
 
     void signalSetNavSouthOnThresh(int threshold);
-    void signalSetNavSouthOffThres(int threshold);
+    void signalSetNavSouthOffThresh(int threshold);
 
     void signalSetNavEastOnThresh(int threshold);
     void signalSetNavEastOffThresh(int threshold);

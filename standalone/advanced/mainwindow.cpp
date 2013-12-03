@@ -420,7 +420,26 @@ void MainWindow::slotConnectInterfaces()
         connect(settingsWindow, SIGNAL(signalSetKeyYDeadZone(int,int)), &key[i]->dataCooker, SLOT(slotSetYDeadZone(int,int)));
     }
 
-    //------------- Save, Save As, Revert, Delete
+    //Nav
+    connect(settingsWindow, SIGNAL(signalSetGlobalGain(float)), &navKey->dataCooker, SLOT(slotSetGlobalGain(float)));
+    //N
+    connect(settingsWindow, SIGNAL(signalSetNavNorthOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshN(int)));
+    connect(settingsWindow, SIGNAL(signalSetNavNorthOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshN(int)));
+
+    //S
+    connect(settingsWindow, SIGNAL(signalSetNavSouthOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshS(int)));
+    connect(settingsWindow, SIGNAL(signalSetNavSouthOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshS(int)));
+
+    //E
+    connect(settingsWindow, SIGNAL(signalSetNavEastOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshE(int)));
+    connect(settingsWindow, SIGNAL(signalSetNavEastOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshE(int)));
+
+    //W
+    connect(settingsWindow, SIGNAL(signalSetNavWestOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshW(int)));
+    connect(settingsWindow, SIGNAL(signalSetNavWestOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshW(int)));
+
+
+    //----------------------------------------------------------------------------------- Save, Save As, Revert, Delete
     //Save Button
     connect(ui->save, SIGNAL(clicked()), presetInterface, SLOT(slotSavePreset()));
     connect(ui->revert, SIGNAL(clicked()), presetInterface, SLOT(slotRevertPreset()));
@@ -641,6 +660,9 @@ void MainWindow::slotSetMode()
     }
 
     //----------------- Set child modes
+
+    //Settings
+    settingsWindow->mode = mode;
 
     //Keys and Modlines
     for(int i = 0; i < 10; i++)
