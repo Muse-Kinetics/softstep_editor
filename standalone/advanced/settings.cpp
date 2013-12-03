@@ -8,6 +8,10 @@
 Settings::Settings(QWidget *parent) :
     QWidget(parent),settingsForm(new Ui::settingsForm)
 {
+    saveSettingsTimeout = new QTimer(this);
+    connect(saveSettingsTimeout, SIGNAL(timeout()), this, SLOT(slotSaveSettingsTimeout()));
+    saveSettiingsTimeoutTime = 0;
+
     //set up settings window
     settingsWidget = new QWidget(this);
     settingsWidget->hide();
@@ -60,7 +64,7 @@ Settings::Settings(QWidget *parent) :
         }
     }
 
-    //slotConnectElements();
+    slotConnectElements();
 
     //set which stacked widget to initiallize in and connect the buttons to the view selector--I chose the global page for now
     settingsForm->settingsViews->setCurrentIndex(0);
@@ -70,7 +74,22 @@ Settings::Settings(QWidget *parent) :
     connect(settingsForm->settingspedalbutton,SIGNAL(clicked()),this,SLOT(slotViewSelector()));
 
     //slotWriteDefaultSettings();
-    //slotRecallSettings();
+    slotRecallSettings();
+}
+
+void Settings::slotSetMode(QString m)
+{
+    mode = m;
+
+    if(mode == "hosted")
+    {
+        //Scene change button
+        settingsForm->scenechange_enable->setEnabled(false);
+    }
+    else
+    {
+        settingsForm->scenechange_enable->setEnabled(true);
+    }
 }
 
 void Settings::slotOpenSettings()
@@ -269,10 +288,22 @@ void Settings::slotDisconnectElements()
             disconnect(&midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), settingsForm->midih_settings_inputvalue, SLOT(setValue(int)));
         }
     }
+
+    disconnect(this, SIGNAL(signalRecallSettings(QVariantMap,QVariantMap)),this,SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
+    disconnect(this, SIGNAL(signalStoreValue(QString,QVariant)), this, SLOT(slotStoreSettings(QString,QVariant)));
 }
 
 void Settings::slotValueChanged()
 {
+    //If timer is inactive, start it
+    if(!saveSettingsTimeout->isActive())
+    {
+        saveSettingsTimeout->start(1);
+        qDebug() << "------------ start timer";
+    }
+
+    saveSettiingsTimeoutTime = 0;
+
     //emit values to the preset file here
     if(QObject::sender())
     {
@@ -334,12 +365,11 @@ void Settings::slotValueChanged()
             jsonName = radiobutton->objectName();
             value = radiobutton->isChecked();
         }
+
         emit signalStoreValue(jsonName,value);
     }
 
     //qDebug() << "value changed" << QObject::sender()->objectName();
-
-    slotSetMidiInputLineParams();
 }
 
 void Settings::slotStoreSettings(QString name, QVariant value)
@@ -349,12 +379,13 @@ void Settings::slotStoreSettings(QString name, QVariant value)
     settings.insert(QString("Global"), globalMap);
 
     //qDebug() << "update the settings preset";
-    slotWriteSettings();
+
 }
 
 void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
     slotDisconnectElements();
+
     foreach(QWidget* widget, settingsWidget->findChildren<QWidget *>())
     {
         //Check object type here
@@ -408,17 +439,14 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     slotConnectElements();
 
-    if(mode == "hosted")
-    {
-        slotEmitAllSettings();
-    }
+    slotEmitAllSettings();
 }
 
 void Settings::slotRecallSettings()
 {
-    emit signalRecallSettings(settings.value(QString("Global")).toMap(),settings);
+    //Called in constructor
 
-    //qDebug() << "Recall Settings" << settings;
+    emit signalRecallSettings(settings.value(QString("Global")).toMap(),settings);
 }
 
 void Settings::slotViewSelector()
@@ -450,8 +478,6 @@ void Settings::slotViewSelector()
 void Settings::slotPopulateInputMenus(QMap<QString, MIDIEndpointRef> midiSources)
 {
     qDebug() << "slot populate input menus" << midiSources.keys();
-
-
 
     //Iterate through menus
     for(int m = 0;  m < midiInputDeviceMenus.size(); m++)
@@ -767,7 +793,11 @@ void Settings::slotConstructSettingsDefaultMap()
 void Settings::slotEmitAllSettings()
 {
 
+    qDebug() << "settings emitting?";
+
     //Cannot escape brute force.
+
+    emit signalSetGlobalGain((double)(settingsForm->global_gain_slider->value()) * 0.01);
 
     //Keys
     emit signalSetKeyOnThresh(0, settingsForm->key1_settings_onthresh->value());
@@ -859,4 +889,31 @@ void Settings::slotEmitAllSettings()
 
     //Y Accel
     emit signalSetNavYIncAccel(settingsForm->nav_settings_yaccel->value());
+}
+
+void Settings::slotSaveSettingsTimeout()
+{
+    saveSettiingsTimeoutTime++;
+
+    //qDebug() << "settings timeout callback" << saveSettiingsTimeoutTime;
+
+    //If 0.5s have elapsed since last value was changed
+    if(saveSettiingsTimeoutTime > 500)
+    {
+        qDebug() << "settings timeout";
+
+        //Save settings
+        slotWriteSettings();
+
+        //Emit Settings
+        slotEmitAllSettings();
+
+        //Update Midi Input
+        slotSetMidiInputLineParams();
+
+        //Update OSC in future
+
+        //Stop timer
+        saveSettingsTimeout->stop();
+    }
 }

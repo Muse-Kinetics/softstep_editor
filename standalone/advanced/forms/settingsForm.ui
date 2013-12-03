@@ -468,7 +468,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
@@ -747,10 +747,10 @@ p, li { white-space: pre-wrap; }
       <number>0</number>
      </property>
      <property name="maximum">
-      <number>200</number>
+      <number>500</number>
      </property>
      <property name="value">
-      <number>100</number>
+      <number>250</number>
      </property>
      <property name="tracking">
       <bool>false</bool>
@@ -2946,9 +2946,6 @@ QLabel
       </property>
      </widget>
     </widget>
-    <zorder>keys_frame</zorder>
-    <zorder>label_2</zorder>
-    <zorder>frame</zorder>
    </widget>
    <widget class="QWidget" name="settingsinputpage">
     <widget class="QFrame" name="frame_3">

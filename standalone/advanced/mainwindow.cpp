@@ -168,23 +168,9 @@ void MainWindow::slotConnectInterfaces()
     /////////////////////////////////////////////////////////// Hosted / Standalone ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //-------------------------------------- Mode Switching
+    //-------------------------------------- Mode Switching - children handled in slotSetMode
     connect(ui->mode, SIGNAL(clicked()), this, SLOT(slotSetMode()));
-    //key modulation window modes
-    for(int k = 0; k < 10; k++)
-    {
-        connect(this, SIGNAL(signalSetMode(QString)), key[k], SLOT(slotSetMode(QString)));
-        /*for(int j = 0; j < 6; j++)
-        {
-            connect(this, SIGNAL(signalSetMode(QString)), key[k]->modline[j], SLOT(slotSetMode(QString)));
-        }*/
-    }
-    //nav pad modes
-    connect(this, SIGNAL(signalSetMode(QString)), navKey, SLOT(slotSetMode(QString)));
-    /*for(int n = 0; n < 6; n++)
-    {
-        connect(this, SIGNAL(signalSetMode(QString)), navKey->navModline[n], SLOT(slotSetMode(QString)));
-    }*/
+
 
     //-------------------------------------- Hosted MIDI
     connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)), Qt::DirectConnection);
@@ -662,7 +648,7 @@ void MainWindow::slotSetMode()
     //----------------- Set child modes
 
     //Settings
-    settingsWindow->mode = mode;
+    settingsWindow->slotSetMode(mode);
 
     //Keys and Modlines
     for(int i = 0; i < 10; i++)

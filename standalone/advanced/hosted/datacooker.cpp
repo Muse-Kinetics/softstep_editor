@@ -1155,6 +1155,7 @@ void DataCooker::slotSetXAccel(int key, int accel)
 void DataCooker::slotSetGlobalGain(float val)
 {
     globalGain = val;
+    qDebug() << "key global gain" << globalGain;
 }
 
 void DataCooker::slotSetSensorResponse(int response)

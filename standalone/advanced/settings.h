@@ -27,7 +27,8 @@ class Settings : public QWidget
 public:
     explicit Settings(QWidget *parent = 0);
 
-    //QString mode;
+    QTimer *saveSettingsTimeout;
+    int     saveSettiingsTimeoutTime;
 
     QWidget* settingsWidget;
 
@@ -88,6 +89,8 @@ signals:
 
     
 public slots:
+    void slotSetMode(QString m);
+
     void slotOpenSettings();
     //void slotInitComponents();
     void slotConnectElements();
@@ -111,6 +114,8 @@ public slots:
     void slotConstructSettingsDefaultMap();
 
     void slotEmitAllSettings();
+
+    void slotSaveSettingsTimeout();
 
 
 private:
