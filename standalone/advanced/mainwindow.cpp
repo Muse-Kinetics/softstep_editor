@@ -105,8 +105,11 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutForm->expected->setText(QString("%1 %2").arg(sysExComposer->embeddedVersion).arg(sysExComposer->embeddedbuildNum));
 
 
-    //Construct Settings Window
+    //------------------------------------ Settings Window
     settingsWindow = new Settings(this);
+
+
+    //------------------------------------ Setlist
     setlist = new Setlist(this);
 
     this->installEventFilter(this);
