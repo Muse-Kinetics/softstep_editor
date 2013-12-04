@@ -10,12 +10,32 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
+
+    saveAsDialogForm(new Ui::saveAsDialogForm),
+    saveAsDialogWidget(new QWidget(this)),
+
+    deleteDialogForm(new Ui::deleteDialogForm),
+    deleteDialogWidget(new QWidget(this)),
+
+    fwoodDialogForm(new Ui::FwoodDialog),
+    fwoodDialogWidget(new QWidget(this)),
+
+    fwProgressDialog(new Ui::FwProgressForm),
+    fwProgressDialogWidget(new QWidget(this)),
+
+    fwUpdateCompleteDialog(new Ui::FwUpdateCompleteForm),
+    fwUpdateCompleteDialogWidget(new QWidget(this)),
+
+    fwUpdateDialog(new Ui::UpdateFirmwareForm),
+    fwUpdateDialogWidget(new QWidget(this)),
+
+    aboutForm(new Ui::AboutForm),
+    aboutFormWidget(new QWidget(this)),
+
     sysExComposer(new SysExComposer(this)),
     presetInterface(new PresetInterface(this)),
     midiDeviceManager(new MidiDeviceManager(this)),
     midiParse(new MidiParse()),
-    saveAsDialogForm(new Ui::saveAsDialogForm),
-    deleteDialogForm(new Ui::deleteDialogForm),
     disableWidget(new QWidget(this))
 
 {
@@ -42,22 +62,47 @@ MainWindow::MainWindow(QWidget *parent) :
     //construct Nav Window
     navKey = new NavKey(this);
 
+    connectedVersionString = "Not Connected";
+    connectedVersionInt = -1;
+
     //------------------------------------- Dialogs
-
     //Some bizarre positioning happening here to center these.... don't get it at the moment.
-
     //SaveAs
-    saveAsDialogWidget = new QWidget(this);
     saveAsDialogWidget->hide();
-    saveAsDialogWidget->setGeometry(MAINWINDOW_WIDTH/2 - saveAsDialogWidget->width()/2, MAINWINDOW_HEIGHT/2 - saveAsDialogWidget->height(), saveAsDialogWidget->width(), saveAsDialogWidget->height());
+    saveAsDialogWidget->setGeometry(this->width()/2 - saveAsDialogWidget->width()/2, this->height()/2 - saveAsDialogWidget->height(), saveAsDialogWidget->width(), saveAsDialogWidget->height());
     //saveAsDialogWidget->setWindowFlags();
     saveAsDialogForm->setupUi(saveAsDialogWidget);
 
     //Delete
-    deleteDialogWidget = new QWidget(this);
     deleteDialogWidget->hide();
-    deleteDialogWidget->setGeometry(MAINWINDOW_WIDTH/2 - deleteDialogWidget->width(), MAINWINDOW_HEIGHT/2 - deleteDialogWidget->height(), deleteDialogWidget->width(), deleteDialogWidget->height());
+    deleteDialogWidget->setGeometry(this->width()/2 - deleteDialogWidget->width(), this->height()/2 - deleteDialogWidget->height(), deleteDialogWidget->width(), deleteDialogWidget->height());
     deleteDialogForm->setupUi(deleteDialogWidget);
+
+    //Firmware Out of Date
+    fwoodDialogWidget->hide();
+    fwoodDialogWidget->setGeometry(this->width()/2 - fwoodDialogWidget->width(), this->height()/2 - fwoodDialogWidget->height(), fwoodDialogWidget->width(), fwoodDialogWidget->height());
+    fwoodDialogForm->setupUi(fwoodDialogWidget);
+
+    //Firmware Progress Bar
+    fwProgressDialogWidget->hide();
+    fwProgressDialog->setupUi(fwProgressDialogWidget);
+    fwProgressDialogWidget->move(this->width()/2 - fwProgressDialogWidget->width()/2, this->height()/2 - fwProgressDialogWidget->height()/2);
+
+    //Firmware Update Complete Dialog
+    fwUpdateCompleteDialogWidget->hide();
+    fwUpdateCompleteDialog->setupUi(fwUpdateCompleteDialogWidget);
+    fwUpdateCompleteDialogWidget->move(this->width()/2 - fwUpdateCompleteDialogWidget->width()/2, this->height()/2 - fwUpdateCompleteDialogWidget->height()/2);
+
+    //Firmware Update Confirm Dialog
+    fwUpdateDialogWidget->hide();
+    fwUpdateDialog->setupUi(fwUpdateDialogWidget);
+    fwUpdateDialogWidget->move(this->width()/2 - fwUpdateDialogWidget->width()/2, this->height()/2 - fwUpdateDialogWidget->height()/2);
+
+    //About Window
+    aboutFormWidget->hide();
+    aboutForm->setupUi(aboutFormWidget);
+    aboutFormWidget->move(this->width()/2 - aboutFormWidget->width()/2, this->height()/2 - aboutFormWidget->height()/2);
+    aboutForm->expected->setText(QString("%1 %2").arg(sysExComposer->embeddedVersion).arg(sysExComposer->embeddedbuildNum));
 
 
     //Construct Settings Window
@@ -462,7 +507,42 @@ void MainWindow::slotConnectInterfaces()
     connect(midiDeviceManager, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
     connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString)), this, SLOT(slotReceiveVersions(int,QString, int, QString)));
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////// Dialogs /////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //Firmware Out of Date
+    connect(fwoodDialogForm->cancel, SIGNAL(clicked()), fwoodDialogWidget, SLOT(close()));
+    connect(fwoodDialogForm->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
+    connect(fwoodDialogForm->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+    //connect(fwoodDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
+
+    //Firmware Update Dialog
+    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
+    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+    connect(fwUpdateDialog->update, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
+    connect(fwUpdateDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
+    //connect(fwUpdateDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
+
+    //Firmware Progress Bar
+    connect(midiDeviceManager, SIGNAL(signalFwBytesLeft(int)), this, SLOT(slotUpdateFwProgressBar(int)));
+
+    //Firmware Update Complete Dialog
+    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), fwUpdateCompleteDialogWidget, SLOT(close()));
+    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+    //connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
+
+    //About Ok Button
+    connect(aboutForm->ok, SIGNAL(clicked()), aboutFormWidget, SLOT(close()));
+    connect(aboutForm->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+    connect(aboutForm->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////// "Downloading" ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Download
+    connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), midiDeviceManager, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
 }
 
 void MainWindow::slotInitMenuBar()
@@ -517,8 +597,10 @@ void MainWindow::slotInitMenuBar()
     //Reload Firmware
     QAction* updatefw = new QAction("Update/Reload Firmware...", hardware);
     actionList.append(updatefw);
+    connect(updatefw, SIGNAL(triggered()), disableWidget, SLOT(show()));
+    connect(updatefw, SIGNAL(triggered()), fwUpdateDialogWidget, SLOT(show()));
+    //connect(updatefw, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
     hardware->addAction(updatefw);
-
     menubar->addMenu(hardware);
 
     //-------------------------------------------------------------------------- Help
@@ -528,6 +610,9 @@ void MainWindow::slotInitMenuBar()
     //About
     QAction* about = new QAction("About SoftStep Advanced Editor", help);
     actionList.append(about);
+    connect(about, SIGNAL(triggered()), disableWidget, SLOT(show()));
+    connect(about, SIGNAL(triggered()), aboutFormWidget, SLOT(show()));
+    //connect(about, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
     help->addAction(about);
 
     //Doc
@@ -540,7 +625,7 @@ void MainWindow::slotInitMenuBar()
 
 void MainWindow::slotConnected(bool connection)
 {
-    if(connection)
+    /*if(connection)
     {
         ui->connectedLabel->setText("CONNECTED");
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");
@@ -554,22 +639,55 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
         //ui->update->setText("SAVE");
         //aboutForm->found->setText("Not Connected");
+    }*/
+
+    qDebug() << "slotConnected Called" << connection;
+
+    if(connection)
+    {
+        ui->connectedLabel->setText("CONNECTED");
+#ifdef Q_OS_MAC
+        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");
+#else
+        ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(0,200,0,255);");
+#endif
+        //ui->update->setText("SAVE + SEND");
+        aboutForm->found->setText(QString("%1 %2").arg(connectedVersionString).arg(connectedVersionInt));
+        //presetInterface->connected = true;
+    }
+    else
+    {
+        //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
+        //ui->connectedLabel->setText("Not Connected");
+        ui->connectedLabel->setText("NOT CONNECTED");
+#ifdef Q_OS_MAC
+        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
+#else
+        ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255);");
+#endif
+        //ui->update->setText("SAVE");
+
+        aboutForm->found->setText("Not Connected");
+        //presetInterface->connected = false;
     }
 }
 
 void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
 {
-    //aboutForm->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
+    connectedVersionString = connectedVersion;
+    connectedVersionInt = connected;
+
+    aboutForm->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
 
     qDebug() << QString("connected: %1,  embedded: %2").arg(connected).arg(embedded);
 
     if(connected != embedded)
     {
-        //fwoodDialog->expected->setText(QString("%1 %2").arg(embeddedVersion).arg(embedded));
-        //fwoodDialog->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
-        //disableWidget->show();
+        fwoodDialogForm->expected->setText(QString("%1 %2").arg(embeddedVersion).arg(embedded));
+        fwoodDialogForm->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
+        disableWidget->show();
         //slotEnableDisableMenu();
-        //fwoodDialogWidget->show();
+        fwoodDialogWidget->show();
         qDebug() << "_____ Your firmware version is out of date _____";
     }
 }
@@ -602,6 +720,37 @@ void MainWindow::slotSaveAs()
     else
     {
         //qDebug() << "nothing should happen here";
+    }
+}
+
+void MainWindow::slotUpdateFirmware()
+{
+    fwoodDialogWidget->hide();
+    QApplication::processEvents();
+    fwProgressDialogWidget->show();
+    QApplication::processEvents();
+    fwProgressDialog->progressBar->setMinimum(0);
+    QApplication::processEvents();
+#ifdef Q_OS_MAC
+    fwProgressDialog->progressBar->setMaximum(sysExComposer->fwFileSize);
+#else
+    fwProgressDialog->progressBar->setMaximum(0);
+#endif
+    QApplication::processEvents();
+    sysExComposer->slotUpdateFirmware();
+}
+
+void MainWindow::slotUpdateFwProgressBar(int bytes)
+{
+    if(bytes != 0)
+    {
+        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
+    }
+    else
+    {
+        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
+        fwProgressDialogWidget->close();
+        fwUpdateCompleteDialogWidget->show();
     }
 }
 

@@ -17,9 +17,18 @@
 #include "mididevicemanager.h"
 #include "sysexcomposer.h"
 
+#ifdef Q_OS_MAC
+#include "ui_fwoodform.h"
+#include "ui_fwprogressform.h"
+#include "ui_fwupdatecompleteform.h"
+#include "ui_updatefwform.h"
+#include "ui_aboutform.h"
 #include "ui_mainwindow.h"
 #include "ui_saveAsForm.h"
 #include "ui_deletePresetForm.h"
+#else
+
+#endif
 
 #include "hosted/midiparse.h"
 #include "hosted/displaysink.h"
@@ -57,11 +66,16 @@ public:
     QStringList hostedNavTables;
 
     //Disabling Widget
-    QWidget* disableWidget;
+    QWidget     *disableWidget;
 
     //Dialogs
-    QWidget* saveAsDialogWidget;
-    QWidget* deleteDialogWidget;
+    QWidget     *saveAsDialogWidget;
+    QWidget     *deleteDialogWidget;
+    QWidget     *fwoodDialogWidget;
+    QWidget     *fwProgressDialogWidget;
+    QWidget     *fwUpdateCompleteDialogWidget;
+    QWidget     *fwUpdateDialogWidget;
+    QWidget     *aboutFormWidget;
 
     //Menubar
     QMenuBar *menubar;
@@ -72,6 +86,9 @@ public:
     NavKey *navKey;
     Settings *settingsWindow;
     Setlist *setlist;
+
+    QString connectedVersionString;
+    int connectedVersionInt;
 
 signals:
     void signalSaveAs(QString presetName);
@@ -105,12 +122,23 @@ public slots:
 
     void slotRecallPresetFromSetlist(QString presetName);
 
+    //-------------- Firmware Updating
+    void slotUpdateFirmware();
+    void slotUpdateFwProgressBar(int);
+
 private:
     Ui::MainWindow *ui;
 
     //Dialogs
-    Ui::saveAsDialogForm* saveAsDialogForm;
-    Ui::deleteDialogForm* deleteDialogForm;
+    Ui::saveAsDialogForm        *saveAsDialogForm;
+    Ui::deleteDialogForm        *deleteDialogForm;
+
+    Ui::FwoodDialog             *fwoodDialogForm;
+    Ui::FwProgressForm          *fwProgressDialog;
+    Ui::FwUpdateCompleteForm    *fwUpdateCompleteDialog;
+    Ui::UpdateFirmwareForm      *fwUpdateDialog;
+    Ui::AboutForm               *aboutForm;
+
 
 
 };
