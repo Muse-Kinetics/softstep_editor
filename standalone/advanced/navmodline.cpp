@@ -532,6 +532,19 @@ void NavModline::slotRecallDestinationMenu()
 void NavModline::slotSetMode(QString m)
 {
     mode = m;
+
+    if(mode == "hosted")
+    {
+        navModlineForm->initmode->setEnabled(true);
+        navModlineForm->initvalue->setEnabled(true);
+        navModlineForm->delay->setEnabled(true);
+    }
+    else
+    {
+        navModlineForm->initmode->setEnabled(false);
+        navModlineForm->initvalue->setEnabled(false);
+        navModlineForm->delay->setEnabled(false);
+    }
 }
 
 void NavModline::slotPopulateMenus(QStringList source, QStringList dest, QStringList table)
