@@ -13,8 +13,21 @@ class Pedal : public QWidget
 public:
     explicit Pedal(QWidget *parent = 0);
 
+    //Graphics
     QLabel* pedallever;
     QPixmap pixmap;
+
+    //Calibrate
+    QList<unsigned char> pedalValueList;
+    QList<int>  pedalBucket;
+    int         pedalSampleCount;
+    int         pedalSampleSum;
+
+    int     pedalValueListMin;
+    int     pedalValueListMax;
+    int     pedalValueListLength;
+
+    bool    calibrating;
     
 signals:
     
@@ -22,7 +35,17 @@ public slots:
 
     void slotSetLeverPointer(QLabel *lever);
     void slotRotateLever(int degrees);
+
+    //--------------------------------------- Midi Input Processing
+    int slotWindowInput(int pedalInput); //Windowing takes place here
     
+    //--------------------------------------- Calibration
+    void slotStartCalibrate();
+    void slotCalibrate(int pedalInput);
+    void slotStopCalibrate();
+    void slotResetCalibrate();
+    void slotWritePedalTableFile();
+
 };
 
 #endif // PEDAL_H

@@ -39,6 +39,12 @@ MainWindow::MainWindow(QWidget *parent) :
     disableWidget(new QWidget(this))
 
 {
+
+    //PList stuff
+    QCoreApplication::setApplicationName("SoftStepAdvancedEditor");
+    QCoreApplication::setOrganizationName("KeithMcMillenInstruments");
+    QCoreApplication::setOrganizationDomain("keithmcmillen.com");
+
     //Mainwindow Ui
     ui->setupUi(this);
     this->setWindowTitle("SoftStep Advanced Editor");

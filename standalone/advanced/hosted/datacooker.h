@@ -11,6 +11,8 @@
 #include "hosted/trigger.h"
 #include "hosted/slewer.h"
 
+#include "pedal.h"
+
 enum {NW, NE, SW, SE};
 
 class DataCooker : public QWidget
@@ -18,6 +20,8 @@ class DataCooker : public QWidget
     Q_OBJECT
 public:
     explicit DataCooker(int instanceNum, QWidget *parent = 0);
+
+    Pedal *pedal;
 
     int pedalVal;
 

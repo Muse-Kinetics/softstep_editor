@@ -167,4 +167,5 @@ OTHER_FILES += \
     resources/keybox_openwindow4_stylesheet.qss \
     resources/keybox_openwindow3_stylesheet.qss \
     resources/keybox_openwindow2_stylesheet.qss \
-    resources/keybox_openwindow1_stylesheet.qss
+    resources/keybox_openwindow1_stylesheet.qss \
+    resources/pedalTable.txt
