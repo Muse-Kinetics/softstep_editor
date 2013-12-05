@@ -163,5 +163,7 @@
         <file>resources/keysafety_adjacentkey_active.png</file>
         <file>resources/keysafety_adjacentkey_inactive.png</file>
         <file>resources/keysafety_bracket_wider.png</file>
+        <file>resources/keybox_boxnotselected.qss</file>
+        <file>resources/keybox_boxselected.qss</file>
     </qresource>
 </RCC>

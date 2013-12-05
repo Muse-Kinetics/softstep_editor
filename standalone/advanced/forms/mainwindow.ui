@@ -120,7 +120,7 @@ QToolTip
       <string notr="true">/*----------- QFrame ------------*/
 QFrame
 {
-	background: rgba(0, 174, 239, 150);
+	background: rgba(125, 125, 125, 125);
 }
 
 /*----------- QPushButton ------------*/

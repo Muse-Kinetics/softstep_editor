@@ -168,4 +168,6 @@ OTHER_FILES += \
     resources/keybox_openwindow3_stylesheet.qss \
     resources/keybox_openwindow2_stylesheet.qss \
     resources/keybox_openwindow1_stylesheet.qss \
-    resources/pedalTable.txt
+    resources/pedalTable.txt \
+    resources/keybox_boxnotselected.qss \
+    resources/keybox_boxselected.qss
