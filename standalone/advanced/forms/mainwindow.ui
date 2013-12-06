@@ -532,6 +532,9 @@ QToolButton:pressed
      <property name="toolTip">
       <string>Sets the current preset's display name. &lt;p&gt; Anything entered here appears on&lt;br&gt; the SoftStep's alphanumeric display&lt;br&gt; when the preset is selected. &lt;p&gt;Limited to a maximum of four &lt;br&gt;characters.</string>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border: 3px solid rgb(200,0,104)</string>
+     </property>
      <property name="text">
       <string>NEXU</string>
      </property>
