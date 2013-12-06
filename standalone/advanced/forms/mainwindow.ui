@@ -520,9 +520,9 @@ QToolButton:pressed
     <widget class="QLineEdit" name="displayName">
      <property name="geometry">
       <rect>
-       <x>8</x>
+       <x>9</x>
        <y>22</y>
-       <width>84</width>
+       <width>83</width>
        <height>33</height>
       </rect>
      </property>
