@@ -441,44 +441,6 @@ void MainWindow::slotConnectInterfaces()
         connect(navKey->navModline[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
     }
 
-    //------------------------------------------------------------------------------------ Settings
-    connect(ui->opensettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));
-
-    //Keys
-    for(int i = 0; i < 10; i++)
-    {
-        //Globals
-        connect(settingsWindow, SIGNAL(signalSetGlobalGain(float)), &key[i]->dataCooker, SLOT(slotSetGlobalGain(float)));
-        connect(settingsWindow, SIGNAL(signalSetSensorResponse(int)), &key[i]->dataCooker, SLOT(slotSetSensorResponse(int)));
-        connect(settingsWindow, SIGNAL(signalSetKeySafetyMode(int)), &key[i]->dataCooker, SLOT(slotSetKeySafetyMode(int)));
-
-        connect(settingsWindow, SIGNAL(signalSetKeyOnThresh(int,int)), &key[i]->dataCooker, SLOT(slotSetOnThresh(int,int)));
-        connect(settingsWindow, SIGNAL(signalSetKeyOffThresh(int,int)), &key[i]->dataCooker, SLOT(slotSetOffThresh(int,int)));
-        connect(settingsWindow, SIGNAL(signalSetKeyXAccel(int,int)), &key[i]->dataCooker, SLOT(slotSetXAccel(int,int)));
-        connect(settingsWindow, SIGNAL(signalSetKeyXDeadZone(int,int)), &key[i]->dataCooker, SLOT(slotSetXDeadZone(int,int)));
-        connect(settingsWindow, SIGNAL(signalSetKeyYAccel(int,int)), &key[i]->dataCooker, SLOT(slotSetYAccel(int,int)));
-        connect(settingsWindow, SIGNAL(signalSetKeyYDeadZone(int,int)), &key[i]->dataCooker, SLOT(slotSetYDeadZone(int,int)));
-    }
-
-    //Nav
-    connect(settingsWindow, SIGNAL(signalSetGlobalGain(float)), &navKey->dataCooker, SLOT(slotSetGlobalGain(float)));
-    //N
-    connect(settingsWindow, SIGNAL(signalSetNavNorthOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshN(int)));
-    connect(settingsWindow, SIGNAL(signalSetNavNorthOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshN(int)));
-
-    //S
-    connect(settingsWindow, SIGNAL(signalSetNavSouthOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshS(int)));
-    connect(settingsWindow, SIGNAL(signalSetNavSouthOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshS(int)));
-
-    //E
-    connect(settingsWindow, SIGNAL(signalSetNavEastOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshE(int)));
-    connect(settingsWindow, SIGNAL(signalSetNavEastOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshE(int)));
-
-    //W
-    connect(settingsWindow, SIGNAL(signalSetNavWestOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshW(int)));
-    connect(settingsWindow, SIGNAL(signalSetNavWestOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshW(int)));
-
-
     //----------------------------------------------------------------------------------- Save, Save As, Revert, Delete
     //Save Button
     connect(ui->save, SIGNAL(clicked()), presetInterface, SLOT(slotSavePreset()));
@@ -516,6 +478,61 @@ void MainWindow::slotConnectInterfaces()
     connect(midiDeviceManager, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
     connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString)), this, SLOT(slotReceiveVersions(int,QString, int, QString)));
 
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////// Settings ////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    connect(ui->opensettings,SIGNAL(clicked()),settingsWindow,SLOT(slotOpenSettings()));
+
+    //Keys
+    for(int i = 0; i < 10; i++)
+    {
+        //Globals
+        connect(settingsWindow, SIGNAL(signalSetGlobalGain(float)), &key[i]->dataCooker, SLOT(slotSetGlobalGain(float)));
+        connect(settingsWindow, SIGNAL(signalSetSensorResponse(int)), &key[i]->dataCooker, SLOT(slotSetSensorResponse(int)));
+        connect(settingsWindow, SIGNAL(signalSetKeySafetyMode(int)), &key[i]->dataCooker, SLOT(slotSetKeySafetyMode(int)));
+
+        connect(settingsWindow, SIGNAL(signalSetKeyOnThresh(int,int)), &key[i]->dataCooker, SLOT(slotSetOnThresh(int,int)));
+        connect(settingsWindow, SIGNAL(signalSetKeyOffThresh(int,int)), &key[i]->dataCooker, SLOT(slotSetOffThresh(int,int)));
+        connect(settingsWindow, SIGNAL(signalSetKeyXAccel(int,int)), &key[i]->dataCooker, SLOT(slotSetXAccel(int,int)));
+        connect(settingsWindow, SIGNAL(signalSetKeyXDeadZone(int,int)), &key[i]->dataCooker, SLOT(slotSetXDeadZone(int,int)));
+        connect(settingsWindow, SIGNAL(signalSetKeyYAccel(int,int)), &key[i]->dataCooker, SLOT(slotSetYAccel(int,int)));
+        connect(settingsWindow, SIGNAL(signalSetKeyYDeadZone(int,int)), &key[i]->dataCooker, SLOT(slotSetYDeadZone(int,int)));
+
+        connect(settingsWindow, SIGNAL(signalStartCalibration()), key[i]->dataCooker.pedal, SLOT(slotStartCalibrate()));
+        connect(settingsWindow, SIGNAL(signalResetCalibration()), key[i]->dataCooker.pedal, SLOT(slotResetCalibrate()));
+
+        //Set pedal pointer
+        key[i]->dataCooker.pedal->slotSetTestValueSlider(settingsWindow->testValueSlider);
+    }
+
+    //Nav
+    connect(settingsWindow, SIGNAL(signalSetGlobalGain(float)), &navKey->dataCooker, SLOT(slotSetGlobalGain(float)));
+
+    //N
+    connect(settingsWindow, SIGNAL(signalSetNavNorthOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshN(int)));
+    connect(settingsWindow, SIGNAL(signalSetNavNorthOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshN(int)));
+
+    //S
+    connect(settingsWindow, SIGNAL(signalSetNavSouthOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshS(int)));
+    connect(settingsWindow, SIGNAL(signalSetNavSouthOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshS(int)));
+
+    //E
+    connect(settingsWindow, SIGNAL(signalSetNavEastOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshE(int)));
+    connect(settingsWindow, SIGNAL(signalSetNavEastOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshE(int)));
+
+    //W
+    connect(settingsWindow, SIGNAL(signalSetNavWestOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshW(int)));
+    connect(settingsWindow, SIGNAL(signalSetNavWestOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshW(int)));
+
+
+
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////// Dialogs /////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -544,7 +561,7 @@ void MainWindow::slotConnectInterfaces()
     //About Ok Button
     connect(aboutForm->ok, SIGNAL(clicked()), aboutFormWidget, SLOT(close()));
     connect(aboutForm->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
-    connect(aboutForm->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
+    //connect(aboutForm->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////// "Downloading" ///////////////////////////////////////////////////////////////

@@ -468,7 +468,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
@@ -4953,7 +4953,7 @@ QCheckBox
 background: none;</string>
        </property>
        <property name="text">
-        <string>chomsky_test_text</string>
+        <string/>
        </property>
       </widget>
       <widget class="QLabel" name="pedal_arrow">
@@ -5116,7 +5116,7 @@ QPushButton:pressed
       <string>START CALIBRATION</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="startcalibration_button_2">
+    <widget class="QPushButton" name="resetcalibration_button">
      <property name="geometry">
       <rect>
        <x>10</x>

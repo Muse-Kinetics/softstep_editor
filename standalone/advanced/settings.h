@@ -51,6 +51,8 @@ public:
     Pedal* pedal;
 
     QString mode;
+
+    QSlider *testValueSlider;
     
 signals:
     void signalStoreValue(QString name, QVariant value);
@@ -87,6 +89,11 @@ signals:
 
     void signalSetNavYIncAccel(int accel);
 
+    void signalStartCalibration();
+    void signalResetCalibration();
+
+    void signalSetTestValueSlider(QSlider* slider);
+
     
 public slots:
     void slotSetMode(QString m);
@@ -114,8 +121,10 @@ public slots:
     void slotConstructSettingsDefaultMap();
 
     void slotEmitAllSettings();
-
     void slotSaveSettingsTimeout();
+
+    void slotStartCalibration();
+    void slotResetCalibration();
 
 
 private:

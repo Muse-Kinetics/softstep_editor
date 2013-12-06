@@ -122,6 +122,8 @@ Settings::Settings(QWidget *parent) :
     settingsForm->osc_ip_3->setEnabled(false);
     settingsForm->osc_ip_4->setEnabled(false);
     //---------------------------------------------------------------------------------------------------------//
+
+    testValueSlider = settingsForm->livepedalvalue;
 }
 
 void Settings::slotSetMode(QString m)
@@ -241,6 +243,10 @@ void Settings::slotConnectElements()
 
     connect(this, SIGNAL(signalRecallSettings(QVariantMap,QVariantMap)),this,SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
     connect(this, SIGNAL(signalStoreValue(QString,QVariant)), this, SLOT(slotStoreSettings(QString,QVariant)));
+
+    //Pedal Cal.
+    connect(settingsForm->startcalibration_button, SIGNAL(clicked()), this, SLOT(slotStartCalibration()));
+    connect(settingsForm->resetcalibration_button, SIGNAL(clicked()), this, SLOT(slotResetCalibration()));
 }
 
 void Settings::slotDisconnectElements()
@@ -338,6 +344,10 @@ void Settings::slotDisconnectElements()
 
     disconnect(this, SIGNAL(signalRecallSettings(QVariantMap,QVariantMap)),this,SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
     disconnect(this, SIGNAL(signalStoreValue(QString,QVariant)), this, SLOT(slotStoreSettings(QString,QVariant)));
+
+    //Pedal Cal.
+    disconnect(settingsForm->startcalibration_button, SIGNAL(clicked()), this, SLOT(slotStartCalibration()));
+    disconnect(settingsForm->resetcalibration_button, SIGNAL(clicked()), this, SLOT(slotResetCalibration()));
 }
 
 void Settings::slotValueChanged()
@@ -345,8 +355,11 @@ void Settings::slotValueChanged()
     //If timer is inactive, start it
     if(!saveSettingsTimeout->isActive())
     {
-        saveSettingsTimeout->start(1);
-        qDebug() << "------------ start timer";
+        if(QObject::sender()->objectName() != "livepedalvalue")
+        {
+            saveSettingsTimeout->start(1);
+            qDebug() << "------------ start timer";
+        }
     }
 
     saveSettiingsTimeoutTime = 0;
@@ -963,4 +976,14 @@ void Settings::slotSaveSettingsTimeout()
         //Stop timer
         saveSettingsTimeout->stop();
     }
+}
+
+void Settings::slotStartCalibration()
+{
+    emit signalStartCalibration();
+}
+
+void Settings::slotResetCalibration()
+{
+    emit signalResetCalibration();
 }

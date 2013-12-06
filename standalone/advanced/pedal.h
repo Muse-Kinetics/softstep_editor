@@ -27,7 +27,14 @@ public:
     int     pedalValueListMax;
     int     pedalValueListLength;
 
+    int pedalAverage;
+
     bool    calibrating;
+
+    QTimer *calibrationTicker;
+    int calibrationTime;
+
+    QSlider* testValueSlider;
     
 signals:
     
@@ -38,13 +45,21 @@ public slots:
 
     //--------------------------------------- Midi Input Processing
     int slotWindowInput(int pedalInput); //Windowing takes place here
+    int slotTableInput(int pedalInput);
+
     
     //--------------------------------------- Calibration
     void slotStartCalibrate();
     void slotCalibrate(int pedalInput);
     void slotStopCalibrate();
     void slotResetCalibrate();
+    void slotSetMinMaxLength();
     void slotWritePedalTableFile();
+
+    void slotCalibrationClockTick();
+
+    void slotSetTestValueSlider(QSlider* slider);
+    void slotSetLivePedalValue(int val);
 
 };
 
