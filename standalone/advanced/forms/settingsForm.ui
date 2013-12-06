@@ -468,7 +468,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
@@ -481,7 +481,7 @@ QRadioButton::indicator:checked:pressed  {
       </rect>
      </property>
      <property name="toolTip">
-      <string>Sets how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key Mode:&lt;/b&gt; Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Adjacent Key Lockout:&lt;/b&gt; Keys immediately adjacent to an activated key cannot be triggered.&lt;p&gt;&lt;b&gt;Multiple Key Mode:&lt;/b&gt; Any key can be activated at any time.</string>
+      <string>Set how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key Mode:&lt;/b&gt; Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Adjacent Key Lockout:&lt;/b&gt; Keys immediately adjacent to an activated key cannot be triggered.&lt;p&gt;&lt;b&gt;Multiple Key Mode:&lt;/b&gt; Any key can be activated at any time.</string>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
@@ -738,7 +738,7 @@ p, li { white-space: pre-wrap; }
       <enum>Qt::DefaultContextMenu</enum>
      </property>
      <property name="toolTip">
-      <string>Adjusts the amount of smoothing placed on expression pedal data.</string>
+      <string>Adjust the amount of smoothing placed on expression pedal data.</string>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
@@ -856,7 +856,7 @@ p, li { white-space: pre-wrap; }
       </rect>
      </property>
      <property name="toolTip">
-      <string>Returns sensitivity slider to its default value</string>
+      <string>Return sensitivity slider to its default value</string>
      </property>
      <property name="styleSheet">
       <string notr="true">/*----------- QPushButton ------------*/
@@ -892,7 +892,7 @@ QToolButton:pressed
       </rect>
      </property>
      <property name="toolTip">
-      <string>Enables/Disables changing &lt;br&gt;scenes with the Nav Pad</string>
+      <string>Enable/Disable changing &lt;br&gt;scenes with the Nav Pad</string>
      </property>
      <property name="styleSheet">
       <string notr="true">/* ---------- QCheckBox ------------*/
@@ -975,7 +975,7 @@ QCheckBox::indicator:checked:pressed:focus
       </rect>
      </property>
      <property name="toolTip">
-      <string>Turns the SoftStep backlighting on or off.</string>
+      <string>Turn the SoftStep backlighting on or off.</string>
      </property>
      <property name="styleSheet">
       <string notr="true">/* ---------- QCheckBox ------------*/
@@ -1064,7 +1064,7 @@ QCheckBox::indicator:checked:pressed:focus
       </rect>
      </property>
      <property name="toolTip">
-      <string>Sets how the SoftStep sensors (one in each corner on each key) determine key pressure.&lt;p&gt;&lt;b&gt;Maximum:&lt;/b&gt; Looks at only the highest valued sensor to determine current pressure value&lt;p&gt;&lt;b&gt;Average:&lt;/b&gt; Averages the four sensors together to determine key pressure value</string>
+      <string>Set how the SoftStep sensors (one in each corner on each key) determine key pressure.&lt;p&gt;&lt;b&gt;Maximum:&lt;/b&gt; Looks at only the highest valued sensor to determine current pressure value&lt;p&gt;&lt;b&gt;Average:&lt;/b&gt; Averages the four sensors together to determine key pressure value</string>
      </property>
      <property name="styleSheet">
       <string notr="true">/* ---------- QCheckBox ------------*/
@@ -5090,7 +5090,7 @@ background: none;</string>
       </rect>
      </property>
      <property name="toolTip">
-      <string>Begins the expression pedal &lt;br&gt;calibration process.</string>
+      <string>Begin the expression pedal &lt;br&gt;calibration process.</string>
      </property>
      <property name="styleSheet">
       <string notr="true">/*----------- QPushButton ------------*/
@@ -5126,7 +5126,7 @@ QPushButton:pressed
       </rect>
      </property>
      <property name="toolTip">
-      <string>Resets the pedal calibration &lt;br&gt;settings to default values.</string>
+      <string>Reset the pedal calibration &lt;br&gt;settings to default values.</string>
      </property>
      <property name="styleSheet">
       <string notr="true">/*----------- QPushButton ------------*/
@@ -5178,7 +5178,7 @@ QPushButton:pressed
       </rect>
      </property>
      <property name="toolTip">
-      <string>Adjusts the amount of smoothing placed on expression pedal data.</string>
+      <string>Adjust the amount of smoothing placed on expression pedal data.</string>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
