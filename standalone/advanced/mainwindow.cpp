@@ -5,7 +5,7 @@
 #include "ui_mainwindow.h"
 
 #define MAINWINDOW_WIDTH 690
-#define MAINWINDOW_HEIGHT 303
+#define MAINWINDOW_HEIGHT 279
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
