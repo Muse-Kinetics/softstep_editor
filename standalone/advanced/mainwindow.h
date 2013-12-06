@@ -16,6 +16,7 @@
 #include "presetinterface.h"
 #include "mididevicemanager.h"
 #include "sysexcomposer.h"
+#include "copypastehandler.h"
 
 #ifdef Q_OS_MAC
 #include "ui_fwoodform.h"
@@ -48,6 +49,7 @@ public:
     SysExComposer* sysExComposer;
     PresetInterface* presetInterface;
     MidiDeviceManager* midiDeviceManager;
+    CopyPasteHandler* copyPasteHandler;
     MidiParse* midiParse;
     DisplaySink displaySink;
 
@@ -81,6 +83,12 @@ public:
     QMenuBar *menubar;
     QList<QAction *> actionList;
 
+    //copy / paste actions
+    QAction* copyPresetAct;
+    QAction* pastePresetAct;
+    QAction* copyKeyAct;
+    QAction* pasteKeyAct;
+
     //Ui Elements
     Key *key[10];
     NavKey *navKey;
@@ -103,6 +111,7 @@ public slots:
     void slotConnectElements();
     void slotDisconnectElements();
     void slotInitMenuBar();
+    void slotUpdatePasteAvailability();
 
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);

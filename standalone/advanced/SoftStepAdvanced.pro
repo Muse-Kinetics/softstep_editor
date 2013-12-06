@@ -53,7 +53,8 @@ SOURCES +=      main.cpp\
     hosted/delay.cpp \
     tables.cpp \
     hosted/navdatacooker.cpp \
-    hosted/staterecall.cpp
+    hosted/staterecall.cpp \
+    copypastehandler.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -92,7 +93,8 @@ HEADERS  +=     mainwindow.h \
     hosted/delay.h \
     tables.h \
     hosted/navdatacooker.h \
-    hosted/staterecall.h
+    hosted/staterecall.h \
+    copypastehandler.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \

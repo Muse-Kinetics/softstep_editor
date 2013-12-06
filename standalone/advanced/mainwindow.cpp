@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     sysExComposer(new SysExComposer(this)),
     presetInterface(new PresetInterface(this)),
     midiDeviceManager(new MidiDeviceManager(this)),
+    copyPasteHandler(new CopyPasteHandler(presetInterface,this)),
     midiParse(new MidiParse()),
     disableWidget(new QWidget(this))
 
@@ -449,6 +450,9 @@ void MainWindow::slotConnectInterfaces()
     //Save Indicator
     connect(presetInterface, SIGNAL(signalPresetDirty(bool)), this, SLOT(slotDisplaySaveState(bool)));
 
+	//Copy Paste - update paste availability based on whether anything has been copied
+    connect(copyPasteHandler, SIGNAL(signalUpdatePasteAvailability()), this, SLOT(slotUpdatePasteAvailability()));
+
     //Save As
     connect(ui->saveas, SIGNAL(clicked()), disableWidget, SLOT(show()));
     connect(ui->saveas, SIGNAL(clicked()), saveAsDialogWidget, SLOT(show()));
@@ -618,6 +622,33 @@ void MainWindow::slotInitMenuBar()
     QMenu* factoryPreset = new QMenu("Use Factory Preset");
     edit->addMenu(factoryPreset);
 
+	//----------------------------------------------------copy / paste
+    copyPresetAct = new QAction("Copy Current Preset", edit);
+    actionList.append(copyPresetAct);
+    edit->addAction(copyPresetAct);
+    copyPresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_C));
+    connect(copyPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyPreset()));
+    //copyPresetAct->setDisabled(true);
+
+    pastePresetAct = new QAction("Paste Current Preset", edit);
+    actionList.append(pastePresetAct);
+    edit->addAction(pastePresetAct);
+    pastePresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_V));
+    connect(pastePresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPastePreset()));
+    pastePresetAct->setDisabled(true);
+
+    copyKeyAct = new QAction("Copy Key #", edit);
+    actionList.append(copyKeyAct);
+    edit->addAction(copyKeyAct);
+    copyKeyAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
+    connect(copyKeyAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyKey()));
+
+    pasteKeyAct = new QAction("Paste Key #", edit);
+    actionList.append(pasteKeyAct);
+    edit->addAction(pasteKeyAct);
+    pasteKeyAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_V));
+    connect(pasteKeyAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPasteKey()));
+    pasteKeyAct->setDisabled(true);
 
     //-------------------------------------------------------------------------- Hardware
     QMenu* hardware = new QMenu("Hardware");
@@ -650,6 +681,19 @@ void MainWindow::slotInitMenuBar()
     help->addAction(doc);
 
     menubar->addMenu(help);
+}
+
+void MainWindow::slotUpdatePasteAvailability()
+{
+    //enable and disable paste options depending on whether anything is copied
+        if(copyPasteHandler->presetCopiedMap.size())
+        {
+            pastePresetAct->setDisabled(false);
+        }
+        if(copyPasteHandler->keyCopiedMap.size())
+        {
+            pasteKeyAct->setDisabled(false);
+        }
 }
 
 void MainWindow::slotConnected(bool connection)
