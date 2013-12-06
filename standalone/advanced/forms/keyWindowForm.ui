@@ -291,7 +291,46 @@ QToolTip
     <string>When checked, the key counter&lt;br&gt; will loop back to the minimum &lt;br&gt;value when the maximum &lt;br&gt;value is exceeded (and vice versa).&lt;p&gt;When unchecked, the counter will stop &lt;br&gt;once the minimum or maximum &lt;br&gt;values are reached.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QCheckBox
+{
+	padding-top: 1px;
+}
+
+QCheckBox::indicator
+{
+	width: 18px;
+	height: 19px;
+}
+
+QCheckBox::indicator:unchecked
+{
+	image:url(:/resources/checkbox_off.png)
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+	image:url(:/resources/checkbox_off.png)
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image:url(:/resources/checkbox_on.png)
+}
+
+QCheckBox::indicator:checked
+{
+	image:url(:/resources/checkbox_on.png)
+}
+
+QCheckBox::indicator:checked:hover
+{
+	image:url(:/resources/checkbox_on.png)
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image:url(:/resources/checkbox_off.png)
+}</string>
    </property>
    <property name="text">
     <string/>
@@ -301,7 +340,7 @@ QToolTip
    <property name="geometry">
     <rect>
      <x>760</x>
-     <y>14</y>
+     <y>19</y>
      <width>160</width>
      <height>24</height>
     </rect>

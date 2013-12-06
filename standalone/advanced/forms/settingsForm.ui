@@ -956,6 +956,16 @@ QCheckBox::indicator:checked:focus
 QCheckBox::indicator:checked:pressed:focus
 {
 	image: url(:/resources/scenechanging_on_active.png);
+}
+
+QCheckBox::indicator:unchecked:disabled
+{
+	image: url(:/resources/scenechanging_off_disabled.png);
+}
+
+QCheckBox::indicator:checked:disabled
+{
+	image: url(:/resources/scenechanging_on_disabled.png);
 }</string>
      </property>
      <property name="text">
