@@ -165,39 +165,39 @@ QCheckBox::indicator {
  }
 
   QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.svg);
+     image: url(:/resources/radio_on.png);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.svg);
+     image: url(:/resources/radio_on.png);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.svg);
+     image: url(:/resources/radio_focus_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.svg);
+     image: url(:/resources/radio_focus_on.png);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.svg);
+     image: url(:/resources/radio_focus_on.png);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.svg);
+     image: url(:/resources/radio_focus_off.png);
  }</string>
    </property>
    <property name="text">
@@ -229,39 +229,39 @@ QCheckBox::indicator {
  }
 
   QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.svg);
+     image: url(:/resources/radio_on.png);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.svg);
+     image: url(:/resources/radio_on.png);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.svg);
+     image: url(:/resources/radio_focus_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.svg);
+     image: url(:/resources/radio_focus_on.png);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.svg);
+     image: url(:/resources/radio_focus_on.png);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.svg);
+     image: url(:/resources/radio_focus_off.png);
  }</string>
    </property>
    <property name="text">
@@ -293,39 +293,39 @@ QCheckBox::indicator {
  }
 
   QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.svg);
+     image: url(:/resources/radio_on.png);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.svg);
+     image: url(:/resources/radio_on.png);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.svg);
+     image: url(:/resources/radio_focus_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.svg);
+     image: url(:/resources/radio_focus_on.png);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.svg);
+     image: url(:/resources/radio_focus_on.png);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.svg);
+     image: url(:/resources/radio_focus_off.png);
  }</string>
    </property>
    <property name="text">
@@ -357,39 +357,39 @@ QCheckBox::indicator {
  }
 
   QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.svg);
+     image: url(:/resources/radio_on.png);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.svg);
+     image: url(:/resources/radio_on.png);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.svg);
+     image: url(:/resources/radio_focus_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.svg);
+     image: url(:/resources/radio_focus_on.png);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.svg);
+     image: url(:/resources/radio_focus_on.png);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.svg);
+     image: url(:/resources/radio_focus_off.png);
  }</string>
    </property>
    <property name="text">
@@ -421,39 +421,39 @@ QCheckBox::indicator {
  }
 
   QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.svg);
+     image: url(:/resources/radio_on.png);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.svg);
+     image: url(:/resources/radio_on.png);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.svg);
+     image: url(:/resources/radio_focus_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.svg);
+     image: url(:/resources/radio_focus_on.png);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.svg);
+     image: url(:/resources/radio_focus_on.png);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.svg);
+     image: url(:/resources/radio_focus_off.png);
  }</string>
    </property>
    <property name="text">
@@ -488,39 +488,39 @@ QCheckBox::indicator {
  }
 
   QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.svg);
+     image: url(:/resources/radio_on.png);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.svg);
+     image: url(:/resources/radio_on.png);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.svg);
+     image: url(:/resources/radio_off.png);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.svg);
+     image: url(:/resources/radio_focus_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.svg);
+     image: url(:/resources/radio_focus_on.png);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.svg);
+     image: url(:/resources/radio_focus_on.png);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.svg);
+     image: url(:/resources/radio_focus_off.png);
  }</string>
    </property>
    <property name="text">
@@ -728,39 +728,39 @@ QCheckBox::indicator {
  }
 
  QCheckBox::indicator::unchecked {
-     image: url(:/resources/toggle_off.svg);
+     image: url(:/resources/toggle_off.png);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/toggle_off.svg);
+     image: url(:/resources/toggle_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/toggle_on.svg);
+     image: url(:/resources/toggle_on.png);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/toggle_on.svg);
+     image: url(:/resources/toggle_on.png);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/toggle_off.svg);
+     image: url(:/resources/toggle_off.png);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/toggle_focus_off.svg);
+     image: url(:/resources/toggle_focus_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/toggle_focus_on.svg);
+     image: url(:/resources/toggle_focus_on.png);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/toggle_focus_on.svg);
+     image: url(:/resources/toggle_focus_on.png);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/toggle_focus_off.svg);
+     image: url(:/resources/toggle_focus_off.png);
  }</string>
      </property>
      <property name="text">
@@ -1062,39 +1062,39 @@ QCheckBox::indicator {
  }
 
  QCheckBox::indicator::unchecked {
-     image: url(:/resources/toggle_off.svg);
+     image: url(:/resources/toggle_off.png);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/toggle_off.svg);
+     image: url(:/resources/toggle_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/toggle_on.svg);
+     image: url(:/resources/toggle_on.png);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/toggle_on.svg);
+     image: url(:/resources/toggle_on.png);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/toggle_off.svg);
+     image: url(:/resources/toggle_off.png);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/toggle_focus_off.svg);
+     image: url(:/resources/toggle_focus_off.png);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/toggle_focus_on.svg);
+     image: url(:/resources/toggle_focus_on.png);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/toggle_focus_on.svg);
+     image: url(:/resources/toggle_focus_on.png);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/toggle_focus_off.svg);
+     image: url(:/resources/toggle_focus_off.png);
  }</string>
      </property>
      <property name="text">
