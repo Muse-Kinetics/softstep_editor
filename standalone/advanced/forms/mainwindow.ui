@@ -43,20 +43,19 @@ QToolTip
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>586</x>
-      <y>55</y>
-      <width>98</width>
-      <height>20</height>
+      <x>568</x>
+      <y>81</y>
+      <width>122</width>
+      <height>22</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Futura</family>
-      <pointsize>9</pointsize>
+      <pointsize>10</pointsize>
       <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
-      <kerning>false</kerning>
      </font>
     </property>
     <property name="toolTip">
@@ -65,7 +64,7 @@ QToolTip
     <property name="styleSheet">
      <string notr="true">QLabel
 {
-	font: 9pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura&quot;;
 	color: red;
 	background: rgb(40, 40, 40);
 	padding-left: 5px;
@@ -82,22 +81,22 @@ QToolTip
      <string>NOT CONNECTED</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
    <widget class="QFrame" name="frame_presets">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>243</width>
-      <height>123</height>
+      <y>5</y>
+      <width>235</width>
+      <height>109</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QFrame
 {
-	background: rgb(60, 60, 60);
+	background: rgba(60, 60, 60, 0);
 	border: none;
 }</string>
     </property>
@@ -110,17 +109,17 @@ QToolTip
     <widget class="QFrame" name="frame_innerpresets">
      <property name="geometry">
       <rect>
-       <x>5</x>
-       <y>6</y>
-       <width>233</width>
-       <height>70</height>
+       <x>1</x>
+       <y>-2</y>
+       <width>237</width>
+       <height>108</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">/*----------- QFrame ------------*/
 QFrame
 {
-	background: rgba(125, 125, 125, 125);
+	background: rgba(125, 125, 125, 0);
 }
 
 /*----------- QPushButton ------------*/
@@ -237,14 +236,14 @@ QComboBox::down-arrow
      <widget class="QToolButton" name="save">
       <property name="geometry">
        <rect>
-        <x>24</x>
+        <x>15</x>
         <y>42</y>
-        <width>45</width>
+        <width>46</width>
         <height>20</height>
        </rect>
       </property>
       <property name="toolTip">
-       <string>Saves any changes to the &lt;br&gt;current preset.</string>
+       <string>Save any changes to the &lt;br&gt;current preset.</string>
       </property>
       <property name="styleSheet">
        <string notr="true">/*----------- QToolButton ------------*/
@@ -273,14 +272,14 @@ QToolButton:pressed
      <widget class="QToolButton" name="saveas">
       <property name="geometry">
        <rect>
-        <x>76</x>
+        <x>70</x>
         <y>42</y>
-        <width>45</width>
+        <width>46</width>
         <height>20</height>
        </rect>
       </property>
       <property name="toolTip">
-       <string>Saves the current preset &lt;br&gt;settings to a new preset &lt;br&gt;slot.</string>
+       <string>Save the current preset &lt;br&gt;settings to a new preset &lt;br&gt;slot.</string>
       </property>
       <property name="text">
        <string>SAVE AS</string>
@@ -289,14 +288,14 @@ QToolButton:pressed
      <widget class="QToolButton" name="revert">
       <property name="geometry">
        <rect>
-        <x>128</x>
+        <x>124</x>
         <y>42</y>
-        <width>45</width>
+        <width>46</width>
         <height>20</height>
        </rect>
       </property>
       <property name="toolTip">
-       <string>Reverts any unsaved &lt;br&gt;changes in the current &lt;br&gt;preset to its previously &lt;br&gt;saved state.</string>
+       <string>Revert any unsaved &lt;br&gt;changes in the current &lt;br&gt;preset to its previously &lt;br&gt;saved state.</string>
       </property>
       <property name="text">
        <string>REVERT</string>
@@ -305,14 +304,14 @@ QToolButton:pressed
      <widget class="QToolButton" name="deletepreset">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>178</x>
         <y>42</y>
-        <width>45</width>
+        <width>46</width>
         <height>20</height>
        </rect>
       </property>
       <property name="toolTip">
-       <string>Deletes the currently selected preset.</string>
+       <string>Delete the currently selected preset.</string>
       </property>
       <property name="text">
        <string>DELETE</string>
@@ -321,9 +320,9 @@ QToolButton:pressed
      <widget class="QComboBox" name="presetmenu">
       <property name="geometry">
        <rect>
-        <x>24</x>
+        <x>15</x>
         <y>10</y>
-        <width>201</width>
+        <width>209</width>
         <height>26</height>
        </rect>
       </property>
@@ -404,10 +403,10 @@ QToolButton:pressed
      <widget class="QLabel" name="presetlabel">
       <property name="geometry">
        <rect>
-        <x>7</x>
-        <y>7</y>
-        <width>10</width>
-        <height>57</height>
+        <x>-4</x>
+        <y>9</y>
+        <width>14</width>
+        <height>93</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -426,14 +425,14 @@ QToolButton:pressed
     <widget class="QToolButton" name="update">
      <property name="geometry">
       <rect>
-       <x>5</x>
-       <y>83</y>
-       <width>232</width>
+       <x>16</x>
+       <y>65</y>
+       <width>209</width>
        <height>33</height>
       </rect>
      </property>
      <property name="toolTip">
-      <string>&quot;Engage&quot; &lt;p&gt;Click to update the presets &lt;br&gt;on your SoftStep with the &lt;br&gt;current setlist.</string>
+      <string>&quot;Engage&quot; &lt;p&gt;Update the presets &lt;br&gt;on your SoftStep with the &lt;br&gt;current setlist.</string>
      </property>
      <property name="styleSheet">
       <string notr="true">/*---------- QPushButton ---------*/
@@ -471,17 +470,17 @@ QToolButton:pressed
 }</string>
      </property>
      <property name="text">
-      <string>&quot;MAKE IT SO&quot;</string>
+      <string>Update Presets</string>
      </property>
     </widget>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>568</x>
-      <y>8</y>
-      <width>116</width>
-      <height>43</height>
+      <x>525</x>
+      <y>11</y>
+      <width>154</width>
+      <height>54</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -495,151 +494,6 @@ QToolButton:pressed
     <property name="text">
      <string/>
     </property>
-   </widget>
-   <widget class="QFrame" name="frame_setlistsettings">
-    <property name="geometry">
-     <rect>
-      <x>264</x>
-      <y>86</y>
-      <width>214</width>
-      <height>47</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QFrame
-{
-	background: rgb(60, 60, 60);
-	border: none;
-}</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <widget class="QPushButton" name="opensetlist">
-     <property name="geometry">
-      <rect>
-       <x>7</x>
-       <y>7</y>
-       <width>96</width>
-       <height>33</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>96</width>
-       <height>30</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>96</width>
-       <height>35</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <family>Futura</family>
-       <pointsize>16</pointsize>
-       <weight>50</weight>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="toolTip">
-      <string>Click to open the setlist window.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*---------- QPushButton ---------*/
-QPushButton
-{
-	background: rgb(40, 40, 40);
-	border: 2px solid rgba(0,174,239,255);
-	font: 16pt &quot;Futura&quot;;
-	color: white;
-}
-
-QPushButton:pressed
-{
-	background: rgba(0,174,239,255);
-	border: none;
-	font: 16pt &quot;Futura&quot;;
-	color: white;
-}</string>
-     </property>
-     <property name="text">
-      <string>Setlist</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="opensettings">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>7</y>
-       <width>96</width>
-       <height>33</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>96</width>
-       <height>30</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>96</width>
-       <height>35</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <family>Futura</family>
-       <pointsize>16</pointsize>
-       <weight>50</weight>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="toolTip">
-      <string>Click to open the settings window.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*---------- QPushButton ---------*/
-QPushButton
-{
-	background: rgb(40, 40, 40);
-	border: 2px solid rgba(0,174,239,255);
-	font: 16pt &quot;Futura&quot;;
-	color: white;
-}
-
-QPushButton:pressed
-{
-	background: rgba(0,174,239,255);
-	border: none;
-	font: 16pt &quot;Futura&quot;;
-	color: white;
-}</string>
-     </property>
-     <property name="text">
-      <string>Settings</string>
-     </property>
-    </widget>
    </widget>
    <widget class="QFrame" name="frame_displayname">
     <property name="geometry">
@@ -715,9 +569,9 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>143</y>
+      <y>115</y>
       <width>670</width>
-      <height>16</height>
+      <height>10</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -734,16 +588,16 @@ QPushButton:pressed
    <widget class="QFrame" name="frame_editormode">
     <property name="geometry">
      <rect>
-      <x>264</x>
-      <y>10</y>
-      <width>214</width>
-      <height>60</height>
+      <x>245</x>
+      <y>5</y>
+      <width>228</width>
+      <height>109</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QFrame
 {
-	background: rgb(60, 60, 60);
+	background: rgba(60, 60, 60, 0);
 	border: none;
 }</string>
     </property>
@@ -758,12 +612,12 @@ QPushButton:pressed
       <rect>
        <x>7</x>
        <y>7</y>
-       <width>200</width>
-       <height>45</height>
+       <width>215</width>
+       <height>53</height>
       </rect>
      </property>
      <property name="toolTip">
-      <string>Click to switch between Hosted and Standalone mode.</string>
+      <string>Switch between Hosted and Standalone mode.</string>
      </property>
      <property name="styleSheet">
       <string notr="true"> /* ---------- QCheckBox ------------*/
@@ -776,9 +630,9 @@ QCheckBox
 
 QCheckBox::indicator
 {
-    width: 212px;
-    height: 45px;
-	padding: -6px;
+    width: 215px;
+    height: 53px;
+	padding: 0px;
 }
 
 QCheckBox::indicator:unchecked
@@ -830,6 +684,128 @@ QCheckBox::indicator:checked:pressed:focus
      </property>
      <property name="text">
       <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="opensetlist">
+     <property name="geometry">
+      <rect>
+       <x>7</x>
+       <y>65</y>
+       <width>104</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>96</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>110</width>
+       <height>35</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>16</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Open the setlist window.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*---------- QPushButton ---------*/
+QPushButton
+{
+	background: rgb(40, 40, 40);
+	border: 2px solid rgba(0,174,239,255);
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}
+
+QPushButton:pressed
+{
+	background: rgba(0,174,239,255);
+	border: none;
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Setlist</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="opensettings">
+     <property name="geometry">
+      <rect>
+       <x>117</x>
+       <y>65</y>
+       <width>104</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>96</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>110</width>
+       <height>35</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>16</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Open the settings window.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*---------- QPushButton ---------*/
+QPushButton
+{
+	background: rgb(40, 40, 40);
+	border: 2px solid rgba(0,174,239,255);
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}
+
+QPushButton:pressed
+{
+	background: rgba(0,174,239,255);
+	border: none;
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Settings</string>
      </property>
     </widget>
    </widget>

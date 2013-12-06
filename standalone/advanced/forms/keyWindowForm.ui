@@ -372,6 +372,9 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="text">
     <string>CheckBox</string>
    </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
   </widget>
   <widget class="QFrame" name="keyWindowInstanceLabel_background">
    <property name="geometry">
