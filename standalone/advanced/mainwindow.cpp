@@ -508,6 +508,9 @@ void MainWindow::slotConnectInterfaces()
 
         //Set pedal pointer
         key[i]->dataCooker.pedal->slotSetTestValueSlider(settingsWindow->testValueSlider);
+        key[i]->dataCooker.pedal->slotSetRockPedalLabel(settingsWindow->rockYourPedalLabel);
+        key[i]->dataCooker.pedal->slotSetCalibrationArrows(settingsWindow->calibrationArrowsLabel);
+        key[i]->dataCooker.pedal->slotSetCalibrationComplete(settingsWindow->calibrationCompleteLabel);
     }
 
     //Nav

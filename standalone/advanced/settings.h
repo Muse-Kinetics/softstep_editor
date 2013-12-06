@@ -53,6 +53,10 @@ public:
     QString mode;
 
     QSlider *testValueSlider;
+    QLabel *rockYourPedalLabel;
+    QLabel *calibrationArrowsLabel;
+    QLabel *calibrationCompleteLabel;
+
     
 signals:
     void signalStoreValue(QString name, QVariant value);

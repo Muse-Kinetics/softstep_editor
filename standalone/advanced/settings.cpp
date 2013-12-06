@@ -124,6 +124,10 @@ Settings::Settings(QWidget *parent) :
     //---------------------------------------------------------------------------------------------------------//
 
     testValueSlider = settingsForm->livepedalvalue;
+    rockYourPedalLabel = settingsForm->rockyourpedal;
+    calibrationArrowsLabel = settingsForm->pedal_arrow;
+    calibrationCompleteLabel = settingsForm->calibrationcomplete;
+
 }
 
 void Settings::slotSetMode(QString m)

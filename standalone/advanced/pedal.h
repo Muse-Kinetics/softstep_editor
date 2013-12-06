@@ -34,7 +34,12 @@ public:
     QTimer *calibrationTicker;
     int calibrationTime;
 
+    int calibratingBlinkCount;
+
     QSlider* testValueSlider;
+    QLabel *rockYourPedalLabel;
+    QLabel *calibrationArrowsLabel;
+    QLabel *calibrationCompleteLabel;
     
 signals:
     
@@ -60,6 +65,12 @@ public slots:
 
     void slotSetTestValueSlider(QSlider* slider);
     void slotSetLivePedalValue(int val);
+
+    void slotSetRockPedalLabel(QLabel *label);
+    void slotSetCalibrationArrows(QLabel *label);
+    void slotSetCalibrationComplete(QLabel *label);
+
+    void slotHideCompleteLable();
 
 };
 

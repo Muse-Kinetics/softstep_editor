@@ -7,9 +7,11 @@ Pedal::Pedal(QWidget *parent) :
     QWidget(parent)
 {
 
-    calibrationTicker = new QTimer(this);
+    QThread *tickerThread = new QThread(this);
+    calibrationTicker = new QTimer(tickerThread);
     calibrationTime = 0;
-    connect(calibrationTicker, SIGNAL(timeout()), this, SLOT(slotCalibrationClockTick()));
+    connect(calibrationTicker, SIGNAL(timeout()), this, SLOT(slotCalibrationClockTick()), Qt::DirectConnection);
+    tickerThread->start();
 
     /*
     //pixmap.load(QString::fromUtf8("resources/pedal_top.png"));
@@ -50,6 +52,8 @@ Pedal::Pedal(QWidget *parent) :
     pedalAverage = 0;
     calibrating = false;
     pedalSampleCount = 0;
+
+    calibratingBlinkCount = 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -130,7 +134,7 @@ int Pedal::slotTableInput(int pedalInput)
     //Invert table
     output = 127 - output;
 
-    qDebug() << "pedal output" << output << pedalInput;
+    //qDebug() << "pedal output" << output << pedalInput;
     slotSetLivePedalValue(output);
 
     return output;
@@ -160,7 +164,12 @@ void Pedal::slotRotateLever(int degrees)
 //Start
 void Pedal::slotStartCalibrate()
 {
-    qDebug() << "start calibration";
+    //qDebug() << "start calibration";
+
+    rockYourPedalLabel->show();
+    calibrationArrowsLabel->show();
+    slotHideCompleteLable();
+
     calibrating = true;
     pedalValueList.clear();
     calibrationTicker->start(1);
@@ -171,7 +180,7 @@ void Pedal::slotStartCalibrate()
 void Pedal::slotCalibrate(int pedalInput)
 {
     //Calibration consists of collecting a dataset, finalized in slotStopCalibrate()
-    qDebug() << "slot calibrate this input" << pedalInput;
+    //qDebug() << "slot calibrate this input" << pedalInput;
 
     //If value is not in our list of values
     if(!pedalValueList.contains(pedalInput))
@@ -211,6 +220,12 @@ void Pedal::slotStopCalibrate()
     slotWritePedalTableFile();
 
     calibrating = false;
+
+    rockYourPedalLabel->hide();
+    calibrationArrowsLabel->hide();
+    calibrationCompleteLabel->show();
+
+    QTimer::singleShot(3000, this, SLOT(slotHideCompleteLable()));
 }
 
 //Reset
@@ -292,11 +307,12 @@ void Pedal::slotSetMinMaxLength()
 
 void Pedal::slotCalibrationClockTick()
 {
+    qDebug() << calibrationTime;
     calibrationTime++;
 
     if(calibrationTime > 5000)
     {
-        qDebug() << "stop calibration";
+        //qDebug() << "stop calibration";
         calibrationTicker->stop();
         slotStopCalibrate();
     }
@@ -309,6 +325,29 @@ void Pedal::slotSetTestValueSlider(QSlider *slider)
 
 void Pedal::slotSetLivePedalValue(int val)
 {
-    qDebug() << "live value" << val;
+    //qDebug() << "live value" << val;
     testValueSlider->setValue(val);
+}
+
+void Pedal::slotSetRockPedalLabel(QLabel *label)
+{
+    rockYourPedalLabel = label;
+    rockYourPedalLabel->hide();
+}
+
+void Pedal::slotSetCalibrationArrows(QLabel *label)
+{
+    calibrationArrowsLabel = label;
+    calibrationArrowsLabel->hide();
+}
+
+void Pedal::slotSetCalibrationComplete(QLabel *label)
+{
+    calibrationCompleteLabel = label;
+    calibrationCompleteLabel->hide();
+}
+
+void Pedal::slotHideCompleteLable()
+{
+    calibrationCompleteLabel->hide();
 }
