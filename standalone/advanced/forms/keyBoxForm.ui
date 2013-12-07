@@ -86,49 +86,84 @@ QToolTip
 	width: 22px;
 }</string>
   </property>
-  <widget class="QToolButton" name="openWindow">
+  <widget class="QFrame" name="keyBoxFrame">
    <property name="geometry">
     <rect>
-     <x>7</x>
-     <y>13</y>
-     <width>40</width>
-     <height>40</height>
+     <x>0</x>
+     <y>0</y>
+     <width>101</width>
+     <height>64</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <family>Futura</family>
-     <pointsize>10</pointsize>
-    </font>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
    </property>
-   <property name="toolTip">
-    <string>Open this key's modulation window.</string>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
    </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="keyName">
-   <property name="geometry">
-    <rect>
-     <x>52</x>
-     <y>21</y>
-     <width>40</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string notr="true">&lt;b&gt;Key Name&lt;/b&gt;&lt;p&gt;Sets the name of this key (for use with the SoftStep's alphanumeric display).</string>
-   </property>
-   <property name="inputMethodHints">
-    <set>Qt::ImhNone</set>
-   </property>
-   <property name="maxLength">
-    <number>4</number>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
+   <widget class="QPushButton" name="keyBackground">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>101</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="openWindow">
+    <property name="geometry">
+     <rect>
+      <x>7</x>
+      <y>13</y>
+      <width>40</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Open this key's modulation window.</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="keyName">
+    <property name="geometry">
+     <rect>
+      <x>52</x>
+      <y>21</y>
+      <width>40</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string notr="true">&lt;b&gt;Key Name&lt;/b&gt;&lt;p&gt;Sets the name of this key (for use with the SoftStep's alphanumeric display).</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit
+{
+	padding-top: 1px;
+}</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
+    </property>
+    <property name="maxLength">
+     <number>4</number>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

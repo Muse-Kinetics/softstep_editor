@@ -103,6 +103,7 @@ signals:
     void signalSetMode(QString mode);
     void signalStoreValue(QString name, QVariant value, int presetNum);
     void signalCheckSavedState();
+    void signalSelectedKeyOutline(int selectedKey, bool outlined);
 
     void signalSetPresetNameInKeys(QString);
 
@@ -112,6 +113,7 @@ public slots:
     void slotDisconnectElements();
     void slotInitMenuBar();
     void slotUpdatePasteAvailability();
+    void slotSelectedKey(int selectedKey);
 
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);

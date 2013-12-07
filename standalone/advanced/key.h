@@ -57,6 +57,8 @@ signals:
     void signalCheckSavedState();
 
     void signalCounterValue(int val);
+
+    void signalKeySelected(int val);
     
 public slots:
     void slotOpenWindow();
@@ -81,6 +83,9 @@ public slots:
     void slotWindowHeight(int);
 
     void slotSetPresetName(QString);
+
+    void slotBackgroundClicked();
+    void slotSelectedKeyOutline(int selectedKey, bool outlined);
 
 private:
     Ui::keyBoxForm *keyBoxForm;

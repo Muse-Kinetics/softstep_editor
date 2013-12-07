@@ -33,7 +33,7 @@ public slots:
     void slotPastePreset();
     void slotCopyKey();
     void slotPasteKey();
-    void slotSetCurrentKey();
+    void slotSetCurrentKey(int currentKeyNum);
 };
 
 #endif // COPYPASTEHANDLER_H

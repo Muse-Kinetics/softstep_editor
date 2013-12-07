@@ -8,12 +8,13 @@ CopyPasteHandler::CopyPasteHandler(PresetInterface *presetInterfacer, QObject *p
 {
     presetInterface = presetInterfacer;
 
-    slotSetCurrentKey();
+    //slotSetCurrentKey();
 }
 
-void CopyPasteHandler::slotSetCurrentKey()
+void CopyPasteHandler::slotSetCurrentKey(int currentKeyNum)
 {
-    currentKeyNumber = 1;
+    currentKeyNumber = currentKeyNum;
+    qDebug() << "from copy paste handler - current key number is:" << currentKeyNumber;
 }
 
 void CopyPasteHandler::slotCopyPreset()
@@ -62,8 +63,44 @@ void CopyPasteHandler::slotPasteKey()
         i.next();
         if(preset.contains(i.key()))
         {
-            preset.insert(i.key(), i.value());
-            //qDebug() << "paste matching value" << i.key() << i.value();
+            QString oldKey = i.key();
+            QString newKey;
+
+            if(oldKey.contains("_key_"))
+            {
+                //Here I need to replace the "#_key" with the currentKeyNumber+1
+                if(oldKey.contains("10_key"))
+                {
+                    oldKey.remove(0, 2);
+                    oldKey.insert(0, QString("%1").arg(currentKeyNumber+1));
+                    newKey = oldKey;
+                }
+                else
+                {
+                    oldKey.remove(0, 1);
+                    oldKey.insert(0, QString("%1").arg(currentKeyNumber+1));
+                    newKey = oldKey;
+                }
+            }
+            else
+            {
+                //Here I need to replace the "key#" with the currentKeyNumber+1
+                if(oldKey.contains("key10"))
+                {
+                    oldKey.remove(3, 2);
+                    oldKey.insert(3, QString("%1").arg(currentKeyNumber+1));
+                    newKey = oldKey;
+                }
+                else
+                {
+                    oldKey.remove(3, 1);
+                    oldKey.insert(3, QString("%1").arg(currentKeyNumber+1));
+                    newKey = oldKey;
+                }
+            }
+
+            preset.insert(newKey, i.value());
+            //qDebug() << "paste matching value" << i.key() << newKey << i.value();
         }
     }
     presetInterface->jsonMasterMapCopy.insert(presetInterface->slotGetPresetStringFromInt(presetInterface->currentPresetNum), preset);

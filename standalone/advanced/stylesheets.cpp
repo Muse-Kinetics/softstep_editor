@@ -40,4 +40,19 @@ StyleSheets::StyleSheets()
 
         file->close();
     }
+
+    ///////////////// KEY BOX SELECTION STYLESHEETS ////////////////
+    file = new QFile(QString(":/resources/keybox_boxselected.qss"));
+    if(file->open(QIODevice::ReadOnly))
+    {
+        //Append contents to out list of strings
+        keyBoxSelectedStyleSheet = QTextStream(file).readAll();
+    }
+    file->close();
+    file = new QFile(QString(":/resources/keybox_boxnotselected.qss"));
+    if(file->open(QIODevice::ReadOnly))
+    {
+        keyBoxNotSelectedStyleSheet = QTextStream(file).readAll();
+    }
+    file->close();
 }

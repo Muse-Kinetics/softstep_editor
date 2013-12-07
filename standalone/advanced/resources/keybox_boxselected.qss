@@ -1,4 +1,4 @@
-QWidget
+QPushButton
 {
 	background: rgb(120, 120, 120);
 	border: 3px solid rgb(0, 174, 239);

@@ -26,6 +26,8 @@ class StyleSheets
         //Could also use an array here, but QList is handy and good to know how to use
         QList<QString> modlineEnableStyleSheet;
         QList<QString> keyBoxOpenButtonStyleSheet;
+        QString keyBoxSelectedStyleSheet;
+        QString keyBoxNotSelectedStyleSheet;
 
 };
 

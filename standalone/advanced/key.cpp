@@ -67,6 +67,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
 
     //What's in the Key Box?
     connect(keyBoxForm->openWindow,SIGNAL(clicked()), this, SLOT(slotOpenWindow()));
+    connect(keyBoxForm->keyBackground,SIGNAL(clicked()),this,SLOT(slotBackgroundClicked()));
 
     //What's in the Key Window?
     for(int i = 0; i < 6; i++)
@@ -92,6 +93,23 @@ void Key::slotOpenWindow()
     //qDebug() << QString("Open Key %1 Button clicked! Open the window!").arg(keyInstance+1);
     keyWindowWidget->show();
     keyWindowWidget->raise();
+}
+
+void Key::slotBackgroundClicked()
+{
+    emit signalKeySelected(keyInstance);
+}
+
+void Key::slotSelectedKeyOutline(int selectedKey, bool outlined)
+{
+    if(selectedKey == keyInstance && outlined == true)
+    {
+        keyBoxForm->keyBoxFrame->setStyleSheet(stylesheets.keyBoxSelectedStyleSheet);
+    }
+    else
+    {
+        keyBoxForm->keyBoxFrame->setStyleSheet(stylesheets.keyBoxNotSelectedStyleSheet);
+    }
 }
 
 void Key::slotConnectElements()

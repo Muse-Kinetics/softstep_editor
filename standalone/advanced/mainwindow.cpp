@@ -452,6 +452,12 @@ void MainWindow::slotConnectInterfaces()
 
 	//Copy Paste - update paste availability based on whether anything has been copied
     connect(copyPasteHandler, SIGNAL(signalUpdatePasteAvailability()), this, SLOT(slotUpdatePasteAvailability()));
+    for(int i = 0; i < 10; i++)
+    {
+        connect(key[i], SIGNAL(signalKeySelected(int)), this, SLOT(slotSelectedKey(int)));
+        connect(key[i], SIGNAL(signalKeySelected(int)), copyPasteHandler, SLOT(slotSetCurrentKey(int)));
+        connect(this, SIGNAL(signalSelectedKeyOutline(int,bool)), key[i], SLOT(slotSelectedKeyOutline(int,bool)));
+    }
 
     //Save As
     connect(ui->saveas, SIGNAL(clicked()), disableWidget, SLOT(show()));
@@ -694,6 +700,20 @@ void MainWindow::slotUpdatePasteAvailability()
         {
             pasteKeyAct->setDisabled(false);
         }
+}
+
+void MainWindow::slotSelectedKey(int selectedKey)
+{
+    for(int i = 0; i < 10; i++)
+    {
+        if(selectedKey != i)
+        {
+            //qDebug() << "from mainwindow.cpp/slotSelectedKey - key/bool" << i << "false";
+            emit signalSelectedKeyOutline(selectedKey, false);
+        }
+    }
+    //qDebug() << "from mainwindow.cpp/slotSelectedKey - key/bool" << selectedKey << "true";
+    emit signalSelectedKeyOutline(selectedKey, true);
 }
 
 void MainWindow::slotConnected(bool connection)
