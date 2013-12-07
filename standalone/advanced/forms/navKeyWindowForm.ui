@@ -421,25 +421,25 @@ QCheckBox::indicator:checked:pressed:focus
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>12</x>
-     <y>13</y>
-     <width>76</width>
-     <height>34</height>
+     <x>11</x>
+     <y>10</y>
+     <width>16</width>
+     <height>38</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 14pt;</string>
+    <string notr="true">image: url(:/resources/mode_label.png);</string>
    </property>
    <property name="text">
-    <string>MODE</string>
+    <string/>
    </property>
   </widget>
   <widget class="QRadioButton" name="navpadmode_programchange">
    <property name="geometry">
     <rect>
-     <x>62</x>
+     <x>31</x>
      <y>29</y>
-     <width>106</width>
+     <width>102</width>
      <height>18</height>
     </rect>
    </property>
@@ -489,9 +489,9 @@ QRadioButton::indicator:checked:pressed  {
   <widget class="QRadioButton" name="navpadmode_modline">
    <property name="geometry">
     <rect>
-     <x>62</x>
+     <x>31</x>
      <y>9</y>
-     <width>81</width>
+     <width>102</width>
      <height>18</height>
     </rect>
    </property>
@@ -745,6 +745,9 @@ QToolButton:pressed
    <property name="toolTip">
     <string>Sets the maximum value for the key counter.&lt;br&gt;No values above this number will be output.</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background: rgb(20, 20, 20);</string>
+   </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
@@ -785,6 +788,9 @@ QToolButton:pressed
    </property>
    <property name="toolTip">
     <string>Sets the minimum value for the key counter.&lt;br&gt;No values below this number will be output.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: rgb(20, 20, 20);</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -877,25 +883,28 @@ QCheckBox::indicator:checked:pressed
    <property name="geometry">
     <rect>
      <x>571</x>
-     <y>23</y>
+     <y>9</y>
      <width>74</width>
-     <height>22</height>
+     <height>37</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Futura</family>
-     <pointsize>14</pointsize>
+     <pointsize>12</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 14pt;</string>
+    <string notr="true">font: 12pt &quot;Futura&quot;</string>
    </property>
    <property name="text">
-    <string>COUNTER</string>
+    <string>KEY&lt;br&gt;COUNTER</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="label_22">

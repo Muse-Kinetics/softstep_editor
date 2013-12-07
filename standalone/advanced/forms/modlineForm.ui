@@ -721,6 +721,9 @@ QComboBox QListView
      <bold>false</bold>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::WheelFocus</enum>
+   </property>
    <property name="frame">
     <bool>true</bool>
    </property>
