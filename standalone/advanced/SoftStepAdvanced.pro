@@ -5,7 +5,8 @@
 #-------------------------------------------------
 
 QT       += core gui \
-	    svg
+            svg \
+            declarative
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -54,7 +55,8 @@ SOURCES +=      main.cpp\
     tables.cpp \
     hosted/navdatacooker.cpp \
     hosted/staterecall.cpp \
-    copypastehandler.cpp
+    copypastehandler.cpp \
+    tableinterface.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -94,7 +96,8 @@ HEADERS  +=     mainwindow.h \
     tables.h \
     hosted/navdatacooker.h \
     hosted/staterecall.h \
-    copypastehandler.h
+    copypastehandler.h \
+    tableinterface.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \

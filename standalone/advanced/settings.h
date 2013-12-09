@@ -18,6 +18,7 @@
 
 #include "hosted/midiinput.h"
 #include "pedal.h"
+#include "tableinterface.h"
 
 #define NUM_MIDI_INPUTS 8
 
@@ -48,7 +49,8 @@ public:
 
     //bool eventFilter(QObject *obj, QEvent *event);
 
-    Pedal* pedal;
+    Pedal   *pedal;
+    TableInerface   *pedalLiveTableInterface;
 
     QString mode;
 
@@ -129,7 +131,6 @@ public slots:
 
     void slotStartCalibration();
     void slotResetCalibration();
-
 
 private:
     Ui::settingsForm *settingsForm;

@@ -7,11 +7,11 @@ Pedal::Pedal(QWidget *parent) :
     QWidget(parent)
 {
 
-    QThread *tickerThread = new QThread(this);
-    calibrationTicker = new QTimer(tickerThread);
+    //QThread *tickerThread = new QThread(this);
+    calibrationTicker = new QTimer(this);
     calibrationTime = 0;
-    connect(calibrationTicker, SIGNAL(timeout()), this, SLOT(slotCalibrationClockTick()), Qt::DirectConnection);
-    tickerThread->start();
+    connect(calibrationTicker, SIGNAL(timeout()), this, SLOT(slotCalibrationClockTick()));
+    //tickerThread->start();
 
     /*
     //pixmap.load(QString::fromUtf8("resources/pedal_top.png"));
@@ -180,13 +180,19 @@ void Pedal::slotStartCalibrate()
 void Pedal::slotCalibrate(int pedalInput)
 {
     //Calibration consists of collecting a dataset, finalized in slotStopCalibrate()
-    //qDebug() << "slot calibrate this input" << pedalInput;
+    qDebug() << "slot calibrate this input" << pedalInput;
 
     //If value is not in our list of values
     if(!pedalValueList.contains(pedalInput))
     {
         //Add it to the list
         pedalValueList.append(pedalInput);
+    }
+
+    if(pedalValueList.length())
+    {
+        qDebug() << "emit table";
+        emit signalDrawTable(pedalValueList);
     }
 }
 
@@ -307,7 +313,7 @@ void Pedal::slotSetMinMaxLength()
 
 void Pedal::slotCalibrationClockTick()
 {
-    qDebug() << calibrationTime;
+    //qDebug() << calibrationTime;
     calibrationTime++;
 
     if(calibrationTime > 5000)
@@ -320,13 +326,13 @@ void Pedal::slotCalibrationClockTick()
 
 void Pedal::slotSetTestValueSlider(QSlider *slider)
 {
-    testValueSlider = slider;
+    //testValueSlider = slider;
 }
 
 void Pedal::slotSetLivePedalValue(int val)
 {
     //qDebug() << "live value" << val;
-    testValueSlider->setValue(val);
+    //testValueSlider->setValue(val);
 }
 
 void Pedal::slotSetRockPedalLabel(QLabel *label)

@@ -40,7 +40,6 @@ MainWindow::MainWindow(QWidget *parent) :
     disableWidget(new QWidget(this))
 
 {
-
     //PList stuff
     QCoreApplication::setApplicationName("SoftStepAdvancedEditor");
     QCoreApplication::setOrganizationName("KeithMcMillenInstruments");
@@ -153,6 +152,11 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
 
     midiDeviceManager->slotHostedOnOff(true);
+
+    //typedef QList<unsigned char> UCharList;
+    //qRegisterMetaType<UCharList>("UCharList");
+
+    //connect(key[0]->dataCooker.pedal, SIGNAL(signalDrawTable(UCharList)), settingsWindow->pedalLiveTableInterface, SLOT(slotDrawTable(UCharList)), Qt::QueuedConnection);
 }
 
 MainWindow::~MainWindow()

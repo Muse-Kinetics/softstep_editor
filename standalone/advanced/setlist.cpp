@@ -18,6 +18,8 @@ Setlist::Setlist(QWidget *parent) :
     repopulating = false;
 
     currentSetlistSlot = -1;
+
+
 }
 
 bool Setlist::eventFilter(QObject *obj, QEvent *event)

@@ -24,6 +24,9 @@ Settings::Settings(QWidget *parent) :
 
     pedal = new Pedal();
 
+    //Pedal Table
+    pedalLiveTableInterface = new TableInerface(settingsForm->pedalLiveWidget);
+
     //point dat pedallever to the pedal_top QLabel in the Settings form
     pedal->slotSetLeverPointer(settingsForm->pedal_top);
 
@@ -127,7 +130,6 @@ Settings::Settings(QWidget *parent) :
     rockYourPedalLabel = settingsForm->rockyourpedal;
     calibrationArrowsLabel = settingsForm->pedal_arrow;
     calibrationCompleteLabel = settingsForm->calibrationcomplete;
-
 }
 
 void Settings::slotSetMode(QString m)

@@ -86,6 +86,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     keyBoxForm->openWindow->setStyleSheet(stylesheets.keyBoxOpenButtonStyleSheet.at(keyInstance));
 
     counter = 0;
+
 }
 
 void Key::slotOpenWindow()

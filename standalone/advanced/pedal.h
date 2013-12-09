@@ -42,7 +42,8 @@ public:
     QLabel *calibrationCompleteLabel;
     
 signals:
-    
+    void signalDrawTable(QList<unsigned char>);
+
 public slots:
 
     void slotSetLeverPointer(QLabel *lever);
