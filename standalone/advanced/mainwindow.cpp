@@ -521,11 +521,15 @@ void MainWindow::slotConnectInterfaces()
         connect(settingsWindow, SIGNAL(signalResetCalibration()), key[i]->dataCooker.pedal, SLOT(slotResetCalibrate()));
 
         //Set pedal pointer
-        key[i]->dataCooker.pedal->slotSetTestValueSlider(settingsWindow->testValueSlider);
-        key[i]->dataCooker.pedal->slotSetRockPedalLabel(settingsWindow->rockYourPedalLabel);
-        key[i]->dataCooker.pedal->slotSetCalibrationArrows(settingsWindow->calibrationArrowsLabel);
-        key[i]->dataCooker.pedal->slotSetCalibrationComplete(settingsWindow->calibrationCompleteLabel);
+        //key[i]->dataCooker.pedal->slotSetTestValueSlider(settingsWindow->testValueSlider);
+        //key[i]->dataCooker.pedal->slotSetRockPedalLabel(settingsWindow->rockYourPedalLabel);
+        //key[i]->dataCooker.pedal->slotSetCalibrationArrows(settingsWindow->calibrationArrowsLabel);
+        //key[i]->dataCooker.pedal->slotSetCalibrationComplete(settingsWindow->calibrationCompleteLabel);
     }
+
+    //Pedal -- only connect key 0, we only need one data stream, while there are multiple instances of the Pedal class
+    connect(key[0]->dataCooker.pedal, SIGNAL(signalLivePedalVal(int)), settingsWindow, SLOT(slotSetLiveValue(int)), Qt::QueuedConnection);
+    connect(settingsWindow, SIGNAL(signalStopCalibration()), key[0]->dataCooker.pedal, SLOT(slotStopCalibrate()));
 
     //Nav
     connect(settingsWindow, SIGNAL(signalSetGlobalGain(float)), &navKey->dataCooker, SLOT(slotSetGlobalGain(float)));
@@ -545,9 +549,6 @@ void MainWindow::slotConnectInterfaces()
     //W
     connect(settingsWindow, SIGNAL(signalSetNavWestOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshW(int)));
     connect(settingsWindow, SIGNAL(signalSetNavWestOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshW(int)));
-
-
-
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

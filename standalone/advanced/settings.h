@@ -31,6 +31,10 @@ public:
     QTimer *saveSettingsTimeout;
     int     saveSettiingsTimeoutTime;
 
+    QTimer *calibrationTicker;
+    int calibrationTime;
+    int calibrationBlinkTime;
+
     QWidget* settingsWidget;
 
     QList<QComboBox *> midiInputDeviceMenus;
@@ -48,17 +52,9 @@ public:
     bool ok;
 
     //bool eventFilter(QObject *obj, QEvent *event);
-
-    Pedal   *pedal;
     TableInerface   *pedalLiveTableInterface;
 
     QString mode;
-
-    QSlider *testValueSlider;
-    QLabel *rockYourPedalLabel;
-    QLabel *calibrationArrowsLabel;
-    QLabel *calibrationCompleteLabel;
-
     
 signals:
     void signalStoreValue(QString name, QVariant value);
@@ -95,12 +91,13 @@ signals:
 
     void signalSetNavYIncAccel(int accel);
 
+    //---- Pedal Calibration
     void signalStartCalibration();
     void signalResetCalibration();
+    void signalStopCalibration();
 
     void signalSetTestValueSlider(QSlider* slider);
 
-    
 public slots:
     void slotSetMode(QString m);
 
@@ -129,8 +126,13 @@ public slots:
     void slotEmitAllSettings();
     void slotSaveSettingsTimeout();
 
+    //---- Pedal Calibration
     void slotStartCalibration();
     void slotResetCalibration();
+
+    void slotCalibrationClockTick();
+    void slotSetLiveValue(int val);
+    void slotHideComplete();
 
 private:
     Ui::settingsForm *settingsForm;

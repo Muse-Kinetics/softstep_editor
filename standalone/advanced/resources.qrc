@@ -171,5 +171,6 @@
         <file>resources/scenechanging_on_disabled.png</file>
         <file>resources/counter_label.png</file>
         <file>resources/mode_label.png</file>
+        <file>CalibrationTable.qml</file>
     </qresource>
 </RCC>

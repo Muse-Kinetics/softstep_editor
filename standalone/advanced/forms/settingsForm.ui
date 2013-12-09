@@ -468,7 +468,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
@@ -5200,33 +5200,6 @@ QPushButton:pressed
       <enum>QSlider::TicksAbove</enum>
      </property>
     </widget>
-    <widget class="QLabel" name="label_64">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>310</y>
-       <width>115</width>
-       <height>115</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string>Current calibration table display</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">image: url(:/resources/pedal_graph.png);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <zorder>pedal_frame</zorder>
-    <zorder>pedalsmoothing_label</zorder>
-    <zorder>startcalibration_button</zorder>
-    <zorder>resetcalibration_button</zorder>
-    <zorder>label_65</zorder>
-    <zorder>pedalsmoothing</zorder>
-    <zorder>label_64</zorder>
-    <zorder>label_64</zorder>
    </widget>
   </widget>
   <widget class="QFrame" name="tabsframe">

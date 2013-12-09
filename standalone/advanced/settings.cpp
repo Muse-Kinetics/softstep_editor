@@ -13,6 +13,11 @@ Settings::Settings(QWidget *parent) :
     connect(saveSettingsTimeout, SIGNAL(timeout()), this, SLOT(slotSaveSettingsTimeout()));
     saveSettiingsTimeoutTime = 0;
 
+    //Calibration
+    calibrationTicker = new QTimer(this);
+    calibrationTime = 0;
+    connect(calibrationTicker, SIGNAL(timeout()), this, SLOT(slotCalibrationClockTick()));
+
     //set up settings window
     settingsWidget = new QWidget(this);
     settingsWidget->hide();
@@ -22,13 +27,8 @@ Settings::Settings(QWidget *parent) :
     settingsWidget->setWindowTitle(QString("Settings"));
     slotSetJSONPath();
 
-    pedal = new Pedal();
-
     //Pedal Table
     pedalLiveTableInterface = new TableInerface(settingsForm->pedalLiveWidget);
-
-    //point dat pedallever to the pedal_top QLabel in the Settings form
-    pedal->slotSetLeverPointer(settingsForm->pedal_top);
 
     for(int i = 0; i < NUM_MIDI_INPUTS; i++)
     {
@@ -126,10 +126,10 @@ Settings::Settings(QWidget *parent) :
     settingsForm->osc_ip_4->setEnabled(false);
     //---------------------------------------------------------------------------------------------------------//
 
-    testValueSlider = settingsForm->livepedalvalue;
-    rockYourPedalLabel = settingsForm->rockyourpedal;
-    calibrationArrowsLabel = settingsForm->pedal_arrow;
-    calibrationCompleteLabel = settingsForm->calibrationcomplete;
+    //---- Hide calibration messages initially
+    settingsForm->rockyourpedal->hide();
+    settingsForm->pedal_arrow->hide();
+    settingsForm->calibrationcomplete->hide();
 }
 
 void Settings::slotSetMode(QString m)
@@ -984,12 +984,63 @@ void Settings::slotSaveSettingsTimeout()
     }
 }
 
+
+//----------------------------------------------- Calibration -----------------------------------------------//
 void Settings::slotStartCalibration()
 {
+    calibrationTicker->start(1);
+    calibrationTime = 0;
+    calibrationBlinkTime = 0;
+    settingsForm->rockyourpedal->show();
+    settingsForm->pedal_arrow->show();
+    settingsForm->calibrationcomplete->hide();
     emit signalStartCalibration();
 }
 
 void Settings::slotResetCalibration()
 {
+    calibrationTicker->stop();
     emit signalResetCalibration();
+}
+
+void Settings::slotSetLiveValue(int val)
+{
+    settingsForm->livepedalvalue->setValue(val);
+}
+
+void Settings::slotCalibrationClockTick()
+{
+    //qDebug() << calibrationTime;
+    calibrationTime++;
+    calibrationBlinkTime++;
+
+    //------------------- Here's where calibration is stopped
+    if(calibrationTime > 5000)
+    {
+        //qDebug() << "stop calibration";
+        calibrationTicker->stop();
+        settingsForm->rockyourpedal->hide();
+        settingsForm->pedal_arrow->hide();
+        settingsForm->calibrationcomplete->show();
+
+        emit signalStopCalibration();
+
+        QTimer::singleShot(5000, this, SLOT(slotHideComplete()));
+        //slotStopCalibrate();
+    }
+
+    if(calibrationBlinkTime > 250 && calibrationBlinkTime < 500)
+    {
+        settingsForm->rockyourpedal->setStyleSheet("background:	rgba(0,0,0,0); color: black; font: 10pt \"Futura\"; border:	none;");
+    }
+    else if(calibrationBlinkTime > 500)
+    {
+        calibrationBlinkTime = 0;
+        settingsForm->rockyourpedal->setStyleSheet("background:	rgba(0,0,0,0); color: white; font: 10pt \"Futura\"; border:	none;");
+    }
+}
+
+void Settings::slotHideComplete()
+{
+    settingsForm->calibrationcomplete->hide();
 }

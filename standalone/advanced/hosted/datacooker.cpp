@@ -9,9 +9,6 @@
 DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     QWidget(parent)
 {
-    //Init pedal windower / calibrator
-    pedal = new Pedal(this);
-
     keySensorBaseCcMap[0] = 44;
     keySensorBaseCcMap[1] = 52;
     keySensorBaseCcMap[2] = 60;
@@ -24,6 +21,9 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     keySensorBaseCcMap[9] = 72;
 
     keyNum = instanceNum;
+
+    //Init pedal windower / calibrator
+    pedal = new Pedal(this, keyNum);
 
     //------------------------------ Init settings
     onThresh = 10;
@@ -129,7 +129,7 @@ void DataCooker::slotUpdateVals(int cc, int val)
     }
     else if(cc == PEDAL_CC)
     {
-        //Will need to use calibration pedal class in future
+        //Run input through our pedal class (per key)
         pedalVal = pedal->slotWindowInput(val);
 
         //If windowing returns a valid value
@@ -140,7 +140,7 @@ void DataCooker::slotUpdateVals(int cc, int val)
             {
                 if(modlineSources.value(i) == "Pedal")
                 {
-                    qDebug () << "key" << keyNum << pedalVal << i;
+                    //qDebug () << "key" << keyNum << pedalVal << i;
                     emit signalTransformSource(pedalVal, i, "Pedal");
                 }
             }

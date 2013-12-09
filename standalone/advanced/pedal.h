@@ -11,7 +11,7 @@ class Pedal : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Pedal(QWidget *parent = 0);
+    explicit Pedal(QWidget *parent = 0, int keyInstance = -1);
 
     //Graphics
     QLabel* pedallever;
@@ -31,18 +31,16 @@ public:
 
     bool    calibrating;
 
-    QTimer *calibrationTicker;
-    int calibrationTime;
-
-    int calibratingBlinkCount;
-
     QSlider* testValueSlider;
     QLabel *rockYourPedalLabel;
     QLabel *calibrationArrowsLabel;
     QLabel *calibrationCompleteLabel;
+
+    int parentKeyInstance;
     
 signals:
     void signalDrawTable(QList<unsigned char>);
+    void signalLivePedalVal(int);
 
 public slots:
 
@@ -52,7 +50,6 @@ public slots:
     //--------------------------------------- Midi Input Processing
     int slotWindowInput(int pedalInput); //Windowing takes place here
     int slotTableInput(int pedalInput);
-
     
     //--------------------------------------- Calibration
     void slotStartCalibrate();
@@ -62,16 +59,9 @@ public slots:
     void slotSetMinMaxLength();
     void slotWritePedalTableFile();
 
-    void slotCalibrationClockTick();
-
-    void slotSetTestValueSlider(QSlider* slider);
     void slotSetLivePedalValue(int val);
 
-    void slotSetRockPedalLabel(QLabel *label);
-    void slotSetCalibrationArrows(QLabel *label);
-    void slotSetCalibrationComplete(QLabel *label);
-
-    void slotHideCompleteLable();
+    void slotSetKeyInstance(int keyNum);
 
 };
 

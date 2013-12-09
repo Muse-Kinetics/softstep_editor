@@ -3,16 +3,10 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "pedal.h"
 
-Pedal::Pedal(QWidget *parent) :
-    QWidget(parent)
+Pedal::Pedal(QWidget *parent, int keyInstance) :
+    QWidget(parent),
+    parentKeyInstance(keyInstance)
 {
-
-    //QThread *tickerThread = new QThread(this);
-    calibrationTicker = new QTimer(this);
-    calibrationTime = 0;
-    connect(calibrationTicker, SIGNAL(timeout()), this, SLOT(slotCalibrationClockTick()));
-    //tickerThread->start();
-
     /*
     //pixmap.load(QString::fromUtf8("resources/pedal_top.png"));
 
@@ -53,7 +47,7 @@ Pedal::Pedal(QWidget *parent) :
     calibrating = false;
     pedalSampleCount = 0;
 
-    calibratingBlinkCount = 0;
+    //calibratingBlinkCount = 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,21 +160,15 @@ void Pedal::slotStartCalibrate()
 {
     //qDebug() << "start calibration";
 
-    rockYourPedalLabel->show();
-    calibrationArrowsLabel->show();
-    slotHideCompleteLable();
-
     calibrating = true;
     pedalValueList.clear();
-    calibrationTicker->start(1);
-    calibrationTime = 0;
 }
 
 //Calibrate
 void Pedal::slotCalibrate(int pedalInput)
 {
     //Calibration consists of collecting a dataset, finalized in slotStopCalibrate()
-    qDebug() << "slot calibrate this input" << pedalInput;
+    //qDebug() << "slot calibrate this input" << pedalInput;
 
     //If value is not in our list of values
     if(!pedalValueList.contains(pedalInput))
@@ -191,9 +179,10 @@ void Pedal::slotCalibrate(int pedalInput)
 
     if(pedalValueList.length())
     {
-        qDebug() << "emit table";
+        //qDebug() << "emit table";
         emit signalDrawTable(pedalValueList);
     }
+
 }
 
 //Stop
@@ -226,12 +215,6 @@ void Pedal::slotStopCalibrate()
     slotWritePedalTableFile();
 
     calibrating = false;
-
-    rockYourPedalLabel->hide();
-    calibrationArrowsLabel->hide();
-    calibrationCompleteLabel->show();
-
-    QTimer::singleShot(3000, this, SLOT(slotHideCompleteLable()));
 }
 
 //Reset
@@ -255,50 +238,55 @@ void Pedal::slotWritePedalTableFile()
 {
     slotSetMinMaxLength();
 
-    //Load Pedal file
-    QFile *pedalTableFile = new QFile("resources/pedalTable.txt");
-
-    //Open Pedal File
-    if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
+    //Only write using key 0, no need for writing across all instances (architecture here could be smarter)
+    if(parentKeyInstance == 0)
     {
-        //Clear file
-        pedalTableFile->resize(0);
+        //Load Pedal file
+        QFile *pedalTableFile = new QFile("resources/pedalTable.txt");
 
-        //New byte array to store values and write to file
-        QByteArray byteArray;
-
-        //If there something in table, write its contents
-        if(pedalValueList.size())
+        //Open Pedal File
+        if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
         {
-            //Iterate through current table list
-            for(int i = 0; i < pedalValueList.size(); i++)
-            {
-                //Add table list values to byte array
-                byteArray.append((unsigned char)pedalValueList.at(i));
-            }
-        }
+            //Clear file
+            pedalTableFile->resize(0);
 
-        //Otherwise store default
+            //New byte array to store values and write to file
+            QByteArray byteArray;
+
+            //If there something in table, write its contents
+            if(pedalValueList.size())
+            {
+                //Iterate through current table list
+                for(int i = 0; i < pedalValueList.size(); i++)
+                {
+                    //Add table list values to byte array
+                    byteArray.append((unsigned char)pedalValueList.at(i));
+                }
+            }
+
+            //Otherwise store default
+            else
+            {
+                //Iterate through current table list
+                for(int i = 0; i < 128; i++)
+                {
+                    //Add table list values to byte array
+                    byteArray.append((unsigned char)i);
+                }
+            }
+
+
+            //Write byte array to file
+            pedalTableFile->write(byteArray);
+        }
         else
         {
-            //Iterate through current table list
-            for(int i = 0; i < 128; i++)
-            {
-                //Add table list values to byte array
-                byteArray.append((unsigned char)i);
-            }
+            qDebug() << "!!!!!!!!!!!!!!!!!!!! Pedal Table File Not Found -- ON WRITE. !!!!!!!!!!!!!!!!!!!!";
         }
 
+        pedalTableFile->close();
 
-        //Write byte array to file
-        pedalTableFile->write(byteArray);
     }
-    else
-    {
-        qDebug() << "!!!!!!!!!!!!!!!!!!!! Pedal Table File Not Found -- ON WRITE. !!!!!!!!!!!!!!!!!!!!";
-    }
-
-    pedalTableFile->close();
 
     calibrating = false;
 }
@@ -311,49 +299,14 @@ void Pedal::slotSetMinMaxLength()
     pedalValueListLength = (int)pedalValueList.size();
 }
 
-void Pedal::slotCalibrationClockTick()
-{
-    //qDebug() << calibrationTime;
-    calibrationTime++;
-
-    if(calibrationTime > 5000)
-    {
-        //qDebug() << "stop calibration";
-        calibrationTicker->stop();
-        slotStopCalibrate();
-    }
-}
-
-void Pedal::slotSetTestValueSlider(QSlider *slider)
-{
-    //testValueSlider = slider;
-}
-
 void Pedal::slotSetLivePedalValue(int val)
 {
     //qDebug() << "live value" << val;
     //testValueSlider->setValue(val);
+    emit signalLivePedalVal(val);
 }
 
-void Pedal::slotSetRockPedalLabel(QLabel *label)
+void Pedal::slotSetKeyInstance(int keyNum)
 {
-    rockYourPedalLabel = label;
-    rockYourPedalLabel->hide();
-}
-
-void Pedal::slotSetCalibrationArrows(QLabel *label)
-{
-    calibrationArrowsLabel = label;
-    calibrationArrowsLabel->hide();
-}
-
-void Pedal::slotSetCalibrationComplete(QLabel *label)
-{
-    calibrationCompleteLabel = label;
-    calibrationCompleteLabel->hide();
-}
-
-void Pedal::slotHideCompleteLable()
-{
-    calibrationCompleteLabel->hide();
+    parentKeyInstance = keyNum;
 }
