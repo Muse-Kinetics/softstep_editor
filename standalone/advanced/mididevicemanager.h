@@ -88,6 +88,9 @@ public:
     MidiFormatOutput midiFormatOutput;
     QMap<QString, MIDIEndpointRef> externalDests;
     QMap<QString, MIDIEndpointRef> midiInputSources;
+
+    //Standalone pedal calibration
+    QString calibrationPhase;
     
 signals:
     void signalFirmwareOutOfDate(QString expectedBoot, QString foundBoot, QString expectedFirmware, QString foundFirmware);
@@ -106,7 +109,9 @@ signals:
     void hosted_signalMidiInputSourceMenus(QMap<QString, MIDIEndpointRef>);
     void hosted_signalParseMidiInputPacket(const MIDIPacket*, QString);
 
-
+    //Standalone pedal cal
+    void signalStopStandaloneCalibration();
+    void signalStartStandaloneCalibration();
     
 public slots:
     void slotUpdateFirmware();
@@ -124,6 +129,9 @@ public slots:
     //-------------------------- MIDI Input from Settings
     void hosted_slotParseMidiInputPacket(const MIDIPacket* packet, QString deviceName);
     void hosted_slotConnectExternalMidiInputSources();
+
+    //--------------------------- Pedal Calibration
+    void slotTetherOnOffInStandalone(bool onOff);
 
 };
 #else

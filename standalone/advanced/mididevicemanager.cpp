@@ -25,6 +25,8 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     callbackClassPointer = this;
     createAppMidiClient();
 
+    calibrationPhase = "complete";
+
     connect(&midiFormatOutput, SIGNAL(signalSendMidiPacketList(QString, MIDIPacket)), this, SLOT(hosted_slotSendPacket(QString,MIDIPacket)));
 }
 
@@ -163,6 +165,55 @@ void MidiDeviceManager::slotHostedOnOff(bool onOff)
     }
 }
 
+void MidiDeviceManager::slotTetherOnOffInStandalone(bool onOff)
+{
+    //Turn tether on during calibration
+    if(onOff)
+    {
+        calibrationPhase = "start";
+
+        sysexFIFOClock->stop();
+        sysexFIFOsQueue.clear();
+
+        /*
+        sysexFIFOsQueue.append(_fw_tether_on);
+        sysexFIFOsQueue.append(_fw_standalone_off);
+        sysexFIFOsQueue.append(_fw_scenechange_off_persist);
+        sysexFIFOsQueue.append(_fw_nav_standalone_off_persist);
+        */
+
+        sysexFIFOsQueue.append(_fw_tether_on);
+        sysexFIFOsQueue.append(_fw_nav_tether_on);
+
+        sysexFIFOClock->start(100);
+
+        //Cue calibration start
+        emit signalStartStandaloneCalibration();
+    }
+
+    //Turn thether off at end of calibration
+    else
+    {
+        calibrationPhase = "stop";
+
+        sysexFIFOClock->stop();
+        sysexFIFOsQueue.clear();
+
+        /*
+        sysexFIFOsQueue.append(_fw_tether_off);
+        sysexFIFOsQueue.append(_fw_standalone_on);
+        sysexFIFOsQueue.append(_fw_scenechange_on_persist);
+        sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
+        */
+
+        sysexFIFOsQueue.append(_fw_tether_off);
+        sysexFIFOsQueue.append(_fw_nav_tether_off);
+
+        sysexFIFOClock->start(100);
+
+    }
+}
+
 void MidiDeviceManager::slotUpdateFirmware()
 {
     //qDebug() << "Send the firmware" << firmwareByteArray;
@@ -216,6 +267,18 @@ void MidiDeviceManager::slotDrainSysexFIFO()
     else
     {
         sysexFIFOClock->stop();
+
+        if(calibrationPhase != "complete")
+        {
+            if(calibrationPhase == "start")
+            {
+                emit signalStartStandaloneCalibration();
+            }
+            else
+            {
+                emit signalStopStandaloneCalibration();
+            }
+        }
     }
 }
 

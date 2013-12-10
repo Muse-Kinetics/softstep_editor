@@ -100,6 +100,7 @@ signals:
     void signalStopCalibration();
     void signalSetTestValueSlider(QSlider* slider);
     void signalInitPedalTable(QByteArray);
+    void signalTetherOnOffInStandalone(bool);
 
 public slots:
     void slotSetMode(QString m);
@@ -137,6 +138,8 @@ public slots:
     void slotWritePedalTableToDisk(QByteArray tableByteArray);
     void slotSetLiveValue(int val);
     void slotHideComplete();
+    void slotStartCalibrationStandAlone();
+    void slotStopCalibrationStandAlone();
 
 private:
     Ui::settingsForm *settingsForm;

@@ -135,6 +135,12 @@ Settings::Settings(QWidget *parent) :
 
     //Load Calibration tables into pedal instances
     //slotLoadTableOnStartup();
+
+    //Prevent width resizing
+    settingsWidget->setFixedWidth(settingsWidget->width());
+
+    //Inits settings window height on global
+    settingsWidget->setFixedHeight(396);
 }
 
 void Settings::slotSetMode(QString m)
@@ -998,6 +1004,27 @@ void Settings::slotSaveSettingsTimeout()
 //----------------------------------------------- Calibration -----------------------------------------------//
 void Settings::slotStartCalibration()
 {
+    if(mode == "standalone")
+    {
+        emit signalTetherOnOffInStandalone(true);
+    }
+    else
+    {
+        calibrating = true;
+        pedalValueListGraph.clear();
+        QTimer::singleShot(5000, this, SLOT(slotStopCalibration()));
+        //calibrationTicker->start(100);
+        calibrationTime = 0;
+        calibrationBlinkTime = 0;
+        settingsForm->rockyourpedal->show();
+        settingsForm->pedal_arrow->show();
+        settingsForm->calibrationcomplete->hide();
+        emit signalStartCalibration();
+    }
+}
+
+void Settings::slotStartCalibrationStandAlone()
+{
     calibrating = true;
     pedalValueListGraph.clear();
     QTimer::singleShot(5000, this, SLOT(slotStopCalibration()));
@@ -1012,6 +1039,8 @@ void Settings::slotStartCalibration()
 
 void Settings::slotResetCalibration()
 {
+    //Basically a duplicate function, but trigered by external signal
+
     //calibrationTicker->stop();
     pedalValueListGraph.clear();
     pedalLiveTableInterface->slotClearTable();
@@ -1028,7 +1057,6 @@ void Settings::slotResetCalibration()
 
 void Settings::slotSetLiveValue(int val)
 {
-
     //-------------- This function only used in graphics
     settingsForm->livepedalvalue->setValue(val);
 
@@ -1078,6 +1106,36 @@ void Settings::slotSetLiveValue(int val)
 
 void Settings::slotStopCalibration()
 {
+    if(mode == "standalone")
+    {
+        //Turn tether off
+        emit signalTetherOnOffInStandalone(false);
+    }
+    else
+    {
+        //qDebug() << calibrationTime;
+        calibrationTime++;
+        calibrationBlinkTime++;
+
+        //------------------- Here's where calibration is stopped
+        //qDebug() << "stop calibration";
+        //calibrationTicker->stop();
+        settingsForm->rockyourpedal->hide();
+        settingsForm->pedal_arrow->hide();
+        settingsForm->calibrationcomplete->show();
+
+        emit signalStopCalibration();
+
+        calibrating = false;
+
+        QTimer::singleShot(5000, this, SLOT(slotHideComplete()));
+    }
+}
+
+void Settings::slotStopCalibrationStandAlone()
+{
+    //Basically a duplicate function, but trigered by external signal
+
     //qDebug() << calibrationTime;
     calibrationTime++;
     calibrationBlinkTime++;

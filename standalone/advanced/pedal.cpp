@@ -106,7 +106,7 @@ int Pedal::slotTableInput(int pedalInput)
     //Invert table
     output = 127 - output;
 
-    qDebug() << "pedal output" << output << pedalInput;
+    //qDebug() << "pedal output" << output << pedalInput;
     slotSetLivePedalValue(output);
 
     return output;

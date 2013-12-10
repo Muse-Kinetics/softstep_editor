@@ -531,6 +531,11 @@ void MainWindow::slotConnectInterfaces()
     connect(settingsWindow, SIGNAL(signalStopCalibration()), key[0]->dataCooker.pedal, SLOT(slotStopCalibrate()));
     connect(key[0]->dataCooker.pedal, SIGNAL(signalWriteTableToDisk(QByteArray)), settingsWindow, SLOT(slotWritePedalTableToDisk(QByteArray)));
 
+    connect(midiDeviceManager, SIGNAL(signalStartStandaloneCalibration()), settingsWindow, SLOT(slotStartCalibrationStandAlone()));
+    connect(midiDeviceManager, SIGNAL(signalStopStandaloneCalibration()), settingsWindow, SLOT(slotStopCalibrationStandAlone()));
+
+    connect(settingsWindow, SIGNAL(signalTetherOnOffInStandalone(bool)), midiDeviceManager, SLOT(slotTetherOnOffInStandalone(bool)));
+
     //Nav
     connect(settingsWindow, SIGNAL(signalSetGlobalGain(float)), &navKey->dataCooker, SLOT(slotSetGlobalGain(float)));
 
