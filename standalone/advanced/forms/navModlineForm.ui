@@ -674,6 +674,31 @@ QToolTip
    <property name="focusPolicy">
     <enum>Qt::WheelFocus</enum>
    </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	color: white;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(20, 20, 20);
+	padding:0, 1, 0, 0;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+QSpinBox:disabled
+{
+	background-color: rgba(20, 20, 20, 75);
+	border-color: rgba(0, 174, 239, 75);
+	font: 10pt &quot;Futura&quot;;
+	color: rgba(255, 255, 255, 75);
+}
+</string>
+   </property>
    <property name="frame">
     <bool>true</bool>
    </property>
@@ -2857,7 +2882,72 @@ QComboBox QListView
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 3px 1px 4px;
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 35px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+
+QComboBox:disabled
+{
+	background-color: rgba(20, 20, 20, 75);
+	border-color: rgba(0, 174, 239, 75);
+	color: rgba(255, 255, 255, 75);
+}
+</string>
    </property>
    <property name="sizeAdjustPolicy">
     <enum>QComboBox::AdjustToContentsOnFirstShow</enum>

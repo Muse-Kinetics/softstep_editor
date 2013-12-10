@@ -25,7 +25,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				10pt &quot;Futura&quot;;
+	font: 				9pt &quot;Futura&quot;;
 	border:				none;
 }
 
@@ -702,7 +702,7 @@ QToolButton:pressed
    <property name="geometry">
     <rect>
      <x>32</x>
-     <y>10</y>
+     <y>9</y>
      <width>21</width>
      <height>16</height>
     </rect>
@@ -710,7 +710,10 @@ QToolButton:pressed
    <property name="font">
     <font>
      <family>Futura</family>
-     <pointsize>10</pointsize>
+     <pointsize>9</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="text">
@@ -721,7 +724,7 @@ QToolButton:pressed
    <property name="geometry">
     <rect>
      <x>64</x>
-     <y>10</y>
+     <y>9</y>
      <width>21</width>
      <height>16</height>
     </rect>
@@ -729,7 +732,10 @@ QToolButton:pressed
    <property name="font">
     <font>
      <family>Futura</family>
-     <pointsize>10</pointsize>
+     <pointsize>9</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="text">
@@ -754,9 +760,27 @@ QToolButton:pressed
      <bold>false</bold>
     </font>
    </property>
+   <property name="toolTip">
+    <string>&lt;b&gt;Key Counter:&lt;/b&gt;&lt;p&gt;Increments between the specified&lt;br&gt; min and max values.&lt;p&gt;&lt;b&gt;(Hosted mode only)&lt;/b&gt;</string>
+   </property>
    <property name="styleSheet">
-    <string notr="true">font: 12pt &quot;Futura&quot;;
-image: url(:/resources/counter_label.png);</string>
+    <string notr="true">/*-------QLabel-------*/
+QLabel
+{
+	font: 12pt &quot;Futura&quot;;
+	image: url(:/resources/counter_label.png);
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+}</string>
    </property>
    <property name="text">
     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -773,7 +797,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>26</y>
+     <y>25</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -782,10 +806,30 @@ p, li { white-space: pre-wrap; }
     <string>Sets the maximum value for the key counter.&lt;br&gt;No values above this number will be output.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">QSpinBox
+    <string notr="true">/* ---------- QSpinBox ------------*/
+QSpinBox
 {
-	background-color: rgb(18, 18, 18);
-}</string>
+	font: 9pt &quot;Futura&quot;;
+	color: white;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(20, 20, 20);
+	padding:0, 3, 0, 0;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+QSpinBox:disabled
+{
+	background-color: rgba(20, 20, 20, 75);
+	border-color: rgba(0, 174, 239, 75);
+	font: 9pt &quot;Futura&quot;;
+	color: rgba(255, 255, 255, 75);
+}
+</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -801,7 +845,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>93</x>
-     <y>10</y>
+     <y>9</y>
      <width>31</width>
      <height>16</height>
     </rect>
@@ -809,7 +853,10 @@ p, li { white-space: pre-wrap; }
    <property name="font">
     <font>
      <family>Futura</family>
-     <pointsize>10</pointsize>
+     <pointsize>9</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="text">
@@ -819,8 +866,8 @@ p, li { white-space: pre-wrap; }
   <widget class="QCheckBox" name="counterWrap">
    <property name="geometry">
     <rect>
-     <x>97</x>
-     <y>26</y>
+     <x>96</x>
+     <y>25</y>
      <width>23</width>
      <height>20</height>
     </rect>
@@ -868,6 +915,16 @@ QCheckBox::indicator:checked:hover
 QCheckBox::indicator:checked:pressed
 {
 	image:url(:/resources/checkbox_off.png)
+}
+
+QCheckBox::indicator:unchecked:disabled
+{
+	image:url(:/resources/checkbox_off_disabled.png)
+}
+
+QCheckBox::indicator:checked:disabled
+{
+	image:url(:/resources/checkbox_off_disabled.png)
 }</string>
    </property>
    <property name="text">
@@ -878,7 +935,7 @@ QCheckBox::indicator:checked:pressed
    <property name="geometry">
     <rect>
      <x>27</x>
-     <y>26</y>
+     <y>25</y>
      <width>30</width>
      <height>18</height>
     </rect>
@@ -887,10 +944,30 @@ QCheckBox::indicator:checked:pressed
     <string>Sets the minimum value for the key counter.&lt;br&gt;No values below this number will be output.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">QSpinBox
+    <string notr="true">/* ---------- QSpinBox ------------*/
+QSpinBox
 {
+	font: 9pt &quot;Futura&quot;;
+	color: white;
+	border: 1px solid rgb(0,174,239);
 	background-color: rgb(20, 20, 20);
-}</string>
+	padding:0, 3, 0, 0;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+QSpinBox:disabled
+{
+	background-color: rgba(20, 20, 20, 75);
+	border-color: rgba(0, 174, 239, 75);
+	font: 9pt &quot;Futura&quot;;
+	color: rgba(255, 255, 255, 75)
+}
+</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

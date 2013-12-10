@@ -172,5 +172,7 @@
         <file>resources/mode_label.png</file>
         <file>CalibrationTable.qml</file>
         <file>resources/counter_label.png</file>
+        <file>resources/checkbox_off_disabled.png</file>
+        <file>resources/checkbox_on_disabled.png</file>
     </qresource>
 </RCC>
