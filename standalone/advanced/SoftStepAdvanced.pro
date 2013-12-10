@@ -175,4 +175,5 @@ OTHER_FILES += \
     resources/keybox_openwindow1_stylesheet.qss \
     resources/pedalTable.txt \
     resources/keybox_boxnotselected.qss \
-    resources/keybox_boxselected.qss
+    resources/keybox_boxselected.qss \
+    CalibrationTable.qml

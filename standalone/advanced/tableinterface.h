@@ -30,7 +30,8 @@ signals:
 
 
 public slots:
-    void slotDrawTable(QList<unsigned char> table);
+    void slotDrawTable(float x, float y, int width);
+    void slotClearTable();
 
 
 private:

@@ -16,25 +16,25 @@ Rectangle
     function drawBlock(x,y,size)
     {
         //console.log("drawBlock called............");
-        console.log(x);
-        console.log(y);
-        console.log(size);
+        //console.log(x);
+        //console.log(y);
+        //console.log(size);
 
         var newObject = Qt.createQmlObject('import QtQuick 1.0; Rectangle {color: Qt.rgba(230/255, 0/255, 134/255,1);}', main, "block");
 
-        newObject.x = x;
-        newObject.y = y;
+        newObject.x = x*109;
+        newObject.y = 109 - y*109;
         newObject.height = 2;
         newObject.width = size;
 
-        console.log("drawBlock called............");
+        //console.log("drawBlock called............");
     }
 
         //Clears all blocks
         function clearBlocks()
         {
-            console.log("clearBlock called............");
+            //console.log("clearBlock called............");
 
-            var newObject = Qt.createQmlObject('import QtQuick 1.0; Rectangle {color: Qt.rgba(50/255, 50/255, 50/255,1); width: 112; height: 112;}', main, "clear");
+            var newObject = Qt.createQmlObject('import QtQuick 1.0; Rectangle {color: Qt.rgba(50/255, 50/255, 50/255,1); x:2; y:2; width: 109; height: 109;}', main, "clear");
         }
     }

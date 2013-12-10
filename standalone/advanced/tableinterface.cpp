@@ -38,12 +38,21 @@ TableInerface::TableInerface(QWidget *parent) :
     //QMetaObject::invokeMethod(rootObject, "clearBlocks");
 }
 
-void TableInerface::slotDrawTable(QList<unsigned char> table)
+void TableInerface::slotDrawTable(float x, float y, int width)
 {
-    qDebug() << "============================================================= DRAW TABLE";
-   /* for(int i = 0; i < table.length(); i++)
+    //qDebug() << "============================================================= DRAW TABLE";
+
+    //QMetaObject::invokeMethod(rootObject, "clearBlocks");
+    QMetaObject::invokeMethod(rootObject, "drawBlock", Q_ARG(QVariant, x), Q_ARG(QVariant, y), Q_ARG(QVariant, width));
+
+    /*for(int i = 0; i < table.length(); i++)
     {
         //QMetaObject::invokeMethod(rootObject, "clearBlocks");
         //QMetaObject::invokeMethod(rootObject, "drawBlock", Q_ARG(QVariant, i), Q_ARG(QVariant, table.at(i)), Q_ARG(QVariant, table.length()/114));
     }*/
+}
+
+void TableInerface::slotClearTable()
+{
+    QMetaObject::invokeMethod(rootObject, "clearBlocks");
 }

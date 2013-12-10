@@ -62,7 +62,6 @@ public slots:
     void slotSetLivePedalValue(int val);
 
     void slotSetKeyInstance(int keyNum);
-
 };
 
 #endif // PEDAL_H

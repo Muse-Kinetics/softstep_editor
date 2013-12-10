@@ -18,6 +18,8 @@ Settings::Settings(QWidget *parent) :
     calibrationTime = 0;
     connect(calibrationTicker, SIGNAL(timeout()), this, SLOT(slotCalibrationClockTick()));
 
+    calibrating = false;
+
     //set up settings window
     settingsWidget = new QWidget(this);
     settingsWidget->hide();
@@ -988,6 +990,8 @@ void Settings::slotSaveSettingsTimeout()
 //----------------------------------------------- Calibration -----------------------------------------------//
 void Settings::slotStartCalibration()
 {
+    calibrating = true;
+    pedalValueList.clear();
     calibrationTicker->start(1);
     calibrationTime = 0;
     calibrationBlinkTime = 0;
@@ -1000,12 +1004,55 @@ void Settings::slotStartCalibration()
 void Settings::slotResetCalibration()
 {
     calibrationTicker->stop();
+    pedalValueList.clear();
+    pedalLiveTableInterface->slotClearTable();
     emit signalResetCalibration();
 }
 
 void Settings::slotSetLiveValue(int val)
 {
     settingsForm->livepedalvalue->setValue(val);
+
+    if(calibrating)
+    {
+        //If this is a new value being reported
+        if(!pedalValueList.contains(val))
+        {
+            //Append value to our list
+            pedalValueList.append(val);
+
+            int count = pedalValueList.count();
+
+            //Order our list
+            for(int i = 1; i < count; i++)
+            {
+                int j = i;
+                int t;
+
+                while(j > 0 && pedalValueList.at(j) < pedalValueList.at(j - 1))
+                {
+                    t = pedalValueList.at(j);
+
+                    pedalValueList.replace(j, pedalValueList.at(j - 1));
+
+                    pedalValueList.replace(j - 1, t);
+
+                    j--;
+                }
+            }
+
+            qDebug() << "pedal table value" << val << pedalValueList.indexOf(val);
+
+            int width = 109/count;
+
+            pedalLiveTableInterface->slotClearTable();
+            for(int i = 1; i < count; i++)
+            {
+                //Draw our list new value-- should only be drawing one value at a time
+                pedalLiveTableInterface->slotDrawTable((float)(i + i*width)/(float)count, ((float)pedalValueList.at(i))/127.0f,  width);
+            }
+        }
+    }
 }
 
 void Settings::slotCalibrationClockTick()
@@ -1024,6 +1071,8 @@ void Settings::slotCalibrationClockTick()
         settingsForm->calibrationcomplete->show();
 
         emit signalStopCalibration();
+
+        calibrating = false;
 
         QTimer::singleShot(5000, this, SLOT(slotHideComplete()));
         //slotStopCalibrate();

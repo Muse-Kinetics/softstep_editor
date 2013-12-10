@@ -51,8 +51,10 @@ public:
     QFile *josnFile;
     bool ok;
 
-    //bool eventFilter(QObject *obj, QEvent *event);
+    //Calibration
     TableInerface   *pedalLiveTableInterface;
+    bool calibrating;
+    QList<int> pedalValueList;
 
     QString mode;
     
