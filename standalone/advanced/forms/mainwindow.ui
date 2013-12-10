@@ -279,7 +279,7 @@ QToolButton:pressed
        </rect>
       </property>
       <property name="toolTip">
-       <string>Save the current preset &lt;br&gt;settings to a new preset &lt;br&gt;slot.</string>
+       <string>Save the current settings&lt;br&gt; to a new preset slot.</string>
       </property>
       <property name="text">
        <string>SAVE AS</string>

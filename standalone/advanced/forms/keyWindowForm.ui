@@ -873,7 +873,7 @@ QSpinBox:disabled
     </rect>
    </property>
    <property name="toolTip">
-    <string>When checked, the key counter&lt;br&gt; will loop back to the minimum &lt;br&gt;value when the maximum &lt;br&gt;value is exceeded (and vice versa).&lt;p&gt;When unchecked, the counter will stop &lt;br&gt;once the minimum or maximum &lt;br&gt;values are reached.</string>
+    <string>When checked, the key counter&lt;br&gt; will loop back to the minimum &lt;br&gt;value once the maximum &lt;br&gt;value is exceeded (and vice versa).&lt;p&gt;When unchecked, the counter will stop &lt;br&gt;once the minimum or maximum &lt;br&gt;values are reached.</string>
    </property>
    <property name="styleSheet">
     <string notr="true">QCheckBox

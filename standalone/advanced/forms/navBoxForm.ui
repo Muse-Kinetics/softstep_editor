@@ -87,9 +87,9 @@ QToolTip
    <property name="geometry">
     <rect>
      <x>7</x>
-     <y>0</y>
-     <width>40</width>
-     <height>64</height>
+     <y>13</y>
+     <width>38</width>
+     <height>38</height>
     </rect>
    </property>
    <property name="font">
@@ -97,6 +97,9 @@ QToolTip
      <family>Futura</family>
      <pointsize>10</pointsize>
     </font>
+   </property>
+   <property name="toolTip">
+    <string>Open this key's modulation window.</string>
    </property>
    <property name="text">
     <string/>
@@ -111,8 +114,14 @@ QToolTip
      <height>26</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>&lt;b&gt;Key Name&lt;/b&gt;&lt;p&gt;Set the name of this key.</string>
+   </property>
    <property name="maxLength">
     <number>4</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

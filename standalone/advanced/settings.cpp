@@ -526,19 +526,25 @@ void Settings::slotViewSelector()
 
         if(sender == settingsForm->settingsglobalbutton)
         {
+            //set stackedwidget tab view
             settingsForm->settingsViews->setCurrentIndex(0);
+            //resize settings window
+            settingsWidget->setFixedHeight(396);
         }
         else if(sender == settingsForm->settingskeybutton)
         {
             settingsForm->settingsViews->setCurrentIndex(1);
+            settingsWidget->setFixedHeight(480);
         }
         else if(sender == settingsForm->settingsinputbutton)
         {
             settingsForm->settingsViews->setCurrentIndex(2);
+            settingsWidget->setFixedHeight(495);
         }
         else if(sender == settingsForm->settingspedalbutton)
         {
             settingsForm->settingsViews->setCurrentIndex(3);
+            settingsWidget->setFixedHeight(415);
         }
     }
 }

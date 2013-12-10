@@ -110,6 +110,9 @@ QToolTip
       <height>64</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Click this key box to&lt;br&gt; select it for copy/paste functionality</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -146,7 +149,7 @@ QToolTip
      </rect>
     </property>
     <property name="toolTip">
-     <string notr="true">&lt;b&gt;Key Name&lt;/b&gt;&lt;p&gt;Sets the name of this key (for use with the SoftStep's alphanumeric display).</string>
+     <string notr="true">&lt;b&gt;Key Name&lt;/b&gt;&lt;p&gt;Set the name of this key.</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit

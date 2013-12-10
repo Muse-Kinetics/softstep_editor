@@ -278,13 +278,13 @@ QToolTip
      <x>11</x>
      <y>81</y>
      <width>300</width>
-     <height>404</height>
+     <height>402</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget
 {
-	background:		rgb(60, 60, 60);
+	background:		rgba(60, 60, 60, 0);
 	border: none;
 }
 
@@ -468,7 +468,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
