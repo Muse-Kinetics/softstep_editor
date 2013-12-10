@@ -1049,7 +1049,7 @@ void Settings::slotSetLiveValue(int val)
             for(int i = 1; i < count; i++)
             {
                 //Draw our list new value-- should only be drawing one value at a time
-                pedalLiveTableInterface->slotDrawTable((float)(i + i*width)/(float)count, ((float)pedalValueList.at(i))/127.0f,  width);
+                pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueList.at(i))/127.0f,  width);
             }
         }
     }
