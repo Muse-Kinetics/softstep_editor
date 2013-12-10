@@ -114,7 +114,8 @@ FORMS    +=     forms/mainwindow.ui \
     forms/fwprogressform.ui \
     forms/fwoodform.ui \
     forms/updatefwform.ui \
-    forms/fwupdatecompleteform.ui
+    forms/fwupdatecompleteform.ui \
+    forms/pedalLiveTableForm.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#
