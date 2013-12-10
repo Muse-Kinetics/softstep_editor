@@ -169,8 +169,8 @@
         <file>resources/checkbox_on.png</file>
         <file>resources/scenechanging_off_disabled.png</file>
         <file>resources/scenechanging_on_disabled.png</file>
-        <file>resources/counter_label.png</file>
         <file>resources/mode_label.png</file>
         <file>CalibrationTable.qml</file>
+        <file>resources/counter_label.png</file>
     </qresource>
 </RCC>
