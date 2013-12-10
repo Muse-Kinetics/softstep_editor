@@ -130,9 +130,10 @@ public slots:
 
     //---- Pedal Calibration
     void slotStartCalibration();
+    void slotStopCalibration();
     void slotResetCalibration();
 
-    void slotCalibrationClockTick();
+    //void slotCalibrationClockTick();
     void slotSetLiveValue(int val);
     void slotHideComplete();
 

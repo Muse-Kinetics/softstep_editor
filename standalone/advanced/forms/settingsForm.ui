@@ -4950,7 +4950,7 @@ background: none;</string>
       <widget class="QLabel" name="pedal_arrow">
        <property name="geometry">
         <rect>
-         <x>113</x>
+         <x>117</x>
          <y>25</y>
          <width>21</width>
          <height>37</height>
@@ -4962,19 +4962,6 @@ background: none;</string>
        </property>
        <property name="text">
         <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="rockyourpedal">
-       <property name="geometry">
-        <rect>
-         <x>22</x>
-         <y>0</y>
-         <width>96</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>ROCK YOUR PEDAL</string>
        </property>
       </widget>
       <widget class="QLabel" name="calibrationcomplete">
@@ -5020,6 +5007,25 @@ background: none;</string>
        </property>
        <property name="text">
         <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="rockyourpedal">
+       <property name="geometry">
+        <rect>
+         <x>18</x>
+         <y>-9</y>
+         <width>101</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>ROCK YOUR PEDAL FROM HEEL TO TOE FOR 5 SECONDS</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>

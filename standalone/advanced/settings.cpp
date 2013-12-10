@@ -14,9 +14,9 @@ Settings::Settings(QWidget *parent) :
     saveSettiingsTimeoutTime = 0;
 
     //Calibration
-    calibrationTicker = new QTimer(this);
+    //calibrationTicker = new QTimer(this);
     calibrationTime = 0;
-    connect(calibrationTicker, SIGNAL(timeout()), this, SLOT(slotCalibrationClockTick()));
+    //connect(calibrationTicker, SIGNAL(timeout()), this, SLOT(slotCalibrationClockTick()));
 
     calibrating = false;
 
@@ -992,7 +992,8 @@ void Settings::slotStartCalibration()
 {
     calibrating = true;
     pedalValueList.clear();
-    calibrationTicker->start(1);
+    QTimer::singleShot(5000, this, SLOT(slotStopCalibration()));
+    //calibrationTicker->start(100);
     calibrationTime = 0;
     calibrationBlinkTime = 0;
     settingsForm->rockyourpedal->show();
@@ -1003,9 +1004,17 @@ void Settings::slotStartCalibration()
 
 void Settings::slotResetCalibration()
 {
-    calibrationTicker->stop();
+    //calibrationTicker->stop();
     pedalValueList.clear();
     pedalLiveTableInterface->slotClearTable();
+
+    for(int i = 0; i < 127; i++)
+    {
+        pedalValueList.append(i);
+    }
+
+    pedalLiveTableInterface->slotDrawLinear();
+
     emit signalResetCalibration();
 }
 
@@ -1015,6 +1024,8 @@ void Settings::slotSetLiveValue(int val)
 
     if(calibrating)
     {
+        QApplication::processEvents();
+
         //If this is a new value being reported
         if(!pedalValueList.contains(val))
         {
@@ -1041,7 +1052,7 @@ void Settings::slotSetLiveValue(int val)
                 }
             }
 
-            qDebug() << "pedal table value" << val << pedalValueList.indexOf(val);
+            //qDebug() << "pedal table value" << val << pedalValueList.indexOf(val);
 
             int width = 109/count;
 
@@ -1055,38 +1066,26 @@ void Settings::slotSetLiveValue(int val)
     }
 }
 
-void Settings::slotCalibrationClockTick()
+void Settings::slotStopCalibration()
 {
     //qDebug() << calibrationTime;
     calibrationTime++;
     calibrationBlinkTime++;
 
     //------------------- Here's where calibration is stopped
-    if(calibrationTime > 5000)
-    {
-        //qDebug() << "stop calibration";
-        calibrationTicker->stop();
-        settingsForm->rockyourpedal->hide();
-        settingsForm->pedal_arrow->hide();
-        settingsForm->calibrationcomplete->show();
+    //qDebug() << "stop calibration";
+    //calibrationTicker->stop();
+    settingsForm->rockyourpedal->hide();
+    settingsForm->pedal_arrow->hide();
+    settingsForm->calibrationcomplete->show();
 
-        emit signalStopCalibration();
+    emit signalStopCalibration();
 
-        calibrating = false;
+    calibrating = false;
 
-        QTimer::singleShot(5000, this, SLOT(slotHideComplete()));
-        //slotStopCalibrate();
-    }
+    QTimer::singleShot(5000, this, SLOT(slotHideComplete()));
+    //slotStopCalibrate();
 
-    if(calibrationBlinkTime > 250 && calibrationBlinkTime < 500)
-    {
-        settingsForm->rockyourpedal->setStyleSheet("background:	rgba(0,0,0,0); color: black; font: 10pt \"Futura\"; border:	none;");
-    }
-    else if(calibrationBlinkTime > 500)
-    {
-        calibrationBlinkTime = 0;
-        settingsForm->rockyourpedal->setStyleSheet("background:	rgba(0,0,0,0); color: white; font: 10pt \"Futura\"; border:	none;");
-    }
 }
 
 void Settings::slotHideComplete()

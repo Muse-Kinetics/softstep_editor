@@ -30,11 +30,24 @@ Rectangle
         //console.log("drawBlock called............");
     }
 
-        //Clears all blocks
-        function clearBlocks()
-        {
-            //console.log("clearBlock called............");
+    //Clears all blocks
+    function clearBlocks()
+    {
+        //console.log("clearBlock called............");
 
-            var newObject = Qt.createQmlObject('import QtQuick 1.0; Rectangle {color: Qt.rgba(50/255, 50/255, 50/255,1); x:2; y:2; width: 109; height: 109;}', main, "clear");
+        var newObject = Qt.createQmlObject('import QtQuick 1.0; Rectangle {color: Qt.rgba(50/255, 50/255, 50/255,1); x:2; y:2; width: 109; height: 109;}', main, "clear");
+    }
+
+    function drawLinear()
+    {
+        for(var i = 0; i < 109; i++)
+        {
+            var newObject = Qt.createQmlObject('import QtQuick 1.0; Rectangle {color: Qt.rgba(230/255, 0/255, 134/255,1);}', main, "block");
+
+            newObject.x = i+2;
+            newObject.y = 109 - i;
+            newObject.height = 2;
+            newObject.width = 1;
         }
     }
+}

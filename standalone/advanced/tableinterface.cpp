@@ -56,3 +56,8 @@ void TableInerface::slotClearTable()
 {
     QMetaObject::invokeMethod(rootObject, "clearBlocks");
 }
+
+void TableInerface::slotDrawLinear()
+{
+    QMetaObject::invokeMethod(rootObject, "drawLinear");
+}
