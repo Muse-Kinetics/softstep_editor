@@ -41,11 +41,11 @@ public:
 signals:
     void signalDrawTable(QList<unsigned char>);
     void signalLivePedalVal(int);
+    void signalWriteTableToDisk(QByteArray);
 
 public slots:
 
     void slotSetLeverPointer(QLabel *lever);
-    void slotRotateLever(int degrees);
 
     //--------------------------------------- Midi Input Processing
     int slotWindowInput(int pedalInput); //Windowing takes place here
@@ -58,10 +58,8 @@ public slots:
     void slotResetCalibrate();
     void slotSetMinMaxLength();
     void slotWritePedalTableFile();
-
     void slotSetLivePedalValue(int val);
-
-    void slotSetKeyInstance(int keyNum);
+    void slotInitPedalTable(QByteArray table);
 };
 
 #endif // PEDAL_H

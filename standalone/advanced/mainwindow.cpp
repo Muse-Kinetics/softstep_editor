@@ -157,6 +157,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //qRegisterMetaType<UCharList>("UCharList");
 
     //connect(key[0]->dataCooker.pedal, SIGNAL(signalDrawTable(UCharList)), settingsWindow->pedalLiveTableInterface, SLOT(slotDrawTable(UCharList)), Qt::QueuedConnection);
+
+    settingsWindow->slotLoadTableOnStartup();
 }
 
 MainWindow::~MainWindow()
@@ -520,16 +522,14 @@ void MainWindow::slotConnectInterfaces()
         connect(settingsWindow, SIGNAL(signalStartCalibration()), key[i]->dataCooker.pedal, SLOT(slotStartCalibrate()));
         connect(settingsWindow, SIGNAL(signalResetCalibration()), key[i]->dataCooker.pedal, SLOT(slotResetCalibrate()));
 
-        //Set pedal pointer
-        //key[i]->dataCooker.pedal->slotSetTestValueSlider(settingsWindow->testValueSlider);
-        //key[i]->dataCooker.pedal->slotSetRockPedalLabel(settingsWindow->rockYourPedalLabel);
-        //key[i]->dataCooker.pedal->slotSetCalibrationArrows(settingsWindow->calibrationArrowsLabel);
-        //key[i]->dataCooker.pedal->slotSetCalibrationComplete(settingsWindow->calibrationCompleteLabel);
+        //Pedal Calibration file read/write
+        connect(settingsWindow, SIGNAL(signalInitPedalTable(QByteArray)), key[i]->dataCooker.pedal, SLOT(slotInitPedalTable(QByteArray)));
     }
 
     //Pedal -- only connect key 0, we only need one data stream, while there are multiple instances of the Pedal class
     connect(key[0]->dataCooker.pedal, SIGNAL(signalLivePedalVal(int)), settingsWindow, SLOT(slotSetLiveValue(int)), Qt::QueuedConnection);
     connect(settingsWindow, SIGNAL(signalStopCalibration()), key[0]->dataCooker.pedal, SLOT(slotStopCalibrate()));
+    connect(key[0]->dataCooker.pedal, SIGNAL(signalWriteTableToDisk(QByteArray)), settingsWindow, SLOT(slotWritePedalTableToDisk(QByteArray)));
 
     //Nav
     connect(settingsWindow, SIGNAL(signalSetGlobalGain(float)), &navKey->dataCooker, SLOT(slotSetGlobalGain(float)));
@@ -580,6 +580,7 @@ void MainWindow::slotConnectInterfaces()
     connect(aboutForm->ok, SIGNAL(clicked()), aboutFormWidget, SLOT(close()));
     connect(aboutForm->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
     //connect(aboutForm->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////// "Downloading" ///////////////////////////////////////////////////////////////
@@ -980,7 +981,7 @@ void MainWindow::slotSetMode()
         //--------- State Recall
         for(int i = 0; i < ui->presetmenu->count(); i++)
         {
-            qDebug() << "state recall check" << i << ": " << ui->presetmenu->itemText(i);
+            //qDebug() << "state recall check" << i << ": " << ui->presetmenu->itemText(i);
             presetNames.append(ui->presetmenu->itemText(i));
         }
 
@@ -994,7 +995,7 @@ void MainWindow::slotSetMode()
 
 void MainWindow::slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> externalDevices)
 {
-    qDebug() << "-------------------------------- populate device menus";
+    //qDebug() << "-------------------------------- populate device menus";
     QMap<QString, MIDIEndpointRef> standalone;
 
     for(int i = 0; i < 10; i++)

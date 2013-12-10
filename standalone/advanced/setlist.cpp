@@ -30,7 +30,7 @@ bool Setlist::eventFilter(QObject *obj, QEvent *event)
         int i = checkBox->objectName().remove("enable").toInt();
 
         QComboBox* menu = setlistWidget->findChild<QComboBox *>(QString("setlistmenu%1").arg(i));
-        qDebug() << "moust evnet" << i << menu->currentText();
+        //qDebug() << "moust evnet" << i << menu->currentText();
 
         if(checkBox->isChecked())
         {
@@ -99,7 +99,7 @@ void Setlist::slotShowSetlist()
 
 void Setlist::slotCompileSetlist()
 {
-    qDebug() << "slot compile setlist called";
+    //qDebug() << "slot compile setlist called";
 
     //Clears the setlist read from json
     setlist.clear();
@@ -122,7 +122,7 @@ void Setlist::slotCompileSetlist()
 
 void Setlist::slotPopulateSetlistMenus(QComboBox* presetMenu)
 {
-    qDebug() << "populate setlist menus";
+    //qDebug() << "populate setlist menus";
     repopulating = true;
 
     //Iterate through menus
@@ -145,14 +145,14 @@ void Setlist::slotPopulateSetlistMenus(QComboBox* presetMenu)
 
 void Setlist::slotRefreshSetlistMenus(QComboBox* presetMenu)
 {
-    qDebug() << "refresh setlist";
+    //qDebug() << "refresh setlist";
 
     repopulating = true;
 
     //Iterate through setlist and re-set current indexes to what's in the setlist, necessary after repopulating the menus (adding, deletion, mode switching)
     for(int i = 0; i < setlist.size(); i++)
     {
-        qDebug() << setlist.value(QString("%1").arg(i)).toString() << presetMenu->findText(setlist.value(QString("%1").arg(i)).toString());
+        //qDebug() << setlist.value(QString("%1").arg(i)).toString() << presetMenu->findText(setlist.value(QString("%1").arg(i)).toString());
 
         menus.at(i)->setCurrentIndex(presetMenu->findText(setlist.value(QString("%1").arg(i)).toString()) + 1); //offset because presetlist has no empty
     }
@@ -203,7 +203,7 @@ void Setlist::slotReadSetlist()
 
     if(jsonFile->open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        qDebug("Setlist JSON Found");
+        //qDebug("Setlist JSON Found");
 
         QByteArray setlistByteArray = jsonFile->readAll();
 
@@ -211,7 +211,7 @@ void Setlist::slotReadSetlist()
     }
     else
     {
-        qDebug() << "Setlist Not Found";
+        //qDebug() << "Setlist Not Found";
     }
 
     jsonFile->close();
@@ -232,7 +232,7 @@ void Setlist::slotWriteSetlist()
     }
     else
     {
-        qDebug() << "Setlist not found on write";
+        //qDebug() << "Setlist not found on write";
     }
 
     jsonFile->close();
@@ -240,7 +240,7 @@ void Setlist::slotWriteSetlist()
 
 void Setlist::slotChangePreset(bool prevOrNext)
 {
-    qDebug() << "setlist empty" << setlistEmpty;
+    //qDebug() << "setlist empty" << setlistEmpty;
     //If setlist is NOT empty
     if(!setlistEmpty)
     {
@@ -249,7 +249,7 @@ void Setlist::slotChangePreset(bool prevOrNext)
         //If move to next command...
         if(prevOrNext)
         {
-            qDebug() << "current setlist slot" << currentSetlistSlot << menus.size();
+            //qDebug() << "current setlist slot" << currentSetlistSlot << menus.size();
 
             //Inc setlist slot
             currentSetlistSlot++;

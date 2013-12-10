@@ -22,8 +22,8 @@ Rectangle
 
         var newObject = Qt.createQmlObject('import QtQuick 1.0; Rectangle {color: Qt.rgba(230/255, 0/255, 134/255,1);}', main, "block");
 
-        newObject.x = x*109;
-        newObject.y = 109 - y*109;
+        newObject.x = x*107 + 2;
+        newObject.y = 109 - y*107;
         newObject.height = 2;
         newObject.width = size;
 

@@ -51,10 +51,11 @@ public:
     QFile *josnFile;
     bool ok;
 
-    //Calibration
+    //------- Calibration
     TableInerface   *pedalLiveTableInterface;
     bool calibrating;
-    QList<int> pedalValueList;
+    QList<int> pedalValueListGraph;
+    QList<int> pedalValueListTable;
 
     QString mode;
     
@@ -97,8 +98,8 @@ signals:
     void signalStartCalibration();
     void signalResetCalibration();
     void signalStopCalibration();
-
     void signalSetTestValueSlider(QSlider* slider);
+    void signalInitPedalTable(QByteArray);
 
 public slots:
     void slotSetMode(QString m);
@@ -132,8 +133,8 @@ public slots:
     void slotStartCalibration();
     void slotStopCalibration();
     void slotResetCalibration();
-
-    //void slotCalibrationClockTick();
+    void slotLoadTableOnStartup();
+    void slotWritePedalTableToDisk(QByteArray tableByteArray);
     void slotSetLiveValue(int val);
     void slotHideComplete();
 

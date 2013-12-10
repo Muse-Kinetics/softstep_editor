@@ -43,7 +43,7 @@ void StateRecall::slotInit(QList<QString> presetNames, int keyNumVal)
             lastMidiPacketList.insert(presetNames.at(i), tempInitPacketList);
         }
 
-        qDebug() << "Key" << keyNumVal << "state recaller initialized.";
+        //qDebug() << "Key" << keyNumVal << "state recaller initialized.";
     }
 }
 

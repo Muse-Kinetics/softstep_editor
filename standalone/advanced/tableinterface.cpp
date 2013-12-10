@@ -38,9 +38,9 @@ TableInerface::TableInerface(QWidget *parent) :
     //QMetaObject::invokeMethod(rootObject, "clearBlocks");
 }
 
-void TableInerface::slotDrawTable(float x, float y, int width)
+void TableInerface::slotDrawTable(float x, float y, float width)
 {
-    //qDebug() << "============================================================= DRAW TABLE";
+    ///qDebug() << "============================================================= DRAW TABLE" << x << y << width;
 
     //QMetaObject::invokeMethod(rootObject, "clearBlocks");
     QMetaObject::invokeMethod(rootObject, "drawBlock", Q_ARG(QVariant, x), Q_ARG(QVariant, y), Q_ARG(QVariant, width));
@@ -54,6 +54,7 @@ void TableInerface::slotDrawTable(float x, float y, int width)
 
 void TableInerface::slotClearTable()
 {
+    qDebug() << "-------------- clear pedal table on load";
     QMetaObject::invokeMethod(rootObject, "clearBlocks");
 }
 

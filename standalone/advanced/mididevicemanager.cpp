@@ -61,7 +61,7 @@ void MidiDeviceManager::slotSetMode(QString m)
 {
     mode = m;
 
-    qDebug() << "slot set mode";
+    //qDebug() << "slot set mode";
 
     if(mode == "hosted")
     {
@@ -165,7 +165,7 @@ void MidiDeviceManager::slotHostedOnOff(bool onOff)
 
 void MidiDeviceManager::slotUpdateFirmware()
 {
-    qDebug() << "Send the firmware" << firmwareByteArray;
+    //qDebug() << "Send the firmware" << firmwareByteArray;
     emit signalProgressDialog("setup", firmwareByteArray.size());
     //slotSendSysEx(firmwareByteArray, "QuNexus Port 1");
 }
@@ -381,7 +381,7 @@ void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
 
         if(!getDisplayName(MIDIGetDestination(i)).contains("SSCOM") && !getDisplayName(MIDIGetDestination(i)).contains("SoftStep Share"))
         {
-            qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetDestination(i));
+            //qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetDestination(i));
 
             //Store name of dest and it's endpoint ref
             externalDests.insert(getDisplayName(MIDIGetDestination(i)), MIDIGetDestination(i));
@@ -418,7 +418,7 @@ void MidiDeviceManager::hosted_slotConnectExternalMidiInputSources()
 
             midiInputSourcePointers[i] = MIDIGetSource(i);
 
-            qDebug() << "----------------------------" << "slot connect external midi sources" << getDisplayName(MIDIGetSource(i)) << midiInputSourcePointers[i];
+            //qDebug() << "----------------------------" << "slot connect external midi sources" << getDisplayName(MIDIGetSource(i)) << midiInputSourcePointers[i];
 
             MIDIPortConnectSource(midiInputPort, MIDIGetSource(i), (void*)&midiInputSourcePointers[i]);
         }

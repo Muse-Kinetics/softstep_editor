@@ -19,30 +19,6 @@ Pedal::Pedal(QWidget *parent, int keyInstance) :
     pedalBucket.append(0);
     pedalBucket.append(0);
 
-    //Load pedal table file
-    QFile *pedalTableFile = new QFile("resources/pedalTable.txt");
-
-    //Open pedal table
-    if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
-    {
-        //qDebug("Pedal Table Found");
-
-        QByteArray pedalTableByteArray = pedalTableFile->readAll();
-
-        for(int i = 0; i< pedalTableByteArray.size(); i++)
-        {
-            pedalValueList.append((unsigned char)pedalTableByteArray.at(i));
-        }
-
-        slotSetMinMaxLength();
-    }
-    else
-    {
-        qDebug() << "!!!!!!!!!!!!!!!!!!!! Pedal Table File Not Found -- ON READ. !!!!!!!!!!!!!!!!!!!!";
-    }
-
-    pedalTableFile->close();
-
     pedalAverage = 0;
     calibrating = false;
     pedalSampleCount = 0;
@@ -106,6 +82,8 @@ int Pedal::slotWindowInput(int pedalInput)
 
 int Pedal::slotTableInput(int pedalInput)
 {
+    //qDebug() << "tabling pedal input" << pedalInput;
+
     //Scale: [min + 4 to max - 4] --> [0 to 127]
     int inLow = pedalValueListMin + 4;
     int inHigh = pedalValueListMax - 4;
@@ -128,7 +106,7 @@ int Pedal::slotTableInput(int pedalInput)
     //Invert table
     output = 127 - output;
 
-    //qDebug() << "pedal output" << output << pedalInput;
+    qDebug() << "pedal output" << output << pedalInput;
     slotSetLivePedalValue(output);
 
     return output;
@@ -149,9 +127,11 @@ void Pedal::slotSetLeverPointer(QLabel *lever)
     pedallever->show();
 }
 
-void Pedal::slotRotateLever(int degrees)
+void Pedal::slotSetLivePedalValue(int val)
 {
-
+    //qDebug() << "live value" << val;
+    //testValueSlider->setValue(val);
+    emit signalLivePedalVal(val);
 }
 
 //---------------------------------------------------------------- Calibration Steps
@@ -231,64 +211,82 @@ void Pedal::slotResetCalibrate()
 
     //Write the new table
     slotSetMinMaxLength();
+    slotWritePedalTableFile();
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// Read/Write/Init ////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Init
+void Pedal::slotInitPedalTable(QByteArray table)
+{
+    qDebug() << "-------------------------------------------- slot init table?";
+    pedalValueList.clear();
+
+    for(int i = 0; i< table.size(); i++)
+    {
+        pedalValueList.append((unsigned char)table.at(i));
+    }
+
+    int count = pedalValueList.count();
+
+    //Order our list
+    for(int i = 1; i < count; i++)
+    {
+        int j = i;
+        int t;
+
+        while(j > 0 && pedalValueList.at(j) < pedalValueList.at(j - 1))
+        {
+            t = pedalValueList.at(j);
+
+            pedalValueList.replace(j, pedalValueList.at(j - 1));
+
+            pedalValueList.replace(j - 1, t);
+
+            j--;
+        }
+    }
+
+    slotSetMinMaxLength();
+}
+
 
 //Write
 void Pedal::slotWritePedalTableFile()
 {
-    slotSetMinMaxLength();
-
     //Only write using key 0, no need for writing across all instances (architecture here could be smarter)
     if(parentKeyInstance == 0)
     {
-        //Load Pedal file
-        QFile *pedalTableFile = new QFile("resources/pedalTable.txt");
+        //New byte array to store values and write to file
+        QByteArray byteArray;
 
-        //Open Pedal File
-        if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
+        //If there something in table, write its contents
+        if(pedalValueList.size())
         {
-            //Clear file
-            pedalTableFile->resize(0);
-
-            //New byte array to store values and write to file
-            QByteArray byteArray;
-
-            //If there something in table, write its contents
-            if(pedalValueList.size())
+            //Iterate through current table list
+            for(int i = 0; i < pedalValueList.size(); i++)
             {
-                //Iterate through current table list
-                for(int i = 0; i < pedalValueList.size(); i++)
-                {
-                    //Add table list values to byte array
-                    byteArray.append((unsigned char)pedalValueList.at(i));
-                }
+                //Add table list values to byte array
+                byteArray.append((unsigned char)pedalValueList.at(i));
             }
-
-            //Otherwise store default
-            else
-            {
-                //Iterate through current table list
-                for(int i = 0; i < 128; i++)
-                {
-                    //Add table list values to byte array
-                    byteArray.append((unsigned char)i);
-                }
-            }
-
-
-            //Write byte array to file
-            pedalTableFile->write(byteArray);
         }
+
+        //Otherwise store default
         else
         {
-            qDebug() << "!!!!!!!!!!!!!!!!!!!! Pedal Table File Not Found -- ON WRITE. !!!!!!!!!!!!!!!!!!!!";
+            //Iterate through current table list
+            for(int i = 0; i < 128; i++)
+            {
+                //Add table list values to byte array
+                byteArray.append((unsigned char)i);
+            }
         }
 
-        pedalTableFile->close();
-
+        //Send byte array to be written in settings class
+        emit signalWriteTableToDisk(byteArray);
     }
-
-    calibrating = false;
 }
 
 void Pedal::slotSetMinMaxLength()
@@ -297,16 +295,6 @@ void Pedal::slotSetMinMaxLength()
     pedalValueListMin = (int)pedalValueList.first();
     pedalValueListMax = (int)pedalValueList.last();
     pedalValueListLength = (int)pedalValueList.size();
-}
 
-void Pedal::slotSetLivePedalValue(int val)
-{
-    //qDebug() << "live value" << val;
-    //testValueSlider->setValue(val);
-    emit signalLivePedalVal(val);
-}
-
-void Pedal::slotSetKeyInstance(int keyNum)
-{
-    parentKeyInstance = keyNum;
+    qDebug() << "min, max, lengh" << pedalValueListMin << pedalValueListMax << pedalValueListLength;
 }

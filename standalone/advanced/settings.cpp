@@ -132,6 +132,9 @@ Settings::Settings(QWidget *parent) :
     settingsForm->rockyourpedal->hide();
     settingsForm->pedal_arrow->hide();
     settingsForm->calibrationcomplete->hide();
+
+    //Load Calibration tables into pedal instances
+    //slotLoadTableOnStartup();
 }
 
 void Settings::slotSetMode(QString m)
@@ -366,7 +369,6 @@ void Settings::slotValueChanged()
         if(QObject::sender()->objectName() != "livepedalvalue")
         {
             saveSettingsTimeout->start(1);
-            qDebug() << "------------ start timer";
         }
     }
 
@@ -551,7 +553,7 @@ void Settings::slotViewSelector()
 
 void Settings::slotPopulateInputMenus(QMap<QString, MIDIEndpointRef> midiSources)
 {
-    qDebug() << "slot populate input menus" << midiSources.keys();
+    //qDebug() << "slot populate input menus" << midiSources.keys();
 
     //Iterate through menus
     for(int m = 0;  m < midiInputDeviceMenus.size(); m++)
@@ -867,7 +869,7 @@ void Settings::slotConstructSettingsDefaultMap()
 void Settings::slotEmitAllSettings()
 {
 
-    qDebug() << "settings emitting?";
+    //qDebug() << "settings emitting?";
 
     //Cannot escape brute force.
 
@@ -997,7 +999,7 @@ void Settings::slotSaveSettingsTimeout()
 void Settings::slotStartCalibration()
 {
     calibrating = true;
-    pedalValueList.clear();
+    pedalValueListGraph.clear();
     QTimer::singleShot(5000, this, SLOT(slotStopCalibration()));
     //calibrationTicker->start(100);
     calibrationTime = 0;
@@ -1011,12 +1013,12 @@ void Settings::slotStartCalibration()
 void Settings::slotResetCalibration()
 {
     //calibrationTicker->stop();
-    pedalValueList.clear();
+    pedalValueListGraph.clear();
     pedalLiveTableInterface->slotClearTable();
 
     for(int i = 0; i < 127; i++)
     {
-        pedalValueList.append(i);
+        pedalValueListGraph.append(i);
     }
 
     pedalLiveTableInterface->slotDrawLinear();
@@ -1026,6 +1028,8 @@ void Settings::slotResetCalibration()
 
 void Settings::slotSetLiveValue(int val)
 {
+
+    //-------------- This function only used in graphics
     settingsForm->livepedalvalue->setValue(val);
 
     if(calibrating)
@@ -1033,12 +1037,12 @@ void Settings::slotSetLiveValue(int val)
         QApplication::processEvents();
 
         //If this is a new value being reported
-        if(!pedalValueList.contains(val))
+        if(!pedalValueListGraph.contains(val))
         {
             //Append value to our list
-            pedalValueList.append(val);
+            pedalValueListGraph.append(val);
 
-            int count = pedalValueList.count();
+            int count = pedalValueListGraph.count();
 
             //Order our list
             for(int i = 1; i < count; i++)
@@ -1046,19 +1050,19 @@ void Settings::slotSetLiveValue(int val)
                 int j = i;
                 int t;
 
-                while(j > 0 && pedalValueList.at(j) < pedalValueList.at(j - 1))
+                while(j > 0 && pedalValueListGraph.at(j) < pedalValueListGraph.at(j - 1))
                 {
-                    t = pedalValueList.at(j);
+                    t = pedalValueListGraph.at(j);
 
-                    pedalValueList.replace(j, pedalValueList.at(j - 1));
+                    pedalValueListGraph.replace(j, pedalValueListGraph.at(j - 1));
 
-                    pedalValueList.replace(j - 1, t);
+                    pedalValueListGraph.replace(j - 1, t);
 
                     j--;
                 }
             }
 
-            //qDebug() << "pedal table value" << val << pedalValueList.indexOf(val);
+            //remoqDebug() << "pedal table value" << val << pedalValueListGraph.indexOf(val);
 
             int width = 109/count;
 
@@ -1066,7 +1070,7 @@ void Settings::slotSetLiveValue(int val)
             for(int i = 1; i < count; i++)
             {
                 //Draw our list new value-- should only be drawing one value at a time
-                pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueList.at(i))/127.0f,  width);
+                pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueListGraph.at(i))/127.0f,  width);
             }
         }
     }
@@ -1090,7 +1094,85 @@ void Settings::slotStopCalibration()
     calibrating = false;
 
     QTimer::singleShot(5000, this, SLOT(slotHideComplete()));
-    //slotStopCalibrate();
+}
+
+void Settings::slotLoadTableOnStartup()
+{
+    //Load pedal table file
+    QFile *pedalTableFile = new QFile("resources/pedalTable.txt");
+
+    //Open pedal table
+    if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        //qDebug("Pedal Table Found");
+
+        QByteArray pedalTableByteArray = pedalTableFile->readAll();
+
+        for(int i = 0; i< pedalTableByteArray.size(); i++)
+        {
+            pedalValueListGraph.append((unsigned char)pedalTableByteArray.at(i));
+        }
+
+        //Send table to pedal instances
+        qDebug() << "emit pedal table on load please.--------------------------------";
+        emit signalInitPedalTable(pedalTableByteArray);
+    }
+    else
+    {
+        qDebug() << "!!!!!!!!!!!!!!!!!!!! Pedal Table File Not Found -- ON READ. !!!!!!!!!!!!!!!!!!!!";
+    }
+
+    pedalTableFile->close();
+
+    float count = pedalValueListGraph.count();
+    float width = 109.0f/count;
+
+    qDebug() << "--------- draw pedal cal table on load" << width << count;
+
+    pedalLiveTableInterface->slotClearTable();
+    for(int i = 1; i < count; i++)
+    {
+        //Draw our list new value-- should only be drawing one value at a time
+        pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueListGraph.at(i))/127.0f,  width);
+    }
+}
+
+void Settings::slotWritePedalTableToDisk(QByteArray tableByteArray)
+{
+
+    qDebug() << "write pedal table to disk" << tableByteArray.size();
+    //Load Pedal file
+    QFile *pedalTableFile = new QFile("resources/pedalTable.txt");
+
+    //Open Pedal File
+    if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        //Clear file
+        pedalTableFile->resize(0);
+
+        //New byte array to store values and write to file
+        //QByteArray byteArray;
+
+        //If empty store linear
+        if(tableByteArray.isEmpty())
+        {
+            //Iterate through current table list
+            for(int i = 0; i < 128; i++)
+            {
+                //Add table list values to byte array
+                tableByteArray.append((unsigned char)i);
+            }
+        }
+
+        //Write byte array to file
+        pedalTableFile->write(tableByteArray);
+    }
+    else
+    {
+        qDebug() << "!!!!!!!!!!!!!!!!!!!! Pedal Table File Not Found -- ON WRITE. !!!!!!!!!!!!!!!!!!!!";
+    }
+
+    pedalTableFile->close();
 
 }
 
