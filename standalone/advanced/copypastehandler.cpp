@@ -42,7 +42,7 @@ void CopyPasteHandler::slotCopyKey()
     while(i.hasNext())
     {
         i.next();
-        if(i.key().contains(QString("%1_key").arg(currentKeyNumber)) || i.key().contains(QString("key%1_").arg(currentKeyNumber)))
+        if(i.key().contains(QString("%1_key").arg(currentKeyNumber+1)) || i.key().contains(QString("key%1_").arg(currentKeyNumber+1)))
         {
             keyCopiedMap.insert(i.key(),i.value());
         }
