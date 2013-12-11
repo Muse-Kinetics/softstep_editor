@@ -101,7 +101,7 @@ QToolTip
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QPushButton" name="keyBackground">
+   <widget class="QToolButton" name="keyBackground">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -112,6 +112,9 @@ QToolTip
     </property>
     <property name="toolTip">
      <string>Click this key box to&lt;br&gt; select it for copy/paste functionality</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: none;</string>
     </property>
     <property name="text">
      <string/>

@@ -1,59 +1,8 @@
-QPushButton
+QToolButton
 {
 	background: rgb(60, 60, 60);
 	border: 3px solid rgb(0, 174, 239);
-}
-
-/* ---------- QLabels ------------*/
-QLabel
-{
-	background:		none;
-	color: 				white;
-	font: 				10pt "Futura";
-	border:				none;
-}
-
-QLabel:hover
-{
-	border:				none;
-}
-
-/*---------- QPushButton ---------*/
-QToolButton
-{
-	background: none;
-	border: none;
-	image: url(:/resources/openkeywindow1_inactive.png);
-}
-
-QToolButton:pressed
-{
-	background: none;
-	border: none;
-	image: url(:/resources/openkeywindow1_active.png);
-}
-
-/* ---------- QLineEdit ------------*/
-QLineEdit
-{
-	font: 12pt "Droid Sans Mono";
-	background: rgb(40, 40, 40);
-	border: 2px solid rgb(0,174,239);
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
-QLineEdit:focus
-{
-	font: 12pt "Droid Sans Mono";
-	background: rgb(40, 40, 40);
-	border: 1px solid white;
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
+	image: none;
 }
 
 /*-------QToolTip-------*/

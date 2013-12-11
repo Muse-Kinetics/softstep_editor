@@ -43,9 +43,9 @@ QToolTip
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>568</x>
+      <x>571</x>
       <y>81</y>
-      <width>122</width>
+      <width>119</width>
       <height>22</height>
      </rect>
     </property>
@@ -472,10 +472,10 @@ QToolButton:pressed
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>525</x>
-      <y>11</y>
-      <width>154</width>
-      <height>54</height>
+      <x>487</x>
+      <y>7</y>
+      <width>184</width>
+      <height>65</height>
      </rect>
     </property>
     <property name="styleSheet">
