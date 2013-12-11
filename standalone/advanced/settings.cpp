@@ -537,22 +537,22 @@ void Settings::slotViewSelector()
             //set stackedwidget tab view
             settingsForm->settingsViews->setCurrentIndex(0);
             //resize settings window
-            settingsWidget->setFixedHeight(396);
+            settingsWidget->setFixedSize(320, 396);
         }
         else if(sender == settingsForm->settingskeybutton)
         {
             settingsForm->settingsViews->setCurrentIndex(1);
-            settingsWidget->setFixedHeight(480);
+            settingsWidget->setFixedSize(320, 480);
         }
         else if(sender == settingsForm->settingsinputbutton)
         {
             settingsForm->settingsViews->setCurrentIndex(2);
-            settingsWidget->setFixedHeight(495);
+            settingsWidget->setFixedSize(320, 495);
         }
         else if(sender == settingsForm->settingspedalbutton)
         {
             settingsForm->settingsViews->setCurrentIndex(3);
-            settingsWidget->setFixedHeight(415);
+            settingsWidget->setFixedSize(320, 415);
         }
     }
 }
