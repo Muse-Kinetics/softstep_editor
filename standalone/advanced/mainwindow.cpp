@@ -232,7 +232,6 @@ void MainWindow::slotConnectInterfaces()
     //-------------------------------------- Mode Switching - children handled in slotSetMode
     connect(ui->mode, SIGNAL(clicked()), this, SLOT(slotSetMode()));
 
-
     //-------------------------------------- Hosted MIDI
     connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)), Qt::DirectConnection);
 
@@ -659,6 +658,7 @@ void MainWindow::slotInitMenuBar()
     edit->addAction(copyKeyAct);
     copyKeyAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
     connect(copyKeyAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyKey()));
+    copyKeyAct->setDisabled(true);
 
     pasteKeyAct = new QAction("Paste Key #", edit);
     actionList.append(pasteKeyAct);
@@ -703,14 +703,14 @@ void MainWindow::slotInitMenuBar()
 void MainWindow::slotUpdatePasteAvailability()
 {
     //enable and disable paste options depending on whether anything is copied
-        if(copyPasteHandler->presetCopiedMap.size())
-        {
-            pastePresetAct->setDisabled(false);
-        }
-        if(copyPasteHandler->keyCopiedMap.size())
-        {
-            pasteKeyAct->setDisabled(false);
-        }
+    if(copyPasteHandler->presetCopiedMap.size())
+    {
+        pastePresetAct->setDisabled(false);
+    }
+    if(copyPasteHandler->keyCopiedMap.size())
+    {
+        pasteKeyAct->setDisabled(false);
+    }
 }
 
 void MainWindow::slotSelectedKey(int selectedKey)
@@ -725,6 +725,8 @@ void MainWindow::slotSelectedKey(int selectedKey)
     }
     //qDebug() << "from mainwindow.cpp/slotSelectedKey - key/bool" << selectedKey << "true";
     emit signalSelectedKeyOutline(selectedKey, true);
+
+    copyKeyAct->setDisabled(false);
 }
 
 void MainWindow::slotConnected(bool connection)
@@ -959,6 +961,8 @@ void MainWindow::slotSetMode()
     midiDeviceManager->slotSetMode(mode); //repopulation of device menus should happen here
     presetInterface->slotSetMode(mode);
     setlist->slotSetMode(mode);
+    copyPasteHandler->slotSetMode(mode);
+    pasteKeyAct->setDisabled(true);
 
     //Update paths to respective mode files
     presetInterface->slotUpdateJSONPath();

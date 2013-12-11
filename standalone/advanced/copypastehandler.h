@@ -23,6 +23,8 @@ public:
     QVariantMap presetCopiedMap;
     QVariantMap keyCopiedMap;
 
+    QString mode;
+
     int currentKeyNumber;
     
 signals:
@@ -34,6 +36,7 @@ public slots:
     void slotCopyKey();
     void slotPasteKey();
     void slotSetCurrentKey(int currentKeyNum);
+    void slotSetMode(QString m);
 };
 
 #endif // COPYPASTEHANDLER_H

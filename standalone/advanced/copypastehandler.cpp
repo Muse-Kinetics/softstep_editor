@@ -107,3 +107,10 @@ void CopyPasteHandler::slotPasteKey()
     presetInterface->slotRecallPreset(presetInterface->currentPresetNum);
     presetInterface->slotCheckSaveState();
 }
+
+void CopyPasteHandler::slotSetMode(QString m)
+{
+    mode = m;
+
+    keyCopiedMap.clear();
+}
