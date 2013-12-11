@@ -418,6 +418,56 @@ QToolTip
      <bold>false</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(18, 18, 18);
+	color: rgba(255, 255, 255, 255);
+	padding: 1px 1px 1px 3px;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+QDoubleSpinBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(18, 18, 18);
+	color: rgba(255, 255, 255, 255);
+	padding: 1px 1px 1px 3px;
+}
+
+QDoubleSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+QSpinBox::disabled
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgba(0,174,239, 75);
+	background-color: rgba(18, 18, 18, 75);
+	color: rgba(255, 255, 255, 75);
+	padding: 1px 1px 1px 3px;
+}
+
+QDoubleSpinBox::disabled
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgba(0,174,239, 75);
+	background-color: rgba(18, 18, 18, 75);
+	color: rgba(255, 255, 255, 75);
+	padding: 1px 1px 1px 3px;
+}</string>
+   </property>
    <property name="frame">
     <bool>true</bool>
    </property>

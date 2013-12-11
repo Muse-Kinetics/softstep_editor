@@ -751,9 +751,9 @@ void MainWindow::slotConnected(bool connection)
     {
         ui->connectedLabel->setText("CONNECTED");
 #ifdef Q_OS_MAC
-        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");
+        ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #else
-        ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(0,200,0,255);");
+        ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #endif
         //ui->update->setText("SAVE + SEND");
         aboutForm->found->setText(QString("%1 %2").arg(connectedVersionString).arg(connectedVersionInt));
@@ -765,9 +765,9 @@ void MainWindow::slotConnected(bool connection)
         //ui->connectedLabel->setText("Not Connected");
         ui->connectedLabel->setText("NOT CONNECTED");
 #ifdef Q_OS_MAC
-        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
+        ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #else
-        ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255);");
+        ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #endif
         //ui->update->setText("SAVE");
 
