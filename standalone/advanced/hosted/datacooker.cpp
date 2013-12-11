@@ -20,6 +20,76 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     keySensorBaseCcMap[8] = 64;
     keySensorBaseCcMap[9] = 72;
 
+    //Init Key LockoutLists
+    for(int i = 0; i < 10; i++)
+    {
+        switch (i)
+        {
+        case 0:
+            adjacentKeyLockoutList[i].append(4);
+            adjacentKeyLockoutList[i].append(5);
+            adjacentKeyLockoutList[i].append(9);
+            break;
+        case 1:
+            adjacentKeyLockoutList[i].append(6);
+            adjacentKeyLockoutList[i].append(7);
+            adjacentKeyLockoutList[i].append(2);
+            break;
+        case 2:
+            adjacentKeyLockoutList[i].append(1);
+            adjacentKeyLockoutList[i].append(3);
+            adjacentKeyLockoutList[i].append(6);
+            adjacentKeyLockoutList[i].append(7);
+            adjacentKeyLockoutList[i].append(8);
+            break;
+        case 3:
+            adjacentKeyLockoutList[i].append(2);
+            adjacentKeyLockoutList[i].append(4);
+            adjacentKeyLockoutList[i].append(7);
+            adjacentKeyLockoutList[i].append(8);
+            adjacentKeyLockoutList[i].append(9);
+            break;
+        case 4:
+            adjacentKeyLockoutList[i].append(3);
+            adjacentKeyLockoutList[i].append(5);
+            adjacentKeyLockoutList[i].append(8);
+            adjacentKeyLockoutList[i].append(9);
+            adjacentKeyLockoutList[i].append(0);
+            break;
+        case 5:
+            adjacentKeyLockoutList[i].append(4);
+            adjacentKeyLockoutList[i].append(9);
+            adjacentKeyLockoutList[i].append(0);
+            break;
+        case 6:
+            adjacentKeyLockoutList[i].append(1);
+            adjacentKeyLockoutList[i].append(2);
+            adjacentKeyLockoutList[i].append(7);
+            break;
+        case 7:
+            adjacentKeyLockoutList[i].append(1);
+            adjacentKeyLockoutList[i].append(2);
+            adjacentKeyLockoutList[i].append(7);
+            break;
+        case 8:
+            adjacentKeyLockoutList[i].append(2);
+            adjacentKeyLockoutList[i].append(3);
+            adjacentKeyLockoutList[i].append(4);
+            adjacentKeyLockoutList[i].append(7);
+            adjacentKeyLockoutList[i].append(9);
+            break;
+        case 9:
+            adjacentKeyLockoutList[i].append(3);
+            adjacentKeyLockoutList[i].append(4);
+            adjacentKeyLockoutList[i].append(5);
+            adjacentKeyLockoutList[i].append(8);
+            adjacentKeyLockoutList[i].append(0);
+            break;
+        default:
+            break;
+        }
+    }
+
     keyNum = instanceNum;
 
     //Init pedal windower / calibrator
@@ -104,6 +174,86 @@ void DataCooker::slotUpdateVals(int cc, int val)
 {
     if(cc >= keySensorBaseCcMap[keyNum] && cc <= keySensorBaseCcMap[keyNum] + 3)
     {
+
+        //---- If mode is all keys,
+        if(keySafetyMode == ALL_KEYS)
+        {
+            //Always allow action on key
+            activateKey = true;
+        }
+
+        //---- If mode is single key
+        else if(keySafetyMode == SINGLE_KEY)
+        {
+            //If there are no keys pressed the moment
+            if(currentKeysPressed.size() == 0)
+            {
+                //Allow key action
+                activateKey = true;
+            }
+
+            //If there are already keys pressed, and it is this one
+            else if(currentKeysPressed.contains(keyNum))
+            {
+                //Continue to allow action on key
+                activateKey = true;
+            }
+
+            //Otherwise...
+            else
+            {
+                activateKey = false;
+            }
+        }
+
+        //---- If mode is adjacent keys
+        else if(keySafetyMode == ADJACENT_KEYS)
+        {
+
+            //If there are no keys pressed the moment
+            if(currentKeysPressed.size() == 0)
+            {
+                //Allow key action
+                activateKey = true;
+            }
+
+            //If there are already keys pressed, and it is this one
+            else if(currentKeysPressed.contains(keyNum))
+            {
+                //Continue to allow action on key
+                activateKey = true;
+            }
+
+            else if(!currentKeysPressed.contains(keyNum))
+            {
+                //Iterate through the current keys pressed
+                for(int i = 0; i <currentKeysPressed.size(); i++)
+                {
+                    //If this key is contained in any of the currently pressed keys' adjacent list
+                    if(adjacentKeyLockoutList[currentKeysPressed.at(i)].contains(keyNum))
+                    {
+                        //Disallow action on this key
+                        activateKey = false;
+                        break;
+                    }
+
+                    //This key passes each iteration... (avoids above break)
+                    else
+                    {
+                        //Allow action on this key
+                        activateKey = true;
+                    }
+                }
+            }
+
+            //Otherwise...
+            else
+            {
+                activateKey = false;
+            }
+
+        }
+
         if(cc == keySensorBaseCcMap[keyNum])
         {
             sensorVals[NW] = val;
@@ -126,6 +276,7 @@ void DataCooker::slotUpdateVals(int cc, int val)
         cookRaw();
 
         cookSources();
+
     }
     else if(cc == PEDAL_CC)
     {

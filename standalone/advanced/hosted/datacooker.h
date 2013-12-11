@@ -21,8 +21,9 @@ class DataCooker : public QWidget
 public:
     explicit DataCooker(int instanceNum, QWidget *parent = 0);
 
-    Pedal *pedal;
+    enum {SINGLE_KEY, ADJACENT_KEYS, ALL_KEYS};
 
+    Pedal *pedal;
     int pedalVal;
 
     int                 sensorVals[4];
@@ -106,7 +107,13 @@ public:
 
     int sensorResponse; //0 - maximum 1 - avg
     float globalGain;
+
+    //Key Safety
     int keySafetyMode;
+    int currentKeyPressed;
+    bool activateKey;
+    QList<int> currentKeysPressed; //Pre Cooking
+    QList<int> adjacentKeyLockoutList[10];
 
     //Probably don't need both of these, but just to be sure initially
     int navYCount;
