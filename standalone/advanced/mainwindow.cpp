@@ -373,6 +373,7 @@ void MainWindow::slotConnectInterfaces()
 
     //connect the preset interface to the preset menu
     connect(presetInterface, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
+    connect(copyPasteHandler, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -475,6 +476,7 @@ void MainWindow::slotConnectInterfaces()
     //connect(saveAsDialogForm->save, SIGNAL(clicked()), saveAsDialogWidget, SLOT(close()));
     connect(this, SIGNAL(signalSaveAs(QString)), presetInterface, SLOT(slotSavePresetAs(QString)));
     connect(presetInterface, SIGNAL(signalAddRemovePreset()), this, SLOT(slotPopulatePresetMenu()));
+    connect(copyPasteHandler, SIGNAL(signalAddRemovePreset()), this, SLOT(slotPopulatePresetMenu()));
 
     //Delete
     connect(ui->deletepreset, SIGNAL(clicked()), disableWidget, SLOT(show()));
@@ -630,29 +632,27 @@ void MainWindow::slotInitMenuBar()
     edit->setObjectName("EditMenu");
     menubar->addMenu(edit);
 
-    //Custom Preset
-    QAction* useCustom = new QAction("Use Custom Preset", edit);
-    actionList.append(useCustom);
-    edit->addAction(useCustom);
-
-    //Factory Preset Menu
-    QMenu* factoryPreset = new QMenu("Use Factory Preset");
-    edit->addMenu(factoryPreset);
-
 	//----------------------------------------------------copy / paste
-    copyPresetAct = new QAction("Copy Current Preset", edit);
+    copyPresetAct = new QAction("Copy Preset", edit);
     actionList.append(copyPresetAct);
     edit->addAction(copyPresetAct);
     copyPresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_C));
     connect(copyPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyPreset()));
     //copyPresetAct->setDisabled(true);
 
-    pastePresetAct = new QAction("Paste Current Preset", edit);
+    pastePresetAct = new QAction("Paste Preset", edit);
     actionList.append(pastePresetAct);
     edit->addAction(pastePresetAct);
     pastePresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_V));
     connect(pastePresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPastePreset()));
     pastePresetAct->setDisabled(true);
+
+    pasteNewPresetAct = new QAction("Paste Preset to New", edit);
+    actionList.append(pasteNewPresetAct);
+    edit->addAction(pasteNewPresetAct);
+    //pasteNewPresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_V));
+    connect(pasteNewPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPasteNewPreset()));
+    pasteNewPresetAct->setDisabled(true);
 
     copyKeyAct = new QAction("Copy Key #", edit);
     actionList.append(copyKeyAct);
@@ -707,6 +707,7 @@ void MainWindow::slotUpdatePasteAvailability()
     if(copyPasteHandler->presetCopiedMap.size())
     {
         pastePresetAct->setDisabled(false);
+        pasteNewPresetAct->setDisabled(false);
     }
     if(copyPasteHandler->keyCopiedMap.size())
     {

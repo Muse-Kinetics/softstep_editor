@@ -86,6 +86,7 @@ public:
     //copy / paste actions
     QAction* copyPresetAct;
     QAction* pastePresetAct;
+    QAction* pasteNewPresetAct;
     QAction* copyKeyAct;
     QAction* pasteKeyAct;
 

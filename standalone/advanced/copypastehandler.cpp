@@ -26,9 +26,125 @@ void CopyPasteHandler::slotCopyPreset()
 
 void CopyPasteHandler::slotPastePreset()
 {
+    if(mode == "hosted")
+    {
+        presetInterface->slotConstructDefaultHostedMap();
+    }
+    else if(mode == "standalone")
+    {
+        presetInterface->slotConstructDefaultStandaloneMap();
+    }
+
+    QMapIterator<QString, QVariant> i(presetInterface->defaultPresetMap);
+
+    //iterate through default map and compare with the presetCopiedMap
+    while(i.hasNext())
+    {
+        i.next();
+        if(!presetCopiedMap.contains(i.key()))
+        {
+            //if presetCopiedMap doesn't contain a value in the default map, insert it
+            presetCopiedMap.insert(i.key(), i.value());
+            qDebug() << "From slotPastePreset - this was MISSING:" << i.key() << i.value();
+        }
+    }
+
+    //check for EXTRA parameters in the copied preset
+    QMapIterator<QString, QVariant> j(presetCopiedMap);
+    QStringList badKeys; //stores parameters we need to remove from the map
+
+    while(j.hasNext())
+    {
+        j.next();
+
+        //If the default map does not contain something in the preset
+        if(!presetInterface->defaultPresetMap.contains(j.key()))
+        {
+            //add to list of bad keys
+            badKeys.append(j.key());
+            qDebug() << "From slotPastePreset - this was EXTRA:" << j.key() << j.value();
+        }
+    }
+    //Iterate through the bad keys and remove from preset
+    for(int i = 0; i<badKeys.count(); i++)
+    {
+        presetCopiedMap.remove(badKeys.at(i));
+    }
+
     presetInterface->jsonMasterMapCopy.insert(presetInterface->slotGetPresetStringFromInt(presetInterface->currentPresetNum), presetCopiedMap);
     presetInterface->slotRecallPreset(presetInterface->currentPresetNum);
     presetInterface->slotCheckSaveState();
+}
+
+void CopyPasteHandler::slotPasteNewPreset()
+{
+    if(mode == "hosted")
+    {
+        presetInterface->slotConstructDefaultHostedMap();
+    }
+    else if(mode == "standalone")
+    {
+        presetInterface->slotConstructDefaultStandaloneMap();
+    }
+
+    QMapIterator<QString, QVariant> i(presetInterface->defaultPresetMap);
+
+    //iterate through default map and compare with the presetCopiedMap
+    while(i.hasNext())
+    {
+        i.next();
+        if(!presetCopiedMap.contains(i.key()))
+        {
+            //if presetCopiedMap doesn't contain a value in the default map, insert it
+            presetCopiedMap.insert(i.key(), i.value());
+            qDebug() << "From slotPastePreset - this was MISSING:" << i.key() << i.value();
+        }
+    }
+
+    //check for EXTRA parameters in the copied preset
+    QMapIterator<QString, QVariant> j(presetCopiedMap);
+    QStringList badKeys; //stores parameters we need to remove from the map
+
+    while(j.hasNext())
+    {
+        j.next();
+
+        //If the default map does not contain something in the preset
+        if(!presetInterface->defaultPresetMap.contains(j.key()))
+        {
+            //add to list of bad keys
+            badKeys.append(j.key());
+            qDebug() << "From slotPastePreset - this was EXTRA:" << j.key() << j.value();
+        }
+    }
+    //Iterate through the bad keys and remove from preset
+    for(int i = 0; i<badKeys.count(); i++)
+    {
+        presetCopiedMap.remove(badKeys.at(i));
+    }
+
+    //Set Imported Preset to New preset and Update
+    presetInterface->presetListCopy.clear();
+    presetInterface->presetListMaster.clear();
+
+    int numPresets = presetInterface->slotGetNumPresetsInJson();
+
+    for(int i = 0; i < numPresets; i++)
+    {
+        presetInterface->presetListCopy.append(presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
+        presetInterface->presetListMaster.append(presetInterface->jsonMasterMap.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
+    }
+    presetInterface->presetListCopy.append(presetCopiedMap);
+    presetInterface->presetListMaster.append(presetCopiedMap);
+
+    presetInterface->slotOrderPresetsInJson();
+    presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
+    emit signalAddRemovePreset();
+    emit signalPresetMenu(numPresets);
+
+    //presetInterface->jsonMasterMapCopy.insert(presetInterface->slotGetPresetStringFromInt(presetInterface->currentPresetNum), presetCopiedMap);
+    //presetInterface->slotRecallPreset(presetInterface->currentPresetNum);
+    //presetInterface->slotCheckSaveState();
 }
 
 void CopyPasteHandler::slotCopyKey()

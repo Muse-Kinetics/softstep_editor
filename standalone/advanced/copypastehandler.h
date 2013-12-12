@@ -29,9 +29,12 @@ public:
     
 signals:
     void signalUpdatePasteAvailability();
+    void signalAddRemovePreset();
+    void signalPresetMenu(int numPresets);
     
 public slots:
     void slotCopyPreset();
+    void slotPasteNewPreset();
     void slotPastePreset();
     void slotCopyKey();
     void slotPasteKey();
