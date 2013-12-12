@@ -13,6 +13,9 @@
 
 #include "pedal.h"
 
+class Key;
+class MainWindow;
+
 enum {NW, NE, SW, SE};
 
 class DataCooker : public QWidget
@@ -25,6 +28,9 @@ public:
 
     Pedal *pedal;
     int pedalVal;
+
+    Key *parentKey;
+    MainWindow *mw;
 
     int                 sensorVals[4];
     int                 keyNum;
@@ -61,6 +67,7 @@ public:
 
     int previousKeyPressed[2];
 
+    void                cookLockout();
     void                cookRaw();
     void                cookSources();
 
@@ -110,9 +117,8 @@ public:
 
     //Key Safety
     int keySafetyMode;
-    int currentKeyPressed;
     bool activateKey;
-    QList<int> currentKeysPressed; //Pre Cooking
+    QList<int> lockoutKeysPressed; //Pre Cooking
     QList<int> adjacentKeyLockoutList[10];
 
     //Probably don't need both of these, but just to be sure initially
@@ -124,6 +130,9 @@ signals:
     void signalTransformSource(int data, int modlineNum, QString source);
     void signalThisKeyPressed(int keyPressed);
     void signalThisKeyOff(int keyOff);
+
+    //Key Safetey / Lockout signals
+    void signalLockoutKeyPressedReleased(int keyNumber,bool pressedReleased);
 
     
 public slots:
@@ -200,6 +209,10 @@ public slots:
     void slotSetGlobalGain(float val);
     void slotSetSensorResponse(int response);
     void slotSetKeySafetyMode(int mode);
+
+    //------------------------------------------------------- Key Safety / Lockout
+    void slotSetParentKey(Key *pK);
+    void slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleased);
 
 
 

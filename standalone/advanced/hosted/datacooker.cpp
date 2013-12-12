@@ -2,6 +2,8 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "datacooker.h"
+#include "key.h"
+#include "mainwindow.h"
 #include <QDebug>
 
 #define PEDAL_CC 86
@@ -174,6 +176,7 @@ void DataCooker::slotUpdateVals(int cc, int val)
 {
     if(cc >= keySensorBaseCcMap[keyNum] && cc <= keySensorBaseCcMap[keyNum] + 3)
     {
+        //------------------------------------------------- Handle Lockouts -------------------------------------------------//
 
         //---- If mode is all keys,
         if(keySafetyMode == ALL_KEYS)
@@ -186,14 +189,14 @@ void DataCooker::slotUpdateVals(int cc, int val)
         else if(keySafetyMode == SINGLE_KEY)
         {
             //If there are no keys pressed the moment
-            if(currentKeysPressed.size() == 0)
+            if(lockoutKeysPressed.size() == 0)
             {
                 //Allow key action
                 activateKey = true;
             }
 
             //If there are already keys pressed, and it is this one
-            else if(currentKeysPressed.contains(keyNum))
+            else if(lockoutKeysPressed.contains(keyNum))
             {
                 //Continue to allow action on key
                 activateKey = true;
@@ -211,26 +214,27 @@ void DataCooker::slotUpdateVals(int cc, int val)
         {
 
             //If there are no keys pressed the moment
-            if(currentKeysPressed.size() == 0)
+            if(lockoutKeysPressed.size() == 0)
             {
                 //Allow key action
                 activateKey = true;
             }
 
             //If there are already keys pressed, and it is this one
-            else if(currentKeysPressed.contains(keyNum))
+            else if(lockoutKeysPressed.contains(keyNum))
             {
                 //Continue to allow action on key
                 activateKey = true;
             }
 
-            else if(!currentKeysPressed.contains(keyNum))
+            //If this key is not in our list of currently pressed keys
+            else if(!lockoutKeysPressed.contains(keyNum))
             {
                 //Iterate through the current keys pressed
-                for(int i = 0; i <currentKeysPressed.size(); i++)
+                for(int i = 0; i <lockoutKeysPressed.size(); i++)
                 {
                     //If this key is contained in any of the currently pressed keys' adjacent list
-                    if(adjacentKeyLockoutList[currentKeysPressed.at(i)].contains(keyNum))
+                    if(adjacentKeyLockoutList[lockoutKeysPressed.at(i)].contains(keyNum))
                     {
                         //Disallow action on this key
                         activateKey = false;
@@ -251,9 +255,11 @@ void DataCooker::slotUpdateVals(int cc, int val)
             {
                 activateKey = false;
             }
-
         }
 
+        //------------------------------------------------- Update Values -------------------------------------------------//
+
+        //Always keep values updated, even if key action is now allowed
         if(cc == keySensorBaseCcMap[keyNum])
         {
             sensorVals[NW] = val;
@@ -273,11 +279,18 @@ void DataCooker::slotUpdateVals(int cc, int val)
 
         //qDebug() << "Key" << keyNum << "Sensor Vals" << sensorVals[NW] << sensorVals[NE] << sensorVals[SW] << sensorVals[SE];
 
-        cookRaw();
+        //Always cook raw, even if key action is now allowed
 
-        cookSources();
+        cookLockout();
 
+        if(activateKey = true)
+        {
+            cookRaw();
+            cookSources();
+        }
     }
+
+    //Pedal can always be streamed through a key, regardless of lockouts
     else if(cc == PEDAL_CC)
     {
         //Run input through our pedal class (per key)
@@ -296,6 +309,111 @@ void DataCooker::slotUpdateVals(int cc, int val)
                 }
             }
         }
+    }
+}
+
+void DataCooker::cookLockout()
+{
+    //--- !!! This Function is pre-cooking and always called when new data is received !!! ---//
+
+    //If raw pressure is greater than on-thresh and current state of key is off
+    if(pressureRaw() > onThresh && !footOnOff)
+    {
+        parentKey->mw->slotLockoutKeyPressedReleased(keyNum, true);
+    }
+
+    //If pressure is below off-thresh and foot is currently on
+    else if(pressureRaw() < offThresh && footOnOff)
+    {
+        parentKey->mw->slotLockoutKeyPressedReleased(keyNum, false);
+    }
+}
+
+void DataCooker::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleased)
+{
+    //If key sending message is being pressed
+    if(pressedReleased) // pressed == TRUE
+    {
+        //If the keyNumber is not listed in current keys pressed
+        if(!lockoutKeysPressed.contains(keyNumber))
+        {
+            //Add it to our lockout list
+            lockoutKeysPressed.append(keyNumber);
+        }
+    }
+
+    //If key sending message is being released
+    else
+    {
+        //If key number is listed in current keys pressed (should always be the case)
+        if(lockoutKeysPressed.contains(keyNumber))
+        {
+            lockoutKeysPressed.removeAt(lockoutKeysPressed.indexOf(keyNumber));
+        }
+
+        //Trying to remove key from lockout list that is not present
+        else
+        {
+            qDebug() << "ERROR: trying to remove key from lockout list that is not present";
+        }
+    }
+}
+
+void DataCooker::cookRaw()
+{
+    //If raw pressure is greater than on-thresh and current state of key is off
+    if(pressureRaw() > onThresh && !footOnOff)
+    {
+        //Flip on
+        footOnOff = true;
+        //qDebug() << "emit key presed";
+        emit signalThisKeyPressed(keyNum);
+    }
+
+    //If pressure is below off-thresh and foot is currently on
+    else if(pressureRaw() < offThresh && footOnOff)
+    {
+        //Flip off
+        footOnOff = false;
+        emit signalThisKeyOff(keyNum);
+    }
+}
+
+int DataCooker::pressureRaw()
+{
+    //bool avg = false;
+
+    //Average Sensor Val
+    if(sensorResponse) //Average
+    {
+        int mean = 0;
+
+        for(int i = 0; i < 4; i++)
+        {
+            mean +=sensorVals[i];
+        }
+
+        mean /= 4;
+
+        return mean;
+    }
+
+    //Max Sensor Val
+    else
+    {
+        int max = 0;
+
+        for(int i = 0; i < 4; i++)
+        {
+            if(sensorVals[i] > max)
+            {
+                max = sensorVals[i];
+            }
+        }
+
+        //qDebug() << "pressure" << max;
+
+        return max;
     }
 }
 
@@ -408,64 +526,6 @@ void DataCooker::cookSources()
         {
             //emit signalTransformSource(navYCountFunc(), i, "Nav Yx10 & Key");
         }
-    }
-}
-
-void DataCooker::cookRaw()
-{
-    //If raw pressure is greater than on-thresh and current state of key is off
-    if(pressureRaw() > onThresh && !footOnOff)
-    {
-        //Flip on
-        footOnOff = true;
-        //qDebug() << "emit key presed";
-        emit signalThisKeyPressed(keyNum);
-    }
-
-    //If pressure is below off-thresh and foot is currently on
-    else if(pressureRaw() < offThresh && footOnOff)
-    {
-        //Flip off
-        footOnOff = false;
-        emit signalThisKeyOff(keyNum);
-    }
-}
-
-int DataCooker::pressureRaw()
-{
-    //bool avg = false;
-
-    //Average Sensor Val
-    if(sensorResponse) //Average
-    {
-        int mean = 0;
-
-        for(int i = 0; i < 4; i++)
-        {
-            mean +=sensorVals[i];
-        }
-
-        mean /= 4;
-
-        return mean;
-    }
-
-    //Max Sensor Val
-    else
-    {
-        int max = 0;
-
-        for(int i = 0; i < 4; i++)
-        {
-            if(sensorVals[i] > max)
-            {
-                max = sensorVals[i];
-            }
-        }
-
-        //qDebug() << "pressure" << max;
-
-        return max;
     }
 }
 
@@ -1325,4 +1385,9 @@ void DataCooker::slotSetSensorResponse(int response)
 void DataCooker::slotSetKeySafetyMode(int mode)
 {
     keySafetyMode = mode;
+}
+
+void DataCooker::slotSetParentKey(Key *pK)
+{
+    parentKey = pK;
 }

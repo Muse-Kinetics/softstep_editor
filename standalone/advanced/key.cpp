@@ -2,6 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "key.h"
+#include "mainwindow.h"
 
 #include <QDebug>
 
@@ -580,3 +581,15 @@ void Key::slotCounter(QString whatToDo, int val)
 
     emit signalCounterValue(counter);
 }
+
+void Key::slotSetMainWindow(MainWindow *mainWindow)
+{
+    mw = mainWindow;
+    dataCooker.slotSetParentKey(this);
+}
+
+/*void Key::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleased)
+{
+    //qDebug() << "slotLockoutKeyPressedReleased called from within dataCooker";
+    mw->slotLockoutKeyPressedReleased(keyNumber, pressedReleased);
+}*/

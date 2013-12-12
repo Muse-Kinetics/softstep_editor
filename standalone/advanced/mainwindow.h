@@ -98,6 +98,9 @@ public:
     QString connectedVersionString;
     int connectedVersionInt;
 
+    //Key Lockout
+    QList<int> lockoutKeysPressed;
+
 signals:
     void signalSaveAs(QString presetName);
     void signalSetMode(QString mode);
@@ -136,6 +139,9 @@ public slots:
     //-------------- Firmware Updating
     void slotUpdateFirmware();
     void slotUpdateFwProgressBar(int);
+
+    //-------------- Lockout Handling
+    void slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleased);
 
 private:
     Ui::MainWindow *ui;

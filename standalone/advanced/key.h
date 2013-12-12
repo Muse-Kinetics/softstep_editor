@@ -20,11 +20,15 @@
 #include "hosted/ledmanager.h"
 #include "hosted/staterecall.h"
 
+class MainWindow;
+
 class Key : public QWidget
 {
     Q_OBJECT
 public:
     explicit Key(QWidget *parent = 0, int keyInstanceNum = 0);
+
+    MainWindow *mw;
 
     StateRecall stateRecaller;
 
@@ -86,6 +90,11 @@ public slots:
 
     void slotBackgroundClicked();
     void slotSelectedKeyOutline(int selectedKey, bool outlined);
+
+    void slotSetMainWindow(MainWindow *mainWindow);
+
+    //Key Saftey / Lockout
+    //void slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleased);
 
 private:
     Ui::keyBoxForm *keyBoxForm;
