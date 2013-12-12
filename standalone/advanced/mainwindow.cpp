@@ -1305,6 +1305,31 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
 
     for(int i = 0; i < 10; i++)
     {
+        //If key sending message is being pressed
+        if(pressedReleased) // pressed == TRUE
+        {
+            //If the keyNumber is not listed in current keys pressed
+            if(!key[i]->dataCooker.lockoutKeysPressed.contains(keyNumber))
+            {
+                //Add it to our lockout list
+                key[i]->dataCooker.lockoutKeysPressed.append(keyNumber);
+            }
+        }
 
+        //If key sending message is being released
+        else
+        {
+            //If key number is listed in current keys pressed (should always be the case)
+            if(key[i]->dataCooker.lockoutKeysPressed.contains(keyNumber))
+            {
+                key[i]->dataCooker.lockoutKeysPressed.removeAt(key[i]->dataCooker.lockoutKeysPressed.indexOf(keyNumber));
+            }
+
+            //Trying to remove key from lockout list that is not present
+            else
+            {
+                qDebug() << "ERROR: trying to remove key from lockout list that is not present";
+            }
+        }
     }
 }
