@@ -492,7 +492,7 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
         }
         else if(navModlineForm->initmode->currentText() == "Always")
         {
-            qDebug() << "send init always val" << navModlineForm->initvalue->value();
+            //qDebug() << "send init always val" << navModlineForm->initvalue->value();
             slotTransformSource(navModlineForm->initvalue->value(), navInstance, "Init");
         }
     }
@@ -698,7 +698,7 @@ void NavModline::slotTransformSource(int val, int modlineNum, QString source)
             //If source value is different from last or there is a change in value...
             if(lastVal != val || lastSource != source || source.contains("Trig") || source.contains("Key"))
             {
-                qDebug() << val << modlineNum << source;
+                //qDebug() << val << modlineNum << source;
 
                 lastVal = val;
                 lastSource = newSource;
@@ -851,7 +851,7 @@ void NavModline::slotSmooth(int input)
 
 void NavModline::slotSmoothReturn(int input)
 {
-    qDebug() << "slew return" << input;
+    //qDebug() << "slew return" << input;
 
     slotDelay(input);
 }
@@ -862,7 +862,7 @@ void NavModline::slotDelay(int input)
 
     if(delay)
     {
-        qDebug() << "delay called" << delay << input;
+        //qDebug() << "delay called" << delay << input;
 
         //Do something with latcher, or delay here
         delayer.slotInputToDealy(input);
@@ -876,7 +876,7 @@ void NavModline::slotDelay(int input)
 
 void NavModline::slotDelayReturn(int input)
 {
-    qDebug() << "delayed signal" << input;
+    //qDebug() << "delayed signal" << input;
     slotOutputRoutine(input);
 }
 
@@ -983,7 +983,7 @@ void NavModline::hosted_slotOutputMidi(int outputVal)
 
 void NavModline::slotDisplayVars()
 {
-    qDebug() << "nav output value display" << value;
+    //qDebug() << "nav output value display" << value;
     navModlineForm->outputvalue->setValue(value);
 }
 

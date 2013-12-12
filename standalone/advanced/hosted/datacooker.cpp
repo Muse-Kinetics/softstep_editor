@@ -176,16 +176,37 @@ void DataCooker::slotUpdateVals(int cc, int val)
 {
     if(cc >= keySensorBaseCcMap[keyNum] && cc <= keySensorBaseCcMap[keyNum] + 3)
     {
+        //------------------------------------------------- Update Values -------------------------------------------------//
+        //Always keep values updated, even if key action is now allowed
+        if(cc == keySensorBaseCcMap[keyNum])
+        {
+            sensorVals[NW] = val;
+        }
+        else if(cc == keySensorBaseCcMap[keyNum] + 1)
+        {
+            sensorVals[NE] = val;
+        }
+        else if(cc == keySensorBaseCcMap[keyNum] + 2)
+        {
+            sensorVals[SW] = val;
+        }
+        else if(cc == keySensorBaseCcMap[keyNum] + 3)
+        {
+            sensorVals[SE] = val;
+        }
+
         //------------------------------------------------- Handle Lockouts -------------------------------------------------//
 
-        //---- If mode is all keys,
+        cookLockout();
+
+        //------------------------------------------- All Keys
         if(keySafetyMode == ALL_KEYS)
         {
             //Always allow action on key
             activateKey = true;
         }
 
-        //---- If mode is single key
+        //------------------------------------------- Single Key
         else if(keySafetyMode == SINGLE_KEY)
         {
             //If there are no keys pressed the moment
@@ -193,6 +214,8 @@ void DataCooker::slotUpdateVals(int cc, int val)
             {
                 //Allow key action
                 activateKey = true;
+
+                qDebug() << "single key list of size 0" << keyNum;
             }
 
             //If there are already keys pressed, and it is this one
@@ -200,16 +223,20 @@ void DataCooker::slotUpdateVals(int cc, int val)
             {
                 //Continue to allow action on key
                 activateKey = true;
+
+                qDebug() << "single key list contains hey" << keyNum;
             }
 
             //Otherwise...
             else
             {
                 activateKey = false;
+
+                qDebug() << "single key make false" << keyNum;
             }
         }
 
-        //---- If mode is adjacent keys
+        //------------------------------------------- Adjacent Key
         else if(keySafetyMode == ADJACENT_KEYS)
         {
 
@@ -230,10 +257,10 @@ void DataCooker::slotUpdateVals(int cc, int val)
             //If this key is not in our list of currently pressed keys
             else if(!lockoutKeysPressed.contains(keyNum))
             {
-                //Iterate through the current keys pressed
+                //Iterate through the current keys pressed...
                 for(int i = 0; i <lockoutKeysPressed.size(); i++)
                 {
-                    //If this key is contained in any of the currently pressed keys' adjacent list
+                    //If this key is contained in any of the currently pressed keys' forbidden adjacent lists
                     if(adjacentKeyLockoutList[lockoutKeysPressed.at(i)].contains(keyNum))
                     {
                         //Disallow action on this key
@@ -250,41 +277,25 @@ void DataCooker::slotUpdateVals(int cc, int val)
                 }
             }
 
-            //Otherwise...
+            //Otherwise... this should happen, if it does don't allow for now
             else
             {
+                qDebug() << "WARNING: Lockout - No conditions met. Disallowing key action on Key" << keyNum;
                 activateKey = false;
             }
         }
 
-        //------------------------------------------------- Update Values -------------------------------------------------//
 
-        //Always keep values updated, even if key action is now allowed
-        if(cc == keySensorBaseCcMap[keyNum])
-        {
-            sensorVals[NW] = val;
-        }
-        else if(cc == keySensorBaseCcMap[keyNum] + 1)
-        {
-            sensorVals[NE] = val;
-        }
-        else if(cc == keySensorBaseCcMap[keyNum] + 2)
-        {
-            sensorVals[SW] = val;
-        }
-        else if(cc == keySensorBaseCcMap[keyNum] + 3)
-        {
-            sensorVals[SE] = val;
-        }
 
         //qDebug() << "Key" << keyNum << "Sensor Vals" << sensorVals[NW] << sensorVals[NE] << sensorVals[SW] << sensorVals[SE];
 
         //Always cook raw, even if key action is now allowed
 
-        cookLockout();
 
-        if(activateKey = true)
+
+        if(activateKey == true)
         {
+            qDebug() << "cook this key" << keyNum;
             cookRaw();
             cookSources();
         }
@@ -319,7 +330,24 @@ void DataCooker::cookLockout()
     //If raw pressure is greater than on-thresh and current state of key is off
     if(pressureRaw() > onThresh && !footOnOff)
     {
-        parentKey->mw->slotLockoutKeyPressedReleased(keyNum, true);
+        if(keySafetyMode == SINGLE_KEY)
+        {
+            //If this key is in the list already, it's okay to remain on
+            if(lockoutKeysPressed.contains(keyNum) || lockoutKeysPressed.isEmpty())
+            {
+                parentKey->mw->slotLockoutKeyPressedReleased(keyNum, true);
+            }
+        }
+        else if(keySafetyMode == ADJACENT_KEYS)
+        {
+
+        }
+        else if(keySafetyMode == ALL_KEYS)
+        {
+
+        }
+
+
     }
 
     //If pressure is below off-thresh and foot is currently on
@@ -1385,6 +1413,7 @@ void DataCooker::slotSetSensorResponse(int response)
 void DataCooker::slotSetKeySafetyMode(int mode)
 {
     keySafetyMode = mode;
+    qDebug() << "Key Saftey Mode:" << keyNum << mode;
 }
 
 void DataCooker::slotSetParentKey(Key *pK)

@@ -221,7 +221,6 @@ void Pedal::slotResetCalibrate()
 //Init
 void Pedal::slotInitPedalTable(QByteArray table)
 {
-    qDebug() << "-------------------------------------------- slot init table?";
     pedalValueList.clear();
 
     for(int i = 0; i< table.size(); i++)
@@ -296,5 +295,5 @@ void Pedal::slotSetMinMaxLength()
     pedalValueListMax = (int)pedalValueList.last();
     pedalValueListLength = (int)pedalValueList.size();
 
-    qDebug() << "min, max, lengh" << pedalValueListMin << pedalValueListMax << pedalValueListLength;
+    //qDebug() << "min, max, lengh" << pedalValueListMin << pedalValueListMax << pedalValueListLength;
 }

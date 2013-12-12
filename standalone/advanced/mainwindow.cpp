@@ -607,7 +607,7 @@ void MainWindow::slotInitMenuBar()
 
     //-------------------------------------------------------------------------- File
     QMenu* file = new QMenu("File");
-    qDebug() << file;
+    //qDebug() << file;
     file->setObjectName("FileMenu");
 
     //----------------- Import / Export ------------------//
@@ -626,7 +626,7 @@ void MainWindow::slotInitMenuBar()
 
     //-------------------------------------------------------------------------- Edit
     QMenu* edit = new QMenu("Edit ");
-    qDebug() << edit;
+    //qDebug() << edit;
     edit->setObjectName("EditMenu");
     menubar->addMenu(edit);
 
@@ -748,7 +748,7 @@ void MainWindow::slotConnected(bool connection)
         //aboutForm->found->setText("Not Connected");
     }*/
 
-    qDebug() << "slotConnected Called" << connection;
+    //qDebug() << "slotConnected Called" << connection;
 
     if(connection)
     {
@@ -786,7 +786,7 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
 
     aboutForm->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
 
-    qDebug() << QString("connected: %1,  embedded: %2").arg(connected).arg(embedded);
+    //qDebug() << QString("connected: %1,  embedded: %2").arg(connected).arg(embedded);
 
     if(connected != embedded)
     {
@@ -863,7 +863,7 @@ void MainWindow::slotUpdateFwProgressBar(int bytes)
 
 void MainWindow::slotPopulatePresetMenu()
 {
-    qDebug() << "add preset";
+    //qDebug() << "add preset";
     presetInterface->slotPopulatePresetMenu(ui->presetmenu);
     setlist->slotRefreshSetlistMenus(ui->presetmenu);
 }
@@ -871,7 +871,7 @@ void MainWindow::slotPopulatePresetMenu()
 void MainWindow::slotRecallPresetFromSetlist(QString presetName)
 {
     //Just uses menu change to initiate preset recall
-    qDebug() << "recall this preset from the setlist" << presetName;
+    //qDebug() << "recall this preset from the setlist" << presetName;
     ui->presetmenu->setCurrentIndex(ui->presetmenu->findText(presetName));
 }
 
@@ -1328,8 +1328,12 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
             //Trying to remove key from lockout list that is not present
             else
             {
-                qDebug() << "ERROR: trying to remove key from lockout list that is not present";
+                qDebug() << "WARNING: trying to remove key from lockout list that is not present";
             }
         }
+
+        qDebug() << key[i]->dataCooker.lockoutKeysPressed;
     }
+
+
 }

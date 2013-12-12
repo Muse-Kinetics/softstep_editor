@@ -54,7 +54,7 @@ void TableInerface::slotDrawTable(float x, float y, float width)
 
 void TableInerface::slotClearTable()
 {
-    qDebug() << "-------------- clear pedal table on load";
+    //qDebug() << "-------------- clear pedal table on load";
     QMetaObject::invokeMethod(rootObject, "clearBlocks");
 }
 

@@ -589,7 +589,7 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
         }
         else if(modlineForm->initmode->currentText() == "Always")
         {
-            qDebug() << "send init always val" << modlineForm->initvalue->value();
+            //qDebug() << "send init always val" << modlineForm->initvalue->value();
             slotTransformSource(modlineForm->initvalue->value(), modlineInstance, "Init");
         }
     }
@@ -1005,7 +1005,7 @@ void Modline::slotSmooth(int input)
 
 void Modline::slotSmoothReturn(int input)
 {
-    qDebug() << "slew return" << input;
+    //qDebug() << "slew return" << input;
 
     slotDelay(input);
 }
@@ -1028,7 +1028,7 @@ void Modline::slotDelay(int input)
 
 void Modline::slotDelayReturn(int input)
 {
-    qDebug() << "delayed signal" << input;
+    //qDebug() << "delayed signal" << input;
     slotOutputRoutine(input);
 }
 

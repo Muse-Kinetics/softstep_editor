@@ -108,7 +108,7 @@ void PresetInterface::slotReadJSON()
 
     if(jsonFile->open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        qDebug("SoftStep Advanced Editor JSON Found");
+        //qDebug("SoftStep Advanced Editor JSON Found");
 
         QByteArray jsonByteArray = jsonFile->readAll();//load json file into a byte array to be processd by the parser
         jsonMasterMap = parser.parse(jsonByteArray, &ok).toMap(); //parse the json data, convert it to a map and set it equal to the master jsonMap
@@ -131,7 +131,7 @@ void PresetInterface::slotReadJSON()
     }
     else
     {
-        qDebug() << "SoftStep Advanced Editor JSON Not Found";
+        qDebug() << "WARNNG: SoftStep Advanced Editor JSON Not Found";
     }
 
     jsonFile->close();
@@ -213,7 +213,7 @@ void PresetInterface::writeDefualtJSON()
 void PresetInterface::slotRecallPreset(int i)
 {
     //i -= 1;
-    qDebug() << "recall preset" << i;
+    //qDebug() << "recall preset" << i;
 
     currentPresetNum = i;
 

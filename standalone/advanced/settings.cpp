@@ -662,7 +662,7 @@ void Settings::slotReadSettings()
 
     if(jsonFile->open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        qDebug("Settings JSON Found");
+        //qDebug("Settings JSON Found");
 
         QByteArray settingsByteArray = jsonFile->readAll();
 
@@ -670,7 +670,7 @@ void Settings::slotReadSettings()
     }
     else
     {
-        qDebug() << "Settings JSON not found";
+        qDebug() << "WARNING: Settings JSON not found";
     }
 
     jsonFile->close();
@@ -971,6 +971,29 @@ void Settings::slotEmitAllSettings()
 
     //Y Accel
     emit signalSetNavYIncAccel(settingsForm->nav_settings_yaccel->value());
+
+    //----------------------------------------------------------------------- Globals
+
+    //---------------- Key Safety
+    int lockoutMode;
+
+    if(settingsForm->multiplekeymode->isChecked())
+    {
+        //qDebug() << "Key Safety:" << "all";
+        lockoutMode = 2;
+    }
+    else if(settingsForm->adjacentkeymode->isChecked())
+    {
+        //qDebug() << "Key Safety:" << "adjacent";
+        lockoutMode = 1;
+    }
+    else if(settingsForm->keylockoutmode->isChecked())
+    {
+        //qDebug() << "Key Safety:" << "sing";
+        lockoutMode = 0;
+    }
+
+    emit signalSetKeySafetyMode(lockoutMode);
 }
 
 void Settings::slotSaveSettingsTimeout()
@@ -982,7 +1005,7 @@ void Settings::slotSaveSettingsTimeout()
     //If 0.5s have elapsed since last value was changed
     if(saveSettiingsTimeoutTime > 500)
     {
-        qDebug() << "settings timeout";
+        //qDebug() << "settings timeout";
 
         //Save settings
         slotWriteSettings();
@@ -1172,7 +1195,6 @@ void Settings::slotLoadTableOnStartup()
         }
 
         //Send table to pedal instances
-        qDebug() << "emit pedal table on load please.--------------------------------";
         emit signalInitPedalTable(pedalTableByteArray);
     }
     else
@@ -1185,7 +1207,7 @@ void Settings::slotLoadTableOnStartup()
     float count = pedalValueListGraph.count();
     float width = 109.0f/count;
 
-    qDebug() << "--------- draw pedal cal table on load" << width << count;
+    //qDebug() << "--------- draw pedal cal table on load" << width << count;
 
     pedalLiveTableInterface->slotClearTable();
     for(int i = 1; i < count; i++)

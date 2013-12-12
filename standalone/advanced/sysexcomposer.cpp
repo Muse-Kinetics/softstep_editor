@@ -54,9 +54,9 @@ void SysExComposer::slotGetEmbeddedVersion()
         rewind(fd);
 
         fwFile = (unsigned char*)malloc(fwFileSize*sizeof(unsigned char));
-        qDebug() << fread(fwFile,1,fwFileSize, fd);
+        //qDebug() << fread(fwFile,1,fwFileSize, fd);
 
-        qDebug() << fwFile[fwFileSize - 1];
+        //qDebug() << fwFile[fwFileSize - 1];
 
         rewind(fd);
 
@@ -72,7 +72,7 @@ void SysExComposer::slotGetEmbeddedVersion()
     {
         embeddedbuildNum = -1;
         embeddedVersion = QString("Not Found");
-        qDebug() << "______ SoftStep.syx not found. ______";
+        qDebug() << "WARNING: SoftStep.syx not found.";
     }
 }
 
@@ -212,15 +212,15 @@ void SysExComposer::slotGetConnectedVersion(QByteArray msg)
     connectedBuildNum = x->version_connected.buildnum;
     connectedVersion = QString(x->version_connected.version);
 
-    qDebug() << "_____ Connected:" << connectedBuildNum;
-    qDebug() << "______ Embedded:" << embeddedbuildNum;
+    //qDebug() << "_____ Connected:" << connectedBuildNum;
+    //qDebug() << "______ Embedded:" << embeddedbuildNum;
 
     emit signalSendBuildNums(connectedBuildNum, connectedVersion, embeddedbuildNum, embeddedVersion);
 }
 
 void SysExComposer::slotUpdateFirmware()
 {
-    qDebug() << "update firmware called" << fwFileSize;
+    //qDebug() << "update firmware called" << fwFileSize;
     //QApplication::processEvents();
     emit signalSendSysEx(QString("update firmware"), (unsigned char*)fwFile, fwFileSize, QString("SSCOM Port 1"));
 }

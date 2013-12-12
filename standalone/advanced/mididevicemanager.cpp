@@ -141,6 +141,7 @@ void MidiDeviceManager::slotHostedOnOff(bool onOff)
 
         sysexFIFOsQueue.append(_fw_tether_off);
         sysexFIFOsQueue.append(_fw_nav_tether_off);
+        sysexFIFOsQueue.append(_fw_standalone_on);
 
         sysexFIFOClock->start(100);
     }
@@ -160,6 +161,7 @@ void MidiDeviceManager::slotHostedOnOff(bool onOff)
 
         sysexFIFOsQueue.append(_fw_tether_on);
         sysexFIFOsQueue.append(_fw_nav_tether_on);
+        sysexFIFOsQueue.append(_fw_standalone_off);
 
         sysexFIFOClock->start(100);
     }
@@ -167,6 +169,9 @@ void MidiDeviceManager::slotHostedOnOff(bool onOff)
 
 void MidiDeviceManager::slotTetherOnOffInStandalone(bool onOff)
 {
+
+    //---- !!!! This function only used for pedal calibration !!! ----//
+
     //Turn tether on during calibration
     if(onOff)
     {
@@ -184,6 +189,7 @@ void MidiDeviceManager::slotTetherOnOffInStandalone(bool onOff)
 
         sysexFIFOsQueue.append(_fw_tether_on);
         sysexFIFOsQueue.append(_fw_nav_tether_on);
+        sysexFIFOsQueue.append(_fw_standalone_off);
 
         sysexFIFOClock->start(100);
 
@@ -208,6 +214,7 @@ void MidiDeviceManager::slotTetherOnOffInStandalone(bool onOff)
 
         sysexFIFOsQueue.append(_fw_tether_off);
         sysexFIFOsQueue.append(_fw_nav_tether_off);
+        sysexFIFOsQueue.append(_fw_standalone_on);
 
         sysexFIFOClock->start(100);
 
@@ -330,7 +337,7 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char* bytes, i
     }
     else
     {
-        qDebug() << "Matching Destination: " << destinationName << " NOT Found!";
+        qDebug() << "WARNING: Send SysEx Matching Destination: " << destinationName << " NOT Found.";
     }
 }
 
@@ -451,7 +458,7 @@ void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
         }
     }
 
-    qDebug() << "Modline Device Menus:" << externalDests.keys();
+    //qDebug() << "Modline Device Menus:" << externalDests.keys();
 
     //Sneds destinations to device menus in modlines
     emit hosted_signalPopulateDeviceMenus(externalDests);
