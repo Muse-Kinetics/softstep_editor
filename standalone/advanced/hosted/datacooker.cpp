@@ -28,14 +28,16 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
         switch (i)
         {
         case 0:
-            adjacentKeyLockoutList[i].append(4);
+            adjacentKeyLockoutList[i].append(1);
             adjacentKeyLockoutList[i].append(5);
-            adjacentKeyLockoutList[i].append(9);
+            adjacentKeyLockoutList[i].append(6);
             break;
         case 1:
+            adjacentKeyLockoutList[i].append(0);
+            adjacentKeyLockoutList[i].append(2);
+            adjacentKeyLockoutList[i].append(5);
             adjacentKeyLockoutList[i].append(6);
             adjacentKeyLockoutList[i].append(7);
-            adjacentKeyLockoutList[i].append(2);
             break;
         case 2:
             adjacentKeyLockoutList[i].append(1);
@@ -53,25 +55,27 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
             break;
         case 4:
             adjacentKeyLockoutList[i].append(3);
-            adjacentKeyLockoutList[i].append(5);
             adjacentKeyLockoutList[i].append(8);
             adjacentKeyLockoutList[i].append(9);
-            adjacentKeyLockoutList[i].append(0);
             break;
         case 5:
-            adjacentKeyLockoutList[i].append(4);
-            adjacentKeyLockoutList[i].append(9);
             adjacentKeyLockoutList[i].append(0);
+            adjacentKeyLockoutList[i].append(1);
+            adjacentKeyLockoutList[i].append(6);
             break;
         case 6:
+            adjacentKeyLockoutList[i].append(0);
             adjacentKeyLockoutList[i].append(1);
             adjacentKeyLockoutList[i].append(2);
+            adjacentKeyLockoutList[i].append(5);
             adjacentKeyLockoutList[i].append(7);
             break;
         case 7:
             adjacentKeyLockoutList[i].append(1);
             adjacentKeyLockoutList[i].append(2);
-            adjacentKeyLockoutList[i].append(7);
+            adjacentKeyLockoutList[i].append(3);
+            adjacentKeyLockoutList[i].append(6);
+            adjacentKeyLockoutList[i].append(8);
             break;
         case 8:
             adjacentKeyLockoutList[i].append(2);
@@ -83,9 +87,7 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
         case 9:
             adjacentKeyLockoutList[i].append(3);
             adjacentKeyLockoutList[i].append(4);
-            adjacentKeyLockoutList[i].append(5);
             adjacentKeyLockoutList[i].append(8);
-            adjacentKeyLockoutList[i].append(0);
             break;
         default:
             break;
@@ -214,8 +216,6 @@ void DataCooker::slotUpdateVals(int cc, int val)
             {
                 //Allow key action
                 activateKey = true;
-
-                qDebug() << "single key list of size 0" << keyNum;
             }
 
             //If there are already keys pressed, and it is this one
@@ -223,16 +223,12 @@ void DataCooker::slotUpdateVals(int cc, int val)
             {
                 //Continue to allow action on key
                 activateKey = true;
-
-                qDebug() << "single key list contains hey" << keyNum;
             }
 
             //Otherwise...
             else
             {
                 activateKey = false;
-
-                qDebug() << "single key make false" << keyNum;
             }
         }
 
@@ -291,8 +287,6 @@ void DataCooker::slotUpdateVals(int cc, int val)
 
         //Always cook raw, even if key action is now allowed
 
-
-
         if(activateKey == true)
         {
             qDebug() << "cook this key" << keyNum;
@@ -332,7 +326,7 @@ void DataCooker::cookLockout()
     {
         if(keySafetyMode == SINGLE_KEY)
         {
-            //If this key is in the list already, it's okay to remain on
+            //If this key is in the list already, or the list is empty (no keys pressed)
             if(lockoutKeysPressed.contains(keyNum) || lockoutKeysPressed.isEmpty())
             {
                 parentKey->mw->slotLockoutKeyPressedReleased(keyNum, true);
@@ -340,14 +334,45 @@ void DataCooker::cookLockout()
         }
         else if(keySafetyMode == ADJACENT_KEYS)
         {
+            //If this key is in the list already, or the list is empty (no keys pressed)
+            if(lockoutKeysPressed.contains(keyNum) || lockoutKeysPressed.isEmpty())
+            {
+                //Reiterate its inclusion-- this may be unnecessary
+                parentKey->mw->slotLockoutKeyPressedReleased(keyNum, true);
+            }
 
+            //If this key is not in the list and there are items in the list
+            else
+            {
+                int thisIsAnAdjacentKey = false;
+
+                //Iterate through the keys currently being pressed adjacent key lists
+                for(int i = 0; i < lockoutKeysPressed.size(); i++)
+                {
+                    if(!adjacentKeyLockoutList[lockoutKeysPressed.at(i)].contains(keyNum))
+                    {
+                        thisIsAnAdjacentKey = false;
+                    }
+                    else
+                    {
+                        //If adjacent to any key listed, flip flag and exit loop
+                        thisIsAnAdjacentKey = true;
+                        break;
+                    }
+                }
+
+                //If this is not considered an adjacent key by any of the currently pressed keys
+                if(!thisIsAnAdjacentKey)
+                {
+                    //Add it to the list
+                    parentKey->mw->slotLockoutKeyPressedReleased(keyNum, true);
+                }
+            }
         }
         else if(keySafetyMode == ALL_KEYS)
         {
-
+            //No need for list management
         }
-
-
     }
 
     //If pressure is below off-thresh and foot is currently on

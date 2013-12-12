@@ -168,8 +168,6 @@ void AlphaNumManager::slotKeyOff(int keyNum)
 
 void AlphaNumManager::slotKeyOffTimeout()
 {
-
-
     //slotReturnToKeyName();
     QTimer::singleShot(250, this, SLOT(slotReturnToKeyName()));
 

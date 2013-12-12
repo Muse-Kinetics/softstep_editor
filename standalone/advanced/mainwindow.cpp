@@ -1302,7 +1302,7 @@ void MainWindow::slotPopulateSourceDestLists()
 
 void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleased)
 {
-    qDebug() << "slotLockoutKeyPressedReleased called from MainWindow" << keyNumber << pressedReleased;
+    //qDebug() << "slotLockoutKeyPressedReleased called from MainWindow" << keyNumber << pressedReleased;
 
     for(int i = 0; i < 10; i++)
     {
@@ -1333,7 +1333,7 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
             }
         }
 
-        qDebug() << key[i]->dataCooker.lockoutKeysPressed;
+        //qDebug() << key[i]->dataCooker.lockoutKeysPressed;
     }
 
 
