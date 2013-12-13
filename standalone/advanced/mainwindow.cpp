@@ -980,6 +980,16 @@ void MainWindow::slotSetMode()
     //Set each setlist menu to correct item
     setlist->slotRefreshSetlistMenus(ui->presetmenu);
 
+    //Enable/Disable the update button
+    if(mode == "hosted")
+    {
+        ui->update->setEnabled(false);
+    }
+    else
+    {
+        ui->update->setEnabled(true);
+    }
+
     //Recall Preset 1 in new mode
     //presetInterface->slotRecallPreset(0);
 

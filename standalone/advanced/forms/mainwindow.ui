@@ -479,24 +479,7 @@ QComboBox::drop-down
       <string>&quot;Engage&quot; &lt;p&gt;Update the presets &lt;br&gt;on your SoftStep with the &lt;br&gt;current setlist.</string>
      </property>
      <property name="styleSheet">
-      <string notr="true">/*---------- QPushButton ---------*/
-QPushButton
-{
-	background: rgb(40, 40, 40);
-	border: 2px solid rgba(0,174,239,255);
-	font: 16pt &quot;Futura&quot;;
-	color: white;
-}
-
-QPushButton:pressed
-{
-	background: rgba(0,174,239,255);
-	border: none;
-	font: 16pt &quot;Futura&quot;;
-	color: white;
-}
-
-/*---------- QToolButton ---------*/
+      <string notr="true">/*---------- QToolButton ---------*/
 QToolButton
 {
 	background: rgb(40, 40, 40);
@@ -511,6 +494,14 @@ QToolButton:pressed
 	border: none;
 	font: 16pt &quot;Futura&quot;;
 	color: white;
+}
+
+QToolButton::disabled
+{
+	background: rgba(60, 60, 60, 75);
+	border: 2px solid rgba(0, 174, 239, 75);
+	font: 16pt &quot;Futura&quot;;
+	color: rgba(255, 255, 255, 40);
 }</string>
      </property>
      <property name="text">
