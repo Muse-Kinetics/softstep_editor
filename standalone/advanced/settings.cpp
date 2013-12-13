@@ -83,49 +83,10 @@ Settings::Settings(QWidget *parent) :
     slotRecallSettings();
 
     //----------------------------------------- Disable all OSC for now -----------------------------------------//
-    settingsForm->osca_input_enable->setEnabled(false);
-    settingsForm->osca_input_route->setEnabled(false);
-    settingsForm->osca_input_value->setEnabled(false);
 
-    settingsForm->oscb_input_enable->setEnabled(false);
-    settingsForm->oscb_input_route->setEnabled(false);
-    settingsForm->oscb_input_value->setEnabled(false);
+    //when we're ready for OSC, just uncomment the two lines in slotSetMode (down a few lines)
+    settingsForm->oscinputframe->setEnabled(false);
 
-    settingsForm->oscc_input_enable->setEnabled(false);
-    settingsForm->oscc_input_route->setEnabled(false);
-    settingsForm->oscc_input_value->setEnabled(false);
-
-    settingsForm->oscc_input_enable->setEnabled(false);
-    settingsForm->oscc_input_route->setEnabled(false);
-    settingsForm->oscc_input_value->setEnabled(false);
-
-    settingsForm->oscd_input_enable->setEnabled(false);
-    settingsForm->oscd_input_route->setEnabled(false);
-    settingsForm->oscd_input_value->setEnabled(false);
-
-    settingsForm->osce_input_enable->setEnabled(false);
-    settingsForm->osce_input_route->setEnabled(false);
-    settingsForm->osce_input_value->setEnabled(false);
-
-    settingsForm->oscf_input_enable->setEnabled(false);
-    settingsForm->oscf_input_route->setEnabled(false);
-    settingsForm->oscf_input_value->setEnabled(false);
-
-    settingsForm->oscg_input_enable->setEnabled(false);
-    settingsForm->oscg_input_route->setEnabled(false);
-    settingsForm->oscg_input_value->setEnabled(false);
-
-    settingsForm->osch_input_enable->setEnabled(false);
-    settingsForm->osch_input_route->setEnabled(false);
-    settingsForm->osch_input_value->setEnabled(false);
-
-    settingsForm->osc_in_port->setEnabled(false);
-    settingsForm->osc_out_port->setEnabled(false);
-
-    settingsForm->osc_ip_1->setEnabled(false);
-    settingsForm->osc_ip_2->setEnabled(false);
-    settingsForm->osc_ip_3->setEnabled(false);
-    settingsForm->osc_ip_4->setEnabled(false);
     //---------------------------------------------------------------------------------------------------------//
 
     //---- Hide calibration messages initially
@@ -151,10 +112,18 @@ void Settings::slotSetMode(QString m)
     {
         //Scene change button
         settingsForm->scenechange_enable->setEnabled(false);
+        settingsForm->midiinputframe->setEnabled(true);
+
+        //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
+        //settingsForm->oscinputframe->setEnabled(true);
     }
     else
     {
         settingsForm->scenechange_enable->setEnabled(true);
+        settingsForm->midiinputframe->setEnabled(false);
+
+        //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
+        //settingsForm->oscinputframe->setEnabled(false);
     }
 }
 
