@@ -45,6 +45,8 @@ public:
     void closeEvent(QCloseEvent *);
 
     void writeDefualtJSON();
+
+    QVariantMap getPresetMap(int presetNum);
     
 signals:
     void signalRecallPreset(QVariantMap preset, QVariantMap jsonMasterMapCopy);

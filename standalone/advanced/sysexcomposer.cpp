@@ -76,24 +76,15 @@ void SysExComposer::slotGetEmbeddedVersion()
     }
 }
 
-void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, QVariantMap master, qlonglong presetNum)
+void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settings)
 {
     t_softstep *x = softstep_init();
-
-    QMapIterator<QString, QVariant> i(presetSent);
-
-    QVariantMap preset;
-
-    /*while (i.hasNext())
-    {
-        i.next();
-        qDebug() << i.key() << ": " << i.value();
-    }*/
 
     //=========================================================================================================//
     //================================================= Settings ==============================================//
     //=========================================================================================================//
 
+    /*
     //------------------------------------- Global -------------------------------------//
     attribute(x,3,A_SYM,"set",A_SYM,"Key_Response",A_LONG,0l);
     attribute(x,3,A_SYM,"set",A_SYM,"Global_Gain",A_FLOAT,master.value("sensitivity").toFloat());   //-----
@@ -133,6 +124,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
     attribute(x,3,A_SYM,"set",A_SYM,"West_On_Thresh",A_LONG,20l);
     attribute(x,3,A_SYM,"set",A_SYM,"West_Off_Thresh",A_LONG,10l);
     attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,85l);
+    */
 
     //=========================================================================================================//
     //================================================== Preset ===============================================//
@@ -145,19 +137,19 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
         QVariantMap preset = setlist.at(p);
 
         attribute(x,2,A_SYM,"preset",A_LONG,p);
-        attribute(x,3,A_SYM, "set",A_SYM,"Scene_Name",A_SYM,preset.value("displayname").toString().toUtf8().constData());
+        attribute(x,3,A_SYM, "set",A_SYM,"Scene_Name",A_SYM,preset.value("preset_displayname").toString().toUtf8().constData());
 
         for(long k = 1; k < 11; k++)
         {
             attribute(x,2,A_SYM,"key",A_LONG,k);
-            attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM, preset.value(QString("key%1_name").arg(k)).toString().toUtf8().constData());
-            attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,preset.value(QString("key%1_prefix").arg(k)).toString().toUtf8().constData());
-            attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,preset.value(QString("key%1_displaymode").arg(k)).toLongLong());
+            attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM, preset.value(QString("%1_key_name").arg(k)).toString().toUtf8().constData());
+            attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,preset.value(QString("%1_key_prefix").arg(k)).toString().toUtf8().constData());
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,preset.value(QString("%1_key_displaymode").arg(k)).toLongLong());
 
             for(long m = 1; m < 7; m++ )
             {
                 attribute(x,3,A_SYM,"set",A_SYM,"Modline",A_LONG,m);
-                attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,preset.value(QString("key%1_modline%2_on").arg(k).arg(m)).toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,preset.value(QString("key%1_modline%2_enable").arg(k).arg(m)).toLongLong());
                 attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("key%1_modline%2_source").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("key%1_modline%2_gain").arg(k).arg(m)).toFloat());
                 attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("key%1_modline%2_offset").arg(k).arg(m)).toFloat());
@@ -171,7 +163,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
                 attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,preset.value(QString("key%1_modline%2_ledred").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,preset.value(QString("key%1_modline%2_ledgreen").arg(k).arg(m)).toString().toUtf8().constData());
-                attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("key%1_modline%2_displaylinked").arg(k).arg(m)).toString().toUtf8().constData());
+                attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("key%1_modline%2_displaylinked").arg(k).arg(m)).toLongLong());
 
             } //Modline loop
          } //Key loop
@@ -189,9 +181,9 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
     qDebug("freeing image");
     free(image);
 
-    emit signalSendSysEx(QString("standalone settings image"), settings, settingsLength, QString("SSCOM Port 1"));
-    qDebug("freeing settings");
-    free(settings);
+    //emit signalSendSysEx(QString("standalone settings image"), settings, settingsLength, QString("SSCOM Port 1"));
+    //qDebug("freeing settings");
+    //free(settings);
 
     //sysex message complete
     emit signalUpdateComplete();

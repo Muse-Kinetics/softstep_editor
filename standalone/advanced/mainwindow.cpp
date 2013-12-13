@@ -874,7 +874,7 @@ void MainWindow::slotPopulatePresetMenu()
 
 void MainWindow::slotRecallPresetFromSetlist(QString presetName)
 {
-    //Just uses menu change to initiate preset recall
+    //Just uses menu change to initiate preset recall from setlist
     //qDebug() << "recall this preset from the setlist" << presetName;
     ui->presetmenu->setCurrentIndex(ui->presetmenu->findText(presetName));
 }
@@ -1309,7 +1309,25 @@ void MainWindow::slotPopulateSourceDestLists()
 
 void MainWindow::slotUpdatePresets()
 {
-    qDebug() << "slotUpdatePresets setlist length" << setlist->getSetlistMap();
+    //"preset_name" strings
+    QStringList presetNameList = setlist->getSetlistMap();
+
+    //Stores list of actual presets
+    QList<QVariantMap> setlistMapList;
+
+    //Iterate through strings in setlist
+    foreach(QString string, presetNameList)
+    {
+        //If there's somethingn in the slot
+        if(string != "[EMPTY]")
+        {
+            //Get it's preset number, get preset map from number, add it to our list of maps (setlist)
+            setlistMapList.append(presetInterface->getPresetMap(ui->presetmenu->findText(string)));
+        }
+    }
+
+    //Send list of preset maps to be "sysex-composed" and sent to board
+    sysExComposer->slotComposeAttributeListFromSetlist(setlistMapList, QVariantMap()); //Temporarily send empty settings map
 }
 
 

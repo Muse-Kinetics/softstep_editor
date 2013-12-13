@@ -18,25 +18,24 @@ Setlist::Setlist(QWidget *parent) :
     repopulating = false;
 
     currentSetlistSlot = -1;
-
-
 }
 
 QStringList Setlist::getSetlistMap()
 {
+
+    //Get's an ordered setlist, removes empties
+
     QStringList setlistList;
 
-    //Iterate through setlist (may want to explicity account for order later)
-    QMapIterator<QString, QVariant> i(setlist);
-
-    while(i.hasNext())
+    foreach(QComboBox *menu, menus)
     {
-        i.next();
-        setlistList.append(i.value().toString());
-        //qDebug() << "iterating key" << i.key() << i.value().toString();
-    }
+        QString currentText = menu->currentText();
 
-    //qDebug() << "setlistsize" << setlist.size();
+        if(currentText != "[EMPTY]")
+        {
+            setlistList.append(currentText);
+        }
+    }
 
     return setlistList;
 }
@@ -141,6 +140,8 @@ void Setlist::slotCompileSetlist()
 
 void Setlist::slotPopulateSetlistMenus(QComboBox* presetMenu)
 {
+    //-------- Adds items to setlist menu
+
     //qDebug() << "populate setlist menus";
     repopulating = true;
 

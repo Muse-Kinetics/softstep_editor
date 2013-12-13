@@ -28,7 +28,7 @@ public:
     int             fwFileSize;
     bool            isSoftStep2;
 
-    QList<QVariantMap> setlist;
+    //QList<QVariantMap> setlist;
 
 signals:
     void    signalSendSysEx(QString messageID, unsigned char* message, int messageLength, QString destinationName);
@@ -36,7 +36,7 @@ signals:
     void    signalUpdateComplete();
 
 public slots:
-    void    slotComposeAttributeListFromPreset(QVariantMap presetSent, QVariantMap, qlonglong);
+    void    slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settings);
     void    slotGetConnectedVersion(QByteArray);
     void    slotGetEmbeddedVersion();
     void    slotUpdateFirmware();

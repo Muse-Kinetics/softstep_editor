@@ -11,6 +11,11 @@ PresetInterface::PresetInterface(QWidget *parent) :
     //writeDefualtJSON();
 }
 
+QVariantMap PresetInterface::getPresetMap(int presetNum)
+{
+    return jsonMasterMapCopy.value(slotGetPresetStringFromInt(presetNum)).toMap();
+}
+
 void PresetInterface::slotUpdateJSONPath()
 {
     jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
@@ -92,7 +97,6 @@ void PresetInterface::slotSetMode(QString m)
 {
     mode = m;
 }
-
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -201,7 +205,6 @@ void PresetInterface::writeDefualtJSON()
         jsonFile->close();
     }
 }
-
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
