@@ -139,13 +139,40 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         attribute(x,2,A_SYM,"preset",A_LONG,p);
         attribute(x,3,A_SYM, "set",A_SYM,"Scene_Name",A_SYM,preset.value("preset_displayname").toString().toUtf8().constData());
 
+        //-------------------------------------------- Keys
         for(long k = 1; k < 11; k++)
         {
             attribute(x,2,A_SYM,"key",A_LONG,k);
             attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM, preset.value(QString("%1_key_name").arg(k)).toString().toUtf8().constData());
             attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,preset.value(QString("%1_key_prefix").arg(k)).toString().toUtf8().constData());
-            attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,preset.value(QString("%1_key_displaymode").arg(k)).toLongLong());
 
+            //qDebug() << "Display_Mode" << preset.value(QString("%1_key_displaymode").arg(k)).toString();
+
+            //---------------------------------------- Display Mode
+            QString displayMode = preset.value(QString("%1_key_displaymode").arg(k)).toString();
+
+            if(displayMode == "None")
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,0l);
+            }
+            else if(displayMode == "Always")
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,1l);
+            }
+            else if(displayMode == "Once")
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,2l);
+            }
+            else if(displayMode == "Initial/Return")
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,3l);
+            }
+            else if(displayMode == "Immed Param")
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,4l);
+            }
+
+            //---------------------------------------- Modlines
             for(long m = 1; m < 7; m++ )
             {
                 attribute(x,3,A_SYM,"set",A_SYM,"Modline",A_LONG,m);
@@ -159,7 +186,75 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                 attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("key%1_modline%2_slew").arg(k).arg(m)).toLongLong());
                 attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,preset.value(QString("key%1_modline%2_destination").arg(k).arg(m)).toString().toUtf8().constData());
 
-                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
+                //------------------------------------- Destination Handling
+                QString destination = preset.value(QString("key%1_modline%2_destination").arg(k).arg(m)).toString();
+
+                //------------- Note Set
+                if(destination == "Note Set" || destination == "Note Live")
+                {
+                    //Note
+                    attribute(x,3,A_SYM,"set",A_SYM,"Note_Number",A_LONG,preset.value(QString("key%1_modline%2_note").arg(k).arg(m)).toLongLong());
+
+                    //Velocity
+                    attribute(x,3,A_SYM,"set",A_SYM,"Note_Velocity",A_LONG,preset.value(QString("key%1_modline%2_velocity").arg(k).arg(m)).toLongLong());
+
+                    //Channel
+                    attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
+                }
+
+                //------------- Note Live
+                /*else if(destination == "Note Live")
+                {
+                    //Note
+                    attribute(x,3,A_SYM,"set",A_SYM,"Note_Number",A_LONG,preset.value(QString("key%1_modline%2_note").arg(k)).toLongLong());
+
+                    //Velocity
+                    attribute(x,3,A_SYM,"set",A_SYM,"Note_Velocity",A_LONG,preset.value(QString("key%1_modline%2_velocity").arg(k)).toLongLong());
+
+                    //Channel
+                    attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
+                }*/
+
+                //------------- CC
+                else if(destination == "CC")
+                {
+                    //CC#
+                    attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value(QString("key%1_modline%2_cc").arg(k).arg(m)).toLongLong());
+
+                    //Channel
+                    attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
+                }
+
+                //------------- Bank
+                else if(destination == "Bank")
+                {
+                    //MSB goes here in future.
+
+                    //Channel
+                    attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
+                }
+
+                //------------- Program
+                else if(destination == "Program")
+                {
+
+                    attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
+                }
+
+                //------------- Pitch Bend
+                else if(destination == "Pitch Bend")
+                {
+
+                    attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
+                }
+
+                //------------- MMC
+                else if(destination == "MMC")
+                {
+
+                }
+
+
                 attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,preset.value(QString("key%1_modline%2_ledred").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,preset.value(QString("key%1_modline%2_ledgreen").arg(k).arg(m)).toString().toUtf8().constData());
