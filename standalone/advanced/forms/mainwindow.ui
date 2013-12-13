@@ -499,9 +499,9 @@ QToolButton:pressed
 QToolButton::disabled
 {
 	background: rgba(60, 60, 60, 75);
-	border: 2px solid rgba(0, 174, 239, 75);
+	border: 2px solid rgba(0, 56, 77, 255);
 	font: 16pt &quot;Futura&quot;;
-	color: rgba(255, 255, 255, 40);
+	color: rgba(255, 255, 255, 35);
 }</string>
      </property>
      <property name="text">
