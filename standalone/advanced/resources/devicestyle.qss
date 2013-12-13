@@ -1,0 +1,57 @@
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	padding-right: 7px;
+}
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px "Tahoma";
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 65px;
+	min-height: 25px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+	min-width: 65px;
+
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}

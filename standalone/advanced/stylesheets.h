@@ -28,6 +28,7 @@ class StyleSheets
         QList<QString> keyBoxOpenButtonStyleSheet;
         QString keyBoxSelectedStyleSheet;
         QString keyBoxNotSelectedStyleSheet;
+        QString deviceStyleSheet;
 
 };
 

@@ -177,4 +177,5 @@ OTHER_FILES += \
     resources/pedalTable.txt \
     resources/keybox_boxnotselected.qss \
     resources/keybox_boxselected.qss \
-    CalibrationTable.qml
+    CalibrationTable.qml \
+    resources/devicestyle.qss

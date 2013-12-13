@@ -55,4 +55,12 @@ StyleSheets::StyleSheets()
         keyBoxNotSelectedStyleSheet = QTextStream(file).readAll();
     }
     file->close();
+
+    ///////////////// DEVICE LIST STYLESHEET //////////////////
+    file = new QFile(QString(":/resources/devicestyle.qss"));
+    if(file->open(QIODevice::ReadOnly))
+    {
+        deviceStyleSheet = QTextStream(file).readAll();
+    }
+    file->close();
 }

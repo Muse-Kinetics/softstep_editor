@@ -174,5 +174,6 @@
         <file>resources/counter_label.png</file>
         <file>resources/checkbox_off_disabled.png</file>
         <file>resources/checkbox_on_disabled.png</file>
+        <file>resources/devicestyle.qss</file>
     </qresource>
 </RCC>
