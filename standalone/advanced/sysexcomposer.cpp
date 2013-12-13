@@ -167,8 +167,6 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
                 attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("key%1_modline%2_slew").arg(k).arg(m)).toLongLong());
                 attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,preset.value(QString("key%1_modline%2_destination").arg(k).arg(m)).toString().toUtf8().constData());
 
-
-
                 attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
                 attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,preset.value(QString("key%1_modline%2_ledred").arg(k).arg(m)).toString().toUtf8().constData());
@@ -187,11 +185,11 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
     //qDebug() << "image" << image << "imageLength" << imageLength;
     //qDebug() << "settings" << settings << "settingsLength" << settingsLength;
 
-    emit signalSendSysEx(QString("standalone image"), image, imageLength, QString("SSCOM Port 1"));
+    emit signalSendSysEx(QString("standalone presets image"), image, imageLength, QString("SSCOM Port 1"));
     qDebug("freeing image");
     free(image);
 
-    emit signalSendSysEx(QString("standalone image"), settings, settingsLength, QString("SSCOM Port 1"));
+    emit signalSendSysEx(QString("standalone settings image"), settings, settingsLength, QString("SSCOM Port 1"));
     qDebug("freeing settings");
     free(settings);
 

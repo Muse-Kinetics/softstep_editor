@@ -45,6 +45,8 @@ public:
     int currentSetlistSlot;
     bool setlistEmpty;
 
+    QStringList getSetlistMap();
+
 signals:
     void signalRecallPresetFromSetlist(QString presetName);
     

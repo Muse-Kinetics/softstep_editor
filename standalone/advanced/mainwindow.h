@@ -144,6 +144,9 @@ public slots:
     //-------------- Lockout Handling
     void slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleased);
 
+    //-------------- Standalone Preset Updating / Sending
+    void slotUpdatePresets();
+
 private:
     Ui::MainWindow *ui;
 

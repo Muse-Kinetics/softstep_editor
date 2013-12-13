@@ -1438,7 +1438,7 @@ void DataCooker::slotSetSensorResponse(int response)
 void DataCooker::slotSetKeySafetyMode(int mode)
 {
     keySafetyMode = mode;
-    qDebug() << "Key Saftey Mode:" << keyNum << mode;
+    //qDebug() << "Key Saftey Mode:" << keyNum << mode;
 }
 
 void DataCooker::slotSetParentKey(Key *pK)

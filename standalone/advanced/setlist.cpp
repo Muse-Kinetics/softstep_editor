@@ -22,6 +22,25 @@ Setlist::Setlist(QWidget *parent) :
 
 }
 
+QStringList Setlist::getSetlistMap()
+{
+    QStringList setlistList;
+
+    //Iterate through setlist (may want to explicity account for order later)
+    QMapIterator<QString, QVariant> i(setlist);
+
+    while(i.hasNext())
+    {
+        i.next();
+        setlistList.append(i.value().toString());
+        //qDebug() << "iterating key" << i.key() << i.value().toString();
+    }
+
+    //qDebug() << "setlistsize" << setlist.size();
+
+    return setlistList;
+}
+
 bool Setlist::eventFilter(QObject *obj, QEvent *event)
 {
     if((event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonDblClick) && obj->objectName().contains("enable"))
