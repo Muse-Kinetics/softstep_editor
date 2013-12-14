@@ -45,7 +45,7 @@ void CopyPasteHandler::slotPastePreset()
         {
             //if presetCopiedMap doesn't contain a value in the default map, insert it
             presetCopiedMap.insert(i.key(), i.value());
-            qDebug() << "From slotPastePreset - this was MISSING:" << i.key() << i.value();
+            //qDebug() << "From slotPastePreset - this was MISSING:" << i.key() << i.value();
         }
     }
 
@@ -62,7 +62,7 @@ void CopyPasteHandler::slotPastePreset()
         {
             //add to list of bad keys
             badKeys.append(j.key());
-            qDebug() << "From slotPastePreset - this was EXTRA:" << j.key() << j.value();
+            //qDebug() << "From slotPastePreset - this was EXTRA:" << j.key() << j.value();
         }
     }
     //Iterate through the bad keys and remove from preset

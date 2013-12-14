@@ -117,7 +117,9 @@ void Modline::slotConnectElements()
     //destination parameters
     connect(modlineForm->notenumber,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     connect(modlineForm->notevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->notelivevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    connect(modlineForm->notevelocity,SIGNAL(valueChanged(int)),modlineForm->notelivevelocity, SLOT(setValue(int)));
+    connect(modlineForm->notelivevelocity,SIGNAL(valueChanged(int)),modlineForm->notevelocity, SLOT(setValue(int)));
+    //connect(modlineForm->notelivevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     connect(modlineForm->cc,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     connect(modlineForm->bankmsb,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     connect(modlineForm->polynote,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
@@ -215,7 +217,7 @@ void Modline::slotDisconnectElements()
     //destination parameters
     disconnect(modlineForm->notenumber,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     disconnect(modlineForm->notevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->notelivevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+    //disconnect(modlineForm->notelivevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     disconnect(modlineForm->cc,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     disconnect(modlineForm->bankmsb,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
     disconnect(modlineForm->polynote,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
@@ -356,11 +358,6 @@ void Modline::slotValueChanged()
         {
             jsonName = "velocity";
             value = modlineForm->notevelocity->value();
-        }
-        else if(sender == modlineForm->notelivevelocity)
-        {
-            jsonName = "velocity";
-            value = modlineForm->notelivevelocity->value();
         }
         else if(sender == modlineForm->cc)
         {

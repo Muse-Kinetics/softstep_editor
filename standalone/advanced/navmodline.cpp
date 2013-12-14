@@ -66,7 +66,9 @@ void NavModline::slotConnectElements()
             }
             else if((!spinName.contains("raw")) &&
                     (!spinName.contains("result")) &&
-                    (!spinName.contains("outputValue"))) //these parameters should not be saved in presets
+                    (!spinName.contains("outputValue")) &&
+                    (!spinName.contains("notelivenumber")) &&
+                    (!spinName.contains("notelivevelocity"))) //these parameters should not be saved in presets
             {
                 connect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
             }
@@ -110,6 +112,10 @@ void NavModline::slotConnectElements()
         }
     }
 
+    //connect the velocity boxes to eachother
+    connect(navModlineForm->notevelocity, SIGNAL(valueChanged(int)), navModlineForm->notelivevelocity, SLOT(setValue(int)));
+    connect(navModlineForm->notelivevelocity, SIGNAL(valueChanged(int)), navModlineForm->notevelocity, SLOT(setValue(int)));
+
     //connect and initialize the raw value to the result (not for presets)
     //connect(navModlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
     //connect(navModlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
@@ -143,7 +149,9 @@ void NavModline::slotDisconnectElements()
             }
             else if((!spinName.contains("raw")) &&
                     (!spinName.contains("result")) &&
-                    (!spinName.contains("outputValue"))) //these parameters should not be saved in presets
+                    (!spinName.contains("outputValue")) &&
+                    (!spinName.contains("notelivenumber")) &&
+                    (!spinName.contains("notelivevelocity"))) //these parameters should not be saved in presets
             {
                 disconnect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
             }
@@ -287,11 +295,6 @@ void NavModline::slotValueChanged()
         {
             jsonName = "velocity";
             value = navModlineForm->notevelocity->value();
-        }
-        else if(sender == navModlineForm->notelivevelocity)
-        {
-            jsonName = "velocity";
-            value = navModlineForm->notelivevelocity->value();
         }
         else if(sender == navModlineForm->cc)
         {
@@ -447,7 +450,7 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
     navModlineForm->polynote->setValue(preset.value(QString("nav_modline%1_note").arg(navInstance+1)).toInt());
 
     navModlineForm->notevelocity->setValue(preset.value(QString("nav_modline%1_velocity").arg(navInstance+1)).toInt());
-    navModlineForm->notelivevelocity->setValue(preset.value(QString("nav_modline%1_velocity").arg(navInstance+1)).toInt());
+    //navModlineForm->notelivevelocity->setValue(preset.value(QString("nav_modline%1_velocity").arg(navInstance+1)).toInt());
     navModlineForm->cc->setValue(preset.value(QString("nav_modline%1_cc").arg(navInstance+1)).toInt());
     navModlineForm->bankmsb->setValue(preset.value(QString("nav_modline%1_bankmsb").arg(navInstance+1)).toInt());
 
