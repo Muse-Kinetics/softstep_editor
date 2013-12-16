@@ -76,24 +76,57 @@ void SysExComposer::slotGetEmbeddedVersion()
     }
 }
 
-void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settings)
+void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settingsMapGlobal)
 {
+
+    //For some reason there's an extra layer to get to the actual settings, the "Global" map within the settings json contains them
+    //I think "Global" refers to the fact that it's for both modes, Standalone and Hosted
+
+    QVariantMap settingsMap = settingsMapGlobal.value("Global").toMap();
+
     t_softstep *x = softstep_init();
 
     //=========================================================================================================//
     //================================================= Settings ==============================================//
     //=========================================================================================================//
 
-    /*
     //------------------------------------- Global -------------------------------------//
-    attribute(x,3,A_SYM,"set",A_SYM,"Key_Response",A_LONG,0l);
-    attribute(x,3,A_SYM,"set",A_SYM,"Global_Gain",A_FLOAT,master.value("sensitivity").toFloat());   //-----
+    //---- Sensitivity
+    attribute(x,3,A_SYM,"set",A_SYM,"Key_Response",A_LONG,settingsMap.value("sensorresponse_checkbox").toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"Global_Gain",A_FLOAT,settingsMap.value("global_gain").toFloat());
+
+    //---- Key Safety
+    //Adjacent Key Lockout - currently not implemented
+    if(settingsMap.value("adjacentkeymode").toBool())
+    {
+        //attribute(x,3,A_SYM,"set",A_SYM,"Key_Mode",A_LONG,0l);
+    }
+
+    //Single Key Lockout
+    else if(settingsMap.value("keylockoutmode").toBool())
+    {
+        attribute(x,3,A_SYM,"set",A_SYM,"Key_Mode",A_LONG,0l);
+    }
+
+    //All Keys
+    else if(settingsMap.value("multiplekeymode").toBool())
+    {
+        attribute(x,3,A_SYM,"set",A_SYM,"Key_Mode",A_LONG,1l);
+    }
+
+    //---- Pedal
     //attribute(x,0,A_SYM,"set",A_SYM,"Pedal_Table",A_GIMME,-1);
-    attribute(x,4,A_SYM,"set",A_SYM,"pedalEdges",A_LONG,127l, A_LONG,0l);
-    attribute(x,3,A_SYM,"set",A_SYM,"pedalHysteresis",A_LONG,7);
-    attribute(x,3,A_SYM,"set",A_SYM,"pedalFilterLength",A_LONG,5);
-    attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!master.value("backlight").toInt());     //-----
-    attribute(x,3,A_SYM,"set",A_SYM,"ProgramChangeInput",A_LONG,12);
+    //attribute(x,4,A_SYM,"set",A_SYM,"pedalEdges",A_LONG,127l, A_LONG,0l);
+    //attribute(x,3,A_SYM,"set",A_SYM,"pedalHysteresis",A_LONG,7);
+    //attribute(x,3,A_SYM,"set",A_SYM,"pedalFilterLength",A_LONG,5);
+
+    //---- EL
+    attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!settingsMap.value("backlighting_enable").toLongLong());
+
+    qDebug() << " ---------------- el" << settingsMap.value("backlighting_enable").toLongLong();
+
+    //---- Program Change Input Channel
+    attribute(x,3,A_SYM,"set",A_SYM,"ProgramChangeInput",A_LONG,16);
 
     //--------------------------------------  Keys  ------------------------------------//
     for (long k=1;k<11;k++)
@@ -102,34 +135,32 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         attribute(x,4,A_SYM,"set",A_SYM,"key",A_SYM,"keynum",A_LONG,k);
 
         //Settings
-        attribute(x,3,A_SYM,"set",A_SYM,"Dead_X",A_LONG,16l);
-        attribute(x,3,A_SYM,"set",A_SYM,"Accel_X",A_LONG,85l);
-        attribute(x,3,A_SYM,"set",A_SYM,"Dead_Y",A_LONG,16l);
-        attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,preset.value(QString("%1_key_setting_yAccel").arg(k)).toLongLong());
-        attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,85l);
-        attribute(x,3,A_SYM,"set",A_SYM,"On_Sens",A_LONG,20l);
-        attribute(x,3,A_SYM,"set",A_SYM,"Off_Sens",A_LONG,10l);
+        attribute(x,3,A_SYM,"set",A_SYM,"Dead_X",A_LONG,settingsMap.value(QString("key%1_settings_xdead").arg(k)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Accel_X",A_LONG,settingsMap.value(QString("key%1_settings_xaccel").arg(k)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Dead_Y",A_LONG,settingsMap.value(QString("key%1_settings_ydead").arg(k)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,settingsMap.value(QString("key%1_settings_yaccel").arg(k)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"On_Sens",A_LONG,settingsMap.value(QString("key%1_settings_onthresh").arg(k)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Off_Sens",A_LONG,settingsMap.value(QString("key%1_settings_offthresh").arg(k)).toLongLong());
     }
 
     //------------------------------------- Nav Pad ------------------------------------//
     attribute(x,3,A_SYM,"set",A_SYM,"key",A_SYM,"nav");
 
     //Nav Settings
-    attribute(x,3,A_SYM,"set",A_SYM,"North_On_Thresh",A_LONG,20l);
-    attribute(x,3,A_SYM,"set",A_SYM,"North_Off_Thresh",A_LONG,10l);
-    attribute(x,3,A_SYM,"set",A_SYM,"South_On_Thresh",A_LONG,20l);
-    attribute(x,3,A_SYM,"set",A_SYM,"South_Off_Thresh",A_LONG,10l);
-    attribute(x,3,A_SYM,"set",A_SYM,"East_On_Thresh",A_LONG,20l);
-    attribute(x,3,A_SYM,"set",A_SYM,"East_Off_Thresh",A_LONG,10l);
-    attribute(x,3,A_SYM,"set",A_SYM,"West_On_Thresh",A_LONG,20l);
-    attribute(x,3,A_SYM,"set",A_SYM,"West_Off_Thresh",A_LONG,10l);
-    attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,85l);
-    */
+    attribute(x,3,A_SYM,"set",A_SYM,"North_On_Thresh",A_LONG,settingsMap.value(QString("nav_north_settings_onthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"North_Off_Thresh",A_LONG,settingsMap.value(QString("nav_north_settings_offthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"South_On_Thresh",A_LONG,settingsMap.value(QString("nav_south_settings_onthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"South_Off_Thresh",A_LONG,settingsMap.value(QString("nav_south_settings_offthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"East_On_Thresh",A_LONG,settingsMap.value(QString("nav_east_settings_onthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"East_Off_Thresh",A_LONG,settingsMap.value(QString("nav_east_settings_offthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"West_On_Thresh",A_LONG,settingsMap.value(QString("nav_west_settings_onthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"West_Off_Thresh",A_LONG,settingsMap.value(QString("nav_west_settings_offthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,settingsMap.value(QString("nav_settings_yaccel")).toLongLong());
+
 
     //=========================================================================================================//
     //================================================== Preset ===============================================//
     //=========================================================================================================//
-
 
     //Scroll setlist, enumerating presets
     for (long p=0; p<setlist.size(); p++)
@@ -276,9 +307,9 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     qDebug("freeing image");
     free(image);
 
-    //emit signalSendSysEx(QString("standalone settings image"), settings, settingsLength, QString("SSCOM Port 1"));
-    //qDebug("freeing settings");
-    //free(settings);
+    emit signalSendSysEx(QString("standalone settings image"), settings, settingsLength, QString("SSCOM Port 1"));
+    qDebug("freeing settings");
+    free(settings);
 
     //sysex message complete
     emit signalUpdateComplete();

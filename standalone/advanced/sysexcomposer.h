@@ -36,7 +36,7 @@ signals:
     void    signalUpdateComplete();
 
 public slots:
-    void    slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settings);
+    void    slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settingsMapGlobal);
     void    slotGetConnectedVersion(QByteArray);
     void    slotGetEmbeddedVersion();
     void    slotUpdateFirmware();

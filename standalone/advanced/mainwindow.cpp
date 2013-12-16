@@ -1327,7 +1327,7 @@ void MainWindow::slotUpdatePresets()
     }
 
     //Send list of preset maps to be "sysex-composed" and sent to board
-    sysExComposer->slotComposeAttributeListFromSetlist(setlistMapList, QVariantMap()); //Temporarily send empty settings map
+    sysExComposer->slotComposeAttributeListFromSetlist(setlistMapList, settingsWindow->settings); //Temporarily send empty settings map
 }
 
 
