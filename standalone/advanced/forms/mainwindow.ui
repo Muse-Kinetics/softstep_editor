@@ -43,9 +43,9 @@ QToolTip
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>571</x>
+      <x>510</x>
       <y>81</y>
-      <width>119</width>
+      <width>180</width>
       <height>22</height>
      </rect>
     </property>
@@ -505,7 +505,7 @@ QToolButton::disabled
 }</string>
      </property>
      <property name="text">
-      <string>Update Presets</string>
+      <string>▄ ▅ ▇  SEND  ▇ ▅ ▄</string>
      </property>
     </widget>
    </widget>

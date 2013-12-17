@@ -756,7 +756,7 @@ void MainWindow::slotConnected(bool connection)
 
     if(connection)
     {
-        ui->connectedLabel->setText("CONNECTED");
+        ui->connectedLabel->setText("CONNECTED          \\(^-^)/");
 #ifdef Q_OS_MAC
         ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #else
@@ -770,7 +770,7 @@ void MainWindow::slotConnected(bool connection)
     {
         //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
         //ui->connectedLabel->setText("Not Connected");
-        ui->connectedLabel->setText("NOT CONNECTED");
+        ui->connectedLabel->setText("NOT CONNECTED     (⋗_⋖)");
 #ifdef Q_OS_MAC
         ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #else
