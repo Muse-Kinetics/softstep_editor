@@ -466,6 +466,19 @@ void PresetInterface::slotImportPreset()
                 importedPresetMap.insert(i.key(), i.value());
                 qDebug() << "From slotImportPreset - This was MISSING:" << i.key() << i.value();
             }
+
+            //if copying from one mode to the other the device menu values for port 1 should change
+            if(i.key().contains("_device"))
+            {
+                if(importedPresetMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+                {
+                    importedPresetMap.insert(i.key(), "SoftStep Share");
+                }
+                else if(importedPresetMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+                {
+                    importedPresetMap.insert(i.key(), "SSCOM Port 1");
+                }
+            }
         }
         //------------ Check for EXTRA parameters in the Imported Preset -------------------
         QMapIterator<QString, QVariant> j(importedPresetMap);

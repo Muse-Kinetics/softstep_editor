@@ -47,6 +47,22 @@ void CopyPasteHandler::slotPastePreset()
             presetCopiedMap.insert(i.key(), i.value());
             //qDebug() << "From slotPastePreset - this was MISSING:" << i.key() << i.value();
         }
+
+        //if copying from one mode to the other the device menu values for port 1 should change
+        if(i.key().contains("_device"))
+        {
+            //qDebug() << "Paste Preset Parameter" << presetCopiedMap.value(i.key());
+            if(presetCopiedMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+            {
+                presetCopiedMap.insert(i.key(), "SoftStep Share");
+                //qDebug() << "SSCOM Port 1 has been changed to SoftStep Share";
+            }
+            else if(presetCopiedMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+            {
+                presetCopiedMap.insert(i.key(), "SSCOM Port 1");
+                //qDebug() << "SoftStep Share has been changed to SSCOM Port 1";
+            }
+        }
     }
 
     //check for EXTRA parameters in the copied preset
@@ -97,7 +113,23 @@ void CopyPasteHandler::slotPasteNewPreset()
         {
             //if presetCopiedMap doesn't contain a value in the default map, insert it
             presetCopiedMap.insert(i.key(), i.value());
-            qDebug() << "From slotPastePreset - this was MISSING:" << i.key() << i.value();
+            //qDebug() << "From slotPastePreset - this was MISSING:" << i.key() << i.value();
+        }
+
+        //if copying from one mode to the other the device menu values for port 1 should change
+        if(i.key().contains("_device"))
+        {
+            //qDebug() << "Paste Preset Parameter" << presetCopiedMap.value(i.key());
+            if(presetCopiedMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+            {
+                presetCopiedMap.insert(i.key(), "SoftStep Share");
+                //qDebug() << "SSCOM Port 1 has been changed to SoftStep Share";
+            }
+            else if(presetCopiedMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+            {
+                presetCopiedMap.insert(i.key(), "SSCOM Port 1");
+                //qDebug() << "SoftStep Share has been changed to SSCOM Port 1";
+            }
         }
     }
 
@@ -114,7 +146,7 @@ void CopyPasteHandler::slotPasteNewPreset()
         {
             //add to list of bad keys
             badKeys.append(j.key());
-            qDebug() << "From slotPastePreset - this was EXTRA:" << j.key() << j.value();
+            //qDebug() << "From slotPastePreset - this was EXTRA:" << j.key() << j.value();
         }
     }
     //Iterate through the bad keys and remove from preset
@@ -149,7 +181,7 @@ void CopyPasteHandler::slotPasteNewPreset()
 
 void CopyPasteHandler::slotCopyKey()
 {
-    qDebug() << "slot copy key called";
+    //qDebug() << "slot copy key called";
 
     keyCopiedMap.clear();
 
@@ -169,7 +201,7 @@ void CopyPasteHandler::slotCopyKey()
 
 void CopyPasteHandler::slotPasteKey()
 {
-    qDebug() << "slot paste key called";
+    //qDebug() << "slot paste key called";
 
     QVariantMap preset = presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(presetInterface->currentPresetNum)).toMap();
     QMapIterator<QString,QVariant> i(keyCopiedMap);

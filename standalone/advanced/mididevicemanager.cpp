@@ -449,12 +449,19 @@ void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
     {
         ///qDebug() << "Destinations: " << getDisplayName(MIDIGetSource(i));
 
-        if(!getDisplayName(MIDIGetDestination(i)).contains("SSCOM") && !getDisplayName(MIDIGetDestination(i)).contains("SoftStep Share"))
+        if(!getDisplayName(MIDIGetDestination(i)).contains("SSCOM Port 1") && !getDisplayName(MIDIGetDestination(i)).contains("SoftStep Share"))
         {
+            if(getDisplayName(MIDIGetDestination(i)).contains("SSCOM Port 2"))
+            {
+                //We would like port 2 to be named SoftStep Expander
+                externalDests.insert("SoftStep Expander", MIDIGetDestination(i));
+            }
+            else
+            {
+                //Store name of dest and it's endpoint ref
+                externalDests.insert(getDisplayName(MIDIGetDestination(i)), MIDIGetDestination(i));
+            }
             //qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetDestination(i));
-
-            //Store name of dest and it's endpoint ref
-            externalDests.insert(getDisplayName(MIDIGetDestination(i)), MIDIGetDestination(i));
         }
     }
 
