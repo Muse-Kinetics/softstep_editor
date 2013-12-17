@@ -117,9 +117,9 @@ void NavModline::slotConnectElements()
     connect(navModlineForm->notelivevelocity, SIGNAL(valueChanged(int)), navModlineForm->notevelocity, SLOT(setValue(int)));
 
     //connect and initialize the raw value to the result (not for presets)
-    //connect(navModlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
-    //connect(navModlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
-    //connect(navModlineForm->offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
+    connect(navModlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
+    connect(navModlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
+    connect(navModlineForm->offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
 
     //-------------------- Hosted
     //slewer

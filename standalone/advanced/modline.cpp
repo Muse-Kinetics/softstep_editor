@@ -158,9 +158,9 @@ void Modline::slotConnectElements()
     connect(modlineForm->modlinedisplayenable,SIGNAL(toggled(bool)),this,SLOT(slotValueChanged()));
 
     //connect and initialize the raw value to the result (not for preset)
-    //connect(modlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
-    //connect(modlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
-    //connect(modlineForm->offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
+    connect(modlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
+    connect(modlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
+    connect(modlineForm->offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
 
     //----------------------- Hosted
     //Slewer
