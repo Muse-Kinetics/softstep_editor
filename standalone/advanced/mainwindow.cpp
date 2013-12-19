@@ -756,7 +756,10 @@ void MainWindow::slotConnected(bool connection)
 
     if(connection)
     {
-        ui->connectedLabel->setText("CONNECTED");
+        ui->connectedLabel->setText("SOFTSTEP CONNECTED");
+        ui->connectedLabel->setFixedSize(138, 22);
+        ui->connectedLabel->setToolTip("\\(^-^)/");
+        ui->connectedLabel->move(553, 81);
 #ifdef Q_OS_MAC
         ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #else
@@ -770,7 +773,10 @@ void MainWindow::slotConnected(bool connection)
     {
         //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
         //ui->connectedLabel->setText("Not Connected");
-        ui->connectedLabel->setText("NOT CONNECTED");
+        ui->connectedLabel->setText("SOFTSTEP NOT CONNECTED");
+        ui->connectedLabel->setFixedSize(162, 22);
+        ui->connectedLabel->setToolTip("[ o_0 ]");
+        ui->connectedLabel->move(529, 81);
 #ifdef Q_OS_MAC
         ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #else
