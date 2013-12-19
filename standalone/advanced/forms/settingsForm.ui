@@ -468,7 +468,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
@@ -5208,7 +5208,7 @@ QLineEdit:disabled
        <property name="geometry">
         <rect>
          <x>15</x>
-         <y>40</y>
+         <y>52</y>
          <width>109</width>
          <height>23</height>
         </rect>
@@ -5224,8 +5224,8 @@ background: none;</string>
       <widget class="QLabel" name="pedal_arrow">
        <property name="geometry">
         <rect>
-         <x>117</x>
-         <y>25</y>
+         <x>114</x>
+         <y>37</y>
          <width>21</width>
          <height>37</height>
         </rect>
@@ -5270,7 +5270,7 @@ background: none;</string>
        <property name="geometry">
         <rect>
          <x>15</x>
-         <y>51</y>
+         <y>63</y>
          <width>109</width>
          <height>23</height>
         </rect>
@@ -5291,6 +5291,9 @@ background: none;</string>
          <width>101</width>
          <height>51</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: transparent;</string>
        </property>
        <property name="text">
         <string>ROCK YOUR PEDAL FROM HEEL TO TOE FOR 5 SECONDS</string>
@@ -5361,7 +5364,7 @@ background: none;</string>
       <string>Smoothing</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="startcalibration_button">
+    <widget class="QToolButton" name="startcalibration_button">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -5375,7 +5378,7 @@ background: none;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">/*----------- QPushButton ------------*/
-QPushButton
+QToolButton
 {
 	background: rgb(40, 40, 40);
 	color: white;
@@ -5384,7 +5387,7 @@ QPushButton
 	padding: 0,1,0,0;
 }
 
-QPushButton:pressed
+QToolButton:pressed
 {
 	background: rgb(230, 0, 134);
 	color: white;
@@ -5397,7 +5400,7 @@ QPushButton:pressed
       <string>START CALIBRATION</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="resetcalibration_button">
+    <widget class="QToolButton" name="resetcalibration_button">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -5410,8 +5413,8 @@ QPushButton:pressed
       <string>Reset the pedal calibration &lt;br&gt;settings to default values.</string>
      </property>
      <property name="styleSheet">
-      <string notr="true">/*----------- QPushButton ------------*/
-QPushButton
+      <string notr="true">/*----------- QToolButton ------------*/
+QToolButton
 {
 	background: rgb(40, 40, 40);
 	color: white;
@@ -5420,7 +5423,7 @@ QPushButton
 	padding: 1,1,0,0;
 }
 
-QPushButton:pressed
+QToolButton:pressed
 {
 	background: rgb(230, 0, 134);
 	color: white;

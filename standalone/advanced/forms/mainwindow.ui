@@ -43,9 +43,9 @@ QToolTip
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>579</x>
       <y>81</y>
-      <width>180</width>
+      <width>112</width>
       <height>22</height>
      </rect>
     </property>
@@ -67,9 +67,7 @@ QToolTip
 	font: 10pt &quot;Futura&quot;;
 	color: red;
 	background: rgb(40, 40, 40);
-	padding-left: 5px;
-	padding-top: 2px;
-	padding-bottom: 2px;
+	padding: 0px 0px 0px 3px;
 }</string>
     </property>
     <property name="text">
@@ -505,14 +503,14 @@ QToolButton::disabled
 }</string>
      </property>
      <property name="text">
-      <string>▄ ▅ ▇  SEND  ▇ ▅ ▄</string>
+      <string>Send To SoftStep</string>
      </property>
     </widget>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>487</x>
+      <x>492</x>
       <y>7</y>
       <width>184</width>
       <height>65</height>
@@ -522,7 +520,7 @@ QToolButton::disabled
      <string notr="true">QLabel
 {
 	border: none;
-	background: none;
+	background: transparent;
 	background-image: url(:/resources/mainWindow_logo.png);
 }</string>
     </property>
