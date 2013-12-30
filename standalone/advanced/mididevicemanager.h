@@ -133,6 +133,9 @@ public slots:
     //--------------------------- Pedal Calibration
     void slotTetherOnOffInStandalone(bool onOff);
 
+    //--------------------------- One-off sysex messages
+    void slotSceneChangeOnOff(bool onOff);
+
 };
 #else
 #include <Windows.h>

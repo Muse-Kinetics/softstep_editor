@@ -336,7 +336,7 @@ void SysExComposer::slotGetConnectedVersion(QByteArray msg)
 
 void SysExComposer::slotUpdateFirmware()
 {
-    //qDebug() << "update firmware called" << fwFileSize;
+    qDebug() << "update firmware called" << fwFileSize;
     //QApplication::processEvents();
     emit signalSendSysEx(QString("update firmware"), (unsigned char*)fwFile, fwFileSize, QString("SSCOM Port 1"));
 }

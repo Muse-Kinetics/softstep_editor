@@ -132,16 +132,17 @@ void MidiDeviceManager::slotHostedOnOff(bool onOff)
         sysexFIFOClock->stop();
         sysexFIFOsQueue.clear();
 
-        /*
+
         sysexFIFOsQueue.append(_fw_tether_off);
         sysexFIFOsQueue.append(_fw_standalone_on);
-        sysexFIFOsQueue.append(_fw_scenechange_on_persist);
+        //sysexFIFOsQueue.append(_fw_scenechange_on_persist); -- Handled by settings now
         sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
-        */
 
+        /*
         sysexFIFOsQueue.append(_fw_tether_off);
         sysexFIFOsQueue.append(_fw_nav_tether_off);
         sysexFIFOsQueue.append(_fw_standalone_on);
+        */
 
         sysexFIFOClock->start(100);
     }
@@ -152,17 +153,37 @@ void MidiDeviceManager::slotHostedOnOff(bool onOff)
         sysexFIFOClock->stop();
         sysexFIFOsQueue.clear();
 
-        /*
+
         sysexFIFOsQueue.append(_fw_tether_on);
         sysexFIFOsQueue.append(_fw_standalone_off);
-        sysexFIFOsQueue.append(_fw_scenechange_off_persist);
+        //sysexFIFOsQueue.append(_fw_scenechange_off_persist); -- Handled by settings now
         sysexFIFOsQueue.append(_fw_nav_standalone_off_persist);
-        */
 
+        /*
         sysexFIFOsQueue.append(_fw_tether_on);
         sysexFIFOsQueue.append(_fw_nav_tether_on);
         sysexFIFOsQueue.append(_fw_standalone_off);
+        */
 
+        sysexFIFOClock->start(100);
+    }
+}
+
+void MidiDeviceManager::slotSceneChangeOnOff(bool onOff)
+{
+    qDebug() << "scene change on/off";
+
+    if(onOff)
+    {
+        sysexFIFOsQueue.append(_fw_scenechange_on_persist);
+    }
+    else
+    {
+        sysexFIFOsQueue.append(_fw_scenechange_off_persist);
+    }
+
+    if(!sysexFIFOClock->isActive())
+    {
         sysexFIFOClock->start(100);
     }
 }

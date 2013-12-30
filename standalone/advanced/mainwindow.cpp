@@ -34,12 +34,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     sysExComposer(new SysExComposer(this)),
     presetInterface(new PresetInterface(this)),
-    midiDeviceManager(new MidiDeviceManager(this)),
     copyPasteHandler(new CopyPasteHandler(presetInterface,this)),
     midiParse(new MidiParse()),
     disableWidget(new QWidget(this))
 
 {
+    midiDeviceManager = new MidiDeviceManager(this);
+
     //PList stuff
     QCoreApplication::setApplicationName("SoftStepAdvancedEditor");
     QCoreApplication::setOrganizationName("KeithMcMillenInstruments");
@@ -144,6 +145,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //presetInterface->slotPopulatePresetMenu(ui->presetmenu);
     //presetInterface->slotRecallGlobal();
     slotSetPresetMenu(0);
+
+
 
 #ifdef Q_OS_MAC
     midiDeviceManager->connectSource();
@@ -556,6 +559,10 @@ void MainWindow::slotConnectInterfaces()
     //W
     connect(settingsWindow, SIGNAL(signalSetNavWestOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshW(int)));
     connect(settingsWindow, SIGNAL(signalSetNavWestOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshW(int)));
+
+
+    //------------- Scene Change on/off sysex command
+    connect(settingsWindow, SIGNAL(signalSetSceneChanging(bool)), midiDeviceManager, SLOT(slotSceneChangeOnOff(bool)));
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

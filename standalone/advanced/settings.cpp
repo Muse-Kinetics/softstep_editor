@@ -848,8 +848,6 @@ void Settings::slotEmitAllSettings()
 
     //Cannot escape brute force.
 
-    emit signalSetGlobalGain((double)(settingsForm->global_gain_slider->value()) * 0.01);
-
     //Keys
     emit signalSetKeyOnThresh(0, settingsForm->key1_settings_onthresh->value());
     emit signalSetKeyOffThresh(0, settingsForm->key1_settings_offthresh->value());
@@ -943,6 +941,8 @@ void Settings::slotEmitAllSettings()
 
     //----------------------------------------------------------------------- Globals
 
+    emit signalSetGlobalGain((double)(settingsForm->global_gain_slider->value()) * 0.01);
+
     //---------------- Key Safety
     int lockoutMode;
 
@@ -963,6 +963,14 @@ void Settings::slotEmitAllSettings()
     }
 
     emit signalSetKeySafetyMode(lockoutMode);
+
+    //------------- Scene Change
+    if(mode == "standalone")
+    {
+        emit signalSetSceneChanging(settingsForm->scenechange_enable->isChecked());
+    }
+
+
 }
 
 void Settings::slotSaveSettingsTimeout()
