@@ -414,7 +414,7 @@ void Settings::slotValueChanged()
         emit signalStoreValue(jsonName,value);
     }
 
-    qDebug() << "value changed" << QObject::sender()->objectName();
+    //qDebug() << "value changed" << QObject::sender()->objectName();
 }
 
 void Settings::slotStoreSettings(QString name, QVariant value)
@@ -423,7 +423,7 @@ void Settings::slotStoreSettings(QString name, QVariant value)
     globalMap.insert(name,value);
     settings.insert(QString("Global"), globalMap);
 
-    qDebug() << "update the settings preset" << name << value << value.toLongLong();
+    //qDebug() << "update the settings preset" << name << value << value.toLongLong();
 
 }
 

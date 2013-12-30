@@ -11,7 +11,7 @@
 #include "hosted/trigger.h"
 #include "hosted/slewer.h"
 
-enum {W, E, N, S};
+enum {NAV_W, NAV_E, NAV_N, NAV_S};
 
 class NavDataCooker : public QWidget
 {

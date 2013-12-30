@@ -182,19 +182,50 @@ void DataCooker::slotUpdateVals(int cc, int val)
         //Always keep values updated, even if key action is now allowed
         if(cc == keySensorBaseCcMap[keyNum])
         {
-            sensorVals[NW] = val;
+            if(isSS2)
+            {
+                sensorVals[N] = val;
+            }
+            else
+            {
+                sensorVals[NW] = val;
+            }
+
         }
         else if(cc == keySensorBaseCcMap[keyNum] + 1)
         {
-            sensorVals[NE] = val;
+            if(isSS2)
+            {
+                sensorVals[E] = val;
+            }
+            else
+            {
+                sensorVals[NE] = val;
+            }
+
         }
         else if(cc == keySensorBaseCcMap[keyNum] + 2)
         {
-            sensorVals[SW] = val;
+            if(isSS2)
+            {
+                sensorVals[W] = val;
+            }
+            else
+            {
+                sensorVals[SW] = val;
+            }
+
         }
         else if(cc == keySensorBaseCcMap[keyNum] + 3)
         {
-            sensorVals[SE] = val;
+            if(isSS2)
+            {
+                sensorVals[S] = val;
+            }
+            else
+            {
+                sensorVals[SE] = val;
+            }
         }
 
         //------------------------------------------------- Handle Lockouts -------------------------------------------------//
@@ -289,7 +320,7 @@ void DataCooker::slotUpdateVals(int cc, int val)
 
         if(activateKey == true)
         {
-            qDebug() << "cook this key" << keyNum;
+            //qDebug() << "cook this key" << keyNum;
             cookRaw();
             cookSources();
         }
@@ -638,8 +669,20 @@ int DataCooker::pressureLive()
 
 int DataCooker::xLive()
 {
-    int eastMass = sensorVals[NE] + sensorVals[SE];
-    int westMass = sensorVals[NW] + sensorVals[SW];
+    int eastMass;
+    int westMass;
+
+    if(isSS2)
+    {
+        eastMass = sensorVals[E];
+        westMass = sensorVals[W];
+    }
+    else
+    {
+        eastMass = sensorVals[NE] + sensorVals[SE];
+        westMass = sensorVals[NW] + sensorVals[SW];
+    }
+
     int totalMass = eastMass + westMass;
     int xLoc;
 
@@ -664,8 +707,20 @@ int DataCooker::xLive()
 
 int DataCooker::yLive()
 {
-    int northMass = sensorVals[NE] + sensorVals[NW];
-    int southMass = sensorVals[SE] + sensorVals[SW];
+    int northMass;
+    int southMass;
+
+    if(isSS2)
+    {
+        northMass = sensorVals[N];
+        southMass = sensorVals[S];
+    }
+    else
+    {
+        northMass = sensorVals[NE] + sensorVals[NW];
+        southMass = sensorVals[SE] + sensorVals[SW];
+    }
+
     int totalMass = northMass + southMass;
     int yLoc;
 

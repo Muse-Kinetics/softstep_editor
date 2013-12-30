@@ -127,7 +127,7 @@ void MidiDeviceManager::slotHostedOnOff(bool onOff)
     //FIFO necessary because firmware requires delay between messages
     if(!onOff)
     {
-        mode = "standalone";
+        //mode = "standalone";
 
         sysexFIFOClock->stop();
         sysexFIFOsQueue.clear();
@@ -147,7 +147,7 @@ void MidiDeviceManager::slotHostedOnOff(bool onOff)
     }
     else
     {
-        mode = "hosted";
+        //mode = "hosted";
 
         sysexFIFOClock->stop();
         sysexFIFOsQueue.clear();

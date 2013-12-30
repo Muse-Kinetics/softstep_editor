@@ -768,6 +768,17 @@ void MainWindow::slotConnected(bool connection)
         //ui->update->setText("SAVE + SEND");
         aboutForm->found->setText(QString("%1 %2").arg(connectedVersionString).arg(connectedVersionInt));
         //presetInterface->connected = true;
+
+        //Resend tether/standalone commands to board
+        if(mode == "hosted")
+        {
+            //midiDeviceManager->slotHostedOnOff(true);
+        }
+        else
+        {
+            //midiDeviceManager->slotHostedOnOff(false);
+        }
+
     }
     else
     {
@@ -796,7 +807,18 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
 
     aboutForm->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
 
-    //qDebug() << QString("connected: %1,  embedded: %2").arg(connected).arg(embedded);
+    //First reiterate tether / standalone messages
+
+    if(mode == "hosted")
+    {
+        qDebug() << "message sent";
+        midiDeviceManager->slotHostedOnOff(true);
+    }
+    else
+    {
+        midiDeviceManager->slotHostedOnOff(false);
+    }
+
 
     if(connected != embedded)
     {

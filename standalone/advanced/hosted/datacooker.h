@@ -17,12 +17,15 @@ class Key;
 class MainWindow;
 
 enum {NW, NE, SW, SE};
+enum {N, E, W, S};
 
 class DataCooker : public QWidget
 {
     Q_OBJECT
 public:
     explicit DataCooker(int instanceNum, QWidget *parent = 0);
+
+    bool isSS2;
 
     enum {SINGLE_KEY, ADJACENT_KEYS, ALL_KEYS};
 

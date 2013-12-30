@@ -89,19 +89,19 @@ void NavDataCooker::slotUpdateVals(int cc, int val)
     {
         if(cc == keySensorBaseCcMap)
         {
-            sensorVals[W] = val*globalGain*navWGain;
+            sensorVals[NAV_W] = val*globalGain*navWGain;
         }
         else if(cc == keySensorBaseCcMap + 1)
         {
-            sensorVals[E] = val*globalGain*navEGain;
+            sensorVals[NAV_E] = val*globalGain*navEGain;
         }
         else if(cc == keySensorBaseCcMap + 2)
         {
-            sensorVals[N] = val*globalGain*navNGain;
+            sensorVals[NAV_N] = val*globalGain*navNGain;
         }
         else if(cc == keySensorBaseCcMap + 3)
         {
-            sensorVals[S] = val*globalGain*navSGain;
+            sensorVals[NAV_S] = val*globalGain*navSGain;
         }
 
         cookRaw();
@@ -134,43 +134,43 @@ void NavDataCooker::slotSetCounterParams(int min, int max, bool wrap)
 void NavDataCooker::cookRaw()
 {
     //----- North
-    if(sensorVals[N] > onThreshN && !footOnOffN)
+    if(sensorVals[NAV_N] > onThreshN && !footOnOffN)
     {
         footOnOffN = true;
         emit signalThisKeyPressed(0);
     }
-    else if(sensorVals[N] < offThreshN && footOnOffN)
+    else if(sensorVals[NAV_N] < offThreshN && footOnOffN)
     {
         footOnOffN = false;
     }
 
     //----- South
-    if(sensorVals[S] > onThreshS && !footOnOffS)
+    if(sensorVals[NAV_S] > onThreshS && !footOnOffS)
     {
         footOnOffS = true;
         emit signalThisKeyPressed(0);
     }
-    else if(sensorVals[S] < offThreshS && footOnOffS)
+    else if(sensorVals[NAV_S] < offThreshS && footOnOffS)
     {
         footOnOffS = false;
     }
 
     //----- East
-    if(sensorVals[E] > onThreshE && !footOnOffE)
+    if(sensorVals[NAV_E] > onThreshE && !footOnOffE)
     {
         footOnOffE = true;
     }
-    else if(sensorVals[E] < onThreshE && footOnOffE)
+    else if(sensorVals[NAV_E] < onThreshE && footOnOffE)
     {
         footOnOffE = false;
     }
 
     ///----- West
-    if(sensorVals[W] > onThreshW && !footOnOffW)
+    if(sensorVals[NAV_W] > onThreshW && !footOnOffW)
     {
         footOnOffW = true;
     }
-    else if(sensorVals[W] < onThreshW && footOnOffW)
+    else if(sensorVals[NAV_W] < onThreshW && footOnOffW)
     {
         footOnOffW = false;
     }
@@ -339,7 +339,7 @@ int NavDataCooker::navYIncDec()
     {
         //Weird... copied from max, probably works, brain soggy so not sure
         //If pulled northward
-        if(sensorVals[N] - sensorVals[S] > navYDeadZone/2.5)
+        if(sensorVals[NAV_N] - sensorVals[NAV_S] > navYDeadZone/2.5)
         {
             yIncOrDec = true; //True for inc
 
@@ -350,7 +350,7 @@ int NavDataCooker::navYIncDec()
         }
 
         //If pulled southward
-        else if(sensorVals[S] - sensorVals[N] > navYDeadZone/2.5)
+        else if(sensorVals[NAV_S] - sensorVals[NAV_N] > navYDeadZone/2.5)
         {
             yIncOrDec = false; //False for dec
 
@@ -490,7 +490,7 @@ void NavDataCooker::navNTrig()
 
 void NavDataCooker::slotTriggerReturnN()
 {
-    int outputVal = sensorVals[N]; //Only call once, send duplicates
+    int outputVal = sensorVals[NAV_N]; //Only call once, send duplicates
 
     //Emit positive
     for(int i = 0; i < 6; i++)
@@ -528,7 +528,7 @@ void NavDataCooker::navNTrigFast()
 
 void NavDataCooker::slotFastTriggerReturnN()
 {
-    int outputVal = sensorVals[N]; //Only call once, send duplicates
+    int outputVal = sensorVals[NAV_N]; //Only call once, send duplicates
 
     //Emit positive
     for(int i = 0; i < 6; i++)
@@ -566,7 +566,7 @@ void NavDataCooker::navNTrigDbl()
 
 void NavDataCooker::slotDblTriggerReturnN()
 {
-    int outputVal = sensorVals[N]; //Only call once, send duplicates
+    int outputVal = sensorVals[NAV_N]; //Only call once, send duplicates
 
     //Emit positive
     for(int i = 0; i < 6; i++)
@@ -604,7 +604,7 @@ void NavDataCooker::navNTrigLong()
 
 void NavDataCooker::slotLongTriggerReturnN()
 {
-    int outputVal = sensorVals[N]; //Only call once, send duplicates
+    int outputVal = sensorVals[NAV_N]; //Only call once, send duplicates
 
     //Emit positive
     for(int i = 0; i < 6; i++)
@@ -643,7 +643,7 @@ void NavDataCooker::navSTrig()
 
 void NavDataCooker::slotTriggerReturnS()
 {
-    int outputVal = sensorVals[S]; //Only call once, send duplicates
+    int outputVal = sensorVals[NAV_S]; //Only call once, send duplicates
 
     //Emit positive
     for(int i = 0; i < 6; i++)
@@ -681,7 +681,7 @@ void NavDataCooker::navSTrigFast()
 
 void NavDataCooker::slotFastTriggerReturnS()
 {
-    int outputVal = sensorVals[S]; //Only call once, send duplicates
+    int outputVal = sensorVals[NAV_S]; //Only call once, send duplicates
 
     //Emit positive
     for(int i = 0; i < 6; i++)
@@ -719,7 +719,7 @@ void NavDataCooker::navSTrigDbl()
 
 void NavDataCooker::slotDblTriggerReturnS()
 {
-    int outputVal = sensorVals[S]; //Only call once, send duplicates
+    int outputVal = sensorVals[NAV_S]; //Only call once, send duplicates
 
     //Emit positive
     for(int i = 0; i < 6; i++)
@@ -757,7 +757,7 @@ void NavDataCooker::navSTrigLong()
 
 void NavDataCooker::slotLongTriggerReturnS()
 {
-    int outputVal = sensorVals[S]; //Only call once, send duplicates
+    int outputVal = sensorVals[NAV_S]; //Only call once, send duplicates
 
     //Emit positive
     for(int i = 0; i < 6; i++)
