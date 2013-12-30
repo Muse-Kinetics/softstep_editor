@@ -170,7 +170,10 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         attribute(x,2,A_SYM,"preset",A_LONG,p);
         attribute(x,3,A_SYM, "set",A_SYM,"Scene_Name",A_SYM,preset.value("preset_displayname").toString().toUtf8().constData());
 
-        //-------------------------------------------- Keys
+        //----------------------------------------------------------------------------------------//
+        //----------------------------------------- Keys -----------------------------------------//
+        //----------------------------------------------------------------------------------------//
+
         for(long k = 1; k < 11; k++)
         {
             attribute(x,2,A_SYM,"key",A_LONG,k);
@@ -285,14 +288,147 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
 
                 }
 
-
                 attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,preset.value(QString("key%1_modline%2_ledred").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,preset.value(QString("key%1_modline%2_ledgreen").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("key%1_modline%2_displaylinked").arg(k).arg(m)).toLongLong());
 
             } //Modline loop
-         } //Key loop
+        } //Key loop
+
+
+        //----------------------------------------------------------------------------------------//
+        //----------------------------------------- NavP. ----------------------------------------//
+        //----------------------------------------------------------------------------------------//
+
+        //Nav is Key 11
+        attribute(x,2,A_SYM,"key",A_LONG,11l);
+
+        //Modline or Program change mode
+        attribute(x,3,A_SYM,"set",A_SYM,"Nav_Modline_Mode",A_LONG,preset.value(QString("nav_modlinemode")).toLongLong());
+
+        qDebug() << "nav modline mode" << preset.value(QString("nav_modlinemode")).toLongLong();
+
+        //Name
+        attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM,preset.value("nav_name").toString().toUtf8().constData());
+
+        //---------------------------------------- Display Mode
+        QString navDisplayMode = preset.value(QString("nav_displaymode")).toString();
+
+        if(navDisplayMode == "None")
+        {
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,0l);
+        }
+        else if(navDisplayMode == "Always")
+        {
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,1l);
+        }
+        else if(navDisplayMode == "Once")
+        {
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,2l);
+        }
+        else if(navDisplayMode == "Initial/Return")
+        {
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,3l);
+        }
+        else if(navDisplayMode == "Immed Param")
+        {
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,4l);
+        }
+
+        //Prefix Name
+        attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,preset.value("nav_prefix").toString().toUtf8().constData());
+
+        for(long m = 1l; m < 7l; m++)
+        {
+            attribute(x,3,A_SYM,"set",A_SYM,"Modline",A_LONG,m);
+            attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,preset.value(QString("nav_modline%1_enable").arg(m)).toLongLong());
+            attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("nav_modline%1_source").arg(m)).toString().toUtf8().constData());
+
+            qDebug() << "nav source" << preset.value(QString("nav_modline%1_source").arg(m)).toString().toUtf8().constData();
+
+            attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("nav_modline%1_gain").arg(m)).toFloat());
+            attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("nav_modline%1_offset").arg(m)).toFloat());
+            attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM,preset.value(QString("nav_modline%1_table").arg(m)).toString().toUtf8().constData());
+            attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,preset.value(QString("nav_modline%1_min").arg(m)).toLongLong());
+            attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,preset.value(QString("nav_modline%1_max").arg(m)).toLongLong());
+            attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("nav_modline%1_slew").arg(m)).toLongLong());
+            attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,preset.value(QString("nav_modline%1_destination").arg(m)).toString().toUtf8().constData());
+
+            //------------------------------------- Destination Handling
+            QString destination = preset.value(QString("nav_modline%1_destination").arg(m)).toString();
+
+            //------------- Note Set / Note Live
+            if(destination == "Note Set" || destination == "Note Live")
+            {
+                //Note
+                attribute(x,3,A_SYM,"set",A_SYM,"Note_Number",A_LONG,preset.value(QString("nav_modline%1_note").arg(m)).toLongLong());
+
+                //Velocity
+                attribute(x,3,A_SYM,"set",A_SYM,"Note_Velocity",A_LONG,preset.value(QString("nav_modline%1_velocity").arg(m)).toLongLong());
+
+                //Channel
+                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("nav_modline%1_channel").arg(m)).toLongLong());
+            }
+
+            //------------- Note Live
+            /*else if(destination == "Note Live")
+            {
+                //Note
+                attribute(x,3,A_SYM,"set",A_SYM,"Note_Number",A_LONG,preset.value(QString("key%1_modline%2_note").arg(k)).toLongLong());
+
+                //Velocity
+                attribute(x,3,A_SYM,"set",A_SYM,"Note_Velocity",A_LONG,preset.value(QString("key%1_modline%2_velocity").arg(k)).toLongLong());
+
+                //Channel
+                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
+            }*/
+
+            //------------- CC
+            else if(destination == "CC")
+            {
+                //CC#
+                attribute(x,3,A_SYM,"set",A_SYM,"Control_Number",A_LONG,preset.value(QString("nav_modline%1_cc").arg(m)).toLongLong());
+
+                //Channel
+                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("nav_modline%2_channel").arg(m)).toLongLong());
+            }
+
+            //------------- Bank
+            else if(destination == "Bank")
+            {
+                //MSB goes here in future.
+
+                //Channel
+                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("nav_modline%1_channel").arg(m)).toLongLong());
+            }
+
+            //------------- Program
+            else if(destination == "Program")
+            {
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("nav_modline%1_channel").arg(m)).toLongLong());
+            }
+
+            //------------- Pitch Bend
+            else if(destination == "Pitch Bend")
+            {
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("nav_modline%1_channel").arg(m)).toLongLong());
+            }
+
+            //------------- MMC
+            else if(destination == "MMC")
+            {
+
+            }
+
+            //Device
+            attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("nav_modline%1_device").arg(m)).toString().toUtf8().constData());
+
+            //Display Linkage
+            attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("nav_modline%1_displaylinked").arg(m)).toLongLong());
+        }
     }
 
     //=========================================================================================================//
