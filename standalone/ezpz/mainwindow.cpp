@@ -151,6 +151,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //menubar->actions().at(0)->setEnabled(false);
 
+    //Disable All context menus
+    foreach(QWidget *widget, this->findChildren<QWidget *>())
+    {
+        widget->setContextMenuPolicy(Qt::NoContextMenu);
+    }
+
 }
 
 MainWindow::~MainWindow()
@@ -407,6 +413,8 @@ void MainWindow::slotConnected(bool connection)
         ui->update->setText("SAVE + SEND");
         aboutForm->found->setText(QString("%1 %2").arg(connectedVersionString).arg(connectedVersionInt));
         presetInterface->connected = true;
+
+        updatefw->setEnabled(true);
     }
     else
     {
@@ -422,6 +430,8 @@ void MainWindow::slotConnected(bool connection)
 
         aboutForm->found->setText("Not Connected");
         presetInterface->connected = false;
+
+        updatefw->setEnabled(false);
     }
 }
 
@@ -470,7 +480,7 @@ void MainWindow::slotInitMenuBar()
     QMenu* file = new QMenu("File");
     qDebug() << file;
     file->setObjectName("FileMenu");
-    menubar->addMenu(file);
+    //menubar->addMenu(file);
 
     //-------------------------------------------------------------------------- Edit
     QMenu* edit = new QMenu("Edit ");
@@ -525,7 +535,7 @@ void MainWindow::slotInitMenuBar()
     hardware->setObjectName("HardwareMenu");
 
     //Reload Firmware
-    QAction* updatefw = new QAction("Update/Reload Firmware...", hardware);
+    updatefw = new QAction("Update/Reload Firmware...", hardware);
     actionList.append(updatefw);
     connect(updatefw, SIGNAL(triggered()), disableWidget, SLOT(show()));
     connect(updatefw, SIGNAL(triggered()), fwUpdateDialogWidget, SLOT(show()));
@@ -554,12 +564,15 @@ void MainWindow::slotInitMenuBar()
     menubar->addMenu(help);
 }
 
-void MainWindow::slotEnableDisableUseCustomPreset(bool enable){
-    if(enable){
+void MainWindow::slotEnableDisableUseCustomPreset(bool enable)
+{
+    if(enable)
+    {
         useCustom->setEnabled(true);
         useCustomEnabled = true;
     }
-    else{
+    else
+    {
         useCustom->setEnabled(false);
         useCustomEnabled = false;
     }
@@ -574,11 +587,16 @@ void MainWindow::slotEnableDisableMenu()
     }
 
     //Separately Enable/Disable Use Custom Preset edit menu item.
-    if(!disableWidget->isVisible()){ //if all menu items are not all disabled
-        if(useCustomEnabled){        //then enable or disable Use Custom.
+    if(!disableWidget->isVisible())
+    {
+        //if all menu items are not all disabled
+        if(useCustomEnabled)
+        {
+            //then enable or disable Use Custom.
             useCustom->setEnabled(true);
         }
-        else{
+        else
+        {
             useCustom->setEnabled(false);
         }
     }
@@ -634,11 +652,11 @@ void MainWindow::slotDisplayFactory()
 
 void MainWindow::slotOpenDocumentation()
 {
-    QFile *file = new QFile(":doc.txt");
-    file->open(QFile::ReadOnly);
-    QDesktopServices::openUrl(QUrl((QLatin1String)file->readLine(0)));
-    qDebug() << (QLatin1String)file->readLine(0);
-    file->close();
+    //QFile *file = new QFile(":doc.txt");
+    //file->open(QFile::ReadOnly);
+    QDesktopServices::openUrl(QUrl("http://www.keithmcmillen.com/"));
+    //qDebug() << (QLatin1String)file->readLine(0);
+    //file->close();
 }
 
 void MainWindow::slotDisconnectUpdate()
@@ -647,7 +665,8 @@ void MainWindow::slotDisconnectUpdate()
     disconnect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
 }
 
-void MainWindow::slotConnectUpdate(){
+void MainWindow::slotConnectUpdate()
+{
     qDebug("download preset ended");
     connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
 }

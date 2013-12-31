@@ -626,7 +626,7 @@ int DataCooker::footOn()
     if(footOnOff)
     {
 
-        return 1;
+        return 127;
     }
     else
     {
@@ -639,7 +639,7 @@ int DataCooker::footOff()
     //If pressure is below off-thresh and foot is currently on
     if(!footOnOff)
     {
-        return 1;
+        return 127;
     }
     else
     {
@@ -990,7 +990,7 @@ int DataCooker::top()
         //If greater than dead zone
         if(yLive() > (63 + yDeadZone/2.5))
         {
-            return 1;
+            return 127;
         }
 
         //If in not in top
@@ -1013,7 +1013,7 @@ int DataCooker::bottom()
         //If greater than dead zone
         if(yLive() < (63 - yDeadZone/2.5))
         {
-            return 1;
+            return 127;
         }
 
         //If in not bottom
@@ -1053,7 +1053,7 @@ void DataCooker::slotFastTriggerReturn()
     //Emit positive
     for(int i = 0; i < 6; i++)
     {
-        emit signalTransformSource(outputVal, i, "Fast Trig");
+        emit signalTransformSource(127, i, "Fast Trig");
     }
 
     QTimer::singleShot(100, this, SLOT(slotFastTriggerOff()));
@@ -1093,7 +1093,7 @@ void DataCooker::slotDblTriggerReturn()
     //Emit positive
     for(int i = 0; i < 6; i++)
     {
-        emit signalTransformSource(outputVal, i, "Dbl Trig");
+        emit signalTransformSource(127, i, "Dbl Trig");
     }
 
     QTimer::singleShot(100, this, SLOT(slotDblTriggerOff()));
@@ -1133,7 +1133,7 @@ void DataCooker::slotLongTriggerReturn()
     //Emit positive
     for(int i = 0; i < 6; i++)
     {
-        emit signalTransformSource(outputVal, i, "Long Trig");
+        emit signalTransformSource(127, i, "Long Trig");
     }
 
     QTimer::singleShot(100, this, SLOT(slotLongTriggerOff()));
@@ -1172,7 +1172,7 @@ void DataCooker::slotOffTriggerReturn()
     //Emit positive
     for(int i = 0; i < 6; i++)
     {
-        emit signalTransformSource(1, i, "Off Trig");
+        emit signalTransformSource(127, i, "Off Trig");
     }
 
     QTimer::singleShot(100, this, SLOT(slotOffTriggerOff()));
@@ -1237,6 +1237,7 @@ void DataCooker::slotFastTriggerLatchOff()
     for(int i = 0; i < 6; i++)
     {
         emit signalTransformSource(pressureLive(), i, "Fast Trig Latch");
+        //emit signalTransformSource(127, i, "Fast Trig Latch");
     }
 }
 
@@ -1275,6 +1276,7 @@ void DataCooker::slotDblTriggerLatchOff()
     for(int i = 0; i < 6; i++)
     {
         emit signalTransformSource(pressureLive(), i, "Dbl Trig Latch");
+        //emit signalTransformSource(127, i, "Dbl Trig Latch");
     }
 }
 
@@ -1313,6 +1315,7 @@ void DataCooker::slotLongTriggerLatchOff()
     for(int i = 0; i < 6; i++)
     {
         emit signalTransformSource(pressureLive(), i, "Long Trig Latch");
+        //emit signalTransformSource(127, i, "Long Trig Latch");
     }
 }
 
@@ -1354,12 +1357,12 @@ void DataCooker::slotReceiveKeyPressed(int keyPressed)
         else if(modlineSources.value(i).contains("Key") && modlineSources.value(i).contains("Pressed") && !modlineSources.value(i).contains("Other"))
         {
             emit signalTransformSource(0, i, QString("Key %1 Pressed").arg(keyPressed));
-            emit signalTransformSource(1, i, QString("Key %1 Pressed").arg(keyPressed));
+            emit signalTransformSource(127, i, QString("Key %1 Pressed").arg(keyPressed));
         }
         else if((modlineSources.value(i) == "Other Key Pressed") && (keyPressed != (keyNum + 1)%10))
         {
             emit signalTransformSource(0, i, "Other Key Pressed");
-            emit signalTransformSource(1, i, "Other Key Pressed");
+            emit signalTransformSource(127, i, "Other Key Pressed");
         }
         else if(modlineSources.value(i) == "Nav Yx10 & Key")
         {

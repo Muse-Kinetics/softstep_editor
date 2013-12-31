@@ -202,7 +202,7 @@ QToolTip
       <string notr="true">font: 10pt;</string>
      </property>
      <property name="text">
-      <string>Firmware Update Complete</string>
+      <string>Firmware Update Complete.</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -225,6 +225,28 @@ QToolTip
      </property>
      <property name="text">
       <string>OK</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="updateComplete_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 10pt;</string>
+     </property>
+     <property name="text">
+      <string>Please resend presets.</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>

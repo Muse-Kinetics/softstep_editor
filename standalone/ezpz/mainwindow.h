@@ -73,6 +73,8 @@ public:
     QAction* useCustom; //used for enabling/disabling Use Custom Preset menu item.
     bool useCustomEnabled;
 
+    QAction* updatefw;
+
     //Ui Elements
     Key *key[10];
     QSpinBox *midiChannel;

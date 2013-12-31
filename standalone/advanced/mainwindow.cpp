@@ -163,6 +163,13 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(key[0]->dataCooker.pedal, SIGNAL(signalDrawTable(UCharList)), settingsWindow->pedalLiveTableInterface, SLOT(slotDrawTable(UCharList)), Qt::QueuedConnection);
 
     settingsWindow->slotLoadTableOnStartup();
+
+
+    //Disable All context menus
+    foreach(QWidget *widget, this->findChildren<QWidget *>())
+    {
+        widget->setContextMenuPolicy(Qt::NoContextMenu);
+    }
 }
 
 MainWindow::~MainWindow()
@@ -683,7 +690,7 @@ void MainWindow::slotInitMenuBar()
     hardware->setObjectName("HardwareMenu");
 
     //Reload Firmware
-    QAction* updatefw = new QAction("Update/Reload Firmware...", hardware);
+    updatefw = new QAction("Update/Reload Firmware...", hardware);
     actionList.append(updatefw);
     connect(updatefw, SIGNAL(triggered()), disableWidget, SLOT(show()));
     connect(updatefw, SIGNAL(triggered()), fwUpdateDialogWidget, SLOT(show()));
@@ -705,10 +712,20 @@ void MainWindow::slotInitMenuBar()
 
     //Doc
     QAction* doc = new QAction("Documentation...", help);
+    connect(doc, SIGNAL(triggered()), this, SLOT(slotOpenDoc()));
     actionList.append(doc);
     help->addAction(doc);
 
     menubar->addMenu(help);
+}
+
+void MainWindow::slotOpenDoc()
+{
+    //QFile *file = new QFile(":doc.txt");
+    //file->open(QFile::ReadOnly);
+    QDesktopServices::openUrl(QUrl("http://www.keithmcmillen.com/"));
+    //qDebug() << (QLatin1String)file->readLine(0);
+    //file->close();
 }
 
 void MainWindow::slotUpdatePasteAvailability()
@@ -786,6 +803,8 @@ void MainWindow::slotConnected(bool connection)
             //midiDeviceManager->slotHostedOnOff(false);
         }
 
+        updatefw->setEnabled(true);
+
     }
     else
     {
@@ -804,6 +823,8 @@ void MainWindow::slotConnected(bool connection)
 
         aboutForm->found->setText("Not Connected");
         //presetInterface->connected = false;
+
+        updatefw->setEnabled(false);
     }
 }
 
@@ -1106,7 +1127,7 @@ void MainWindow::slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> external
         navKey->navModline[n]->slotConnectElements();
     }
 
-    presetInterface->slotRecallPreset(0);
+    presetInterface->slotRecallPreset(ui->presetmenu->currentIndex());
 }
 
 void MainWindow::slotPopulateSourceDestLists()

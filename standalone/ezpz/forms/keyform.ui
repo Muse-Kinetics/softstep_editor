@@ -127,6 +127,9 @@ background: black;
    <property name="focusPolicy">
     <enum>Qt::WheelFocus</enum>
    </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::NoContextMenu</enum>
+   </property>
    <property name="styleSheet">
     <string notr="true"/>
    </property>
@@ -590,6 +593,9 @@ border-top: 1px solid white;
      <height>41</height>
     </rect>
    </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::NoContextMenu</enum>
+   </property>
    <property name="styleSheet">
     <string notr="true">QWidget
 {
@@ -641,6 +647,9 @@ border: 2px solid white;
        <height>20</height>
       </rect>
      </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -675,6 +684,9 @@ border: 2px solid white;
        <width>40</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -713,6 +725,9 @@ border: 2px solid white;
      </property>
      <property name="focusPolicy">
       <enum>Qt::WheelFocus</enum>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">/* ---------- QCheckBox ------------*/
@@ -810,6 +825,9 @@ QCheckBox::indicator {
        <height>20</height>
       </rect>
      </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -828,6 +846,9 @@ QCheckBox::indicator {
        <width>40</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -849,6 +870,9 @@ QCheckBox::indicator {
        <width>40</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -901,6 +925,9 @@ QCheckBox::indicator {
        <height>20</height>
       </rect>
      </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -936,6 +963,9 @@ QCheckBox::indicator {
        <height>20</height>
       </rect>
      </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -956,6 +986,9 @@ QCheckBox::indicator {
        <width>40</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1017,6 +1050,9 @@ QCheckBox::indicator {
        <height>20</height>
       </rect>
      </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -1047,6 +1083,9 @@ QCheckBox::indicator {
      </property>
      <property name="focusPolicy">
       <enum>Qt::WheelFocus</enum>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">/* ---------- QCheckBox ------------*/
@@ -1128,6 +1167,9 @@ QCheckBox::indicator {
        <height>20</height>
       </rect>
      </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
      <property name="styleSheet">
       <string notr="true">outline: none;</string>
      </property>
@@ -1166,6 +1208,9 @@ QCheckBox::indicator {
        <height>20</height>
       </rect>
      </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -1203,6 +1248,9 @@ QCheckBox::indicator {
        <height>20</height>
       </rect>
      </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -1237,6 +1285,9 @@ QCheckBox::indicator {
        <width>40</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

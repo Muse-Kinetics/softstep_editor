@@ -30,15 +30,15 @@ void MidiDeviceManager::slotStandaloneOn()
     //Post VK2A
     sysexFIFOClock->stop();
     sysexFIFOsQueue.clear();
-    /*
+
     sysexFIFOsQueue.append(_fw_tether_off);
     sysexFIFOsQueue.append(_fw_standalone_on);
     sysexFIFOsQueue.append(_fw_scenechange_on_persist);
     sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
-    */
 
     //VK2A
-    sysexFIFOsQueue.append(_fw_nav_tether_off);
+    //sysexFIFOsQueue.append(_fw_nav_tether_off);
+
     sysexFIFOClock->start(100);
 }
 

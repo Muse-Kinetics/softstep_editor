@@ -83,6 +83,8 @@ public:
     QMenuBar *menubar;
     QList<QAction *> actionList;
 
+    QAction* updatefw;
+
     //copy / paste actions
     QAction* copyPresetAct;
     QAction* pastePresetAct;
@@ -115,7 +117,10 @@ public slots:
     void slotConnectInterfaces();
     void slotConnectElements();
     void slotDisconnectElements();
+
     void slotInitMenuBar();
+    void slotOpenDoc();
+
     void slotUpdatePasteAvailability();
     void slotSelectedKey(int selectedKey);
 
