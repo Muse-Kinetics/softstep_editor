@@ -216,7 +216,7 @@ void PresetInterface::writeDefualtJSON()
 void PresetInterface::slotRecallPreset(int i)
 {
     //i -= 1;
-    qDebug() << "recall preset" << i;
+    //qDebug() << "recall preset" << i;
 
     currentPresetNum = i;
 

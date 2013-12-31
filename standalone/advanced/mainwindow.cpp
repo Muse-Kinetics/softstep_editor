@@ -839,7 +839,7 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
 
     if(mode == "hosted")
     {
-        qDebug() << "message sent";
+        //qDebug() << "message sent";
         midiDeviceManager->slotHostedOnOff(true);
     }
     else
@@ -855,7 +855,7 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
         disableWidget->show();
         //slotEnableDisableMenu();
         fwoodDialogWidget->show();
-        qDebug() << "_____ Your firmware version is out of date _____";
+        //qDebug() << "_____ Your firmware version is out of date _____";
     }
 }
 
@@ -1397,7 +1397,7 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
 {
     //qDebug() << "slotLockoutKeyPressedReleased called from MainWindow" << keyNumber << pressedReleased;
 
-    for(int i = 0; i < 10; i++)
+    /*for(int i = 0; i < 10; i++)
     {
         //If key sending message is being pressed
         if(pressedReleased) // pressed == TRUE
@@ -1427,5 +1427,5 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
         }
 
         //qDebug() << key[i]->dataCooker.lockoutKeysPressed;
-    }
+    }*/
 }

@@ -54,7 +54,7 @@ void SysExComposer::slotGetEmbeddedVersion()
         rewind(fd);
 
         fwFile = (unsigned char*)malloc(fwFileSize*sizeof(unsigned char));
-        //qDebug() << fread(fwFile,1,fwFileSize, fd);
+        fread(fwFile,1,fwFileSize, fd);
 
         //qDebug() << fwFile[fwFileSize - 1];
 
@@ -75,7 +75,7 @@ void SysExComposer::slotGetEmbeddedVersion()
         qDebug() << "WARNING: SoftStep.syx not found.";
     }
 
-    qDebug() << "sysexpath" << sysExPath << "file size" << fwFileSize << "69078";
+    //qDebug() << "sysexpath" << sysExPath << "file size" << fwFileSize << "69078";
 }
 
 void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settingsMapGlobal)
@@ -491,7 +491,7 @@ void SysExComposer::slotGetConnectedVersion(QByteArray msg)
 
 void SysExComposer::slotUpdateFirmware()
 {
-    qDebug() << "update firmware called" << fwFileSize;
+    //qDebug() << "update firmware called" << fwFileSize;
     //QApplication::processEvents();
     emit signalSendSysEx(QString("update firmware"), (unsigned char*)fwFile, fwFileSize, QString("SSCOM Port 1"));
 }
