@@ -649,6 +649,9 @@ QToolButton::disabled
      <enum>QFrame::Raised</enum>
     </property>
     <widget class="QCheckBox" name="mode">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>7</x>
@@ -725,6 +728,9 @@ QCheckBox::indicator:checked:pressed:focus
      </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QPushButton" name="opensetlist">

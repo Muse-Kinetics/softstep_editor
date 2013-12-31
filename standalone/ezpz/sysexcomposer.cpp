@@ -399,7 +399,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
                 //Pedal
                 else if(m < 4l)
                 {
-                    attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
+                    attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,0l);
                     attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,0l);
                     attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"Pedal");
                     attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);

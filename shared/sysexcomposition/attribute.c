@@ -56,7 +56,7 @@ int xlate_key_num(int in)
 	if (in >= 11)
 		out = 10;
 	
-    //post("xlate key[%d] to key[%d]",in,out);
+    post("xlate key[%d] to key[%d]\n",in,out);
 	
 	return out;
 }
@@ -180,7 +180,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Nav_Modline_Mode",A_LONG,0l,-1))
     {
         x->current_image->nm.key[x->key_num].nav_y_mode = argv[2].a_w.w_long;
-        //post("Nav Modline Mode [%d]", x->current_image->nm.key[x->key_num].nav_y_mode);
+        post("Nav Modline Mode [%d]", x->current_image->nm.key[x->key_num].nav_y_mode);
         return;
     }
 

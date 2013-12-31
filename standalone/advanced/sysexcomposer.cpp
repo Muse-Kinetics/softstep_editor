@@ -74,6 +74,8 @@ void SysExComposer::slotGetEmbeddedVersion()
         embeddedVersion = QString("Not Found");
         qDebug() << "WARNING: SoftStep.syx not found.";
     }
+
+    qDebug() << "sysexpath" << sysExPath << "file size" << fwFileSize << "69078";
 }
 
 void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settingsMapGlobal)
@@ -339,13 +341,29 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         //Prefix Name
         attribute(x,3,A_SYM,"set",A_SYM,"Prefix_Name",A_SYM,preset.value("nav_prefix").toString().toUtf8().constData());
 
+
+
         for(long m = 1l; m < 7l; m++)
         {
             attribute(x,3,A_SYM,"set",A_SYM,"Modline",A_LONG,m);
             attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,preset.value(QString("nav_modline%1_enable").arg(m)).toLongLong());
-            attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("nav_modline%1_source").arg(m)).toString().toUtf8().constData());
 
-            qDebug() << "nav source" << preset.value(QString("nav_modline%1_source").arg(m)).toString().toUtf8().constData();
+            //---- Source
+            QString navSource = preset.value(QString("nav_modline%1_source").arg(m)).toString();
+
+            qDebug() << "nav source" << navSource;
+
+            //Account for underscores in name-- could be fixed in attribute settings...
+            if(navSource == "Nav Y Inc-Dec")
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"Nav_Y_Inc-Dec");
+            }
+            else
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("nav_modline%1_source").arg(m)).toString().toUtf8().constData());
+            }
+
+            //qDebug() << "nav source" << preset.value(QString("nav_modline%1_source").arg(m)).toString().toUtf8().constData();
 
             attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("nav_modline%1_gain").arg(m)).toFloat());
             attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("nav_modline%1_offset").arg(m)).toFloat());
@@ -428,6 +446,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
 
             //Display Linkage
             attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("nav_modline%1_displaylinked").arg(m)).toLongLong());
+
         }
     }
 
