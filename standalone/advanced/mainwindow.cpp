@@ -570,6 +570,7 @@ void MainWindow::slotConnectInterfaces()
 
     //------------- Scene Change on/off sysex command
     connect(settingsWindow, SIGNAL(signalSetSceneChanging(bool)), midiDeviceManager, SLOT(slotSceneChangeOnOff(bool)));
+    connect(settingsWindow, SIGNAL(signalSetBacklight(bool)), midiDeviceManager, SLOT(slotBackLightOnOff(bool)));
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1071,6 +1072,8 @@ void MainWindow::slotSetMode()
             key[k]->stateRecaller.slotInit(presetNames, k);
         }
     }
+
+    settingsWindow->slotEmitAllSettings();
 }
 
 void MainWindow::slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> externalDevices)

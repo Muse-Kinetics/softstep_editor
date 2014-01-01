@@ -171,7 +171,7 @@ void MidiDeviceManager::slotHostedOnOff(bool onOff)
 
 void MidiDeviceManager::slotSceneChangeOnOff(bool onOff)
 {
-    qDebug() << "scene change on/off";
+    //qDebug() << "scene change on/off";
 
     if(onOff)
     {
@@ -180,6 +180,23 @@ void MidiDeviceManager::slotSceneChangeOnOff(bool onOff)
     else
     {
         sysexFIFOsQueue.append(_fw_scenechange_off_persist);
+    }
+
+    if(!sysexFIFOClock->isActive())
+    {
+        sysexFIFOClock->start(100);
+    }
+}
+
+void MidiDeviceManager::slotBackLightOnOff(bool onOff)
+{
+    if(onOff)
+    {
+        sysexFIFOsQueue.append(_backlight_on);
+    }
+    else
+    {
+        sysexFIFOsQueue.append(_backlight_off);
     }
 
     if(!sysexFIFOClock->isActive())
@@ -287,7 +304,16 @@ void MidiDeviceManager::slotDrainSysexFIFO()
     //If anything in list, send the next message
     if(sysexFIFOsQueue.size())
     {
-        slotSendSysEx("message", sysexFIFOsQueue.first(), 43, "SSCOM Port 1");
+        //Backlighting are the only 35 byte messages we send so far
+        if(_backlight_on == sysexFIFOsQueue.first() || _backlight_off == sysexFIFOsQueue.first())
+        {
+            slotSendSysEx("message", sysexFIFOsQueue.first(), 35, "SSCOM Port 1");
+        }
+        else
+        {
+            slotSendSysEx("message", sysexFIFOsQueue.first(), 43, "SSCOM Port 1");
+        }
+
         sysexFIFOsQueue.removeFirst();
     }
 

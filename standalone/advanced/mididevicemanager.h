@@ -135,6 +135,7 @@ public slots:
 
     //--------------------------- One-off sysex messages
     void slotSceneChangeOnOff(bool onOff);
+    void slotBackLightOnOff(bool onOff);
 
 };
 #else

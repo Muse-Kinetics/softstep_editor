@@ -970,6 +970,8 @@ void Settings::slotEmitAllSettings()
         emit signalSetSceneChanging(settingsForm->scenechange_enable->isChecked());
     }
 
+    //------------ Backlight
+    emit signalSetBacklight(settingsForm->backlighting_enable->isChecked());
 
 }
 
