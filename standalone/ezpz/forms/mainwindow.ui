@@ -265,6 +265,12 @@ background: black;
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
+     <property name="specialValueText">
+      <string>off</string>
+     </property>
+     <property name="minimum">
+      <number>-1</number>
+     </property>
      <property name="maximum">
       <number>127</number>
      </property>
@@ -408,6 +414,12 @@ background: black;
      </property>
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="specialValueText">
+      <string>off</string>
+     </property>
+     <property name="minimum">
+      <number>-1</number>
      </property>
      <property name="maximum">
       <number>127</number>

@@ -365,7 +365,16 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
                 //Y Inc-dec
                 if(m < 2l)
                 {
-                    attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
+
+                    if(preset.value("navPadCC").toLongLong() != -1l)
+                    {
+                        attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
+                    }
+                    else
+                    {
+                        attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,0l);
+                    }
+
                     if(m == 0)
                     {
                         attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,1l);
@@ -399,7 +408,15 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
                 //Pedal
                 else if(m < 4l)
                 {
-                    attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,0l);
+                    if(preset.value("pedalCC").toLongLong() != -1l)
+                    {
+                        attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,1l);
+                    }
+                    else
+                    {
+                        attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,0l);
+                    }
+
                     attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,0l);
                     attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,"Pedal");
                     attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,1.0000);
