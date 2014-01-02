@@ -613,7 +613,7 @@ border: 2px solid white;
 }</string>
    </property>
    <property name="currentIndex">
-    <number>6</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="notePage">
     <property name="font">

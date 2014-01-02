@@ -699,7 +699,14 @@ void Key::slotValueChanged()
                         emit signalStoreValue(QString("%1_key_modline_destination").arg(instance), "None", -1);
                     }
 
-                    emit signalStoreValue(QString("%1_key_modline2_destination").arg(instance), "Program", -1);
+                    if(keyForm.programNum->value() != -1)
+                    {
+                        emit signalStoreValue(QString("%1_key_modline2_destination").arg(instance), "Program", -1);
+                    }
+                    else
+                    {
+                        emit signalStoreValue(QString("%1_key_modline2_destination").arg(instance), "None", -1);
+                    }
                 }
 
                 break;
