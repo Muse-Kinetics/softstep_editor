@@ -12,9 +12,11 @@
         <file>resources/radio_focus_on.png</file>
         <file>resources/radio_off.png</file>
         <file>resources/radio_on.png</file>
-        <file>resources/toggle_focus_off.png</file>
-        <file>resources/toggle_focus_on.png</file>
+        <file>resources/toggle_off_disabled.png</file>
+        <file>resources/toggle_off_focus.png</file>
         <file>resources/toggle_off.png</file>
+        <file>resources/toggle_on_disabled.png</file>
+        <file>resources/toggle_on_focus.png</file>
         <file>resources/toggle_on.png</file>
     </qresource>
 </RCC>

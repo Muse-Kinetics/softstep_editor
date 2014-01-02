@@ -595,7 +595,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>844</x>
-      <y>84</y>
+      <y>88</y>
       <width>89</width>
       <height>20</height>
      </rect>
@@ -645,9 +645,9 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>945</x>
-      <y>83</y>
-      <width>24</width>
-      <height>24</height>
+      <y>87</y>
+      <width>23</width>
+      <height>23</height>
      </rect>
     </property>
     <property name="focusPolicy">
@@ -657,7 +657,53 @@ QPushButton:pressed
      <enum>Qt::NoContextMenu</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">background: rgba(0,0,0,0);</string>
+     <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator {
+     width: 23px;
+     height: 23px;
+ }
+
+ QCheckBox::indicator::unchecked {
+     image: url(:/resources/toggle_off.png);
+ }
+
+ QCheckBox::indicator:unchecked:hover {
+     image: url(:/resources/toggle_off.png);
+ }
+
+ QCheckBox::indicator:unchecked:pressed {
+     image: url(:/resources/toggle_on.png);
+ }
+
+ QCheckBox::indicator::checked {
+     image: url(:/resources/toggle_on.png);
+ }
+
+ QCheckBox::indicator:checked:pressed {
+     image: url(:/resources/toggle_off.png);
+ }
+
+ QCheckBox::indicator::unchecked:focus {
+     image: url(:/resources/toggle_off_focus.png);
+ }
+
+ QCheckBox::indicator:unchecked:pressed:focus {
+     image: url(:/resources/toggle_on_focus.png);
+ }
+
+ QCheckBox::indicator::checked:focus {
+     image: url(:/resources/toggle_on_focus.png);
+ }
+
+ QCheckBox::indicator:checked:pressed:focus {
+     image: url(:/resources/toggle_off_focus.png);
+ }</string>
     </property>
     <property name="text">
      <string/>

@@ -1091,7 +1091,7 @@ QCheckBox::indicator {
       <string notr="true">/* ---------- QCheckBox ------------*/
 QCheckBox
 {
-color: rgba(255,255,255,250);
+	color: rgba(255,255,255,250);
 	font: 10pt &quot;Futura&quot;;
 }
 
@@ -1121,19 +1121,19 @@ QCheckBox::indicator {
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/toggle_focus_off.png);
+     image: url(:/resources/toggle_off_focus.png);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/toggle_focus_on.png);
+     image: url(:/resources/toggle_on_focus.png);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/toggle_focus_on.png);
+     image: url(:/resources/toggle_on_focus.png);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/toggle_focus_off.png);
+     image: url(:/resources/toggle_off_focus.png);
  }</string>
      </property>
      <property name="text">
