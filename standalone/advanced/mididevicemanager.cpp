@@ -156,7 +156,7 @@ void MidiDeviceManager::slotHostedOnOff(bool onOff)
 
         sysexFIFOsQueue.append(_fw_tether_on);
         sysexFIFOsQueue.append(_fw_standalone_off);
-        //sysexFIFOsQueue.append(_fw_scenechange_off_persist); -- Handled by settings now
+        sysexFIFOsQueue.append(_fw_scenechange_off_persist);
         sysexFIFOsQueue.append(_fw_nav_standalone_off_persist);
 
 

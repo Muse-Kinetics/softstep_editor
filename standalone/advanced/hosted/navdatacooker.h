@@ -26,6 +26,8 @@ public:
 
     QMap<int, QString> modlineSources;
 
+    QString navPadMode;
+
     //Inc Dec
     QTimer* yIncClock;
     bool    yIncOrDec; //true means inc and false means dec, of course.
@@ -108,6 +110,8 @@ signals:
     void signalNavDecade(int yDecade);
     void signalPresetChange(bool); //true for next, false for previous
     void signalThisKeyPressed(int);
+
+    void signalDisplayProgramChangeDecade(int);
     
 public slots:
     void slotUpdateVals(int cc, int val);

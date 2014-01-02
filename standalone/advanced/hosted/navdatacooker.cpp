@@ -204,72 +204,76 @@ void NavDataCooker::cookSources()
     //If not a preset change
     else
     {
-        //For each modline
-        for(int i = 0; i < 6; i++)
+        //Only execute sources if in modline mode
+        if(navPadMode == "modline")
         {
-            if(modlineSources.value(i) == "Nav Y")
+            //For each modline
+            for(int i = 0; i < 6; i++)
             {
-                emit signalTransformSource(navY(), i, "Nav Y");
-            }
-            else if(modlineSources.value(i) == "Nav Y Decade")
-            {
-                emit signalTransformSource(navYDecade(), i, "Nav Y Decade");
-            }
-            else if(modlineSources.value(i) == "Nav Y Inc-Dec")
-            {
-                navYIncDec();
-            }
-            else if(modlineSources.value(i) == "Nav N Foot On")
-            {
-                emit signalTransformSource(navNFootOn(), i, "Nav N Foot On");
-            }
-            else if(modlineSources.value(i) == "Nav S Foot On")
-            {
-                emit signalTransformSource(navSFootOn(), i, "Nav S Foot On");
-            }
-            else if(modlineSources.value(i) == "Nav N Foot Off")
-            {
-                emit signalTransformSource(navNFootOff(), i, "Nav N Foot Off");
-            }
-            else if(modlineSources.value(i) == "Nav S Foot Off")
-            {
-                emit signalTransformSource(navSFootOff(), i, "Nav S Foot Off");
-            }
-            else if(modlineSources.value(i) == "Nav N Trig")
-            {
-                navNTrig();
-            }
-            else if(modlineSources.value(i) == "Nav N Trig Fast")
-            {
-                navNTrigFast();
-            }
-            else if(modlineSources.value(i) == "Nav N Trig Dbl")
-            {
-                navNTrigDbl();
-            }
-            else if(modlineSources.value(i) == "Nav N Trig Long")
-            {
-                navNTrigLong();
-            }
-            else if(modlineSources.value(i) == "Nav S Trig")
-            {
-                navSTrig();
-            }
-            else if(modlineSources.value(i) == "Nav S Trig Fast")
-            {
-                navSTrigFast();
-            }
-            else if(modlineSources.value(i) == "Nav S Trig Dbl")
-            {
-                navSTrigDbl();
-            }
-            else if(modlineSources.value(i) == "Nav S Trig Long")
-            {
-                navSTrigLong();
+                if(modlineSources.value(i) == "Nav Y")
+                {
+                    emit signalTransformSource(navY(), i, "Nav Y");
+                }
+                else if(modlineSources.value(i) == "Nav Y Decade")
+                {
+                    emit signalTransformSource(navYDecade(), i, "Nav Y Decade");
+                }
+                else if(modlineSources.value(i) == "Nav Y Inc-Dec")
+                {
+                    navYIncDec();
+                }
+                else if(modlineSources.value(i) == "Nav N Foot On")
+                {
+                    emit signalTransformSource(navNFootOn(), i, "Nav N Foot On");
+                }
+                else if(modlineSources.value(i) == "Nav S Foot On")
+                {
+                    emit signalTransformSource(navSFootOn(), i, "Nav S Foot On");
+                }
+                else if(modlineSources.value(i) == "Nav N Foot Off")
+                {
+                    emit signalTransformSource(navNFootOff(), i, "Nav N Foot Off");
+                }
+                else if(modlineSources.value(i) == "Nav S Foot Off")
+                {
+                    emit signalTransformSource(navSFootOff(), i, "Nav S Foot Off");
+                }
+                else if(modlineSources.value(i) == "Nav N Trig")
+                {
+                    navNTrig();
+                }
+                else if(modlineSources.value(i) == "Nav N Trig Fast")
+                {
+                    navNTrigFast();
+                }
+                else if(modlineSources.value(i) == "Nav N Trig Dbl")
+                {
+                    navNTrigDbl();
+                }
+                else if(modlineSources.value(i) == "Nav N Trig Long")
+                {
+                    navNTrigLong();
+                }
+                else if(modlineSources.value(i) == "Nav S Trig")
+                {
+                    navSTrig();
+                }
+                else if(modlineSources.value(i) == "Nav S Trig Fast")
+                {
+                    navSTrigFast();
+                }
+                else if(modlineSources.value(i) == "Nav S Trig Dbl")
+                {
+                    navSTrigDbl();
+                }
+                else if(modlineSources.value(i) == "Nav S Trig Long")
+                {
+                    navSTrigLong();
+                }
             }
         }
 
-        //Emit Y Counters every time
+        //Emit Y Counters every time, to keys' data cooker
         emit signalNavY(navY());
         emit signalNavDecade(navYDecade());
     }
@@ -296,8 +300,11 @@ int NavDataCooker::navY()
             }
         }
 
-        qDebug() << "nav y count" << navYCount;
-
+        //If in program change mode
+        if(navPadMode == "program")
+        {
+            emit signalDisplayProgramChangeDecade(navY());
+        }
     }
 
     //---- Dec
@@ -318,10 +325,14 @@ int NavDataCooker::navY()
             }
         }
 
-        qDebug() << "nav y count" << navYCount;
+        //qDebug() << "nav y count" << navYCount;
+
+        //If in program change mode
+        if(navPadMode == "program")
+        {
+            emit signalDisplayProgramChangeDecade(navY());
+        }
     }
-
-
 
     return navYCount;
 }
@@ -779,14 +790,18 @@ void NavDataCooker::slotLongTriggerOffS()
 
 void NavDataCooker::slotReceiveMidiInput(int val, QString instance)
 {
-    //For each modline
-    for(int i = 0; i < 6; i++)
+    //Only execute sources if in modline mode
+    if(navPadMode == "modline")
     {
-        //qDebug() << i <<modlineSources.value(i) << modlineNum << val;
-
-        if(modlineSources.value(i).contains(QString("MIDI %1").arg(instance)))
+        //For each modline
+        for(int i = 0; i < 6; i++)
         {
-            emit signalTransformSource(val, i, QString("MIDI %1").arg(instance));
+            //qDebug() << i <<modlineSources.value(i) << modlineNum << val;
+
+            if(modlineSources.value(i).contains(QString("MIDI %1").arg(instance)))
+            {
+                emit signalTransformSource(val, i, QString("MIDI %1").arg(instance));
+            }
         }
     }
 }

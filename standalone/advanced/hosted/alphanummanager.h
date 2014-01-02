@@ -24,6 +24,7 @@ public:
     QString displayMode;
     QString keyName;
     QString prefix;
+    QString postfix; //Only used with nav pad in program change mode
 
     QString currentPresetName;
 

@@ -59,6 +59,8 @@ NavKey::NavKey(QWidget *parent) :
     connect(navKeyWindowForm->deletemodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
 
     counter = 0;
+
+   disableOverlay = new QWidget(navKeyWindowWidget);
 }
 
 void NavKey::slotOpenWindow()
@@ -105,6 +107,9 @@ void NavKey::slotConnectElements()
         //connect(navModline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
         //connect(this, SIGNAL(signalCounterValue(int)), navModline[i], SLOT(slotCounterReturn(int)));
     }
+
+    //Program change mode
+    connect(&dataCooker, SIGNAL(signalDisplayProgramChangeDecade(int)), this, SLOT(slotDisplayProgramChangeDecade(int)));
 }
 
 void NavKey::slotDisconnectElements()
@@ -142,6 +147,9 @@ void NavKey::slotDisconnectElements()
         //disconnect(navModline[i], SIGNAL(hosted_signalCounter(QString,int)), this, SLOT(slotCounter(QString,int)));
         //disconnect(this, SIGNAL(signalCounterValue(int)), navModline[i], SLOT(slotCounterReturn(int)));
     }
+
+    //Program change mode
+    disconnect(&dataCooker, SIGNAL(signalDisplayProgramChangeDecade(int)), this, SLOT(slotDisplayProgramChangeDecade(int)));
 }
 
 void NavKey::slotValueChanged()
@@ -219,6 +227,8 @@ void NavKey::slotValueChanged()
     dataCooker.slotSetCounterParams(navKeyWindowForm->counterMin->value(),navKeyWindowForm->counterMax->value(), navKeyWindowForm->counterWrap->isChecked());
 
     emit signalCheckSavedState();
+
+    slotUpdateModlineMode();
 }
 
 void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
@@ -304,6 +314,8 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
         }
     }
 
+    slotUpdateModlineMode();
+
 }
 
 void NavKey::slotShowDisplaySettings(bool show)
@@ -322,6 +334,8 @@ void NavKey::slotShowDisplaySettings(bool show)
         //show small line separator
         navKeyWindowForm->label->setFixedWidth(LINE_SEPARATOR_SM);
     }
+
+    slotUpdateModlineMode();
 }
 
 void NavKey::slotWindowHeight(int modlinesShowing)
@@ -397,6 +411,8 @@ void NavKey::slotRecallShowModlines(QVariantMap preset, QVariantMap)
 
     slotWindowHeight(numModlines);
     //qDebug() << QString("show %1 nav modlines").arg(numModlines);
+
+    slotUpdateModlineMode();
 }
 
 void NavKey::slotAddSubtractModlines()
@@ -433,6 +449,8 @@ void NavKey::slotAddSubtractModlines()
 
     slotWindowHeight(numModlines);
     //qDebug() << QString("show %1 nav modlines").arg(numModlines);
+
+    slotUpdateModlineMode();
 }
 
 void NavKey::slotSetMode(QString m)
@@ -465,9 +483,24 @@ void NavKey::slotSetPresetName(QString name)
 
 void NavKey::slotSetAlphaNumSettings()
 {
-    alphaNumManager.displayMode = navKeyWindowForm->leddisplaymode->currentText();
-    alphaNumManager.keyName = navKeyWindowForm->keyname->text();
-    alphaNumManager.prefix = navKeyWindowForm->displayprefix->text();
+    //If in nav pad is in modline mode
+    if(navKeyWindowForm->navpadmode_modline->isChecked())
+    {
+        alphaNumManager.displayMode = navKeyWindowForm->leddisplaymode->currentText();
+        alphaNumManager.keyName = navKeyWindowForm->keyname->text();
+        alphaNumManager.prefix = navKeyWindowForm->displayprefix->text();
+        alphaNumManager.postfix = "";
+    }
+
+    //If nav pad is in program change
+    else
+    {
+        alphaNumManager.displayMode = "Immed Param";
+        alphaNumManager.keyName = navKeyWindowForm->keyname->text();
+        alphaNumManager.prefix = "";
+        alphaNumManager.postfix = "_";
+    }
+
 }
 
 void NavKey::slotCounter(QString whatToDo, int val)
@@ -522,4 +555,46 @@ void NavKey::slotCounter(QString whatToDo, int val)
     }
 
     emit signalCounterValue(counter);
+}
+
+void NavKey::slotDisplayProgramChangeDecade(int decade)
+{
+    qDebug() << "decade" << decade << dataCooker.navPadMode;
+
+    if(decade < 10)
+    {
+        alphaNumManager.slotFormatAndOutputString(QString("%1_  ").arg(decade));
+    }
+    else
+    {
+        alphaNumManager.slotFormatAndOutputString(QString("%1_ ").arg(decade));
+    }
+}
+
+void NavKey::slotUpdateModlineMode()
+{
+    //QWidget *disableOverlay = new QWidget(navKeyWindowWidget);
+    disableOverlay->setStyleSheet("background: rgba(0,0,0,100); border: none;");
+    disableOverlay->setGeometry(4,55,navKeyWindowWidget->width() - 8, navKeyWindowWidget->height() - 55 - 4);
+
+    if(navKeyWindowForm->navpadmode_modline->isChecked())
+    {
+        dataCooker.navPadMode = "modline";
+        qDebug() << "show modlines";
+        disableOverlay->raise();
+        disableOverlay->hide();
+    }
+    else
+    {
+         dataCooker.navPadMode = "program";
+         qDebug() << "hide modlines";
+         disableOverlay->raise();
+         disableOverlay->show();
+    }
+
+    for(int i = 0; i < 6; i++)
+    {
+        navModline[i]->lower();
+    }
+
 }

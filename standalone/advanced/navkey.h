@@ -45,6 +45,7 @@ public:
     int counter;
 
     QString currentPreset;
+    QWidget *disableOverlay;
     
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
@@ -74,6 +75,10 @@ public slots:
     void slotWindowHeight(int);
 
     void slotSetPresetName(QString);
+
+    //Program Change Mode
+    void slotUpdateModlineMode();
+    void slotDisplayProgramChangeDecade(int);
 
 private:
     Ui::navBoxForm *navBoxForm;
