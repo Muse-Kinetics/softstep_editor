@@ -580,14 +580,14 @@ void NavKey::slotUpdateModlineMode()
     if(navKeyWindowForm->navpadmode_modline->isChecked())
     {
         dataCooker.navPadMode = "modline";
-        qDebug() << "show modlines";
+        //qDebug() << "show modlines";
         disableOverlay->raise();
         disableOverlay->hide();
     }
     else
     {
          dataCooker.navPadMode = "program";
-         qDebug() << "hide modlines";
+         //qDebug() << "hide modlines";
          disableOverlay->raise();
          disableOverlay->show();
     }

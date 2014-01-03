@@ -42,6 +42,7 @@ signals:
     void signalDrawTable(QList<unsigned char>);
     void signalLivePedalVal(int);
     void signalWriteTableToDisk(QByteArray);
+    void signalResetOnZeroInput();
 
 public slots:
 

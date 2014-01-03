@@ -170,29 +170,44 @@ void Pedal::slotStopCalibrate()
 {
     int count = pedalValueList.count();
 
-    //Order our list
-    for(int i = 1; i < count; i++)
+    //Require at least 4 values, if under set to default
+    if(count < 3)
     {
-        int j = i;
-        int t;
 
-        while(j > 0 && pedalValueList.at(j) < pedalValueList.at(j - 1))
+        if(parentKeyInstance == 0)
         {
-            t = pedalValueList.at(j);
-
-            pedalValueList.replace(j, pedalValueList.at(j - 1));
-
-            pedalValueList.replace(j - 1, t);
-
-            j--;
+            slotResetCalibrate();
+            emit signalResetOnZeroInput();
         }
+
     }
+    else
+    {
+        //Order our list
+        for(int i = 1; i < count; i++)
+        {
+            int j = i;
+            int t;
 
-    qDebug() << pedalValueList;
+            while(j > 0 && pedalValueList.at(j) < pedalValueList.at(j - 1))
+            {
+                t = pedalValueList.at(j);
 
-    //Write file
-    slotSetMinMaxLength();
-    slotWritePedalTableFile();
+                pedalValueList.replace(j, pedalValueList.at(j - 1));
+
+                pedalValueList.replace(j - 1, t);
+
+                j--;
+            }
+        }
+
+        qDebug() << pedalValueList;
+
+        //Write file
+        slotSetMinMaxLength();
+        slotWritePedalTableFile();
+
+    }
 
     calibrating = false;
 }

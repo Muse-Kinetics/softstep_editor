@@ -28,7 +28,6 @@ public:
 
 signals:
 
-
 public slots:
     void slotDrawTable(float x, float y, float width);
     void slotClearTable();
