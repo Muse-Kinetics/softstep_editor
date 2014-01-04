@@ -72,6 +72,15 @@ void AlphaNumManager::slotFormatAndOutputString(QString displayString)
 
     //qDebug() << "displayString" << displayString << "sender name" << QObject::sender()->objectName();
 
+    //Make all messages of length 4
+    if(displayString.size() < 4)
+    {
+        for(int i = displayString.size(); i < 4; i++)
+        {
+            displayString.append(" ");
+        }
+    }
+
     packetList.clear();
 
     ushort vals[displayString.size()];
