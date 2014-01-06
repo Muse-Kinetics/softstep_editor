@@ -28,6 +28,7 @@ QLineEdit
 	color: white;
 }
 
+
 /*-------QToolTip-------*/
 QToolTip
 {

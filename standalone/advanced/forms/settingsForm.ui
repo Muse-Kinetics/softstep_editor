@@ -468,7 +468,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
@@ -4252,6 +4252,69 @@ QLineEdit:disabled
        <number>16</number>
       </property>
      </widget>
+     <zorder>midia_settings_inputvalue</zorder>
+     <zorder>midia_settings_number</zorder>
+     <zorder>midia_settings_messagetype</zorder>
+     <zorder>midia_settings_channel</zorder>
+     <zorder>midia_settings_device</zorder>
+     <zorder>midia_settings_enable</zorder>
+     <zorder>label_33</zorder>
+     <zorder>label_34</zorder>
+     <zorder>label_40</zorder>
+     <zorder>label_39</zorder>
+     <zorder>label_31</zorder>
+     <zorder>label_36</zorder>
+     <zorder>label_32</zorder>
+     <zorder>label_30</zorder>
+     <zorder>label_37</zorder>
+     <zorder>label_42</zorder>
+     <zorder>label_35</zorder>
+     <zorder>label_38</zorder>
+     <zorder>label_29</zorder>
+     <zorder>label_41</zorder>
+     <zorder>label_43</zorder>
+     <zorder>midib_settings_enable</zorder>
+     <zorder>midib_settings_device</zorder>
+     <zorder>midib_settings_channel</zorder>
+     <zorder>midib_settings_messagetype</zorder>
+     <zorder>midib_settings_number</zorder>
+     <zorder>midib_settings_inputvalue</zorder>
+     <zorder>midic_settings_enable</zorder>
+     <zorder>midic_settings_device</zorder>
+     <zorder>midic_settings_channel</zorder>
+     <zorder>midic_settings_messagetype</zorder>
+     <zorder>midic_settings_number</zorder>
+     <zorder>midic_settings_inputvalue</zorder>
+     <zorder>midid_settings_enable</zorder>
+     <zorder>midid_settings_device</zorder>
+     <zorder>midid_settings_channel</zorder>
+     <zorder>midid_settings_messagetype</zorder>
+     <zorder>midid_settings_number</zorder>
+     <zorder>midid_settings_inputvalue</zorder>
+     <zorder>midie_settings_enable</zorder>
+     <zorder>midie_settings_device</zorder>
+     <zorder>midie_settings_channel</zorder>
+     <zorder>midie_settings_messagetype</zorder>
+     <zorder>midie_settings_number</zorder>
+     <zorder>midie_settings_inputvalue</zorder>
+     <zorder>midif_settings_enable</zorder>
+     <zorder>midif_settings_device</zorder>
+     <zorder>midif_settings_channel</zorder>
+     <zorder>midif_settings_messagetype</zorder>
+     <zorder>midif_settings_number</zorder>
+     <zorder>midif_settings_inputvalue</zorder>
+     <zorder>midig_settings_enable</zorder>
+     <zorder>midig_settings_device</zorder>
+     <zorder>midig_settings_channel</zorder>
+     <zorder>midig_settings_messagetype</zorder>
+     <zorder>midig_settings_number</zorder>
+     <zorder>midig_settings_inputvalue</zorder>
+     <zorder>midih_settings_enable</zorder>
+     <zorder>midih_settings_device</zorder>
+     <zorder>midih_settings_channel</zorder>
+     <zorder>midih_settings_messagetype</zorder>
+     <zorder>midih_settings_number</zorder>
+     <zorder>midih_settings_inputvalue</zorder>
     </widget>
     <widget class="QFrame" name="oscinputframe">
      <property name="enabled">
@@ -5165,6 +5228,54 @@ QLineEdit:disabled
        <number>127</number>
       </property>
      </widget>
+     <zorder>label_57</zorder>
+     <zorder>label_53</zorder>
+     <zorder>label_44</zorder>
+     <zorder>label_45</zorder>
+     <zorder>label_47</zorder>
+     <zorder>label_54</zorder>
+     <zorder>label_48</zorder>
+     <zorder>label_49</zorder>
+     <zorder>label_52</zorder>
+     <zorder>label_55</zorder>
+     <zorder>label_58</zorder>
+     <zorder>label_50</zorder>
+     <zorder>label_59</zorder>
+     <zorder>label_46</zorder>
+     <zorder>label_51</zorder>
+     <zorder>label_56</zorder>
+     <zorder>label_60</zorder>
+     <zorder>label_61</zorder>
+     <zorder>osca_input_enable</zorder>
+     <zorder>osca_input_route</zorder>
+     <zorder>osca_input_value</zorder>
+     <zorder>oscb_input_enable</zorder>
+     <zorder>oscb_input_route</zorder>
+     <zorder>oscb_input_value</zorder>
+     <zorder>oscc_input_enable</zorder>
+     <zorder>oscc_input_route</zorder>
+     <zorder>oscc_input_value</zorder>
+     <zorder>oscd_input_enable</zorder>
+     <zorder>oscd_input_route</zorder>
+     <zorder>oscd_input_value</zorder>
+     <zorder>osce_input_enable</zorder>
+     <zorder>osce_input_route</zorder>
+     <zorder>osce_input_value</zorder>
+     <zorder>oscf_input_enable</zorder>
+     <zorder>oscf_input_route</zorder>
+     <zorder>oscf_input_value</zorder>
+     <zorder>oscg_input_enable</zorder>
+     <zorder>oscg_input_route</zorder>
+     <zorder>oscg_input_value</zorder>
+     <zorder>osch_input_enable</zorder>
+     <zorder>osch_input_route</zorder>
+     <zorder>osch_input_value</zorder>
+     <zorder>osc_ip_1</zorder>
+     <zorder>osc_ip_2</zorder>
+     <zorder>osc_ip_3</zorder>
+     <zorder>osc_ip_4</zorder>
+     <zorder>osc_out_port</zorder>
+     <zorder>osc_in_port</zorder>
     </widget>
    </widget>
    <widget class="QWidget" name="settingspedalpage">

@@ -63,13 +63,8 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 12pt &quot;Droid Sans Mono&quot;;
-	background: rgb(40, 40, 40);
-	border: 1px solid white;
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
+	border: 2px solid rgb(0,174,239);
+	outline: none;
 }
 
 /*-------QToolTip-------*/
