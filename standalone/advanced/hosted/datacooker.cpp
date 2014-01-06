@@ -1366,7 +1366,11 @@ void DataCooker::slotReceiveKeyPressed(int keyPressed)
         }
         else if(modlineSources.value(i) == "Nav Yx10 & Key")
         {
-            emit signalTransformSource(navYDecade + keyPressed, i, "Nav Yx10 & Key");
+            if(keyNum == keyPressed)
+            {
+                emit signalTransformSource(navYDecade + keyPressed, i, "Nav Yx10 & Key");
+            }
+
         }
     }
 }
