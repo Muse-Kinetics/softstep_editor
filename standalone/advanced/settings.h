@@ -113,6 +113,7 @@ public slots:
     void slotRecallPreset(QVariantMap, QVariantMap);
     void slotRecallSettings();
     void slotViewSelector();
+    void slotResetGlobalGain();
 
     //void slotSetMode(QString m);
     void slotPopulateInputMenus(QMap<QString,MIDIEndpointRef> midiSources);

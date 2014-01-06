@@ -136,6 +136,8 @@ void Settings::slotOpenSettings()
 void Settings::slotConnectElements()
 {
 
+    connect(settingsForm->global_gain_resetbutton, SIGNAL(clicked()), this, SLOT(slotResetGlobalGain()));
+
     //---------------------- General Settings Widgets
     foreach(QWidget* widget, settingsWidget->findChildren<QWidget *>())
     {
@@ -524,6 +526,11 @@ void Settings::slotViewSelector()
             settingsWidget->setFixedSize(320, 415);
         }
     }
+}
+
+void Settings::slotResetGlobalGain()
+{
+    settingsForm->global_gain_slider->setValue(100);
 }
 
 void Settings::slotPopulateInputMenus(QMap<QString, MIDIEndpointRef> midiSources)
