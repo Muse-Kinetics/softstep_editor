@@ -4220,6 +4220,53 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
   <zorder>label_48</zorder>
   <zorder>hide_border_bleed</zorder>
  </widget>
+ <tabstops>
+  <tabstop>enable</tabstop>
+  <tabstop>initmode</tabstop>
+  <tabstop>initvalue</tabstop>
+  <tabstop>source</tabstop>
+  <tabstop>raw</tabstop>
+  <tabstop>gain</tabstop>
+  <tabstop>offset</tabstop>
+  <tabstop>result</tabstop>
+  <tabstop>table</tabstop>
+  <tabstop>min</tabstop>
+  <tabstop>max</tabstop>
+  <tabstop>slew</tabstop>
+  <tabstop>delay</tabstop>
+  <tabstop>outputvalue</tabstop>
+  <tabstop>destination</tabstop>
+  <tabstop>polynote</tabstop>
+  <tabstop>notenumber</tabstop>
+  <tabstop>notelivenumber</tabstop>
+  <tabstop>notevelocity</tabstop>
+  <tabstop>notelivevelocity</tabstop>
+  <tabstop>cc</tabstop>
+  <tabstop>bankmsb</tabstop>
+  <tabstop>mmcdeviceid</tabstop>
+  <tabstop>mmcfunction</tabstop>
+  <tabstop>oscroute</tabstop>
+  <tabstop>notechannel</tabstop>
+  <tabstop>notelivechannel</tabstop>
+  <tabstop>controlchannel</tabstop>
+  <tabstop>programchannel</tabstop>
+  <tabstop>bankchannel</tabstop>
+  <tabstop>bendchannel</tabstop>
+  <tabstop>polychannel</tabstop>
+  <tabstop>aftertouchchannel</tabstop>
+  <tabstop>notedevice</tabstop>
+  <tabstop>notelivedevice</tabstop>
+  <tabstop>controldevice</tabstop>
+  <tabstop>bankdevice</tabstop>
+  <tabstop>programdevice</tabstop>
+  <tabstop>benddevice</tabstop>
+  <tabstop>mmcdevice</tabstop>
+  <tabstop>aftertouchdevice</tabstop>
+  <tabstop>polydevice</tabstop>
+  <tabstop>ledgreen</tabstop>
+  <tabstop>ledred</tabstop>
+  <tabstop>modlinedisplayenable</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

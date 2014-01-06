@@ -3748,6 +3748,51 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>enable</tabstop>
+  <tabstop>initmode</tabstop>
+  <tabstop>initvalue</tabstop>
+  <tabstop>source</tabstop>
+  <tabstop>raw</tabstop>
+  <tabstop>gain</tabstop>
+  <tabstop>offset</tabstop>
+  <tabstop>result</tabstop>
+  <tabstop>table</tabstop>
+  <tabstop>min</tabstop>
+  <tabstop>max</tabstop>
+  <tabstop>slew</tabstop>
+  <tabstop>delay</tabstop>
+  <tabstop>outputvalue</tabstop>
+  <tabstop>destination</tabstop>
+  <tabstop>modlinedisplayenable</tabstop>
+  <tabstop>notenumber</tabstop>
+  <tabstop>notevelocity</tabstop>
+  <tabstop>notechannel</tabstop>
+  <tabstop>notedevice</tabstop>
+  <tabstop>notelivenumber</tabstop>
+  <tabstop>notelivevelocity</tabstop>
+  <tabstop>notelivechannel</tabstop>
+  <tabstop>notelivedevice</tabstop>
+  <tabstop>cc</tabstop>
+  <tabstop>controlchannel</tabstop>
+  <tabstop>controldevice</tabstop>
+  <tabstop>bankmsb</tabstop>
+  <tabstop>bankchannel</tabstop>
+  <tabstop>bankdevice</tabstop>
+  <tabstop>programchannel</tabstop>
+  <tabstop>programdevice</tabstop>
+  <tabstop>bendchannel</tabstop>
+  <tabstop>benddevice</tabstop>
+  <tabstop>mmcdeviceid</tabstop>
+  <tabstop>mmcfunction</tabstop>
+  <tabstop>mmcdevice</tabstop>
+  <tabstop>oscroute</tabstop>
+  <tabstop>aftertouchchannel</tabstop>
+  <tabstop>aftertouchdevice</tabstop>
+  <tabstop>polynote</tabstop>
+  <tabstop>polychannel</tabstop>
+  <tabstop>polydevice</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
