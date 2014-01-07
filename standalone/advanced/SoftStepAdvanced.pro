@@ -151,7 +151,7 @@ RC_FILE =       softstepadvancedicon.rc.txt
 }
 
 macx{
-#ICON = advanced.icns
+ICON = resources/appicon.icns
 }
 
 RESOURCES += \

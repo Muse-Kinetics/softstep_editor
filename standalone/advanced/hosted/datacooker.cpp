@@ -147,8 +147,8 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     connect(&yLatcher, SIGNAL(signalReturnValue(int,int)), this, SLOT(slotYLatchReturn(int,int)));
 
     //Connect Inc/Dec Clocks
-    connect(yIncClock, SIGNAL(timeout()), this, SLOT(slotTickYIncrementClock()));
-    connect(xIncClock, SIGNAL(timeout()), this, SLOT(slotTickXIncrementClock()));
+    connect(yIncClock, SIGNAL(timeout()), this, SLOT(slotTickYIncrementClock()), Qt::DirectConnection);
+    connect(xIncClock, SIGNAL(timeout()), this, SLOT(slotTickXIncrementClock()), Qt::DirectConnection);
 
     //Trigger Returns
     connect(&trigger, SIGNAL(signalFastTriggerReturn()), this, SLOT(slotFastTriggerReturn()));
@@ -839,7 +839,7 @@ void DataCooker::xIncrement()
             if(!xIncClock->isActive())
             {
                 //Start it...
-                xIncClock->start(xAccel); //Need to implement scaling here
+                xIncClock->start(xAccel + 1); //Need to implement scaling here
             }
         }
 
@@ -913,7 +913,7 @@ void DataCooker::yIncrement()
             if(!yIncClock->isActive())
             {
                 //Start it...
-                yIncClock->start(yAccel); //Need to implement scaling here
+                yIncClock->start(yAccel + 1); //Need to implement scaling here
             }
         }
 

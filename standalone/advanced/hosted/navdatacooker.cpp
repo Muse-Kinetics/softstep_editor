@@ -58,7 +58,7 @@ NavDataCooker::NavDataCooker(QWidget *parent) :
     presetChangeGate = true;
 
     //Connect Inc/Dec Clocks
-    connect(yIncClock, SIGNAL(timeout()), this, SLOT(slotTickYIncrementClock()));
+    connect(yIncClock, SIGNAL(timeout()), this, SLOT(slotTickYIncrementClock()), Qt::DirectConnection);
 
     //Trigger Returns
     connect(&triggerN, SIGNAL(signalTriggerReturn()), this, SLOT(slotTriggerReturnN()));
@@ -356,7 +356,7 @@ int NavDataCooker::navYIncDec()
 
             if(!yIncClock->isActive())
             {
-                yIncClock->start(yAccel);
+                yIncClock->start(yAccel + 1);
             }
         }
 
