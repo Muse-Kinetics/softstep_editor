@@ -975,6 +975,17 @@ QSpinBox:disabled
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>counterMin</tabstop>
+  <tabstop>counterMax</tabstop>
+  <tabstop>counterWrap</tabstop>
+  <tabstop>ledDisplayCheckBox</tabstop>
+  <tabstop>keyname</tabstop>
+  <tabstop>leddisplaymode</tabstop>
+  <tabstop>displayprefix</tabstop>
+  <tabstop>addmodline</tabstop>
+  <tabstop>deletemodline</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -994,6 +994,20 @@ p, li { white-space: pre-wrap; }
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>navpadmode_modline</tabstop>
+  <tabstop>navpadmode_programchange</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>counterMin</tabstop>
+  <tabstop>counterMax</tabstop>
+  <tabstop>counterWrap</tabstop>
+  <tabstop>showLEDSettings</tabstop>
+  <tabstop>displayprefix</tabstop>
+  <tabstop>leddisplaymode</tabstop>
+  <tabstop>keyname</tabstop>
+  <tabstop>addmodline</tabstop>
+  <tabstop>deletemodline</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
