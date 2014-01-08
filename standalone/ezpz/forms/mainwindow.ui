@@ -646,8 +646,8 @@ QPushButton:pressed
      <rect>
       <x>945</x>
       <y>87</y>
-      <width>23</width>
-      <height>23</height>
+      <width>21</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="focusPolicy">
@@ -683,10 +683,12 @@ QCheckBox::indicator {
 
  QCheckBox::indicator::checked {
      image: url(:/resources/toggle_on.png);
+	padding-left: -1px;
  }
 
  QCheckBox::indicator:checked:pressed {
      image: url(:/resources/toggle_off.png);
+	padding-left: -1px;
  }
 
  QCheckBox::indicator::unchecked:focus {
@@ -695,15 +697,19 @@ QCheckBox::indicator {
 
  QCheckBox::indicator:unchecked:pressed:focus {
      image: url(:/resources/toggle_on_focus.png);
+	padding-left: -1px;
  }
 
  QCheckBox::indicator::checked:focus {
      image: url(:/resources/toggle_on_focus.png);
+	padding-left: -1px;
  }
 
  QCheckBox::indicator:checked:pressed:focus {
      image: url(:/resources/toggle_off_focus.png);
- }</string>
+	padding-left: 0px;
+ }
+</string>
     </property>
     <property name="text">
      <string/>

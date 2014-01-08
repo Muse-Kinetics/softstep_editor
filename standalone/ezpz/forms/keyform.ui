@@ -619,7 +619,7 @@ border: 2px solid white;
 }</string>
    </property>
    <property name="currentIndex">
-    <number>5</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="notePage">
     <widget class="QLabel" name="noteNumLabel">
@@ -752,30 +752,36 @@ QCheckBox::indicator {
 
  QCheckBox::indicator:unchecked:pressed {
      image: url(:/resources/toggle_on.png);
+	padding-left: 1px;
  }
 
  QCheckBox::indicator::checked {
      image: url(:/resources/toggle_on.png);
+	padding-left: -1px;
  }
 
  QCheckBox::indicator:checked:pressed {
      image: url(:/resources/toggle_off.png);
+	padding-left: -1px;
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/toggle_focus_off.png);
+     image: url(:/resources/toggle_off_focus.png);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/toggle_focus_on.png);
+     image: url(:/resources/toggle_on_focus.png);
+	padding-left: -1px;
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/toggle_focus_on.png);
+     image: url(:/resources/toggle_on_focus.png);
+	padding-left: -1px;
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/toggle_focus_off.png);
+     image: url(:/resources/toggle_off_focus.png);
+	padding-left: 0px;
  }</string>
      </property>
      <property name="text">
@@ -1091,7 +1097,7 @@ QCheckBox::indicator {
       <string notr="true">/* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	color: rgba(255,255,255,250);
+color: rgba(255,255,255,250);
 	font: 10pt &quot;Futura&quot;;
 }
 
@@ -1110,14 +1116,17 @@ QCheckBox::indicator {
 
  QCheckBox::indicator:unchecked:pressed {
      image: url(:/resources/toggle_on.png);
+	padding-left: 1px;
  }
 
  QCheckBox::indicator::checked {
      image: url(:/resources/toggle_on.png);
+	padding-left: -1px;
  }
 
  QCheckBox::indicator:checked:pressed {
      image: url(:/resources/toggle_off.png);
+	padding-left: -1px;
  }
 
  QCheckBox::indicator::unchecked:focus {
@@ -1126,14 +1135,17 @@ QCheckBox::indicator {
 
  QCheckBox::indicator:unchecked:pressed:focus {
      image: url(:/resources/toggle_on_focus.png);
+	padding-left: -1px;
  }
 
  QCheckBox::indicator::checked:focus {
      image: url(:/resources/toggle_on_focus.png);
+	padding-left: -1px;
  }
 
  QCheckBox::indicator:checked:pressed:focus {
      image: url(:/resources/toggle_off_focus.png);
+	padding-left: 0px;
  }</string>
      </property>
      <property name="text">

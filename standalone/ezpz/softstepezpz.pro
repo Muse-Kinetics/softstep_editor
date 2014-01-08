@@ -115,6 +115,6 @@ RC_FILE =       softstepezpzicon.rc.txt
 }
 
 macx{
-ICON = easy.icns
+ICON = resources/appicon.icns
 }
 
