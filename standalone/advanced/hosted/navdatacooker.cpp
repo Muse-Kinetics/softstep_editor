@@ -367,7 +367,7 @@ int NavDataCooker::navYIncDec()
 
             if(!yIncClock->isActive())
             {
-                yIncClock->start();
+                yIncClock->start(yAccel + 1);
             }
         }
 

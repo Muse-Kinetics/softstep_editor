@@ -833,12 +833,15 @@ void MainWindow::slotConnected(bool connection)
 
 void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
 {
+    qDebug() << "slotReceiveVersions";
     connectedVersionString = connectedVersion;
     connectedVersionInt = connected;
 
     aboutForm->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
 
     //First reiterate tether / standalone messages
+
+     slotConnected(true);
 
     if(mode == "hosted")
     {
@@ -921,6 +924,8 @@ void MainWindow::slotUpdateFwProgressBar(int bytes)
         fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
         fwProgressDialogWidget->close();
         fwUpdateCompleteDialogWidget->show();
+
+        qDebug() << "fw update complete;";
     }
 }
 

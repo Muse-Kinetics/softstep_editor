@@ -825,7 +825,7 @@ void DataCooker::xIncrement()
             if(!xIncClock->isActive())
             {
                 //Start it...
-                xIncClock->start(xAccel); //Need to implement scaling here
+                xIncClock->start(xAccel + 1); //Need to implement scaling here
             }
         }
 
@@ -913,7 +913,7 @@ void DataCooker::yIncrement()
             if(!yIncClock->isActive())
             {
                 //Start it...
-                yIncClock->start(yAccel + 1); //Need to implement scaling here
+                yIncClock->start((yAccel + 1)); //Need to implement scaling here
             }
         }
 
@@ -927,7 +927,7 @@ void DataCooker::yIncrement()
             if(!yIncClock->isActive())
             {
                 //Start it...
-                yIncClock->start(yAccel); //Need to implement scaling here
+                yIncClock->start((yAccel + 1)); //Need to implement scaling here
             }
         }
 
@@ -1366,11 +1366,10 @@ void DataCooker::slotReceiveKeyPressed(int keyPressed)
         }
         else if(modlineSources.value(i) == "Nav Yx10 & Key")
         {
-            if(keyNum == keyPressed)
+            if(keyPressed == (keyNum + 1)%10)
             {
                 emit signalTransformSource(navYDecade + keyPressed, i, "Nav Yx10 & Key");
             }
-
         }
     }
 }
@@ -1458,32 +1457,52 @@ void DataCooker::slotStateRecallYIncDec(int val)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 void DataCooker::slotSetOnThresh(int key, int threshold)
 {
-    onThresh = threshold;
+    if(keyNum == key)
+    {
+        onThresh = threshold;
+    }
 }
 
 void DataCooker::slotSetOffThresh(int key, int threshold)
 {
-    offThresh = threshold;
+    if(keyNum == key)
+    {
+        offThresh = threshold;
+    }
 }
 
 void DataCooker::slotSetYDeadZone(int key, int deadZone)
 {
-    yDeadZone = deadZone;
+    if(keyNum == key)
+    {
+        yDeadZone = deadZone;
+    }
 }
 
 void DataCooker::slotSetXDeadZone(int key, int deadZone)
 {
-    xDeadZone = deadZone;
+    if(keyNum == key)
+    {
+        xDeadZone = deadZone;
+    }
 }
 
 void DataCooker::slotSetYAccel(int key, int accel)
 {
-    yAccel = accel;
+    if(keyNum == key)
+    {
+        yAccel = (float)(127.0f - accel + 1.0f)/127.0f * 50;
+    }
+
 }
 
 void DataCooker::slotSetXAccel(int key, int accel)
 {
-    xAccel = accel;
+    if(keyNum == key)
+    {
+        xAccel = (float)(127.0f - accel + 1.0f)/127.0f * 50;
+    }
+
 }
 
 void DataCooker::slotSetGlobalGain(float val)

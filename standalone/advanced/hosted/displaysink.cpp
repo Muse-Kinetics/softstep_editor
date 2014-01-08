@@ -87,26 +87,35 @@ void DisplaySink::slotAddLEDPacket(QString port, QList<MIDIPacket> packetList)
 {
     bool newPacket = false;
 
-    //Only three packets in list, always
-    for(int i = 0; i < packetList.size(); i++)
-    {
-        //Check each packet in list for new data, if anything new, output
+    //qDebug() << "slotAddLEDPacket size" << packetList.size() << ledLastPacketList.size();
 
-        if(packetList.at(i).data[0] != ledLastPacketList.at(i).data[0])
+    if(packetList.size() == ledLastPacketList.size())
+    {
+        //Only three packets in list, always
+        for(int i = 0; i < packetList.size(); i++)
         {
-            newPacket = true;
-            break;
+            //Check each packet in list for new data, if anything new, output
+
+            if(packetList.at(i).data[0] != ledLastPacketList.at(i).data[0])
+            {
+                newPacket = true;
+                break;
+            }
+            else if(packetList.at(i).data[1] != ledLastPacketList.at(i).data[1])
+            {
+                newPacket = true;
+                break;
+            }
+            else if(packetList.at(i).data[2] != ledLastPacketList.at(i).data[2])
+            {
+                newPacket = true;
+                break;
+            }
         }
-        else if(packetList.at(i).data[1] != ledLastPacketList.at(i).data[1])
-        {
-            newPacket = true;
-            break;
-        }
-        else if(packetList.at(i).data[2] != ledLastPacketList.at(i).data[2])
-        {
-            newPacket = true;
-            break;
-        }
+    }
+    else
+    {
+        newPacket = true;
     }
 
     //If newest packet is not a duplicate, output

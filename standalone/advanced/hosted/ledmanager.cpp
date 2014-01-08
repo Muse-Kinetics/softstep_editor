@@ -131,8 +131,10 @@ void LEDManager::processLED(int modlineNum, int greenOrRed, QString mode)
 
             emit signalSendLEDControl("SSCOM Port 1", packetList);
             lastPacketListSent = packetList;
+
         }
     }
+
 }
 
 void LEDManager::slotReceiveModlineOutput(int modlineNum, int val)
@@ -163,7 +165,7 @@ void LEDManager::slotSetLedModes(int modlineNum, QString gm, QString rm)
 
 void LEDManager::slotDrainFIFO()
 {
-    if(!packetFIFOList.size())
+    /*if(!packetFIFOList.size())
     {
         fifoClock.stop();
     }
@@ -171,11 +173,13 @@ void LEDManager::slotDrainFIFO()
     {
         //emit signalSendLEDControl("SSCOM Port 1", packetFIFOList.first());
         packetFIFOList.removeFirst();
-    }
+    }*/
 }
 
 void LEDManager::slotStateRecallLedLastPacket(QList<MIDIPacket> pktlst)
 {
-    emit signalSendLEDControl("SSCOM Port 1", pktlst);
+    //qDebug() << "led last packet" << pktlst.size();
     lastPacketListSent = pktlst;
+    emit signalSendLEDControl("SSCOM Port 1", pktlst);
+
 }

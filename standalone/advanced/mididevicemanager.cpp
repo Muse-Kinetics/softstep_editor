@@ -49,7 +49,6 @@ bool MidiDeviceManager::connectSource()
 
         queryReplied = false;
         slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
-        emit signalConnected(true);
         return true;
     }
     else
@@ -394,7 +393,7 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
 
     if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 91 && !queryReplied)
     {
-        //qDebug() << "Got the reply" << sysExMessageByteArray.count();
+        qDebug() << "Got the reply" << sysExMessageByteArray.count();
         queryReplied = true;
 
         //qDebug() << foundBootloaderVersion;
