@@ -169,7 +169,12 @@ MainWindow::MainWindow(QWidget *parent) :
     foreach(QWidget *widget, this->findChildren<QWidget *>())
     {
         widget->setContextMenuPolicy(Qt::NoContextMenu);
+#ifdef Q_OS_MAC
+        widget->setAttribute(Qt::WA_MacShowFocusRect, false);
+#endif
+
     }
+
 }
 
 MainWindow::~MainWindow()

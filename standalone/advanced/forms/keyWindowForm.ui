@@ -17,7 +17,12 @@
    <string notr="true">QWidget
 {
 	background:		rgb(60, 60, 60);
-	border: 4px solid rgb(0,174,239);
+
+}
+
+QFrame
+{
+		border: 4px solid rgb(0,174,239);
 }
 
 /* ---------- QLabels ------------*/
@@ -44,9 +49,9 @@ QSpinBox
 	padding:0, 3, 0, 0;
 }
 
-QSpinBox::focus
+QSpinBox:focus
 {
-	border: none;
+	border: 1px solid rgb(255,255,255);
 	outline: none;
 }
 
@@ -79,7 +84,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	border: none;
+	border: 1px solid rgb(255,255,255);
 	outline: none;
 }
 
@@ -811,9 +816,9 @@ QSpinBox
 	padding:0, 3, 0, 0;
 }
 
-QSpinBox::focus
+QSpinBox:focus
 {
-	border: none;
+	border: 1px solid rgb(255,255,255);
 	outline: none;
 }
 
@@ -951,7 +956,7 @@ QSpinBox
 
 QSpinBox::focus
 {
-	border: none;
+	border: 1px solid rgb(255,255,255);
 	outline: none;
 }
 
@@ -974,6 +979,50 @@ QSpinBox:disabled
     <number>127</number>
    </property>
   </widget>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1150</width>
+     <height>410</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <zorder>frame</zorder>
+  <zorder>ledDisplayCheckBox</zorder>
+  <zorder>keyWindowInstanceLabel_background</zorder>
+  <zorder>keyWindowInstanceLabel</zorder>
+  <zorder>label</zorder>
+  <zorder>initsBracketLabel</zorder>
+  <zorder>label_3</zorder>
+  <zorder>label_4</zorder>
+  <zorder>dataSourcesBracketLabel</zorder>
+  <zorder>dataModifiersBracketLabel</zorder>
+  <zorder>label_7</zorder>
+  <zorder>label_8</zorder>
+  <zorder>outputSettingsBracketLabel</zorder>
+  <zorder>leddisplaymode</zorder>
+  <zorder>keyname</zorder>
+  <zorder>displayprefix</zorder>
+  <zorder>label_2</zorder>
+  <zorder>label_5</zorder>
+  <zorder>label_6</zorder>
+  <zorder>addmodline</zorder>
+  <zorder>deletemodline</zorder>
+  <zorder>label_20</zorder>
+  <zorder>label_21</zorder>
+  <zorder>label_19</zorder>
+  <zorder>counterMax</zorder>
+  <zorder>label_22</zorder>
+  <zorder>counterWrap</zorder>
+  <zorder>counterMin</zorder>
  </widget>
  <tabstops>
   <tabstop>counterMin</tabstop>

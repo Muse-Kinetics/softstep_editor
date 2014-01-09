@@ -60,6 +60,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     //keyWindowWidget = new QWidget();
     keyWindowForm->setupUi(keyWindowWidget);
     keyWindowWidget->setFixedSize(KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
+    keyWindowForm->frame->setFixedSize(KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
     QRect screenGeometry = QApplication::desktop()->availableGeometry();
     keyWindowWidget->setGeometry(20 + (keyInstance * 15), (screenGeometry.height() / 2) + (keyInstance * 15), KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
     keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg((keyInstance+1)%10));
@@ -367,6 +368,7 @@ void Key::slotShowDisplaySettings(bool show)
     {
         //show large window
         keyWindowWidget->setFixedWidth(KEYWINDOW_LG_WIDTH);
+        keyWindowForm->frame->setFixedWidth(KEYWINDOW_LG_WIDTH);
         //show large line separator
         keyWindowForm->label->setFixedWidth(LINE_SEPARATOR_LG);
     }
@@ -374,6 +376,7 @@ void Key::slotShowDisplaySettings(bool show)
     {
         //show small window
         keyWindowWidget->setFixedWidth(KEYWINDOW_SM_WIDTH);
+        keyWindowForm->frame->setFixedWidth(KEYWINDOW_SM_WIDTH);
         //show small line separator
         keyWindowForm->label->setFixedWidth(LINE_SEPARATOR_SM);
     }
@@ -384,6 +387,7 @@ void Key::slotWindowHeight(int modlinesShowing)
     if(modlinesShowing == 2)
     {
         keyWindowWidget->setFixedHeight(KEYWINDOW_HEIGHT-188);
+        keyWindowForm->frame->setFixedHeight(KEYWINDOW_HEIGHT-188);
         keyWindowForm->addmodline->setGeometry(9,192,22,22);
         keyWindowForm->deletemodline->setGeometry(35,192,22,22);
         modline[2]->hide();
@@ -394,6 +398,7 @@ void Key::slotWindowHeight(int modlinesShowing)
     else if(modlinesShowing == 3)
     {
         keyWindowWidget->setFixedHeight(KEYWINDOW_HEIGHT-141);
+        keyWindowForm->frame->setFixedHeight(KEYWINDOW_HEIGHT-141);
         keyWindowForm->addmodline->setGeometry(9,239,22,22);
         keyWindowForm->deletemodline->setGeometry(35,239,22,22);
         modline[2]->show();
@@ -404,6 +409,7 @@ void Key::slotWindowHeight(int modlinesShowing)
     else if(modlinesShowing == 4)
     {
         keyWindowWidget->setFixedHeight(KEYWINDOW_HEIGHT-94);
+        keyWindowForm->frame->setFixedHeight(KEYWINDOW_HEIGHT-94);
         keyWindowForm->addmodline->setGeometry(9,286,22,22);
         keyWindowForm->deletemodline->setGeometry(35,286,22,22);
         modline[2]->show();
@@ -414,6 +420,7 @@ void Key::slotWindowHeight(int modlinesShowing)
     else if(modlinesShowing == 5)
     {
         keyWindowWidget->setFixedHeight(KEYWINDOW_HEIGHT-47);
+        keyWindowForm->frame->setFixedHeight(KEYWINDOW_HEIGHT-47);
         keyWindowForm->addmodline->setGeometry(9,333,22,22);
         keyWindowForm->deletemodline->setGeometry(35,333,22,22);
         modline[2]->show();
@@ -424,6 +431,7 @@ void Key::slotWindowHeight(int modlinesShowing)
     else if(modlinesShowing == 6)
     {
         keyWindowWidget->setFixedHeight(KEYWINDOW_HEIGHT);
+        keyWindowForm->frame->setFixedHeight(KEYWINDOW_HEIGHT);
         keyWindowForm->addmodline->setGeometry(9,380,22,22);
         keyWindowForm->deletemodline->setGeometry(35,380,22,22);
         modline[2]->show();

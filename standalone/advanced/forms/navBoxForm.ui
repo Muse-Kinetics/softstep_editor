@@ -63,7 +63,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	border: 2px solid rgb(0,174,239);
+	border: 2px solid white;
 	outline: none;
 }
 

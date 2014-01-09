@@ -18,7 +18,7 @@
 {
 /*	background: rgb(0,0,0); */
 	background:		rgb(80, 80, 80);	
-	border: 3px rgb(25, 25, 25);
+	/*border: 3px rgb(25, 25, 25);*/
 }
 
 /* ------- QStackedWidget ---------*/
@@ -53,9 +53,9 @@ QSpinBox
 	padding: 1px 1px 1px 3px;
 }
 
-QSpinBox::focus
+QSpinBox:focus
 {
-	border: none;
+	border: 1px solid white;
 	outline: none;
 }
 
@@ -468,7 +468,7 @@ QSpinBox
 
 QSpinBox::focus
 {
-	border: none;
+	border: 1px solid rgb(255,255,255);
 	outline: none;
 }
 
@@ -515,8 +515,13 @@ QSpinBox:disabled
    <property name="styleSheet">
     <string notr="true">QSpinBox
 {
-	border: 1px solid rgba(236, 0, 140, 90);
-	color: rgba(255, 255, 255, 90);
+	border: 1px solid rgba(236, 0, 140, 255);
+	color: rgba(255, 255, 255, 255);
+}
+
+QSpinBox:focus
+{
+	border: 1px solid rgb(255,255,255);
 }</string>
    </property>
    <property name="frame">
@@ -680,6 +685,9 @@ QSpinBox:disabled
      <italic>false</italic>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">QSpinBox
@@ -906,6 +914,9 @@ QComboBox QListView
      <italic>false</italic>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">QSpinBox
@@ -1545,9 +1556,9 @@ QSpinBox
 	padding: 1px 1px 1px 3px;
 }
 
-QSpinBox::focus
+QSpinBox:focus
 {
-	border: none;
+	border: 1px solid white;
 	outline: none;
 }
 
@@ -1560,9 +1571,9 @@ QDoubleSpinBox
 	padding: 1px 1px 1px 3px;
 }
 
-QDoubleSpinBox::focus
+QDoubleSpinBox:focus
 {
-	border: none;
+	border: 1px solid white;
 	outline: none;
 }
 
@@ -1666,7 +1677,7 @@ QComboBox::down-arrow
 </string>
    </property>
    <property name="currentIndex">
-    <number>10</number>
+    <number>9</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -1689,36 +1700,7 @@ QComboBox::down-arrow
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 8pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 1px 1px 3px;
-}
-
-QSpinBox::focus
-{
-	border: none;
-	outline: none;
-}
-
-QDoubleSpinBox
-{
-	font: 8pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 1px 1px 3px;
-}
-
-QDoubleSpinBox::focus
-{
-	border: none;
-	outline: none;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="frame">
       <bool>true</bool>
@@ -1752,36 +1734,7 @@ QDoubleSpinBox::focus
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 8pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 1px 1px 3px;
-}
-
-QSpinBox::focus
-{
-	border: none;
-	outline: none;
-}
-
-QDoubleSpinBox
-{
-	font: 8pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 1px 1px 3px;
-}
-
-QDoubleSpinBox::focus
-{
-	border: none;
-	outline: none;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="frame">
       <bool>true</bool>
@@ -1815,36 +1768,7 @@ QDoubleSpinBox::focus
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 8pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 1px 1px 3px;
-}
-
-QSpinBox::focus
-{
-	border: none;
-	outline: none;
-}
-
-QDoubleSpinBox
-{
-	font: 8pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 1px 1px 3px;
-}
-
-QDoubleSpinBox::focus
-{
-	border: none;
-	outline: none;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="frame">
       <bool>true</bool>
@@ -1881,64 +1805,7 @@ QDoubleSpinBox::focus
       <enum>Qt::DefaultContextMenu</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-</string>
+      <string notr="true"/>
      </property>
      <property name="maxVisibleItems">
       <number>16</number>
@@ -3304,8 +3171,7 @@ QComboBox::down-arrow
     <string notr="true">/* ------- QStackedWidget ---------*/
 QStackedWidget
 {
-	border-left: none;
-	border-right: none;
+	border: none;
 }
 
 QWidget
@@ -3319,7 +3185,7 @@ QLabel
 }</string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">
@@ -3772,54 +3638,7 @@ QComboBox QAbstractItemView::item
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 8pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(18, 18, 18);
-	color: rgba(255, 255, 255, 255);
-	padding: 1px 1px 1px 3px;
-}
-
-QSpinBox::focus
-{
-	border: none;
-	outline: none;
-}
-
-QDoubleSpinBox
-{
-	font: 8pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(18, 18, 18);
-	color: rgba(255, 255, 255, 255);
-	padding: 1px 1px 1px 3px;
-}
-
-QDoubleSpinBox::focus
-{
-	border: none;
-	outline: none;
-}
-
-QSpinBox::disabled
-{
-	font: 8pt &quot;Tahoma&quot;;
-	border: 1px solid rgba(0,174,239, 75);
-	background-color: rgba(18, 18, 18, 75);
-	color: rgba(255, 255, 255, 75);
-	padding: 1px 1px 1px 3px;
-}
-
-QDoubleSpinBox::disabled
-{
-	font: 8pt &quot;Tahoma&quot;;
-	border: 1px solid rgba(0,174,239, 75);
-	background-color: rgba(18, 18, 18, 75);
-	color: rgba(255, 255, 255, 75);
-	padding: 1px 1px 1px 3px;
-}</string>
+    <string notr="true"/>
    </property>
    <property name="frame">
     <bool>true</bool>
