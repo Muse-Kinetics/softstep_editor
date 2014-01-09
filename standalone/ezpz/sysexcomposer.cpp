@@ -494,7 +494,7 @@ void SysExComposer::slotPresetsSent()
     free(image);
 
     //sysex message complete
-    //emit signalUpdateComplete();
+    emit signalUpdateComplete();
 }
 
 void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, t_softstep* x)
