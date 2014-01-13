@@ -383,6 +383,8 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
 
     aboutForm->found->setText(QString("%1 %2").arg(connectedVersionString).arg(connectedVersionInt));
 
+    slotConnected(true);
+
     if(connected != embedded)
     {
         fwoodDialog->expected->setText(QString("%1 %2").arg(embeddedVersion).arg(embedded));

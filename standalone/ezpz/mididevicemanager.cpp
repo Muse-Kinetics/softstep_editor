@@ -78,7 +78,7 @@ bool MidiDeviceManager::connectSource()
 
         queryReplied = false;
         slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
-        emit signalConnected(true);
+        //emit signalConnected(true); -- called later after devices reply is received
         return true;
     }
     else
