@@ -223,6 +223,11 @@ void MainWindow::slotValueChanged()
         {
             emit signalStoreValue(QString("preset_displayname"), ui->displayName->text(), -1);
             emit signalSetPresetNameInKeys(ui->displayName->text());
+
+            if(mode == "hosted")
+            {
+                navKey->alphaNumManager.slotPresetChangeDisplayPresetName();
+            }
         }
     }
     emit signalCheckSavedState();
@@ -838,7 +843,7 @@ void MainWindow::slotConnected(bool connection)
 
 void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
 {
-    qDebug() << "slotReceiveVersions";
+    //qDebug() << "slotReceiveVersions";
     connectedVersionString = connectedVersion;
     connectedVersionInt = connected;
 
