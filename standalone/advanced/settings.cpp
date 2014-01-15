@@ -980,6 +980,9 @@ void Settings::slotEmitAllSettings()
     //------------ Backlight
     emit signalSetBacklight(settingsForm->backlighting_enable->isChecked());
 
+    //------------ Sensor Response
+    emit signalSetSensorResponse(settingsForm->sensorresponse_checkbox->isChecked());
+
 }
 
 void Settings::slotSaveSettingsTimeout()

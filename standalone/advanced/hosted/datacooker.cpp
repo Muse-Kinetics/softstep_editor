@@ -1513,6 +1513,7 @@ void DataCooker::slotSetGlobalGain(float val)
 
 void DataCooker::slotSetSensorResponse(int response)
 {
+    //qDebug() << "response" << response;
     sensorResponse = response;
 }
 
