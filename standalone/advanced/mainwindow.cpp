@@ -1417,7 +1417,7 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
 {
     //qDebug() << "slotLockoutKeyPressedReleased called from MainWindow" << keyNumber << pressedReleased;
 
-    /*for(int i = 0; i < 10; i++)
+    for(int i = 0; i < 10; i++)
     {
         //If key sending message is being pressed
         if(pressedReleased) // pressed == TRUE
@@ -1447,5 +1447,5 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
         }
 
         //qDebug() << key[i]->dataCooker.lockoutKeysPressed;
-    }*/
+    }
 }
