@@ -157,6 +157,11 @@ MainWindow::MainWindow(QWidget *parent) :
         widget->setContextMenuPolicy(Qt::NoContextMenu);
     }
 
+    foreach(QAbstractSpinBox *spinbox, this->findChildren<QAbstractSpinBox *>())
+    {
+        spinbox->installEventFilter(&scrollEventFilter);
+    }
+
 }
 
 MainWindow::~MainWindow()

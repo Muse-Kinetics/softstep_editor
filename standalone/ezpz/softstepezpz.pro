@@ -33,7 +33,8 @@ SOURCES +=      main.cpp\
                 ../../shared/sysexcomposition/attribute.c \
                 ../../shared/sysexcomposition/mainsysex.c \
     stylesheets.cpp \
-    factorypresets.cpp
+    factorypresets.cpp \
+    scrolleventfilter.cpp
 
 
 HEADERS  +=     mainwindow.h \
@@ -54,7 +55,8 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexcomposition/sysexcomposer.h \
                 ../../shared/sysexmessages.h \
     stylesheets.h \
-    factorypresets.h
+    factorypresets.h \
+    scrolleventfilter.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/keyform.ui \

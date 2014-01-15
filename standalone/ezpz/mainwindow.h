@@ -12,6 +12,7 @@
 #include "sysexcomposer.h"
 #include "mididevicemanager.h"
 #include "stylesheets.h"
+#include "scrolleventfilter.h"
 
 #ifdef Q_OS_MAC
 #include "ui_fwoodform.h"
@@ -45,6 +46,7 @@ public:
     StyleSheets* styleSheets;
     PresetInterface *presetInterface;
     SysExComposer   *sysExComposer;
+    ScrollEventFilter scrollEventFilter;
 
     QThread* midiThread;
     MidiDeviceManager *mdm;
