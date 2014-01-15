@@ -428,6 +428,7 @@ void NavKey::slotAddSubtractModlines()
         }
         else if(sender == navKeyWindowForm->deletemodline)
         {
+            emit signalDeleteModline(numModlines, FALSE);
             numModlines--;
         }
     }

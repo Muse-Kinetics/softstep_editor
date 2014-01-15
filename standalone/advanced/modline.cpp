@@ -594,13 +594,11 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
 
 void Modline::slotDeleteModline(int num, bool disable)
 {
-    qDebug() << QString("slotDeleteModline called: %1 %2 %3").arg(modlineInstance).arg(num).arg(disable);
-    if(modlineInstance == num - 1)
+    //qDebug() << QString("slotDeleteModline called: %1 %2 %3").arg(modlineInstance).arg(num).arg(disable);
+    if(modlineInstance == num - 1 && modlineInstance > 1)
     {
-        //modlineForm->enable->setEnabled(disable);
         modlineForm->enable->setChecked(disable);
-        qDebug() << "checked" << disable << num;
-
+        emit signalStoreValue(QString("key%1_modline%2").arg(keyInstance+1).arg(modlineInstance+1) + "enable", FALSE, -1);
         emit signalCheckSavedState();
     }
 }

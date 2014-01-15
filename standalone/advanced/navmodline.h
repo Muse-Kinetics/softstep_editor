@@ -122,6 +122,7 @@ public slots:
     void slotRecallPreset(QVariantMap, QVariantMap);
     void slotRawResult();
     void slotRecallDestinationMenu();
+    void slotDeleteModline(int num, bool disable);
 
     void slotSetMode(QString m);
     void slotPopulateMenus(QStringList source, QStringList dest, QStringList table);

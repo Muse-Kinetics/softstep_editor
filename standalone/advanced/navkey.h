@@ -50,6 +50,7 @@ public:
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
     void signalCheckSavedState();
+    void signalDeleteModline(int numModlines, bool disable);
 
     void signalCounterValue(int val);
     

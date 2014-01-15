@@ -427,12 +427,17 @@ void MainWindow::slotConnectInterfaces()
         }
     }
     
+    //For delete modline button -- so it will disable the modline
     for(int k = 0; k < 10; k++)
     {
         for(int m = 0; m < 6; m++)
         {
             connect(key[k], SIGNAL(signalDeleteModline(int,bool)), key[k]->modline[m], SLOT(slotDeleteModline(int,bool)));
         }
+    }
+    for(int i = 0; i < 6; i++)
+    {
+        connect(navKey, SIGNAL(signalDeleteModline(int,bool)), navKey->navModline[i], SLOT(slotDeleteModline(int,bool)));
     }
 
     //Nav Pad

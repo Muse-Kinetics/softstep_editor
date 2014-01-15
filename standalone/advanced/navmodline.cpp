@@ -517,6 +517,16 @@ void NavModline::slotRawResult()
     //qDebug() << "initialize result value";
 }
 
+void NavModline::slotDeleteModline(int num, bool disable)
+{
+    if(navInstance == num - 1 && navInstance > 1)
+    {
+        navModlineForm->enable->setChecked(disable);
+        emit signalStoreValue(QString("nav_modline%1").arg(navInstance+1) + "enable", FALSE, -1);
+        emit signalCheckSavedState();
+    }
+}
+
 void NavModline::slotRecallDestinationMenu()
 {
     //set the device view to change based on what is selected in the destination menu
