@@ -17,6 +17,7 @@
 #include "mididevicemanager.h"
 #include "sysexcomposer.h"
 #include "copypastehandler.h"
+#include "scrolleventfilter.h"
 
 #ifdef Q_OS_MAC
 #include "ui_fwoodform.h"
@@ -52,6 +53,7 @@ public:
     CopyPasteHandler* copyPasteHandler;
     MidiParse* midiParse;
     DisplaySink displaySink;
+    ScrollEventFilter scrollEventFilter;
 
     //--------------------------------- Mode Switching
     QString mode;

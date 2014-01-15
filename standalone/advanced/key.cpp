@@ -384,6 +384,8 @@ void Key::slotShowDisplaySettings(bool show)
 
 void Key::slotWindowHeight(int modlinesShowing)
 {
+    qDebug() << "show or hide a modline";
+
     if(modlinesShowing == 2)
     {
         keyWindowWidget->setFixedHeight(KEYWINDOW_HEIGHT-188);
@@ -475,6 +477,8 @@ void Key::slotAddSubtractModlines()
         }
         else if(sender == keyWindowForm->deletemodline)
         {
+            //emit signalStoreValue(QString("key%1_modline%2_").arg(keyInstance+1).arg(numModlines) + "enable", false, -1);
+            emit signalDeleteModline(numModlines, FALSE);
             numModlines--;
         }
     }

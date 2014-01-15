@@ -70,7 +70,7 @@ QDoubleSpinBox
 
 QDoubleSpinBox::focus
 {
-	border: none;
+	border: 1px solid white;
 	outline: none;
 }
 
@@ -1046,6 +1046,12 @@ QComboBox QListView
      <bold>false</bold>
     </font>
    </property>
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::WheelFocus</enum>
+   </property>
    <property name="styleSheet">
     <string notr="true"/>
    </property>
@@ -1624,6 +1630,7 @@ QComboBox
 	background: rgb(18, 18, 18);
 	color: white;
 	padding: 1px 3px 1px 4px;
+	padding-right: 7px;
  }
 
 QComboBox QListView
@@ -1633,12 +1640,15 @@ QComboBox QListView
 	font: 9px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
-	min-width: 35px;
+	min-width: 65px;
+	min-height: 25px;
 }
 
-QComboBox::item:alternate
+QComboBox QAbstractItemView::item
 {
-	background: rgb(90, 90, 90);
+	min-height: 65px;
+	min-width: 65px;
+
 }
 
 QComboBox::item:selected
@@ -1677,10 +1687,70 @@ QComboBox::down-arrow
 </string>
    </property>
    <property name="currentIndex">
-    <number>9</number>
+    <number>6</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
+    <property name="styleSheet">
+     <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	padding-right: 7px;
+}
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 65px;
+	min-height: 25px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+	min-width: 65px;
+
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+</string>
+    </property>
     <widget class="QSpinBox" name="notenumber">
      <property name="geometry">
       <rect>
@@ -1835,6 +1905,66 @@ QComboBox::down-arrow
     </widget>
    </widget>
    <widget class="QWidget" name="noteLiveDeviceView">
+    <property name="styleSheet">
+     <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	padding-right: 7px;
+}
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 65px;
+	min-height: 25px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+	min-width: 65px;
+
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+</string>
+    </property>
     <widget class="QComboBox" name="notelivedevice">
      <property name="geometry">
       <rect>
@@ -2036,6 +2166,66 @@ QComboBox::down-arrow
     </widget>
    </widget>
    <widget class="QWidget" name="controlDeviceView">
+    <property name="styleSheet">
+     <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	padding-right: 7px;
+}
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 65px;
+	min-height: 25px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+	min-width: 65px;
+
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+</string>
+    </property>
     <widget class="QSpinBox" name="cc">
      <property name="geometry">
       <rect>
@@ -2203,6 +2393,66 @@ QComboBox::down-arrow
     </widget>
    </widget>
    <widget class="QWidget" name="bankDeviceView">
+    <property name="styleSheet">
+     <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	padding-right: 7px;
+}
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 65px;
+	min-height: 25px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+	min-width: 65px;
+
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+</string>
+    </property>
     <widget class="QComboBox" name="bankdevice">
      <property name="geometry">
       <rect>
@@ -2370,6 +2620,66 @@ QComboBox::down-arrow
     </widget>
    </widget>
    <widget class="QWidget" name="programDeviceView">
+    <property name="styleSheet">
+     <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	padding-right: 7px;
+}
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 65px;
+	min-height: 25px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+	min-width: 65px;
+
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+</string>
+    </property>
     <widget class="QComboBox" name="programdevice">
      <property name="geometry">
       <rect>
@@ -2506,6 +2816,66 @@ QComboBox::down-arrow
     </widget>
    </widget>
    <widget class="QWidget" name="bendDeviceView">
+    <property name="styleSheet">
+     <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	padding-right: 7px;
+}
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 65px;
+	min-height: 25px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+	min-width: 65px;
+
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+</string>
+    </property>
     <widget class="QSpinBox" name="bendchannel">
      <property name="geometry">
       <rect>
@@ -2642,6 +3012,66 @@ QComboBox::down-arrow
     </widget>
    </widget>
    <widget class="QWidget" name="mmcDeviceView">
+    <property name="styleSheet">
+     <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	padding-right: 7px;
+}
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 65px;
+	min-height: 25px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+	min-width: 65px;
+
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+</string>
+    </property>
     <widget class="QComboBox" name="mmcdevice">
      <property name="geometry">
       <rect>
@@ -2855,6 +3285,66 @@ QComboBox::down-arrow
     </widget>
    </widget>
    <widget class="QWidget" name="aftertouchDeviceView">
+    <property name="styleSheet">
+     <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	padding-right: 7px;
+}
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 65px;
+	min-height: 25px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+	min-width: 65px;
+
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+</string>
+    </property>
     <widget class="QComboBox" name="aftertouchdevice">
      <property name="geometry">
       <rect>
@@ -2991,6 +3481,66 @@ QComboBox::down-arrow
     </widget>
    </widget>
    <widget class="QWidget" name="polyDeviceView">
+    <property name="styleSheet">
+     <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	padding-right: 7px;
+}
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 65px;
+	min-height: 25px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+	min-width: 65px;
+
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+</string>
+    </property>
     <widget class="QSpinBox" name="polynote">
      <property name="geometry">
       <rect>

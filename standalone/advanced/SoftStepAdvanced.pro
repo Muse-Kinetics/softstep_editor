@@ -56,7 +56,8 @@ SOURCES +=      main.cpp\
     hosted/navdatacooker.cpp \
     hosted/staterecall.cpp \
     copypastehandler.cpp \
-    tableinterface.cpp
+    tableinterface.cpp \
+    scrolleventfilter.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -97,7 +98,8 @@ HEADERS  +=     mainwindow.h \
     hosted/navdatacooker.h \
     hosted/staterecall.h \
     copypastehandler.h \
-    tableinterface.h
+    tableinterface.h \
+    scrolleventfilter.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \

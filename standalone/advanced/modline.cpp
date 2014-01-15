@@ -592,6 +592,19 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     }
 }
 
+void Modline::slotDeleteModline(int num, bool disable)
+{
+    qDebug() << QString("slotDeleteModline called: %1 %2 %3").arg(modlineInstance).arg(num).arg(disable);
+    if(modlineInstance == num - 1)
+    {
+        //modlineForm->enable->setEnabled(disable);
+        modlineForm->enable->setChecked(disable);
+        qDebug() << "checked" << disable << num;
+
+        emit signalCheckSavedState();
+    }
+}
+
 void Modline::slotRecallDestinationMenu()
 {
     //set the device view to change based on what is selected in the destination menu

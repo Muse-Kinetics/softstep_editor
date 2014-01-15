@@ -174,6 +174,16 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
 
     }
+    
+    foreach(QAbstractSpinBox *spinbox, this->findChildren<QAbstractSpinBox *>())
+    {
+        spinbox->installEventFilter(&scrollEventFilter);
+    }
+
+    foreach(QComboBox *combobox, this->findChildren<QComboBox *>())
+    {
+        combobox->installEventFilter(&scrollEventFilter);
+    }
 
 }
 
@@ -414,6 +424,14 @@ void MainWindow::slotConnectInterfaces()
         for(int m = 0; m < 6; m++)
         {
             connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), key[k]->modline[m], SLOT(slotRecallPreset(QVariantMap, QVariantMap)));
+        }
+    }
+    
+    for(int k = 0; k < 10; k++)
+    {
+        for(int m = 0; m < 6; m++)
+        {
+            connect(key[k], SIGNAL(signalDeleteModline(int,bool)), key[k]->modline[m], SLOT(slotDeleteModline(int,bool)));
         }
     }
 
@@ -1417,7 +1435,7 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
 {
     //qDebug() << "slotLockoutKeyPressedReleased called from MainWindow" << keyNumber << pressedReleased;
 
-    for(int i = 0; i < 10; i++)
+    /*for(int i = 0; i < 10; i++)
     {
         //If key sending message is being pressed
         if(pressedReleased) // pressed == TRUE
@@ -1447,5 +1465,5 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
         }
 
         //qDebug() << key[i]->dataCooker.lockoutKeysPressed;
-    }
+    }*/
 }
