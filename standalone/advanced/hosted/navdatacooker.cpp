@@ -85,6 +85,8 @@ void NavDataCooker::slotSetSource(QString source, int modlineInstance)
 
 void NavDataCooker::slotUpdateVals(int cc, int val)
 {
+    val *= globalGain;
+
     if(cc >= keySensorBaseCcMap && cc <= keySensorBaseCcMap + 3)
     {
         if(cc == keySensorBaseCcMap)
@@ -481,6 +483,7 @@ int NavDataCooker::navEFootOn()
         return 0;
     }
 }
+
 //----------------------------------------------- Triggers
 //--------------- North
 void NavDataCooker::navNTrig()

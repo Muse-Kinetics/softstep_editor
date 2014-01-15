@@ -484,6 +484,9 @@ void NavKey::slotSetPresetName(QString name)
 
 void NavKey::slotSetAlphaNumSettings()
 {
+
+    qDebug() << navKeyWindowForm->navpadmode_modline->isChecked();
+
     //If in nav pad is in modline mode
     if(navKeyWindowForm->navpadmode_modline->isChecked())
     {

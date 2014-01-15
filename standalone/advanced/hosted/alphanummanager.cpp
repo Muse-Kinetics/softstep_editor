@@ -194,6 +194,11 @@ void AlphaNumManager::slotOpenParamDisplay()
     paramDisplay = true;
 }
 
+void AlphaNumManager::slotCloseParamDisplay()
+{
+    paramDisplay = false;
+}
+
 void AlphaNumManager::slotDrainFIFO()
 {
     if(!packetFIFOList.size())

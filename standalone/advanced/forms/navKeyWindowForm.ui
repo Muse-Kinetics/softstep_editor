@@ -643,11 +643,6 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
    </item>
    <item>
     <property name="text">
-     <string>Initial/Return</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
      <string>Immed Param</string>
     </property>
    </item>

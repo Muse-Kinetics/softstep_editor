@@ -48,6 +48,7 @@ public slots:
 
     //---------------------- Gates
     void slotOpenParamDisplay();
+    void slotCloseParamDisplay();
 
     void slotDrainFIFO();
 

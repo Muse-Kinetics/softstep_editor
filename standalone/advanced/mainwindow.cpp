@@ -339,6 +339,9 @@ void MainWindow::slotConnectInterfaces()
             connect(&key[k]->dataCooker, SIGNAL(signalThisKeyPressed(int)), &key[l]->alphaNumManager, SLOT(slotDisplayKeyName(int)));
             connect(&key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), &key[l]->alphaNumManager, SLOT(slotKeyOff(int)));
         }
+
+        //Reset nav "once" display mode
+        connect(&key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), &navKey->alphaNumManager, SLOT(slotCloseParamDisplay()));
     }
     //nav pad
     connect(midiParse, SIGNAL(signalUpdateSensor(int,int)), &navKey->dataCooker, SLOT(slotUpdateVals(int,int)), Qt::DirectConnection);
