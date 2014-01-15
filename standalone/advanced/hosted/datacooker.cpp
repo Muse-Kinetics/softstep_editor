@@ -162,6 +162,8 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     previousKeyPressed[0] = -1;
     previousKeyPressed[1] = -1;
 
+    globalGain = 1.0;
+
 }
 
 void DataCooker::slotSetSource(QString source, int modlineInstance)
@@ -176,6 +178,8 @@ void DataCooker::slotSetSource(QString source, int modlineInstance)
 
 void DataCooker::slotUpdateVals(int cc, int val)
 {
+    val *= globalGain;
+
     if(cc >= keySensorBaseCcMap[keyNum] && cc <= keySensorBaseCcMap[keyNum] + 3)
     {
         //------------------------------------------------- Update Values -------------------------------------------------//
