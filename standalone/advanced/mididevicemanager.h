@@ -112,6 +112,9 @@ signals:
     //Standalone pedal cal
     void signalStopStandaloneCalibration();
     void signalStartStandaloneCalibration();
+
+    void signalPresetsSent();
+    void signalSettingsSent();
     
 public slots:
     void slotUpdateFirmware();
@@ -136,6 +139,8 @@ public slots:
     //--------------------------- One-off sysex messages
     void slotSceneChangeOnOff(bool onOff);
     void slotBackLightOnOff(bool onOff);
+
+
 
 };
 #else

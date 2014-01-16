@@ -458,13 +458,24 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     //qDebug() << "image" << image << "imageLength" << imageLength;
     //qDebug() << "settings" << settings << "settingsLength" << settingsLength;
 
-    emit signalSendSysEx(QString("standalone presets image"), image, imageLength, QString("SSCOM Port 1"));
-    qDebug("freeing image");
-    free(image);
 
-    emit signalSendSysEx(QString("standalone settings image"), settings, settingsLength, QString("SSCOM Port 1"));
+    emit signalSendSysEx(QString("settings image"), settings, settingsLength, QString("SSCOM Port 1"));
+
+}
+
+void SysExComposer::slotSettingsSent()
+{
     qDebug("freeing settings");
     free(settings);
+
+    emit signalSendSysEx(QString("presets image"), image, imageLength, QString("SSCOM Port 1"));
+}
+
+void SysExComposer::slotPresetsSent()
+{
+    qDebug() << "SysEx Composer -- Presets Sent";
+    qDebug("freeing image");
+    free(image);
 
     //sysex message complete
     emit signalUpdateComplete();

@@ -381,6 +381,18 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char* bytes, i
             //qDebug() << "sysEx msg bytes left:" << bytes;
         }
 
+        if(messageID == "presets image")
+        {
+            qDebug() << "MDM -- Presets sent";
+            emit signalPresetsSent();
+        }
+
+        if(messageID == "settings image")
+        {
+            qDebug() << "MDM -- Settings sent";
+            emit signalSettingsSent();
+        }
+
     }
     else
     {

@@ -153,6 +153,8 @@ public slots:
 
     //-------------- Standalone Preset Updating / Sending
     void slotUpdatePresets();
+    void slotDisconnectUpdate();
+    void slotConnectUpdate();
 
 private:
     Ui::MainWindow *ui;

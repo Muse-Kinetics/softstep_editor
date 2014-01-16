@@ -40,6 +40,9 @@ public slots:
     void    slotGetConnectedVersion(QByteArray);
     void    slotGetEmbeddedVersion();
     void    slotUpdateFirmware();
+
+    void    slotSettingsSent();
+    void    slotPresetsSent();
 };
 
 #endif // SYSEXCOMPOSER_H

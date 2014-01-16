@@ -647,10 +647,18 @@ void MainWindow::slotConnectInterfaces()
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //Update Presets Button
-    connect(ui->update, SIGNAL(clicked()), this, SLOT(slotUpdatePresets()));
+    connect(ui->update, SIGNAL(clicked()), this, SLOT(slotDisconnectUpdate()));
+    //connect(ui->update, SIGNAL(clicked()), this, SLOT(slotUpdatePresets()));
 
     //Send SysEx from sysexComposer
     connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), midiDeviceManager, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
+
+    //Standalone Download
+    connect(midiDeviceManager, SIGNAL(signalSettingsSent()), sysExComposer, SLOT(slotSettingsSent()));
+    connect(midiDeviceManager, SIGNAL(signalPresetsSent()), sysExComposer, SLOT(slotPresetsSent()));
+
+    //Signal Update Complete
+    connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectUpdate()));
 }
 
 void MainWindow::slotInitMenuBar()
@@ -1443,7 +1451,7 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
 {
     //qDebug() << "slotLockoutKeyPressedReleased called from MainWindow" << keyNumber << pressedReleased;
 
-    /*for(int i = 0; i < 10; i++)
+    for(int i = 0; i < 10; i++)
     {
         //If key sending message is being pressed
         if(pressedReleased) // pressed == TRUE
@@ -1473,5 +1481,18 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
         }
 
         //qDebug() << key[i]->dataCooker.lockoutKeysPressed;
-    }*/
+    }
+}
+
+void MainWindow::slotDisconnectUpdate()
+{
+    ui->update->setEnabled(false);
+    disconnect(ui->update, SIGNAL(clicked()), this, SLOT(slotDisconnectUpdate()));
+    slotUpdatePresets();
+}
+
+void MainWindow::slotConnectUpdate()
+{
+    connect(ui->update, SIGNAL(clicked()), this, SLOT(slotDisconnectUpdate()));
+    ui->update->setEnabled(true);
 }
