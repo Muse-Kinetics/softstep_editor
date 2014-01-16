@@ -55,12 +55,12 @@ void CopyPasteHandler::slotPastePreset()
             if(presetCopiedMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
             {
                 presetCopiedMap.insert(i.key(), "SoftStep Share");
-                //qDebug() << "SSCOM Port 1 has been changed to SoftStep Share";
+                //qDebug() << "SSCOM Port 1 has been changed to SoftStep Share" << i.key();
             }
             else if(presetCopiedMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
             {
                 presetCopiedMap.insert(i.key(), "SSCOM Port 1");
-                //qDebug() << "SoftStep Share has been changed to SSCOM Port 1";
+                //qDebug() << "SoftStep Share has been changed to SSCOM Port 1" << i.key();
             }
         }
     }

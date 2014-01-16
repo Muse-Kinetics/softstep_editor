@@ -1221,7 +1221,7 @@ void MainWindow::slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> external
         else
         {
             QMap<QString, MIDIEndpointRef> standaloneDevices;
-            standaloneDevices.insert("SSCOM PORT 1", NULL);
+            standaloneDevices.insert("SSCOM Port 1", NULL);
             standaloneDevices.insert("SoftStep Expander", NULL);
 
             navKey->navModline[n]->hosted_slotPopulateDeviceMenu(standaloneDevices);
