@@ -6,7 +6,7 @@
 PresetInterface::PresetInterface(QWidget *parent) :
     QWidget(parent)
 {
-    settings = new QSettings(this);
+
 
     //writeDefualtJSON();
 }

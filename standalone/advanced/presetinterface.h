@@ -29,7 +29,7 @@ public:
     QVariantMap defaultPresetMap;
     QVariantMap defaultGlobalMap;
 
-    QSettings *settings;
+
 
     QJson::Parser       parser;
     QJson::Serializer   serializer;

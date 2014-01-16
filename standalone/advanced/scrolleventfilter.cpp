@@ -6,6 +6,7 @@
 ScrollEventFilter::ScrollEventFilter(QObject *parent) :
     QObject(parent)
 {
+    toolTipsOn = true;
 }
 
 bool ScrollEventFilter::eventFilter(QObject *obj, QEvent *event)
@@ -14,11 +15,22 @@ bool ScrollEventFilter::eventFilter(QObject *obj, QEvent *event)
 
     QWidget *widget = reinterpret_cast<QWidget *>(obj);
 
+    //Scroll wheel, on combos, spinboxes
     if (!widget->underMouse() && event->type() == QEvent::Wheel)
     {
         return true;
     }
-     else {
+
+    //Tooltips
+    else if(event->type() == QEvent::ToolTip && !toolTipsOn)
+    {
+        //qDebug() << "tooltip";
+        return true;
+    }
+
+    //ELSE
+    else
+    {
         // standard event processing
         return QObject::eventFilter(obj, event);
     }

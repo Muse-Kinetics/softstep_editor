@@ -46,6 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QCoreApplication::setOrganizationName("KeithMcMillenInstruments");
     QCoreApplication::setOrganizationDomain("keithmcmillen.com");
 
+    sessionSettings = new QSettings(this);
+
     //Mainwindow Ui
     ui->setupUi(this);
     this->setWindowTitle("SoftStep Advanced Editor");
@@ -173,16 +175,18 @@ MainWindow::MainWindow(QWidget *parent) :
         widget->setAttribute(Qt::WA_MacShowFocusRect, false);
 #endif
 
+        widget->installEventFilter(&scrollEventFilter);
+
     }
     
     foreach(QAbstractSpinBox *spinbox, this->findChildren<QAbstractSpinBox *>())
     {
-        spinbox->installEventFilter(&scrollEventFilter);
+        //spinbox->installEventFilter(&scrollEventFilter);
     }
 
     foreach(QComboBox *combobox, this->findChildren<QComboBox *>())
     {
-        combobox->installEventFilter(&scrollEventFilter);
+        //combobox->installEventFilter(&scrollEventFilter);
     }
 
 }
@@ -661,6 +665,12 @@ void MainWindow::slotConnectInterfaces()
     connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectUpdate()));
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////         Menu Bar        /////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void MainWindow::slotInitMenuBar()
 {
     menubar = new QMenuBar(0);
@@ -763,7 +773,47 @@ void MainWindow::slotInitMenuBar()
     actionList.append(doc);
     help->addAction(doc);
 
+    help->addSeparator();
+
+    //Tooltips
+    if(sessionSettings->contains("toolTipsEnabled"))
+    {
+        if(sessionSettings->value("toolTipsEnabled").toBool())
+        {
+            toolTipsEnable = new QAction("Hide Tool Tips", file);
+        }
+        else
+        {
+            toolTipsEnable = new QAction("Show Tool Tips", file);
+        }
+    }
+    else
+    {
+        sessionSettings->setValue("toolTipsEnabled", true);
+        toolTipsEnable = new QAction("Hide Tool Tips", file);
+    }
+
+    connect(toolTipsEnable, SIGNAL(triggered()), this, SLOT(slotEnableDisableToolTips()));
+
+    help->addAction(toolTipsEnable);
+
     menubar->addMenu(help);
+}
+
+void MainWindow::slotEnableDisableToolTips()
+{
+    if(sessionSettings->value("toolTipsEnabled").toBool())
+    {
+        toolTipsEnable->setText("Show Tool Tips");
+        sessionSettings->setValue("toolTipsEnabled", false);
+        scrollEventFilter.toolTipsOn = false;
+    }
+    else
+    {
+        toolTipsEnable->setText("Hide Tool Tips");
+        sessionSettings->setValue("toolTipsEnabled", true);
+        scrollEventFilter.toolTipsOn = true;
+    }
 }
 
 void MainWindow::slotOpenDoc()

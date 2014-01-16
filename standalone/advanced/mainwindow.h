@@ -47,6 +47,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    QSettings *sessionSettings;
+
     SysExComposer* sysExComposer;
     PresetInterface* presetInterface;
     MidiDeviceManager* midiDeviceManager;
@@ -93,6 +95,7 @@ public:
     QAction* pasteNewPresetAct;
     QAction* copyKeyAct;
     QAction* pasteKeyAct;
+    QAction* toolTipsEnable;
 
     //Ui Elements
     Key *key[10];
@@ -120,8 +123,10 @@ public slots:
     void slotConnectElements();
     void slotDisconnectElements();
 
+    //------------- Menu Bar
     void slotInitMenuBar();
     void slotOpenDoc();
+    void slotEnableDisableToolTips();
 
     void slotUpdatePasteAvailability();
     void slotSelectedKey(int selectedKey);
