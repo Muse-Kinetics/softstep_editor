@@ -112,6 +112,12 @@ QToolTip
    <property name="toolTip">
     <string>&lt;b&gt;Key Name&lt;/b&gt;&lt;p&gt;Set the name of this key.</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit
+{
+	padding-bottom: -1px;
+}</string>
+   </property>
    <property name="maxLength">
     <number>4</number>
    </property>

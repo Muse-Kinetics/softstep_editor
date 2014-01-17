@@ -575,11 +575,13 @@ QToolButton::disabled
       <string notr="true">QLineEdit
 {
 	border: 3px solid rgb(200,0,104);
+	padding-bottom: 2px;
 }
 
 QLineEdit:focus
 {
 	border: 3px solid white;
+	padding-bottom: 2px;
 }</string>
      </property>
      <property name="text">
