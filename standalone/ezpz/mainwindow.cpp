@@ -18,6 +18,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //Mainwindow Ui
     ui->setupUi(this);
 
+    ui->connectedLabel->setText("NOT CONNECTED");
+#ifdef Q_OS_MAC
+    ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
+#else
+    ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255);");
+#endif
 
     connected = false;
 
@@ -194,7 +200,7 @@ void MainWindow::slotConnectInterfaces()
     connect(aboutForm->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //SysEx
-    connect(mdm, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)), Qt::DirectConnection);
+    connect(mdm, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
     connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString)), this, SLOT(slotReceiveVersions(int,QString, int, QString)));
 
     //----------------------------- Firmware Updating

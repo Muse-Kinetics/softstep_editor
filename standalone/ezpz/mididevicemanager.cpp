@@ -233,17 +233,12 @@ void MidiDeviceManager::slotSendSysEx(QString messageID,unsigned char* bytes, in
 
 void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
 {
-    //qDebug() << "sysex length" << sysExMessageByteArray.count();
+    qDebug() << "sysex length" << sysExMessageByteArray.count();
 
+    //---------- PRE v76 reply
     if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 91 && !queryReplied)
     {
-        qDebug() << "Got the reply" << sysExMessageByteArray.count();
-
-        for(int i = 0; i < sysExMessageByteArray.count(); i++)
-        {
-            qDebug() << "bytes" << (unsigned char)sysExMessageByteArray.at(i);
-        }
-
+        //qDebug() << "Got the reply" << sysExMessageByteArray.count();
         queryReplied = true;
 
         //qDebug() << foundBootloaderVersion;
@@ -255,7 +250,27 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
         emit signalProcessFwQueryReply(sysExMessageByteArray);
     }
 
+    //---------- POST v76 reply
+    else if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 108 && !queryReplied)
+    {
+        /*for(int i = 0; i < sysExMessageByteArray.size(); i++)
+        {
+            int x = (uint)sysExMessageByteArray.at(i);
+            QString xAsHex = QString("0x%1").arg(x, 0, 16);
+            qDebug() << xAsHex;
+        }*/
 
+        queryReplied = true;
+
+        emit signalProcessFwQueryReply(sysExMessageByteArray);
+
+    }
+
+    //If a query was sent and we got a bad reply
+    else if(!queryReplied)
+    {
+        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
+    }
 }
 
 
