@@ -145,7 +145,7 @@ public slots:
     void slotPopulateSourceDestLists();
     void slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> externalDevices);
 
-    void slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion);
+    void slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion, int hardware);
 
     void slotRecallPresetFromSetlist(QString presetName);
 

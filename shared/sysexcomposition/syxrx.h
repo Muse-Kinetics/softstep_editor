@@ -13,20 +13,21 @@
 extern int sysex_rx_completion_type;
 
 enum {
-	BLOCK_TYPE_REQUEST_FW_VERSION,
-	BLOCK_TYPE_REQUEST_FW,
-	BLOCK_TYPE_ALPHANUMERIC,
-	BLOCK_TYPE_LED,
-	BLOCK_TYPE_EL,
-	BLOCK_TYPE_FW_HEADER,
-	BLOCK_TYPE_FW_BLOCK_HEADER,
-	BLOCK_TYPE_FW_DATA,
-	BLOCK_TYPE_PAD,
-	BLOCK_TYPE_STANDALONE,
-	BLOCK_TYPE_SEGMENT_MASK,
-	BLOCK_TYPE_PEDAL,
-	BLOCK_TYPE_DEBUG_MESSAGE,
-	PACKET_TYPE_COUNT
+    BLOCK_TYPE_REQUEST_FW_VERSION,
+    BLOCK_TYPE_REQUEST_FW,
+    BLOCK_TYPE_ALPHANUMERIC,
+    BLOCK_TYPE_LED,
+    BLOCK_TYPE_EL,
+    BLOCK_TYPE_FW_HEADER,
+    BLOCK_TYPE_FW_BLOCK_HEADER,
+    BLOCK_TYPE_FW_DATA,
+    BLOCK_TYPE_PAD,
+    BLOCK_TYPE_STANDALONE,
+    BLOCK_TYPE_SEGMENT_MASK,
+    BLOCK_TYPE_PEDAL,
+    BLOCK_TYPE_DEBUG_MESSAGE,
+    BLOCK_TYPE_MISC_INFO, // ********************* New Block Type *****************
+    PACKET_TYPE_COUNT
 };
 enum {CORE_SX_START,CORE_SX_HEADER,CORE_SX_PACKET_START_SEARCH,CORE_SX_PACKET_PREAMBLE,CORE_SX_PACKET_DATA};
 typedef union {
@@ -49,9 +50,13 @@ struct FW_HEADER {
 	struct {unsigned char bank,block_num_last;unsigned short buildnum,length,crc;union FW_STATUS fw_status;} PACK_INLINE fixed;
 	char versionString[20];
 };
+
+struct MISC_INFO { unsigned char hardware_type,reserved[3];};  // new structure
+
 struct SYSEX_DATA {
 	union {
 		struct FW_HEADER fw_header;
+        struct MISC_INFO misc_info;
 		char debug_msg[200];
 	} u;
 };
@@ -92,4 +97,5 @@ unsigned char null_open(void);
 void null_close(unsigned char success);
 void fw_header_close(unsigned char success);
 void debug_msg_close(unsigned char success);
+void misc_info_close(unsigned char success);
 #endif

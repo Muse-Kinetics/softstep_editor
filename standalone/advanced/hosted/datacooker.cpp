@@ -164,6 +164,8 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
 
     globalGain = 1.0;
 
+    isSS2 = false;
+
 }
 
 void DataCooker::slotSetSource(QString source, int modlineInstance)
@@ -442,7 +444,7 @@ void DataCooker::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
         //Trying to remove key from lockout list that is not present
         else
         {
-            qDebug() << "ERROR: trying to remove key from lockout list that is not present";
+            //qDebug() << "ERROR: trying to remove key from lockout list that is not present";
         }
     }
 }

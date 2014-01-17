@@ -32,7 +32,7 @@ public:
 
 signals:
     void    signalSendSysEx(QString messageID, unsigned char* message, int messageLength, QString destinationName);
-    void    signalSendBuildNums(int,QString, int, QString);
+    void    signalSendBuildNums(int,QString, int, QString, int hardware);
     void    signalUpdateComplete();
 
 public slots:

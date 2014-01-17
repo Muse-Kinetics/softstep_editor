@@ -18,19 +18,20 @@ PACKET_DATA_INFO packet_data_info;
 PACKET_DATA pd;
 
 const SYSEX_HANDLER sysex_handlers[] = {
-	0,0,0,0,NULL,// 0 request_fw_version,
-	0,0,0,0,NULL,// 1 request_fw_update,
-	0,0,0,0,NULL,// 2 digit display
-	0,0,0,0,NULL,// 3 leds
-	0,0,0,0,NULL,// 4 EL
-	&sysex_data,sizeof(struct SYSEX_DATA),null_open,null_datum,fw_header_close,// 5
-	0,0,null_open,null_datum,null_close,// 6 EL
-	0,0,null_open,null_datum,null_close,// 7 EL
-	0,0,0,0,NULL,// 8 EL
-	0,0,0,0,NULL,// 9 EL
-	0,0,0,0,NULL,// 10 EL
-	0,0,0,0,NULL,// 11 EL
-	&sysex_data,sizeof(struct SYSEX_DATA),null_open,null_datum,debug_msg_close,// 12
+    0,0,0,0,NULL,// 0 request_fw_version,
+    0,0,0,0,NULL,// 1 request_fw_update,
+    0,0,0,0,NULL,// 2 digit display
+    0,0,0,0,NULL,// 3 leds
+    0,0,0,0,NULL,// 4 EL
+    &sysex_data,sizeof(struct SYSEX_DATA),null_open,null_datum,fw_header_close,// 5
+    0,0,null_open,null_datum,null_close,// 6 EL
+    0,0,null_open,null_datum,null_close,// 7 EL
+    0,0,0,0,NULL,// 8 EL
+    0,0,0,0,NULL,// 9 EL
+    0,0,0,0,NULL,// 10 EL
+    0,0,0,0,NULL,// 11 EL
+    &sysex_data,sizeof(struct SYSEX_DATA),null_open,null_datum,debug_msg_close,// 12
+    &sysex_data,sizeof(struct SYSEX_DATA),null_open,null_datum,misc_info_close,// 13  ****** new entry *********
     
 };
 
@@ -51,6 +52,29 @@ int sysex_rx_completion_type = 0;
 unsigned char core_sx_state;
 struct {unsigned char index_in,index_out,buf[SX_ENCODE_LEN+1];} core_sx_decode;
 
+void misc_info_close(unsigned char success)
+{
+    if (success)
+    {
+        switch (sysex_data.u.misc_info.hardware_type)
+        {
+            case 0:     // softstep 1
+            post("................... ss 1\n");
+                break;
+            case 1:     // softstep 2
+            post("................... ss 2\n");
+                break;
+        }
+
+    }
+    else
+    {
+        post("success %i", success);
+    }
+
+    fflush(stdout);
+
+}
 
 void debug_msg_close(unsigned char success) {
     //	int i;

@@ -55,6 +55,16 @@ MainWindow::MainWindow(QWidget *parent) :
     QRect screenGeometry = QApplication::desktop()->availableGeometry();
     this->setGeometry(screenGeometry.width() / 4, 50, MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
 
+    ui->connectedLabel->setText("SOFTSTEP NOT CONNECTED");
+    ui->connectedLabel->setFixedSize(162, 22);
+    ui->connectedLabel->setToolTip("[ o_0 ]");
+    ui->connectedLabel->move(529, 81);
+#ifdef Q_OS_MAC
+    ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
+#else
+    ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
+#endif
+
     disableWidget->hide();
     disableWidget->setGeometry(0,0,MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
     disableWidget->setStyleSheet("background: rgba(0,0,0,200);");
@@ -544,7 +554,7 @@ void MainWindow::slotConnectInterfaces()
 
     //Version Checking
     connect(midiDeviceManager, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
-    connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString)), this, SLOT(slotReceiveVersions(int,QString, int, QString)));
+    connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString, int)), this, SLOT(slotReceiveVersions(int,QString, int, QString, int)));
 
 
 
@@ -925,13 +935,18 @@ void MainWindow::slotConnected(bool connection)
     }
 }
 
-void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
+void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion, int hardware)
 {
     //qDebug() << "slotReceiveVersions";
     connectedVersionString = connectedVersion;
     connectedVersionInt = connected;
 
     aboutForm->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
+
+    for(int i = 0; i < 10; i++)
+    {
+        key[i]->dataCooker.isSS2 = (bool)hardware;
+    }
 
     //First reiterate tether / standalone messages
 
@@ -1526,7 +1541,7 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
             //Trying to remove key from lockout list that is not present
             else
             {
-                qDebug() << "WARNING: trying to remove key from lockout list that is not present";
+                //qDebug() << "WARNING: trying to remove key from lockout list that is not present";
             }
         }
 

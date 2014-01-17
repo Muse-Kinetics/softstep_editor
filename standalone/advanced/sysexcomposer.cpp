@@ -23,6 +23,7 @@ SysExComposer::SysExComposer(QWidget *parent) :
 {
     slotGetEmbeddedVersion();
     isSoftStep2 = false;
+    connectedBuildNum = -1;
 }
 
 void SysExComposer::slotGetEmbeddedVersion()
@@ -491,13 +492,28 @@ void SysExComposer::slotGetConnectedVersion(QByteArray msg)
         softstep_midi_process(x,&x->version_connected, msg.at(i));
     }
 
+    //If POST v76 firmware
+    if(msg.size() > 91)
+    {
+        if(msg.at(97))
+        {
+            qDebug() << "SS2";
+            isSoftStep2 = true;
+        }
+        else
+        {
+            qDebug() << "SS1";
+            isSoftStep2 = false;
+        }
+    }
+
     connectedBuildNum = x->version_connected.buildnum;
     connectedVersion = QString(x->version_connected.version);
 
-    //qDebug() << "_____ Connected:" << connectedBuildNum;
-    //qDebug() << "______ Embedded:" << embeddedbuildNum;
+    qDebug() << "_____ Connected:" << connectedBuildNum;
+    qDebug() << "______ Embedded:" << embeddedbuildNum;
 
-    emit signalSendBuildNums(connectedBuildNum, connectedVersion, embeddedbuildNum, embeddedVersion);
+    emit signalSendBuildNums(connectedBuildNum, connectedVersion, embeddedbuildNum, embeddedVersion, (uint)isSoftStep2);
 }
 
 void SysExComposer::slotUpdateFirmware()

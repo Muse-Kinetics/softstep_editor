@@ -485,7 +485,7 @@ void NavKey::slotSetPresetName(QString name)
 void NavKey::slotSetAlphaNumSettings()
 {
 
-    qDebug() << navKeyWindowForm->navpadmode_modline->isChecked();
+    //qDebug() << navKeyWindowForm->navpadmode_modline->isChecked();
 
     //If in nav pad is in modline mode
     if(navKeyWindowForm->navpadmode_modline->isChecked())
@@ -563,7 +563,7 @@ void NavKey::slotCounter(QString whatToDo, int val)
 
 void NavKey::slotDisplayProgramChangeDecade(int decade)
 {
-    qDebug() << "decade" << decade << dataCooker.navPadMode;
+    //qDebug() << "decade" << decade << dataCooker.navPadMode;
 
     if(decade < 10)
     {
