@@ -387,8 +387,7 @@ void MainWindow::slotDisplaySaveState(bool dirty)
 
 void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
 {
-    qDebug() << "slotReceiveVersions called connected:" << connectedVersion << connected;
-
+    //qDebug() << "slotReceiveVersions called connected:" << connectedVersion << connected;
     connectedVersionString = connectedVersion;
     connectedVersionInt = connected;
 
@@ -406,14 +405,16 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
         //qDebug() << "_____ Your firmware version is out of date _____";
     }
 
+    mdm->slotStandaloneOn();
+
     //End of sysex inquiry process, put board into standalone mode
-    emit signalStandaloneOn();
+    //emit signalStandaloneOn();
 }
 
 void MainWindow::slotConnected(bool connection)
 {
 
-    qDebug() << "slotConnected Called" << connection;
+    //qDebug() << "slotConnected Called" << connection;
 
     if(connection)
     {

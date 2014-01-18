@@ -867,24 +867,6 @@ void MainWindow::slotSelectedKey(int selectedKey)
 
 void MainWindow::slotConnected(bool connection)
 {
-    /*if(connection)
-    {
-        ui->connectedLabel->setText("CONNECTED");
-        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");
-        //ui->update->setText("SAVE + SEND");
-    }
-    else
-    {
-        //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
-        //ui->connectedLabel->setText("Not Connected");
-        ui->connectedLabel->setText("NOT CONNECTED");
-        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
-        //ui->update->setText("SAVE");
-        //aboutForm->found->setText("Not Connected");
-    }*/
-
-    //qDebug() << "slotConnected Called" << connection;
-
     if(connection)
     {
         ui->connectedLabel->setText("SOFTSTEP CONNECTED");
@@ -899,16 +881,6 @@ void MainWindow::slotConnected(bool connection)
         //ui->update->setText("SAVE + SEND");
         aboutForm->found->setText(QString("%1 %2").arg(connectedVersionString).arg(connectedVersionInt));
         //presetInterface->connected = true;
-
-        //Resend tether/standalone commands to board
-        if(mode == "hosted")
-        {
-            //midiDeviceManager->slotHostedOnOff(true);
-        }
-        else
-        {
-            //midiDeviceManager->slotHostedOnOff(false);
-        }
 
         updatefw->setEnabled(true);
 

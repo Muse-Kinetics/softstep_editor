@@ -27,17 +27,21 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
 
 void MidiDeviceManager::slotStandaloneOn()
 {
-    //Post VK2A
     sysexFIFOClock->stop();
     sysexFIFOsQueue.clear();
+
 
     sysexFIFOsQueue.append(_fw_tether_off);
     sysexFIFOsQueue.append(_fw_standalone_on);
     sysexFIFOsQueue.append(_fw_scenechange_on_persist);
     sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
+    sysexFIFOsQueue.append(_fw_nav_standalone_on);
 
-    //VK2A
+
+    //sysexFIFOsQueue.append(_fw_tether_off);
     //sysexFIFOsQueue.append(_fw_nav_tether_off);
+    //sysexFIFOsQueue.append(_fw_standalone_on);
+
 
     sysexFIFOClock->start(100);
 }
@@ -67,7 +71,6 @@ void MidiDeviceManager::createAppMidiClient()
 
 bool MidiDeviceManager::connectSource()
 {
-
     if(getSource() != -1)
     {
         qDebug() << "connect source called";
@@ -78,15 +81,10 @@ bool MidiDeviceManager::connectSource()
 
         queryReplied = false;
         slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
-        //emit signalConnected(true); -- called later after devices reply is received
         return true;
     }
     else
     {
-        foundBootloaderVersion = QString("Found Bootloader Version: Not Connected\n");
-        foundFirmwwareVersion = QString("Found Firmware Version: Not Connected\n");
-
-        //qDebug() << "Matching Source: " << sourceName << " NOT Found!";
         emit signalConnected(false);
         return false;
     }
@@ -171,8 +169,10 @@ QString MidiDeviceManager::cFStringRefToQString(CFStringRef ref)
 void MidiDeviceManager::slotSendSysEx(QString messageID,unsigned char* bytes, int len, QString destinationName)
 {
 
-    if(int dest = getDestination())
+    if(getDestination() > -1)
     {
+        int dest = getDestination();
+
         //Creat char array to hold sysex bytes
         //unsigned char* sysExCharData = new unsigned char(sysExMessageByteArray.size());
 
