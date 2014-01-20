@@ -495,7 +495,7 @@ void SysExComposer::slotGetConnectedVersion(QByteArray msg)
     //If POST v76 firmware
     if(msg.size() > 91)
     {
-        if(msg.at(97))
+        if(msg.at(107))
         {
             qDebug() << "SS2";
             isSoftStep2 = true;

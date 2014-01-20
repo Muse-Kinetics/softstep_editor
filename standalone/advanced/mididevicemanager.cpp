@@ -420,14 +420,14 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
     }
 
     //---------- POST v76 reply
-    else if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 108 && !queryReplied)
+    else if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 128 && !queryReplied)
     {
-        /*for(int i = 0; i < sysExMessageByteArray.size(); i++)
+        for(int i = 0; i < sysExMessageByteArray.size(); i++)
         {
             int x = (uint)sysExMessageByteArray.at(i);
             QString xAsHex = QString("0x%1").arg(x, 0, 16);
             qDebug() << xAsHex;
-        }*/
+        }
 
         queryReplied = true;
 
@@ -438,7 +438,7 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
     //If a query was sent and we got a bad reply
     else if(!queryReplied)
     {
-        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
+        //slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
     }
 }
 
