@@ -438,7 +438,7 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
     //If a query was sent and we got a bad reply
     else if(!queryReplied)
     {
-        //slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
+        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
     }
 }
 
