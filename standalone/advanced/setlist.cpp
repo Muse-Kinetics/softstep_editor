@@ -9,7 +9,7 @@ Setlist::Setlist(QWidget *parent) :
     setlistWidget(new QWidget(this))
 {
     setlistWidget->hide();
-    setlistWidget->setWindowFlags(Qt::Tool | Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint| Qt::WindowStaysOnTopHint);
+    setlistWidget->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint);
     //setlistWidget = new QWidget();
     setlistForm->setupUi(setlistWidget);
 

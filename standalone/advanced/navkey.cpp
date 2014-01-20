@@ -42,7 +42,7 @@ NavKey::NavKey(QWidget *parent) :
     navKeyWindowWidget->setGeometry(170, (screenGeometry.height() / 2) + 150, NAVWINDOW_SM_WIDTH, NAVWINDOW_HEIGHT);
     navKeyWindowWidget->setWindowTitle(QString("Nav Pad Modulation"));
     navKeyWindowWidget->hide();
-    navKeyWindowWidget->setWindowFlags(Qt::Tool | Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint| Qt::WindowStaysOnTopHint);
+    navKeyWindowWidget->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint);
 
     //what's in the nav pad box?
     connect(navBoxForm->openNavWindow, SIGNAL(clicked()), this, SLOT(slotOpenWindow()));
