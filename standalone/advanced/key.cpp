@@ -65,7 +65,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     keyWindowWidget->setGeometry(20 + (keyInstance * 15), (screenGeometry.height() / 2) + (keyInstance * 15), KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
     keyWindowWidget->setWindowTitle(QString("Key %1 Modulation").arg((keyInstance+1)%10));
     //keyWindowWidget->setParent(this);
-    keyWindowWidget->setWindowFlags(Qt::Tool | Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint| Qt::WindowStaysOnTopHint);
+    keyWindowWidget->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint);
 
     //What's in the Key Box?
     connect(keyBoxForm->openWindow,SIGNAL(clicked()), this, SLOT(slotOpenWindow()));
