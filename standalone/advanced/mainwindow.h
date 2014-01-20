@@ -109,6 +109,8 @@ public:
     //Key Lockout
     QList<int> lockoutKeysPressed;
 
+    void closeEvent(QCloseEvent *);
+
 signals:
     void signalSaveAs(QString presetName);
     void signalSetMode(QString mode);

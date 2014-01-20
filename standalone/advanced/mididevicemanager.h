@@ -91,6 +91,8 @@ public:
 
     //Standalone pedal calibration
     QString calibrationPhase;
+
+    bool ioGate;
     
 signals:
     void signalFirmwareOutOfDate(QString expectedBoot, QString foundBoot, QString expectedFirmware, QString foundFirmware);

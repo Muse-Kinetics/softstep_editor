@@ -16,6 +16,8 @@ MIDIEndpointRef* midiInputSourcePointers;
 MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     QWidget(parent)
 {
+    ioGate = true;
+
     mode = "standalone";
 
     sysexFIFOClock = new QTimer(this);
@@ -676,80 +678,86 @@ void midiSystemChanged(const MIDINotification *message, void *refCon)
 
 void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon){
 
-    //qDebug() << "incoming midi";
-    //iterate through midi packets and process according to type
-    const MIDIPacket *packet = &pktlist->packet[0];
-
-    //for number packets in packet list
-    for(int i =0; i < pktlist->numPackets; i++)
+    if(callbackClassPointer->ioGate)
     {
+        //qDebug() << "incoming midi";
+        //iterate through midi packets and process according to type
+        const MIDIPacket *packet = &pktlist->packet[0];
 
-        //for length of packet
-        for(int j = 0; j < packet->length; j++)
+        //for number packets in packet list
+        for(int i =0; i < pktlist->numPackets; i++)
         {
-            //If a SysEx Start Byte, set filter switch
-            if(packet->data[j] == 240)
-            {
-                callbackClassPointer->isSysEx = true;
-            }
 
-            //If a SysEx End Byte, set filter switch off and send last bytes
-            else if (packet->data[j] == 247)
+            //for length of packet
+            for(int j = 0; j < packet->length; j++)
             {
-                callbackClassPointer->isSysEx = false;
-                callbackClassPointer->sysExMessage.append(packet->data[j]);
-                //qDebug() << "----- SysEx In ----- :" << packet->data[j];
-
-                callbackClassPointer->slotProcessSysEx(callbackClassPointer->sysExMessage);
-                callbackClassPointer->sysExMessage.clear();
-            }
-
-            //Processes SysEx
-            if(callbackClassPointer->isSysEx)
-            {
-                callbackClassPointer->sysExMessage.append(packet->data[j]);
-                //qDebug() << "----- SysEx In ----- :" << packet->data[j];
-            }
-
-            else if(packet->data[j] != 247)
-            {
-                //qDebug() << "MIDI Channel Event: " << packet->data[j];
-                if(callbackClassPointer->mode == "hosted")
+                //If a SysEx Start Byte, set filter switch
+                if(packet->data[j] == 240)
                 {
-                    //qDebug() << i;
-                    callbackClassPointer->hosted_slotParsePacket(packet);
-                    break;
+                    callbackClassPointer->isSysEx = true;
+                }
+
+                //If a SysEx End Byte, set filter switch off and send last bytes
+                else if (packet->data[j] == 247)
+                {
+                    callbackClassPointer->isSysEx = false;
+                    callbackClassPointer->sysExMessage.append(packet->data[j]);
+                    //qDebug() << "----- SysEx In ----- :" << packet->data[j];
+
+                    callbackClassPointer->slotProcessSysEx(callbackClassPointer->sysExMessage);
+                    callbackClassPointer->sysExMessage.clear();
+                }
+
+                //Processes SysEx
+                if(callbackClassPointer->isSysEx)
+                {
+                    callbackClassPointer->sysExMessage.append(packet->data[j]);
+                    //qDebug() << "----- SysEx In ----- :" << packet->data[j];
+                }
+
+                else if(packet->data[j] != 247)
+                {
+                    //qDebug() << "MIDI Channel Event: " << packet->data[j];
+                    if(callbackClassPointer->mode == "hosted")
+                    {
+                        //qDebug() << i;
+                        callbackClassPointer->hosted_slotParsePacket(packet);
+                        break;
+                    }
                 }
             }
-        }
 
-        //advance packet in midi packet list
-        packet = MIDIPacketNext(packet);
+            //advance packet in midi packet list
+            packet = MIDIPacketNext(packet);
+        }
     }
 }
 
-void midiInputIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon){
-
-    //Receives midi from SoftStep Share
-    MIDIEndpointRef* epr = (MIDIEndpointRef*)srcConnRefCon;
-
-    //iterate through midi packets and process according to type
-    const MIDIPacket *packet = &pktlist->packet[0];
-
-    //for number packets in packet list
-    for(int i =0; i < pktlist->numPackets; i++)
+void midiInputIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon)
+{
+    if(callbackClassPointer->ioGate)
     {
-        //for length of packet
-        for(int j = 0; j < packet->length; j++)
+        //Receives midi from SoftStep Share
+        MIDIEndpointRef* epr = (MIDIEndpointRef*)srcConnRefCon;
+
+        //iterate through midi packets and process according to type
+        const MIDIPacket *packet = &pktlist->packet[0];
+
+        //for number packets in packet list
+        for(int i =0; i < pktlist->numPackets; i++)
         {
-            //qDebug() << "Extermal MIDI Channel Event: " << packet->data[j] << callbackClassPointer->getDisplayName(*epr);// << *string;
+            //for length of packet
+            for(int j = 0; j < packet->length; j++)
+            {
+                //qDebug() << "Extermal MIDI Channel Event: " << packet->data[j] << callbackClassPointer->getDisplayName(*epr);// << *string;
+            }
+
+            //emit pack to be parsed by midi input
+            callbackClassPointer->hosted_slotParseMidiInputPacket(packet, callbackClassPointer->getDisplayName(*epr));
+
+            //advance packet in midi packet list
+            packet = MIDIPacketNext(packet);
         }
-
-        //emit pack to be parsed by midi input
-        callbackClassPointer->hosted_slotParseMidiInputPacket(packet, callbackClassPointer->getDisplayName(*epr));
-
-        //advance packet in midi packet list
-        packet = MIDIPacketNext(packet);
     }
 }
 

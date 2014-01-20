@@ -206,6 +206,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::closeEvent(QCloseEvent *)
+{
+    midiDeviceManager->ioGate = false;
+    qDebug() << "closing...";
+    //presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
+}
+
 void MainWindow::slotSetPresetMenu(int presetNum)
 {
     ui->presetmenu->setCurrentIndex(presetNum);
