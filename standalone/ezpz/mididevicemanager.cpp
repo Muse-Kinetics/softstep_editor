@@ -251,7 +251,7 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
     }
 
     //---------- POST v76 reply
-    else if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 108 && !queryReplied)
+    else if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 128 && !queryReplied)
     {
         /*for(int i = 0; i < sysExMessageByteArray.size(); i++)
         {
