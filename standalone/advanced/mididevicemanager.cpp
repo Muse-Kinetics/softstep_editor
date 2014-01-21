@@ -177,11 +177,21 @@ void MidiDeviceManager::slotSceneChangeOnOff(bool onOff)
 
     if(onOff)
     {
+        sysexFIFOsQueue.append(_fw_tether_off);
+        sysexFIFOsQueue.append(_fw_standalone_on);
         sysexFIFOsQueue.append(_fw_scenechange_on_persist);
+        sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
+        sysexFIFOsQueue.append(_fw_nav_standalone_on);
+
     }
     else
     {
+        sysexFIFOsQueue.append(_fw_tether_off);
+        sysexFIFOsQueue.append(_fw_standalone_on);
         sysexFIFOsQueue.append(_fw_scenechange_off_persist);
+        sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
+        sysexFIFOsQueue.append(_fw_nav_standalone_on);
+
     }
 
     if(!sysexFIFOClock->isActive())

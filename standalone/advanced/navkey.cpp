@@ -292,9 +292,16 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     alphaNumManager.paramDisplay = false; //close gate initially, on preset change
     slotSetAlphaNumSettings();
-    alphaNumManager.slotPresetChangeDisplayPresetName();
+
+
+    if(mode == "hosted")
+    {
+        alphaNumManager.slotPresetChangeDisplayPresetName();
+    }
+
 
     dataCooker.slotSetCounterParams(navKeyWindowForm->counterMin->value(),navKeyWindowForm->counterMax->value(), navKeyWindowForm->counterWrap->isChecked());
+
     if(mode == "hosted")
     {
         //--------------------------------------------- Recall states from current preset
