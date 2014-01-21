@@ -61,6 +61,9 @@ public slots:
     void slotRecallPreset(int i);
     void slotRevertPreset();
 
+    void slotImportPreset();
+    void slotExportPreset();
+
     void slotUpdateClicked();
 
     void slotSetCurrentPresetToFactory();

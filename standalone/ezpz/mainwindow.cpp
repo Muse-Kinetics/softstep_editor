@@ -499,7 +499,19 @@ void MainWindow::slotInitMenuBar()
     QMenu* file = new QMenu("File");
     qDebug() << file;
     file->setObjectName("FileMenu");
-    //menubar->addMenu(file);
+
+    //------------- Import / Export -------------//
+    QAction* exportPreset = new QAction("Export Preset", file);
+    exportPreset->setObjectName("exportPreset");
+    connect(exportPreset, SIGNAL(triggered()), presetInterface, SLOT(slotExportPreset()));
+    file->addAction(exportPreset);
+
+    QAction* importPreset = new QAction("Import Preset", file);
+    importPreset->setObjectName("importPreset");
+    connect(importPreset, SIGNAL(triggered()), presetInterface, SLOT(slotImportPreset()));
+    file->addAction(importPreset);
+
+    menubar->addMenu(file);
 
     //-------------------------------------------------------------------------- Edit
     QMenu* edit = new QMenu("Edit ");
@@ -511,13 +523,13 @@ void MainWindow::slotInitMenuBar()
     copyPresetAct = new QAction("Copy Preset", edit);
     actionList.append(copyPresetAct);
     edit->addAction(copyPresetAct);
-    copyPresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
+    copyPresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_C));
     connect(copyPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyPreset()));
 
     pastePresetAct = new QAction("Paste Preset", edit);
     actionList.append(pastePresetAct);
     edit->addAction(pastePresetAct);
-    pastePresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_V));
+    pastePresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_V));
     connect(pastePresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPastePreset()));
     pastePresetAct->setDisabled(true);
 

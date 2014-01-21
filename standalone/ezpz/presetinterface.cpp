@@ -170,6 +170,100 @@ void PresetInterface::slotRevertPreset()
     }
 }
 
+void PresetInterface::slotImportPreset()
+{
+    QString filename = NULL;
+
+    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), QString("./"), tr("SoftStep Basic Editor Preset Files (*.softstepbasicpreset)"));
+
+    //If file is selected
+    if(filename != NULL)
+    {
+        //open file
+        QFile* presetFile = new QFile(filename);
+        presetFile->open(QIODevice::ReadOnly);
+
+        QByteArray presetByteArray = presetFile->readAll();
+        presetFile->close();
+
+        QVariantMap importedPresetMap = parser.parse(presetByteArray, &ok).toMap();
+
+        //--------------- Check for MISSING parameters in the Imported Preset --------------
+        slotConstructDefaultMap();
+
+        QMapIterator<QString, QVariant> i(defaultParamMap);
+        //Iterate through default map and compare with imported preset
+        while(i.hasNext())
+        {
+            i.next();
+
+            if(!importedPresetMap.contains(i.key()))
+            {
+                //if imported preset map does not contain a value in the default map, insert it
+                importedPresetMap.insert(i.key(), i.value());
+                qDebug() << "from slotImportPreset - this was MISSING:" << i.key() << i.value();
+            }
+        }
+
+        //----------- Check for EXTRA parameters in the Imported Preset -------------------
+        QMapIterator<QString, QVariant> j(importedPresetMap);
+
+        QStringList badKeys; //stores keys we need to remove from the map
+
+        while(j.hasNext())
+        {
+            j.next();
+
+            //If the default map does not contain something in the preset, add to list of bad keys
+            if(!defaultParamMap.contains(j.key()))
+            {
+                badKeys.append(j.key());
+                qDebug() << "From slotImportPreset - this was EXTRA:" << j.key() << j.value();
+            }
+        }
+        //Iterate through the bad keys and remove from preset
+        for(int i = 0; i<badKeys.count(); i++)
+        {
+            importedPresetMap.remove(badKeys.at(i));
+        }
+
+        //------------- Set Imported Preset to current and update ------------
+        jsonMasterMapCopy.insert(QString("Preset_00%1").arg(currentPresetNum), importedPresetMap);
+        slotRecallPreset(currentPresetNum+1);
+        slotCheckSaveState();
+    }
+}
+
+void PresetInterface::slotExportPreset()
+{
+    QVariantMap exportedPresetMap = jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap();
+
+    //set path and filename (default filename is the preset name
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("./%1").arg(exportedPresetMap.value("displayName").toString()), tr("SoftStep Basic Editor Preset Files (*.softstepbasicpreset)"));
+
+    //this gets the filename without the path
+    QFileInfo fileInfo(filename);
+
+    //open new file to be saved
+    QFile* presetFile = new QFile(filename);
+
+    //remove extension from filename
+    QString exportedPresetName = fileInfo.fileName().remove(".softstepbasicpreset");
+
+    qDebug() << QString("filename: %1").arg(exportedPresetName);
+
+    //------------------- Open, Write, and Close
+    presetFile->open(QIODevice::WriteOnly);
+
+    QByteArray presetByteArray = serializer.serialize(exportedPresetMap);
+
+    presetFile->resize(0);
+    presetFile->write(presetByteArray);
+    presetFile->close();
+
+    presetByteArray.clear();
+}
+
 void PresetInterface::slotConstructDefaultMap()
 {
     //Preset Globals

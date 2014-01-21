@@ -428,7 +428,7 @@ void PresetInterface::slotImportPreset()
     //QString sender = QObject::sender()->objectName();
     QString filename = NULL;
 
-    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), QString("./"), tr("SoftStep Preset Files (*.softsteppreset)"));
+    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), QString("./"), tr("SoftStep Advanced Editor Preset Files (*.softsteppreset)"));
 
     //If file is selected
     if(filename != NULL)
@@ -533,7 +533,7 @@ void PresetInterface::slotExportPreset()
     QVariantMap exportedPresetMap = jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap();
 
     //set path and filename (default filename is the preset name
-    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("./%1").arg(exportedPresetMap.value("preset_name").toString()), tr("SoftStep Preset Files (*.softsteppreset)"));
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("./%1").arg(exportedPresetMap.value("preset_name").toString()), tr("SoftStep Advanced Editor Preset Files (*.softsteppreset)"));
 
     //This gets the file name without the path
     QFileInfo fileInfo(filename);
