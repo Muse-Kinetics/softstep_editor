@@ -308,7 +308,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         attribute(x,2,A_SYM,"key",A_LONG,11l);
 
         //Modline or Program change mode
-        attribute(x,3,A_SYM,"set",A_SYM,"Nav_Modline_Mode",A_LONG,preset.value(QString("nav_modlinemode")).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Nav_Modline_Mode",A_LONG,1 - preset.value(QString("nav_modlinemode")).toLongLong());
 
         qDebug() << "nav modline mode" << preset.value(QString("nav_modlinemode")).toLongLong();
 
@@ -336,6 +336,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         }
         else if(navDisplayMode == "Immed Param")
         {
+            //qDebug() << "Display mode Immed Param";
             attribute(x,3,A_SYM,"set",A_SYM,"Display_Mode",A_LONG,4l);
         }
 
