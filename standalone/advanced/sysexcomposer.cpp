@@ -217,11 +217,24 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                 attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("key%1_modline%2_source").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("key%1_modline%2_gain").arg(k).arg(m)).toFloat());
                 attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("key%1_modline%2_offset").arg(k).arg(m)).toFloat());
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, preset.value(QString("key%1_modline%2_table").arg(k).arg(m)).toString().toUtf8().constData());
+
+                //Toggle 127 table formatting
+                if(preset.value(QString("key%1_modline%2_table").arg(k).arg(m)).toString().contains("Toggle"))
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "Toggle_127");
+                }
+                else
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, preset.value(QString("key%1_modline%2_table").arg(k).arg(m)).toString().toUtf8().constData());
+                }
+
+
                 attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,preset.value(QString("key%1_modline%2_min").arg(k).arg(m)).toLongLong());
                 attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,preset.value(QString("key%1_modline%2_max").arg(k).arg(m)).toLongLong());
                 attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("key%1_modline%2_slew").arg(k).arg(m)).toLongLong());
                 attribute(x,3,A_SYM,"set",A_SYM,"Destination",A_SYM,preset.value(QString("key%1_modline%2_destination").arg(k).arg(m)).toString().toUtf8().constData());
+
+                //qDebug() << "TABLE" << preset.value(QString("key%1_modline%2_table").arg(k).arg(m)).toString();
 
                 //------------------------------------- Destination Handling
                 QString destination = preset.value(QString("key%1_modline%2_destination").arg(k).arg(m)).toString();
