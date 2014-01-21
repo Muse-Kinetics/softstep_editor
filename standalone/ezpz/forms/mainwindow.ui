@@ -184,9 +184,9 @@ background: black;
     <property name="geometry">
      <rect>
       <x>845</x>
-      <y>130</y>
+      <y>112</y>
       <width>141</width>
-      <height>111</height>
+      <height>102</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -500,7 +500,7 @@ color: red;</string>
     <property name="geometry">
      <rect>
       <x>945</x>
-      <y>260</y>
+      <y>227</y>
       <width>40</width>
       <height>20</height>
      </rect>
@@ -531,7 +531,7 @@ color: red;</string>
     <property name="geometry">
      <rect>
       <x>845</x>
-      <y>285</y>
+      <y>252</y>
       <width>140</width>
       <height>50</height>
      </rect>
@@ -576,7 +576,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>844</x>
-      <y>260</y>
+      <y>227</y>
       <width>89</width>
       <height>20</height>
      </rect>
@@ -715,6 +715,51 @@ QCheckBox::indicator {
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="revert">
+    <property name="geometry">
+     <rect>
+      <x>845</x>
+      <y>307</y>
+      <width>140</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::NoContextMenu</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/*---------- QPushButton ---------*/
+QPushButton
+{
+	border: 4px solid rgba(0,174,239,255);
+	font: 10pt &quot;Futura&quot;;
+	color: white;
+}
+
+QPushButton:pressed
+{
+	background: rgba(0,174,239,255);
+	border: 4px solid white;
+	font: 10pt &quot;Futura&quot;;
+	color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>REVERT</string>
+    </property>
+   </widget>
    <zorder>settingsFrame</zorder>
    <zorder>softstepLabel</zorder>
    <zorder>connectedLabel</zorder>
@@ -725,6 +770,7 @@ QCheckBox::indicator {
    <zorder>currentPreset</zorder>
    <zorder>update</zorder>
    <zorder>currentPresetLabel</zorder>
+   <zorder>revert</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
