@@ -12,6 +12,7 @@
 #include "sysexcomposer.h"
 #include "mididevicemanager.h"
 #include "stylesheets.h"
+#include "copypastehandler.h"
 #include "scrolleventfilter.h"
 
 #ifdef Q_OS_MAC
@@ -46,6 +47,7 @@ public:
     StyleSheets* styleSheets;
     PresetInterface *presetInterface;
     SysExComposer   *sysExComposer;
+    CopyPasteHandler* copyPasteHandler;
     ScrollEventFilter scrollEventFilter;
 
     QThread* midiThread;
@@ -74,6 +76,10 @@ public:
     QList<QAction *> actionList;
     QAction* useCustom; //used for enabling/disabling Use Custom Preset menu item.
     bool useCustomEnabled;
+
+    //copy&paste actions
+    QAction* copyPresetAct;
+    QAction* pastePresetAct;
 
     QAction* updatefw;
 
@@ -122,6 +128,7 @@ public slots:
     void slotUpdateFirmware();
     void slotUpdateFwProgressBar(int);
     void slotInitMenuBar();
+    void slotUpdatePasteAvailability();
     void slotOpenDocumentation();   
     void slotDisconnectUpdate();
     void slotConnectUpdate();

@@ -34,7 +34,8 @@ SOURCES +=      main.cpp\
                 ../../shared/sysexcomposition/mainsysex.c \
     stylesheets.cpp \
     factorypresets.cpp \
-    scrolleventfilter.cpp
+    scrolleventfilter.cpp \
+    copypastehandler.cpp
 
 
 HEADERS  +=     mainwindow.h \
@@ -56,7 +57,8 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexmessages.h \
     stylesheets.h \
     factorypresets.h \
-    scrolleventfilter.h
+    scrolleventfilter.h \
+    copypastehandler.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/keyform.ui \

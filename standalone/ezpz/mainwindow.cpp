@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Construct Children
     presetInterface = new PresetInterface(this);
     sysExComposer = new SysExComposer(0);
+    copyPasteHandler = new CopyPasteHandler(presetInterface,this);
 
 
 
@@ -258,11 +259,15 @@ void MainWindow::slotConnectInterfaces()
     //Save indicator
     connect(presetInterface, SIGNAL(signalPresetDirty(bool)), this, SLOT(slotDisplaySaveState(bool)));
 
+    //Copy Paste - update paste availability based on whether anything has been copied
+    connect(copyPasteHandler, SIGNAL(signalUpdatePasteAvailability()), this, SLOT(slotUpdatePasteAvailability()));
+
     //Update Button
     connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
     connect(presetInterface, SIGNAL(signalUpdateStarted()), this, SLOT(slotDisconnectUpdate()));
     connect(presetInterface, SIGNAL(signalAttributeFormatPreset(QVariantMap,QVariantMap, qlonglong)), sysExComposer, SLOT(slotComposeAttributeListFromPreset(QVariantMap,QVariantMap, qlonglong)));
     connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectUpdate()));
+    connect(ui->revert, SIGNAL(clicked()), presetInterface, SLOT(slotRevertPreset()));
     //set initial update button text
     ui->update->setText("SAVE");
 
@@ -502,6 +507,20 @@ void MainWindow::slotInitMenuBar()
     edit->setObjectName("EditMenu");
     menubar->addMenu(edit);
 
+    //Copy / Paste
+    copyPresetAct = new QAction("Copy Preset", edit);
+    actionList.append(copyPresetAct);
+    edit->addAction(copyPresetAct);
+    copyPresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
+    connect(copyPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyPreset()));
+
+    pastePresetAct = new QAction("Paste Preset", edit);
+    actionList.append(pastePresetAct);
+    edit->addAction(pastePresetAct);
+    pastePresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_V));
+    connect(pastePresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPastePreset()));
+    pastePresetAct->setDisabled(true);
+
     //Custom Preset
     useCustom = new QAction("Use Custom Preset", edit);
     actionList.append(useCustom);
@@ -656,6 +675,15 @@ void MainWindow::slotEnableDisableMenu()
                 }
             }
         }
+    }
+}
+
+void MainWindow::slotUpdatePasteAvailability()
+{
+    //enable and disable paste options depending on whether anything is copied
+    if(copyPasteHandler->presetCopiedMap.size())
+    {
+        pastePresetAct->setDisabled(false);
     }
 }
 

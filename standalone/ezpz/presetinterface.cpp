@@ -49,7 +49,7 @@ void PresetInterface::slotCheckSaveState()
         if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) !=
                 jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)))
         {
-            qDebug() << "------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
+            //qDebug() << "------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
 
             //If not a modline param, only used in backend, not ui
             if(!keyList.at(i).contains("modline") && !keyList.at(i).contains("setting") && !keyList.at(i).contains("led"))
@@ -151,6 +151,23 @@ void PresetInterface::writeDefualtJSON()
     }
 
     slotWriteJSON(jsonMasterMap);
+}
+
+void PresetInterface::slotRevertPreset()
+{
+    if(currentPresetNum != -1)
+    {
+        //Load preset from master map into the copy
+        jsonMasterMapCopy.insert(QString("Preset_00%1").arg(currentPresetNum), jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap());
+        qDebug() << "preset" << currentPresetNum << "should revert now";
+        //slotRecallPreset(currentPresetNum);
+        emit signalRecallPreset(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMapCopy);
+        slotCheckSaveState();
+    }
+    else
+    {
+        qDebug() << "preset will not revert";
+    }
 }
 
 void PresetInterface::slotConstructDefaultMap()

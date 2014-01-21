@@ -59,6 +59,7 @@ public slots:
 
     void slotConstructDefaultMap();
     void slotRecallPreset(int i);
+    void slotRevertPreset();
 
     void slotUpdateClicked();
 

@@ -301,7 +301,7 @@ void Key::slotConnectElements()
 void Key::slotValueChanged()
 {
 
-    qDebug() << "instance num" << instance;
+    //qDebug() << "instance num" << instance;
     //############### This is a rather bloated way of doing things, could be optimzed by referencing component name/type and using fewer condidtions
     //############### though the app is small enough for it to barely make sense
 
