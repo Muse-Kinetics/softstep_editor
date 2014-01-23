@@ -18,6 +18,7 @@
 #include "sysexcomposer.h"
 #include "copypastehandler.h"
 #include "scrolleventfilter.h"
+#include "importoldpresethandler.h"
 
 #ifdef Q_OS_MAC
 #include "ui_fwoodform.h"
@@ -56,6 +57,7 @@ public:
     MidiParse* midiParse;
     DisplaySink displaySink;
     ScrollEventFilter scrollEventFilter;
+    ImportOldPresetHandler* importOldPresetHandler;
 
     //--------------------------------- Mode Switching
     QString mode;

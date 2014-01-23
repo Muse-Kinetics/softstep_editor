@@ -36,8 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     presetInterface(new PresetInterface(this)),
     copyPasteHandler(new CopyPasteHandler(presetInterface,this)),
     midiParse(new MidiParse()),
-    disableWidget(new QWidget(this))
-
+    disableWidget(new QWidget(this)),
+    importOldPresetHandler(new ImportOldPresetHandler(presetInterface,this))
 {
     midiDeviceManager = new MidiDeviceManager(this);
 
@@ -428,6 +428,7 @@ void MainWindow::slotConnectInterfaces()
     //connect the preset interface to the preset menu
     connect(presetInterface, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
     connect(copyPasteHandler, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
+    connect(importOldPresetHandler, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -544,6 +545,7 @@ void MainWindow::slotConnectInterfaces()
     connect(this, SIGNAL(signalSaveAs(QString)), presetInterface, SLOT(slotSavePresetAs(QString)));
     connect(presetInterface, SIGNAL(signalAddRemovePreset()), this, SLOT(slotPopulatePresetMenu()));
     connect(copyPasteHandler, SIGNAL(signalAddRemovePreset()), this, SLOT(slotPopulatePresetMenu()));
+    connect(importOldPresetHandler, SIGNAL(signalAddRemovePreset()), this, SLOT(slotPopulatePresetMenu()));
 
     //Delete
     connect(ui->deletepreset, SIGNAL(clicked()), disableWidget, SLOT(show()));
@@ -713,6 +715,11 @@ void MainWindow::slotInitMenuBar()
     importPreset->setObjectName("importPreset");
     connect(importPreset, SIGNAL(triggered()), presetInterface, SLOT(slotImportPreset()));
     file->addAction(importPreset);
+
+    QAction* importOldPreset = new QAction("Import Old Presets from SoftStep Editor V1.21", file);
+    importOldPreset->setObjectName("importOldPresets");
+    connect(importOldPreset, SIGNAL(triggered()), importOldPresetHandler, SLOT(slotImportOldPreset()));
+    file->addAction(importOldPreset);
 
     menubar->addMenu(file);
 
@@ -1119,6 +1126,7 @@ void MainWindow::slotSetMode()
     presetInterface->slotSetMode(mode);
     setlist->slotSetMode(mode);
     copyPasteHandler->slotSetMode(mode);
+    importOldPresetHandler->slotSetMode(mode);
     pasteKeyAct->setDisabled(true);
 
     //Update paths to respective mode files

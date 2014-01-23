@@ -57,7 +57,8 @@ SOURCES +=      main.cpp\
     hosted/staterecall.cpp \
     copypastehandler.cpp \
     tableinterface.cpp \
-    scrolleventfilter.cpp
+    scrolleventfilter.cpp \
+    importoldpresethandler.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -99,7 +100,8 @@ HEADERS  +=     mainwindow.h \
     hosted/staterecall.h \
     copypastehandler.h \
     tableinterface.h \
-    scrolleventfilter.h
+    scrolleventfilter.h \
+    importoldpresethandler.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \
