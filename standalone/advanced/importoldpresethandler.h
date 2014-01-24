@@ -39,6 +39,9 @@ signals:
 public slots:
     void slotImportOldPreset();
     QVariantMap slotConvertPreset();
+    QString slotListErrorCompensation(QList<QVariant> stringList);
+    QString slotGetNewTableValue(QString oldValue);
+    QString slotGetOldDestinationParam(QString newParam, int keyNum, int modlineNum);
     void slotSetMode(QString m);
 };
 
