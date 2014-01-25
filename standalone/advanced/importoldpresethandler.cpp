@@ -64,6 +64,7 @@ void ImportOldPresetHandler::slotImportOldPreset()
                             //qDebug() << "importOldPreset Data:" << importedOldPresetMap;
 
                             importedNewPresetMap = slotConvertPreset();
+                            slotNormalizePresetMap();
 
                             //get the preset name
                             presetName = slotNum.value("name").toString();
@@ -101,6 +102,62 @@ void ImportOldPresetHandler::slotImportOldPreset()
     }
 }
 
+void ImportOldPresetHandler::slotNormalizePresetMap()
+{
+    if(mode == "hosted")
+    {
+        presetInterface->slotConstructDefaultHostedMap();
+    }
+    else if(mode == "standalone")
+    {
+        presetInterface->slotConstructDefaultStandaloneMap();
+    }
+
+    QMapIterator<QString, QVariant> i(presetInterface->defaultPresetMap);
+
+    while(i.hasNext())
+    {
+        i.next();
+
+        //if copying from one mode to the other the device menu values for port 1 should change
+        if(i.key().contains("_device"))
+        {
+            if(importedNewPresetMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+            {
+                importedNewPresetMap.insert(i.key(), "SoftStep Share");
+            }
+            else if(importedNewPresetMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+            {
+                importedNewPresetMap.insert(i.key(), "SSCOM Port 1");
+            }
+        }
+    }
+
+    //------------ Check for EXTRA parameters in the Imported Preset -------------------
+    QMapIterator<QString, QVariant> j(importedNewPresetMap);
+
+    QStringList badKeys;  //stores keys we need to remove from the map
+
+    while(j.hasNext())
+    {
+        j.next();
+
+        //If the default map does not contain something in the preset
+        if(!presetInterface->defaultPresetMap.contains(j.key()))
+        {
+            //add to list of bad keys
+            badKeys.append(j.key());
+        }
+    }
+    //Iterate through the bad keys and remove from preset
+    for(int i = 0; i<badKeys.count(); i++)
+    {
+        importedNewPresetMap.remove(badKeys.at(i));
+    }
+
+    presetInterface->defaultPresetMap.clear();
+}
+
 QVariantMap ImportOldPresetHandler::slotConvertPreset()
 {
     //set which default map we're starting with
@@ -120,162 +177,157 @@ QVariantMap ImportOldPresetHandler::slotConvertPreset()
     {
         newParams.next();
         QString newParameterName = newParams.key();
-        //iterate through all parameters pertaining to a key
-        for(int i = 0; i < 10; i++)
-        {
-            //iterate through all parameters pertaining to a modline within the key
-            for(int j = 0; j < 6; j++)
-            {
-                if(newParameterName.contains(QString("key%1_modline%2_").arg(i+1).arg(j+1)))
-                {
-                    //--------------------here's where modline parameters get converted
-                    QString oldParameterName = "NULL";
+        QString oldParameterName = "NULL";
 
-                    if(newParameterName.contains(QString("enable")))
+        if(newParameterName.contains(QString("preset_displayname")))
+        {
+            oldParameterName = QString("Main_Preset_Display::Scene_Abbrev::Scene_Name");
+            QString presetValue = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
+            newMap.insert(newParameterName, presetValue);
+        }
+        else
+        {
+            //iterate through all parameters pertaining to a key
+            for(int i = 1; i <= 11; i++)
+            {
+                if(newParameterName.contains(QString("%1_key_").arg(i)) || newParameterName.contains("nav_"))
+                {
+                    if(newParameterName.contains(QString("counter_wrap")))
                     {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::On").arg(i+1).arg(j+1);
-                        int value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
-                        newMap.insert(newParameterName, value);
+                        oldParameterName = QString("Main_Pad_%1::Modulation::Wrap").arg(i);
+                        int keyValue = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                        newMap.insert(newParameterName, keyValue);
                     }
-                    else if(newParameterName.contains(QString("initmode")))
+                    else if(newParameterName.contains(QString("counter_min")))
                     {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Init_Logic").arg(i+1).arg(j+1);
-                        QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
-                        newMap.insert(newParameterName, value);
+                        oldParameterName = QString("Main_Pad_%1::Modulation::Min").arg(i);
+                        int keyValue = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                        newMap.insert(newParameterName, keyValue);
                     }
-                    else if(newParameterName.contains(QString("initvalue")))
+                    else if(newParameterName.contains(QString("counter_max")))
                     {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Init").arg(i+1).arg(j+1);
-                        int value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
-                        newMap.insert(newParameterName, value);
+                        oldParameterName = QString("Main_Pad_%1::Modulation::Max").arg(i);
+                        int keyValue = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                        newMap.insert(newParameterName, keyValue);
                     }
-                    else if(newParameterName.contains(QString("source")))
+                    else if(newParameterName.contains(QString("_name")))
                     {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Source").arg(i+1).arg(j+1);
-                        QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
-                        newMap.insert(newParameterName, value);
+                        oldParameterName = QString("Main_Pad_%1::Modulation::Key_Name::Key_Name").arg(i);
+                        QString keyValue = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
+                        newMap.insert(newParameterName, keyValue);
                     }
-                    else if(newParameterName.contains(QString("gain")))
+                    else if(newParameterName.contains(QString("_prefix")))
                     {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Gain").arg(i+1).arg(j+1);
-                        double value = importedOldPresetMap.value(oldParameterName).toList().at(0).toDouble();
-                        newMap.insert(newParameterName, value);
+                        oldParameterName = QString("Main_Pad_%1::Prefix::Prefix_Name").arg(i);
+                        QString keyValue = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
+                        newMap.insert(newParameterName, keyValue);
                     }
-                    else if(newParameterName.contains(QString("offset")))
+                    else if(newParameterName.contains(QString("_displaymode")))
                     {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Offset").arg(i+1).arg(j+1);
-                        int value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
-                        newMap.insert(newParameterName, value);
+                        oldParameterName = QString("Main_Pad_%1::Modulation::Display_Mode::Display_Mode").arg(i);
+                        QString keyValue = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
+                        newMap.insert(newParameterName, keyValue);
+                        //qDebug() << "Display Mode Old Parameter:" << importedOldPresetMap.value(oldParameterName);
+                        //qDebug() << "Display Mode Parameter Imported:" << newParameterName << keyValue;
                     }
-                    else if(newParameterName.contains(QString("table")))
+                    else if(newParameterName.contains("nav_modlinemode"))
                     {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Table").arg(i+1).arg(j+1);
-                        QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
-                        newMap.insert(newParameterName, slotGetNewTableValue(value));
-                    }
-                    else if(newParameterName.contains(QString("min")))
-                    {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Min").arg(i+1).arg(j+1);
-                        int value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
-                        newMap.insert(newParameterName, value);
-                    }
-                    else if(newParameterName.contains(QString("max")))
-                    {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Max").arg(i+1).arg(j+1);
-                        int value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
-                        newMap.insert(newParameterName, value);
-                    }
-                    else if(newParameterName.contains(QString("slew")))
-                    {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Slew").arg(i+1).arg(j+1);
-                        int value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
-                        newMap.insert(newParameterName, value);
-                    }
-                    else if(newParameterName.contains(QString("destination")))
-                    {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Destination").arg(i+1).arg(j+1);
-                        QString tempValue = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());;
-                        QString value;
-                        //no more garage band or hui parameters, yay!
-                        if(tempValue == "GarageBand" || tempValue == "HUI")
+                        //the nav pad's modline mode is saved in two different parameters in the old editor -- this converts it to one for the new single parameter
+                        QString oldModlineMode = QString("Main_Pad_11::Modulation::Nav_Modline_Mode");
+                        QString oldProgramMode = QString("Main_Pad_11::Modulation::Nav_Pgm_Change_Mode");
+                        int oldModlineValue = slotEmptyListCompensation(oldModlineMode, importedOldPresetMap.value(oldModlineMode).toList());
+                        int oldProgramValue = slotEmptyListCompensation(oldProgramMode, importedOldPresetMap.value(oldProgramMode).toList());
+                        if(oldModlineValue == 1 && oldProgramValue == 0)
                         {
-                            value = "None";
+                            newMap.insert(newParameterName, oldProgramValue);
+                            //qDebug() << "nav modline mode should be 0, it is:" << oldProgramValue;
+                        }
+                        else if(oldProgramValue == 1 && oldModlineValue == 0)
+                        {
+                            newMap.insert(newParameterName, oldProgramValue);
                         }
                         else
                         {
-                            value = tempValue;
+                            newMap.insert(newParameterName, 0);
                         }
-                        newMap.insert(newParameterName, value);
                     }
-                    else if(newParameterName.contains(QString("note")))
+                }
+
+                //iterate through all parameters pertaining to a modline within the key
+                for(int j = 1; j <= 6; j++)
+                {
+                    if(newParameterName.contains(QString("key%1_modline%2_").arg(i).arg(j)) || newParameterName.contains(QString("nav_modline%1").arg(j)))
                     {
-                        oldParameterName = slotGetOldDestinationParam("note", i+1, j+1);
-                        int value;
-                        if(oldParameterName != "")
+                        //--------------------here's where modline parameters get converted
+                        if(newParameterName.contains(QString("enable")))
                         {
-                            value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::On").arg(i).arg(j);
+                            int value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
                             newMap.insert(newParameterName, value);
                         }
-                    }
-                    else if(newParameterName.contains(QString("cc")))
-                    {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Control_Number").arg(i+1).arg(j+1);
-                        int value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
-                        newMap.insert(newParameterName, value);
-                    }
-                    else if(newParameterName.contains(QString("velocity")))
-                    {
-                        oldParameterName = slotGetOldDestinationParam("velocity", i+1, j+1);
-                        int value;
-                        if(oldParameterName != "")
+                        else if(newParameterName.contains(QString("initmode")))
                         {
-                            value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Init_Logic").arg(i).arg(j);
+                            QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
                             newMap.insert(newParameterName, value);
                         }
-                    }
-                    else if(newParameterName.contains(QString("channel")))
-                    {
-                        oldParameterName = slotGetOldDestinationParam("channel", i+1, j+1);
-                        int value;
-                        if(oldParameterName != "")
+                        else if(newParameterName.contains(QString("initvalue")))
                         {
-                            value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Init").arg(i).arg(j);
+                            int value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
                             newMap.insert(newParameterName, value);
                         }
-                    }
-                    else if(newParameterName.contains(QString("mmcid")))
-                    {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::MMC_Device_ID").arg(i+1).arg(j+1);
-                        int value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
-                        newMap.insert(newParameterName, value);
-                    }
-                    else if(newParameterName.contains(QString("mmcfunction")))
-                    {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::MMC_Function").arg(i+1).arg(j+1);
-                        QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
-                        newMap.insert(newParameterName, value);
-                    }
-                    else if(newParameterName.contains(QString("oscroute")))
-                    {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::OSC_Route").arg(i+1).arg(j+1);
-                        QString value = importedOldPresetMap.value(oldParameterName).toList().at(0).toString();
-                        newMap.insert(newParameterName, value);
-                    }
-                    else if(newParameterName.contains(QString("device")))
-                    {
-                        oldParameterName = slotGetOldDestinationParam("device", i+1, j+1);
-                        QString value;
-                        if(oldParameterName != "")
+                        else if(newParameterName.contains(QString("source")))
                         {
-                            QString tempValue = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
-                            //--------------------------add the stuff here for Hosted vs Standalone device name changing!!!!!!!!!!!!!!!!!!!!
-                            if(tempValue == "SSCOM Port 1" && mode == "hosted")
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Source").arg(i).arg(j);
+                            QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, value);
+                        }
+                        else if(newParameterName.contains(QString("modline%1_gain").arg(j)))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Gain").arg(i).arg(j);
+                            double value = importedOldPresetMap.value(oldParameterName).toList().at(0).toDouble();
+                            newMap.insert(newParameterName, value);
+                        }
+                        else if(newParameterName.contains(QString("offset")))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Offset").arg(i).arg(j);
+                            int value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, value);
+                        }
+                        else if(newParameterName.contains(QString("table")))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Table").arg(i).arg(j);
+                            QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, slotGetNewTableValue(value));
+                        }
+                        else if(newParameterName.contains(QString("modline%1_min").arg(j)))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Min").arg(i).arg(j);
+                            int value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, value);
+                        }
+                        else if(newParameterName.contains(QString("modline%1_max").arg(j)))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Max").arg(i).arg(j);
+                            int value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, value);
+                        }
+                        else if(newParameterName.contains(QString("slew")))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Slew").arg(i).arg(j);
+                            int value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, value);
+                        }
+                        else if(newParameterName.contains(QString("destination")))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Destination").arg(i).arg(j);
+                            QString tempValue = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());;
+                            QString value;
+                            //no more garage band or hui parameters, yay!
+                            if(tempValue == "GarageBand" || tempValue == "HUI")
                             {
-                                value = "SoftStep Share";
-                            }
-                            else if(tempValue == "SoftStep Share" && mode == "standalone")
-                            {
-                                value = "SSCOM Port 1";
+                                value = "None";
                             }
                             else
                             {
@@ -283,38 +335,135 @@ QVariantMap ImportOldPresetHandler::slotConvertPreset()
                             }
                             newMap.insert(newParameterName, value);
                         }
-                    }
-                    else if(newParameterName.contains(QString("ledgreen")))
-                    {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::LED_Menu_Green").arg(i+1).arg(j+1);
-                        QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
-                        newMap.insert(newParameterName, value);
-                    }
-                    else if(newParameterName.contains(QString("ledred")))
-                    {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::LED_Menu_Red").arg(i+1).arg(j+1);
-                        QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
-                        newMap.insert(newParameterName, value);
-                    }
-                    else if(newParameterName.contains(QString("displaylinked")))
-                    {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Radio_Button").arg(i+1).arg(j+1);
-                        int value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
-                        newMap.insert(newParameterName, value-1);
+                        else if(newParameterName.contains(QString("note")))
+                        {
+                            oldParameterName = slotGetOldDestinationParam("note", i, j);
+                            int value;
+                            if(oldParameterName != "")
+                            {
+                                value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                                newMap.insert(newParameterName, value);
+                            }
+                        }
+                        else if(newParameterName.contains(QString("cc")))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Control_Number").arg(i).arg(j);
+                            int value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, value);
+                        }
+                        else if(newParameterName.contains(QString("velocity")))
+                        {
+                            oldParameterName = slotGetOldDestinationParam("velocity", i, j);
+                            int value;
+                            if(oldParameterName != "")
+                            {
+                                value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
+                                newMap.insert(newParameterName, value);
+                            }
+                        }
+                        else if(newParameterName.contains(QString("channel")))
+                        {
+                            oldParameterName = slotGetOldDestinationParam("channel", i, j);
+                            int value;
+                            if(oldParameterName != "")
+                            {
+                                value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                                newMap.insert(newParameterName, value);
+                            }
+                        }
+                        else if(newParameterName.contains(QString("mmcid")))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::MMC_Device_ID").arg(i).arg(j);
+                            int value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, value);
+                        }
+                        else if(newParameterName.contains(QString("mmcfunction")))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::MMC_Function").arg(i).arg(j);
+                            QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, value);
+                        }
+                        else if(newParameterName.contains(QString("oscroute")))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::OSC_Route").arg(i).arg(j);
+                            QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, value);
+                        }
+                        else if(newParameterName.contains(QString("device")))
+                        {
+                            oldParameterName = slotGetOldDestinationParam("device", i, j);
+                            QString value;
+                            if(oldParameterName != "")
+                            {
+                                value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
+                                newMap.insert(newParameterName, value);
+                            }
+                        }
+                        else if(newParameterName.contains(QString("ledgreen")))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::LED_Menu_Green").arg(i).arg(j);
+                            QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, value);
+                        }
+                        else if(newParameterName.contains(QString("ledred")))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::LED_Menu_Red").arg(i).arg(j);
+                            QString value = slotListErrorCompensation(importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, value);
+                        }
+                        else if(newParameterName.contains(QString("displaylinked")))
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Radio_Button").arg(i).arg(j);
+                            int value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                            newMap.insert(newParameterName, value-1);
+                        }
                     }
                 }
             }
         }
     }
+    presetInterface->defaultPresetMap.clear();
     return newMap;
+}
+
+int ImportOldPresetHandler::slotEmptyListCompensation(QString oldName, QList<QVariant> valueList)
+{
+    int valueListLength = valueList.length();
+    if(valueListLength > 0)
+    {
+        return valueList.at(0).toInt();
+    }
+    else
+    {
+        if(oldName.contains("Wrap"))
+        {
+            return 1;
+        }
+        else if(oldName.contains("Min"))
+        {
+            return 0;
+        }
+        else if(oldName.contains("Max"))
+        {
+            return 127;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
 
 QString ImportOldPresetHandler::slotListErrorCompensation(QList<QVariant> stringList)
 {
     QString fixedString;
     int stringListLength = stringList.length();
-    //qDebug() << "String:" << stringList << stringListLength;
-    if(stringListLength <= 1)
+    if(stringListLength <= 0)
+    {
+        fixedString = "  ";
+        //qDebug() << "This String was Empty:" << stringList;
+    }
+    else if(stringListLength == 1)
     {
         fixedString = stringList.at(0).toString();
         //qDebug() << "This String didn't need to be FIXED:" << fixedString;
