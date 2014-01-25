@@ -789,6 +789,7 @@ QToolTip
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
 	width: 22px;
+	image: none;
 }</string>
    </property>
    <property name="text">

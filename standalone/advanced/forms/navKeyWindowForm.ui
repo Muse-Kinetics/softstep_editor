@@ -162,6 +162,9 @@ QToolTip
      <height>24</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>Show/Hide the LED and display options for this key.</string>
+   </property>
    <property name="styleSheet">
     <string notr="true">/* ---------- QCheckBox ------------*/
 QCheckBox
@@ -422,8 +425,26 @@ QCheckBox::indicator:checked:pressed:focus
      <height>38</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>Sets the Nav Pad mode.&lt;p&gt;&lt;b&gt;Modline&lt;/b&gt;: Use the Nav Pad with the modlines below like a regular SoftStep key.&lt;p&gt;&lt;b&gt;Program Change&lt;/b&gt;: For use with the Nav Yx10 &amp; Key” source — this allows the Nav pad to count &quot;decades&quot; from 0 to 12. This option will disable the use of modlines on the Nav Pad.</string>
+   </property>
    <property name="styleSheet">
-    <string notr="true">image: url(:/resources/mode_label.png);</string>
+    <string notr="true">QLabel
+{
+	image: url(:/resources/mode_label.png);
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+	image: none;
+}s</string>
    </property>
    <property name="text">
     <string/>
@@ -437,6 +458,9 @@ QCheckBox::indicator:checked:pressed:focus
      <width>102</width>
      <height>18</height>
     </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the Nav Pad mode.&lt;p&gt;&lt;b&gt;Modline&lt;/b&gt;: Use the Nav Pad with the modlines below like a regular SoftStep key.&lt;p&gt;&lt;b&gt;Program Change&lt;/b&gt;: For use with the Nav Yx10 &amp; Key” source — this allows the Nav pad to count &quot;decades&quot; from 0 to 12. This option will disable the use of modlines on the Nav Pad.</string>
    </property>
    <property name="styleSheet">
     <string notr="true">/*-------QRadioButton-------*/
@@ -489,6 +513,9 @@ QRadioButton::indicator:checked:pressed  {
      <width>102</width>
      <height>18</height>
     </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the Nav Pad mode.&lt;p&gt;&lt;b&gt;Modline&lt;/b&gt;: Use the Nav Pad with the modlines below like a regular SoftStep key.&lt;p&gt;&lt;b&gt;Program Change&lt;/b&gt;: For use with the Nav Yx10 &amp; Key” source — this allows the Nav pad to count &quot;decades&quot; from 0 to 12. This option will disable the use of modlines on the Nav Pad.</string>
    </property>
    <property name="styleSheet">
     <string notr="true">/*-------QRadioButton-------*/
@@ -560,6 +587,9 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
      <height>18</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>One or two characters that can be added before &lt;br&gt;the parameter value on the SoftStep's display.&lt;p&gt;&lt;b&gt;Example&lt;/b&gt;: A prefix of &quot;NI&quot; and a value of 34 coming through the modline would show &quot;NI34&quot; on the display.</string>
+   </property>
    <property name="maxLength">
     <number>2</number>
    </property>
@@ -593,6 +623,9 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
      <height>18</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>Sets the name for this key.&lt;p&gt;(Four character maximum)</string>
+   </property>
    <property name="maxLength">
     <number>4</number>
    </property>
@@ -625,6 +658,12 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
      <width>60</width>
      <height>18</height>
     </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the SoftStep display behavior.&lt;p&gt;&lt;b&gt;None&lt;/b&gt;: Pressing this key will have no effect on the display.&lt;p&gt;&lt;b&gt;Always&lt;/b&gt;: Key name will be displayed every time this key is pressed.&lt;p&gt;&lt;b&gt;Once&lt;/b&gt;: Key name will be displayed once when the key is pressed, then show the prefix + parameter value (Hosted mode only).&lt;p&gt;&lt;b&gt;Initial/Return&lt;/b&gt;: Prefix + parameter value will be displayed when this key is active, then display the key name when inactive (Hosted mode only).&lt;p&gt;&lt;b&gt;Immed Param&lt;/b&gt;: (Immediate Parameter) Displays the prefix and parameter value when this key is activated.</string>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
    </property>
    <item>
     <property name="text">
@@ -943,7 +982,7 @@ QCheckBox::indicator:checked:disabled
    <property name="font">
     <font>
      <family>Futura</family>
-     <pointsize>9</pointsize>
+     <pointsize>12</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -953,7 +992,24 @@ QCheckBox::indicator:checked:disabled
     <string>&lt;b&gt;Key Counter:&lt;/b&gt;&lt;p&gt;Increments between the specified&lt;br&gt; min and max values.&lt;p&gt;&lt;b&gt;(Hosted mode only)&lt;/b&gt;</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">image: url(:/resources/counter_label.png)</string>
+    <string notr="true">/*-------QLabel-------*/
+QLabel
+{
+	font: 12pt &quot;Futura&quot;;
+	image: url(:/resources/counter_label.png);
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+	image: none;
+}</string>
    </property>
    <property name="text">
     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
