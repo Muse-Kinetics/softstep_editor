@@ -12,7 +12,7 @@ ImportOldPresetHandler::ImportOldPresetHandler(PresetInterface *pi, QObject *par
 void ImportOldPresetHandler::slotImportOldPreset()
 {
     QString filename = NULL;
-    filename = QFileDialog::getOpenFileName(presetInterface, tr("Import Presets from Old Editor"), QString("./"), tr("SoftStep Editor V1.21 Preset Files (*.json)"));
+    filename = QFileDialog::getOpenFileName(presetInterface, tr("Import Presets from SoftStep Editor Version 1.21"), QString("./"), tr("SoftStep Editor V1.21 Preset Files (*SoftStep.json)"));
 
     //If file is selected
     if(filename != NULL)
@@ -194,19 +194,40 @@ QVariantMap ImportOldPresetHandler::slotConvertPreset()
                 {
                     if(newParameterName.contains(QString("counter_wrap")))
                     {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Wrap").arg(i);
+                        if(newParameterName.contains("nav_"))
+                        {
+                            oldParameterName = QString("Main_Pad_11::Modulation::Wrap_Y");
+                        }
+                        else
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Wrap").arg(i);
+                        }
                         int keyValue = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
                         newMap.insert(newParameterName, keyValue);
                     }
                     else if(newParameterName.contains(QString("counter_min")))
                     {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Min").arg(i);
+                        if(newParameterName.contains("nav_"))
+                        {
+                            oldParameterName = QString("Main_Pad_11::Modulation::Min_Y");
+                        }
+                        else
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Min").arg(i);
+                        }
                         int keyValue = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
                         newMap.insert(newParameterName, keyValue);
                     }
                     else if(newParameterName.contains(QString("counter_max")))
                     {
-                        oldParameterName = QString("Main_Pad_%1::Modulation::Max").arg(i);
+                        if(newParameterName.contains("nav_"))
+                        {
+                            oldParameterName = QString("Main_Pad_11::Modulation::Max_Y[1]");
+                        }
+                        else
+                        {
+                            oldParameterName = QString("Main_Pad_%1::Modulation::Max").arg(i);
+                        }
                         int keyValue = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
                         newMap.insert(newParameterName, keyValue);
                     }
@@ -415,7 +436,7 @@ QVariantMap ImportOldPresetHandler::slotConvertPreset()
                         {
                             oldParameterName = QString("Main_Pad_%1::Modulation::Modline_%2::Radio_Button").arg(i).arg(j);
                             int value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
-                            newMap.insert(newParameterName, value-1);
+                            newMap.insert(newParameterName, value);
                         }
                     }
                 }

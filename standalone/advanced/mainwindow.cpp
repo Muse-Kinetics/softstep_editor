@@ -716,7 +716,7 @@ void MainWindow::slotInitMenuBar()
     connect(importPreset, SIGNAL(triggered()), presetInterface, SLOT(slotImportPreset()));
     file->addAction(importPreset);
 
-    QAction* importOldPreset = new QAction("Import Old Presets from SoftStep Editor V1.21", file);
+    QAction* importOldPreset = new QAction("Import All Presets from V1.21", file);
     importOldPreset->setObjectName("importOldPresets");
     connect(importOldPreset, SIGNAL(triggered()), importOldPresetHandler, SLOT(slotImportOldPreset()));
     file->addAction(importOldPreset);
