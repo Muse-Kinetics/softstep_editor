@@ -1293,7 +1293,7 @@ void MainWindow::slotPopulateSourceDestLists()
 
     standaloneSources.append("Any Key Value");
     standaloneSources.append("This Key Value");
-    standaloneSources.append("Prev Key Value");
+    //standaloneSources.append("Prev Key Value");
 
     standaloneSources.append("Key 1 Pressed");
     standaloneSources.append("Key 2 Pressed");
@@ -1356,12 +1356,12 @@ void MainWindow::slotPopulateSourceDestLists()
 
     hostedSources.append("Pedal");
 
-    hostedSources.append("Nav Y");
+    //hostedSources.append("Nav Y");
     hostedSources.append("Nav Yx10 & Key");
 
     hostedSources.append("Any Key Value");
     hostedSources.append("This Key Value");
-    hostedSources.append("Prev Key Value");
+    //hostedSources.append("Prev Key Value");
 
     hostedSources.append("Key 1 Pressed");
     hostedSources.append("Key 2 Pressed");
