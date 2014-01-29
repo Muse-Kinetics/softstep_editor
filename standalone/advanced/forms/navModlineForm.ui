@@ -1061,7 +1061,7 @@ QComboBox::down-arrow
 </string>
    </property>
    <property name="currentIndex">
-    <number>10</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -1589,6 +1589,9 @@ QComboBox::down-arrow
      </property>
     </widget>
     <widget class="QSpinBox" name="notelivenumber">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>5</x>
@@ -1605,6 +1608,14 @@ QComboBox::down-arrow
        <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QSpinBox
+{
+	border: transparent;
+	background: transparent;
+	color: transparent;
+}</string>
      </property>
      <property name="frame">
       <bool>true</bool>
