@@ -4048,19 +4048,6 @@ QComboBox QAbstractItemView::item
       <string>Ch</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_27">
-     <property name="geometry">
-      <rect>
-       <x>3</x>
-       <y>0</y>
-       <width>31</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Note</string>
-     </property>
-    </widget>
    </widget>
    <widget class="QWidget" name="controlDeviceLabel">
     <widget class="QLabel" name="label_14">
@@ -4372,7 +4359,12 @@ QComboBox QAbstractItemView::item
     <string>The amount of time (in milliseconds) to delay the modline data.&lt;p&gt;&lt;b&gt;Example&lt;/b&gt;: A delay of 2000 would delay any messages by two seconds.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QSpinBox:disabled
+{
+	background-color: rgba(18, 18, 18, 255);
+	border: 1px solid rgba(0,174,239,90);
+	color: rgba(255, 255, 255, 90);
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>

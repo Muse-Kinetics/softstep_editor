@@ -554,6 +554,7 @@ void NavModline::slotSetMode(QString m)
         navModlineForm->raw->setEnabled(true);
         navModlineForm->result->setEnabled(true);
         navModlineForm->outputvalue->setEnabled(true);
+        navModlineForm->delay->setEnabled(true);
     }
     else
     {
@@ -563,6 +564,7 @@ void NavModline::slotSetMode(QString m)
         navModlineForm->raw->setEnabled(false);
         navModlineForm->result->setEnabled(false);
         navModlineForm->outputvalue->setEnabled(false);
+        navModlineForm->delay->setEnabled(false);
     }
 }
 
