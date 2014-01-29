@@ -643,12 +643,18 @@ void Modline::slotSetMode(QString m)
         modlineForm->initmode->setEnabled(true);
         modlineForm->initvalue->setEnabled(true);
         modlineForm->delay->setEnabled(true);
+        modlineForm->raw->setEnabled(true);
+        modlineForm->result->setEnabled(true);
+        modlineForm->outputvalue->setEnabled(true);
     }
     else
     {
         modlineForm->initmode->setEnabled(false);
         modlineForm->initvalue->setEnabled(false);
         modlineForm->delay->setEnabled(false);
+        modlineForm->raw->setEnabled(false);
+        modlineForm->result->setEnabled(false);
+        modlineForm->outputvalue->setEnabled(false);
     }
 }
 

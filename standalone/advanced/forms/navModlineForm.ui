@@ -249,9 +249,23 @@ QToolTip
    <property name="styleSheet">
     <string notr="true">QSpinBox
 {
-	border: 1px solid rgba(236, 0, 140, 90);
+	border: 1px solid rgba(236, 0, 140, 255);
+	color: rgba(255, 255, 255, 255);
+}
+
+QSpinBox:focus
+{
+	border: 1px solid rgb(255,255,255);
+}
+
+QSpinBox:disabled
+{
+	background-color: rgba(18, 18, 18, 255);
+	border-color: rgba(236, 0, 140, 90);
+	font: 10pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 90);
-}</string>
+}
+</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -332,9 +346,23 @@ QToolTip
    <property name="styleSheet">
     <string notr="true">QSpinBox
 {
-	border: 1px solid rgba(236, 0, 140, 90);
+	border: 1px solid rgba(236, 0, 140, 255);
+	color: rgba(255, 255, 255, 255);
+}
+
+QSpinBox:focus
+{
+	border: 1px solid rgb(255,255,255);
+}
+
+QSpinBox:disabled
+{
+	background-color: rgba(18, 18, 18, 255);
+	border-color: rgba(236, 0, 140, 90);
+	font: 10pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 90);
-}</string>
+}
+</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -3908,9 +3936,23 @@ QLabel
    <property name="styleSheet">
     <string notr="true">QSpinBox
 {
-	border: 1px solid rgba(236, 0, 140, 90);
+	border: 1px solid rgba(236, 0, 140, 255);
+	color: rgba(255, 255, 255, 255);
+}
+
+QSpinBox:focus
+{
+	border: 1px solid rgb(255,255,255);
+}
+
+QSpinBox:disabled
+{
+	background-color: rgba(18, 18, 18, 255);
+	border-color: rgba(236, 0, 140, 90);
+	font: 10pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 90);
-}</string>
+}
+</string>
    </property>
    <property name="frame">
     <bool>true</bool>

@@ -551,12 +551,18 @@ void NavModline::slotSetMode(QString m)
         navModlineForm->initmode->setEnabled(true);
         navModlineForm->initvalue->setEnabled(true);
         navModlineForm->delay->setEnabled(true);
+        navModlineForm->raw->setEnabled(true);
+        navModlineForm->result->setEnabled(true);
+        navModlineForm->outputvalue->setEnabled(true);
     }
     else
     {
         navModlineForm->initmode->setEnabled(false);
         navModlineForm->initvalue->setEnabled(false);
         navModlineForm->delay->setEnabled(false);
+        navModlineForm->raw->setEnabled(false);
+        navModlineForm->result->setEnabled(false);
+        navModlineForm->outputvalue->setEnabled(false);
     }
 }
 
