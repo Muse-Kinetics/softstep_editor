@@ -71,6 +71,7 @@ typedef union MIDI_SHARED {
 	unsigned char garageband_function;
 	struct {unsigned char function,device_id;} PACK_INLINE mmc;
 	struct {unsigned char function,track;} PACK_INLINE hui;
+    unsigned char bank_msb;  // xxxnew
 } PACK_INLINE MIDI_SHARED;
 typedef struct KEY {unsigned char modline_count,display_mode : 4,nav_y_mode : 4;short key_name_index,prefix_index;} PACK_INLINE KEY;
 typedef struct MODLINE {unsigned char source,table,dest,led_green,led_red,max,min;short slew;FIXED_PT gain,offset; unsigned char channel;MIDI_SHARED ms;unsigned char port : 4,display_linked : 4;} PACK_INLINE MODLINE;

@@ -478,6 +478,12 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         return;
     }
 
+    //Bank MSB
+    if (    par_match(argc,argv,A_SYM,"set",A_SYM,"bank_msb",A_LONG,0l,-1))  // xxxnew
+    {
+        x->current_modline->ms.bank_msb = argv[2].a_w.w_long;
+    }
+
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Min",A_LONG,0l,-1) )
     {
         x->current_modline->min = argv[2].a_w.w_long;

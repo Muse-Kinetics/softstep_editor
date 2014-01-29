@@ -304,6 +304,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                 else if(destination == "Bank")
                 {
                     //MSB goes here in future.
+                    attribute(x,3,A_SYM,"set",A_SYM,"bank_msb",A_LONG,preset.value(QString("key%1_modline%2_bankmsb").arg(k).arg(m)).toLongLong());
 
                     //Channel
                     attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
@@ -486,6 +487,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
             else if(destination == "Bank")
             {
                 //MSB goes here in future.
+                attribute(x,3,A_SYM,"set",A_SYM,"bank_msb",A_LONG,preset.value(QString("nav_modline%1_bankmsb").arg(m)).toLongLong());
 
                 //Channel
                 attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("nav_modline%1_channel").arg(m)).toLongLong());
