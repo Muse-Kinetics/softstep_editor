@@ -218,15 +218,40 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                 attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("key%1_modline%2_gain").arg(k).arg(m)).toFloat());
                 attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("key%1_modline%2_offset").arg(k).arg(m)).toFloat());
 
+                QString keyTable = preset.value(QString("key%1_modline%2_table").arg(k).arg(m)).toString();
+                //qDebug() << "key tbale" << keyTable;
+
                 //Toggle 127 table formatting
-                if(preset.value(QString("key%1_modline%2_table").arg(k).arg(m)).toString().contains("Toggle"))
+                if(keyTable.contains("Toggle"))
                 {
                     attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "Toggle_127");
                 }
-                else
+                else if(keyTable.contains("Linear"))
                 {
-                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, preset.value(QString("key%1_modline%2_table").arg(k).arg(m)).toString().toUtf8().constData());
+                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "1_Lin");
+                    //qDebug() << "------------ linear";
                 }
+                else if(keyTable.contains("Sine"))
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "2_Sin");
+                    //qDebug() << "------------ key tbale sine";
+                }
+                else if(keyTable.contains("Cosine"))
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "3_Cos");
+                    //qDebug() << "------------ key tbale cosine";
+                }
+                else if(keyTable.contains("Exponential"))
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "4_Exponential");
+                    //qDebug() << "------------ key tbale exponential";
+                }
+                else if(keyTable.contains("Logarithmic"))
+                {
+                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "5_Logarithmic");
+                    //qDebug() << "------------ key tbale log";
+                }
+
 
 
                 attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,preset.value(QString("key%1_modline%2_min").arg(k).arg(m)).toLongLong());
@@ -382,7 +407,37 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
 
             attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("nav_modline%1_gain").arg(m)).toFloat());
             attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("nav_modline%1_offset").arg(m)).toFloat());
-            attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM,preset.value(QString("nav_modline%1_table").arg(m)).toString().toUtf8().constData());
+
+            //Toggle 127 table formatting
+            QString navTable = preset.value(QString("nav_modline%1_table").arg(m)).toString();
+
+            if(navTable.contains("Toggle"))
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "Toggle_127");
+            }
+            else if(navTable.contains("Linear"))
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "1_Lin");
+            }
+            else if(navTable.contains("Sine"))
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "2_Sin");
+            }
+            else if(navTable.contains("Cosine"))
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "3_Cos");
+            }
+            else if(navTable.contains("Exponential"))
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "4_Exponential");
+            }
+            else if(navTable.contains("Logarithmic"))
+            {
+                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "5_Logarithmic");
+            }
+
+            //attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM,preset.value(QString("nav_modline%1_table").arg(m)).toString().toUtf8().constData());
+
             attribute(x,3,A_SYM,"set",A_SYM,"Min",A_LONG,preset.value(QString("nav_modline%1_min").arg(m)).toLongLong());
             attribute(x,3,A_SYM,"set",A_SYM,"Max",A_LONG,preset.value(QString("nav_modline%1_max").arg(m)).toLongLong());
             attribute(x,3,A_SYM,"set",A_SYM,"Slew",A_LONG,preset.value(QString("nav_modline%1_slew").arg(m)).toLongLong());

@@ -37,7 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
     copyPasteHandler(new CopyPasteHandler(presetInterface,this)),
     midiParse(new MidiParse()),
     disableWidget(new QWidget(this)),
-    importOldPresetHandler(new ImportOldPresetHandler(presetInterface,this))
+    importOldPresetHandler(new ImportOldPresetHandler(presetInterface,this)),
+    oscInterface(new OscInterface(this))
 {
     midiDeviceManager = new MidiDeviceManager(this);
 

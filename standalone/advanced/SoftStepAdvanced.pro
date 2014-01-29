@@ -6,7 +6,8 @@
 
 QT       += core gui \
             svg \
-            declarative
+            declarative \
+            network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -58,7 +59,8 @@ SOURCES +=      main.cpp\
     copypastehandler.cpp \
     tableinterface.cpp \
     scrolleventfilter.cpp \
-    importoldpresethandler.cpp
+    importoldpresethandler.cpp \
+    hosted/oscinterface.cpp
 
 HEADERS  +=     mainwindow.h \
                 modline.h \
@@ -101,7 +103,8 @@ HEADERS  +=     mainwindow.h \
     copypastehandler.h \
     tableinterface.h \
     scrolleventfilter.h \
-    importoldpresethandler.h
+    importoldpresethandler.h \
+    hosted/oscinterface.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \
@@ -134,6 +137,13 @@ SOURCES +=      ../../shared/qjson/src/json_parser.cc \
                 ../../shared/qjson/src/parser.cpp \
                 ../../shared/qjson/src/qobjecthelper.cpp \
                 ../../shared/qjson/src/serializer.cpp
+
+#------------------oscpack------------------#
+#-------------------------------------------#
+INCLUDEPATH +=
+
+SOURCES +=
+
 
 #---------------------LIBS--------------------#
 #---------------------------------------------#

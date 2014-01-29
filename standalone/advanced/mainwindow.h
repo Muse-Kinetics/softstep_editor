@@ -35,6 +35,7 @@
 
 #include "hosted/midiparse.h"
 #include "hosted/displaysink.h"
+#include "hosted/oscinterface.h"
 
 namespace Ui {
 class MainWindow;
@@ -58,6 +59,7 @@ public:
     DisplaySink displaySink;
     ScrollEventFilter scrollEventFilter;
     ImportOldPresetHandler* importOldPresetHandler;
+    OscInterface *oscInterface;
 
     //--------------------------------- Mode Switching
     QString mode;
