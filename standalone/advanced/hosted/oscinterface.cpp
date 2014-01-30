@@ -162,8 +162,6 @@ void OscInterface::slotReadPendingDatagrams()
             }
         }
     }
-
-
 }
 
 void OscInterface::slotSetInputEnable(int inputNum, bool enabled)
@@ -185,6 +183,8 @@ void OscInterface::slotSetOutputPort(int port)
 
 void OscInterface::slotSetInputPort(int port)
 {
+    socket->close();
+    qDebug() << "port changed" << port;
     inputPort = port;
     socket->bind(QHostAddress(ip), inputPort);
 }
