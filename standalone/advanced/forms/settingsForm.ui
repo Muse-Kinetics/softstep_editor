@@ -596,6 +596,16 @@ QRadioButton::indicator:checked:hover
 QRadioButton::indicator:checked:pressed
 {
 	image: url(:/resources/keysafety_adjacentlockout_pressed.png);
+}
+
+QRadioButton::indicator:unchecked:disabled
+{
+	image: url(:/resources/keysafety_adjacentlockout_disabled.png);
+}
+
+QRadioButton::indicator:checked:disabled
+{
+	image: url(:/resources/keysafety_adjacentlockout_disabled.png);
 }</string>
       </property>
       <property name="text">
