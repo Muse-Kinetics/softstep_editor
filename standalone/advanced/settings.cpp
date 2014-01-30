@@ -114,6 +114,7 @@ void Settings::slotSetMode(QString m)
         settingsForm->scenechange_enable->setEnabled(false);
         settingsForm->midiinputframe->setEnabled(true);
         settingsForm->displaymode_checkbox->setEnabled(false);
+        settingsForm->adjacentkeymode->setEnabled(true);
 
         //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
         //settingsForm->oscinputframe->setEnabled(true);
@@ -123,6 +124,12 @@ void Settings::slotSetMode(QString m)
         settingsForm->scenechange_enable->setEnabled(true);
         settingsForm->midiinputframe->setEnabled(false);
         settingsForm->displaymode_checkbox->setEnabled(true);
+        settingsForm->adjacentkeymode->setEnabled(false);
+
+        if(settingsForm->adjacentkeymode->isChecked())
+        {
+            settingsForm->multiplekeymode->setChecked(true);
+        }
 
         //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
         //settingsForm->oscinputframe->setEnabled(false);
