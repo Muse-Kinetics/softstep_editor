@@ -6,10 +6,35 @@
 OscInterface::OscInterface(QObject *parent) :
     QObject(parent)
 {
+
+    //----- Init
+    //Inputs
+    for(int i = 0; i < 8; i++)
+    {
+        oscInput[i].enabled = false;
+        oscInput[i].addressTag = "";
+        oscInput[i].inputVal = 0;
+    }
+
+    //Ports
+    inputPort = 7755;
+    outputPort = 7788;
+
+    //IP
+    ip = "127.0.0.1";
+
     socket = new QUdpSocket(this);
-    socket->bind(QHostAddress::LocalHost, 7755);
+    socket->bind(QHostAddress(ip), inputPort);
 
     connect(socket, SIGNAL(readyRead()), this, SLOT(slotReadPendingDatagrams()));
+
+    msgVal[0] = 0;
+    msgVal[1] = 0;
+    msgVal[2] = 0;
+    msgVal[3] = 0;
+
+    slotWriteDatagram("", 0);
+
 }
 
 
@@ -86,7 +111,7 @@ void OscInterface::slotReadPendingDatagrams()
             for(int i = 0; i < datagram.size(); i++)
             {
                 //Scrool up to a null or , (type tag)
-                if(datagram.at(i) != NULL || datagram.at(i) != ',')
+                if(datagram.at(i) != NULL && datagram.at(i) != ',')
                 {
                     msgAddress.append(datagram.at(i));
                 }
@@ -95,6 +120,8 @@ void OscInterface::slotReadPendingDatagrams()
                     break;
                 }
             }
+
+            //qDebug() << "msgAddress" << msgAddress;
         }
 
         //----------------------------------------------------------- Get value
@@ -102,28 +129,36 @@ void OscInterface::slotReadPendingDatagrams()
         //Must have type id (of i or f, defined above)
         if(msgType != "")
         {
-            bool ok;
-
-            msgVal.clear();
-
             //Get 4 bytes of 32 bit data
-            for(int i = datagram.size() - 4; i < datagram.size(); i++)
+            for(int i = 0; i < 4; i++)
             {
-                qDebug() << i << (int)datagram.at(i);
-                msgVal.append(datagram.at(i));
+                //qDebug() << i << (int)datagram.at(datagram.size() - 1 - i);
+                msgVal[i] = (unsigned char)datagram.at(datagram.size() - 1 - i);
             }
 
-            qDebug() << "(int) msgVal" << msgVal.toInt(&ok, 10) << "size" << msgVal.size();
-            qDebug() << "(float) msgVal" << msgVal.toFloat();
 
             //Process int
             if(msgType == "i")
             {
+                int intVal = 0;
+                intVal = (intVal << 8) + msgVal[3];
+                intVal = (intVal << 8) + msgVal[2];
+                intVal = (intVal << 8) + msgVal[1];
+                intVal = (intVal << 8) + msgVal[0];
 
+                //qDebug() << "(int) msgVal" << intVal;
+
+                slotDistributeReceivedMessage(msgAddress, intVal);
             }
             else if(msgType == "f")
             {
+                float floatVal = 0.0f;
+                uchar b[] = {msgVal[0], msgVal[1], msgVal[2], msgVal[3]};
+                memcpy(&floatVal, &b, sizeof(floatVal));
 
+                //qDebug() << "(float) msgVal" << floatVal;
+
+                slotDistributeReceivedMessage(msgAddress, (int)floatVal);
             }
             else
             {
@@ -131,11 +166,58 @@ void OscInterface::slotReadPendingDatagrams()
                 qDebug() << "ERROR: Unrecognized OSC message type ID.";
             }
         }
-        else
+    }
+
+
+}
+
+void OscInterface::slotSetInputEnable(int inputNum, bool enabled)
+{
+    qDebug() << "set enabled" << inputNum << enabled;
+    oscInput[inputNum].enabled = enabled;
+}
+
+void OscInterface::slotSetOSCAddressTags(int inputNum, QString tag)
+{
+    qDebug() << "set address tag" << inputNum << tag;
+    oscInput[inputNum].addressTag = tag;
+}
+
+void OscInterface::slotSetOutputPort(int port)
+{
+    outputPort = port;
+}
+
+void OscInterface::slotSetInputPort(int port)
+{
+    inputPort = port;
+    socket->bind(QHostAddress(ip), inputPort);
+}
+
+void OscInterface::slotSetOutputIPAddress(QString ipString)
+{
+    ip = ipString;
+}
+
+void OscInterface::slotWriteDatagram(QString tag, int val)
+{
+    socket->writeDatagram("1234    ,i  23  ", QHostAddress(ip), outputPort);
+}
+
+void OscInterface::slotDistributeReceivedMessage(QString tag, int val)
+{
+    //Iterate through sources
+    for(int i = 0; i < 8; i++)
+    {
+        //If one of our inputs has a corresponding tag, and that input is enabled
+        if(oscInput[i].addressTag == tag && oscInput[i].enabled)
         {
+            //qDebug() << "output " << i << tag << val;
 
+            emit signalSetOSCDisplayValue(i, val);
+
+            //Emit that value to be used as an OSC source in the modlines
+            emit signalSendOscMessageToSource(i, val);
         }
-
-
     }
 }

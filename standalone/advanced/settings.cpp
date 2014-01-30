@@ -85,7 +85,7 @@ Settings::Settings(QWidget *parent) :
     //----------------------------------------- Disable all OSC for now -----------------------------------------//
 
     //when we're ready for OSC, just uncomment the two lines in slotSetMode (down a few lines)
-    settingsForm->oscinputframe->setEnabled(false);
+    //settingsForm->oscinputframe->setEnabled(false);
 
     //---------------------------------------------------------------------------------------------------------//
 
@@ -101,7 +101,7 @@ Settings::Settings(QWidget *parent) :
     settingsWidget->setFixedWidth(settingsWidget->width());
 
     //Inits settings window height on global
-    settingsWidget->setFixedHeight(415);
+    settingsWidget->setFixedHeight(396);
 }
 
 void Settings::slotSetMode(QString m)
@@ -113,26 +113,17 @@ void Settings::slotSetMode(QString m)
         //Scene change button
         settingsForm->scenechange_enable->setEnabled(false);
         settingsForm->midiinputframe->setEnabled(true);
-        settingsForm->displaymode_checkbox->setEnabled(false);
-        settingsForm->adjacentkeymode->setEnabled(true);
 
         //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
-        //settingsForm->oscinputframe->setEnabled(true);
+        settingsForm->oscinputframe->setEnabled(true);
     }
     else
     {
         settingsForm->scenechange_enable->setEnabled(true);
         settingsForm->midiinputframe->setEnabled(false);
-        settingsForm->displaymode_checkbox->setEnabled(true);
-        settingsForm->adjacentkeymode->setEnabled(false);
-
-        if(settingsForm->adjacentkeymode->isChecked())
-        {
-            settingsForm->multiplekeymode->setChecked(true);
-        }
 
         //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
-        //settingsForm->oscinputframe->setEnabled(false);
+        settingsForm->oscinputframe->setEnabled(false);
     }
 }
 
@@ -517,7 +508,7 @@ void Settings::slotViewSelector()
             //set stackedwidget tab view
             settingsForm->settingsViews->setCurrentIndex(0);
             //resize settings window
-            settingsWidget->setFixedSize(320, 415);
+            settingsWidget->setFixedSize(320, 396);
         }
         else if(sender == settingsForm->settingskeybutton)
         {
@@ -693,11 +684,11 @@ void Settings::slotWriteDefaultSettings()
 void Settings::slotConstructSettingsDefaultMap()
 {
     //------------------ Global Page -------------------//
-    defaultGlobalMap["sensorresponse_checkbox"] = 0;
+    defaultGlobalMap["sensorresponse_average"] = 1;
+    defaultGlobalMap["sensorresponse_max"] = 0;
     defaultGlobalMap["adjacentkeymode"] = 0;
     defaultGlobalMap["keylockoutmode"] = 0;
     defaultGlobalMap["multiplekeymode"] = 1;
-    defaultGlobalMap["displaymode_checkbox"] = 0;
 
     defaultGlobalMap["global_gain"] = 1.00;
     defaultGlobalMap["backlighting_enable"] = 1;
@@ -992,8 +983,36 @@ void Settings::slotEmitAllSettings()
     //------------ Sensor Response
     emit signalSetSensorResponse(settingsForm->sensorresponse_checkbox->isChecked());
 
-    //------------ Display Mode (0-127 vs 1-128)
-    emit signalSetDisplayMode(settingsForm->displaymode_checkbox->isChecked());
+
+    //------------------------------------------------------------------ OSC
+    //Output Port
+    emit signalSetOscOutPort(settingsForm->osc_out_port->value());
+
+    //Input Port
+    emit signalSetOscInPort(settingsForm->osc_in_port->value());
+
+    //IP
+    emit signalSetOscIP(QString("%1.%2.%3.%4").arg(settingsForm->osc_ip_1->value()).arg(settingsForm->osc_ip_2->value()).arg(settingsForm->osc_ip_3->value()).arg(settingsForm->osc_ip_4->value()));
+
+    //-------- Enables
+    emit signalSetOscEnable(0, settingsForm->osca_input_enable->isChecked());
+    emit signalSetOscEnable(1, settingsForm->oscb_input_enable->isChecked());
+    emit signalSetOscEnable(2, settingsForm->oscc_input_enable->isChecked());
+    emit signalSetOscEnable(3, settingsForm->oscd_input_enable->isChecked());
+    emit signalSetOscEnable(4, settingsForm->osce_input_enable->isChecked());
+    emit signalSetOscEnable(5, settingsForm->oscf_input_enable->isChecked());
+    emit signalSetOscEnable(6, settingsForm->oscg_input_enable->isChecked());
+    emit signalSetOscEnable(7, settingsForm->osch_input_enable->isChecked());
+
+    //-------- Prefixes
+    emit signalSetOscAddress(0, settingsForm->osca_input_route->text());
+    emit signalSetOscAddress(1, settingsForm->oscb_input_route->text());
+    emit signalSetOscAddress(2, settingsForm->oscc_input_route->text());
+    emit signalSetOscAddress(3, settingsForm->oscd_input_route->text());
+    emit signalSetOscAddress(4, settingsForm->osce_input_route->text());
+    emit signalSetOscAddress(5, settingsForm->oscf_input_route->text());
+    emit signalSetOscAddress(6, settingsForm->oscg_input_route->text());
+    emit signalSetOscAddress(7, settingsForm->osch_input_route->text());
 
 }
 
@@ -1260,4 +1279,39 @@ void Settings::slotWritePedalTableToDisk(QByteArray tableByteArray)
 void Settings::slotHideComplete()
 {
     settingsForm->calibrationcomplete->hide();
+}
+
+//--------------------------------------------- Live Inputs (OSC)
+void Settings::slotSetOSCDisplayValue(int inputNum, int val)
+{
+    qDebug() << "in settings" << inputNum << val;
+    switch(inputNum)
+    {
+    case 0:
+        settingsForm->osca_input_value->setValue(val);
+        break;
+    case 1:
+        settingsForm->oscb_input_value->setValue(val);
+        break;
+    case 2:
+        settingsForm->oscc_input_value->setValue(val);
+        break;
+    case 3:
+        settingsForm->oscd_input_value->setValue(val);
+        break;
+    case 4:
+        settingsForm->osce_input_value->setValue(val);
+        break;
+    case 5:
+        settingsForm->oscf_input_value->setValue(val);
+        break;
+    case 6:
+        settingsForm->oscg_input_value->setValue(val);
+        break;
+    case 7:
+        settingsForm->osch_input_value->setValue(val);
+        break;
+    default:
+        break;
+    }
 }

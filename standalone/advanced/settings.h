@@ -103,6 +103,13 @@ signals:
     void signalInitPedalTable(QByteArray);
     void signalTetherOnOffInStandalone(bool);
 
+    //---- OSC
+    void signalSetOscEnable(int inputNum, bool enabled);
+    void signalSetOscAddress(int inputNum, QString addr);
+    void signalSetOscIP(QString ipString);
+    void signalSetOscOutPort(int outPort);
+    void signalSetOscInPort(int inPort);
+
 public slots:
     void slotSetMode(QString m);
 
@@ -142,6 +149,10 @@ public slots:
     void slotHideComplete();
     void slotStartCalibrationStandAlone();
     void slotStopCalibrationStandAlone();
+
+
+    //----- OSC
+    void slotSetOSCDisplayValue(int inputNum, int val);
 
 private:
     Ui::settingsForm *settingsForm;

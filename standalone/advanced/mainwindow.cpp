@@ -643,6 +643,17 @@ void MainWindow::slotConnectInterfaces()
     connect(settingsWindow, SIGNAL(signalSetSceneChanging(bool)), midiDeviceManager, SLOT(slotSceneChangeOnOff(bool)));
     connect(settingsWindow, SIGNAL(signalSetBacklight(bool)), midiDeviceManager, SLOT(slotBackLightOnOff(bool)));
 
+    //----------------------------- OSC
+    connect(settingsWindow, SIGNAL(signalSetOscAddress(int,QString)), oscInterface, SLOT(slotSetOSCAddressTags(int,QString)));
+    connect(settingsWindow, SIGNAL(signalSetOscEnable(int,bool)), oscInterface, SLOT(slotSetInputEnable(int,bool)));
+    connect(settingsWindow, SIGNAL(signalSetOscInPort(int)), oscInterface, SLOT(slotSetInputPort(int)));
+    connect(settingsWindow, SIGNAL(signalSetOscIP(QString)), oscInterface, SLOT(slotSetOutputIPAddress(QString)));
+    connect(settingsWindow, SIGNAL(signalSetOscOutPort(int)), oscInterface, SLOT(slotSetOutputPort(int)));
+
+    //Osc live input vals
+    connect(oscInterface, SIGNAL(signalSetOSCDisplayValue(int,int)), settingsWindow, SLOT(slotSetOSCDisplayValue(int,int)));
+
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////// Dialogs /////////////////////////////////////////////////////////////////////
