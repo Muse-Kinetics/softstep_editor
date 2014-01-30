@@ -48,7 +48,6 @@ public:
     bool firstCall; //used to filter changes until first output routine called
 
 
-
     //-------------------- Hosted
     Slewer slewer;
     Delay delayer;
@@ -103,7 +102,7 @@ signals:
     void hosted_signalNoteLive(QString port,int channel, int oldNote, int newNote, int velocity);
     void hosted_signalCC(QString port, int channel, int ccNum, int ccVal);
     void hosted_signalBank(QString port, int channel, int msb, int lsb);
-    void hosted_signalOSC();
+    void hosted_signalOSC(QString address, int val);
     void hosted_signalProgram(QString port, int channel, int program);
     void hosted_signalPitchBend(QString port, int channel, int lsb, int msb);
     void hosted_signalMMC(QString port, int id, QString function);
@@ -120,6 +119,7 @@ signals:
 
     //---------- State Recall
     void hosted_signalStoreToggleState(int modlineNum, bool state);
+
 
 
 public slots:

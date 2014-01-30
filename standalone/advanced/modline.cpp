@@ -1051,8 +1051,10 @@ void Modline::slotDelayReturn(int input)
 //------------------------------------------------------------------------------------------- Output
 void Modline::slotOutputRoutine(int input)
 {
+
     //Prepares message type to be formatted by midiformat, and then output via mididevicemanager
     hosted_slotOutputMidi(input);
+
 
     //Set value for display
     value = input;
@@ -1121,7 +1123,7 @@ void Modline::hosted_slotOutputMidi(int outputVal)
     }
     else if(outputType == "OSC")
     {
-
+        emit hosted_signalOSC(modlineForm->oscroute->text(), outputVal);
     }
     else if(outputType == "Aftertouch")
     {

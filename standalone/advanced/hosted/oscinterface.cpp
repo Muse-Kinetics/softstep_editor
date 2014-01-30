@@ -33,7 +33,7 @@ OscInterface::OscInterface(QObject *parent) :
     msgVal[2] = 0;
     msgVal[3] = 0;
 
-    slotWriteDatagram("", 0);
+    //slotWriteDatagram("", 0);
 
 }
 
@@ -202,14 +202,10 @@ void OscInterface::slotWriteDatagram(QString tag, int val)
     QByteArray address;
     address.append(tag);
 
-    //address = "/testaddress";
-    //val = 127;
-
     //---- Format Address
     //Must have address with size greater than 0
     if(address.size())
     {
-
         //Add Adress to udp packet
         data.append(address);
 
@@ -235,6 +231,18 @@ void OscInterface::slotWriteDatagram(QString tag, int val)
         }
     }
 
+    //If no address, make default /softstep
+    else
+    {
+        address = "/softstep";
+
+        //Add Adress to udp packet
+        data.append(address);
+        data.append('\0');
+        data.append('\0');
+        data.append('\0');
+    }
+
     //qDebug() << "address - data.size" << data.size();
 
     //---- Format Type Tag, which will always be the same
@@ -258,12 +266,14 @@ void OscInterface::slotWriteDatagram(QString tag, int val)
     data.append(intBytes[2]);
     data.append(intBytes[3]);
 
-    qDebug() << "val - data.size" << data.size();
+    //qDebug() << "val - data.size" << data.size();
 
+    /*
     for(int i = 0; i < data.size(); i++)
     {
         qDebug() << "data i: " << i << data.at(i);
     }
+    */
 
     socket->writeDatagram(data, data.size(), QHostAddress(ip), outputPort);
 }

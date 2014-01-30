@@ -653,14 +653,23 @@ void MainWindow::slotConnectInterfaces()
     //Osc live input vals
     connect(oscInterface, SIGNAL(signalSetOSCDisplayValue(int,int)), settingsWindow, SLOT(slotSetOSCDisplayValue(int,int)));
 
-    //Connect Osc to keys
+    //Connect Osc to keys, vice versa
     for(int i = 0; i < 10; i++)
     {
         connect(oscInterface, SIGNAL(signalSendOscMessageToSource(int,int)), &key[i]->dataCooker, SLOT(slotReceiveOscInput(int,int)));
+
+        //Handles output from modlines
+        for(int j = 0; j < 6; j++)
+        {
+            connect(key[i]->modline[j], SIGNAL(hosted_signalOSC(QString,int)), oscInterface, SLOT(slotWriteDatagram(QString,int)));
+        }
     }
 
     //Connect Osc to nav pad
     connect(oscInterface, SIGNAL(signalSendOscMessageToSource(int,int)), &navKey->dataCooker, SLOT(slotReceiveOscInput(int,int)));
+
+    //OSC output
+
 
 
 
