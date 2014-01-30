@@ -175,5 +175,11 @@
         <file>resources/checkbox_off_disabled.png</file>
         <file>resources/checkbox_on_disabled.png</file>
         <file>resources/devicestyle.qss</file>
+        <file>resources/displaymode_checked_disabled.png</file>
+        <file>resources/displaymode_checked_pressed.png</file>
+        <file>resources/displaymode_checked.png</file>
+        <file>resources/displaymode_unchecked_disabled.png</file>
+        <file>resources/displaymode_unchecked_pressed.png</file>
+        <file>resources/displaymode_unchecked.png</file>
     </qresource>
 </RCC>

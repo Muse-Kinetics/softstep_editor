@@ -101,7 +101,7 @@ Settings::Settings(QWidget *parent) :
     settingsWidget->setFixedWidth(settingsWidget->width());
 
     //Inits settings window height on global
-    settingsWidget->setFixedHeight(396);
+    settingsWidget->setFixedHeight(415);
 }
 
 void Settings::slotSetMode(QString m)
@@ -113,6 +113,7 @@ void Settings::slotSetMode(QString m)
         //Scene change button
         settingsForm->scenechange_enable->setEnabled(false);
         settingsForm->midiinputframe->setEnabled(true);
+        settingsForm->displaymode_checkbox->setEnabled(false);
 
         //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
         //settingsForm->oscinputframe->setEnabled(true);
@@ -121,6 +122,7 @@ void Settings::slotSetMode(QString m)
     {
         settingsForm->scenechange_enable->setEnabled(true);
         settingsForm->midiinputframe->setEnabled(false);
+        settingsForm->displaymode_checkbox->setEnabled(true);
 
         //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
         //settingsForm->oscinputframe->setEnabled(false);
@@ -508,7 +510,7 @@ void Settings::slotViewSelector()
             //set stackedwidget tab view
             settingsForm->settingsViews->setCurrentIndex(0);
             //resize settings window
-            settingsWidget->setFixedSize(320, 396);
+            settingsWidget->setFixedSize(320, 415);
         }
         else if(sender == settingsForm->settingskeybutton)
         {
