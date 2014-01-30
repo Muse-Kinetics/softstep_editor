@@ -101,7 +101,7 @@ Settings::Settings(QWidget *parent) :
     settingsWidget->setFixedWidth(settingsWidget->width());
 
     //Inits settings window height on global
-    settingsWidget->setFixedHeight(396);
+    settingsWidget->setFixedHeight(415);
 }
 
 void Settings::slotSetMode(QString m)
@@ -113,6 +113,8 @@ void Settings::slotSetMode(QString m)
         //Scene change button
         settingsForm->scenechange_enable->setEnabled(false);
         settingsForm->midiinputframe->setEnabled(true);
+        settingsForm->displaymode_checkbox->setEnabled(false);
+        settingsForm->adjacentkeymode->setEnabled(true);
 
         //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
         settingsForm->oscinputframe->setEnabled(true);
@@ -121,6 +123,9 @@ void Settings::slotSetMode(QString m)
     {
         settingsForm->scenechange_enable->setEnabled(true);
         settingsForm->midiinputframe->setEnabled(false);
+        settingsForm->displaymode_checkbox->setEnabled(true);
+        settingsForm->adjacentkeymode->setEnabled(false);
+
 
         //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
         settingsForm->oscinputframe->setEnabled(false);
@@ -508,7 +513,7 @@ void Settings::slotViewSelector()
             //set stackedwidget tab view
             settingsForm->settingsViews->setCurrentIndex(0);
             //resize settings window
-            settingsWidget->setFixedSize(320, 396);
+            settingsWidget->setFixedSize(320, 415);
         }
         else if(sender == settingsForm->settingskeybutton)
         {
@@ -684,11 +689,11 @@ void Settings::slotWriteDefaultSettings()
 void Settings::slotConstructSettingsDefaultMap()
 {
     //------------------ Global Page -------------------//
-    defaultGlobalMap["sensorresponse_average"] = 1;
-    defaultGlobalMap["sensorresponse_max"] = 0;
+    defaultGlobalMap["sensorresponse_checkbox"] = 0;
     defaultGlobalMap["adjacentkeymode"] = 0;
     defaultGlobalMap["keylockoutmode"] = 0;
     defaultGlobalMap["multiplekeymode"] = 1;
+    defaultGlobalMap["displaymode_checkbox"] = 0;
 
     defaultGlobalMap["global_gain"] = 1.00;
     defaultGlobalMap["backlighting_enable"] = 1;
@@ -982,6 +987,9 @@ void Settings::slotEmitAllSettings()
 
     //------------ Sensor Response
     emit signalSetSensorResponse(settingsForm->sensorresponse_checkbox->isChecked());
+
+    //------------ Display Mode (0-127 vs 1-128)
+    emit signalSetDisplayMode(settingsForm->displaymode_checkbox->isChecked());
 
 
     //------------------------------------------------------------------ OSC
