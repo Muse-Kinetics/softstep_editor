@@ -852,6 +852,7 @@ void MainWindow::slotInitMenuBar()
 void MainWindow::slotImportOldPreset()
 {
     importOldDialogWidget->show();
+    importOldDialogWidget->raise();
     importOldDialog->importMessage->setText("<center>Importing Presets Please Wait...</center>");
     importOldPresetHandler->slotImportOldPreset();
 }

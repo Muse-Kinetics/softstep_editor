@@ -126,6 +126,10 @@ void Settings::slotSetMode(QString m)
         settingsForm->displaymode_checkbox->setEnabled(true);
         settingsForm->adjacentkeymode->setEnabled(false);
 
+        if(settingsForm->adjacentkeymode->isChecked())
+        {
+            settingsForm->multiplekeymode->setChecked(true);
+        }
 
         //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
         settingsForm->oscinputframe->setEnabled(false);
@@ -689,7 +693,7 @@ void Settings::slotWriteDefaultSettings()
 void Settings::slotConstructSettingsDefaultMap()
 {
     //------------------ Global Page -------------------//
-    defaultGlobalMap["sensorresponse_checkbox"] = 0;
+    defaultGlobalMap["sensorresponse_checkbox"] = 1;
     defaultGlobalMap["adjacentkeymode"] = 0;
     defaultGlobalMap["keylockoutmode"] = 0;
     defaultGlobalMap["multiplekeymode"] = 1;
