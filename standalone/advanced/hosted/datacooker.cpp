@@ -1424,6 +1424,54 @@ void DataCooker::slotReceiveMidiInput(int val, QString instance)
 }
 
 //-------------------------------------------------------------------- OSC Input
+void DataCooker::slotReceiveOscInput(int inputNum, int val)
+{
+    //qDebug() << "key osc input" << inputNum << "val-- " << val;
+
+    //For each modline
+    for(int i = 0; i < 6; i++)
+    {
+        //qDebug() << i <<modlineSources.value(i) << modlineNum << val;
+
+        QString source = modlineSources.value(i);
+
+        if(source.contains("OSC"))
+        {
+            if(source == "OSC A" && inputNum == 0)
+            {
+                emit signalTransformSource(val, i, source);
+            }
+            else if(source == "OSC B" && inputNum == 1)
+            {
+                emit signalTransformSource(val, i, source);
+            }
+            else if(source == "OSC C" && inputNum == 2)
+            {
+                emit signalTransformSource(val, i, source);
+            }
+            else if(source == "OSC D" && inputNum == 3)
+            {
+                emit signalTransformSource(val, i, source);
+            }
+            else if(source == "OSC E" && inputNum == 4)
+            {
+                emit signalTransformSource(val, i, source);
+            }
+            else if(source == "OSC F" && inputNum == 5)
+            {
+                emit signalTransformSource(val, i, source);
+            }
+            else if(source == "OSC G" && inputNum == 6)
+            {
+                emit signalTransformSource(val, i, source);
+            }
+            else if(source == "OSC H" && inputNum == 7)
+            {
+                emit signalTransformSource(val, i, source);
+            }
+        }
+    }
+}
 
 //-------------------------------------------------------------------- Nav Sources
 void DataCooker::slotReceiveNavY(int count)

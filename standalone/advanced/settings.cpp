@@ -1296,7 +1296,7 @@ void Settings::slotHideComplete()
 //--------------------------------------------- Live Inputs (OSC)
 void Settings::slotSetOSCDisplayValue(int inputNum, int val)
 {
-    qDebug() << "in settings" << inputNum << val;
+    //qDebug() << "in settings" << inputNum << val;
     switch(inputNum)
     {
     case 0:

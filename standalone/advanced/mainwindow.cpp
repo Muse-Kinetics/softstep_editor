@@ -653,6 +653,16 @@ void MainWindow::slotConnectInterfaces()
     //Osc live input vals
     connect(oscInterface, SIGNAL(signalSetOSCDisplayValue(int,int)), settingsWindow, SLOT(slotSetOSCDisplayValue(int,int)));
 
+    //Connect Osc to keys
+    for(int i = 0; i < 10; i++)
+    {
+        connect(oscInterface, SIGNAL(signalSendOscMessageToSource(int,int)), &key[i]->dataCooker, SLOT(slotReceiveOscInput(int,int)));
+    }
+
+    //Connect Osc to nav pad
+    connect(oscInterface, SIGNAL(signalSendOscMessageToSource(int,int)), &navKey->dataCooker, SLOT(slotReceiveOscInput(int,int)));
+
+
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

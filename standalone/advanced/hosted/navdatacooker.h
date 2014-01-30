@@ -181,6 +181,9 @@ public slots:
     //Y Accel
     void slotSetYAccel(int);
 
+    //------------------------------------------------------- OSC
+    void slotReceiveOscInput(int inputNum, int val);
+
 
 };
 

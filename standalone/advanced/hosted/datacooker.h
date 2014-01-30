@@ -217,6 +217,9 @@ public slots:
     void slotSetParentKey(Key *pK);
     void slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleased);
 
+    //------------------------------------------------------- OSC
+    void slotReceiveOscInput(int inputNum, int val);
+
 
 
 };
