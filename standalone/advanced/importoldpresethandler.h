@@ -35,6 +35,8 @@ public:
 signals:
     void signalPresetMenu(int numPresets);
     void signalAddRemovePreset();
+    void signalImportingPresetNum(QString updatingMessage);
+    void signalImportingComplete();
     
 public slots:
     void slotImportOldPreset();

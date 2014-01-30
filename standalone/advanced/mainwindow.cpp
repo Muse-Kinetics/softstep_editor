@@ -32,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutForm(new Ui::AboutForm),
     aboutFormWidget(new QWidget(this)),
 
+    importOldDialog(new Ui::ImportOldPresetsForm),
+    importOldDialogWidget(new QWidget(this)),
+
     sysExComposer(new SysExComposer(this)),
     presetInterface(new PresetInterface(this)),
     copyPasteHandler(new CopyPasteHandler(presetInterface,this)),
@@ -124,6 +127,11 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutForm->setupUi(aboutFormWidget);
     aboutFormWidget->move(this->width()/2 - aboutFormWidget->width()/2, this->height()/2 - aboutFormWidget->height()/2);
     aboutForm->expected->setText(QString("%1 %2").arg(sysExComposer->embeddedVersion).arg(sysExComposer->embeddedbuildNum));
+
+    //Import Old Preset Dialog
+    importOldDialogWidget->hide();
+    importOldDialog->setupUi(importOldDialogWidget);
+    importOldDialogWidget->move(this->width()/2 - importOldDialogWidget->width()/2, this->height()/2 - importOldDialogWidget->height()/2);
 
 
     //------------------------------------ Settings Window
@@ -432,6 +440,7 @@ void MainWindow::slotConnectInterfaces()
     connect(importOldPresetHandler, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
 
 
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////// Preset Storage, Recall //////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -665,6 +674,10 @@ void MainWindow::slotConnectInterfaces()
     connect(aboutForm->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
     //connect(aboutForm->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
+    //Import old Preset Dialoge
+    connect(importOldPresetHandler, SIGNAL(signalImportingComplete()), importOldDialogWidget, SLOT(hide()));
+    connect(importOldPresetHandler, SIGNAL(signalImportingPresetNum(QString)), importOldDialog->importMessage, SLOT(setText(QString)));
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////// "Downloading" ///////////////////////////////////////////////////////////////
@@ -719,7 +732,7 @@ void MainWindow::slotInitMenuBar()
 
     QAction* importOldPreset = new QAction("Import All Presets from V1.21", file);
     importOldPreset->setObjectName("importOldPresets");
-    connect(importOldPreset, SIGNAL(triggered()), importOldPresetHandler, SLOT(slotImportOldPreset()));
+    connect(importOldPreset, SIGNAL(triggered()), this, SLOT(slotImportOldPreset()));
     file->addAction(importOldPreset);
 
     menubar->addMenu(file);
@@ -823,6 +836,13 @@ void MainWindow::slotInitMenuBar()
     help->addAction(toolTipsEnable);
 
     menubar->addMenu(help);
+}
+
+void MainWindow::slotImportOldPreset()
+{
+    importOldDialogWidget->show();
+    importOldDialog->importMessage->setText("<center>Importing Presets Please Wait...</center>");
+    importOldPresetHandler->slotImportOldPreset();
 }
 
 void MainWindow::slotEnableDisableToolTips()

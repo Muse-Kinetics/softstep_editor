@@ -122,7 +122,8 @@ FORMS    +=     forms/mainwindow.ui \
     forms/fwoodform.ui \
     forms/updatefwform.ui \
     forms/fwupdatecompleteform.ui \
-    forms/pedalLiveTableForm.ui
+    forms/pedalLiveTableForm.ui \
+    forms/importOldPresetsForm.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#

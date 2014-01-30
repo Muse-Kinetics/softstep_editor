@@ -29,6 +29,7 @@
 #include "ui_mainwindow.h"
 #include "ui_saveAsForm.h"
 #include "ui_deletePresetForm.h"
+#include "ui_importOldPresetsForm.h"
 #else
 
 #endif
@@ -86,6 +87,7 @@ public:
     QWidget     *fwUpdateCompleteDialogWidget;
     QWidget     *fwUpdateDialogWidget;
     QWidget     *aboutFormWidget;
+    QWidget     *importOldDialogWidget;
 
     //Menubar
     QMenuBar *menubar;
@@ -134,6 +136,8 @@ public slots:
     void slotOpenDoc();
     void slotEnableDisableToolTips();
 
+    void slotImportOldPreset();
+
     void slotUpdatePasteAvailability();
     void slotSelectedKey(int selectedKey);
 
@@ -179,6 +183,7 @@ private:
     Ui::FwUpdateCompleteForm    *fwUpdateCompleteDialog;
     Ui::UpdateFirmwareForm      *fwUpdateDialog;
     Ui::AboutForm               *aboutForm;
+    Ui::ImportOldPresetsForm    *importOldDialog;
 
 
 

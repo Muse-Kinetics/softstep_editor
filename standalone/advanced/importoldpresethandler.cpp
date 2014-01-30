@@ -11,6 +11,8 @@ ImportOldPresetHandler::ImportOldPresetHandler(PresetInterface *pi, QObject *par
 
 void ImportOldPresetHandler::slotImportOldPreset()
 {
+    presetName = "";
+
     QString filename = NULL;
     filename = QFileDialog::getOpenFileName(presetInterface, tr("Import Presets from SoftStep Editor Version 1.21"), QString("./"), tr("SoftStep Editor V1.21 Preset Files (*SoftStep.json)"));
 
@@ -27,6 +29,8 @@ void ImportOldPresetHandler::slotImportOldPreset()
         QVariantMap importedMap = presetInterface->parser.parse(presetByteArray, &ok).toMap();
 
         QMapIterator<QString, QVariant> i(importedMap);
+
+        int numPresets;
 
         while(i.hasNext())
         {
@@ -75,7 +79,7 @@ void ImportOldPresetHandler::slotImportOldPreset()
                             presetInterface->presetListCopy.clear();
                             presetInterface->presetListMaster.clear();
 
-                            int numPresets = presetInterface->slotGetNumPresetsInJson();
+                            numPresets = presetInterface->slotGetNumPresetsInJson();
 
                             for(int i = 0; i < numPresets; i++)
                             {
@@ -88,12 +92,15 @@ void ImportOldPresetHandler::slotImportOldPreset()
                             presetInterface->slotOrderPresetsInJson();
                             presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
                             emit signalAddRemovePreset();
-                            emit signalPresetMenu(numPresets);
                         }
                     }
                 }
             }
         }
+
+        emit signalPresetMenu(numPresets);
+        emit signalImportingComplete();
+
         //qDebug() << importedPresetMap;
     }
     else
@@ -160,6 +167,16 @@ void ImportOldPresetHandler::slotNormalizePresetMap()
 
 QVariantMap ImportOldPresetHandler::slotConvertPreset()
 {
+    if(presetName.length() > 0)
+    {
+        emit signalImportingPresetNum(QString("<center>Importing Preset '%1' Please Wait...</center>").arg(presetName));
+    }
+    else
+    {
+        emit signalImportingPresetNum(QString("<center>Importing Presets Please Wait...</center>"));
+    }
+    QApplication::processEvents();
+
     //set which default map we're starting with
     if(mode == "hosted")
     {
