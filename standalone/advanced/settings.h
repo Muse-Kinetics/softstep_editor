@@ -67,6 +67,7 @@ signals:
     void signalSetGlobalGain(float gain);
     void signalSetSensorResponse(int response);
     void signalSetKeySafetyMode(int mode);
+    void signalSetDisplayMode(int mode);
 
     void signalSetSceneChanging(bool onOff); //Nav
     void signalSetBacklight(bool onOff);
