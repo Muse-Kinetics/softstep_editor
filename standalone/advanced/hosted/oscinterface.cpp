@@ -196,7 +196,76 @@ void OscInterface::slotSetOutputIPAddress(QString ipString)
 
 void OscInterface::slotWriteDatagram(QString tag, int val)
 {
-    socket->writeDatagram("1234    ,i  23  ", QHostAddress(ip), outputPort);
+    QByteArray data;
+    //char byte[12] = {0x2F, 0x30, 0x00, 0x00, 0x2C, 0x69, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01};
+
+    QByteArray address;
+    address.append(tag);
+
+    //address = "/testaddress";
+    //val = 127;
+
+    //---- Format Address
+    //Must have address with size greater than 0
+    if(address.size())
+    {
+
+        //Add Adress to udp packet
+        data.append(address);
+
+        //qDebug() << "address size" << address.size() << address.size()%4;
+        //If adress size is not multiple of 4
+        if(address.size()%4)
+        {
+            //Add empty bytes to make sure it's a multiple of 4
+            for(int i = 0; i < 4 - address.size()%4; i++)
+            {
+                //qDebug() << "adding bytes" << i;
+                data.append('\0');
+            }
+        }
+
+        //If address size is exactly a multiple of 0, add four null byte buffer
+        else
+        {
+            data.append('\0');
+            data.append('\0');
+            data.append('\0');
+            data.append('\0');
+        }
+    }
+
+    //qDebug() << "address - data.size" << data.size();
+
+    //---- Format Type Tag, which will always be the same
+    data.append(',');
+    data.append('i');
+    data.append('\0');
+    data.append('\0');
+
+    //qDebug() << "type tag - data.size" << data.size();
+
+    //---- Format value
+    char intBytes[4];
+
+    intBytes[0] = (val >> 24) & 0xFF;
+    intBytes[1] = (val >> 16) & 0xFF;
+    intBytes[2] = (val >> 8) & 0xFF;
+    intBytes[3] = val & 0xFF;
+
+    data.append(intBytes[0]);
+    data.append(intBytes[1]);
+    data.append(intBytes[2]);
+    data.append(intBytes[3]);
+
+    qDebug() << "val - data.size" << data.size();
+
+    for(int i = 0; i < data.size(); i++)
+    {
+        qDebug() << "data i: " << i << data.at(i);
+    }
+
+    socket->writeDatagram(data, data.size(), QHostAddress(ip), outputPort);
 }
 
 void OscInterface::slotDistributeReceivedMessage(QString tag, int val)
