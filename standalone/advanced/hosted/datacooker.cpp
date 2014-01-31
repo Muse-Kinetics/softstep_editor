@@ -335,6 +335,7 @@ void DataCooker::slotUpdateVals(int cc, int val)
     //Pedal can always be streamed through a key, regardless of lockouts
     else if(cc == PEDAL_CC)
     {
+        //qDebug() << "get pedal input" << val;
         //Run input through our pedal class (per key)
         pedalVal = pedal->slotWindowInput(val);
 

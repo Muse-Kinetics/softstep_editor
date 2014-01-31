@@ -138,7 +138,7 @@ void Pedal::slotSetLivePedalValue(int val)
 //Start
 void Pedal::slotStartCalibrate()
 {
-    //qDebug() << "start calibration";
+    qDebug() << "start calibration";
 
     calibrating = true;
     pedalValueList.clear();

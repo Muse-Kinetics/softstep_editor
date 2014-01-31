@@ -230,16 +230,10 @@ void MidiDeviceManager::slotTetherOnOffInStandalone(bool onOff)
         sysexFIFOClock->stop();
         sysexFIFOsQueue.clear();
 
-        /*
+        sysexFIFOsQueue.append(_fw_scenechange_on_persist);
         sysexFIFOsQueue.append(_fw_tether_on);
         sysexFIFOsQueue.append(_fw_standalone_off);
-        sysexFIFOsQueue.append(_fw_scenechange_off_persist);
-        sysexFIFOsQueue.append(_fw_nav_standalone_off_persist);
-        */
-
-        sysexFIFOsQueue.append(_fw_tether_on);
-        sysexFIFOsQueue.append(_fw_nav_tether_on);
-        sysexFIFOsQueue.append(_fw_standalone_off);
+        sysexFIFOsQueue.append(_fw_nav_standalone_off);
 
         sysexFIFOClock->start(100);
 
@@ -255,16 +249,10 @@ void MidiDeviceManager::slotTetherOnOffInStandalone(bool onOff)
         sysexFIFOClock->stop();
         sysexFIFOsQueue.clear();
 
-        /*
         sysexFIFOsQueue.append(_fw_tether_off);
         sysexFIFOsQueue.append(_fw_standalone_on);
-        sysexFIFOsQueue.append(_fw_scenechange_on_persist);
         sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
-        */
-
-        sysexFIFOsQueue.append(_fw_tether_off);
-        sysexFIFOsQueue.append(_fw_nav_tether_off);
-        sysexFIFOsQueue.append(_fw_standalone_on);
+        sysexFIFOsQueue.append(_fw_nav_standalone_on);
 
         sysexFIFOClock->start(100);
 
@@ -731,6 +719,11 @@ void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *src
                     if(callbackClassPointer->mode == "hosted")
                     {
                         //qDebug() << i;
+                        callbackClassPointer->hosted_slotParsePacket(packet);
+                        break;
+                    }
+                    else if(callbackClassPointer->mode == "standalone" && callbackClassPointer->calibrationPhase != "complete")
+                    {
                         callbackClassPointer->hosted_slotParsePacket(packet);
                         break;
                     }

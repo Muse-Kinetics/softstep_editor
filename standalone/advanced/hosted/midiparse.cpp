@@ -13,6 +13,7 @@ void MidiParse::slotParsePacket(const MIDIPacket* packet)
 {
     if(packet->data[0] == 176)
     {
+        //qDebug() << "midi parse call";
         emit signalUpdateSensor(packet->data[1], packet->data[2]);
     }
 }

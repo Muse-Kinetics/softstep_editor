@@ -632,8 +632,8 @@ void MainWindow::slotConnectInterfaces()
     }
 
     //----- Pedal Nav Pad
-    connect(settingsWindow, SIGNAL(signalStartCalibration()), navKey->dataCooker.pedal, SLOT(slotStartCalibrate()));
-    connect(settingsWindow, SIGNAL(signalResetCalibration()), navKey->dataCooker.pedal, SLOT(slotResetCalibrate()));
+    //connect(settingsWindow, SIGNAL(signalStartCalibration()), navKey->dataCooker.pedal, SLOT(slotStartCalibrate()));
+    //connect(settingsWindow, SIGNAL(signalResetCalibration()), navKey->dataCooker.pedal, SLOT(slotResetCalibrate()));
 
     //Pedal Calibration file read/write
     connect(settingsWindow, SIGNAL(signalInitPedalTable(QByteArray)), navKey->dataCooker.pedal, SLOT(slotInitPedalTable(QByteArray)));
@@ -1579,7 +1579,7 @@ void MainWindow::slotUpdatePresets()
     }
 
     //Send list of preset maps to be "sysex-composed" and sent to board
-    sysExComposer->slotComposeAttributeListFromSetlist(setlistMapList, settingsWindow->settings); //Temporarily send empty settings map
+    sysExComposer->slotComposeAttributeListFromSetlist(setlistMapList, settingsWindow->settings, settingsWindow->pedalValueListGraph); //Temporarily send empty settings map
 }
 
 

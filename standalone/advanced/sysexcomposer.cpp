@@ -79,7 +79,7 @@ void SysExComposer::slotGetEmbeddedVersion()
     //qDebug() << "sysexpath" << sysExPath << "file size" << fwFileSize << "69078";
 }
 
-void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settingsMapGlobal)
+void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settingsMapGlobal, QList<int> pedalTable)
 {
 
     //For some reason there's an extra layer to get to the actual settings, the "Global" map within the settings json contains them
@@ -118,10 +118,29 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     }
 
     //---- Pedal
+    int max = 0;
+    int min = 127;
+    for(int i = 0; i < pedalTable.size(); i++)
+    {
+        qDebug() << "pedal table " << pedalTable;
+        //Min
+        if(pedalTable.at(i) < min)
+        {
+            min = pedalTable.at(i);
+        }
+
+        //Max
+        if(pedalTable.at(i) > max)
+        {
+            max = pedalTable.at(i);
+        }
+    }
+
+
     //attribute(x,0,A_SYM,"set",A_SYM,"Pedal_Table",A_GIMME,-1);
-    //attribute(x,4,A_SYM,"set",A_SYM,"pedalEdges",A_LONG,127l, A_LONG,0l);
+    attribute(x,4,A_SYM,"set",A_SYM,"pedalEdges",A_LONG,max, A_LONG,min);
     //attribute(x,3,A_SYM,"set",A_SYM,"pedalHysteresis",A_LONG,7);
-    //attribute(x,3,A_SYM,"set",A_SYM,"pedalFilterLength",A_LONG,5);
+    attribute(x,3,A_SYM,"set",A_SYM,"pedalFilterLength",A_LONG,3);
 
     //---- EL
     attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!settingsMap.value("backlighting_enable").toLongLong());
