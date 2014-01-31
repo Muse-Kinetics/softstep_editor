@@ -2,6 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "scrolleventfilter.h"
+#include <QToolTip>
 
 ScrollEventFilter::ScrollEventFilter(QObject *parent) :
     QObject(parent)
@@ -11,7 +12,7 @@ ScrollEventFilter::ScrollEventFilter(QObject *parent) :
 
 bool ScrollEventFilter::eventFilter(QObject *obj, QEvent *event)
 {
-    //qDebug() << "scroll event filter called";
+    //qDebug() << "scroll event filter called" << event->type();
 
     QWidget *widget = reinterpret_cast<QWidget *>(obj);
 
@@ -24,13 +25,13 @@ bool ScrollEventFilter::eventFilter(QObject *obj, QEvent *event)
     //Tooltips
     else if(event->type() == QEvent::ToolTip && !toolTipsOn)
     {
-        //qDebug() << "tooltip";
+        qDebug() << "tooltip";
         return true;
     }
-
     //ELSE
     else
     {
+        //qDebug() << "other event";
         // standard event processing
         return QObject::eventFilter(obj, event);
     }
