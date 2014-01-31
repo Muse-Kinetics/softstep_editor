@@ -90,6 +90,7 @@ public:
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
     void signalCheckSavedState();
+    void signalModlineEnabled(QString parameterName);
 
     //---------------------------- Hosted
     void signalSetSource(QString sourceName, int modlineNum);
@@ -131,6 +132,7 @@ public slots:
     void slotRawResult();
     void slotRecallDestinationMenu();
     void slotDeleteModline(int num, bool disable);
+    void slotDisableModline(QString parameterName);
 
     void slotSetMode(QString m);
     void slotPopulateMenus(QStringList source, QStringList dest, QStringList table);

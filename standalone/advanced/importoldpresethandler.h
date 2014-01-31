@@ -37,6 +37,8 @@ signals:
     void signalAddRemovePreset();
     void signalImportingPresetNum(QString updatingMessage);
     void signalImportingComplete();
+    void signalPathNotFound();
+    void signalPathFound();
     
 public slots:
     void slotImportOldPreset();

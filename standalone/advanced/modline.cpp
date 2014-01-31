@@ -496,6 +496,13 @@ void Modline::slotValueChanged()
         }
 
         emit signalStoreValue(QString("key%1_modline%2_").arg(keyInstance+1).arg(modlineInstance+1) + jsonName, value, -1);
+
+        //---------- disable modline if necessary
+        if(mode == "standalone" && jsonName == "enable" && value == true)
+        {
+            emit signalModlineEnabled(QString("key%1_modline%2_enable").arg(keyInstance+1).arg(modlineInstance+1));
+            //qDebug() << "Emiting signal from the modline to say it is enabled: key#/modline#" << keyInstance+1 << modlineInstance+1;
+        }
     }
 
     emit signalCheckSavedState();
@@ -592,13 +599,24 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     }
 }
 
+void Modline::slotDisableModline(QString parameterName)
+{
+    if(parameterName == QString("key%1_modline%2_enable").arg(keyInstance+1).arg(modlineInstance+1))
+    {
+        modlineForm->enable->setChecked(false);
+        emit signalStoreValue(QString("key%1_modline%2_").arg(keyInstance+1).arg(modlineInstance+1) + "enable", false, -1);
+        emit signalCheckSavedState();
+        //qDebug() << "disable this parameter" << parameterName;
+    }
+}
+
 void Modline::slotDeleteModline(int num, bool disable)
 {
     //qDebug() << QString("slotDeleteModline called: %1 %2 %3").arg(modlineInstance).arg(num).arg(disable);
     if(modlineInstance == num - 1 && modlineInstance > 1)
     {
         modlineForm->enable->setChecked(disable);
-        emit signalStoreValue(QString("key%1_modline%2").arg(keyInstance+1).arg(modlineInstance+1) + "enable", FALSE, -1);
+        emit signalStoreValue(QString("key%1_modline%2").arg(keyInstance+1).arg(modlineInstance+1) + "enable", false, -1);
         emit signalCheckSavedState();
     }
 }

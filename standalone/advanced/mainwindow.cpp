@@ -35,6 +35,12 @@ MainWindow::MainWindow(QWidget *parent) :
     importOldDialog(new Ui::ImportOldPresetsForm),
     importOldDialogWidget(new QWidget(this)),
 
+    importOldNotFoundDialog(new Ui::ImportOldNotFoundForm),
+    importOldNotFoundDialogWidget(new QWidget(this)),
+
+    modlineWarningDialog(new Ui::ModlineWarningForm),
+    modlineWarningDialogWidget(new QWidget(this)),
+
     sysExComposer(new SysExComposer(this)),
     presetInterface(new PresetInterface(this)),
     copyPasteHandler(new CopyPasteHandler(presetInterface,this)),
@@ -132,6 +138,16 @@ MainWindow::MainWindow(QWidget *parent) :
     importOldDialogWidget->hide();
     importOldDialog->setupUi(importOldDialogWidget);
     importOldDialogWidget->move(this->width()/2 - importOldDialogWidget->width()/2, this->height()/2 - importOldDialogWidget->height()/2);
+
+    //Import Old Not Found Dialog
+    importOldNotFoundDialogWidget->hide();
+    importOldNotFoundDialog->setupUi(importOldNotFoundDialogWidget);
+    importOldNotFoundDialogWidget->move(this->width()/2 - importOldNotFoundDialogWidget->width()/2, this->height()/2 - importOldNotFoundDialogWidget->height()/2);
+
+    //Modline Warning Dialog
+    modlineWarningDialogWidget->hide();
+    modlineWarningDialog->setupUi(modlineWarningDialogWidget);
+    modlineWarningDialogWidget->move(this->width()/2 - modlineWarningDialogWidget->width()/2, this->height()/2 - modlineWarningDialogWidget->height()/2);
 
 
     //------------------------------------ Settings Window
@@ -510,6 +526,10 @@ void MainWindow::slotConnectInterfaces()
 
             //save state
             connect(key[k]->modline[m], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
+
+            //modline warning
+            connect(key[k]->modline[m], SIGNAL(signalModlineEnabled(QString)), presetInterface, SLOT(slotModlineWarning(QString)));
+            connect(presetInterface, SIGNAL(signalDisableModline(QString)), key[k]->modline[m], SLOT(slotDisableModline(QString)));
         }
     }
 
@@ -525,6 +545,9 @@ void MainWindow::slotConnectInterfaces()
 
         //save state
         connect(navKey->navModline[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
+
+        //modline warning
+        //connect(navKey->navModline[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotModlineWarning()));
     }
 
     //----------------------------------------------------------------------------------- Save, Save As, Revert, Delete
@@ -705,9 +728,16 @@ void MainWindow::slotConnectInterfaces()
     //connect(aboutForm->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //Import old Preset Dialoge
+    connect(importOldPresetHandler, SIGNAL(signalPathFound()), importOldDialogWidget, SLOT(show()));
     connect(importOldPresetHandler, SIGNAL(signalImportingComplete()), importOldDialogWidget, SLOT(hide()));
+    connect(importOldPresetHandler, SIGNAL(signalPathNotFound()), importOldNotFoundDialogWidget, SLOT(show()));
+    connect(importOldNotFoundDialog->ok, SIGNAL(clicked()), importOldNotFoundDialogWidget, SLOT(hide()));
     connect(importOldPresetHandler, SIGNAL(signalImportingPresetNum(QString)), importOldDialog->importMessage, SLOT(setText(QString)));
 
+    //Modline Warning Dialog
+    connect(presetInterface, SIGNAL(signalModlineWarning(QString)), this, SLOT(slotModlineWarning(QString)));
+    connect(copyPasteHandler, SIGNAL(signalModlineWarning(QString)), this, SLOT(slotModlineWarning(QString)));
+    connect(modlineWarningDialog->ok, SIGNAL(clicked()), modlineWarningDialogWidget, SLOT(hide()));
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////// "Downloading" ///////////////////////////////////////////////////////////////
@@ -762,7 +792,7 @@ void MainWindow::slotInitMenuBar()
 
     QAction* importOldPreset = new QAction("Import All Presets from V1.21", file);
     importOldPreset->setObjectName("importOldPresets");
-    connect(importOldPreset, SIGNAL(triggered()), this, SLOT(slotImportOldPreset()));
+    connect(importOldPreset, SIGNAL(triggered()), importOldPresetHandler, SLOT(slotImportOldPreset()));
     file->addAction(importOldPreset);
 
     menubar->addMenu(file);
@@ -868,14 +898,6 @@ void MainWindow::slotInitMenuBar()
     menubar->addMenu(help);
 }
 
-void MainWindow::slotImportOldPreset()
-{
-    importOldDialogWidget->show();
-    importOldDialogWidget->raise();
-    importOldDialog->importMessage->setText("<center>Importing Presets Please Wait...</center>");
-    importOldPresetHandler->slotImportOldPreset();
-}
-
 void MainWindow::slotEnableDisableToolTips()
 {
     if(sessionSettings->value("toolTipsEnabled").toBool())
@@ -913,6 +935,12 @@ void MainWindow::slotUpdatePasteAvailability()
     {
         pasteKeyAct->setDisabled(false);
     }
+}
+
+void MainWindow::slotModlineWarning(QString modlineWarningMessage)
+{
+    modlineWarningDialog->label->setText(modlineWarningMessage);
+    modlineWarningDialogWidget->show();
 }
 
 void MainWindow::slotSelectedKey(int selectedKey)

@@ -14,98 +14,119 @@ void ImportOldPresetHandler::slotImportOldPreset()
     presetName = "";
 
     QString filename = NULL;
-    filename = QFileDialog::getOpenFileName(presetInterface, tr("Import Presets from SoftStep Editor Version 1.21"), QString("./"), tr("SoftStep Editor V1.21 Preset Files (*SoftStep.json)"));
+    QString filepath = NULL;
+    filepath = QFileDialog::getExistingDirectory(presetInterface, tr("Navigate to your SoftStep Editor Version 1.21 'Presets' Folder"), QString("./"));
 
     //If file is selected
-    if(filename != NULL)
+    if(filepath != NULL)
     {
+        if(mode == "hosted")
+        {
+            filename = filepath.append("/hosted/SoftStep.json");
+            //filename = QFileDialog::getOpenFileName(presetInterface, tr("Import Hosted Presets from SoftStep Editor Version 1.21"), QString("./"), tr("SoftStep Editor V1.21 Hosted Preset Files (*SoftStep.json)"));
+        }
+        else
+        {
+            filename = filepath.append("/standalone/SA_SoftStep.json");
+            //filename = QFileDialog::getOpenFileName(presetInterface, tr("Import Standalone Presets from SoftStep Editor Version 1.21"), QString("./"), tr("SoftStep Editor V1.21 Standalone Preset Files (*_SoftStep.json)"));
+        }
+
         //open file
         QFile* presetFile = new QFile(filename);
-        presetFile->open(QIODevice::ReadOnly);
 
-        QByteArray presetByteArray = presetFile->readAll();
-        presetFile->close();
-
-        QVariantMap importedMap = presetInterface->parser.parse(presetByteArray, &ok).toMap();
-
-        QMapIterator<QString, QVariant> i(importedMap);
-
-        int numPresets;
-
-        while(i.hasNext())
+        if(!presetFile->exists())
         {
-            i.next();
+            emit signalPathNotFound();
+        }
+        else
+        {
+            emit signalPathFound();
 
-            QVariantMap patterstorage = i.value().toMap();
+            presetFile->open(QIODevice::ReadOnly);
 
-            QMapIterator<QString, QVariant> j(patterstorage);
+            QByteArray presetByteArray = presetFile->readAll();
+            presetFile->close();
 
-            while(j.hasNext())
+            QVariantMap importedMap = presetInterface->parser.parse(presetByteArray, &ok).toMap();
+
+            QMapIterator<QString, QVariant> i(importedMap);
+
+            int numPresets = 1;
+
+            while(i.hasNext())
             {
-                j.next();
+                i.next();
 
-                QVariantMap slot = j.value().toMap();
+                QVariantMap patterstorage = i.value().toMap();
 
-                QMapIterator<QString, QVariant> k(slot);
+                QMapIterator<QString, QVariant> j(patterstorage);
 
-                while(k.hasNext())
+                while(j.hasNext())
                 {
-                    k.next();
+                    j.next();
 
-                    //qDebug() << k.key();
+                    QVariantMap slot = j.value().toMap();
 
-                    QVariantMap slotNum = k.value().toMap();
+                    QMapIterator<QString, QVariant> k(slot);
 
-                    QMapIterator<QString, QVariant> l(slotNum);
-
-                    while(l.hasNext())
+                    while(k.hasNext())
                     {
-                        l.next();
+                        k.next();
 
-                        if(l.key() == "data")
+                        //qDebug() << k.key();
+
+                        QVariantMap slotNum = k.value().toMap();
+
+                        QMapIterator<QString, QVariant> l(slotNum);
+
+                        while(l.hasNext())
                         {
-                            importedOldPresetMap = l.value().toMap();
-                            //qDebug() << "importOldPreset Data:" << importedOldPresetMap;
+                            l.next();
 
-                            importedNewPresetMap = slotConvertPreset();
-                            slotNormalizePresetMap();
-
-                            //get the preset name
-                            presetName = slotNum.value("name").toString();
-                            importedNewPresetMap.insert("preset_name", presetName);
-                            qDebug() << "Name of Importing Preset" << presetName;
-
-                            //---------- Set Imported Preset to new preset and update ----------
-                            presetInterface->presetListCopy.clear();
-                            presetInterface->presetListMaster.clear();
-
-                            numPresets = presetInterface->slotGetNumPresetsInJson();
-
-                            for(int i = 0; i < numPresets; i++)
+                            if(l.key() == "data")
                             {
-                                presetInterface->presetListCopy.append(presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
-                                presetInterface->presetListMaster.append(presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
-                            }
-                            presetInterface->presetListCopy.append(importedNewPresetMap);
-                            presetInterface->presetListMaster.append(importedNewPresetMap);
+                                importedOldPresetMap = l.value().toMap();
+                                //qDebug() << "importOldPreset Data:" << importedOldPresetMap;
 
-                            presetInterface->slotOrderPresetsInJson();
-                            presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
-                            emit signalAddRemovePreset();
+                                importedNewPresetMap = slotConvertPreset();
+                                slotNormalizePresetMap();
+
+                                //get the preset name
+                                presetName = slotNum.value("name").toString();
+                                importedNewPresetMap.insert("preset_name", presetName);
+                                qDebug() << "Name of Importing Preset" << presetName;
+
+                                //---------- Set Imported Preset to new preset and update ----------
+                                presetInterface->presetListCopy.clear();
+                                presetInterface->presetListMaster.clear();
+
+                                numPresets = presetInterface->slotGetNumPresetsInJson();
+
+                                for(int i = 0; i < numPresets; i++)
+                                {
+                                    presetInterface->presetListCopy.append(presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
+                                    presetInterface->presetListMaster.append(presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
+                                }
+                                presetInterface->presetListCopy.append(importedNewPresetMap);
+                                presetInterface->presetListMaster.append(importedNewPresetMap);
+
+                                presetInterface->slotOrderPresetsInJson();
+                                presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
+                                emit signalAddRemovePreset();
+                            }
                         }
                     }
                 }
             }
+            emit signalPresetMenu(numPresets);
+            emit signalImportingComplete();
+            //qDebug() << importedPresetMap;
         }
-
-        emit signalPresetMenu(numPresets);
-        emit signalImportingComplete();
-
-        //qDebug() << importedPresetMap;
     }
     else
     {
         qDebug("nothing selected");
+        emit signalImportingComplete();
     }
 }
 

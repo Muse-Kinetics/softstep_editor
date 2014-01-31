@@ -30,6 +30,8 @@
 #include "ui_saveAsForm.h"
 #include "ui_deletePresetForm.h"
 #include "ui_importOldPresetsForm.h"
+#include "ui_importOldNotFoundForm.h"
+#include "ui_modlineWarningForm.h"
 #else
 
 #endif
@@ -88,6 +90,8 @@ public:
     QWidget     *fwUpdateDialogWidget;
     QWidget     *aboutFormWidget;
     QWidget     *importOldDialogWidget;
+    QWidget     *importOldNotFoundDialogWidget;
+    QWidget     *modlineWarningDialogWidget;
 
     //Menubar
     QMenuBar *menubar;
@@ -136,8 +140,6 @@ public slots:
     void slotOpenDoc();
     void slotEnableDisableToolTips();
 
-    void slotImportOldPreset();
-
     void slotUpdatePasteAvailability();
     void slotSelectedKey(int selectedKey);
 
@@ -150,6 +152,8 @@ public slots:
     void slotPopulatePresetMenu();
     void slotSetPresetMenu(int presetNum);
     void slotDisplaySaveState(bool);
+
+    void slotModlineWarning(QString modlineWarningMessage);
 
     void slotSetMode();
     void slotPopulateSourceDestLists();
@@ -184,6 +188,8 @@ private:
     Ui::UpdateFirmwareForm      *fwUpdateDialog;
     Ui::AboutForm               *aboutForm;
     Ui::ImportOldPresetsForm    *importOldDialog;
+    Ui::ImportOldNotFoundForm   *importOldNotFoundDialog;
+    Ui::ModlineWarningForm      *modlineWarningDialog;
 
 
 

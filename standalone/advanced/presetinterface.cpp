@@ -263,6 +263,31 @@ void PresetInterface::slotCheckSaveState()
 
 }
 
+void PresetInterface::slotModlineWarning(QString parameterName)
+{
+    int countModlines = 0;
+    QMapIterator<QString, QVariant> map(jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap());
+
+    //count how manu modlines are enabled
+    while(map.hasNext())
+    {
+        map.next();
+
+        if(map.key().contains("_enable") && map.value() == true)
+        {
+            countModlines++;
+        }
+    }
+
+    //qDebug() << "Number of Key Modlines enabled:" << countModlines;
+
+    if(countModlines > 50)
+    {
+        emit signalDisableModline(parameterName);
+        emit signalModlineWarning(QString("Standalone presets are limited to 50 active modlines.  To allow the full 66, move this preset to Hosted Mode."));
+    }
+}
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -441,86 +466,112 @@ void PresetInterface::slotImportPreset()
         presetFile->close();
 
         QVariantMap importedPresetMap = parser.parse(presetByteArray, &ok).toMap();
+        defaultPresetMap.clear();
 
+        //------------- Check to make sure there aren't too many modlines -----------------
+        if(mode == "standalone")
+        {
+            int countModlines = 0;
+            QMapIterator<QString, QVariant> map(importedPresetMap);
 
-        //------------- Check for MISSING Parameters in the Imported Preset ----------------
-        if(mode == "hosted")
+            //count how manu modlines are enabled
+            while(map.hasNext())
+            {
+                map.next();
+
+                if(map.key().contains("_enable") && map.value() == true)
+                {
+                    countModlines++;
+                }
+            }
+
+            qDebug() << "Number of Key Modlines enabled:" << countModlines;
+
+            if(countModlines > 50)
+            {
+                emit signalModlineWarning(QString("<center>This preset exceeds the maximum number of active modlines allowed in Standalone Mode. Presets in Standalone Mode must have 50 active modlines or less. Turn off some modlines and try again.</center>"));
+            }
+            else
+            {
+                slotConstructDefaultStandaloneMap();
+            }
+        }
+        else if(mode == "hosted")
         {
             slotConstructDefaultHostedMap();
         }
-        else if(mode == "standalone")
+
+        if(!defaultPresetMap.isEmpty())
         {
-            slotConstructDefaultStandaloneMap();
-        }
+            QMapIterator<QString, QVariant> i(defaultPresetMap);
 
-        QMapIterator<QString, QVariant> i(defaultPresetMap);
-
-        //Iterate through default map and compare with imported preset
-        while(i.hasNext())
-        {
-            i.next();
-
-            if(!importedPresetMap.contains(i.key()))
+            //Iterate through default map and compare with imported preset
+            while(i.hasNext())
             {
-                //if imported preset map does not contain a value in the default map, insert it
-                importedPresetMap.insert(i.key(), i.value());
-                qDebug() << "From slotImportPreset - This was MISSING:" << i.key() << i.value();
-            }
+                i.next();
 
-            //if copying from one mode to the other the device menu values for port 1 should change
-            if(i.key().contains("_device"))
-            {
-                if(importedPresetMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+                if(!importedPresetMap.contains(i.key()))
                 {
-                    importedPresetMap.insert(i.key(), "SoftStep Share");
+                    //if imported preset map does not contain a value in the default map, insert it
+                    importedPresetMap.insert(i.key(), i.value());
+                    qDebug() << "From slotImportPreset - This was MISSING:" << i.key() << i.value();
                 }
-                else if(importedPresetMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+
+                //if copying from one mode to the other the device menu values for port 1 should change
+                if(i.key().contains("_device"))
                 {
-                    importedPresetMap.insert(i.key(), "SSCOM Port 1");
+                    if(importedPresetMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+                    {
+                        importedPresetMap.insert(i.key(), "SoftStep Share");
+                    }
+                    else if(importedPresetMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+                    {
+                        importedPresetMap.insert(i.key(), "SSCOM Port 1");
+                    }
                 }
             }
-        }
-        //------------ Check for EXTRA parameters in the Imported Preset -------------------
-        QMapIterator<QString, QVariant> j(importedPresetMap);
+            //------------ Check for EXTRA parameters in the Imported Preset -------------------
+            QMapIterator<QString, QVariant> j(importedPresetMap);
 
-        QStringList badKeys;  //stores keys we need to remove from the map
+            QStringList badKeys;  //stores keys we need to remove from the map
 
-        while(j.hasNext())
-        {
-            j.next();
-
-            //If the default map does not contain something in the preset
-            if(!defaultPresetMap.contains(j.key()))
+            while(j.hasNext())
             {
-                //add to list of bad keys
-                badKeys.append(j.key());
-                qDebug() << "From slotImportPreset - This was EXTRA:" << j.key() << j.value();
+                j.next();
+
+                //If the default map does not contain something in the preset
+                if(!defaultPresetMap.contains(j.key()))
+                {
+                    //add to list of bad keys
+                    badKeys.append(j.key());
+                    qDebug() << "From slotImportPreset - This was EXTRA:" << j.key() << j.value();
+                }
             }
+            //Iterate through the bad keys and remove from preset
+            for(int i = 0; i<badKeys.count(); i++)
+            {
+                importedPresetMap.remove(badKeys.at(i));
+            }
+
+            //----------- Set Imported Preset to New preset and Update ----------
+            presetListCopy.clear();
+            presetListMaster.clear();
+
+            int numPresets = slotGetNumPresetsInJson();
+
+            for(int i = 0; i < numPresets; i++)
+            {
+                presetListCopy.append(jsonMasterMapCopy.value(slotGetPresetStringFromInt(i)).toMap());
+                presetListMaster.append(jsonMasterMapCopy.value(slotGetPresetStringFromInt(i)).toMap());
+            }
+            presetListCopy.append(importedPresetMap);
+            presetListMaster.append(importedPresetMap);
+
+            slotOrderPresetsInJson();
+            slotWriteJSON(jsonMasterMap);
+            emit signalAddRemovePreset();
+            emit signalPresetMenu(numPresets);
         }
-        //Iterate through the bad keys and remove from preset
-        for(int i = 0; i<badKeys.count(); i++)
-        {
-            importedPresetMap.remove(badKeys.at(i));
-        }
-
-        //----------- Set Imported Preset to New preset and Update ----------
-        presetListCopy.clear();
-        presetListMaster.clear();
-
-        int numPresets = slotGetNumPresetsInJson();
-
-        for(int i = 0; i < numPresets; i++)
-        {
-            presetListCopy.append(jsonMasterMapCopy.value(slotGetPresetStringFromInt(i)).toMap());
-            presetListMaster.append(jsonMasterMapCopy.value(slotGetPresetStringFromInt(i)).toMap());
-        }
-        presetListCopy.append(importedPresetMap);
-        presetListMaster.append(importedPresetMap);
-
-        slotOrderPresetsInJson();
-        slotWriteJSON(jsonMasterMap);
-        emit signalAddRemovePreset();
-        emit signalPresetMenu(numPresets);
     }
     else
     {

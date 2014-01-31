@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ImportOldPresetsForm</class>
- <widget class="QWidget" name="ImportOldPresetsForm">
+ <class>ModlineWarningForm</class>
+ <widget class="QWidget" name="ModlineWarningForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>238</width>
-    <height>78</height>
+    <width>258</width>
+    <height>158</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -144,8 +144,8 @@ border-radius: 1px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>238</width>
-     <height>78</height>
+     <width>258</width>
+     <height>158</height>
     </rect>
    </property>
    <property name="focusPolicy">
@@ -165,8 +165,8 @@ border-radius: 1px;
      <rect>
       <x>8</x>
       <y>8</y>
-      <width>222</width>
-      <height>62</height>
+      <width>242</width>
+      <height>142</height>
      </rect>
     </property>
     <property name="focusPolicy">
@@ -186,13 +186,13 @@ border:none;
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="importMessage">
+    <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
        <x>8</x>
-       <y>8</y>
-       <width>206</width>
-       <height>48</height>
+       <y>2</y>
+       <width>226</width>
+       <height>98</height>
       </rect>
      </property>
      <property name="font">
@@ -205,13 +205,32 @@ border:none;
       </font>
      </property>
      <property name="text">
-      <string/>
+      <string>Modline Limit Exceeded!</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ok">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>110</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>OK</string>
      </property>
     </widget>
    </widget>

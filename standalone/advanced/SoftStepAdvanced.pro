@@ -123,7 +123,9 @@ FORMS    +=     forms/mainwindow.ui \
     forms/updatefwform.ui \
     forms/fwupdatecompleteform.ui \
     forms/pedalLiveTableForm.ui \
-    forms/importOldPresetsForm.ui
+    forms/importOldPresetsForm.ui \
+    forms/importOldNotFoundForm.ui \
+    forms/modlineWarningForm.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#

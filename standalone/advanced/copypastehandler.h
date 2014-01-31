@@ -31,6 +31,7 @@ signals:
     void signalUpdatePasteAvailability();
     void signalAddRemovePreset();
     void signalPresetMenu(int numPresets);
+    void signalModlineWarning(QString modlineWarningMessage);
     
 public slots:
     void slotCopyPreset();

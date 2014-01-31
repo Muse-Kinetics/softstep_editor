@@ -54,10 +54,13 @@ signals:
     void signalAddRemovePreset();
     void signalPresetDirty(bool);
     void signalPresetMenu(int goToPresetNum);
+    void signalDisableModline(QString parameterName);
+    void signalModlineWarning(QString modlineWarningMessage);
     
 public slots:
     void slotStoreValue(QString name, QVariant value, int presetNum);
     void slotCheckSaveState();
+    void slotModlineWarning(QString parameterName);
 
     void slotUpdateJSONPath();
     void slotReadJSON();

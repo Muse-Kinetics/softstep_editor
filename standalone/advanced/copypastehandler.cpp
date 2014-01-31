@@ -26,157 +26,213 @@ void CopyPasteHandler::slotCopyPreset()
 
 void CopyPasteHandler::slotPastePreset()
 {
-    if(mode == "hosted")
+    presetInterface->defaultPresetMap.clear();
+
+    if(mode == "standalone")
+    {
+        int countModlines = 0;
+        QMapIterator<QString, QVariant> map(presetCopiedMap);
+
+        //count how many modlines are enabled
+        while(map.hasNext())
+        {
+            map.next();
+
+            if(map.key().contains("_enable") && map.value() == true)
+            {
+                countModlines++;
+            }
+        }
+
+        //qDebug() << "Number of Enabled Modlines in the copied map:" << countModlines;
+
+        if(countModlines > 50)
+        {
+            emit signalModlineWarning(QString("This preset exceeds the maximum number of active modlines allowed in Standalone Mode. Presets in Standalone Mode must have 50 active modlines or less. Turn off some modlines and try again."));
+        }
+        else
+        {
+            presetInterface->slotConstructDefaultStandaloneMap();
+        }
+    }
+    else if(mode == "hosted")
     {
         presetInterface->slotConstructDefaultHostedMap();
     }
-    else if(mode == "standalone")
+
+    if(!presetInterface->defaultPresetMap.isEmpty())
     {
-        presetInterface->slotConstructDefaultStandaloneMap();
-    }
+        QMapIterator<QString, QVariant> i(presetInterface->defaultPresetMap);
 
-    QMapIterator<QString, QVariant> i(presetInterface->defaultPresetMap);
-
-    //iterate through default map and compare with the presetCopiedMap
-    while(i.hasNext())
-    {
-        i.next();
-        if(!presetCopiedMap.contains(i.key()))
+        //iterate through default map and compare with the presetCopiedMap
+        while(i.hasNext())
         {
-            //if presetCopiedMap doesn't contain a value in the default map, insert it
-            presetCopiedMap.insert(i.key(), i.value());
-            //qDebug() << "From slotPastePreset - this was MISSING:" << i.key() << i.value();
-        }
-
-        //if copying from one mode to the other the device menu values for port 1 should change
-        if(i.key().contains("_device"))
-        {
-            //qDebug() << "Paste Preset Parameter" << presetCopiedMap.value(i.key());
-            if(presetCopiedMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+            i.next();
+            if(!presetCopiedMap.contains(i.key()))
             {
-                presetCopiedMap.insert(i.key(), "SoftStep Share");
-                //qDebug() << "SSCOM Port 1 has been changed to SoftStep Share" << i.key();
+                //if presetCopiedMap doesn't contain a value in the default map, insert it
+                presetCopiedMap.insert(i.key(), i.value());
+                //qDebug() << "From slotPastePreset - this was MISSING:" << i.key() << i.value();
             }
-            else if(presetCopiedMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+
+            //if copying from one mode to the other the device menu values for port 1 should change
+            if(i.key().contains("_device"))
             {
-                presetCopiedMap.insert(i.key(), "SSCOM Port 1");
-                //qDebug() << "SoftStep Share has been changed to SSCOM Port 1" << i.key();
+                //qDebug() << "Paste Preset Parameter" << presetCopiedMap.value(i.key());
+                if(presetCopiedMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+                {
+                    presetCopiedMap.insert(i.key(), "SoftStep Share");
+                    //qDebug() << "SSCOM Port 1 has been changed to SoftStep Share" << i.key();
+                }
+                else if(presetCopiedMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+                {
+                    presetCopiedMap.insert(i.key(), "SSCOM Port 1");
+                    //qDebug() << "SoftStep Share has been changed to SSCOM Port 1" << i.key();
+                }
             }
         }
-    }
 
-    //check for EXTRA parameters in the copied preset
-    QMapIterator<QString, QVariant> j(presetCopiedMap);
-    QStringList badKeys; //stores parameters we need to remove from the map
+        //check for EXTRA parameters in the copied preset
+        QMapIterator<QString, QVariant> j(presetCopiedMap);
+        QStringList badKeys; //stores parameters we need to remove from the map
 
-    while(j.hasNext())
-    {
-        j.next();
-
-        //If the default map does not contain something in the preset
-        if(!presetInterface->defaultPresetMap.contains(j.key()))
+        while(j.hasNext())
         {
-            //add to list of bad keys
-            badKeys.append(j.key());
-            //qDebug() << "From slotPastePreset - this was EXTRA:" << j.key() << j.value();
-        }
-    }
-    //Iterate through the bad keys and remove from preset
-    for(int i = 0; i<badKeys.count(); i++)
-    {
-        presetCopiedMap.remove(badKeys.at(i));
-    }
+            j.next();
 
-    presetInterface->jsonMasterMapCopy.insert(presetInterface->slotGetPresetStringFromInt(presetInterface->currentPresetNum), presetCopiedMap);
-    presetInterface->slotRecallPreset(presetInterface->currentPresetNum);
-    presetInterface->slotCheckSaveState();
+            //If the default map does not contain something in the preset
+            if(!presetInterface->defaultPresetMap.contains(j.key()))
+            {
+                //add to list of bad keys
+                badKeys.append(j.key());
+                //qDebug() << "From slotPastePreset - this was EXTRA:" << j.key() << j.value();
+            }
+        }
+        //Iterate through the bad keys and remove from preset
+        for(int i = 0; i<badKeys.count(); i++)
+        {
+            presetCopiedMap.remove(badKeys.at(i));
+        }
+
+        presetInterface->jsonMasterMapCopy.insert(presetInterface->slotGetPresetStringFromInt(presetInterface->currentPresetNum), presetCopiedMap);
+        presetInterface->slotRecallPreset(presetInterface->currentPresetNum);
+        presetInterface->slotCheckSaveState();
+    }
 }
 
 void CopyPasteHandler::slotPasteNewPreset()
 {
-    if(mode == "hosted")
+    presetInterface->defaultPresetMap.clear();
+
+    if(mode == "standalone")
+    {
+        int countModlines = 0;
+        QMapIterator<QString, QVariant> map(presetCopiedMap);
+
+        //count how many modlines are enabled
+        while(map.hasNext())
+        {
+            map.next();
+
+            if(map.key().contains("_enable") && map.value() == true)
+            {
+                countModlines++;
+            }
+        }
+
+        //qDebug() << "Number of Enabled Modlines in the Copied Map:" << countModlines;
+
+        if(countModlines > 50)
+        {
+            emit signalModlineWarning(QString("This preset exceeds the maximum number of active modlines allowed in Standalone Mode. Presets in Standalone Mode must have 50 active modlines or less. Turn off some modlines and try again."));
+        }
+        else
+        {
+            presetInterface->slotConstructDefaultStandaloneMap();
+        }
+    }
+    else if(mode == "hosted")
     {
         presetInterface->slotConstructDefaultHostedMap();
     }
-    else if(mode == "standalone")
+
+    if(!presetInterface->defaultPresetMap.isEmpty())
     {
-        presetInterface->slotConstructDefaultStandaloneMap();
-    }
+        QMapIterator<QString, QVariant> i(presetInterface->defaultPresetMap);
 
-    QMapIterator<QString, QVariant> i(presetInterface->defaultPresetMap);
-
-    //iterate through default map and compare with the presetCopiedMap
-    while(i.hasNext())
-    {
-        i.next();
-        if(!presetCopiedMap.contains(i.key()))
+        //iterate through default map and compare with the presetCopiedMap
+        while(i.hasNext())
         {
-            //if presetCopiedMap doesn't contain a value in the default map, insert it
-            presetCopiedMap.insert(i.key(), i.value());
-            //qDebug() << "From slotPastePreset - this was MISSING:" << i.key() << i.value();
-        }
-
-        //if copying from one mode to the other the device menu values for port 1 should change
-        if(i.key().contains("_device"))
-        {
-            //qDebug() << "Paste Preset Parameter" << presetCopiedMap.value(i.key());
-            if(presetCopiedMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+            i.next();
+            if(!presetCopiedMap.contains(i.key()))
             {
-                presetCopiedMap.insert(i.key(), "SoftStep Share");
-                //qDebug() << "SSCOM Port 1 has been changed to SoftStep Share";
+                //if presetCopiedMap doesn't contain a value in the default map, insert it
+                presetCopiedMap.insert(i.key(), i.value());
+                //qDebug() << "From slotPastePreset - this was MISSING:" << i.key() << i.value();
             }
-            else if(presetCopiedMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+
+            //if copying from one mode to the other the device menu values for port 1 should change
+            if(i.key().contains("_device"))
             {
-                presetCopiedMap.insert(i.key(), "SSCOM Port 1");
-                //qDebug() << "SoftStep Share has been changed to SSCOM Port 1";
+                //qDebug() << "Paste Preset Parameter" << presetCopiedMap.value(i.key());
+                if(presetCopiedMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+                {
+                    presetCopiedMap.insert(i.key(), "SoftStep Share");
+                    //qDebug() << "SSCOM Port 1 has been changed to SoftStep Share";
+                }
+                else if(presetCopiedMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+                {
+                    presetCopiedMap.insert(i.key(), "SSCOM Port 1");
+                    //qDebug() << "SoftStep Share has been changed to SSCOM Port 1";
+                }
             }
         }
-    }
 
-    //check for EXTRA parameters in the copied preset
-    QMapIterator<QString, QVariant> j(presetCopiedMap);
-    QStringList badKeys; //stores parameters we need to remove from the map
+        //check for EXTRA parameters in the copied preset
+        QMapIterator<QString, QVariant> j(presetCopiedMap);
+        QStringList badKeys; //stores parameters we need to remove from the map
 
-    while(j.hasNext())
-    {
-        j.next();
-
-        //If the default map does not contain something in the preset
-        if(!presetInterface->defaultPresetMap.contains(j.key()))
+        while(j.hasNext())
         {
-            //add to list of bad keys
-            badKeys.append(j.key());
-            //qDebug() << "From slotPastePreset - this was EXTRA:" << j.key() << j.value();
+            j.next();
+
+            //If the default map does not contain something in the preset
+            if(!presetInterface->defaultPresetMap.contains(j.key()))
+            {
+                //add to list of bad keys
+                badKeys.append(j.key());
+                //qDebug() << "From slotPastePreset - this was EXTRA:" << j.key() << j.value();
+            }
         }
+        //Iterate through the bad keys and remove from preset
+        for(int i = 0; i<badKeys.count(); i++)
+        {
+            presetCopiedMap.remove(badKeys.at(i));
+        }
+
+        //Set Imported Preset to New preset and Update
+        presetInterface->presetListCopy.clear();
+        presetInterface->presetListMaster.clear();
+
+        int numPresets = presetInterface->slotGetNumPresetsInJson();
+
+        for(int i = 0; i < numPresets; i++)
+        {
+            presetInterface->presetListCopy.append(presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
+            presetInterface->presetListMaster.append(presetInterface->jsonMasterMap.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
+        }
+        presetInterface->presetListCopy.append(presetCopiedMap);
+        presetInterface->presetListMaster.append(presetCopiedMap);
+
+        presetInterface->slotOrderPresetsInJson();
+        presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
+        emit signalAddRemovePreset();
+        emit signalPresetMenu(numPresets);
+
+        //presetInterface->jsonMasterMapCopy.insert(presetInterface->slotGetPresetStringFromInt(presetInterface->currentPresetNum), presetCopiedMap);
+        //presetInterface->slotRecallPreset(presetInterface->currentPresetNum);
+        //presetInterface->slotCheckSaveState();
     }
-    //Iterate through the bad keys and remove from preset
-    for(int i = 0; i<badKeys.count(); i++)
-    {
-        presetCopiedMap.remove(badKeys.at(i));
-    }
-
-    //Set Imported Preset to New preset and Update
-    presetInterface->presetListCopy.clear();
-    presetInterface->presetListMaster.clear();
-
-    int numPresets = presetInterface->slotGetNumPresetsInJson();
-
-    for(int i = 0; i < numPresets; i++)
-    {
-        presetInterface->presetListCopy.append(presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
-        presetInterface->presetListMaster.append(presetInterface->jsonMasterMap.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
-    }
-    presetInterface->presetListCopy.append(presetCopiedMap);
-    presetInterface->presetListMaster.append(presetCopiedMap);
-
-    presetInterface->slotOrderPresetsInJson();
-    presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
-    emit signalAddRemovePreset();
-    emit signalPresetMenu(numPresets);
-
-    //presetInterface->jsonMasterMapCopy.insert(presetInterface->slotGetPresetStringFromInt(presetInterface->currentPresetNum), presetCopiedMap);
-    //presetInterface->slotRecallPreset(presetInterface->currentPresetNum);
-    //presetInterface->slotCheckSaveState();
 }
 
 void CopyPasteHandler::slotCopyKey()
