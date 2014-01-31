@@ -419,6 +419,12 @@ void NavModline::slotValueChanged()
             value = navModlineForm->modlinedisplayenable->isChecked();
         }
         emit signalStoreValue(QString("nav_modline%1_").arg(navInstance+1) + jsonName, value, -1);
+
+        //----------- disable modline if necessary
+        if(mode == "standalone" && jsonName == "enable" && value == true)
+        {
+            emit signalModlineEnabled(QString("nav_modline%1_enable").arg(navInstance+1));
+        }
     }
 
     emit signalCheckSavedState();
@@ -517,12 +523,22 @@ void NavModline::slotRawResult()
     //qDebug() << "initialize result value";
 }
 
+void NavModline::slotDisableModline(QString parameterName)
+{
+    if(parameterName == QString("nav_modline%1_enable").arg(navInstance+1))
+    {
+        navModlineForm->enable->setChecked(false);
+        emit signalStoreValue(QString("nav_modline%1_").arg(navInstance+1) + "enable", false, -1);
+        emit signalCheckSavedState();
+    }
+}
+
 void NavModline::slotDeleteModline(int num, bool disable)
 {
     if(navInstance == num - 1 && navInstance > 1)
     {
         navModlineForm->enable->setChecked(disable);
-        emit signalStoreValue(QString("nav_modline%1").arg(navInstance+1) + "enable", FALSE, -1);
+        emit signalStoreValue(QString("nav_modline%1_").arg(navInstance+1) + "enable", false, -1);
         emit signalCheckSavedState();
     }
 }

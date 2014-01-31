@@ -616,7 +616,7 @@ void Modline::slotDeleteModline(int num, bool disable)
     if(modlineInstance == num - 1 && modlineInstance > 1)
     {
         modlineForm->enable->setChecked(disable);
-        emit signalStoreValue(QString("key%1_modline%2").arg(keyInstance+1).arg(modlineInstance+1) + "enable", false, -1);
+        emit signalStoreValue(QString("key%1_modline%2_").arg(keyInstance+1).arg(modlineInstance+1) + "enable", false, -1);
         emit signalCheckSavedState();
     }
 }

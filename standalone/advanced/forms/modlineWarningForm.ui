@@ -36,7 +36,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				12pt &quot;Futura&quot;;
+	font: 				11pt &quot;Futura&quot;;
 	border:				none;
 }
 
@@ -198,7 +198,7 @@ border:none;
      <property name="font">
       <font>
        <family>Futura</family>
-       <pointsize>12</pointsize>
+       <pointsize>11</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>

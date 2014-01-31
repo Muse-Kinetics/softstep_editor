@@ -547,7 +547,8 @@ void MainWindow::slotConnectInterfaces()
         connect(navKey->navModline[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotCheckSaveState()));
 
         //modline warning
-        //connect(navKey->navModline[i], SIGNAL(signalCheckSavedState()), presetInterface, SLOT(slotModlineWarning()));
+        connect(navKey->navModline[i], SIGNAL(signalModlineEnabled(QString)), presetInterface, SLOT(slotModlineWarning(QString)));
+        connect(presetInterface, SIGNAL(signalDisableModline(QString)), navKey->navModline[i], SLOT(slotDisableModline(QString)));
     }
 
     //----------------------------------------------------------------------------------- Save, Save As, Revert, Delete
@@ -1380,8 +1381,8 @@ void MainWindow::slotPopulateSourceDestLists()
 
     standaloneSources.append("Nav Yx10 & Key");
 
-    standaloneSources.append("Any Key Value");
-    standaloneSources.append("This Key Value");
+    //standaloneSources.append("Any Key Value");
+    //standaloneSources.append("This Key Value");
     //standaloneSources.append("Prev Key Value");
 
     standaloneSources.append("Key 1 Pressed");
@@ -1448,8 +1449,8 @@ void MainWindow::slotPopulateSourceDestLists()
     //hostedSources.append("Nav Y");
     hostedSources.append("Nav Yx10 & Key");
 
-    hostedSources.append("Any Key Value");
-    hostedSources.append("This Key Value");
+    //hostedSources.append("Any Key Value");
+    //hostedSources.append("This Key Value");
     //hostedSources.append("Prev Key Value");
 
     hostedSources.append("Key 1 Pressed");

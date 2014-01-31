@@ -121,8 +121,6 @@ signals:
     //---------- State Recall
     void hosted_signalStoreToggleState(int modlineNum, bool state);
 
-
-
 public slots:
     void slotConnectElements();
     void slotDisconnectElements();
@@ -159,8 +157,6 @@ public slots:
 
     //------------------------ State Recall
     void slotStateRecallToggle(int modlineNum, bool state);
-
-
 
 private:
     Ui::modlineForm* modlineForm;
