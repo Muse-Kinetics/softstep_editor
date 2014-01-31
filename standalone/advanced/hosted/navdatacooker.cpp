@@ -71,6 +71,9 @@ NavDataCooker::NavDataCooker(QWidget *parent) :
     connect(&triggerS, SIGNAL(signalLongTriggerReturn()), this, SLOT(slotLongTriggerReturnS()));
     connect(&triggerS, SIGNAL(signalDblTriggerReturn()), this, SLOT(slotDblTriggerReturnS()));
 
+    //Init pedal windower / calibrator
+    pedal = new Pedal(this, 99);
+
 }
 
 void NavDataCooker::slotSetSource(QString source, int modlineInstance)
@@ -111,15 +114,20 @@ void NavDataCooker::slotUpdateVals(int cc, int val)
     }
     else if(cc == PEDAL_CC)
     {
-        //Will need to use calibration pedal class in future
-        pedalVal = val;
+        //Run input through our pedal class (per key)
+        pedalVal = pedal->slotWindowInput(val);
 
-        for(int i = 0; i < 6; i++)
+        //If windowing returns a valid value
+        if(pedalVal != -1)
         {
-            if(modlineSources.value(i) == "Pedal")
+            //Send value to all modlines of this key containing Pedal as a source
+            for(int i = 0; i < 6; i++)
             {
-                qDebug() << "nav pad" << pedalVal << i;
-                emit signalTransformSource(pedalVal, i, "Pedal");
+                if(modlineSources.value(i) == "Pedal")
+                {
+                    //qDebug () << "key" << pedalVal << i;
+                    emit signalTransformSource(pedalVal, i, "Pedal");
+                }
             }
         }
     }

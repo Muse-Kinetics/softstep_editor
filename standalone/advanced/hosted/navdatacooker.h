@@ -11,6 +11,8 @@
 #include "hosted/trigger.h"
 #include "hosted/slewer.h"
 
+#include "pedal.h"
+
 enum {NAV_W, NAV_E, NAV_N, NAV_S};
 
 class NavDataCooker : public QWidget
@@ -19,6 +21,7 @@ class NavDataCooker : public QWidget
 public:
     explicit NavDataCooker(QWidget *parent = 0);
 
+    Pedal *pedal;
     int pedalVal;
 
     int sensorVals[4];

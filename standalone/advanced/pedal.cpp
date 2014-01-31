@@ -43,7 +43,7 @@ int Pedal::slotWindowInput(int pedalInput)
         //If third sample in cycles of three
         if(pedalSampleCount == 3)
         {
-            //qDebug() << "----------------------- take new average";
+           // qDebug() << "----------------------- take new average";
 
             //Reset sample count
             pedalSampleCount = 0;

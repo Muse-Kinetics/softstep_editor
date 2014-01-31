@@ -630,12 +630,21 @@ void MainWindow::slotConnectInterfaces()
         connect(settingsWindow, SIGNAL(signalInitPedalTable(QByteArray)), key[i]->dataCooker.pedal, SLOT(slotInitPedalTable(QByteArray)));
     }
 
+    //----- Pedal Nav Pad
+    connect(settingsWindow, SIGNAL(signalStartCalibration()), navKey->dataCooker.pedal, SLOT(slotStartCalibrate()));
+    connect(settingsWindow, SIGNAL(signalResetCalibration()), navKey->dataCooker.pedal, SLOT(slotResetCalibrate()));
+
+    //Pedal Calibration file read/write
+    connect(settingsWindow, SIGNAL(signalInitPedalTable(QByteArray)), navKey->dataCooker.pedal, SLOT(slotInitPedalTable(QByteArray)));
+
     //Pedal -- only connect key 0, we only need one data stream, while there are multiple instances of the Pedal class
     connect(key[0]->dataCooker.pedal, SIGNAL(signalLivePedalVal(int)), settingsWindow, SLOT(slotSetLiveValue(int)), Qt::QueuedConnection);
     connect(settingsWindow, SIGNAL(signalStopCalibration()), key[0]->dataCooker.pedal, SLOT(slotStopCalibrate()));
     connect(key[0]->dataCooker.pedal, SIGNAL(signalWriteTableToDisk(QByteArray)), settingsWindow, SLOT(slotWritePedalTableToDisk(QByteArray)));
 
     connect(key[0]->dataCooker.pedal, SIGNAL(signalResetOnZeroInput()), settingsWindow, SLOT(slotResetCalibration()), Qt::QueuedConnection);
+
+
 
     connect(midiDeviceManager, SIGNAL(signalStartStandaloneCalibration()), settingsWindow, SLOT(slotStartCalibrationStandAlone()));
     connect(midiDeviceManager, SIGNAL(signalStopStandaloneCalibration()), settingsWindow, SLOT(slotStopCalibrationStandAlone()));
