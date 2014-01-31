@@ -239,7 +239,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,0l,-1))
     {
         x->settings.key[x->key_settings_index].accel_y = LIMIT_255(argv[2].a_w.w_long);
-        //post("Accel Y [%d]\n", x->settings.key[x->key_settings_index].accel_y);
+        post("Accel Y [%d]\n", x->settings.key[x->key_settings_index].accel_y);
         return;
     }
 

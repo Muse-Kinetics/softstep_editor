@@ -144,12 +144,14 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,settingsMap.value(QString("key%1_settings_yaccel").arg(k)).toLongLong());
         attribute(x,3,A_SYM,"set",A_SYM,"On_Sens",A_LONG,settingsMap.value(QString("key%1_settings_onthresh").arg(k)).toLongLong());
         attribute(x,3,A_SYM,"set",A_SYM,"Off_Sens",A_LONG,settingsMap.value(QString("key%1_settings_offthresh").arg(k)).toLongLong());
+
+        qDebug() << "y aclle" << settingsMap.value(QString("key%1_settings_yaccel").arg(k)).toLongLong();
     }
 
     //------------------------------------- Nav Pad ------------------------------------//
     attribute(x,3,A_SYM,"set",A_SYM,"key",A_SYM,"nav");
 
-    //Nav Settings
+    //Nav Settings1
     attribute(x,3,A_SYM,"set",A_SYM,"North_On_Thresh",A_LONG,settingsMap.value(QString("nav_north_settings_onthresh")).toLongLong());
     attribute(x,3,A_SYM,"set",A_SYM,"North_Off_Thresh",A_LONG,settingsMap.value(QString("nav_north_settings_offthresh")).toLongLong());
     attribute(x,3,A_SYM,"set",A_SYM,"South_On_Thresh",A_LONG,settingsMap.value(QString("nav_south_settings_onthresh")).toLongLong());
@@ -306,6 +308,8 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                     //MSB goes here in future.
                     attribute(x,3,A_SYM,"set",A_SYM,"bank_msb",A_LONG,preset.value(QString("key%1_modline%2_bankmsb").arg(k).arg(m)).toLongLong());
 
+                    qDebug() <<  "bank msb" << preset.value(QString("key%1_modline%2_bankmsb").arg(k).arg(m)).toLongLong();
+
                     //Channel
                     attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
                 }
@@ -392,7 +396,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
             //---- Source
             QString navSource = preset.value(QString("nav_modline%1_source").arg(m)).toString();
 
-            qDebug() << "nav source" << navSource;
+            //qDebug() << "nav source" << navSource;
 
             //Account for underscores in name-- could be fixed in attribute settings...
             if(navSource == "Nav Y Inc-Dec")

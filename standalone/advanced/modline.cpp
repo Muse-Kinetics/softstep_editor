@@ -366,7 +366,7 @@ void Modline::slotValueChanged()
         }
         else if(sender == modlineForm->bankmsb)
         {
-            jsonName = "bankMSB";
+            jsonName = "bankmsb";
             value = modlineForm->bankmsb->value();
         }
         else if(sender == modlineForm->polynote)
