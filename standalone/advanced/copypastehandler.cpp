@@ -265,11 +265,13 @@ void CopyPasteHandler::slotPasteKey()
     while(i.hasNext())
     {
         i.next();
+
+        QString oldKey = i.key();
+        QString newKey;
+        QVariant value = i.value();
+
         if(preset.contains(i.key()))
         {
-            QString oldKey = i.key();
-            QString newKey;
-
             if(oldKey.contains("_key_"))
             {
                 //Here I need to replace the "#_key" with the currentKeyNumber+1
@@ -302,9 +304,45 @@ void CopyPasteHandler::slotPasteKey()
                     newKey = oldKey;
                 }
             }
-
-            preset.insert(newKey, i.value());
+            preset.insert(newKey, value);
             //qDebug() << "paste matching value" << i.key() << newKey << i.value();
+        }
+    }
+
+    if(mode == "standalone")
+    {
+        //count how many modlines are enabled
+        int countModlines = 0;
+        QMapIterator<QString, QVariant> j(preset);
+        while(j.hasNext())
+        {
+            j.next();
+
+            if(j.key().contains("_enable") && j.value() == true)
+            {
+                countModlines++;
+            }
+        }
+
+        if(countModlines > 50)
+        {
+            emit signalModlineWarning(QString("The maximum number of active modlines allowed in Standalone Mode has been exceeded.  Some modlines on the key you just pasted may have been disabled. Presets in Standalone Mode must have 50 active modlines or less."));
+
+            while(j.hasPrevious() && countModlines > 50)
+            {
+                j.previous();
+
+                for(int i = 0; i < 6; i++)
+                {
+                    QString enableParameter = QString("key%1_modline%2_enable").arg(currentKeyNumber+1).arg(i+1);
+
+                    if(j.key() == enableParameter && j.value() == true)
+                    {
+                        preset.insert(enableParameter, false);
+                        countModlines--;
+                    }
+                }
+            }
         }
     }
     presetInterface->jsonMasterMapCopy.insert(presetInterface->slotGetPresetStringFromInt(presetInterface->currentPresetNum), preset);
