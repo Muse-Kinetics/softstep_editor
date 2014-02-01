@@ -326,7 +326,7 @@ void CopyPasteHandler::slotPasteKey()
 
         if(countModlines > 50)
         {
-            emit signalModlineWarning(QString("The maximum number of active modlines allowed in Standalone Mode has been exceeded.  Some modlines on the key you just pasted may have been disabled. Presets in Standalone Mode must have 50 active modlines or less."));
+            emit signalModlineWarning(QString("The maximum number of active modlines allowed in Standalone Mode has been exceeded.  Some of the pasted modlines may have been disabled. Presets in Standalone Mode must have 50 active modlines or less."));
 
             while(j.hasPrevious() && countModlines > 50)
             {
