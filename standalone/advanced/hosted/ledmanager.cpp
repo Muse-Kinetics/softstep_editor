@@ -139,19 +139,23 @@ void LEDManager::processLED(int modlineNum, int greenOrRed, QString mode)
 
 void LEDManager::slotReceiveModlineOutput(int modlineNum, int val)
 {
-    //qDebug() << modlineNum << val;
+    //qDebug() << "LED Manager receives:" << modlineNum << val << state[modlineNum];
 
     if(state[modlineNum] && !val)
     {
         state[modlineNum] = false;
-
         processLED(modlineNum,LED_GREEN, greenMode[modlineNum]);
         processLED(modlineNum,LED_RED, redMode[modlineNum]);
     }
     else if(!state[modlineNum] && val)
     {
         state[modlineNum] = true;
-
+        processLED(modlineNum,LED_GREEN, greenMode[modlineNum]);
+        processLED(modlineNum,LED_RED, redMode[modlineNum]);
+    }
+    else if(state[modlineNum] && val)
+    {
+        state[modlineNum] = true;
         processLED(modlineNum,LED_GREEN, greenMode[modlineNum]);
         processLED(modlineNum,LED_RED, redMode[modlineNum]);
     }
