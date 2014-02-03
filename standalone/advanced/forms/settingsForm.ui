@@ -1302,7 +1302,7 @@ QLabel
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>240</y>
+        <y>60</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -1432,7 +1432,7 @@ QLabel
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>140</y>
+        <y>160</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -1448,7 +1448,7 @@ QLabel
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>100</y>
+        <y>120</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -1730,7 +1730,7 @@ QLabel
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>160</y>
+        <y>180</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -2012,7 +2012,7 @@ QLabel
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>120</y>
+        <y>140</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -2313,7 +2313,7 @@ QLabel
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>180</y>
+        <y>200</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -2329,7 +2329,7 @@ QLabel
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>200</y>
+        <y>220</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -2478,7 +2478,7 @@ QLabel
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>220</y>
+        <y>240</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -2532,7 +2532,7 @@ QLabel
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>80</y>
+        <y>100</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -2643,7 +2643,7 @@ QLabel
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>60</y>
+        <y>80</y>
         <width>16</width>
         <height>18</height>
        </rect>

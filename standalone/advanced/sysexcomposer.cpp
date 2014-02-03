@@ -122,7 +122,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     int min = 127;
     for(int i = 0; i < pedalTable.size(); i++)
     {
-        qDebug() << "pedal table " << pedalTable;
+        //qDebug() << "pedal table " << pedalTable;
         //Min
         if(pedalTable.at(i) < min)
         {
@@ -145,7 +145,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     //---- EL
     attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!settingsMap.value("backlighting_enable").toLongLong());
 
-    qDebug() << " ---------------- el" << settingsMap.value("backlighting_enable").toLongLong();
+    //qDebug() << " ---------------- el" << settingsMap.value("backlighting_enable").toLongLong();
 
     //---- Program Change Input Channel
     attribute(x,3,A_SYM,"set",A_SYM,"ProgramChangeInput",A_LONG,16);
@@ -164,11 +164,11 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         attribute(x,3,A_SYM,"set",A_SYM,"On_Sens",A_LONG,settingsMap.value(QString("key%1_settings_onthresh").arg(k)).toLongLong());
         attribute(x,3,A_SYM,"set",A_SYM,"Off_Sens",A_LONG,settingsMap.value(QString("key%1_settings_offthresh").arg(k)).toLongLong());
 
-        qDebug() << "y aclle" << settingsMap.value(QString("key%1_settings_yaccel").arg(k)).toLongLong();
+        qDebug() << k << "y aclle" << settingsMap.value(QString("key%1_settings_yaccel").arg(k)).toLongLong();
     }
 
     //------------------------------------- Nav Pad ------------------------------------//
-    attribute(x,3,A_SYM,"set",A_SYM,"key",A_SYM,"nav");
+    attribute(x,4,A_SYM,"set",A_SYM,"key",A_SYM,"keynum",A_LONG,11);
 
     //Nav Settings1
     attribute(x,3,A_SYM,"set",A_SYM,"North_On_Thresh",A_LONG,settingsMap.value(QString("nav_north_settings_onthresh")).toLongLong());

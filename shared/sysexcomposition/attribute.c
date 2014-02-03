@@ -154,6 +154,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     {
         //post("************************************ found key nav *********************************");
         x->key_num = NUM_KEYS - 1;
+        //post("key settings index [%d]\n", x->key_settings_index);
         return;
     }
 
