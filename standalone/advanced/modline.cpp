@@ -67,7 +67,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     initModeOnceCalled = false;
 
     connect(modlineForm->initvalue, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
-    connect(modlineForm->raw, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
+    //connect(modlineForm->raw, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
 }
 
 void Modline::slotConnectElements()

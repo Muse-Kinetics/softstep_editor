@@ -42,7 +42,7 @@ NavModline::NavModline(QWidget *parent, int navInstanceNum) :
     displayLinkButton = navModlineForm->modlinedisplayenable;
 
     connect(navModlineForm->initvalue, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
-    connect(navModlineForm->raw, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
+    //connect(navModlineForm->raw, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
 }
 
 void NavModline::slotConnectElements()

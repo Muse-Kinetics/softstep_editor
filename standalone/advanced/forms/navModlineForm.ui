@@ -243,6 +243,9 @@ QToolTip
      <bold>false</bold>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="toolTip">
     <string>Live display of the modline &lt;br&gt;data after the table, min/max, smoothing, and delay.&lt;p&gt;(Hosted mode only)</string>
    </property>
@@ -339,6 +342,9 @@ QSpinBox:disabled
      <italic>false</italic>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="toolTip">
     <string>Live display of the modline &lt;br&gt;data after the gain and offset stage.&lt;p&gt;(Hosted mode only)</string>
@@ -452,6 +458,9 @@ QSpinBox:disabled
      <bold>false</bold>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
    <property name="toolTip">
     <string>The amount of time (in milliseconds) to delay the modline data.&lt;p&gt;&lt;b&gt;Example&lt;/b&gt;: A delay of 2000 would delay any messages by two seconds.</string>
    </property>
@@ -532,6 +541,9 @@ QSpinBox:disabled
      <bold>false</bold>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
    <property name="toolTip">
     <string>Sets the minimum value that can be output (range: 0-127).</string>
    </property>
@@ -566,6 +578,9 @@ QSpinBox:disabled
      <bold>false</bold>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
    <property name="toolTip">
     <string>Add the set amount &lt;br&gt;(use negative numbers to subtract).</string>
    </property>
@@ -599,6 +614,9 @@ QSpinBox:disabled
      <italic>false</italic>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
    </property>
    <property name="toolTip">
     <string>Sets the maximum value that can be output (range: 0-127).</string>
@@ -694,6 +712,9 @@ QSpinBox:disabled
      <bold>false</bold>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
    <property name="toolTip">
     <string>The amount of time (in milliseconds) it takes to slide/interpolate to the next value&lt;p&gt;Smaller values can smooth out jumpy data, while larger values can create ramps between values.&lt;p&gt;&lt;b&gt;Example&lt;/b&gt;: A value of 127 going through the modline with a smoothing value of 3000 would result in a three second ramp up to 127.</string>
    </property>
@@ -729,7 +750,7 @@ QSpinBox:disabled
     </font>
    </property>
    <property name="focusPolicy">
-    <enum>Qt::WheelFocus</enum>
+    <enum>Qt::StrongFocus</enum>
    </property>
    <property name="toolTip">
     <string>This value will be sent through the modline if an init mode is enabled.</string>
@@ -783,6 +804,9 @@ QSpinBox:disabled
      <italic>false</italic>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
    </property>
    <property name="contextMenuPolicy">
     <enum>Qt::DefaultContextMenu</enum>
@@ -1094,7 +1118,7 @@ QComboBox::down-arrow
 </string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>10</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -1176,6 +1200,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Sets the MIDI note number to output.</string>
      </property>
@@ -1215,6 +1242,9 @@ QComboBox::down-arrow
        <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="toolTip">
       <string>Sets the velocity for the MIDI note.</string>
@@ -1256,6 +1286,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Sets the MIDI channel to output on.</string>
      </property>
@@ -1295,6 +1328,9 @@ QComboBox::down-arrow
        <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="contextMenuPolicy">
       <enum>Qt::DefaultContextMenu</enum>
@@ -1465,6 +1501,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="contextMenuPolicy">
       <enum>Qt::DefaultContextMenu</enum>
      </property>
@@ -1571,6 +1610,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Sets the velocity for the note messages.</string>
      </property>
@@ -1604,6 +1646,9 @@ QComboBox::down-arrow
        <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="toolTip">
       <string>Sets the MIDI channel to output on.</string>
@@ -1641,6 +1686,9 @@ QComboBox::down-arrow
        <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">QSpinBox
@@ -1746,6 +1794,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Sets the CC number to send the modline data on.</string>
      </property>
@@ -1780,6 +1831,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Sets the MIDI channel to output on.</string>
      </property>
@@ -1813,6 +1867,9 @@ QComboBox::down-arrow
        <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="contextMenuPolicy">
       <enum>Qt::DefaultContextMenu</enum>
@@ -1982,6 +2039,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="contextMenuPolicy">
       <enum>Qt::DefaultContextMenu</enum>
      </property>
@@ -2088,6 +2148,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Sets the MSB for the bank message. The LSB will be &lt;br&gt;filled in by whatever value is coming through the modline.</string>
      </property>
@@ -2121,6 +2184,9 @@ QComboBox::down-arrow
        <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="toolTip">
       <string>Sets the MIDI channel to output on.</string>
@@ -2217,6 +2283,9 @@ QComboBox::down-arrow
        <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="contextMenuPolicy">
       <enum>Qt::DefaultContextMenu</enum>
@@ -2324,6 +2393,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Sets the MIDI channel to output on.</string>
      </property>
@@ -2420,6 +2492,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Sets the MIDI channel to output on.</string>
      </property>
@@ -2453,6 +2528,9 @@ QComboBox::down-arrow
        <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="contextMenuPolicy">
       <enum>Qt::DefaultContextMenu</enum>
@@ -2622,6 +2700,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="contextMenuPolicy">
       <enum>Qt::DefaultContextMenu</enum>
      </property>
@@ -2728,6 +2809,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Sets the device ID for the receiving MMC device.</string>
      </property>
@@ -2761,6 +2845,9 @@ QComboBox::down-arrow
        <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="contextMenuPolicy">
       <enum>Qt::DefaultContextMenu</enum>
@@ -2907,6 +2994,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="contextMenuPolicy">
       <enum>Qt::DefaultContextMenu</enum>
      </property>
@@ -3013,6 +3103,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Sets the MIDI channel to output on.</string>
      </property>
@@ -3109,6 +3202,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Sets the note number to send the polyphonic aftertouch for.</string>
      </property>
@@ -3143,6 +3239,9 @@ QComboBox::down-arrow
        <bold>false</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Sets the MIDI channel to output on.</string>
      </property>
@@ -3176,6 +3275,9 @@ QComboBox::down-arrow
        <italic>false</italic>
        <bold>false</bold>
       </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="contextMenuPolicy">
       <enum>Qt::DefaultContextMenu</enum>
@@ -3311,7 +3413,7 @@ QLabel
 }</string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">
@@ -3711,6 +3813,9 @@ QLabel
      <bold>false</bold>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
    <property name="toolTip">
     <string>Sets the type of sensor data coming from the SoftStep.</string>
    </property>
@@ -3909,6 +4014,9 @@ QLabel
      <bold>false</bold>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="toolTip">
     <string>Live display of sensor data &lt;br&gt;coming from SoftStep.&lt;p&gt;(Hosted mode only)</string>
    </property>
@@ -3938,6 +4046,9 @@ QSpinBox:disabled
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
    </property>
    <property name="buttonSymbols">
     <enum>QAbstractSpinBox::NoButtons</enum>
@@ -4001,6 +4112,9 @@ QSpinBox:disabled
      <italic>false</italic>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
    </property>
    <property name="toolTip">
     <string>Sets the type of curve to apply to the modline data.&lt;p&gt;Also used to set up toggles and interact with the key counter.</string>
@@ -4079,6 +4193,9 @@ QComboBox QListView
      <bold>false</bold>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
    <property name="toolTip">
     <string>Multiply by the set amount.</string>
    </property>
@@ -4112,6 +4229,9 @@ QComboBox QListView
      <italic>false</italic>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
    </property>
    <property name="toolTip">
     <string>Sets the init mode.&lt;p&gt;&lt;b&gt;None&lt;/b&gt;: Off. No init value will be sent.&lt;p&gt;&lt;b&gt;Once&lt;/b&gt;: Outputs the set init value the first time this preset is selected/loaded.&lt;p&gt;&lt;b&gt;Always&lt;/b&gt;: Outputs the set init value every time this preset is selected/loaded.</string>
