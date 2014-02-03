@@ -164,7 +164,7 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
 
     globalGain = 1.0;
 
-    isSS2 = false;
+    isSS2 = true;
 
 }
 
@@ -701,7 +701,7 @@ int DataCooker::xLive()
         }
         else
         {
-            xLoc = 0;
+            xLoc = 63;
         }
     }
     else
@@ -739,7 +739,7 @@ int DataCooker::yLive()
         }
         else
         {
-            yLoc = 0;
+            yLoc = 63;
         }
     }
     else

@@ -164,7 +164,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         attribute(x,3,A_SYM,"set",A_SYM,"On_Sens",A_LONG,settingsMap.value(QString("key%1_settings_onthresh").arg(k)).toLongLong());
         attribute(x,3,A_SYM,"set",A_SYM,"Off_Sens",A_LONG,settingsMap.value(QString("key%1_settings_offthresh").arg(k)).toLongLong());
 
-        qDebug() << k << "y aclle" << settingsMap.value(QString("key%1_settings_yaccel").arg(k)).toLongLong();
+        //qDebug() << k << "y aclle" << settingsMap.value(QString("key%1_settings_yaccel").arg(k)).toLongLong();
     }
 
     //------------------------------------- Nav Pad ------------------------------------//
