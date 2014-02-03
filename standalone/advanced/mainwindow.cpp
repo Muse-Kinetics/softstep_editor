@@ -814,6 +814,12 @@ void MainWindow::slotInitMenuBar()
     edit->setObjectName("EditMenu");
     menubar->addMenu(edit);
 
+    //----------------------------------------------------Clear Preset
+    clearPresetAct = new QAction("Clear Preset", edit);
+    actionList.append(clearPresetAct);
+    edit->addAction(clearPresetAct);
+    connect(clearPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotClearPreset()));
+
 	//----------------------------------------------------copy / paste
     copyPresetAct = new QAction("Copy Preset", edit);
     actionList.append(copyPresetAct);

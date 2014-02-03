@@ -100,6 +100,7 @@ public:
     QAction* updatefw;
 
     //copy / paste actions
+    QAction* clearPresetAct;
     QAction* copyPresetAct;
     QAction* pastePresetAct;
     QAction* pasteNewPresetAct;

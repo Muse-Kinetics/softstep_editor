@@ -17,6 +17,81 @@ void CopyPasteHandler::slotSetCurrentKey(int currentKeyNum)
     qDebug() << "from copy paste handler - current key number is:" << currentKeyNumber;
 }
 
+void CopyPasteHandler::slotClearPreset()
+{
+    QString filename = "./Blank.softsteppreset";
+
+    //open file
+    QFile* presetFile = new QFile(filename);
+
+    if(presetFile->exists())
+    {
+        presetFile->open(QIODevice::ReadOnly);
+
+        QByteArray presetByteArray = presetFile->readAll();
+        presetFile->close();
+
+        QVariantMap blankPresetMap = parser.parse(presetByteArray, &ok).toMap();
+        presetInterface->defaultPresetMap.clear();
+
+        if(mode == "hosted")
+        {
+            presetInterface->slotConstructDefaultHostedMap();
+        }
+        else
+        {
+            presetInterface->slotConstructDefaultStandaloneMap();
+        }
+
+        QMapIterator<QString, QVariant> i(presetInterface->defaultPresetMap);
+
+        //Iterate through the default map and compare with blank preset
+        while(i.hasNext())
+        {
+            i.next();
+
+            if(!blankPresetMap.contains(i.key()))
+            {
+               blankPresetMap.insert(i.key(), i.value());
+            }
+            if(i.key().contains("_device"))
+            {
+                if(blankPresetMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+                {
+                    blankPresetMap.insert(i.key(), "SoftStep Share");
+                }
+                else if(blankPresetMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+                {
+                    blankPresetMap.insert(i.key(), "SSCOM Port 1");
+                }
+            }
+        }
+        //Check for EXTRA parameters in the blank preset
+        QMapIterator<QString, QVariant> j(blankPresetMap);
+        QStringList badKeys;
+        while(j.hasNext())
+        {
+            j.next();
+            if(!presetInterface->defaultPresetMap.contains(j.key()))
+            {
+                badKeys.append(j.key());
+            }
+        }
+        for(int i = 0; i < badKeys.count(); i++)
+        {
+            blankPresetMap.remove(badKeys.at(i));
+        }
+
+        presetInterface->jsonMasterMapCopy.insert(presetInterface->slotGetPresetStringFromInt(presetInterface->currentPresetNum), blankPresetMap);
+        presetInterface->slotRecallPreset(presetInterface->currentPresetNum);
+        presetInterface->slotCheckSaveState();
+    }
+    else
+    {
+        qDebug() << "blank preset not found";
+    }
+}
+
 void CopyPasteHandler::slotCopyPreset()
 {
     presetCopiedMap = presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(presetInterface->currentPresetNum)).toMap();

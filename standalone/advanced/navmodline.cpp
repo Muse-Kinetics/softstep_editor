@@ -41,9 +41,8 @@ NavModline::NavModline(QWidget *parent, int navInstanceNum) :
 
     displayLinkButton = navModlineForm->modlinedisplayenable;
 
-    raw = 0;
-    result = 0;
-    value = 0;
+    connect(navModlineForm->initvalue, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
+    connect(navModlineForm->raw, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
 }
 
 void NavModline::slotConnectElements()
@@ -115,11 +114,6 @@ void NavModline::slotConnectElements()
     //connect the velocity boxes to eachother
     connect(navModlineForm->notevelocity, SIGNAL(valueChanged(int)), navModlineForm->notelivevelocity, SLOT(setValue(int)));
     connect(navModlineForm->notelivevelocity, SIGNAL(valueChanged(int)), navModlineForm->notevelocity, SLOT(setValue(int)));
-
-    //connect and initialize the raw value to the result (not for presets)
-    connect(navModlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
-    connect(navModlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
-    connect(navModlineForm->offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
 
     //-------------------- Hosted
     //slewer
@@ -507,20 +501,9 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
     }
 }
 
-void NavModline::slotRawResult()
+void NavModline::slotTestValues(int value)
 {
-    if(QObject::sender())
-    {
-        QObject *sender = QObject::sender();
-
-        //raw-result (not sent to presets)
-        if(sender == navModlineForm->raw || sender == navModlineForm->gain || sender == navModlineForm->offset)
-        {
-            navModlineForm->result->setValue((navModlineForm->raw->value())*(navModlineForm->gain->value())+(navModlineForm->offset->value()));
-        }
-    }
-
-    //qDebug() << "initialize result value";
+    slotTransformSource(value, navInstance, "Init");
 }
 
 void NavModline::slotDisableModline(QString parameterName)

@@ -253,13 +253,13 @@ void PresetInterface::slotCheckSaveState()
         if(jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap().value(keyList.at(i)) !=
                 jsonMasterMap.value(slotGetPresetStringFromInt(currentPresetNum)).toMap().value(keyList.at(i)))
         {
-            //qDebug() << "--------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
+            qDebug() << "--------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
             dirty = true;
         }
     }
 
     emit signalPresetDirty(dirty);
-    //qDebug() << "check nav pad save state";
+    //qDebug() << "check save state";
 
 }
 
@@ -514,7 +514,7 @@ void PresetInterface::slotImportPreset()
                 {
                     //if imported preset map does not contain a value in the default map, insert it
                     importedPresetMap.insert(i.key(), i.value());
-                    qDebug() << "From slotImportPreset - This was MISSING:" << i.key() << i.value();
+                    //qDebug() << "From slotImportPreset - This was MISSING:" << i.key() << i.value();
                 }
 
                 //if copying from one mode to the other the device menu values for port 1 should change

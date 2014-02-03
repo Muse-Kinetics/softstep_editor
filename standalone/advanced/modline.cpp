@@ -40,10 +40,6 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     //---------------------------------------- Set Up Ui
     modlineForm->setupUi(formWidget);
 
-    //rawBox = modlineForm->raw;
-    //resultBox = modlineForm->result;
-    //valueBox = modlineForm->outputvalue;
-
     this->setFixedSize(MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
     this->setGeometry(MODLINE_STARTING_X_POS, MODLINE_STARTING_Y_POS + ((modlineInstance)*(MODLINE_WINDOW_HEIGHT + MODLINE_SPACING)), MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
 
@@ -69,6 +65,9 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     counterGate = true;
 
     initModeOnceCalled = false;
+
+    connect(modlineForm->initvalue, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
+    connect(modlineForm->raw, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
 }
 
 void Modline::slotConnectElements()
@@ -156,11 +155,6 @@ void Modline::slotConnectElements()
 
     //display linking
     connect(modlineForm->modlinedisplayenable,SIGNAL(toggled(bool)),this,SLOT(slotValueChanged()));
-
-    //connect and initialize the raw value to the result (not for preset)
-    connect(modlineForm->raw,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
-    connect(modlineForm->gain,SIGNAL(valueChanged(double)),this,SLOT(slotRawResult()));
-    connect(modlineForm->offset,SIGNAL(valueChanged(int)),this,SLOT(slotRawResult()));
 
     //----------------------- Hosted
     //Slewer
@@ -636,20 +630,9 @@ void Modline::slotRecallDestinationMenu()
     }
 }
 
-void Modline::slotRawResult()
+void Modline::slotTestValues(int value)
 {
-    if(QObject::sender())
-    {
-        QObject *sender = QObject::sender();
-
-        //raw-result (not sent to presets)
-        if(sender == modlineForm->raw || sender == modlineForm->gain || sender == modlineForm->offset)
-        {
-            modlineForm->result->setValue((modlineForm->raw->value())*(modlineForm->gain->value())+(modlineForm->offset->value()));
-        }
-    }
-
-    //qDebug() << "initialize result value";
+    slotTransformSource(value, modlineInstance, "Init");
 }
 
 void Modline::slotSetMode(QString m)

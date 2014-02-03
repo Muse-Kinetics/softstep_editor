@@ -9,8 +9,11 @@
 #include <QtGui>
 #include <QDesktopServices>
 #include <QUrl>
+
 #include "presetinterface.h"
 #include "mididevicemanager.h"
+
+#include "qjson/src/parser.h"
 
 class CopyPasteHandler : public QObject
 {
@@ -23,7 +26,11 @@ public:
     QVariantMap presetCopiedMap;
     QVariantMap keyCopiedMap;
 
+    QJson::Parser parser;
+
     QString mode;
+
+    bool ok;
 
     int currentKeyNumber;
     
@@ -34,6 +41,7 @@ signals:
     void signalModlineWarning(QString modlineWarningMessage);
     
 public slots:
+    void slotClearPreset();
     void slotCopyPreset();
     void slotPasteNewPreset();
     void slotPastePreset();
