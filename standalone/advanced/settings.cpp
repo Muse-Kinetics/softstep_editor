@@ -399,6 +399,13 @@ void Settings::slotValueChanged()
             QCheckBox *checkbox = reinterpret_cast<QCheckBox*>(QObject::sender());
             jsonName = checkbox->objectName();
             value = checkbox->isChecked();
+
+            qDebug() << "qcheckbox json name" << jsonName;
+
+            if(mode == "hosted" && jsonName == "backlighting_enable")
+            {
+                emit signalSetBacklight(value.toBool());
+            }
         }
         //comboboxes
         else if(senderClass == "QComboBox")
@@ -986,8 +993,13 @@ void Settings::slotEmitAllSettings()
         emit signalSetSceneChanging(settingsForm->scenechange_enable->isChecked());
     }
 
-    //------------ Backlight
-    emit signalSetBacklight(settingsForm->backlighting_enable->isChecked());
+    //------------ Backlight handled - handled in slot value changed
+
+    if(mode == "hosted")
+    {
+        //emit signalSetBacklight(settingsForm->backlighting_enable->isChecked());
+    }
+
 
     //------------ Sensor Response
     emit signalSetSensorResponse(settingsForm->sensorresponse_checkbox->isChecked());
