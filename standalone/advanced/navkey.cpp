@@ -39,7 +39,7 @@ NavKey::NavKey(QWidget *parent) :
     navKeyWindowForm->setupUi(navKeyWindowWidget);
     navKeyWindowWidget->setFixedSize(NAVWINDOW_SM_WIDTH,NAVWINDOW_HEIGHT);
     QRect screenGeometry = QApplication::desktop()->availableGeometry();
-    navKeyWindowWidget->setGeometry(170, (screenGeometry.height() / 2) + 150, NAVWINDOW_SM_WIDTH, NAVWINDOW_HEIGHT);
+    navKeyWindowWidget->setGeometry(170, (screenGeometry.height() / 2.4) + 150, NAVWINDOW_SM_WIDTH, NAVWINDOW_HEIGHT);
     navKeyWindowWidget->setWindowTitle(QString("Nav Pad Modulation"));
     navKeyWindowWidget->hide();
     navKeyWindowWidget->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint);

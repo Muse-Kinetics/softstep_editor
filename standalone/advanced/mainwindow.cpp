@@ -800,7 +800,7 @@ void MainWindow::slotInitMenuBar()
     connect(importPreset, SIGNAL(triggered()), presetInterface, SLOT(slotImportPreset()));
     file->addAction(importPreset);
 
-    QAction* importOldPreset = new QAction("Import All Presets from V1.21", file);
+    importOldPreset = new QAction("Import All Presets from V1.21", file);
     importOldPreset->setObjectName("importOldPresets");
     connect(importOldPreset, SIGNAL(triggered()), importOldPresetHandler, SLOT(slotImportOldPreset()));
     file->addAction(importOldPreset);
@@ -1270,6 +1270,16 @@ void MainWindow::slotSetMode()
             //If init has been called previously, each instance of stateRecaller blocks re-initialization
             key[k]->stateRecaller.slotInit(presetNames, k);
         }
+    }
+
+    //Import Old Preset text change
+    if(mode == "hosted")
+    {
+        importOldPreset->setText("Import Hosted Presets from V1.21");
+    }
+    else
+    {
+        importOldPreset->setText("Import Standalone Presets from V1.21");
     }
 
     settingsWindow->slotEmitAllSettings();

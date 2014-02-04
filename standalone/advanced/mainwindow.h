@@ -107,6 +107,7 @@ public:
     QAction* copyKeyAct;
     QAction* pasteKeyAct;
     QAction* toolTipsEnable;
+    QAction* importOldPreset;
 
     //Ui Elements
     Key *key[10];

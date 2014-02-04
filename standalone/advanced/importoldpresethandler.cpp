@@ -400,7 +400,7 @@ QVariantMap ImportOldPresetHandler::slotConvertPreset()
                             int value;
                             if(oldParameterName != "")
                             {
-                                value = slotEmptyListCompensation(oldParameterName, importedOldPresetMap.value(oldParameterName).toList());
+                                value = importedOldPresetMap.value(oldParameterName).toList().at(0).toInt();
                                 newMap.insert(newParameterName, value);
                             }
                         }
@@ -597,7 +597,8 @@ QString ImportOldPresetHandler::slotGetNewTableValue(QString oldValue)
 QString ImportOldPresetHandler::slotGetOldDestinationParam(QString newParam, int keyNum, int modlineNum)
 {
     QString oldName;
-    QString destinationType = importedOldPresetMap.value(QString("Main_Pad_%1::Modulation::Modline_%2::Destination").arg(keyNum).arg(modlineNum)).toList().at(0).toString();
+    QString destinationName = QString("Main_Pad_%1::Modulation::Modline_%2::Destination").arg(keyNum).arg(modlineNum);
+    QString destinationType = slotListErrorCompensation(importedOldPresetMap.value(destinationName).toList());
 
     if(newParam == "note")
     {
