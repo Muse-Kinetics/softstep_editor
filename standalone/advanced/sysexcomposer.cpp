@@ -145,6 +145,10 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     //---- EL
     attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!settingsMap.value("backlighting_enable").toLongLong());
 
+    //---- Display offset 0-127, 1-128
+    attribute(x,3,A_SYM,"set",A_SYM,"prog_change_display_offset",A_LONG,settingsMap.value("displaymode_checkbox").toLongLong());
+
+
     //qDebug() << " ---------------- el" << settingsMap.value("backlighting_enable").toLongLong();
 
     //---- Program Change Input Channel

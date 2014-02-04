@@ -340,6 +340,12 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         return;
     }
 
+    if ( par_match(argc,argv,A_SYM,"set",A_SYM,"prog_change_display_offset",A_LONG,0l,-1))
+    {
+        x->settings.prog_change_display_offset = argv[2].a_w.w_long;
+        return;
+    }
+
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Pedal_Table",A_GIMME,-1))
     {
         return;

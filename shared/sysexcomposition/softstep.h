@@ -83,7 +83,7 @@ struct PRESET_LIST;
 typedef struct PRESET_LIST {struct PRESET_LIST *next;PRESET_IMAGE preset_image;STRINGS strings;unsigned char enables[NUM_KEYS][NUM_MODLINES_PER_KEY];} PRESET_LIST;
 
 typedef	struct KEY_SETTINGS {unsigned char Rot_Slew,dead_x,accel_x,dead_y,accel_y;unsigned char on_sense,off_sense,delta;} PACK_INLINE KEY_SETTINGS;
-typedef	struct SETTINGS		{FIXED_PT Global_Gain;unsigned char north_on_thresh,north_off_thresh,east_on_thresh,east_off_thresh,south_on_thresh,south_off_thresh,west_on_thresh,west_off_thresh,key_mode,key_response,el_offon,programChangeInput;PEDAL_CALIBRATION pedal_calibration;PEDAL_FILTER pedal_filter;CONNECT_MODE connect_mode;KEY_SETTINGS key[NUM_KEYS];} PACK_INLINE SETTINGS;
+typedef	struct SETTINGS		{FIXED_PT Global_Gain;unsigned char north_on_thresh,north_off_thresh,east_on_thresh,east_off_thresh,south_on_thresh,south_off_thresh,west_on_thresh,west_off_thresh,key_mode,key_response,el_offon:1,prog_change_display_offset:1,reserved:6,programChangeInput;PEDAL_CALIBRATION pedal_calibration;PEDAL_FILTER pedal_filter;CONNECT_MODE connect_mode;KEY_SETTINGS key[NUM_KEYS];} PACK_INLINE SETTINGS;
 
 enum {SX_TYPE_NORMAL,SX_TYPE_FWUPDATE,SX_TYPE_DOWNLOAD};
 enum {TYPE_NONE,TYPE_DEVICE,TYPE_MIDIINFO,TYPE_MIDIOUT,TYPE_MIDIIN,TYPE_CTL,TYPE_END_OF_LIST};

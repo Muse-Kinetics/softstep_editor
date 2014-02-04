@@ -514,7 +514,7 @@ void Settings::slotRecallSettings()
 
 void Settings::slotViewSelector()
 {
-    qDebug() << "slotViewSelectorCalled";
+    //qDebug() << "slotViewSelectorCalled";
     if(QObject::sender())
     {
         QObject *sender = QObject::sender();
