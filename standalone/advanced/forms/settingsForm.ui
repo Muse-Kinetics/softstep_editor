@@ -481,7 +481,7 @@ QRadioButton::indicator:checked:pressed  {
       </rect>
      </property>
      <property name="toolTip">
-      <string>Set how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key Mode:&lt;/b&gt; Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Adjacent Key Lockout:&lt;/b&gt; Keys immediately adjacent to an activated key cannot be triggered.&lt;p&gt;&lt;b&gt;Multiple Key Mode:&lt;/b&gt; Any key can be activated at any time.</string>
+      <string>Set how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key Mode:&lt;/b&gt; Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Adjacent Key Lockout:&lt;/b&gt; Keys immediately adjacent to an activated key cannot be triggered. (Hosted mode only)&lt;p&gt;&lt;b&gt;Multiple Key Mode:&lt;/b&gt; Any key can be activated at any time.</string>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
@@ -902,7 +902,7 @@ QToolButton:pressed
       </rect>
      </property>
      <property name="toolTip">
-      <string>Enable/Disable changing &lt;br&gt;scenes with the Nav Pad</string>
+      <string>Enable/Disable changing &lt;br&gt;scenes with the Nav Pad&lt;p&gt;(Standalone mode only)</string>
      </property>
      <property name="styleSheet">
       <string notr="true">/* ---------- QCheckBox ------------*/
@@ -1167,7 +1167,7 @@ QCheckBox::indicator:checked:pressed:focus
       </rect>
      </property>
      <property name="toolTip">
-      <string>Switches the SoftStep display&lt;br&gt; behavior. Data can be displayed in the 0-127 range, or the 1-128 range.&lt;p&gt;(Standalone mode only)</string>
+      <string>Switches the SoftStep display&lt;br&gt; behavior for program change&lt;br&gt; messages. Data can be displayed&lt;br&gt; in the 0-127 range, or the 1-128&lt;br&gt; range.&lt;p&gt;(Standalone mode only)</string>
      </property>
      <property name="styleSheet">
       <string notr="true">/* ---------- QCheckBox ------------*/
@@ -1301,7 +1301,7 @@ QLabel
      <widget class="QLabel" name="label_12">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>16</x>
         <y>240</y>
         <width>16</width>
         <height>18</height>
@@ -1317,9 +1317,9 @@ QLabel
      <widget class="QSpinBox" name="key6_settings_yaccel">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>103</x>
         <y>140</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1355,9 +1355,9 @@ QLabel
      <widget class="QSpinBox" name="key5_settings_offthresh">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>218</x>
         <y>120</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1374,9 +1374,9 @@ QLabel
      <widget class="QSpinBox" name="key9_settings_onthresh">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>161</x>
         <y>200</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1412,9 +1412,9 @@ QLabel
      <widget class="QLabel" name="label_17">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>161</x>
         <y>30</y>
-        <width>31</width>
+        <width>35</width>
         <height>26</height>
        </rect>
       </property>
@@ -1431,7 +1431,7 @@ QLabel
      <widget class="QLabel" name="label_7">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>16</x>
         <y>140</y>
         <width>16</width>
         <height>18</height>
@@ -1447,7 +1447,7 @@ QLabel
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>16</x>
         <y>100</y>
         <width>16</width>
         <height>18</height>
@@ -1463,9 +1463,9 @@ QLabel
      <widget class="QSpinBox" name="key6_settings_offthresh">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>218</x>
         <y>140</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1482,9 +1482,9 @@ QLabel
      <widget class="QSpinBox" name="key3_settings_onthresh">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>161</x>
         <y>80</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1501,9 +1501,9 @@ QLabel
      <widget class="QSpinBox" name="key3_settings_yaccel">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>103</x>
         <y>80</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1520,9 +1520,9 @@ QLabel
      <widget class="QSpinBox" name="key10_settings_offthresh">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>218</x>
         <y>220</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1558,9 +1558,9 @@ QLabel
      <widget class="QSpinBox" name="key2_settings_xaccel">
       <property name="geometry">
        <rect>
-        <x>57</x>
+        <x>46</x>
         <y>60</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1577,9 +1577,9 @@ QLabel
      <widget class="QSpinBox" name="key2_settings_yaccel">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>103</x>
         <y>60</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1596,9 +1596,9 @@ QLabel
      <widget class="QSpinBox" name="key7_settings_xaccel">
       <property name="geometry">
        <rect>
-        <x>57</x>
+        <x>46</x>
         <y>160</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1615,9 +1615,9 @@ QLabel
      <widget class="QSpinBox" name="key3_settings_offthresh">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>218</x>
         <y>80</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1634,9 +1634,9 @@ QLabel
      <widget class="QSpinBox" name="key10_settings_onthresh">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>161</x>
         <y>220</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1653,9 +1653,9 @@ QLabel
      <widget class="QSpinBox" name="key8_settings_onthresh">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>161</x>
         <y>180</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1672,9 +1672,9 @@ QLabel
      <widget class="QSpinBox" name="key1_settings_onthresh">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>161</x>
         <y>240</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1691,9 +1691,9 @@ QLabel
      <widget class="QSpinBox" name="key7_settings_yaccel">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>103</x>
         <y>160</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1710,9 +1710,9 @@ QLabel
      <widget class="QSpinBox" name="key8_settings_xaccel">
       <property name="geometry">
        <rect>
-        <x>57</x>
+        <x>46</x>
         <y>180</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1729,7 +1729,7 @@ QLabel
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>16</x>
         <y>160</y>
         <width>16</width>
         <height>18</height>
@@ -1745,9 +1745,9 @@ QLabel
      <widget class="QSpinBox" name="key1_settings_xaccel">
       <property name="geometry">
        <rect>
-        <x>57</x>
+        <x>46</x>
         <y>240</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1764,9 +1764,9 @@ QLabel
      <widget class="QSpinBox" name="key9_settings_xaccel">
       <property name="geometry">
        <rect>
-        <x>57</x>
+        <x>46</x>
         <y>200</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1859,9 +1859,9 @@ QLabel
      <widget class="QLabel" name="label_18">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>218</x>
         <y>30</y>
-        <width>31</width>
+        <width>35</width>
         <height>26</height>
        </rect>
       </property>
@@ -1878,9 +1878,9 @@ QLabel
      <widget class="QSpinBox" name="key2_settings_offthresh">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>218</x>
         <y>60</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1897,9 +1897,9 @@ QLabel
      <widget class="QSpinBox" name="key8_settings_yaccel">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>103</x>
         <y>180</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1916,9 +1916,9 @@ QLabel
      <widget class="QSpinBox" name="key10_settings_xaccel">
       <property name="geometry">
        <rect>
-        <x>57</x>
+        <x>46</x>
         <y>220</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1973,9 +1973,9 @@ QLabel
      <widget class="QSpinBox" name="key4_settings_xaccel">
       <property name="geometry">
        <rect>
-        <x>57</x>
+        <x>46</x>
         <y>100</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -1992,9 +1992,9 @@ QLabel
      <widget class="QSpinBox" name="key9_settings_yaccel">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>103</x>
         <y>200</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2011,7 +2011,7 @@ QLabel
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>16</x>
         <y>120</y>
         <width>16</width>
         <height>18</height>
@@ -2027,9 +2027,9 @@ QLabel
      <widget class="QSpinBox" name="key4_settings_offthresh">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>218</x>
         <y>100</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2046,9 +2046,9 @@ QLabel
      <widget class="QSpinBox" name="key8_settings_offthresh">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>218</x>
         <y>180</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2141,9 +2141,9 @@ QLabel
      <widget class="QSpinBox" name="key4_settings_yaccel">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>103</x>
         <y>100</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2198,9 +2198,9 @@ QLabel
      <widget class="QSpinBox" name="key7_settings_onthresh">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>161</x>
         <y>160</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2236,9 +2236,9 @@ QLabel
      <widget class="QSpinBox" name="key9_settings_offthresh">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>218</x>
         <y>200</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2255,9 +2255,9 @@ QLabel
      <widget class="QSpinBox" name="key6_settings_onthresh">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>161</x>
         <y>140</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2274,9 +2274,9 @@ QLabel
      <widget class="QSpinBox" name="key5_settings_yaccel">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>103</x>
         <y>120</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2293,9 +2293,9 @@ QLabel
      <widget class="QSpinBox" name="key4_settings_onthresh">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>161</x>
         <y>100</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2312,7 +2312,7 @@ QLabel
      <widget class="QLabel" name="label_9">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>16</x>
         <y>180</y>
         <width>16</width>
         <height>18</height>
@@ -2328,7 +2328,7 @@ QLabel
      <widget class="QLabel" name="label_10">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>16</x>
         <y>200</y>
         <width>16</width>
         <height>18</height>
@@ -2363,9 +2363,9 @@ QLabel
      <widget class="QSpinBox" name="key7_settings_offthresh">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>218</x>
         <y>160</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2382,9 +2382,9 @@ QLabel
      <widget class="QLabel" name="label_14">
       <property name="geometry">
        <rect>
-        <x>57</x>
+        <x>46</x>
         <y>30</y>
-        <width>31</width>
+        <width>35</width>
         <height>26</height>
        </rect>
       </property>
@@ -2401,9 +2401,9 @@ QLabel
      <widget class="QLabel" name="label_15">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>103</x>
         <y>30</y>
-        <width>31</width>
+        <width>35</width>
         <height>26</height>
        </rect>
       </property>
@@ -2420,9 +2420,9 @@ QLabel
      <widget class="QSpinBox" name="key10_settings_yaccel">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>103</x>
         <y>220</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2477,7 +2477,7 @@ QLabel
      <widget class="QLabel" name="label_11">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>16</x>
         <y>220</y>
         <width>16</width>
         <height>18</height>
@@ -2493,9 +2493,9 @@ QLabel
      <widget class="QSpinBox" name="key1_settings_offthresh">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>218</x>
         <y>240</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2531,7 +2531,7 @@ QLabel
      <widget class="QLabel" name="label_4">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>16</x>
         <y>80</y>
         <width>16</width>
         <height>18</height>
@@ -2547,9 +2547,9 @@ QLabel
      <widget class="QSpinBox" name="key3_settings_xaccel">
       <property name="geometry">
        <rect>
-        <x>57</x>
+        <x>46</x>
         <y>80</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2604,9 +2604,9 @@ QLabel
      <widget class="QSpinBox" name="key5_settings_xaccel">
       <property name="geometry">
        <rect>
-        <x>57</x>
+        <x>46</x>
         <y>120</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2623,9 +2623,9 @@ QLabel
      <widget class="QSpinBox" name="key5_settings_onthresh">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>161</x>
         <y>120</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2642,7 +2642,7 @@ QLabel
      <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>16</x>
         <y>60</y>
         <width>16</width>
         <height>18</height>
@@ -2658,9 +2658,9 @@ QLabel
      <widget class="QSpinBox" name="key1_settings_yaccel">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>103</x>
         <y>240</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2677,9 +2677,9 @@ QLabel
      <widget class="QSpinBox" name="key6_settings_xaccel">
       <property name="geometry">
        <rect>
-        <x>57</x>
+        <x>46</x>
         <y>140</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
@@ -2696,9 +2696,9 @@ QLabel
      <widget class="QSpinBox" name="key2_settings_onthresh">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>161</x>
         <y>60</y>
-        <width>30</width>
+        <width>35</width>
         <height>18</height>
        </rect>
       </property>
