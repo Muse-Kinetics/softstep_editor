@@ -13,31 +13,31 @@
 Trigger::Trigger()
 {
 
-    TriggerWorker* triggerWorker = new TriggerWorker;
-    TriggerWorker* fastTriggerWorker = new TriggerWorker;
-    TriggerWorker* longTriggerWorker = new TriggerWorker;
-    TriggerWorker* dblTriggerWorker = new TriggerWorker;
-    TriggerWorker* offTriggerWorker = new TriggerWorker;
+    TriggerWorker* triggerWorker = new TriggerWorker("trig");
+    TriggerWorker* fastTriggerWorker = new TriggerWorker("fastTrig");
+    TriggerWorker* longTriggerWorker = new TriggerWorker("longTrig");
+    TriggerWorker* dblTriggerWorker = new TriggerWorker("dblTrig");
+    TriggerWorker* offTriggerWorker = new TriggerWorker("offTrig");
 
-    TriggerWorker* fastTriggerLatchWorker = new TriggerWorker;
-    TriggerWorker* longTriggerLatchWorker = new TriggerWorker;
-    TriggerWorker* dblTriggerLatchWorker = new TriggerWorker;
+    TriggerWorker* fastTriggerLatchWorker = new TriggerWorker("fastTrigLatch");
+    TriggerWorker* longTriggerLatchWorker = new TriggerWorker("longTrigLatch");
+    TriggerWorker* dblTriggerLatchWorker = new TriggerWorker("dblTrigLatch");
 
     //Regular
     triggerWorker->moveToThread(&triggerThread);
-    connect(this, SIGNAL(signalStartTriggerClock(int)), triggerWorker, SLOT(slotStartTriggerClock(int)));
+    connect(this, SIGNAL(signalStartTriggerClock(int,QString)), triggerWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(triggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotTriggerReturn()));
     connect(this, SIGNAL(signalAbortClock()), triggerWorker, SLOT(slotAbortTriggerClock()));
 
     //Fast
     fastTriggerWorker->moveToThread(&fastTriggerThread);
-    connect(this, SIGNAL(signalStartTriggerClock(int)), fastTriggerWorker, SLOT(slotStartTriggerClock(int)));
+    connect(this, SIGNAL(signalStartTriggerClock(int,QString)), fastTriggerWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(fastTriggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotFastTriggerReturn()));
     connect(this, SIGNAL(signalAbortClock()), fastTriggerWorker, SLOT(slotAbortTriggerClock()));
 
     //Long
     longTriggerWorker->moveToThread(&longTriggerThread);
-    connect(this, SIGNAL(signalStartTriggerClock(int)), longTriggerWorker, SLOT(slotStartTriggerClock(int)));
+    connect(this, SIGNAL(signalStartTriggerClock(int,QString)), longTriggerWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(longTriggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotLongTriggerReturn()));
     connect(this, SIGNAL(signalAbortClock()), longTriggerWorker, SLOT(slotAbortTriggerClock()));
 
@@ -45,26 +45,26 @@ Trigger::Trigger()
     dblWindowIsOpen = false;
     dblHitCount = 0;
     dblTriggerWorker->moveToThread(&dblTriggerThread);
-    connect(this, SIGNAL(signalStartTriggerClock(int)), dblTriggerWorker, SLOT(slotStartTriggerClock(int)));
+    connect(this, SIGNAL(signalStartTriggerClock(int,QString)), dblTriggerWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(dblTriggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotDblTriggerReturn()));
     connect(this, SIGNAL(signalAbortClock()), dblTriggerWorker, SLOT(slotAbortTriggerClock()));
 
     //Off
     offTriggerWorker->moveToThread(&offTriggerThread);
-    connect(this, SIGNAL(signalStartTriggerClock(int)), offTriggerWorker, SLOT(slotStartTriggerClock(int)));
+    connect(this, SIGNAL(signalStartTriggerClock(int,QString)), offTriggerWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(offTriggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotOffTriggerReturn()));
     connect(this, SIGNAL(signalAbortClock()), offTriggerWorker, SLOT(slotAbortTriggerClock()));
 
     //----- Latch
     //Fast
     fastTriggerLatchWorker->moveToThread(&fastTriggerLatchThread);
-    connect(this, SIGNAL(signalStartTriggerClock(int)), fastTriggerLatchWorker, SLOT(slotStartTriggerClock(int)));
+    connect(this, SIGNAL(signalStartTriggerClock(int,QString)), fastTriggerLatchWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(fastTriggerLatchWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotFastTriggerLatchReturn()));
     connect(this, SIGNAL(signalAbortClock()), fastTriggerLatchWorker, SLOT(slotAbortTriggerClock()));
 
     //Long
     longTriggerLatchWorker->moveToThread(&longTriggerLatchThread);
-    connect(this, SIGNAL(signalStartTriggerClock(int)), longTriggerLatchWorker, SLOT(slotStartTriggerClock(int)));
+    connect(this, SIGNAL(signalStartTriggerClock(int,QString)), longTriggerLatchWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(longTriggerLatchWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotLongTriggerLatchReturn()));
     connect(this, SIGNAL(signalAbortClock()), longTriggerLatchWorker, SLOT(slotAbortTriggerClock()));
 
@@ -72,11 +72,9 @@ Trigger::Trigger()
     dblLatchWindowIsOpen = false;
     dblLatchHitCount = 0;
     dblTriggerLatchWorker->moveToThread(&dblTriggerLatchThread);
-    connect(this, SIGNAL(signalStartTriggerClock(int)), dblTriggerLatchWorker, SLOT(slotStartTriggerClock(int)));
+    connect(this, SIGNAL(signalStartTriggerClock(int,QString)), dblTriggerLatchWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(dblTriggerLatchWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotDblTriggerLatchReturn()));
     connect(this, SIGNAL(signalAbortClock()), dblTriggerLatchWorker, SLOT(slotAbortTriggerClock()));
-
-
 }
 
 //---------------------------------------- Trigger
@@ -84,7 +82,7 @@ void Trigger::trigger()
 {
     //No delay on trigger, but still need extra thread for delayed trigger-off message
     triggerThread.start();
-    emit signalStartTriggerClock(TRIGGER_TIMEOUT);
+    emit signalStartTriggerClock(TRIGGER_TIMEOUT, "trig");
 }
 
 void Trigger::slotTriggerReturn()
@@ -97,7 +95,7 @@ void Trigger::slotTriggerReturn()
 void Trigger::longTrigger()
 {
     longTriggerThread.start();
-    emit signalStartTriggerClock(LONG_TRIG_TIMEOUT);
+    emit signalStartTriggerClock(LONG_TRIG_TIMEOUT, "longTrig");
 }
 
 void Trigger::longTriggerAbort()
@@ -112,10 +110,11 @@ void Trigger::slotLongTriggerReturn()
     emit signalLongTriggerReturn();
 }
 
+//---------------------------------------- Long Latch
 void Trigger::longTriggerLatch()
 {
     longTriggerLatchThread.start();
-    emit signalStartTriggerClock(LONG_TRIG_TIMEOUT);
+    emit signalStartTriggerClock(LONG_TRIG_TIMEOUT, "longTrigLatch");
 }
 
 void Trigger::longTriggerLatchAbort()
@@ -135,7 +134,7 @@ void Trigger::fastTrigger()
 {
     //No delay on trigger, but still need extra thread for delayed trigger-off message
     fastTriggerThread.start();
-    emit signalStartTriggerClock(FAST_TRIG_TIMEOUT);
+    emit signalStartTriggerClock(FAST_TRIG_TIMEOUT, "fastTrig");
 }
 
 void Trigger::slotFastTriggerReturn()
@@ -144,10 +143,12 @@ void Trigger::slotFastTriggerReturn()
     emit signalFastTriggerReturn();
 }
 
+
+//---------------------------------------- Fast Latch
 void Trigger::fastTriggerLatch()
 {
     fastTriggerLatchThread.start();
-    emit signalStartTriggerClock(FAST_TRIG_TIMEOUT);
+    emit signalStartTriggerClock(FAST_TRIG_TIMEOUT, "fastTrigLatch");
 }
 
 void Trigger::slotFastTriggerLatchReturn()
@@ -164,7 +165,7 @@ void Trigger::dblTriggerHit()
         dblHitCount = 1;
         dblWindowIsOpen = true;
         dblTriggerThread.start();
-        emit signalStartTriggerClock(DBL_TRIG_WINDOW);
+        emit signalStartTriggerClock(DBL_TRIG_WINDOW, "dblTrig");
     }
     else
     {
@@ -188,6 +189,7 @@ void Trigger::slotDblTriggerReturn()
     dblWindowIsOpen = false;
 }
 
+//---------------------------------------- Dbl Latch
 void Trigger::dblTriggerLatchHit()
 {
 
@@ -196,7 +198,7 @@ void Trigger::dblTriggerLatchHit()
         dblLatchHitCount = 1;
         dblLatchWindowIsOpen = true;
         dblTriggerLatchThread.start();
-        emit signalStartTriggerClock(DBL_TRIG_WINDOW);
+        emit signalStartTriggerClock(DBL_TRIG_WINDOW, "dblTrigLatch");
     }
     else
     {
@@ -225,7 +227,7 @@ void Trigger::offTrigger()
 {
     //No delay on trigger, but still need extra thread for delayed trigger-off message
     offTriggerThread.start();
-    emit signalStartTriggerClock(OFF_TRIG_TIMEOUT);
+    emit signalStartTriggerClock(OFF_TRIG_TIMEOUT, "offTrig");
 }
 
 void Trigger::slotOffTriggerReturn()
@@ -235,6 +237,8 @@ void Trigger::slotOffTriggerReturn()
     emit signalOffTriggerReturn();
 }
 
+
+//---------------------------------------- Delta
 void Trigger::deltaTrigger()
 {
 
@@ -248,9 +252,9 @@ void Trigger::slotDeltaTriggerReturn()
 
 //--------------------- Trigger Worker
 
-TriggerWorker::TriggerWorker()
+TriggerWorker::TriggerWorker(QString typ)
 {
-
+    triggerType = typ;
 }
 
 TriggerWorker::~TriggerWorker()
@@ -258,14 +262,17 @@ TriggerWorker::~TriggerWorker()
 
 }
 
-void TriggerWorker::slotStartTriggerClock(int timeout)
+void TriggerWorker::slotStartTriggerClock(int timeout, QString type)
 {
-    qDebug() << "start trigger clock";
+    if(triggerType == type)
+    {
+        qDebug() << "start trigger clock";
 
-    clock = new QTimer(this);
-    connect(clock, SIGNAL(timeout()), this, SLOT(slotReturnTriggerTimeout()));
-    clock->setSingleShot(true);
-    clock->start(timeout);
+        clock = new QTimer(this);
+        connect(clock, SIGNAL(timeout()), this, SLOT(slotReturnTriggerTimeout()));
+        clock->setSingleShot(true);
+        clock->start(timeout);
+    }
 }
 
 void TriggerWorker::slotAbortTriggerClock()

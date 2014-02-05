@@ -66,7 +66,7 @@ signals:
     void signalLongTriggerLatchReturn();
 
     //To Trigger Worker
-    void signalStartTriggerClock(int timeout);
+    void signalStartTriggerClock(int timeout, QString type);
     void signalAbortClock();
 
 public slots:
@@ -88,16 +88,17 @@ class TriggerWorker : public QObject
     Q_OBJECT
 
 public:
-    TriggerWorker();
+    TriggerWorker(QString typ);
     ~TriggerWorker();
 
     QTimer* clock;
+    QString triggerType;
 
 signals:
     void signalSendTriggerTimeout();
 
 public slots:
-    void slotStartTriggerClock(int timeout);
+    void slotStartTriggerClock(int timeout, QString type);
     void slotAbortTriggerClock();
     void slotReturnTriggerTimeout();
 
