@@ -164,7 +164,7 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
 
     globalGain = 1.0;
 
-    isSS2 = true;
+    isSS2 = false;
 
 }
 
@@ -910,6 +910,8 @@ void DataCooker::yIncrement()
     //If key is active
     if(footOnOff)
     {
+        qDebug() << "key: " << keyNum << "ylive: " << yLive() << "deadzone: " << yDeadZone << "adjusted dead zone: " << (63 + yDeadZone/2.5);
+
         //If greater than dead zone
         if(yLive() > (63 + yDeadZone/2.5))
         {
@@ -1243,8 +1245,8 @@ void DataCooker::slotFastTriggerLatchOff()
     //Emit zero
     for(int i = 0; i < 6; i++)
     {
-        emit signalTransformSource(pressureLive(), i, "Fast Trig Latch");
-        //emit signalTransformSource(127, i, "Fast Trig Latch");
+        //emit signalTransformSource(pressureLive(), i, "Fast Trig Latch");
+        emit signalTransformSource(127, i, "Fast Trig Latch");
     }
 }
 
@@ -1282,8 +1284,8 @@ void DataCooker::slotDblTriggerLatchOff()
     //Emit zero
     for(int i = 0; i < 6; i++)
     {
-        emit signalTransformSource(pressureLive(), i, "Dbl Trig Latch");
-        //emit signalTransformSource(127, i, "Dbl Trig Latch");
+        //emit signalTransformSource(pressureLive(), i, "Dbl Trig Latch");
+        emit signalTransformSource(127, i, "Dbl Trig Latch");
     }
 }
 
@@ -1321,8 +1323,8 @@ void DataCooker::slotLongTriggerLatchOff()
     //Emit zero
     for(int i = 0; i < 6; i++)
     {
-        emit signalTransformSource(pressureLive(), i, "Long Trig Latch");
-        //emit signalTransformSource(127, i, "Long Trig Latch");
+        //emit signalTransformSource(pressureLive(), i, "Long Trig Latch");
+        emit signalTransformSource(127, i, "Long Trig Latch");
     }
 }
 
@@ -1528,8 +1530,11 @@ void DataCooker::slotSetOffThresh(int key, int threshold)
 
 void DataCooker::slotSetYDeadZone(int key, int deadZone)
 {
+    //qDebug() << "set y deadzone  key:" << key << "dZone" << deadZone;
+
     if(keyNum == key)
     {
+        qDebug() << "key" <<  key << "y deadzone" << deadZone;
         yDeadZone = deadZone;
     }
 }
