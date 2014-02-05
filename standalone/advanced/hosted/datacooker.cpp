@@ -910,7 +910,7 @@ void DataCooker::yIncrement()
     //If key is active
     if(footOnOff)
     {
-        qDebug() << "key: " << keyNum << "ylive: " << yLive() << "deadzone: " << yDeadZone << "adjusted dead zone: " << (63 + yDeadZone/2.5);
+        //qDebug() << "key: " << keyNum << "ylive: " << yLive() << "deadzone: " << yDeadZone << "adjusted dead zone: " << (63 + yDeadZone/2.5);
 
         //If greater than dead zone
         if(yLive() > (63 + yDeadZone/2.5))
@@ -1534,7 +1534,7 @@ void DataCooker::slotSetYDeadZone(int key, int deadZone)
 
     if(keyNum == key)
     {
-        qDebug() << "key" <<  key << "y deadzone" << deadZone;
+        //qDebug() << "key" <<  key << "y deadzone" << deadZone;
         yDeadZone = deadZone;
     }
 }

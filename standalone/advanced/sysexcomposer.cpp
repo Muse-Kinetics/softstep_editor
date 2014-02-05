@@ -240,6 +240,9 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                 attribute(x,3,A_SYM,"set",A_SYM,"Modline",A_LONG,m);
                 attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,preset.value(QString("key%1_modline%2_enable").arg(k).arg(m)).toLongLong());
                 attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("key%1_modline%2_source").arg(k).arg(m)).toString().toUtf8().constData());
+
+                qDebug() << "key : " << k << "modline : " << m << preset.value(QString("key%1_modline%2_source").arg(k).arg(m)).toString();
+
                 attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("key%1_modline%2_gain").arg(k).arg(m)).toFloat());
                 attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("key%1_modline%2_offset").arg(k).arg(m)).toFloat());
 

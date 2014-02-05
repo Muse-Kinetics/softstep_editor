@@ -337,7 +337,7 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     if(mode == "hosted")
     {
-        //--------------------------------------------- Recall states from current preset
+        //--------------------------------------------- Recall states from "new" current preset
         //Counter
         counter = stateRecaller.counterState.value(currentPreset);
 

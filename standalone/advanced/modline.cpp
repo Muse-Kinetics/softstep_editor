@@ -66,7 +66,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
 
     initModeOnceCalled = false;
 
-    connect(modlineForm->initvalue, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
+
     //connect(modlineForm->raw, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
 }
 
@@ -164,6 +164,9 @@ void Modline::slotConnectElements()
     connect(&delayer, SIGNAL(signalDelayedOutput(int)), this, SLOT(slotDelayReturn(int)));
 
     //connect(this, SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
+
+    //Init and test (manual value changing)
+    connect(modlineForm->initvalue, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
 }
 
 void Modline::slotDisconnectElements()
@@ -257,6 +260,9 @@ void Modline::slotDisconnectElements()
     disconnect(&delayer, SIGNAL(signalDelayedOutput(int)), this, SLOT(slotDelayReturn(int)));
 
     //disconnect(this, SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
+
+    //Init and test (manual value changing)
+    disconnect(modlineForm->initvalue, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
 }
 
 void Modline::slotValueChanged()
@@ -808,6 +814,8 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
             //Go to slotTable, signal continues from there
             slotTable(val);
         }
+
+        //qDebug() << "key" << keyInstance << "init val" << val;
     }
     else
     {
