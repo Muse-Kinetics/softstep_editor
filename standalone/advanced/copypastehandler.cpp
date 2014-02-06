@@ -19,7 +19,16 @@ void CopyPasteHandler::slotSetCurrentKey(int currentKeyNum)
 
 void CopyPasteHandler::slotClearPreset()
 {
-    QString filename = "./Blank.softsteppreset";
+    QString filename = QCoreApplication::applicationDirPath();
+
+#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
+    filename.remove(filename.length() - 5, filename.length()); //Remove "MacOS" from path string
+    filename.append("Resources/Blank.softsteppreset");
+
+#else
+    filename = QString("./Blank.softsteppreset");
+
+#endif
 
     //open file
     QFile* presetFile = new QFile(filename);

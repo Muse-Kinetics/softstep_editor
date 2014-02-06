@@ -77,6 +77,8 @@ public:
     QStringList standaloneNavTables;
     QStringList hostedNavSources;
     QStringList hostedNavTables;
+    QStringList hostedDisplayModes;
+    QStringList standaloneDisplayModes;
 
     //Disabling Widget
     QWidget     *disableWidget;

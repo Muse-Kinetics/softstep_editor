@@ -519,6 +519,13 @@ void Key::slotSetMode(QString m)
     }
 }
 
+void Key::slotPopulateMenus(QStringList displayModes)
+{
+    //Set Display Mode Menus
+    keyWindowForm->leddisplaymode->clear();
+    keyWindowForm->leddisplaymode->addItems(displayModes);
+}
+
 void Key::slotSetDataCookerSettings()
 {
 

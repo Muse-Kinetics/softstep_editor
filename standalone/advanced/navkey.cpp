@@ -479,6 +479,13 @@ void NavKey::slotSetMode(QString m)
     }
 }
 
+void NavKey::slotPopulateMenus(QStringList displayModes)
+{
+    //Set Display Mode Menus
+    navKeyWindowForm->leddisplaymode->clear();
+    navKeyWindowForm->leddisplaymode->addItems(displayModes);
+}
+
 void NavKey::slotSetDataCookerSettings()
 {
 

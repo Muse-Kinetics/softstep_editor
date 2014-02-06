@@ -1171,6 +1171,18 @@ void MainWindow::slotSetMode()
         //Key Mode
         key[i]->slotSetMode(mode);
 
+        //populate display menus in key windows
+        key[i]->slotDisconnectElements();
+        if(mode == "hosted")
+        {
+            key[i]->slotPopulateMenus(hostedDisplayModes);
+        }
+        else
+        {
+            key[i]->slotPopulateMenus(standaloneDisplayModes);
+        }
+        key[i]->slotConnectElements();
+
         for(int j = 0; j < 6; j++)
         {
             //Modline Mode
@@ -1217,6 +1229,17 @@ void MainWindow::slotSetMode()
         //reconnect to slotValueChanged
         navKey->navModline[i]->slotConnectElements();
     }
+    //populate display mode menus in nav key window
+    navKey->slotDisconnectElements();
+    if(mode == "hosted")
+    {
+        navKey->slotPopulateMenus(hostedDisplayModes);
+    }
+    else
+    {
+        navKey->slotPopulateMenus(standaloneDisplayModes);
+    }
+    navKey->slotConnectElements();
 
     midiDeviceManager->slotSetMode(mode); //repopulation of device menus should happen here
     presetInterface->slotSetMode(mode);
@@ -1573,6 +1596,20 @@ void MainWindow::slotPopulateSourceDestLists()
     hostedNavTables.append("Logarithmic");
 
     hostedNavTables.append("Toggle");
+
+    //------------- Display Modes
+    //Hosted
+    hostedDisplayModes.append("None");
+    hostedDisplayModes.append("Always");
+    hostedDisplayModes.append("Once");
+    hostedDisplayModes.append("Initial/Return");
+    hostedDisplayModes.append("Immed Param");
+    //Standalone
+    standaloneDisplayModes.append("None");
+    standaloneDisplayModes.append("Always");
+    standaloneDisplayModes.append("Initial/Return");
+    standaloneDisplayModes.append("Immed Param");
+
 }
 
 void MainWindow::slotUpdatePresets()

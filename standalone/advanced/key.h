@@ -73,6 +73,7 @@ public slots:
     void slotRecallPreset(QVariantMap, QVariantMap);
 
     void slotSetMode(QString m);
+    void slotPopulateMenus(QStringList displayModes);
 
     //------------------ Hosted ------------------//
     void slotSetDataCookerSettings();
