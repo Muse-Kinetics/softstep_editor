@@ -67,7 +67,7 @@ signals:
 
     //To Trigger Worker
     void signalStartTriggerClock(int timeout, QString type);
-    void signalAbortClock();
+    void signalAbortClock(QString type);
 
 public slots:
     void slotTriggerReturn();
@@ -99,7 +99,7 @@ signals:
 
 public slots:
     void slotStartTriggerClock(int timeout, QString type);
-    void slotAbortTriggerClock();
+    void slotAbortTriggerClock(QString type);
     void slotReturnTriggerTimeout();
 
 };

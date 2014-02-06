@@ -27,19 +27,19 @@ Trigger::Trigger()
     triggerWorker->moveToThread(&triggerThread);
     connect(this, SIGNAL(signalStartTriggerClock(int,QString)), triggerWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(triggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotTriggerReturn()));
-    connect(this, SIGNAL(signalAbortClock()), triggerWorker, SLOT(slotAbortTriggerClock()));
+    connect(this, SIGNAL(signalAbortClock(QString)), triggerWorker, SLOT(slotAbortTriggerClock(QString)));
 
     //Fast
     fastTriggerWorker->moveToThread(&fastTriggerThread);
     connect(this, SIGNAL(signalStartTriggerClock(int,QString)), fastTriggerWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(fastTriggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotFastTriggerReturn()));
-    connect(this, SIGNAL(signalAbortClock()), fastTriggerWorker, SLOT(slotAbortTriggerClock()));
+    connect(this, SIGNAL(signalAbortClock(QString)), fastTriggerWorker, SLOT(slotAbortTriggerClock(QString)));
 
     //Long
     longTriggerWorker->moveToThread(&longTriggerThread);
     connect(this, SIGNAL(signalStartTriggerClock(int,QString)), longTriggerWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(longTriggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotLongTriggerReturn()));
-    connect(this, SIGNAL(signalAbortClock()), longTriggerWorker, SLOT(slotAbortTriggerClock()));
+    connect(this, SIGNAL(signalAbortClock(QString)), longTriggerWorker, SLOT(slotAbortTriggerClock(QString)));
 
     //Dbl
     dblWindowIsOpen = false;
@@ -47,26 +47,26 @@ Trigger::Trigger()
     dblTriggerWorker->moveToThread(&dblTriggerThread);
     connect(this, SIGNAL(signalStartTriggerClock(int,QString)), dblTriggerWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(dblTriggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotDblTriggerReturn()));
-    connect(this, SIGNAL(signalAbortClock()), dblTriggerWorker, SLOT(slotAbortTriggerClock()));
+    connect(this, SIGNAL(signalAbortClock(QString)), dblTriggerWorker, SLOT(slotAbortTriggerClock(QString)));
 
     //Off
     offTriggerWorker->moveToThread(&offTriggerThread);
     connect(this, SIGNAL(signalStartTriggerClock(int,QString)), offTriggerWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(offTriggerWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotOffTriggerReturn()));
-    connect(this, SIGNAL(signalAbortClock()), offTriggerWorker, SLOT(slotAbortTriggerClock()));
+    connect(this, SIGNAL(signalAbortClock(QString)), offTriggerWorker, SLOT(slotAbortTriggerClock(QString)));
 
     //----- Latch
     //Fast
     fastTriggerLatchWorker->moveToThread(&fastTriggerLatchThread);
     connect(this, SIGNAL(signalStartTriggerClock(int,QString)), fastTriggerLatchWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(fastTriggerLatchWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotFastTriggerLatchReturn()));
-    connect(this, SIGNAL(signalAbortClock()), fastTriggerLatchWorker, SLOT(slotAbortTriggerClock()));
+    connect(this, SIGNAL(signalAbortClock(QString)), fastTriggerLatchWorker, SLOT(slotAbortTriggerClock(QString)));
 
     //Long
     longTriggerLatchWorker->moveToThread(&longTriggerLatchThread);
     connect(this, SIGNAL(signalStartTriggerClock(int,QString)), longTriggerLatchWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(longTriggerLatchWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotLongTriggerLatchReturn()));
-    connect(this, SIGNAL(signalAbortClock()), longTriggerLatchWorker, SLOT(slotAbortTriggerClock()));
+    connect(this, SIGNAL(signalAbortClock(QString)), longTriggerLatchWorker, SLOT(slotAbortTriggerClock(QString)));
 
     //Dbl
     dblLatchWindowIsOpen = false;
@@ -74,7 +74,7 @@ Trigger::Trigger()
     dblTriggerLatchWorker->moveToThread(&dblTriggerLatchThread);
     connect(this, SIGNAL(signalStartTriggerClock(int,QString)), dblTriggerLatchWorker, SLOT(slotStartTriggerClock(int,QString)));
     connect(dblTriggerLatchWorker, SIGNAL(signalSendTriggerTimeout()), this, SLOT(slotDblTriggerLatchReturn()));
-    connect(this, SIGNAL(signalAbortClock()), dblTriggerLatchWorker, SLOT(slotAbortTriggerClock()));
+    connect(this, SIGNAL(signalAbortClock(QString)), dblTriggerLatchWorker, SLOT(slotAbortTriggerClock(QString)));
 }
 
 //---------------------------------------- Trigger
@@ -100,7 +100,7 @@ void Trigger::longTrigger()
 
 void Trigger::longTriggerAbort()
 {
-    emit signalAbortClock();
+    emit signalAbortClock("longTrig");
     longTriggerThread.quit();
 }
 
@@ -119,7 +119,7 @@ void Trigger::longTriggerLatch()
 
 void Trigger::longTriggerLatchAbort()
 {
-    emit signalAbortClock();
+    emit signalAbortClock("longTrigLatch");
     longTriggerLatchThread.quit();
 }
 
@@ -171,7 +171,7 @@ void Trigger::dblTriggerHit()
     {
         dblHitCount = 0;
         dblWindowIsOpen = false;
-        emit signalAbortClock();
+        emit signalAbortClock("dblTrig");
         emit signalDblTriggerReturn();
         dblTriggerThread.quit();
     }
@@ -179,7 +179,7 @@ void Trigger::dblTriggerHit()
 
 void Trigger::dblTriggerAbort()
 {
-    emit signalAbortClock();
+    emit signalAbortClock("dblTrig");
 }
 
 void Trigger::slotDblTriggerReturn()
@@ -204,7 +204,7 @@ void Trigger::dblTriggerLatchHit()
     {
         dblLatchHitCount = 0;
         dblLatchWindowIsOpen = false;
-        emit signalAbortClock();
+        emit signalAbortClock("dblTrigLatch");
         emit signalDblTriggerLatchReturn();
         dblTriggerLatchThread.quit();
     }
@@ -212,7 +212,7 @@ void Trigger::dblTriggerLatchHit()
 
 void Trigger::dblTriggerLatchAbort()
 {
-    emit signalAbortClock();
+    emit signalAbortClock("dblTrigLatch");
 }
 
 void Trigger::slotDblTriggerLatchReturn()
@@ -275,9 +275,12 @@ void TriggerWorker::slotStartTriggerClock(int timeout, QString type)
     }
 }
 
-void TriggerWorker::slotAbortTriggerClock()
+void TriggerWorker::slotAbortTriggerClock(QString type)
 {
-    clock->stop();
+    if(triggerType == type)
+    {
+       clock->stop();
+    }
 }
 
 void TriggerWorker::slotReturnTriggerTimeout()
