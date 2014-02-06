@@ -30,6 +30,8 @@ public:
 
     //QList<QVariantMap> setlist;
 
+    t_softstep *x;
+
 signals:
     void    signalSendSysEx(QString messageID, unsigned char* message, int messageLength, QString destinationName);
     void    signalSendBuildNums(int,QString, int, QString, int hardware);

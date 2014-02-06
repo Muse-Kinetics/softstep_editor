@@ -21,6 +21,7 @@ extern "C"
 SysExComposer::SysExComposer(QWidget *parent) :
     QWidget(parent)
 {
+    x = softstep_init();
     slotGetEmbeddedVersion();
     isSoftStep2 = false;
     connectedBuildNum = -1;
@@ -586,7 +587,7 @@ void SysExComposer::slotPresetsSent()
 void SysExComposer::slotGetConnectedVersion(QByteArray msg)
 {
 
-    t_softstep *x = softstep_init();
+
 
     for(int i =0 ; i < msg.count(); i++)
     {
