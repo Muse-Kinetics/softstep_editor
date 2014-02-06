@@ -571,6 +571,7 @@ void MainWindow::slotConnectInterfaces()
     //Save As
     connect(ui->saveas, SIGNAL(clicked()), disableWidget, SLOT(show()));
     connect(ui->saveas, SIGNAL(clicked()), saveAsDialogWidget, SLOT(show()));
+    connect(ui->saveas, SIGNAL(clicked()), saveAsDialogForm->name, SLOT(setFocus()));
     connect(saveAsDialogForm->cancel, SIGNAL(clicked()), saveAsDialogWidget, SLOT(close()));
     connect(saveAsDialogForm->cancel, SIGNAL(clicked()), disableWidget, SLOT(close()));
     connect(saveAsDialogForm->save, SIGNAL(clicked()), this, SLOT(slotSaveAs()));
