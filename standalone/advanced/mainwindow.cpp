@@ -653,7 +653,7 @@ void MainWindow::slotConnectInterfaces()
 
     connect(settingsWindow, SIGNAL(signalTetherOnOffInStandalone(bool)), midiDeviceManager, SLOT(slotTetherOnOffInStandalone(bool)));
 
-    //Nav
+    //------------------------------- Nav
     connect(settingsWindow, SIGNAL(signalSetGlobalGain(float)), &navKey->dataCooker, SLOT(slotSetGlobalGain(float)));
 
     //N
@@ -671,6 +671,9 @@ void MainWindow::slotConnectInterfaces()
     //W
     connect(settingsWindow, SIGNAL(signalSetNavWestOnThresh(int)), &navKey->dataCooker, SLOT(slotSetOnThreshW(int)));
     connect(settingsWindow, SIGNAL(signalSetNavWestOffThresh(int)), &navKey->dataCooker, SLOT(slotSetOffThreshW(int)));
+
+    //Y-Accel
+    connect(settingsWindow, SIGNAL(signalSetNavYIncAccel(int)), &navKey->dataCooker, SLOT(slotSetYAccel(int)));
 
 
     //------------- Scene Change on/off sysex command
