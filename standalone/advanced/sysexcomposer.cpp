@@ -358,7 +358,8 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                 //------------- MMC
                 else if(destination == "MMC")
                 {
-
+                    attribute(x,3,A_SYM,"set",A_SYM,"MMC_Device_ID",A_LONG,preset.value(QString("key%1_modline%2_mmcid").arg(k).arg(m)).toLongLong());
+                    attribute(x,3,A_SYM,"set",A_SYM,"MMC_Function",A_SYM,preset.value(QString("key%1_modline%2_mmcfunction").arg(k).arg(m)).toString().toUtf8().constData());
                 }
 
                 attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
