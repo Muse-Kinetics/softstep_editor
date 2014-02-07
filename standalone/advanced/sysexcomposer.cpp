@@ -29,7 +29,7 @@ SysExComposer::SysExComposer(QWidget *parent) :
 
 void SysExComposer::slotGetEmbeddedVersion()
 {
-    t_softstep *x = softstep_init();
+    //t_softstep *x = softstep_init();
 
     QString sysExPath = QCoreApplication::applicationDirPath(); //get bundle path
 
@@ -595,7 +595,7 @@ void SysExComposer::slotGetConnectedVersion(QByteArray msg)
         softstep_midi_process(x,&x->version_connected, msg.at(i));
     }
 
-    //If POST v76 firmware
+    //If POST v76 firmware -- where SS2 differentiaion was introduced
     if(msg.size() > 91)
     {
         if(msg.at(107))
@@ -608,6 +608,26 @@ void SysExComposer::slotGetConnectedVersion(QByteArray msg)
             qDebug() << "SS1";
             isSoftStep2 = false;
         }
+    }
+
+    //If for some reason we get a version number of 0, try sending the message again
+    if(x->version_connected.buildnum == 0)
+    {
+        /*
+        unsigned char _fw_query_syx_softstep_sysexcomposer[] =
+        {
+            0xF0,0x00,0x1B,0x48,0x7A,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+            0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+            0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+            0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0x00,0x00,0x00,0x00,0x04,0x40,
+            0x00,0x30,0xF7
+        };
+        */
+
+        qDebug() << "___________ connected version number of 0";
+
+        //emit signalSendSysEx("deviceQuery", _fw_query_syx_softstep_sysexcomposer, 67, "SSCOM Port 1");
+        //return;
     }
 
     connectedBuildNum = x->version_connected.buildnum;

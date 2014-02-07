@@ -196,7 +196,7 @@ void packet_data_process(void) {
 				{
 					core_sx_set_ignore();
 					if (packet_data_info.sysex_handler->close)
-                        (*packet_data_info.sysex_handler->close)(0);//FUNCTIONCALL -- force succes of 1 on close, fixes found version of 0, need better solution.
+                        (*packet_data_info.sysex_handler->close)(1);//FUNCTIONCALL -- force succes of 1 on close, fixes found version of 0, need better solution.
 				}
 				packet_data_info.packet_count++;
 			}
