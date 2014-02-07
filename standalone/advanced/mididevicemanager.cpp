@@ -339,7 +339,7 @@ void MidiDeviceManager::slotDrainSysexFIFO()
 void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char* bytes, int len, QString destinationName)
 {
 
-    qDebug() << "slsotSendSysEx" << messageID;
+    //qDebug() << "slsotSendSysEx" << messageID;
 
     if(getDestination() > -1)
     {

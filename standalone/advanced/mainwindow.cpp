@@ -214,6 +214,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     }
     
+   /*
     foreach(QAbstractSpinBox *spinbox, this->findChildren<QAbstractSpinBox *>())
     {
         //spinbox->installEventFilter(&scrollEventFilter);
@@ -223,6 +224,7 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         //combobox->installEventFilter(&scrollEventFilter);
     }
+    */
 
 }
 
