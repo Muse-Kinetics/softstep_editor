@@ -916,6 +916,6 @@ void NavDataCooker::slotSetOffThreshW(int threshold)
 
 void NavDataCooker::slotSetYAccel(int accel)
 {
-    qDebug() << "nav pad accle" << accel;
+    //qDebug() << "nav pad accle" << accel;
     yAccel = (float)(127.0f - accel + 1.0f)/127.0f * 50;
 }

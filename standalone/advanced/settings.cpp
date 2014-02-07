@@ -349,6 +349,7 @@ void Settings::slotDisconnectElements()
 
 void Settings::slotValueChanged()
 {
+
     //If timer is inactive, start it
     if(!saveSettingsTimeout->isActive())
     {
@@ -361,7 +362,7 @@ void Settings::slotValueChanged()
     saveSettiingsTimeoutTime = 0;
 
     //emit values to the preset file here
-    if(QObject::sender())
+    if(QObject::sender() && !QObject::sender()->objectName().startsWith("qt_") && QObject::sender()->objectName().size())
     {
         QObject *sender = QObject::sender();
         QString senderClass = sender->metaObject()->className();
@@ -374,6 +375,8 @@ void Settings::slotValueChanged()
             QSpinBox *spinbox = reinterpret_cast<QSpinBox*>(QObject::sender());
             jsonName = spinbox->objectName();
             value = spinbox->value();
+
+            //qDebug() << "_________ SpinBox: settings slot vlaue changed" << jsonName;
         }
         //doublespinboxes
         else if(senderClass == "QDoubleSpinBox")
@@ -413,6 +416,8 @@ void Settings::slotValueChanged()
             QComboBox *combobox = reinterpret_cast<QComboBox*>(QObject::sender());
             jsonName = combobox->objectName();
             value = combobox->currentText();
+
+            //qDebug() << "_________ ComboBox: settings slot vlaue changed" << jsonName;
         }
         //line edits (osc routes)
         else if(senderClass == "QLineEdit")
@@ -432,7 +437,7 @@ void Settings::slotValueChanged()
         emit signalStoreValue(jsonName,value);
     }
 
-    //qDebug() << "value changed" << QObject::sender()->objectName();
+    qDebug() << "value changed" << QObject::sender()->objectName();
 }
 
 void Settings::slotStoreSettings(QString name, QVariant value)
