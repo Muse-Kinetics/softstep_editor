@@ -1342,6 +1342,9 @@ QLabel
         <height>18</height>
        </rect>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1398,6 +1401,9 @@ QLabel
         <width>30</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1789,6 +1795,9 @@ QLabel
         <height>18</height>
        </rect>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1807,6 +1816,9 @@ QLabel
         <width>30</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1827,6 +1839,9 @@ QLabel
         <height>18</height>
        </rect>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1845,6 +1860,9 @@ QLabel
         <width>30</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1941,6 +1959,9 @@ QLabel
         <height>18</height>
        </rect>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1959,6 +1980,9 @@ QLabel
         <width>30</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2071,6 +2095,9 @@ QLabel
         <height>18</height>
        </rect>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -2089,6 +2116,9 @@ QLabel
         <width>30</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2109,6 +2139,9 @@ QLabel
         <height>18</height>
        </rect>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -2127,6 +2160,9 @@ QLabel
         <width>30</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2166,6 +2202,9 @@ QLabel
         <height>18</height>
        </rect>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -2184,6 +2223,9 @@ QLabel
         <width>30</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2222,6 +2264,9 @@ QLabel
         <width>30</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2350,6 +2395,9 @@ QLabel
         <height>18</height>
        </rect>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -2464,6 +2512,9 @@ QLabel
         <height>18</height>
        </rect>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -2517,6 +2568,9 @@ QLabel
         <width>30</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2572,6 +2626,9 @@ QLabel
         <height>18</height>
        </rect>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -2590,6 +2647,9 @@ QLabel
         <width>30</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

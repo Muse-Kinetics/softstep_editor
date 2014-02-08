@@ -195,4 +195,6 @@ OTHER_FILES += \
     resources/keybox_boxnotselected.qss \
     resources/keybox_boxselected.qss \
     CalibrationTable.qml \
-    resources/devicestyle.qss
+    resources/devicestyle.qss \
+    resources/DroidSansMono.ttf \
+    resources/Futura-Bold.ttf

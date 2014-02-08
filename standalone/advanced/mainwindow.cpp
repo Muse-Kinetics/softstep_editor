@@ -226,6 +226,10 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     */
 
+    //load fonts
+    QFontDatabase::addApplicationFont("resources/DroidSansMono.ttf");
+    QFontDatabase::addApplicationFont("resources/Futura-Bold.ttf");
+
 }
 
 MainWindow::~MainWindow()
