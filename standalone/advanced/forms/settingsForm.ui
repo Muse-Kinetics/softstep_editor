@@ -1334,6 +1334,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key2_settings_ydead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -1394,6 +1397,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key6_settings_xdead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>-70</x>
@@ -1787,6 +1793,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key5_settings_xdead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>-70</x>
@@ -1809,6 +1818,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key3_settings_xdead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>-70</x>
@@ -1831,6 +1843,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key8_settings_xdead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>-70</x>
@@ -1853,6 +1868,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key7_settings_ydead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -1951,6 +1969,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key7_settings_xdead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>-70</x>
@@ -1973,6 +1994,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key1_settings_xdead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>-70</x>
@@ -2087,6 +2111,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key10_settings_xdead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>-70</x>
@@ -2109,6 +2136,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key5_settings_ydead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -2131,6 +2161,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key9_settings_ydead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -2153,6 +2186,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key6_settings_ydead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -2194,6 +2230,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key3_settings_ydead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -2216,6 +2255,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key2_settings_xdead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>-70</x>
@@ -2257,6 +2299,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key1_settings_ydead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -2387,6 +2432,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key4_settings_ydead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -2504,6 +2552,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key10_settings_ydead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -2561,6 +2612,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key8_settings_ydead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -2618,6 +2672,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key4_settings_xdead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>-70</x>
@@ -2640,6 +2697,9 @@ QLabel
       </property>
      </widget>
      <widget class="QSpinBox" name="key9_settings_xdead">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>-70</x>
@@ -6282,66 +6342,46 @@ QRadioButton::indicator:checked:pressed
   <tabstop>multiplekeymode</tabstop>
   <tabstop>global_gain_slider</tabstop>
   <tabstop>global_gain_resetbutton</tabstop>
-  <tabstop>key1_settings_xdead</tabstop>
-  <tabstop>key1_settings_xaccel</tabstop>
-  <tabstop>key1_settings_ydead</tabstop>
-  <tabstop>key1_settings_yaccel</tabstop>
-  <tabstop>key1_settings_onthresh</tabstop>
-  <tabstop>key1_settings_offthresh</tabstop>
-  <tabstop>key2_settings_xdead</tabstop>
   <tabstop>key2_settings_xaccel</tabstop>
-  <tabstop>key2_settings_ydead</tabstop>
   <tabstop>key2_settings_yaccel</tabstop>
   <tabstop>key2_settings_onthresh</tabstop>
   <tabstop>key2_settings_offthresh</tabstop>
-  <tabstop>key3_settings_xdead</tabstop>
   <tabstop>key3_settings_xaccel</tabstop>
-  <tabstop>key3_settings_ydead</tabstop>
   <tabstop>key3_settings_yaccel</tabstop>
   <tabstop>key3_settings_onthresh</tabstop>
   <tabstop>key3_settings_offthresh</tabstop>
-  <tabstop>key4_settings_xdead</tabstop>
   <tabstop>key4_settings_xaccel</tabstop>
-  <tabstop>key4_settings_ydead</tabstop>
   <tabstop>key4_settings_yaccel</tabstop>
   <tabstop>key4_settings_onthresh</tabstop>
   <tabstop>key4_settings_offthresh</tabstop>
-  <tabstop>key5_settings_xdead</tabstop>
   <tabstop>key5_settings_xaccel</tabstop>
-  <tabstop>key5_settings_ydead</tabstop>
   <tabstop>key5_settings_yaccel</tabstop>
   <tabstop>key5_settings_onthresh</tabstop>
   <tabstop>key5_settings_offthresh</tabstop>
-  <tabstop>key6_settings_xdead</tabstop>
   <tabstop>key6_settings_xaccel</tabstop>
-  <tabstop>key6_settings_ydead</tabstop>
   <tabstop>key6_settings_yaccel</tabstop>
   <tabstop>key6_settings_onthresh</tabstop>
   <tabstop>key6_settings_offthresh</tabstop>
-  <tabstop>key7_settings_xdead</tabstop>
   <tabstop>key7_settings_xaccel</tabstop>
-  <tabstop>key7_settings_ydead</tabstop>
   <tabstop>key7_settings_yaccel</tabstop>
   <tabstop>key7_settings_onthresh</tabstop>
   <tabstop>key7_settings_offthresh</tabstop>
-  <tabstop>key8_settings_xdead</tabstop>
   <tabstop>key8_settings_xaccel</tabstop>
-  <tabstop>key8_settings_ydead</tabstop>
   <tabstop>key8_settings_yaccel</tabstop>
   <tabstop>key8_settings_onthresh</tabstop>
   <tabstop>key8_settings_offthresh</tabstop>
-  <tabstop>key9_settings_xdead</tabstop>
   <tabstop>key9_settings_xaccel</tabstop>
-  <tabstop>key9_settings_ydead</tabstop>
   <tabstop>key9_settings_yaccel</tabstop>
   <tabstop>key9_settings_onthresh</tabstop>
   <tabstop>key9_settings_offthresh</tabstop>
-  <tabstop>key10_settings_xdead</tabstop>
   <tabstop>key10_settings_xaccel</tabstop>
-  <tabstop>key10_settings_ydead</tabstop>
   <tabstop>key10_settings_yaccel</tabstop>
   <tabstop>key10_settings_onthresh</tabstop>
   <tabstop>key10_settings_offthresh</tabstop>
+  <tabstop>key1_settings_xaccel</tabstop>
+  <tabstop>key1_settings_yaccel</tabstop>
+  <tabstop>key1_settings_onthresh</tabstop>
+  <tabstop>key1_settings_offthresh</tabstop>
   <tabstop>nav_north_settings_onthresh</tabstop>
   <tabstop>nav_south_settings_onthresh</tabstop>
   <tabstop>nav_east_settings_onthresh</tabstop>
@@ -6433,6 +6473,7 @@ QRadioButton::indicator:checked:pressed
   <tabstop>livepedalvalue</tabstop>
   <tabstop>pedalsmoothing</tabstop>
   <tabstop>resetcalibration_button</tabstop>
+  <tabstop>displaymode_checkbox</tabstop>
  </tabstops>
  <resources/>
  <connections/>
