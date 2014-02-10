@@ -26,7 +26,7 @@ NavKey::NavKey(QWidget *parent) :
     navBoxWidget(new QWidget(this)),
     navKeyWindowWidget(new QWidget(this))
 {
-    alphaNumManager.instanceNum = 0;
+    alphaNumManager.instanceNum = 99;
 
     dataCooker.hide();
 

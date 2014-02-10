@@ -113,6 +113,7 @@ signals:
     void signalNavDecade(int yDecade);
     void signalPresetChange(bool); //true for next, false for previous
     void signalThisKeyPressed(int);
+    void signalThisKeyOff(int);
 
     void signalDisplayProgramChangeDecade(int);
     

@@ -107,6 +107,7 @@ void AlphaNumManager::slotDisplayKeyName(int keyNum)
 {
     //Called in Mainwindow -- connect(&key[k]->dataCooker, SIGNAL(signalThisKeyPressed(int)), &key[l]->alphaNumManager, SLOT(slotDisplayKeyName(int)));
 
+    //qDebug() << "slotDisplayKeyName" << keyNum;
 
     if(instanceNum == keyNum)
     {
