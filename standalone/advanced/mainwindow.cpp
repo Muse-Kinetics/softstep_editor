@@ -132,7 +132,7 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutFormWidget->hide();
     aboutForm->setupUi(aboutFormWidget);
     aboutFormWidget->move(this->width()/2 - aboutFormWidget->width()/2, this->height()/2 - aboutFormWidget->height()/2);
-    aboutForm->expected->setText(QString("%1 %2").arg(sysExComposer->embeddedVersion).arg(sysExComposer->embeddedbuildNum));
+    aboutForm->expected->setText(QString("%1").arg(sysExComposer->embeddedbuildNum));
 
     //Import Old Preset Dialog
     importOldDialogWidget->hide();
@@ -183,17 +183,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //presetInterface->slotRecallGlobal();
     slotSetPresetMenu(0);
 
-
-
-#ifdef Q_OS_MAC
-    midiDeviceManager->connectSource();
-#else
-    //Attempt to Connect SoftStep
-    //mdm->devicePoller->start(1000);
-#endif
-
-    midiDeviceManager->slotHostedOnOff(true);
-
     //typedef QList<unsigned char> UCharList;
     //qRegisterMetaType<UCharList>("UCharList");
 
@@ -229,6 +218,15 @@ MainWindow::MainWindow(QWidget *parent) :
     //load fonts
     QFontDatabase::addApplicationFont("resources/DroidSansMono.ttf");
     QFontDatabase::addApplicationFont("resources/Futura-Bold.ttf");
+
+#ifdef Q_OS_MAC
+    midiDeviceManager->connectSource();
+#else
+    //Attempt to Connect SoftStep
+    //mdm->devicePoller->start(1000);
+#endif
+
+    midiDeviceManager->slotHostedOnOff(true);
 
 }
 
@@ -608,7 +606,7 @@ void MainWindow::slotConnectInterfaces()
 
     //Version Checking
     connect(midiDeviceManager, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
-    connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString, int)), this, SLOT(slotReceiveVersions(int,QString, int, QString, int)));
+    connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString, int)), this, SLOT(slotReceiveVersions(int,QString, int, QString, int)), Qt::DirectConnection);
 
 
 
@@ -1003,7 +1001,7 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #endif
         //ui->update->setText("SAVE + SEND");
-        aboutForm->found->setText(QString("%1 %2").arg(connectedVersionString).arg(connectedVersionInt));
+        aboutForm->found->setText(QString("%1").arg(connectedVersionInt));
         //presetInterface->connected = true;
 
         updatefw->setEnabled(true);
@@ -1033,11 +1031,11 @@ void MainWindow::slotConnected(bool connection)
 
 void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion, int hardware)
 {
-    //qDebug() << "slotReceiveVersions";
+    qDebug() << "slotReceiveVersions";
     connectedVersionString = connectedVersion;
     connectedVersionInt = connected;
 
-    aboutForm->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
+    aboutForm->found->setText(QString("%1").arg(connected));
 
     for(int i = 0; i < 10; i++)
     {
@@ -1061,12 +1059,17 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
 
     if(connected != embedded)
     {
-        fwoodDialogForm->expected->setText(QString("%1 %2").arg(embeddedVersion).arg(embedded));
-        fwoodDialogForm->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
+
+        qDebug() << "slotReceiveVersions unequal versions";
+        QApplication::processEvents();
+
+        fwoodDialogForm->expected->setText(QString("%1").arg(embedded));
+        fwoodDialogForm->found->setText(QString("%1").arg(connected));
         disableWidget->show();
         //slotEnableDisableMenu();
         fwoodDialogWidget->show();
-        //qDebug() << "_____ Your firmware version is out of date _____";
+        qDebug() << "_____ Your firmware version is out of date _____";
+        QApplication::processEvents();
     }
 }
 

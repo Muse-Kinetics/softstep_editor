@@ -21,7 +21,7 @@ extern "C"
 SysExComposer::SysExComposer(QWidget *parent) :
     QWidget(parent)
 {
-    x = softstep_init();
+    //x = softstep_init();
     slotGetEmbeddedVersion();
     isSoftStep2 = false;
     connectedBuildNum = -1;
@@ -29,7 +29,7 @@ SysExComposer::SysExComposer(QWidget *parent) :
 
 void SysExComposer::slotGetEmbeddedVersion()
 {
-    //t_softstep *x = softstep_init();
+    t_softstep *x = softstep_init();
 
     QString sysExPath = QCoreApplication::applicationDirPath(); //get bundle path
 
@@ -588,7 +588,7 @@ void SysExComposer::slotPresetsSent()
 void SysExComposer::slotGetConnectedVersion(QByteArray msg)
 {
 
-
+    t_softstep *x = softstep_init();
 
     for(int i =0 ; i < msg.count(); i++)
     {
@@ -624,15 +624,21 @@ void SysExComposer::slotGetConnectedVersion(QByteArray msg)
         };
         */
 
-        qDebug() << "___________ connected version number of 0";
+
 
         //emit signalSendSysEx("deviceQuery", _fw_query_syx_softstep_sysexcomposer, 67, "SSCOM Port 1");
         //return;
     }
 
-    connectedBuildNum = x->version_connected.buildnum;
-    connectedVersion = QString(x->version_connected.version);
+    qDebug() << "___________ connected version number indexed" << (int)msg.at(68);
 
+#ifdef Q_OS_MAC
+    //connectedBuildNum = x->version_connected.buildnum;
+    connectedBuildNum = (int)msg.at(68);
+    connectedVersion = QString(x->version_connected.version);
+#else
+    connectedBuildNum = x->version_connected.buildnum;
+#endif
     qDebug() << "_____ Connected:" << connectedBuildNum;
     qDebug() << "______ Embedded:" << embeddedbuildNum;
 
