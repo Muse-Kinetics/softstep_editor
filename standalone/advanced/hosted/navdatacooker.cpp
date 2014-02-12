@@ -303,6 +303,11 @@ int NavDataCooker::navY()
         navYGate = false;
         navYCount++;
 
+        if(navYCount < counterMin)
+        {
+            navYCount = counterMin;
+        }
+
         if(navYCount > counterMax)
         {
             if(counterWrap)
@@ -327,6 +332,11 @@ int NavDataCooker::navY()
     {
         navYGate = false;
         navYCount--;
+
+        if(navYCount > counterMax)
+        {
+            navYCount = counterMax;
+        }
 
         if(navYCount < counterMin)
         {

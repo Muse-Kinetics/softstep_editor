@@ -537,6 +537,10 @@ void NavKey::slotCounter(QString whatToDo, int val)
         {
             counter == max;
         }
+        else if(counter < min)
+        {
+            counter = min;
+        }
         else
         {
             counter++;

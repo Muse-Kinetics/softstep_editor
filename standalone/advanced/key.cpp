@@ -552,6 +552,8 @@ void Key::slotCounter(QString whatToDo, int val)
     int min = keyWindowForm->counterMin->value();
     int max = keyWindowForm->counterMax->value();
 
+
+
     if(whatToDo == "Inc")
     {
         if(wrap && counter == max)
@@ -561,6 +563,10 @@ void Key::slotCounter(QString whatToDo, int val)
         else if(!wrap && counter == max)
         {
             counter == max;
+        }
+        else if(counter < min)
+        {
+            counter = min;
         }
         else
         {

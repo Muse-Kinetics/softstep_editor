@@ -877,7 +877,7 @@ QSpinBox:disabled
     <enum>QAbstractSpinBox::NoButtons</enum>
    </property>
    <property name="maximum">
-    <number>127</number>
+    <number>12</number>
    </property>
   </widget>
   <widget class="QCheckBox" name="counterWrap">
