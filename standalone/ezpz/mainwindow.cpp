@@ -127,7 +127,7 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutForm->setupUi(aboutFormWidget);
     aboutFormWidget->move(this->width()/2 - aboutFormWidget->width()/2, this->height()/2 - aboutFormWidget->height()/2);
 
-    aboutForm->expected->setText(QString("%1 %2").arg(sysExComposer->embeddedVersion).arg(sysExComposer->embeddedbuildNum));
+    aboutForm->expected->setText(QString("%1").arg(sysExComposer->embeddedbuildNum));
 
 
 
@@ -396,14 +396,14 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
     connectedVersionString = connectedVersion;
     connectedVersionInt = connected;
 
-    aboutForm->found->setText(QString("%1 %2").arg(connectedVersionString).arg(connectedVersionInt));
+    aboutForm->found->setText(QString("%1").arg(connectedVersionInt));
 
     slotConnected(true);
 
     if(connected != embedded)
     {
-        fwoodDialog->expected->setText(QString("%1 %2").arg(embeddedVersion).arg(embedded));
-        fwoodDialog->found->setText(QString("%1 %2").arg(connectedVersion).arg(connected));
+        fwoodDialog->expected->setText(QString("%1").arg(embedded));
+        fwoodDialog->found->setText(QString("%1").arg(connected));
         disableWidget->show();
         slotEnableDisableMenu();
         fwoodDialogWidget->show();
@@ -430,7 +430,7 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(0,200,0,255);");
 #endif
         ui->update->setText("SAVE + SEND");
-        aboutForm->found->setText(QString("%1 %2").arg(connectedVersionString).arg(connectedVersionInt));
+        aboutForm->found->setText(QString("%1").arg(connectedVersionInt));
         presetInterface->connected = true;
 
         updatefw->setEnabled(true);

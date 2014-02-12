@@ -641,7 +641,12 @@ void SysExComposer::slotGetConnectedVersion(QByteArray msg)
         softstep_midi_process(x,&x->version_connected, msg.at(i));
     }
 
-    connectedBuildNum = x->version_connected.buildnum;
+#ifdef Q_OS_MAC
+        connectedBuildNum = (int)msg.at(68);
+#else
+        connectedBuildNum = x->version_connected.buildnum;
+#endif
+
     connectedVersion = QString(x->version_connected.version);
 
     qDebug() << "_____ Connected:" << connectedBuildNum;
