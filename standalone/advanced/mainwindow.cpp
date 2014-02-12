@@ -216,8 +216,20 @@ MainWindow::MainWindow(QWidget *parent) :
     */
 
     //load fonts
-    QFontDatabase::addApplicationFont("resources/DroidSansMono.ttf");
-    QFontDatabase::addApplicationFont("resources/Futura-Bold.ttf");
+    QString droidFont;
+    QString futuraFont;
+
+#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
+    droidFont = "Resources/DroidSansMono.ttf";
+    futuraFont = "Resources/Futura-Bold.ttf";
+
+#else
+    droidFont = "./resources/DroidSansMono.ttf";
+    futuraFont = "./resources/Futura-Bold.ttf";
+
+#endif
+    QFontDatabase::addApplicationFont(droidFont);
+    QFontDatabase::addApplicationFont(futuraFont);
 
 #ifdef Q_OS_MAC
     midiDeviceManager->connectSource();
@@ -854,14 +866,14 @@ void MainWindow::slotInitMenuBar()
     connect(pasteNewPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPasteNewPreset()));
     pasteNewPresetAct->setDisabled(true);
 
-    copyKeyAct = new QAction("Copy Key #", edit);
+    copyKeyAct = new QAction("Copy Key", edit);
     actionList.append(copyKeyAct);
     edit->addAction(copyKeyAct);
     copyKeyAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
     connect(copyKeyAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyKey()));
     copyKeyAct->setDisabled(true);
 
-    pasteKeyAct = new QAction("Paste Key #", edit);
+    pasteKeyAct = new QAction("Paste Key", edit);
     actionList.append(pasteKeyAct);
     edit->addAction(pasteKeyAct);
     pasteKeyAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_V));

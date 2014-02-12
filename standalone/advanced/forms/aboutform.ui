@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>240</width>
-    <height>137</height>
+    <height>155</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -131,7 +131,7 @@ QPushButton:pressed
      <x>0</x>
      <y>0</y>
      <width>240</width>
-     <height>137</height>
+     <height>155</height>
     </rect>
    </property>
    <property name="focusPolicy">
@@ -152,7 +152,7 @@ QPushButton:pressed
       <x>8</x>
       <y>8</y>
       <width>224</width>
-      <height>121</height>
+      <height>140</height>
      </rect>
     </property>
     <property name="focusPolicy">
@@ -181,7 +181,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>92</x>
-       <y>90</y>
+       <y>110</y>
        <width>40</width>
        <height>20</height>
       </rect>
@@ -199,9 +199,9 @@ QPushButton:pressed
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>0</x>
        <y>40</y>
-       <width>51</width>
+       <width>71</width>
        <height>16</height>
       </rect>
      </property>
@@ -212,7 +212,7 @@ QPushButton:pressed
       <string notr="true">font: bold 10pt;</string>
      </property>
      <property name="text">
-      <string>Expected:</string>
+      <string>Expected FW:</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -234,7 +234,7 @@ QPushButton:pressed
       <string notr="true">font: bold 10pt;</string>
      </property>
      <property name="text">
-      <string>Found:</string>
+      <string>Found FW:</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -311,6 +311,50 @@ QPushButton:pressed
      </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>80</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: bold 10pt;</string>
+     </property>
+     <property name="text">
+      <string>Editor Version:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="editor_version">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>80</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 10pt;</string>
+     </property>
+     <property name="text">
+      <string>2.0</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
