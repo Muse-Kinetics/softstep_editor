@@ -1229,7 +1229,14 @@ void Settings::slotStopCalibrationStandAlone()
 void Settings::slotLoadTableOnStartup()
 {
     //Load pedal table file
+#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
+    QString pedalFilename = QCoreApplication::applicationDirPath();
+    pedalFilename.remove(pedalFilename.length() - 5, pedalFilename.length()); //Remove "MacOS" from path string
+    QFile *pedalTableFile = new QFile(QString("%1Resources/pedalTable.txt").arg(pedalFilename));
+
+#else
     QFile *pedalTableFile = new QFile("resources/pedalTable.txt");
+#endif
 
     //Open pedal table
     if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
@@ -1270,8 +1277,15 @@ void Settings::slotWritePedalTableToDisk(QByteArray tableByteArray)
 {
 
     qDebug() << "write pedal table to disk" << tableByteArray.size();
-    //Load Pedal file
+    //Load pedal table file
+#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
+    QString pedalFilename = QCoreApplication::applicationDirPath();
+    pedalFilename.remove(pedalFilename.length() - 5, pedalFilename.length()); //Remove "MacOS" from path string
+    QFile *pedalTableFile = new QFile(QString("%1Resources/pedalTable.txt").arg(pedalFilename));
+
+#else
     QFile *pedalTableFile = new QFile("resources/pedalTable.txt");
+#endif
 
     //Open Pedal File
     if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))

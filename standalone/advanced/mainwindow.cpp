@@ -218,10 +218,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //load fonts
     QString droidFont;
     QString futuraFont;
+    QString fontPath = QCoreApplication::applicationDirPath();
 
 #if defined(Q_OS_MAC) && !defined(QT_DEBUG)
-    droidFont = "Resources/DroidSansMono.ttf";
-    futuraFont = "Resources/Futura-Bold.ttf";
+    fontPath.remove(fontPath.length() - 5, fontPath.length());
+    droidFont = QString("%1Resources/DroidSansMono.ttf").arg(fontPath);
+    futuraFont = QString("%1Resources/Futura-Bold.ttf").arg(fontPath);
 
 #else
     droidFont = "./resources/DroidSansMono.ttf";
@@ -958,7 +960,7 @@ void MainWindow::slotOpenDoc()
 {
     //QFile *file = new QFile(":doc.txt");
     //file->open(QFile::ReadOnly);
-    QDesktopServices::openUrl(QUrl("http://www.keithmcmillen.com/"));
+    QDesktopServices::openUrl(QUrl("http://files.keithmcmillen.com/downloads/softstep/SoftStep_Manual_v2.0.pdf"));
     //qDebug() << (QLatin1String)file->readLine(0);
     //file->close();
 }
