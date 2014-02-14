@@ -3,10 +3,17 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "modline.h"
 
+#ifdef Q_OS_MAC
 #include <CoreMIDI/CoreMIDI.h>
 #include <CoreServices/CoreServices.h>
 #include <CoreFoundation/CoreFoundation.h>
 #include <AudioUnit/AudioUnit.h>
+#else
+#include <Windows.h>
+#include <MMSystem.h>
+#include <Dbt.h>
+#include "WindowsMidiTypes.h"
+#endif
 
 //Constants for various modline arrangement parameters
 #define MODLINE_WINDOW_WIDTH 1132

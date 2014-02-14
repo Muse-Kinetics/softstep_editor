@@ -82,9 +82,11 @@ void AlphaNumManager::slotFormatAndOutputString(QString displayString)
     }
 
     packetList.clear();
-
+#ifdef Q_OS_MAC
     ushort vals[displayString.size()];
-
+#else
+    ushort vals[200];
+#endif
     for(int i = 0; i < displayString.size(); i++)
     {
         vals[i] = displayString.at(i).unicode();

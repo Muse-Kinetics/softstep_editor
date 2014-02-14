@@ -10,6 +10,12 @@
 #include <QApplication>
 #include <QTimer>
 
+#include "hosted/midiformatoutput.h"
+
+//#include "sysexencode.h"
+
+enum{NORMAL, BOOTLOADER_POST_UPDATE_REQUEST, BOOTLOADER_NO_UPDATE_REQUEST};
+
 #ifdef Q_OS_MAC
 #include <CoreMIDI/CoreMIDI.h>
 #include <CoreServices/CoreServices.h>
@@ -18,11 +24,7 @@
 #include <vector>
 
 
-#include "hosted/midiformatoutput.h"
 
-//#include "sysexencode.h"
-
-enum{NORMAL, BOOTLOADER_POST_UPDATE_REQUEST, BOOTLOADER_NO_UPDATE_REQUEST};
 
 class MidiDeviceManager : public QWidget
 {
@@ -149,6 +151,7 @@ public slots:
 #include <Windows.h>
 #include <MMSystem.h>
 #include <Dbt.h>
+#include "WindowsMidiTypes.h"
 
 class MidiDeviceManager : public QWidget
 {
@@ -216,6 +219,25 @@ public:
 
     int numDevices;
 
+    //////////////////////////////////////////////////// Mac Port
+    QTimer* sysexFIFOClock;
+    QList<unsigned char*> sysexFIFOsQueue;
+    QString mode;
+
+    //SysExEncode*        sysExEncode;
+
+    QMap<MIDIEndpointRef*,QString> midiInputRefConns;
+
+    //---------------- Hosted Source Sending ---------------//
+    MidiFormatOutput midiFormatOutput;
+    QMap<QString, MIDIEndpointRef> externalDests;
+    QMap<QString, MIDIEndpointRef> midiInputSources;
+
+    //Standalone pedal calibration
+    QString calibrationPhase;
+
+    bool ioGate;
+
 signals:
     void signalFirmwareOutOfDate(QString expectedBoot, QString foundBoot, QString expectedFirmware, QString foundFirmware);
     void signalProgressDialog(QString messageType, int val);
@@ -226,6 +248,20 @@ signals:
     void signalProcessFwQueryReply(QByteArray);
     void signalConnected(bool);
     void signalFwBytesLeft(int);
+
+    ////////////////////////////////////////////////////// Mac Port
+    //---------------- Hosted Source Sending ---------------//
+    void hosted_signalParsePacket(const MIDIPacket*);
+    void hosted_signalPopulateDeviceMenus(QMap<QString, MIDIEndpointRef>);
+    void hosted_signalMidiInputSourceMenus(QMap<QString, MIDIEndpointRef>);
+    void hosted_signalParseMidiInputPacket(const MIDIPacket*, QString);
+
+    //Standalone pedal cal
+    void signalStopStandaloneCalibration();
+    void signalStartStandaloneCalibration();
+
+    void signalPresetsSent();
+    void signalSettingsSent();
 
 public slots:
     void slotSendSysEx(QString messageID, unsigned char *sysEx, int len, QString destinationName);
@@ -238,6 +274,28 @@ public slots:
 
     void slotPollDevices();
     void slotPollVersion();
+
+    //////////////////////////////////////////////////// Mac Port
+    void slotUpdateFirmware();
+
+    void slotSetMode(QString m);
+    void slotHostedOnOff(bool onOff);
+    void slotDrainSysexFIFO();
+
+    void hosted_slotParsePacket(const MIDIPacket* packet);
+    void hosted_slotSendPacket(QString port, MIDIPacket packet);
+    void hosted_slotRepopulateMidiSourceDests();
+
+    //-------------------------- MIDI Input from Settings
+    void hosted_slotParseMidiInputPacket(const MIDIPacket* packet, QString deviceName);
+    void hosted_slotConnectExternalMidiInputSources();
+
+    //--------------------------- Pedal Calibration
+    void slotTetherOnOffInStandalone(bool onOff);
+
+    //--------------------------- One-off sysex messages
+    void slotSceneChangeOnOff(bool onOff);
+    void slotBackLightOnOff(bool onOff);
 };
 
 #endif // Q_OS_MAC

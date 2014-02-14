@@ -408,6 +408,8 @@ int NavDataCooker::navYIncDec()
     {
         yIncClock->stop();
     }
+
+    return -1;
 }
 
 void NavDataCooker::slotTickYIncrementClock()

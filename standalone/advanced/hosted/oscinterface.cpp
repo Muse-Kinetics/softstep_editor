@@ -7,6 +7,7 @@ OscInterface::OscInterface(QObject *parent) :
     QObject(parent)
 {
 
+#ifdef Q_OS_MAC
     //----- Init
     //Inputs
     for(int i = 0; i < 8; i++)
@@ -34,6 +35,9 @@ OscInterface::OscInterface(QObject *parent) :
     msgVal[3] = 0;
 
     //slotWriteDatagram("", 0);
+#else
+
+#endif
 
 }
 
@@ -183,10 +187,13 @@ void OscInterface::slotSetOutputPort(int port)
 
 void OscInterface::slotSetInputPort(int port)
 {
+#ifdef Q_OS_MAC
     socket->close();
     //qDebug() << "port changed" << port;
     inputPort = port;
     socket->bind(QHostAddress(ip), inputPort);
+#else
+#endif
 }
 
 void OscInterface::slotSetOutputIPAddress(QString ipString)

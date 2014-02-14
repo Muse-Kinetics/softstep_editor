@@ -51,6 +51,7 @@ void SysExComposer::slotGetEmbeddedVersion()
     {
         int fchar;
 
+#ifdef Q_OS_MAC
         fseek(fd, 0l, SEEK_END);
         fwFileSize = ftell(fd);
         rewind(fd);
@@ -61,9 +62,12 @@ void SysExComposer::slotGetEmbeddedVersion()
         //qDebug() << fwFile[fwFileSize - 1];
 
         rewind(fd);
+#else
 
+#endif
         while ( (fchar = fgetc(fd)) != EOF)
         {
+            QCoreApplication::processEvents();
             softstep_midi_process(x,&x->version_embedded,fchar);
         }
 

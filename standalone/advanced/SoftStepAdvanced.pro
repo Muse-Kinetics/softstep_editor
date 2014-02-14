@@ -165,7 +165,7 @@ LIBS +=         -framework CoreServices
 #--------------------Icons--------------------#
 #---------------------------------------------#
 win32{
-RC_FILE =       softstepadvancedicon.rc.txt
+RC_FILE =       resources/appicon.rc.txt
 }
 
 macx{

@@ -784,39 +784,6 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
 
     qDebug() <<"ERROR" << MMSYSERR_ALLOCATED;
 
-    inBootloader = false;
-    fwUpdateRequested = false;
-
-    //Load Firmware File into a byte array
-    firmware = new QFile(":firmware/resources/firmware/QuNexus_Firmware.syx");
-    firmware->open(QIODevice::ReadOnly);
-    firmwareByteArray = firmware->readAll();
-
-    //------------------------------------- Set Version Expectations & Initialize Found Strings
-    bootloaderVersion[0] = 0x01;
-    bootloaderVersion[1] = 0x00;
-    bootloaderVersion[2] = 0x00;
-
-    firmwareVersion[0] = 0x01;
-    firmwareVersion[1] = 0x01;
-    firmwareVersion[2] = 0x07;
-
-    versionSum = 0;
-
-    foundBootloaderVersion = QString("Found Bootloader Version: Not Connected\n");
-
-    foundFirmwwareVersion = QString("Found Firmware Version: Not Connected\n");
-
-    expectedBootloaderVersion = QString("Expected Bootloader Version: %1.%2.%3\n")
-            .arg(int(bootloaderVersion[0]))
-            .arg(int(bootloaderVersion[1]))
-            .arg(int(bootloaderVersion[2]));
-
-    expectedFirmwareVersion = QString("Expected Firmware Version: %1.%2.%3\n")
-            .arg(int(firmwareVersion[0]))
-            .arg(int(firmwareVersion[1]))
-            .arg(int(firmwareVersion[2]));
-
     inHandle = NULL;
     outHandle = NULL;
     connected = false;
@@ -827,7 +794,7 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     //Devices
     devicePoller = new QTimer(this);
     connect(devicePoller, SIGNAL(timeout()), this, SLOT(slotPollDevices()));
-    devicePoller->start(1);
+    //devicePoller->start(1);
 
     //Version
     versionPoller = new QTimer(this);
@@ -1168,6 +1135,70 @@ void MidiDeviceManager::slotPollVersion()
         emit signalConnected(true);
         versionPoller->stop();
     }
+}
+
+/////////////////////////////////////////////////////////////////////// Mac Port
+void MidiDeviceManager::slotUpdateFirmware()
+{
+
+}
+
+void MidiDeviceManager::slotSetMode(QString m)
+{
+
+}
+
+void MidiDeviceManager::slotHostedOnOff(bool onOff)
+{
+
+}
+
+void MidiDeviceManager::slotDrainSysexFIFO()
+{
+
+}
+
+void MidiDeviceManager::hosted_slotParsePacket(const MIDIPacket* packet)
+{
+
+}
+
+void MidiDeviceManager::hosted_slotSendPacket(QString port, MIDIPacket packet)
+{
+
+}
+
+void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
+{
+
+}
+
+//-------------------------- MIDI Input from Settings
+void MidiDeviceManager::hosted_slotParseMidiInputPacket(const MIDIPacket* packet, QString deviceName)
+{
+
+}
+
+void MidiDeviceManager::hosted_slotConnectExternalMidiInputSources()
+{
+
+}
+
+//--------------------------- Pedal Calibration
+void MidiDeviceManager::slotTetherOnOffInStandalone(bool onOff)
+{
+
+}
+
+//--------------------------- One-off sysex messages
+void MidiDeviceManager::slotSceneChangeOnOff(bool onOff)
+{
+
+}
+
+void MidiDeviceManager::slotBackLightOnOff(bool onOff)
+{
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

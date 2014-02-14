@@ -32,7 +32,7 @@ signals:
 #ifdef Q_OS_MAC
     void signalSendMidiPacketList(QString port, MIDIPacket packet);
 #else
-
+    void signalSendMidiPacketList(QString port, MIDIPacket packet);
 #endif
 
 public slots:

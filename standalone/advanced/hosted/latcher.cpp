@@ -63,7 +63,7 @@ void Latcher::slotReceiveLatchedValue(const int &val)
 
 int Latcher::latchInput()
 {
-
+   return -1;
 }
 
 //----------------- Latcher Worker

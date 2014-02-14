@@ -85,6 +85,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //Construct Key Windows
     for(int i = 0; i < 10; i++)
     {
+#ifdef Q_OS_MAC
+#else
+        QCoreApplication::processEvents();
+#endif
+
         key[i] = new Key(this, i);
         key[i]->slotSetMainWindow(this);
     }
@@ -202,18 +207,6 @@ MainWindow::MainWindow(QWidget *parent) :
         widget->installEventFilter(&scrollEventFilter);
 
     }
-    
-   /*
-    foreach(QAbstractSpinBox *spinbox, this->findChildren<QAbstractSpinBox *>())
-    {
-        //spinbox->installEventFilter(&scrollEventFilter);
-    }
-
-    foreach(QComboBox *combobox, this->findChildren<QComboBox *>())
-    {
-        //combobox->installEventFilter(&scrollEventFilter);
-    }
-    */
 
     //load fonts
     QString droidFont;
@@ -581,7 +574,7 @@ void MainWindow::slotConnectInterfaces()
     //Save Indicator
     connect(presetInterface, SIGNAL(signalPresetDirty(bool)), this, SLOT(slotDisplaySaveState(bool)));
 
-	//Copy Paste - update paste availability based on whether anything has been copied
+    //Copy Paste - update paste availability based on whether anything has been copied
     connect(copyPasteHandler, SIGNAL(signalUpdatePasteAvailability()), this, SLOT(slotUpdatePasteAvailability()));
     for(int i = 0; i < 10; i++)
     {
@@ -846,7 +839,7 @@ void MainWindow::slotInitMenuBar()
     edit->addAction(clearPresetAct);
     connect(clearPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotClearPreset()));
 
-	//----------------------------------------------------copy / paste
+    //----------------------------------------------------copy / paste
     copyPresetAct = new QAction("Copy Preset", edit);
     actionList.append(copyPresetAct);
     edit->addAction(copyPresetAct);
@@ -1058,7 +1051,7 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
 
     //First reiterate tether / standalone messages
 
-     slotConnected(true);
+    slotConnected(true);
 
     if(mode == "hosted")
     {

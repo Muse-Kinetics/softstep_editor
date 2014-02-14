@@ -762,6 +762,8 @@ int DataCooker::pressureLatch(int modlineNum)
     {
         pressureLatcher.latchOpen = false;
     }
+
+    return -1;
 }
 
 void DataCooker::slotPressureLatchReturn(int val, int modlineNum)
@@ -785,6 +787,8 @@ int DataCooker::xLatch(int modlineNum)
     {
         xLatcher.latchOpen = false;
     }
+
+    return -1;
 }
 
 void DataCooker::slotXLatchReturn(int val, int modlineNum)
@@ -806,6 +810,8 @@ int DataCooker::yLatch(int modlineNum)
     {
         yLatcher.latchOpen = false;
     }
+
+    return -1;
 }
 
 void DataCooker::slotYLatchReturn(int val, int modlineNum)
