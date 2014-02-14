@@ -104,7 +104,8 @@ HEADERS  +=     mainwindow.h \
     tableinterface.h \
     scrolleventfilter.h \
     importoldpresethandler.h \
-    hosted/oscinterface.h
+    hosted/oscinterface.h \
+    WindowsMidiTypes.h
 
 FORMS    +=     forms/mainwindow.ui \
                 forms/modlineForm.ui \

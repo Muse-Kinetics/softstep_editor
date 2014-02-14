@@ -33,7 +33,17 @@
 #include "ui_importOldNotFoundForm.h"
 #include "ui_modlineWarningForm.h"
 #else
-
+#include "ui_fwoodform.h"
+#include "ui_fwprogressform.h"
+#include "ui_fwupdatecompleteform.h"
+#include "ui_updatefwform.h"
+#include "ui_aboutform.h"
+#include "ui_mainwindow.h"
+#include "ui_saveAsForm.h"
+#include "ui_deletePresetForm.h"
+#include "ui_importOldPresetsForm.h"
+#include "ui_importOldNotFoundForm.h"
+#include "ui_modlineWarningForm.h"
 #endif
 
 #include "hosted/midiparse.h"

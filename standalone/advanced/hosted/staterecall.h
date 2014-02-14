@@ -8,7 +8,14 @@
 #include <QMap>
 #include <QDebug>
 
+#ifdef Q_OS_MAC
 #include <CoreMIDI/CoreMIDI.h>
+#else
+#include <Windows.h>
+#include <MMSystem.h>
+#include <Dbt.h>
+#include "WindowsMidiTypes.h"
+#endif
 
 class StateRecall : public QObject
 {

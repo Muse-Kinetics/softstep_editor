@@ -12,7 +12,10 @@
 #ifdef Q_OS_MAC
 #include <CoreMIDI/CoreMIDI.h>
 #else
-
+#include <Windows.h>
+#include <MMSystem.h>
+#include <Dbt.h>
+#include "WindowsMidiTypes.h"
 #endif //Q_OS_MAC
 
 #include "ui_navModlineForm.h"
