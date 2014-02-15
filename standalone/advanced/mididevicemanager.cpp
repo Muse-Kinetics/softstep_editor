@@ -776,18 +776,24 @@ void sysExComplete(MIDISysexSendRequest* request)
 MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     QWidget(parent)
 {
+    ioGate = true;
 
     numDevices = 0;
 
     sysExType = "None";
     globals.clear();
 
-    qDebug() <<"ERROR" << MMSYSERR_ALLOCATED;
+    //qDebug() <<"ERROR" << MMSYSERR_ALLOCATED;
 
     inHandle = NULL;
     outHandle = NULL;
     connected = false;
     refreshDevices = true;
+
+    sysexFIFOClock = new QTimer(this);
+    connect(sysexFIFOClock, SIGNAL(timeout()), this, SLOT(slotDrainSysexFIFO()));
+
+    connect(&midiFormatOutput, SIGNAL(signalSendMidiPacketList(QString, MIDIPacket)), this, SLOT(hosted_slotSendPacket(QString,MIDIPacket)));
 
     //------------------------------- Polling
 
@@ -800,6 +806,7 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     versionPoller = new QTimer(this);
     connect(versionPoller, SIGNAL(timeout()), this, SLOT(slotPollVersion()));
     versionReply = false;
+    queryReplied = false;
 }
 
 bool MidiDeviceManager::connectSource()
@@ -811,8 +818,9 @@ bool MidiDeviceManager::connectSource()
         slotCloseMidiOut();
         slotOpenMidiIn(getSource());
         slotOpenMidiOut(getDestination());
+        queryReplied = false;
         versionReply = false;
-        versionPoller->start(1);
+        versionPoller->start(500);
         return true;
     }
     else
@@ -986,6 +994,11 @@ int MidiDeviceManager::getSource()
 
 int MidiDeviceManager::getDestination()
 {
+    for(uint i =0; i<midiOutGetNumDevs(); i++)
+    {
+        //qDebug() << i << getDisplayName(i, "Out");
+    }
+
     if(QSysInfo::windowsVersion() == QSysInfo::WV_XP)
     {
         for(uint i =0; i<midiOutGetNumDevs(); i++)
@@ -1103,16 +1116,62 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
 {
     qDebug() << "sysex length" << sysExMessageByteArray.count();
 
-    if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 91 && !versionReply)
+    /*
+    for(int i = 0; i < sysExMessageByteArray.size(); i++)
+    {
+        int x = (uint)sysExMessageByteArray.at(i);
+        QString xAsHex = QString("0x%1").arg(x, 0, 16);
+        qDebug() << xAsHex;
+    }
+    */
+
+    qDebug() << "reply index" << sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4));
+
+    //---------- PRE v76 reply
+    if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 91 && !queryReplied)
     {
         qDebug() << "Got the reply" << sysExMessageByteArray.count();
-        versionReply = true;
+        queryReplied = true;
+
+        //qDebug() << foundBootloaderVersion;
+        //qDebug() << foundFirmwwareVersion;
+        //qDebug() << expectedBootloaderVersion;
+        //qDebug() << expectedFirmwareVersion;
+
+        //emit signalFirmwareOutOfDate(expectedBootloaderVersion,foundBootloaderVersion,expectedFirmwareVersion,foundFirmwwareVersion);
         emit signalProcessFwQueryReply(sysExMessageByteArray);
+    }
+
+    //---------- POST v76 reply
+    else if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 128 && !queryReplied)
+    {
+        qDebug() << "Got the reply p76" << sysExMessageByteArray.count();
+        /*
+        for(int i = 0; i < sysExMessageByteArray.size(); i++)
+        {
+            int x = (uint)sysExMessageByteArray.at(i);
+            QString xAsHex = QString("0x%1").arg(x, 0, 16);
+            qDebug() << xAsHex;
+        }*/
+
+        queryReplied = true;
+
+        emit signalProcessFwQueryReply(sysExMessageByteArray);
+        qDebug() << "emit this signal!";
+
+    }
+
+    //If a query was sent and we got a bad reply
+    else if(!queryReplied)
+    {
+        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
     }
 }
 
 void MidiDeviceManager::slotPollDevices()
 {
+    //qDebug() << "poll devices";
+
     //static int numDevices = 0;
 
     if(numDevices != midiInGetNumDevs())
@@ -1124,7 +1183,8 @@ void MidiDeviceManager::slotPollDevices()
 
 void MidiDeviceManager::slotPollVersion()
 {
-    if(!versionReply)
+    if(!queryReplied)
+        //if(!versionReply)
     {
         slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
         emit signalConnected(false);
@@ -1132,8 +1192,9 @@ void MidiDeviceManager::slotPollVersion()
     else
     {
         qDebug() << "STOP";
-        emit signalConnected(true);
         versionPoller->stop();
+        emit signalConnected(true);
+        //emit signalConnected(true);
     }
 }
 
@@ -1145,37 +1206,224 @@ void MidiDeviceManager::slotUpdateFirmware()
 
 void MidiDeviceManager::slotSetMode(QString m)
 {
+    mode = m;
+
+    //qDebug() << "slot set mode";
+
+    if(mode == "hosted")
+    {
+        slotHostedOnOff(true);
+    }
+    else
+    {
+        slotHostedOnOff(false);
+    }
 
 }
 
 void MidiDeviceManager::slotHostedOnOff(bool onOff)
 {
+    //FIFO necessary because firmware requires delay between messages
+    if(!onOff)
+    {
+        //mode = "standalone";
 
+        sysexFIFOClock->stop();
+        sysexFIFOsQueue.clear();
+
+
+        sysexFIFOsQueue.append(_fw_tether_off);
+        sysexFIFOsQueue.append(_fw_standalone_on);
+        //sysexFIFOsQueue.append(_fw_scenechange_on_persist); -- Handled by settings now
+        sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
+        sysexFIFOsQueue.append(_fw_nav_standalone_on);
+
+
+        //sysexFIFOsQueue.append(_fw_tether_off);
+        //sysexFIFOsQueue.append(_fw_nav_tether_off);
+        //sysexFIFOsQueue.append(_fw_standalone_on);
+
+
+        sysexFIFOClock->start(100);
+    }
+    else
+    {
+        //mode = "hosted";
+
+        sysexFIFOClock->stop();
+        sysexFIFOsQueue.clear();
+
+        sysexFIFOsQueue.append(_fw_scenechange_on_persist);
+        sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
+        sysexFIFOsQueue.append(_fw_tether_on);
+        sysexFIFOsQueue.append(_fw_standalone_off);
+        sysexFIFOsQueue.append(_fw_nav_standalone_off);
+
+
+        //sysexFIFOsQueue.append(_fw_tether_on);
+        //sysexFIFOsQueue.append(_fw_nav_tether_on);
+        //sysexFIFOsQueue.append(_fw_standalone_off);
+
+
+        sysexFIFOClock->start(100);
+    }
 }
 
 void MidiDeviceManager::slotDrainSysexFIFO()
 {
+    //If anything in list, send the next message
+    if(sysexFIFOsQueue.size())
+    {
+        //Backlighting are the only 35 byte messages we send so far
+        if(_backlight_on == sysexFIFOsQueue.first() || _backlight_off == sysexFIFOsQueue.first())
+        {
+            slotSendSysEx("message", sysexFIFOsQueue.first(), 35, "SSCOM Port 1");
+        }
+        else
+        {
+            slotSendSysEx("message", sysexFIFOsQueue.first(), 43, "SSCOM Port 1");
+        }
 
+        sysexFIFOsQueue.removeFirst();
+    }
+
+    //Otherwise stop calling function
+    else
+    {
+        sysexFIFOClock->stop();
+
+        if(calibrationPhase != "complete")
+        {
+            if(calibrationPhase == "start")
+            {
+                emit signalStartStandaloneCalibration();
+            }
+            else
+            {
+                emit signalStopStandaloneCalibration();
+            }
+        }
+    }
 }
 
 void MidiDeviceManager::hosted_slotParsePacket(const MIDIPacket* packet)
 {
-
+    emit hosted_signalParsePacket(packet);
 }
 
 void MidiDeviceManager::hosted_slotSendPacket(QString port, MIDIPacket packet)
 {
 
+    //Semds Packet to external dest
+    //qDebug() << port; //<< "hosted_slotSendPacketCalled - data:" << packet.data[0] << packet.data[1] << packet.data[2] << "length, time : " << packet.length << packet.timeStamp << "\n";
+
+    DWORD msg = 0x00000000;
+
+    msg = (msg << 8) + 0x00;
+    msg = (msg << 8) + packet.data[2];
+    msg = (msg << 8) + packet.data[1];
+    msg = (msg << 8) + packet.data[0];
+
+    //qDebug() << "msg" << msg;
+
+    if(port == "SoftStep Share")
+    {
+        //MIDIReceived(appVirtualSourceRef, packetList);
+    }
+    else if(port.contains("SSCOM") && port.contains("1"))
+    {
+        //qDebug() << "send message to SSCOM1";
+        midiOutShortMsg(outHandle, msg);
+    }
+    else if(externalDests.contains(port))
+    {
+        //qDebug() << "send message to SSCOM1" << port;
+
+        HMIDIOUT    handle;
+
+        /* Open default MIDI Out device */
+        if (!midiOutOpen(&handle, externalDests.value(port), 0, 0, CALLBACK_NULL) )
+        {
+            midiOutShortMsg(handle, msg);
+
+             /* Close the MIDI device */
+             midiOutClose(handle);
+        }
+        else
+        {
+            qDebug() << "ERROR opening output device";
+        }
+    }
 }
 
 void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
 {
+    //Called when midi system changes, automaticall called on hosted to standlaone/switch because of "SoftStep Share"
 
+    //----------------------- Get non SSCOM sources
+    midiInputSources.clear();
+
+    /*
+    for(int i=0; i<MIDIGetNumberOfSources(); i++)
+    {
+        //Allocate new array of endpoint pointers for passing as refcon
+        midiInputSourcePointers = new MIDIEndpointRef[MIDIGetNumberOfSources()];
+
+        //Expander
+        if(getDisplayName(MIDIGetSource(i)).contains("SSCOM") && getDisplayName(MIDIGetSource(i)).contains("2"))
+        {
+            midiInputSources.insert("SoftStep Expander", MIDIGetSource(i));
+
+            //Insert MIDIEndpointRef into array
+            //midiInputSourcePointers[i] = MIDIGetSource(i);
+        }
+
+        if(!getDisplayName(MIDIGetSource(i)).contains("SSCOM") && !getDisplayName(MIDIGetSource(i)).contains("SoftStep Share"))
+        {
+            //qDebug() << "Non-SoftStep Source: " << getDisplayName(MIDIGetSource(i));
+
+            //Store name of midi input source and it's endpoint ref
+            midiInputSources.insert(getDisplayName(MIDIGetSource(i)), MIDIGetSource(i));
+
+            //Insert MIDIEndpointRef into array
+            //midiInputSourcePointers[i] = MIDIGetSource(i);
+        }
+    }
+
+    //Sends sources to midi input in settings page, connected in mainwindow
+    emit hosted_signalMidiInputSourceMenus(midiInputSources);
+    */
+
+    //----------------------- Get non SSCOM destinations
+    externalDests.clear();
+
+    for(uint i =0; i<midiOutGetNumDevs(); i++)
+    {
+        if(getDisplayName(i, "Out") != QString("SSCOM"))
+        {
+            if(getDisplayName(i, "Out").contains("SSCOM") && getDisplayName(i, "Out").contains("2"))
+            {
+                //We would like port 2 to be named SoftStep Expander
+                externalDests.insert("SoftStep Expander", i);
+            }
+            else
+            {
+                //Store name of dest and it's endpoint ref
+                externalDests.insert(getDisplayName(i, "Out"), i);
+            }
+            //qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetDestination(i));
+        }
+    }
+
+    //Sneds destinations to device menus in modlines
+    emit hosted_signalPopulateDeviceMenus(externalDests);
 }
 
 //-------------------------- MIDI Input from Settings
 void MidiDeviceManager::hosted_slotParseMidiInputPacket(const MIDIPacket* packet, QString deviceName)
 {
+    //qDebug() << "hosted_slotParseMidiInputPacket" << deviceName;
+    //Sends raw packet to be parsed from SSCOM Port 1
 
 }
 
@@ -1209,15 +1457,16 @@ void MidiDeviceManager::slotBackLightOnOff(bool onOff)
 
 void CALLBACK MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_PTR dwInstance,DWORD_PTR dwParam1,DWORD_PTR dwParam2)
 {
-    qDebug() << "midi in" << dwParam1 << dwParam2;
+    //qDebug() << "midi in" << dwParam1 << dwParam2;
 
-    /*/qDebug() << MIM_DATA << uMsg;
+    //qDebug() << MIM_DATA << uMsg;
     //qDebug() << dwParam;
-    qDebug()    <<"status"<< ((dwParam) & 0xFF)
-                << "data1" << ((dwParam>>8) & 0xFF)
-                << "data2" << ((dwParam>>16) & 0xFF); //status byte*/
-
+    //qDebug()    <<"status"<< ((dwParam1) & 0xFF)
+    //          << "data1" << ((dwParam1>>8) & 0xFF)
+    //        << "data2" << ((dwParam1>>16) & 0xFF); //status byte
     MidiDeviceManager *mdm = (MidiDeviceManager *) dwInstance;
+    MIDIPacket *packet = new MIDIPacket;
+
 
     switch(wMsg){
     case MIM_OPEN:
@@ -1236,7 +1485,27 @@ void CALLBACK MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_
         qDebug("MIM_ClOSE");
         break;
     case MIM_DATA:
-        qDebug("MIM_DATA");
+        //qDebug("MIM_DATA");
+
+        if(mdm->ioGate)
+        {
+            //qDebug() << "MIDI Channel Event: ";
+            if(mdm->mode == "hosted")
+            {
+                packet->data[0] = (dwParam1) & 0xFF;
+                packet->data[1] = (dwParam1>>8) & 0xFF;
+                packet->data[2] = (dwParam1>>16) & 0xFF;
+
+                mdm->hosted_slotParsePacket(packet);
+                break;
+            }
+            else if(mdm->mode == "standalone" && mdm->calibrationPhase != "complete")
+            {
+                mdm->hosted_slotParsePacket(packet);
+                break;
+            }
+        }
+
         break;
     case MIM_LONGDATA:
     {

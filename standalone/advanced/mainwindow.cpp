@@ -230,11 +230,11 @@ MainWindow::MainWindow(QWidget *parent) :
     midiDeviceManager->connectSource();
 #else
     //Attempt to Connect SoftStep
-    //mdm->devicePoller->start(1000);
+    midiDeviceManager->devicePoller->start(500);
+    midiDeviceManager->hosted_slotRepopulateMidiSourceDests();
 #endif
 
     midiDeviceManager->slotHostedOnOff(true);
-
 }
 
 MainWindow::~MainWindow()
@@ -321,8 +321,11 @@ void MainWindow::slotConnectInterfaces()
     connect(ui->mode, SIGNAL(clicked()), this, SLOT(slotSetMode()));
 
     //-------------------------------------- Hosted MIDI
+#ifdef Q_OS_MAC
     connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)), Qt::DirectConnection);
-
+#else
+    connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)), Qt::DirectConnection);
+#endif
     //Midi Inputs from Settings
     for(int i=0; i < 8; i++)
     {
@@ -996,6 +999,7 @@ void MainWindow::slotSelectedKey(int selectedKey)
 
 void MainWindow::slotConnected(bool connection)
 {
+    qDebug() << "slot connected.";
     if(connection)
     {
         ui->connectedLabel->setText("SOFTSTEP CONNECTED");

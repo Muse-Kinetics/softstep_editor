@@ -591,6 +591,7 @@ void SysExComposer::slotPresetsSent()
 
 void SysExComposer::slotGetConnectedVersion(QByteArray msg)
 {
+    qDebug() << "signal was received" << msg.count();
 
     t_softstep *x = softstep_init();
 
