@@ -2,7 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
+//#include "ui_mainwindowWin.h"
 
 #define MAINWINDOW_WIDTH 690
 #define MAINWINDOW_HEIGHT 279
@@ -798,11 +798,15 @@ void MainWindow::slotConnectInterfaces()
 
 void MainWindow::slotInitMenuBar()
 {
-    menubar = new QMenuBar(0);
+
 
 #ifdef Q_OS_MAC
+    menubar = new QMenuBar(0);
 #else
+    menubar = new QMenuBar(this);
     menubar->setGeometry(0,0, this->width(), 20);
+    //menubar->setStyleSheet("background: white;");
+    //menubar->setParent(ui->centralWidget);
 #endif
 
 
@@ -934,6 +938,8 @@ void MainWindow::slotInitMenuBar()
     help->addAction(toolTipsEnable);
 
     menubar->addMenu(help);
+
+    menubar->show();
 }
 
 void MainWindow::slotEnableDisableToolTips()

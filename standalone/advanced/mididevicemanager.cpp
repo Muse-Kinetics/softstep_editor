@@ -1318,11 +1318,49 @@ void MidiDeviceManager::hosted_slotSendPacket(QString port, MIDIPacket packet)
     //qDebug() << port; //<< "hosted_slotSendPacketCalled - data:" << packet.data[0] << packet.data[1] << packet.data[2] << "length, time : " << packet.length << packet.timeStamp << "\n";
 
     DWORD msg = 0x00000000;
+    DWORD msg2 = 0x00000000;
+    bool sendMsg2 = false;
 
-    msg = (msg << 8) + 0x00;
-    msg = (msg << 8) + packet.data[2];
-    msg = (msg << 8) + packet.data[1];
-    msg = (msg << 8) + packet.data[0];
+    //Current possible sizes from midiout format: 2, 3, 6
+    switch (packet.length)
+    {
+    case 2:
+        msg = (msg << 8) + 0x00;
+        msg = (msg << 8) + packet.data[1];
+        msg = (msg << 8) + packet.data[0];
+        break;
+
+    case 3:
+        msg = (msg << 8) + 0x00;
+        msg = (msg << 8) + packet.data[2];
+        msg = (msg << 8) + packet.data[1];
+        msg = (msg << 8) + packet.data[0];
+        break;
+
+    case 6:
+
+        //Format first msg
+        msg = (msg << 8) + 0x00;
+        msg = (msg << 8) + packet.data[2];
+        msg = (msg << 8) + packet.data[1];
+        msg = (msg << 8) + packet.data[0];
+
+        //Format 2nd msg
+        msg2 = (msg2 << 8) + 0x00;
+        msg2 = (msg2 << 8) + packet.data[5];
+        msg2 = (msg2 << 8) + packet.data[4];
+        msg2 = (msg2 << 8) + packet.data[3];
+
+        //Open 2nd msg gate
+        sendMsg2 = true;
+
+        break;
+
+    default:
+        break;
+    }
+
+
 
     //qDebug() << "msg" << msg;
 
@@ -1330,11 +1368,15 @@ void MidiDeviceManager::hosted_slotSendPacket(QString port, MIDIPacket packet)
     {
         //MIDIReceived(appVirtualSourceRef, packetList);
     }
+
+    //Send a messaget to the board, like queries, etc.
     else if(port.contains("SSCOM") && port.contains("1"))
     {
         //qDebug() << "send message to SSCOM1";
         midiOutShortMsg(outHandle, msg);
     }
+
+    //Send a message to somewhere else
     else if(externalDests.contains(port))
     {
         //qDebug() << "send message to SSCOM1" << port;
@@ -1344,10 +1386,17 @@ void MidiDeviceManager::hosted_slotSendPacket(QString port, MIDIPacket packet)
         /* Open default MIDI Out device */
         if (!midiOutOpen(&handle, externalDests.value(port), 0, 0, CALLBACK_NULL) )
         {
+            //Always send first msg
             midiOutShortMsg(handle, msg);
 
-             /* Close the MIDI device */
-             midiOutClose(handle);
+            //If a two message packet, send out second message
+            if(sendMsg2)
+            {
+                midiOutShortMsg(handle, msg2);
+            }
+
+            /* Close the MIDI device */
+            midiOutClose(handle);
         }
         else
         {

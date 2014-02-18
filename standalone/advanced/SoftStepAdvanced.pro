@@ -126,7 +126,8 @@ FORMS    +=     forms/mainwindow.ui \
     forms/pedalLiveTableForm.ui \
     forms/importOldPresetsForm.ui \
     forms/importOldNotFoundForm.ui \
-    forms/modlineWarningForm.ui
+    forms/modlineWarningForm.ui \
+    forms/mainwindowWin.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#

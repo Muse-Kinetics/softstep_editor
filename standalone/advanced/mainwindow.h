@@ -38,7 +38,7 @@
 #include "ui_fwupdatecompleteform.h"
 #include "ui_updatefwform.h"
 #include "ui_aboutform.h"
-#include "ui_mainwindow.h"
+#include "ui_mainwindowWin.h"
 #include "ui_saveAsForm.h"
 #include "ui_deletePresetForm.h"
 #include "ui_importOldPresetsForm.h"

@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>699</width>
+    <height>325</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow
+{
+	background: rgb(30, 30, 30);
+}
+
+/*--------QLineEdit--------*/
+QLineEdit
+{
+	background: rgb(40, 40, 40);
+	border: 2px solid rgb(0,174,239);
+	font: 20pt &quot;Droid Sans Mono&quot;;
+	color: white;
+}
+
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+	min-height:20px;
+}
+
+QMenuBar
+{
+}</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true">QWidget
+{
+background: rgb(30,30,30);
+}</string>
+   </property>
+   <widget class="QLabel" name="connectedLabel">
+    <property name="geometry">
+     <rect>
+      <x>558</x>
+      <y>106</y>
+      <width>133</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	font: 10pt &quot;Futura&quot;;
+	color: red;
+	background: rgb(40, 40, 40);
+	padding: 0px 0px 0px 3px;
+}</string>
+    </property>
+    <property name="text">
+     <string>SOFTSTEP CONNECTED</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_presets">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>235</width>
+      <height>109</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame
+{
+	background: rgba(60, 60, 60, 0);
+	border: none;
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QFrame" name="frame_innerpresets">
+     <property name="geometry">
+      <rect>
+       <x>1</x>
+       <y>3</y>
+       <width>237</width>
+       <height>108</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*----------- QFrame ------------*/
+QFrame
+{
+	background: rgba(125, 125, 125, 0);
+}
+
+/*----------- QPushButton ------------*/
+QPushButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 9pt &quot;Futura&quot;;
+	padding: 0,1,0,0;
+}
+
+QPushButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: none;
+	font: 9pt &quot;Futura&quot;;
+	padding: 0, 1, 0, 0;
+}
+
+/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 9pt &quot;Futura&quot;;
+	padding: 0,1,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: 2px solid rgb(230, 0, 134);
+	font: 9pt &quot;Futura&quot;;
+	padding: 0, 1, 0, 0;
+}
+
+/*----------- QLabel ------------*/
+QLabel
+{
+	background: rgba(0,0,0,0);
+	color: white;
+	border: none;
+	font: 10pt &quot;Futura&quot;;
+}
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 2px solid rgb(0,174,239);
+	background-color: rgba(28, 28, 29);
+	color: white;
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 35px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.png);
+	padding-right: 20px;
+}
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QToolButton" name="save">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>47</y>
+        <width>46</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Save any changes to the &lt;br&gt;current preset.</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 9pt &quot;Futura&quot;;
+	padding: 0,1,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: 2px solid rgb(230, 0, 134);
+	font: 9pt &quot;Futura&quot;;
+	padding: 0, 1, 0, 0;
+}</string>
+      </property>
+      <property name="text">
+       <string>SAVE</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="saveas">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>47</y>
+        <width>46</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Save the current settings&lt;br&gt; to a new preset slot.</string>
+      </property>
+      <property name="text">
+       <string>SAVE AS</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="revert">
+      <property name="geometry">
+       <rect>
+        <x>124</x>
+        <y>47</y>
+        <width>46</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Revert any unsaved &lt;br&gt;changes in the current &lt;br&gt;preset to its previously &lt;br&gt;saved state.</string>
+      </property>
+      <property name="text">
+       <string>REVERT</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="deletepreset">
+      <property name="geometry">
+       <rect>
+        <x>178</x>
+        <y>47</y>
+        <width>46</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Delete the currently selected preset.</string>
+      </property>
+      <property name="text">
+       <string>DELETE</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="presetmenu">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>15</y>
+        <width>209</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>The preset currently being edited</string>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(40, 40, 40);
+	color: white;
+	padding: 1px 3px 1px 4px;
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 10px &quot;Futura&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 35px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+</string>
+      </property>
+      <property name="editable">
+       <bool>false</bool>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+      <item>
+       <property name="text">
+        <string>PRESET_NAME_HERE</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>3</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>4</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>5</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>6</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>7</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>8</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>9</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>10</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="presetlabel">
+      <property name="geometry">
+       <rect>
+        <x>-4</x>
+        <y>14</y>
+        <width>14</width>
+        <height>93</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	background-image: url(:/resources/mainWindow_preset_label.png);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QToolButton" name="update">
+     <property name="geometry">
+      <rect>
+       <x>16</x>
+       <y>70</y>
+       <width>209</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&quot;Make it so.&quot;&lt;p&gt;Update a connected SoftStep's presets with the current setlist.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*---------- QToolButton ---------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	border: 2px solid rgba(0,174,239,255);
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}
+
+QToolButton:pressed
+{
+	background: rgba(0,174,239,255);
+	border: none;
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}
+
+QToolButton::disabled
+{
+	background: rgba(60, 60, 60, 75);
+	border: 2px solid rgba(0, 56, 77, 255);
+	font: 16pt &quot;Futura&quot;;
+	color: rgba(255, 255, 255, 35);
+}
+
+QToolTip
+{
+	font: 10pt &quot;Futura&quot;;
+}s</string>
+     </property>
+     <property name="text">
+      <string>Send To SoftStep</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>492</x>
+      <y>12</y>
+      <width>184</width>
+      <height>65</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	border: none;
+	background: transparent;
+	background-image: url(:/resources/mainWindow_logo.png);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_displayname">
+    <property name="geometry">
+     <rect>
+      <x>579</x>
+      <y>155</y>
+      <width>101</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame
+{
+	background: rgba(190, 0, 94, 100);
+	border: 3px solid rgb(230,0,134);
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLineEdit" name="displayName">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>27</y>
+       <width>83</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <property name="toolTip">
+      <string>Sets the current preset's display name. &lt;p&gt; Anything entered here appears on&lt;br&gt; the SoftStep's alphanumeric display&lt;br&gt; when the preset is selected. &lt;p&gt;Limited to a maximum of four &lt;br&gt;characters.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit
+{
+	border: 3px solid rgb(200,0,104);
+	padding-bottom: 2px;
+}
+
+QLineEdit:focus
+{
+	border: 3px solid white;
+	padding-bottom: 2px;
+}</string>
+     </property>
+     <property name="text">
+      <string>NEXU</string>
+     </property>
+     <property name="maxLength">
+      <number>4</number>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="presetlabel_3">
+     <property name="geometry">
+      <rect>
+       <x>14</x>
+       <y>13</y>
+       <width>73</width>
+       <height>10</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	background: none;
+	background-image: url(:/resources/mainWindow_displayname_label.png);
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>140</y>
+      <width>670</width>
+      <height>10</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	border-top: 2px solid rgb(200, 200, 200);
+	background: none;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_editormode">
+    <property name="geometry">
+     <rect>
+      <x>245</x>
+      <y>10</y>
+      <width>228</width>
+      <height>109</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame
+{
+	background: rgba(60, 60, 60, 0);
+	border: none;
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QCheckBox" name="mode">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>7</x>
+       <y>12</y>
+       <width>215</width>
+       <height>53</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Switch between Hosted and Standalone mode.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"> /* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	background: none;
+    color: transparent;
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 215px;
+    height: 53px;
+	padding: 0px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/mainWindow_editormode_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/mainWindow_editormode_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/mainWindow_editormode_uncheckedPressed.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/mainWindow_editormode_checked.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/mainWindow_editormode_checkedPressed.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/mainWindow_editormode_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/mainWindow_editormode_uncheckedPressed.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/mainWindow_editormode_checked.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/mainWindow_editormode_checkedPressed.png);
+}
+
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="opensetlist">
+     <property name="geometry">
+      <rect>
+       <x>7</x>
+       <y>70</y>
+       <width>104</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>96</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>110</width>
+       <height>35</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>16</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Open the setlist window.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*---------- QPushButton ---------*/
+QPushButton
+{
+	background: rgb(40, 40, 40);
+	border: 2px solid rgba(0,174,239,255);
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}
+
+QPushButton:pressed
+{
+	background: rgba(0,174,239,255);
+	border: none;
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Setlist</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="opensettings">
+     <property name="geometry">
+      <rect>
+       <x>117</x>
+       <y>70</y>
+       <width>104</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>96</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>110</width>
+       <height>35</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>16</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Open the settings window.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*---------- QPushButton ---------*/
+QPushButton
+{
+	background: rgb(40, 40, 40);
+	border: 2px solid rgba(0,174,239,255);
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}
+
+QPushButton:pressed
+{
+	background: rgba(0,174,239,255);
+	border: none;
+	font: 16pt &quot;Futura&quot;;
+	color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Settings</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
