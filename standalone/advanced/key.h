@@ -12,8 +12,13 @@
 #include "modline.h"
 #include "stylesheets.h"
 
+#ifdef Q_OS_MAC
 #include "ui_keyWindowForm.h"
 #include "ui_keyBoxForm.h"
+#else
+#include "ui_keyWindowFormWin.h"
+#include "ui_keyBoxFormWin.h"
+#endif
 
 #include "hosted/datacooker.h"
 #include "hosted/alphanummanager.h"

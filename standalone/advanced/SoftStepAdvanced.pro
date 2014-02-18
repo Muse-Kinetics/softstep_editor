@@ -127,7 +127,10 @@ FORMS    +=     forms/mainwindow.ui \
     forms/importOldPresetsForm.ui \
     forms/importOldNotFoundForm.ui \
     forms/modlineWarningForm.ui \
-    forms/mainwindowWin.ui
+    forms/mainwindowWin.ui \
+    forms/keyWindowFormWin.ui \
+    forms/keyBoxFormWin.ui \
+    forms/modlineFormWin.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#
