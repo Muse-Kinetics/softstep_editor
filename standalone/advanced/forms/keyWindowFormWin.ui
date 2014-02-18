@@ -30,7 +30,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				6pt &quot;Futura&quot;;
+	font: 				7pt &quot;Futura&quot;;
 	border:				none;
 }
 
@@ -73,7 +73,7 @@ QCheckBox:focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -91,7 +91,7 @@ QLineEdit:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -102,7 +102,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 8px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -297,7 +297,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="font">
     <font>
      <family>Futura</family>
-     <pointsize>12</pointsize>
+     <pointsize>10</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -309,7 +309,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="styleSheet">
     <string notr="true">QLabel
 {
-	font: 12pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura&quot;;
 	border: none;
 	padding: none;
 	background-image: none;
@@ -595,7 +595,7 @@ QCheckBox::indicator:checked:pressed:focus
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+    <string notr="true">font: 7pt &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -615,7 +615,7 @@ QCheckBox::indicator:checked:pressed:focus
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+    <string notr="true">font: 7pt &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -635,7 +635,7 @@ QCheckBox::indicator:checked:pressed:focus
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+    <string notr="true">font: 7pt &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -719,7 +719,7 @@ QToolButton:pressed
    <property name="font">
     <font>
      <family>Futura</family>
-     <pointsize>6</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -741,7 +741,7 @@ QToolButton:pressed
    <property name="font">
     <font>
      <family>Futura</family>
-     <pointsize>6</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -819,11 +819,11 @@ p, li { white-space: pre-wrap; }
     <string notr="true">/* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9pt &quot;Futura&quot;;
+	font: 7pt &quot;Futura&quot;;
 	color: white;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(20, 20, 20);
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 QSpinBox:focus
@@ -863,7 +863,7 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Futura</family>
-     <pointsize>6</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -957,11 +957,11 @@ QCheckBox::indicator:checked:disabled
     <string notr="true">/* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9pt &quot;Futura&quot;;
+	font: 7pt &quot;Futura&quot;;
 	color: white;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(20, 20, 20);
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 QSpinBox::focus

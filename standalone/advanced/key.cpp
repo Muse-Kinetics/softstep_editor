@@ -23,8 +23,11 @@
 #define KEYBOX_Y_SPACING 10
 //Key box starting position (refers to keybox 1 position)
 #define KEYBOX_STARTING_X_POS 10
+#ifdef Q_OS_MAC
 #define KEYBOX_STARTING_Y_POS 204
-
+#else
+#define KEYBOX_STARTING_Y_POS 224
+#endif
 
 Key::Key(QWidget *parent, int keyInstanceNum) :
     QWidget(parent),

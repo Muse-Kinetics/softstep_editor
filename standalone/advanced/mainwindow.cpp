@@ -5,7 +5,11 @@
 //#include "ui_mainwindowWin.h"
 
 #define MAINWINDOW_WIDTH 690
+#ifdef Q_OS_MAC
 #define MAINWINDOW_HEIGHT 279
+#else
+#define MAINWINDOW_HEIGHT 299
+#endif
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -68,11 +72,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->connectedLabel->setText("SOFTSTEP NOT CONNECTED");
     ui->connectedLabel->setFixedSize(162, 22);
     ui->connectedLabel->setToolTip("[ o_0 ]");
-    ui->connectedLabel->move(529, 81);
 #ifdef Q_OS_MAC
+    ui->connectedLabel->move(529, 81);
     ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #else
-    ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
+    ui->connectedLabel->move(529, 100);
+    ui->connectedLabel->setStyleSheet("font:7pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #endif
 
     disableWidget->hide();
@@ -1011,11 +1016,12 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setText("SOFTSTEP CONNECTED");
         ui->connectedLabel->setFixedSize(138, 22);
         ui->connectedLabel->setToolTip("\\(^-^)/");
-        ui->connectedLabel->move(553, 81);
 #ifdef Q_OS_MAC
+        //ui->connectedLabel->move(553, 81);
         ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #else
-        ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
+        //ui->connectedLabel->move(553, 100);
+        ui->connectedLabel->setStyleSheet("font:7pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #endif
         //ui->update->setText("SAVE + SEND");
         aboutForm->found->setText(QString("%1").arg(connectedVersionInt));
@@ -1031,10 +1037,12 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setText("SOFTSTEP NOT CONNECTED");
         ui->connectedLabel->setFixedSize(162, 22);
         ui->connectedLabel->setToolTip("[ o_0 ]");
-        ui->connectedLabel->move(529, 81);
+
 #ifdef Q_OS_MAC
+        ui->connectedLabel->move(529, 81);
         ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #else
+        ui->connectedLabel->move(529, 100);
         ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #endif
         //ui->update->setText("SAVE");

@@ -34,7 +34,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				9pt &quot;Tahoma&quot;;
+	font: 				7pt &quot;Tahoma&quot;;
 	border:				none;
 }
 
@@ -46,7 +46,7 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
@@ -61,7 +61,7 @@ QSpinBox:focus
 
 QDoubleSpinBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
@@ -77,7 +77,7 @@ QDoubleSpinBox::focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -88,7 +88,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background: rgb(0,174,239);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -100,7 +100,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background: none;
 	color: white;
 	padding:0, 3, 0, 0;
@@ -116,7 +116,7 @@ QCheckBox:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -127,7 +127,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 7px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -201,7 +201,7 @@ QRadioButton::indicator:checked:pressed
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 7px &quot;Futura&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -342,7 +342,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -358,7 +358,7 @@ QCheckBox::indicator:checked:pressed:focus
     <string notr="true">/*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -369,7 +369,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 7px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -519,7 +519,7 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -580,7 +580,7 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -602,7 +602,7 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -624,7 +624,7 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -661,7 +661,7 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -698,7 +698,7 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -723,7 +723,7 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -783,7 +783,7 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -798,7 +798,7 @@ QSpinBox:disabled
    <property name="styleSheet">
     <string notr="true">QComboBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -809,7 +809,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 7px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 55px;
@@ -878,7 +878,7 @@ QComboBox QListView
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -915,7 +915,7 @@ QComboBox QListView
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -952,7 +952,7 @@ QComboBox QListView
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -989,7 +989,7 @@ QComboBox QListView
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -1050,7 +1050,7 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -1143,7 +1143,7 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -1474,7 +1474,7 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -1570,7 +1570,7 @@ QComboBox QListView
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -1673,7 +1673,7 @@ QLabel
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
@@ -1688,7 +1688,7 @@ QSpinBox:focus
 
 QDoubleSpinBox
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
@@ -1704,7 +1704,7 @@ QDoubleSpinBox:focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgba(0,174,239,255);
 	border-radius: 0px;
@@ -1715,7 +1715,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background: rgba(0,174,239,0);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -1727,7 +1727,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background:rgba(0,174,239,0);
 	color: white;
 	padding:0, 3, 0, 0;
@@ -1743,7 +1743,7 @@ QCheckBox:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -1755,7 +1755,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 7px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 65px;
@@ -1881,7 +1881,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -1921,7 +1921,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -1961,7 +1961,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -2001,7 +2001,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -2119,7 +2119,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -2145,7 +2145,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 7px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 65px;
@@ -2228,7 +2228,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -2265,7 +2265,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -2305,7 +2305,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -2412,7 +2412,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -2449,7 +2449,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -2486,7 +2486,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -2657,7 +2657,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -2766,7 +2766,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -2803,7 +2803,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -2902,7 +2902,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -3011,7 +3011,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -3325,7 +3325,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -3434,7 +3434,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -3471,7 +3471,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -3619,7 +3619,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -3728,7 +3728,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -3827,7 +3827,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -3864,7 +3864,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -3901,7 +3901,7 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>8</pointsize>
+       <pointsize>7</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -4460,7 +4460,7 @@ QComboBox QAbstractItemView::item
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -4668,9 +4668,9 @@ QComboBox QAbstractItemView::item
   <widget class="QLabel" name="label_42">
    <property name="geometry">
     <rect>
-     <x>494</x>
+     <x>493</x>
      <y>2</y>
-     <width>30</width>
+     <width>31</width>
      <height>16</height>
     </rect>
    </property>
