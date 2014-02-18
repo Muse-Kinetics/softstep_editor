@@ -468,7 +468,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
@@ -748,7 +748,7 @@ p, li { white-space: pre-wrap; }
       <enum>Qt::DefaultContextMenu</enum>
      </property>
      <property name="toolTip">
-      <string>Adjust the amount of smoothing placed on expression pedal data.</string>
+      <string>Adjusts the sensitivity of the SoftStep. &lt;br&gt;Moving the slider to the right (toward the “+” symbol) increases sensitivity — moving the slider to the left (toward the “-” symbol) decreases sensitvity.</string>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
