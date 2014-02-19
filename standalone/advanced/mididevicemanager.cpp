@@ -807,6 +807,8 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
     connect(versionPoller, SIGNAL(timeout()), this, SLOT(slotPollVersion()));
     versionReply = false;
     queryReplied = false;
+
+    calibrationPhase = "complete";
 }
 
 bool MidiDeviceManager::connectSource()
@@ -1611,8 +1613,8 @@ void CALLBACK MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_
     //qDebug() << MIM_DATA << uMsg;
     //qDebug() << dwParam;
     //qDebug()    <<"status"<< ((dwParam1) & 0xFF)
-    //          << "data1" << ((dwParam1>>8) & 0xFF)
-    //        << "data2" << ((dwParam1>>16) & 0xFF); //status byte
+      //        << "data1" << ((dwParam1>>8) & 0xFF)
+        //    << "data2" << ((dwParam1>>16) & 0xFF); //status byte
     MidiDeviceManager *mdm = (MidiDeviceManager *) dwInstance;
     MIDIPacket *packet = new MIDIPacket;
 
@@ -1650,6 +1652,12 @@ void CALLBACK MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_
             }
             else if(mdm->mode == "standalone" && mdm->calibrationPhase != "complete")
             {
+                //qDebug() << "PEDAL CALIBRATION";
+
+                packet->data[0] = (dwParam1) & 0xFF;
+                packet->data[1] = (dwParam1>>8) & 0xFF;
+                packet->data[2] = (dwParam1>>16) & 0xFF;
+
                 mdm->hosted_slotParsePacket(packet);
                 break;
             }
