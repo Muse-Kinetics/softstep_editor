@@ -170,9 +170,15 @@ public:
     MIDIHDR         sysExInHdr;
     HANDLE          hBuffer;
 
+    HMIDIIN         externalInHandle[64];
 
+
+    //To/From SoftStep
     static void CALLBACK midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_PTR dwInstance,DWORD_PTR dwParam1,DWORD_PTR dwParam2);
     static void CALLBACK midiOutCallback(HMIDIOUT handle, UINT uMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam, DWORD_PTR dwParam1);
+
+    //To/From External MIDI Input
+    static void CALLBACK externalMidiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_PTR dwInstance,DWORD_PTR dwParam1,DWORD_PTR dwParam2);
 
     bool connected;
     bool refreshDevices;
