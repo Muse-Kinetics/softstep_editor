@@ -36,7 +36,38 @@ OscInterface::OscInterface(QObject *parent) :
 
     //slotWriteDatagram("", 0);
 #else
+    //----- Init
 
+
+
+    //Inputs
+    for(int i = 0; i < 8; i++)
+    {
+        oscEnabled[i] = false;
+        //qDebug() << "----------------------" << i;
+
+        oscAddressTag[i] = "";
+        oscInputVal[i] = 0;
+    }
+
+    //Ports
+    inputPort = 7755;
+    outputPort = 7788;
+
+    //IP
+    ip = "127.0.0.1";
+
+    socket = new QUdpSocket(this);
+    socket->bind(QHostAddress(ip), inputPort);
+
+    connect(socket, SIGNAL(readyRead()), this, SLOT(slotReadPendingDatagrams()));
+
+    msgVal[0] = 0;
+    msgVal[1] = 0;
+    msgVal[2] = 0;
+    msgVal[3] = 0;
+
+    //slotWriteDatagram("", 0);
 #endif
 
 }
@@ -54,7 +85,6 @@ void OscInterface::slotReadPendingDatagrams()
         socket->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
 
         //qDebug() << "osc packet size ---- " << datagram.size() << datagram.data();
-
 
         for(int i = 0; i < datagram.size(); i++)
         {
@@ -170,14 +200,14 @@ void OscInterface::slotReadPendingDatagrams()
 
 void OscInterface::slotSetInputEnable(int inputNum, bool enabled)
 {
-    //qDebug() << "set enabled" << inputNum << enabled;
-    oscInput[inputNum].enabled = enabled;
+    qDebug() << "set enabled" << inputNum << enabled;
+    oscEnabled[inputNum] = enabled;
 }
 
 void OscInterface::slotSetOSCAddressTags(int inputNum, QString tag)
 {
-    //qDebug() << "set address tag" << inputNum << tag;
-    oscInput[inputNum].addressTag = tag;
+    qDebug() << "set address tag" << inputNum << tag;
+    oscAddressTag[inputNum] = tag;
 }
 
 void OscInterface::slotSetOutputPort(int port)
@@ -187,13 +217,10 @@ void OscInterface::slotSetOutputPort(int port)
 
 void OscInterface::slotSetInputPort(int port)
 {
-#ifdef Q_OS_MAC
     socket->close();
     //qDebug() << "port changed" << port;
     inputPort = port;
     socket->bind(QHostAddress(ip), inputPort);
-#else
-#endif
 }
 
 void OscInterface::slotSetOutputIPAddress(QString ipString)
@@ -291,7 +318,7 @@ void OscInterface::slotDistributeReceivedMessage(QString tag, int val)
     for(int i = 0; i < 8; i++)
     {
         //If one of our inputs has a corresponding tag, and that input is enabled
-        if(oscInput[i].addressTag == tag && oscInput[i].enabled)
+        if(oscAddressTag[i] == tag && oscEnabled[i])
         {
             //qDebug() << "output " << i << tag << val;
 
@@ -301,4 +328,5 @@ void OscInterface::slotDistributeReceivedMessage(QString tag, int val)
             emit signalSendOscMessageToSource(i, val);
         }
     }
+
 }

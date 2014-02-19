@@ -33,6 +33,10 @@ public:
         int     inputVal;
     } oscInput[8];
 
+    bool oscEnabled[8];
+    QString oscAddressTag[8];
+    int oscInputVal[8];
+
     
 signals:
     void signalSendOscMessageToSource(int sourceNum, int val);
