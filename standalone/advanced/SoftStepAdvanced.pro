@@ -130,7 +130,23 @@ FORMS    +=     forms/mainwindow.ui \
     forms/mainwindowWin.ui \
     forms/keyWindowFormWin.ui \
     forms/keyBoxFormWin.ui \
-    forms/modlineFormWin.ui
+    forms/modlineFormWin.ui \
+    forms/updatefwformWin.ui \
+    forms/settingsFormWin.ui \
+    forms/setlistFormWin.ui \
+    forms/saveAsFormWin.ui \
+    forms/pedalLiveTableFormWin.ui \
+    forms/navModlineFormWin.ui \
+    forms/navKeyWindowFormWin.ui \
+    forms/navBoxFormWin.ui \
+    forms/modlineWarningFormWin.ui \
+    forms/importOldPresetsFormWin.ui \
+    forms/importOldNotFoundFormWin.ui \
+    forms/fwupdatecompleteformWin.ui \
+    forms/fwprogressformWin.ui \
+    forms/fwoodformWin.ui \
+    forms/deletePresetFormWin.ui \
+    forms/aboutformWin.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#
