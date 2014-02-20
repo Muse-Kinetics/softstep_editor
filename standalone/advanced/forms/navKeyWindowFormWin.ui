@@ -1,0 +1,1064 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>navKeyWindowForm</class>
+ <widget class="QWidget" name="navKeyWindowForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1118</width>
+    <height>410</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background:		rgb(60, 60, 60);
+	border: 4px solid rgb(0,174,239);
+}
+
+/* ---------- QLabels ------------*/
+QLabel
+{
+	background:		none;
+	color: 				white;
+	font: 				9pt &quot;Futura&quot;;
+	border:				none;
+}
+
+QLabel:hover
+{
+	border:				none;
+}
+
+/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: (18, 18, 18);
+	color: white;
+	padding:0, 3, 0, 0;
+}
+
+QSpinBox::focus
+{
+	border: 1px solid white;
+	outline: none;
+}
+
+/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	font: 10pt &quot;Futura&quot;;
+	background: none;
+	color: white;
+	padding:0, 3, 0, 0;
+	border: none;
+}
+
+QCheckBox:focus
+{
+	background: none;
+}
+
+/* ---------- QLineEdit ------------*/
+QLineEdit
+{
+	font: 8pt &quot;Tahoma&quot;;
+	background: rgb(18, 18, 18);
+	border: 1px solid rgb(0,174,239);
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+QLineEdit:focus
+{
+	border: 1px solid white;
+	outline: none;
+}
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 8pt &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 3px 1px 4px;
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 35px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+}</string>
+  </property>
+  <widget class="QCheckBox" name="showLEDSettings">
+   <property name="geometry">
+    <rect>
+     <x>760</x>
+     <y>24</y>
+     <width>160</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Show/Hide the LED and display options for this key.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 165px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/keyWindow_ledSettings_toggle_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/keyWindow_ledSettings_toggle_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/keyWindow_ledSettings_toggle_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/keyWindow_ledSettings_toggle_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/keyWindow_ledSettings_toggle_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/keyWindow_ledSettings_toggle_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/keyWindow_ledSettings_toggle_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/keyWindow_ledSettings_toggle_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/keyWindow_ledSettings_toggle_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string>CheckBox</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>53</y>
+     <width>915</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel
+{
+	border-top: 2px solid white;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>49</x>
+     <y>64</y>
+     <width>31</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	background-image: url(:/resources/keyWindow_inits_label.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="outputSettingsBracketLabel">
+   <property name="geometry">
+    <rect>
+     <x>614</x>
+     <y>82</y>
+     <width>304</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	background-image: url(:/resources/keyWindow_outputSettings_label_bracket.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>705</x>
+     <y>63</y>
+     <width>113</width>
+     <height>14</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	background-image: url(:/resources/keyWindow_outputSettings_label.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="dataModifiersBracketLabel">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>82</y>
+     <width>318</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	background-image: url(:/resources/keyWindow_dataModifiers_label_bracket.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="initsBracketLabel">
+   <property name="geometry">
+    <rect>
+     <x>39</x>
+     <y>82</y>
+     <width>53</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	background-image: url(:/resources/keyWindow_inits_label_bracket.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>106</x>
+     <y>64</y>
+     <width>95</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	background-image: url(:/resources/keyWindow_dataSources_label.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="dataSourcesBracketLabel">
+   <property name="geometry">
+    <rect>
+     <x>106</x>
+     <y>82</y>
+     <width>95</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	background-image: url(:/resources/keyWindow_dataSources_label_bracket.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>341</x>
+     <y>63</y>
+     <width>108</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	background-image: url(:/resources/keyWindow_dataModifiers_label.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>11</x>
+     <y>10</y>
+     <width>16</width>
+     <height>38</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the Nav Pad mode.&lt;p&gt;&lt;b&gt;Modline&lt;/b&gt;: Use the Nav Pad with the modlines below like a regular SoftStep key.&lt;p&gt;&lt;b&gt;Program Change&lt;/b&gt;: For use with the Nav Yx10 &amp; Key” source — this allows the Nav pad to count &quot;decades&quot; from 0 to 12. This option will disable the use of modlines on the Nav Pad.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel
+{
+	image: url(:/resources/mode_label.png);
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+	image: none;
+}s</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="navpadmode_programchange">
+   <property name="geometry">
+    <rect>
+     <x>31</x>
+     <y>29</y>
+     <width>102</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the Nav Pad mode.&lt;p&gt;&lt;b&gt;Modline&lt;/b&gt;: Use the Nav Pad with the modlines below like a regular SoftStep key.&lt;p&gt;&lt;b&gt;Program Change&lt;/b&gt;: For use with the Nav Yx10 &amp; Key” source — this allows the Nav pad to count &quot;decades&quot; from 0 to 12. This option will disable the use of modlines on the Nav Pad.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*-------QRadioButton-------*/
+
+QRadioButton
+{
+	color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+	border: none;
+}
+
+QRadioButton::indicator  {
+    width: 16px;
+    height: 16px;
+}
+ 
+QRadioButton::indicator::unchecked  {
+    image: url(:/resources/radiobutton_unchecked.png);
+}
+ 
+QRadioButton::indicator:unchecked:hover  {
+    image: url(:/resources/radiobutton_unchecked.png);
+}
+ 
+QRadioButton::indicator:unchecked:pressed  {
+    image: url(:/resources/radiobutton_pressed.png);
+}
+ 
+QRadioButton::indicator::checked  {
+    image: url(:/resources/radiobutton_checked.png);
+}
+ 
+QRadioButton::indicator:checked:hover  {
+    image: url(:/resources/radiobutton_checked.png);
+}
+ 
+QRadioButton::indicator:checked:pressed  {
+    image: url(:/resources/radiobutton_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string> program change</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="navpadmode_modline">
+   <property name="geometry">
+    <rect>
+     <x>31</x>
+     <y>9</y>
+     <width>102</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the Nav Pad mode.&lt;p&gt;&lt;b&gt;Modline&lt;/b&gt;: Use the Nav Pad with the modlines below like a regular SoftStep key.&lt;p&gt;&lt;b&gt;Program Change&lt;/b&gt;: For use with the Nav Yx10 &amp; Key” source — this allows the Nav pad to count &quot;decades&quot; from 0 to 12. This option will disable the use of modlines on the Nav Pad.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*-------QRadioButton-------*/
+
+QRadioButton
+{
+	color: rgba(255,255,255,250);
+	font: 10pt &quot;Futura&quot;;
+	border: none;
+}
+
+QRadioButton::indicator  {
+    width: 16px;
+    height: 16px;
+}
+ 
+QRadioButton::indicator::unchecked  {
+    image: url(:/resources/radiobutton_unchecked.png);
+}
+ 
+QRadioButton::indicator:unchecked:hover  {
+    image: url(:/resources/radiobutton_unchecked.png);
+}
+ 
+QRadioButton::indicator:unchecked:pressed  {
+    image: url(:/resources/radiobutton_pressed.png);
+}
+ 
+QRadioButton::indicator::checked  {
+    image: url(:/resources/radiobutton_checked.png);
+}
+ 
+QRadioButton::indicator:checked:hover  {
+    image: url(:/resources/radiobutton_checked.png);
+}
+ 
+QRadioButton::indicator:checked:pressed  {
+    image: url(:/resources/radiobutton_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string> modline</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>17</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: none;
+border: none;
+image: url(:/resources/openkeywindowNav_inactive.png)</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="displayprefix">
+   <property name="geometry">
+    <rect>
+     <x>945</x>
+     <y>75</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>One or two characters that can be added before &lt;br&gt;the parameter value on the SoftStep's display.&lt;p&gt;&lt;b&gt;Example&lt;/b&gt;: A prefix of &quot;NI&quot; and a value of 34 coming through the modline would show &quot;NI34&quot; on the display.</string>
+   </property>
+   <property name="maxLength">
+    <number>2</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>981</x>
+     <y>60</y>
+     <width>60</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+</string>
+   </property>
+   <property name="text">
+    <string>Display Mode</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="keyname">
+   <property name="geometry">
+    <rect>
+     <x>1046</x>
+     <y>75</y>
+     <width>60</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the name for this key.&lt;p&gt;(Four character maximum)</string>
+   </property>
+   <property name="maxLength">
+    <number>4</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>945</x>
+     <y>60</y>
+     <width>30</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+</string>
+   </property>
+   <property name="text">
+    <string>Prefix</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="leddisplaymode">
+   <property name="geometry">
+    <rect>
+     <x>981</x>
+     <y>75</y>
+     <width>60</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the SoftStep display behavior.&lt;p&gt;&lt;b&gt;None&lt;/b&gt;: Pressing this key will have no effect on the display.&lt;p&gt;&lt;b&gt;Always&lt;/b&gt;: Key name will be displayed every time this key is pressed.&lt;p&gt;&lt;b&gt;Once&lt;/b&gt;: Key name will be displayed once when the key is pressed, then show the prefix + parameter value (Hosted mode only).&lt;p&gt;&lt;b&gt;Initial/Return&lt;/b&gt;: Prefix + parameter value will be displayed when this key is active, then display the key name when inactive (Hosted mode only).&lt;p&gt;&lt;b&gt;Immed Param&lt;/b&gt;: (Immediate Parameter) Displays the prefix and parameter value when this key is activated.</string>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <item>
+    <property name="text">
+     <string>None</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Always</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Once</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Immed Param</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>1046</x>
+     <y>60</y>
+     <width>60</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+</string>
+   </property>
+   <property name="text">
+    <string>Key Name</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="deletemodline">
+   <property name="geometry">
+    <rect>
+     <x>35</x>
+     <y>380</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolButton
+{
+	background: none;
+	border: none;
+	image: url(:/resources/keyWindow_deleteModline_button_not_clicked.png);
+}
+
+QToolButton:pressed
+{
+	background: none;
+	border: none;
+	image: url(:/resources/keyWindow_deleteModline_button_clicked.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="addmodline">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>380</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolButton
+{
+	background: none;
+	border: none;
+	image: url(:/resources/keyWindow_addModline_button_not_clicked.png);
+}
+
+QToolButton:pressed
+{
+	background: none;
+	border: none;
+	image: url(:/resources/keyWindow_addModline_button_clicked.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="counterMax">
+   <property name="geometry">
+    <rect>
+     <x>685</x>
+     <y>25</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the maximum value for the key counter.&lt;br&gt;No values above this number will be output.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 9pt &quot;Futura&quot;;
+	color: white;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(20, 20, 20);
+	padding:0, 3, 0, 0;
+}
+
+QSpinBox::focus
+{
+	border: 1px solid white;
+	outline: none;
+}
+
+QSpinBox:disabled
+{
+	background-color: rgba(20, 20, 20, 75);
+	border-color: rgba(0, 174, 239, 75);
+	font: 9pt &quot;Futura&quot;;
+	color: rgba(255, 255, 255, 75)
+}
+</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>12</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_21">
+   <property name="geometry">
+    <rect>
+     <x>689</x>
+     <y>9</y>
+     <width>21</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>9</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Max</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="counterMin">
+   <property name="geometry">
+    <rect>
+     <x>652</x>
+     <y>25</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the minimum value for the key counter.&lt;br&gt;No values below this number will be output.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 9pt &quot;Futura&quot;;
+	color: white;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(20, 20, 20);
+	padding:0, 3, 0, 0;
+}
+
+QSpinBox::focus
+{
+	border: 1px solid white;
+	outline: none;
+}
+
+QSpinBox:disabled
+{
+	background-color: rgba(20, 20, 20, 75);
+	border-color: rgba(0, 174, 239, 75);
+	font: 9pt &quot;Futura&quot;;
+	color: rgba(255, 255, 255, 75)
+}
+</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>12</number>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="counterWrap">
+   <property name="geometry">
+    <rect>
+     <x>724</x>
+     <y>25</y>
+     <width>23</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>When checked, the key counter&lt;br&gt; will loop back to the minimum &lt;br&gt;value once the maximum &lt;br&gt;value is exceeded (and vice versa).&lt;p&gt;When unchecked, the counter will stop &lt;br&gt;once the minimum or maximum &lt;br&gt;values are reached.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	padding-top: 1px;
+}
+
+QCheckBox::indicator
+{
+	width: 18px;
+	height: 19px;
+}
+
+QCheckBox::indicator:unchecked
+{
+	image:url(:/resources/checkbox_off.png)
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+	image:url(:/resources/checkbox_off.png)
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image:url(:/resources/checkbox_on.png)
+}
+
+QCheckBox::indicator:checked
+{
+	image:url(:/resources/checkbox_on.png)
+}
+
+QCheckBox::indicator:checked:hover
+{
+	image:url(:/resources/checkbox_on.png)
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image:url(:/resources/checkbox_off.png)
+}
+
+QCheckBox::indicator:unchecked:disabled
+{
+	image:url(:/resources/checkbox_off_disabled.png)
+}
+
+QCheckBox::indicator:checked:disabled
+{
+	image:url(:/resources/checkbox_off_disabled.png)
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_20">
+   <property name="geometry">
+    <rect>
+     <x>657</x>
+     <y>9</y>
+     <width>21</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>9</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Min</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="counterlabel">
+   <property name="geometry">
+    <rect>
+     <x>632</x>
+     <y>10</y>
+     <width>16</width>
+     <height>39</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string>&lt;b&gt;Key Counter:&lt;/b&gt;&lt;p&gt;Increments between the specified&lt;br&gt; min and max values.&lt;p&gt;&lt;b&gt;(Hosted mode only)&lt;/b&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*-------QLabel-------*/
+QLabel
+{
+	font: 12pt &quot;Futura&quot;;
+	image: url(:/resources/counter_label.png);
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+	image: none;
+}</string>
+   </property>
+   <property name="text">
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Futura'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_22">
+   <property name="geometry">
+    <rect>
+     <x>720</x>
+     <y>9</y>
+     <width>31</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>9</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Wrap</string>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>navpadmode_modline</tabstop>
+  <tabstop>navpadmode_programchange</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>counterMin</tabstop>
+  <tabstop>counterMax</tabstop>
+  <tabstop>counterWrap</tabstop>
+  <tabstop>showLEDSettings</tabstop>
+  <tabstop>displayprefix</tabstop>
+  <tabstop>leddisplaymode</tabstop>
+  <tabstop>keyname</tabstop>
+  <tabstop>addmodline</tabstop>
+  <tabstop>deletemodline</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

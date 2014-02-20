@@ -1,0 +1,2596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>setlistForm</class>
+ <widget class="QWidget" name="setlistForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>244</width>
+    <height>448</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>200</width>
+    <height>445</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>500</width>
+    <height>500</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Setlist</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background:	 rgb(60, 60, 60);
+	border: 3px solid rgba(0,174,239,255);
+}
+
+/* ------- QStackedWidget ---------*/
+QStackedWidget
+{
+	border-left: 2px solid rgb(0,174,239);
+	border-right: 2px solid rgb(0,174,239);
+}
+
+/* ---------- QLabels ------------*/
+QLabel
+{
+	background:		rgba(0,0,0,0);
+	color: 				white;
+	font: 				10pt &quot;Futura&quot;;
+	border:				none;
+}
+
+QLabel:hover
+{
+	border:				none;
+}  
+
+/* ---------- QLineEdit ------------*/
+QLineEdit
+{
+	font: 10pt &quot;Futura&quot;;
+	background: none;
+	border: none;
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+QLineEdit:focus
+{
+	font: 10pt &quot;Futura&quot;;
+	background: none;
+	border: none;
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	font: 10pt &quot;Futura&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 3, 0, 0;
+	border: none;
+}
+
+QCheckBox:focus
+{
+	background:rgba(0,174,239,0);
+}
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(40, 40, 40);
+	color: white;
+	padding: 3px 5px 3px 5px
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 10px &quot;Futura&quot;;
+	padding-left: 5px;
+	min-width: 100px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 14px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.png)
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+}</string>
+  </property>
+  <widget class="QLabel" name="titlelabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>6</y>
+     <width>223</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>-1</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel
+	{
+		font: 16px;
+		font.underline: 1;
+		font.letterSpacing: 100;
+		border-bottom: 2px solid white;
+	}</string>
+   </property>
+   <property name="text">
+    <string>SETLIST</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable1">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable1_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable1_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable1_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable1_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable1_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable1_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable1_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable1_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable1_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>65</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable2_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable2_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable2_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable2_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable2_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable2_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable2_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable2_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable2_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable3_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable3_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable3_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable3_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable3_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable3_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable3_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable3_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable3_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>115</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable4_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable4_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable4_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable4_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable4_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable4_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable4_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable4_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable4_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable5">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable5_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable5_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable5_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable5_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable5_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable5_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable5_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable5_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable5_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable6">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>165</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable6_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable6_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable6_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable6_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable6_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable6_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable6_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable6_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable6_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable7">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>190</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable7_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable7_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable7_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable7_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable7_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable7_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable7_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable7_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable7_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable8">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>215</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable8_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable8_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable8_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable8_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable8_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable8_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable8_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable8_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable8_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable9">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>240</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable9_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable9_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable9_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable9_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable9_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable9_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable9_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable9_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable9_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable10">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>265</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable10_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable10_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable10_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable10_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable10_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable10_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable10_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable10_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable10_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable11">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>290</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable11_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable11_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable11_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable11_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable11_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable11_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable11_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable11_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable11_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable12">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>315</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable12_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable12_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable12_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable12_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable12_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable12_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable12_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable12_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable12_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable13">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>340</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable13_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable13_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable13_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable13_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable13_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable13_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable13_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable13_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable13_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable14">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>365</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable14_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable14_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable14_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable14_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable14_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable14_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable14_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable14_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable14_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable15">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>390</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable15_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable15_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable15_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable15_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable15_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable15_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable15_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable15_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable15_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable16">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>415</y>
+     <width>22</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+    color: rgba(255,255,255,0);
+    font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox::indicator
+{
+    width: 20px;
+    height: 20px;
+}
+
+QCheckBox::indicator:unchecked
+{
+    image: url(:/resources/setlistWindow_enable16_off.png);
+}
+
+QCheckBox::indicator:unchecked:hover
+{
+    image: url(:/resources/setlistWindow_enable16_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+    image: url(:/resources/setlistWindow_enable16_on.png);
+}
+
+QCheckBox::indicator:checked
+{
+    image: url(:/resources/setlistWindow_enable16_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+    image: url(:/resources/setlistWindow_enable16_off.png);
+}
+
+QCheckBox::indicator:unchecked:focus
+{
+    image: url(:/resources/setlistWindow_enable16_off.png);
+}
+
+QCheckBox::indicator:unchecked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable16_on.png);
+}
+
+QCheckBox::indicator:checked:focus
+{
+    image: url(:/resources/setlistWindow_enable16_on.png);
+}
+
+QCheckBox::indicator:checked:pressed:focus
+{
+    image: url(:/resources/setlistWindow_enable16_off.png);
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu1">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>38</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu2">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>63</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu3">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>88</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu4">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>113</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu5">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>138</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu6">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>163</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu7">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>188</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu8">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>213</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu9">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>238</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu10">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>263</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu11">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>288</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu12">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>313</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu13">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>338</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu14">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>363</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu15">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>388</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu16">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>413</y>
+     <width>195</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME_HERE</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

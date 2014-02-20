@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>navBoxForm</class>
+ <widget class="QWidget" name="navBoxForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>101</width>
+    <height>64</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background:		rgb(60, 60, 60);
+	border: 3px solid rgb(0,174,239);
+}
+
+/* ---------- QLabels ------------*/
+QLabel
+{
+	background:		none;
+	color: 				white;
+	font: 				10pt &quot;Futura&quot;;
+	border:				none;
+}
+
+QLabel:hover
+{
+	border:				none;
+}
+
+/*---------- QPushButton ---------*/
+QPushButton
+{
+	background: none;
+	border: none;
+	image: url(:/resources/openkeywindowNav_inactive.png)
+}
+
+QPushButton:pressed
+{
+	background: none;
+	border: none;
+	image: url(:/resources/openkeywindowNav_active.png);
+}
+
+/* ---------- QLineEdit ------------*/
+QLineEdit
+{
+	font: 12pt &quot;Droid Sans Mono&quot;;
+	background: rgb(40, 40, 40);
+	border: 2px solid rgb(0,174,239);
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+QLineEdit:focus
+{
+	border: 2px solid white;
+	outline: none;
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+}</string>
+  </property>
+  <widget class="QPushButton" name="openNavWindow">
+   <property name="geometry">
+    <rect>
+     <x>7</x>
+     <y>13</y>
+     <width>38</width>
+     <height>38</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string>Open this key's modulation window.</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="keyName">
+   <property name="geometry">
+    <rect>
+     <x>52</x>
+     <y>21</y>
+     <width>40</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;b&gt;Key Name&lt;/b&gt;&lt;p&gt;Set the name of this key.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit
+{
+	padding-bottom: -1px;
+}</string>
+   </property>
+   <property name="maxLength">
+    <number>4</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FwUpdateCompleteForm</class>
+ <widget class="QWidget" name="FwUpdateCompleteForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>188</width>
+    <height>97</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background:		rgba(35,31,32,255);
+	border: 4px solid rgba(0,174,239,255);
+}  
+
+QWidget:hover
+{
+	/*border:				3px solid rgb(0, 126, 126)*/
+}        
+
+/*-------QFrame-------*/
+QFrame
+{
+	background: rgb(60, 60, 60);
+}
+
+/* ---------- QLabels ------------*/
+QLabel
+{
+	background:		rgba(0,0,0,0);
+	color: 				white;
+	font: 				10pt &quot;Futura&quot;;
+	border:				none;
+}
+
+QLabel:hover
+{
+	border:				none;
+}  
+
+/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 10pt &quot;Futura&quot;;
+	border: 2px solid rgb(0,174,239);
+	background-color: rgba(0, 0, 0, 255);
+	color: white;
+	padding:0, 3, 0, 0;
+}
+
+QSpinBox::focus
+{
+	border: none;
+	outline: none;
+}
+
+/* ---------- QLineEdit ------------*/
+QLineEdit
+{
+	font: 10pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 2px solid rgba(0,174,239,255);
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+QLineEdit:focus
+{
+	font: 10pt &quot;Futura&quot;;
+	background: rgba(0,174,239,0);
+	border: 2px solid white;
+	border-radius: 0px;
+	color: white;
+	padding-left: 2px;
+	padding-bottom: 2px;
+}
+
+/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	font: 10pt &quot;Futura&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 3, 0, 0;
+	border: none;
+}
+
+QCheckBox:focus
+{
+	background:rgba(0,174,239,0);
+}
+
+
+/* ------- QStackedWidget ---------*/
+QStackedWidget
+{
+border-top: 1px solid white;
+background: black;
+}
+
+/*---------- QPushButton ---------*/
+QPushButton
+{
+	border: 2px solid rgba(0,174,239,255);
+	font: 10pt &quot;Futura&quot;;
+	color: white;
+}
+
+QPushButton:pressed
+{
+	border: 2px solid white;
+	font: 9pt &quot;Futura&quot;;
+	background: rgba(0,174,239,255);
+	color: white;
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+}</string>
+  </property>
+  <widget class="QFrame" name="warningFrame">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>188</width>
+     <height>97</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QFrame" name="warningSubFrame">
+    <property name="geometry">
+     <rect>
+      <x>8</x>
+      <y>8</y>
+      <width>171</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame {
+	background:rgba(200, 200, 200, 0);
+	border-bottom-left-radius:4.0;
+	border-bottom-right-radius:4.0;
+	border-top-left-radius:4.0;
+	border-top-right-radius:4.0;
+	border:none;
+
+
+}
+</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="updateComplete">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>-1</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 10pt;</string>
+     </property>
+     <property name="text">
+      <string>Firmware Update Complete.</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ok">
+     <property name="geometry">
+      <rect>
+       <x>66</x>
+       <y>50</y>
+       <width>40</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>OK</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="updateComplete_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 10pt;</string>
+     </property>
+     <property name="text">
+      <string>Please resend presets.</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
