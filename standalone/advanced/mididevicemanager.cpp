@@ -1106,6 +1106,18 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, i
 
         err = midiOutLongMsg(outHandle, &sysExOutHdr, sizeof(MIDIHDR));
 
+        if(messageID == "presets image")
+        {
+            qDebug() << "MDM -- Presets sent";
+            emit signalPresetsSent();
+        }
+
+        if(messageID == "settings image")
+        {
+            qDebug() << "MDM -- Settings sent";
+            emit signalSettingsSent();
+        }
+
         if(err)
         {
             char errMsg[120];
@@ -1757,7 +1769,7 @@ void CALLBACK MidiDeviceManager::midiOutCallback(HMIDIOUT handle, UINT uMsg, DWO
         midiOutUnprepareHeader(mda->outHandle, &mda->sysExOutHdr, sizeof(MIDIHDR));
         GlobalUnlock(mda->sysExOutBuffer);
         GlobalFree(mda->sysExOutBuffer);
-        //qDebug() << "MEMORy DEALLOCATED";
+        qDebug() << "MEMORY DEALLOCATED";
 
         if(mda->fwUpdateRequested == true)
         {

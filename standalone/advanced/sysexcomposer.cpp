@@ -563,8 +563,8 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     //=========================================================================================================//
     attribute(x,1,A_SYM,"download");
 
-    //qDebug() << "image" << image << "imageLength" << imageLength;
-    //qDebug() << "settings" << settings << "settingsLength" << settingsLength;
+    qDebug() << "image" << image << "imageLength" << imageLength;
+    qDebug() << "settings" << settings << "settingsLength" << settingsLength;
 
 
     emit signalSendSysEx(QString("settings image"), settings, settingsLength, QString("SSCOM Port 1"));
