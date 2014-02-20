@@ -296,7 +296,7 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
+     <family>Futura-Bold</family>
      <pointsize>10</pointsize>
      <weight>50</weight>
      <italic>false</italic>
@@ -309,7 +309,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="styleSheet">
     <string notr="true">QLabel
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Bold&quot;;
 	border: none;
 	padding: none;
 	background-image: none;
@@ -819,7 +819,7 @@ p, li { white-space: pre-wrap; }
     <string notr="true">/* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	color: white;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(20, 20, 20);
@@ -836,7 +836,7 @@ QSpinBox:disabled
 {
 	background-color: rgba(20, 20, 20, 75);
 	border-color: rgba(0, 174, 239, 75);
-	font: 9pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 75);
 }
 </string>
@@ -957,7 +957,7 @@ QCheckBox::indicator:checked:disabled
     <string notr="true">/* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	color: white;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(20, 20, 20);
@@ -974,7 +974,7 @@ QSpinBox:disabled
 {
 	background-color: rgba(20, 20, 20, 75);
 	border-color: rgba(0, 174, 239, 75);
-	font: 9pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 75)
 }
 </string>

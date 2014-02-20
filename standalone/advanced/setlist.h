@@ -10,7 +10,13 @@
 #include "qjson/src/parser.h"
 #include "qjson/src/serializer.h"
 
+#ifdef Q_OS_MAC
 #include "ui_setlistForm.h"
+#else
+#include "ui_setlistFormWin.h"
+#endif
+
+
 
 class Setlist : public QWidget
 {

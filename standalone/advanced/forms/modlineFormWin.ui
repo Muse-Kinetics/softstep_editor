@@ -456,7 +456,7 @@ QComboBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -476,7 +476,7 @@ QSpinBox
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(20, 20, 20);
 	padding:0, 1, 0, 0;
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 }
 
 QSpinBox::focus
@@ -489,7 +489,7 @@ QSpinBox:disabled
 {
 	background-color: rgba(20, 20, 20, 75);
 	border-color: rgba(0, 174, 239, 75);
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 75);
 }
 </string>

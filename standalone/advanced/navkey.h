@@ -12,8 +12,13 @@
 #include "navmodline.h"
 #include "stylesheets.h"
 
+#ifdef Q_OS_MAC
 #include "ui_navKeyWindowForm.h"
 #include "ui_navBoxForm.h"
+#else
+#include "ui_navKeyWindowFormWin.h"
+#include "ui_navBoxFormWin.h"
+#endif
 
 #include "hosted/navdatacooker.h"
 #include "hosted/alphanummanager.h"

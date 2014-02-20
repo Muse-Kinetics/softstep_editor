@@ -11,8 +11,11 @@
 #include <QDeclarativeContext>
 #include <QDebug>
 
+#ifdef Q_OS_MAC
 #include "ui_pedalLiveTableForm.h"
-
+#else
+#include "ui_pedalLiveTableFormWin.h"
+#endif
 
 class TableInerface : public QWidget
 {

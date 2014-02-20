@@ -11,14 +11,18 @@
 
 #ifdef Q_OS_MAC
 #include <CoreMIDI/CoreMIDI.h>
+
+#include "ui_navModlineForm.h"
 #else
 #include <Windows.h>
 #include <MMSystem.h>
 #include <Dbt.h>
 #include "WindowsMidiTypes.h"
+
+#include "ui_navModlineFormWin.h"
+
 #endif //Q_OS_MAC
 
-#include "ui_navModlineForm.h"
 #include "stylesheets.h"
 #include "tables.h"
 #include "hosted/slewer.h"

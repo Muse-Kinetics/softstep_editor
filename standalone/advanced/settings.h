@@ -11,17 +11,19 @@
 
 #ifdef Q_OS_MAC
 #include <CoreMIDI/CoreMIDI.h>
+
+#include "ui_settingsForm.h"
 #else
 #include <Windows.h>
 #include <MMSystem.h>
 #include <Dbt.h>
 #include "WindowsMidiTypes.h"
+
+#include "ui_settingsFormWin.h"
 #endif //Q_OS_MAC
 
 #include "qjson/src/parser.h"
 #include "qjson/src/serializer.h"
-
-#include "ui_settingsForm.h"
 
 #include "hosted/midiinput.h"
 #include "pedal.h"
