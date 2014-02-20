@@ -38,7 +38,7 @@ QLineEdit
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 8px &quot;Futura&quot;;
+	font: 8px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -61,16 +61,16 @@ background: rgb(30,30,30);
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>530</x>
       <y>100</y>
-      <width>151</width>
+      <width>171</width>
       <height>22</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Futura</family>
-      <pointsize>8</pointsize>
+      <family>Futura-Normal</family>
+      <pointsize>10</pointsize>
       <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -82,7 +82,7 @@ background: rgb(30,30,30);
     <property name="styleSheet">
      <string notr="true">QLabel
 {
-	font: 8pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	color: red;
 	background: rgb(40, 40, 40);
 	padding: 0px 0px 0px 3px;
@@ -263,8 +263,8 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 7pt &quot;Futura&quot;;
-	padding: 0,1,0,0;
+	font: 8pt &quot;Futura-Normal&quot;;
+	padding: 0,0,0,0;
 }
 
 QToolButton:pressed
@@ -272,8 +272,8 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 7pt &quot;Futura&quot;;
-	padding: 0, 1, 0, 0;
+	font: 8pt &quot;Futura-Normal&quot;;
+	padding: 0, 0, 0, 0;
 }</string>
       </property>
       <property name="text">
@@ -292,6 +292,26 @@ QToolButton:pressed
       <property name="toolTip">
        <string>Save the current settings&lt;br&gt; to a new preset slot.</string>
       </property>
+      <property name="styleSheet">
+       <string notr="true">/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 8pt &quot;Futura-Normal&quot;;
+	padding: 0,0,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: 2px solid rgb(230, 0, 134);
+	font: 8pt &quot;Futura-Normal&quot;;
+	padding: 0, 0, 0, 0;
+}</string>
+      </property>
       <property name="text">
        <string>SAVE AS</string>
       </property>
@@ -308,6 +328,26 @@ QToolButton:pressed
       <property name="toolTip">
        <string>Revert any unsaved &lt;br&gt;changes in the current &lt;br&gt;preset to its previously &lt;br&gt;saved state.</string>
       </property>
+      <property name="styleSheet">
+       <string notr="true">/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 8pt &quot;Futura-Normal&quot;;
+	padding: 0,0,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: 2px solid rgb(230, 0, 134);
+	font: 8pt &quot;Futura-Normal&quot;;
+	padding: 0, 0, 0, 0;
+}</string>
+      </property>
       <property name="text">
        <string>REVERT</string>
       </property>
@@ -323,6 +363,26 @@ QToolButton:pressed
       </property>
       <property name="toolTip">
        <string>Delete the currently selected preset.</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 8pt &quot;Futura-Normal&quot;;
+	padding: 0,0,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: 2px solid rgb(230, 0, 134);
+	font: 8pt &quot;Futura-Normal&quot;;
+	padding: 0, 0, 0, 0;
+}</string>
       </property>
       <property name="text">
        <string>DELETE</string>
@@ -347,7 +407,7 @@ QToolButton:pressed
        <string notr="true">/*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 8pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(40, 40, 40);
 	color: white;
@@ -358,7 +418,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 8px &quot;Futura&quot;;
+	font: 8px &quot;Futura-Normal&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -500,7 +560,7 @@ QToolButton
 {
 	background: rgb(40, 40, 40);
 	border: 2px solid rgba(0,174,239,255);
-	font: 12pt &quot;Futura&quot;;
+	font: 14pt &quot;Futura-Normal&quot;;
 	color: white;
 }
 
@@ -508,7 +568,7 @@ QToolButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: none;
-	font: 12pt &quot;Futura&quot;;
+	font: 14pt &quot;Futura-Normal&quot;;
 	color: white;
 }
 
@@ -516,14 +576,14 @@ QToolButton::disabled
 {
 	background: rgba(60, 60, 60, 75);
 	border: 2px solid rgba(0, 56, 77, 255);
-	font: 12pt &quot;Futura&quot;;
+	font: 14pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 35);
 }
 
 QToolTip
 {
-	font: 8pt &quot;Futura&quot;;
-}s</string>
+	font: 8pt &quot;Futura-Normal&quot;;
+}</string>
      </property>
      <property name="text">
       <string>Send To SoftStep</string>
@@ -697,7 +757,7 @@ QCheckBox
 {
 	background: none;
     color: transparent;
-    font: 8pt &quot;Futura&quot;;
+    font: 8pt &quot;Futura-Normal&quot;;
 }
 
 QCheckBox::indicator
@@ -790,8 +850,8 @@ QCheckBox::indicator:checked:pressed:focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>12</pointsize>
+       <family>Futura-Normal</family>
+       <pointsize>14</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -806,7 +866,7 @@ QPushButton
 {
 	background: rgb(40, 40, 40);
 	border: 2px solid rgba(0,174,239,255);
-	font: 12pt &quot;Futura&quot;;
+	font: 14pt &quot;Futura-Normal&quot;;
 	color: white;
 }
 
@@ -814,7 +874,7 @@ QPushButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: none;
-	font: 12pt &quot;Futura&quot;;
+	font: 14pt &quot;Futura-Normal&quot;;
 	color: white;
 }</string>
      </property>
@@ -851,8 +911,8 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>12</pointsize>
+       <family>Futura-Normal</family>
+       <pointsize>14</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -867,7 +927,7 @@ QPushButton
 {
 	background: rgb(40, 40, 40);
 	border: 2px solid rgba(0,174,239,255);
-	font: 12pt &quot;Futura&quot;;
+	font: 14pt &quot;Futura-Normal&quot;;
 	color: white;
 }
 
@@ -875,7 +935,7 @@ QPushButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: none;
-	font: 12pt &quot;Futura&quot;;
+	font: 14pt &quot;Futura-Normal&quot;;
 	color: white;
 }</string>
      </property>

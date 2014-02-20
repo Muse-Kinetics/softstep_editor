@@ -30,7 +30,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				7pt &quot;Futura&quot;;
+	font: 				8pt &quot;Futura-Normal&quot;;
 	border:				none;
 }
 
@@ -42,7 +42,7 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: (18, 18, 18);
 	color: white;
@@ -58,7 +58,7 @@ QSpinBox:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	background: none;
 	color: white;
 	padding:0, 3, 0, 0;
@@ -102,7 +102,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 8px &quot;Tahoma&quot;;
+	font: 7px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -150,7 +150,7 @@ QComboBox::down-arrow
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 7px &quot;Futura&quot;;
+	font: 8px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -718,8 +718,8 @@ QToolButton:pressed
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>7</pointsize>
+     <family>Futura-Normal</family>
+     <pointsize>8</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -740,8 +740,8 @@ QToolButton:pressed
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>7</pointsize>
+     <family>Futura-Normal</family>
+     <pointsize>8</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -862,8 +862,8 @@ QSpinBox:disabled
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>7</pointsize>
+     <family>Futura-Normal</family>
+     <pointsize>8</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
