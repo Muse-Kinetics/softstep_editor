@@ -1079,7 +1079,7 @@ QString MidiDeviceManager::getDisplayName(int deviceIndex, QString inOrOut)
 
 void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, int len, QString destinationName)
 {
-    qDebug() << "------------- send sysex" << messageID;
+    qDebug() << "------------- send sysex" << messageID << destinationName;
 
     if(messageID == "update firmware")
     {
@@ -1419,23 +1419,46 @@ void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
 
     for(int i=0; i<midiInGetNumDevs(); i++)
     {
-
-        if(getDisplayName(i, "In") != QString("SSCOM"))
+        if(QSysInfo::windowsVersion() == QSysInfo::WV_XP)
         {
-            qDebug() << "MIDI INPUT SOURCE i -- NO SSCOM!" << i << getDisplayName(i, "In");
+            if(getDisplayName(i, "In") != QString("USB Audio Device"))
+            {
+                qDebug() << "MIDI INPUT SOURCE i -- NO SSCOM!" << i << getDisplayName(i, "In");
 
-            if(getDisplayName(i, "In").contains("SSCOM") && getDisplayName(i, "In").contains("2"))
-            {
-                //We would like port 2 to be named SoftStep Expander
-                midiInputSources.insert("SoftStep Expander", i);
+                if(getDisplayName(i, "In").contains("USB Audio Device") && getDisplayName(i, "In").contains("2"))
+                {
+                    //We would like port 2 to be named SoftStep Expander
+                    midiInputSources.insert("SoftStep Expander", i);
+                }
+                else
+                {
+                    //Store name of dest and it's endpoint ref
+                    midiInputSources.insert(getDisplayName(i, "In"), i);
+                }
+                //qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetDestination(i));
             }
-            else
-            {
-                //Store name of dest and it's endpoint ref
-                midiInputSources.insert(getDisplayName(i, "In"), i);
-            }
-            //qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetDestination(i));
         }
+        else
+        {
+            if(getDisplayName(i, "In") != QString("SSCOM"))
+            {
+                qDebug() << "MIDI INPUT SOURCE i -- NO SSCOM!" << i << getDisplayName(i, "In");
+
+                if(getDisplayName(i, "In").contains("SSCOM") && getDisplayName(i, "In").contains("2"))
+                {
+                    //We would like port 2 to be named SoftStep Expander
+                    midiInputSources.insert("SoftStep Expander", i);
+                }
+                else
+                {
+                    //Store name of dest and it's endpoint ref
+                    midiInputSources.insert(getDisplayName(i, "In"), i);
+                }
+                //qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetDestination(i));
+            }
+        }
+
+
 
         //Allocate new array of endpoint pointers for passing as refcon
         //midiInputSourcePointers = new MIDIEndpointRef[MIDIGetNumberOfSources()];
@@ -1450,19 +1473,39 @@ void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
 
     for(uint i =0; i<midiOutGetNumDevs(); i++)
     {
-        if(getDisplayName(i, "Out") != QString("SSCOM"))
+        if(QSysInfo::windowsVersion() == QSysInfo::WV_XP)
         {
-            if(getDisplayName(i, "Out").contains("SSCOM") && getDisplayName(i, "Out").contains("2"))
+            if(getDisplayName(i, "Out") != QString("USB Audio Device"))
             {
-                //We would like port 2 to be named SoftStep Expander
-                externalDests.insert("SoftStep Expander", i);
+                if(getDisplayName(i, "Out").contains("USB Audio Device") && getDisplayName(i, "Out").contains("2"))
+                {
+                    //We would like port 2 to be named SoftStep Expander
+                    externalDests.insert("SoftStep Expander", i);
+                }
+                else
+                {
+                    //Store name of dest and it's endpoint ref
+                    externalDests.insert(getDisplayName(i, "Out"), i);
+                }
+                //qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetDestination(i));
             }
-            else
+        }
+        else
+        {
+            if(getDisplayName(i, "Out") != QString("SSCOM"))
             {
-                //Store name of dest and it's endpoint ref
-                externalDests.insert(getDisplayName(i, "Out"), i);
+                if(getDisplayName(i, "Out").contains("SSCOM") && getDisplayName(i, "Out").contains("2"))
+                {
+                    //We would like port 2 to be named SoftStep Expander
+                    externalDests.insert("SoftStep Expander", i);
+                }
+                else
+                {
+                    //Store name of dest and it's endpoint ref
+                    externalDests.insert(getDisplayName(i, "Out"), i);
+                }
+                //qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetDestination(i));
             }
-            //qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetDestination(i));
         }
     }
 
