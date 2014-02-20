@@ -33,7 +33,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				7pt &quot;Futura&quot;;
+	font: 				8pt &quot;Futura-Normal&quot;;
 	border:				none;
 }
 
@@ -45,11 +45,11 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	border: 2px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 QSpinBox::focus
@@ -61,33 +61,29 @@ QSpinBox::focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	background: rgba(0,174,239,0);
 	border: 2px solid rgba(0,174,239,255);
 	border-radius: 0px;
 	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
 }
 
 QLineEdit:focus
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	background: rgba(0,174,239,0);
 	border: 2px solid white;
 	border-radius: 0px;
 	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
 }
 
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	background:rgba(0,174,239,0);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 	border: none;
 }
 
@@ -117,8 +113,8 @@ background: black;
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>7</pointsize>
+     <family>Futura-Normal</family>
+     <pointsize>8</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -156,7 +152,6 @@ background: black;
     <string notr="true">QCheckBox
 {
 color: rgba(255,255,255,250);
-	font: 7pt &quot;Futura&quot;;
 }
 
 QCheckBox::indicator {
@@ -220,7 +215,6 @@ QCheckBox::indicator {
     <string notr="true">QCheckBox
 {
 color: rgba(255,255,255,250);
-	font: 7pt &quot;Futura&quot;;
 }
 
 QCheckBox::indicator {
@@ -284,7 +278,6 @@ QCheckBox::indicator {
     <string notr="true">QCheckBox
 {
 color: rgba(255,255,255,250);
-	font: 7pt &quot;Futura&quot;;
 }
 
 QCheckBox::indicator {
@@ -348,7 +341,6 @@ QCheckBox::indicator {
     <string notr="true">QCheckBox
 {
 color: rgba(255,255,255,250);
-	font: 7pt &quot;Futura&quot;;
 }
 
 QCheckBox::indicator {
@@ -412,7 +404,6 @@ QCheckBox::indicator {
     <string notr="true">QCheckBox
 {
 color: rgba(255,255,255,250);
-	font: 7pt &quot;Futura&quot;;
 }
 
 QCheckBox::indicator {
@@ -479,7 +470,6 @@ QCheckBox::indicator {
     <string notr="true">QCheckBox
 {
 color: rgba(255,255,255,250);
-	font: 7pt &quot;Futura&quot;;
 }
 
 QCheckBox::indicator {
@@ -599,11 +589,11 @@ background: rgba(0, 0, 0, 0);
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	border: 2px solid rgb(0,174,239);
 	background: rgba(0, 0, 0, 0);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 QSpinBox:focus

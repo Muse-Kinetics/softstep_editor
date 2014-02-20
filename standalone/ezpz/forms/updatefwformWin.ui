@@ -169,10 +169,17 @@ QPushButton:pressed
 	border-top-left-radius:4.0;
 	border-top-right-radius:4.0;
 	border:none;
-
-
 }
-</string>
+
+QLabel
+{
+	font: 9pt &quot;Futura-Normal&quot;;
+}
+
+QPushButton
+{
+	font: 9pt &quot;Futura-Normal&quot;;
+}</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -210,8 +217,8 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>7</pointsize>
+       <family>Futura-Normal</family>
+       <pointsize>12</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -221,7 +228,7 @@ QPushButton:pressed
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">font: 12pt;</string>
      </property>
      <property name="text">
       <string>Update/Reload firmware?</string>
@@ -260,8 +267,8 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>7</pointsize>
+       <family>Futura-Normal</family>
+       <pointsize>9</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -291,8 +298,8 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>7</pointsize>
+       <family>Futura-Normal</family>
+       <pointsize>9</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -302,8 +309,7 @@ QPushButton:pressed
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">	font: 7pt &quot;Futura&quot;;
-</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>to your SoftStep</string>

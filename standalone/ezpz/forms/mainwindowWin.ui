@@ -56,14 +56,14 @@
 QPushButton
 {
 	border: 2px solid rgba(0,174,239,255);
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Futura-Normal&quot;;
 	color: white;
 }
 
 QPushButton:pressed
 {
 	border: 2px solid white;
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Futura-Normal&quot;;
 	background: rgba(0,174,239,255);
 	color: white;
 }
@@ -74,7 +74,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	border:				none;
 }
 
@@ -86,11 +86,11 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	border: 2px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 0);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 QAbstractSpinBox:focus
@@ -101,23 +101,23 @@ QAbstractSpinBox:focus
 
 QDoubleSpinBox
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	border: 2px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 0);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	background: rgba(0,174,239,0);
 	border: 2px solid rgba(0,174,239,255);
 	border-radius: 0px;
 	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
+	padding-left: 0px;
+	padding-bottom: 0px;
 }
 
 QLineEdit:focus
@@ -130,7 +130,7 @@ QLineEdit:focus
 QCheckBox
 {
 color: rgba(255,255,255,0);
-	font: 7pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 }
 
 QCheckBox::indicator {
@@ -284,8 +284,8 @@ background: black;
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>7</pointsize>
+       <family>Futura-Normal</family>
+       <pointsize>8</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -307,7 +307,7 @@ background: black;
       <bool>true</bool>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="midiChannelLabel">
@@ -415,14 +415,14 @@ background: black;
    <widget class="QLabel" name="softstepLabel">
     <property name="geometry">
      <rect>
-      <x>860</x>
+      <x>850</x>
       <y>20</y>
-      <width>121</width>
+      <width>131</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 25pt &quot;Futura&quot;;</string>
+     <string notr="true">font: 28pt &quot;Futura-Normal&quot;;</string>
     </property>
     <property name="text">
      <string>SoftStep</string>
@@ -434,14 +434,14 @@ background: black;
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>880</x>
+      <x>870</x>
       <y>51</y>
-      <width>81</width>
+      <width>91</width>
       <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font:6pt &quot;Futura&quot;;
+     <string notr="true">font:8pt &quot;Futura-Normal&quot;;
 color: red;</string>
     </property>
     <property name="text">
@@ -509,8 +509,8 @@ color: red;</string>
     </property>
     <property name="font">
      <font>
-      <family>Futura</family>
-      <pointsize>14</pointsize>
+      <family>Futura-Normal</family>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -524,7 +524,7 @@ color: red;</string>
 QPushButton
 {
 	border: 6px solid rgba(0,174,239,255);
-	font: 14pt &quot;Futura&quot;;
+	font: 16pt &quot;Futura-Normal&quot;;
 	color: white;
 }
 
@@ -532,7 +532,7 @@ QPushButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: 6px solid white;
-	font: 16pt &quot;Futura&quot;;
+	font: 16pt &quot;Futura-Normal&quot;;
 	color: white;
 }</string>
     </property>

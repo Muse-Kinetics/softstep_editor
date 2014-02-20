@@ -163,7 +163,16 @@ QPushButton:pressed
 
 
 }
-</string>
+
+QLabel
+{
+	font: 9pt &quot;Futura-Normal&quot;;
+}
+
+QPushButton
+{
+	font: 9pt &quot;Futura-Normal&quot;;
+}</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -203,7 +212,7 @@ QPushButton:pressed
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: bold 7pt;</string>
+      <string notr="true">font: 8pt;</string>
      </property>
      <property name="text">
       <string>Expected:</string>
@@ -225,7 +234,7 @@ QPushButton:pressed
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: bold 7pt;</string>
+      <string notr="true">font: 8pt;</string>
      </property>
      <property name="text">
       <string>Found:</string>
@@ -245,8 +254,8 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>7</pointsize>
+       <family>Futura-Normal</family>
+       <pointsize>12</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -256,7 +265,7 @@ QPushButton:pressed
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">font: 12pt;</string>
      </property>
      <property name="text">
       <string>Your firmware is out of date.</string>
@@ -278,7 +287,7 @@ QPushButton:pressed
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 7pt;</string>
+      <string notr="true">font: 8pt;</string>
      </property>
      <property name="text">
       <string/>
@@ -300,7 +309,7 @@ QPushButton:pressed
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 7pt;</string>
+      <string notr="true">font: 8pt;</string>
      </property>
      <property name="text">
       <string/>
