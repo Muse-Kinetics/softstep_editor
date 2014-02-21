@@ -50,7 +50,7 @@ QSpinBox
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 1px 1px 3px;
+	padding: 1px 1px 1px 0px;
 }
 
 QSpinBox:focus

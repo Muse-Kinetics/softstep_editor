@@ -455,7 +455,7 @@ QToolTip
     <rect>
      <x>31</x>
      <y>29</y>
-     <width>102</width>
+     <width>111</width>
      <height>18</height>
     </rect>
    </property>
@@ -468,7 +468,7 @@ QToolTip
 QRadioButton
 {
 	color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	border: none;
 }
 
@@ -523,7 +523,7 @@ QRadioButton::indicator:checked:pressed  {
 QRadioButton
 {
 	color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	border: none;
 }
 

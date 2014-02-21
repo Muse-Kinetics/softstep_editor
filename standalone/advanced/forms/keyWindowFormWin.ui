@@ -579,7 +579,7 @@ QCheckBox::indicator:checked:pressed:focus
     </rect>
    </property>
    <property name="toolTip">
-    <string>One or two characters that can be added before &lt;br&gt;the parameter value on the SoftStep's display.&lt;p&gt;&lt;b&gt;Example&lt;/b&gt;: A prefix of &quot;NI&quot; and a value of 34 coming through the modline would show &quot;NI34&quot; on the display.</string>
+    <string>One or two characters that can be added &lt;br&gt;before the parameter value on the SoftStep's display.&lt;p&gt;&lt;b&gt;Example&lt;/b&gt;: A prefix of &quot;NI&quot; and a value of 34 coming through the modline would show &quot;NI34&quot; on the display.</string>
    </property>
    <property name="maxLength">
     <number>2</number>

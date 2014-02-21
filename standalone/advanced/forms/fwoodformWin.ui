@@ -138,6 +138,9 @@ QToolTip
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
      </property>
+     <property name="toolTip">
+      <string>Engage.</string>
+     </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
