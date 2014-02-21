@@ -25,7 +25,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				9pt &quot;Futura&quot;;
+	font: 				8pt &quot;Futura-Normal&quot;;
 	border:				none;
 }
 
@@ -37,7 +37,7 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: (18, 18, 18);
 	color: white;
@@ -53,7 +53,7 @@ QSpinBox::focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	background: none;
 	color: white;
 	padding:0, 3, 0, 0;
@@ -68,7 +68,7 @@ QCheckBox:focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -86,7 +86,7 @@ QLineEdit:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -97,7 +97,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 7px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -145,7 +145,7 @@ QComboBox::down-arrow
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -604,7 +604,7 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+    <string notr="true">font: 7pt &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -640,7 +640,7 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+    <string notr="true">font: 7pt &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -696,7 +696,7 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+    <string notr="true">font: 7pt &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -778,11 +778,11 @@ QToolButton:pressed
     <string notr="true">/* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	color: white;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(20, 20, 20);
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 QSpinBox::focus
@@ -795,7 +795,7 @@ QSpinBox:disabled
 {
 	background-color: rgba(20, 20, 20, 75);
 	border-color: rgba(0, 174, 239, 75);
-	font: 9pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 75)
 }
 </string>
@@ -821,8 +821,8 @@ QSpinBox:disabled
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>9</pointsize>
+     <family>Futura-Normal</family>
+     <pointsize>8</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -848,11 +848,11 @@ QSpinBox:disabled
     <string notr="true">/* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	color: white;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(20, 20, 20);
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 QSpinBox::focus
@@ -865,7 +865,7 @@ QSpinBox:disabled
 {
 	background-color: rgba(20, 20, 20, 75);
 	border-color: rgba(0, 174, 239, 75);
-	font: 9pt &quot;Futura&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 75)
 }
 </string>
@@ -959,8 +959,8 @@ QCheckBox::indicator:checked:disabled
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>9</pointsize>
+     <family>Futura-Normal</family>
+     <pointsize>8</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -1033,8 +1033,8 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
-     <pointsize>9</pointsize>
+     <family>Futura-Normal</family>
+     <pointsize>8</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>

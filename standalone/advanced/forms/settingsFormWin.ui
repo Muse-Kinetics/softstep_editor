@@ -25,7 +25,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				10pt &quot;Futura&quot;;
+	font: 				10pt &quot;Futura-Normal&quot;;
 	border:				none;
 }
 
@@ -37,11 +37,11 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(25, 25, 25);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 QSpinBox::focus
@@ -52,7 +52,7 @@ QSpinBox::focus
 
 QDoubleSpinBox
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(25, 25, 25);
 	color: white;
@@ -69,18 +69,18 @@ QDoubleSpinBox::focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	background: rgba(0,174,239,0);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
 	color: white;
 	padding-left: 2px;
-	padding-bottom: 2px;
+	padding-bottom: 0px;
 }
 
 QLineEdit:focus
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	background: rgb(0,174,239);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -92,7 +92,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	background:rgb(0,174,239);
 	color: white;
 	padding:0, 3, 0, 0;
@@ -118,7 +118,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 8px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -166,7 +166,7 @@ QComboBox::down-arrow
 
 /*------------ QPushButton -----------*/
 QPushButton {
-	font: 12pt &quot;Futura&quot;;
+	font: 12pt &quot;Futura-Normal&quot;;
 	border: 2px solid rgb(0,174,239);
 	background-color: rgb(58,58,60);
 	color: white;
@@ -231,7 +231,7 @@ QSlider::add-page:horizontal
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -252,7 +252,7 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
+     <family>Futura-Normal</family>
      <pointsize>-1</pointsize>
      <weight>50</weight>
      <italic>false</italic>
@@ -299,7 +299,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				10pt &quot;Futura&quot;;
+	font: 				10pt &quot;Futura-Normal&quot;;
 	border:				none;
 }
 
@@ -311,11 +311,11 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 QSpinBox:focus
@@ -326,11 +326,11 @@ QSpinBox:focus
 
 QDoubleSpinBox
 {
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 QDoubleSpinBox:focus
@@ -342,7 +342,7 @@ QDoubleSpinBox:focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -353,7 +353,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	background: rgb(0,174,239);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -365,7 +365,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-    font: 10pt &quot;Futura&quot;;
+    font: 10pt &quot;Futura-Normal&quot;;
 }
 
 QCheckBox::indicator
@@ -423,7 +423,7 @@ QCheckBox::indicator:checked:pressed:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -435,7 +435,7 @@ QComboBox
 QRadioButton
 {
 	color: rgba(255,255,255,250);
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 }
 
 QRadioButton::indicator  {
@@ -681,7 +681,7 @@ QRadioButton::indicator:checked:pressed
       </property>
       <property name="font">
        <font>
-        <family>Futura</family>
+        <family>Futura-Normal</family>
         <pointsize>-1</pointsize>
         <weight>75</weight>
         <italic>false</italic>
@@ -713,7 +713,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="font">
        <font>
-        <family>Futura</family>
+        <family>Futura-Normal</family>
         <pointsize>10</pointsize>
         <weight>50</weight>
         <italic>false</italic>
@@ -783,7 +783,7 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
+       <family>Futura-Normal</family>
        <pointsize>-1</pointsize>
        <weight>75</weight>
        <italic>false</italic>
@@ -811,7 +811,7 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
+       <family>Futura-Normal</family>
        <pointsize>-1</pointsize>
        <weight>75</weight>
        <italic>false</italic>
@@ -839,7 +839,7 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
+       <family>Futura-Normal</family>
        <pointsize>-1</pointsize>
        <weight>75</weight>
        <italic>false</italic>
@@ -875,7 +875,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(0, 174, 239);
-	font: 7pt &quot;Droid Sans Mono&quot;;
+	font: 6pt &quot;Droid Sans Mono&quot;;
 	padding: 1,0,0,0;
 }
 
@@ -884,7 +884,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(0, 174, 239);
-	font: 7pt &quot;Droid Sans Mono&quot;;
+	font: 6pt &quot;Droid Sans Mono&quot;;
 	padding: 1, 0, 0, 0;
 }</string>
      </property>
@@ -1271,6 +1271,11 @@ QLabel
 {
 	color: white;
 	background: transparent;
+}
+
+QSpinBox
+{
+	padding: 0, 0, 0, 0;
 }</string>
      </property>
      <property name="frameShape">
@@ -1289,7 +1294,7 @@ QLabel
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: bold 12px</string>
+       <string notr="true">font: 12pt &quot;Futura-Normal&quot;;</string>
       </property>
       <property name="text">
        <string>Keys</string>
@@ -2852,6 +2857,11 @@ QLabel
 {
 	color: white;
 	background: transparent;
+}
+
+QSpinBox
+{
+	padding: 0,0,0,0;
 }</string>
      </property>
      <property name="frameShape">
@@ -3076,8 +3086,7 @@ QLabel
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: bold 12px;
-</string>
+       <string notr="true">font: 12pt &quot;Futura-Normal&quot;;</string>
       </property>
       <property name="text">
        <string>Nav Pad</string>
@@ -3209,7 +3218,7 @@ QLabel
 {
 	background:		transparent;
 	color: 				white;
-	font: 				10pt &quot;Futura&quot;;
+	font: 				8pt &quot;Futura-Normal&quot;;
 	border:				none;
 }
 
@@ -3227,11 +3236,11 @@ QLabel:disabled
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(25, 25, 25);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 QSpinBox::focus
@@ -3242,27 +3251,27 @@ QSpinBox::focus
 
 QSpinBox:disabled
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 50);
 	border: 1px solid rgba(0, 174, 230, 75);
 	background-color: rgba(25, 25, 25, 75);
-	padding: 0, 3, 0, 0;
+	padding: 0, 0, 0, 0;
 }
 
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	background: transparent;
 	color: white;
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 	border: none;
 }
 
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -3273,7 +3282,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -3320,7 +3329,7 @@ QComboBox::down-arrow
 
 QComboBox:disabled
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	color: (175, 175, 175, 50);
 	border: 1px solid rgba(0,174,239, 75);
 	background: rgba(18, 18, 18, 75);
@@ -3330,7 +3339,7 @@ QComboBox:disabled
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	background: rgba(25, 25, 25, 255);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -3341,7 +3350,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	background: rgb(0,174,239);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -3352,7 +3361,7 @@ QLineEdit:focus
 
 QLineEdit:disabled
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	background: rgba(25, 25, 25, 75);
 	border: 1px solid rgba(0, 174, 239, 75);
 	border-radius: 0px;
@@ -4586,7 +4595,7 @@ QToolTip
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: bold 12px</string>
+       <string notr="true">font:12px</string>
       </property>
       <property name="text">
        <string>MIDI Input</string>
@@ -4765,7 +4774,7 @@ QLabel
 {
 	background:		transparent;
 	color: 				white;
-	font: 				10pt &quot;Futura&quot;;
+	font: 				8pt &quot;Futura-Normal&quot;;
 	border:				none;
 }
 
@@ -4783,11 +4792,11 @@ QLabel:disabled
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(25, 25, 25);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 }
 
 QSpinBox::focus
@@ -4798,7 +4807,7 @@ QSpinBox::focus
 
 QSpinBox:disabled
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 50);
 	border: 1px solid rgba(0, 174, 230, 75);
 	background-color: rgba(25, 25, 25, 75);
@@ -4808,7 +4817,7 @@ QSpinBox:disabled
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	background: transparent;
 	color: white;
 	padding:0, 3, 0, 0;
@@ -4818,7 +4827,7 @@ QCheckBox
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -4829,7 +4838,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 7px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -4876,7 +4885,7 @@ QComboBox::down-arrow
 
 QComboBox:disabled
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	color: (175, 175, 175, 50);
 	border: 1px solid rgba(0,174,239, 75);
 	background: rgba(18, 18, 18, 75);
@@ -4886,7 +4895,7 @@ QComboBox:disabled
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	background: rgba(25, 25, 25, 255);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -4897,7 +4906,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	background: rgb(0,174,239);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -4908,7 +4917,7 @@ QLineEdit:focus
 
 QLineEdit:disabled
 {
-	font: 9px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	background: rgba(25, 25, 25, 75);
 	border: 1px solid rgba(0, 174, 239, 75);
 	border-radius: 0px;
@@ -5099,7 +5108,7 @@ QLineEdit:disabled
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: bold 12px</string>
+       <string notr="true">font: 12px</string>
       </property>
       <property name="text">
        <string>OSC Input</string>
@@ -5853,7 +5862,7 @@ background: none;</string>
        </property>
        <property name="font">
         <font>
-         <family>Futura</family>
+         <family>Futura-Normal</family>
          <pointsize>-1</pointsize>
          <weight>50</weight>
          <italic>false</italic>
@@ -5964,6 +5973,9 @@ background: none;</string>
      <property name="toolTip">
       <string>Ranged 1-10, this sets the amount of smoothing applied to the pedal data.&lt;p&gt;Higher values = more smoothing&lt;br&gt;Lower values = less smoothing</string>
      </property>
+     <property name="styleSheet">
+      <string notr="true">font: 9pt;</string>
+     </property>
      <property name="text">
       <string>Smoothing</string>
      </property>
@@ -5987,7 +5999,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 16pt &quot;Futura&quot;;
+	font: 16pt &quot;Futura-Normal&quot;;
 	padding: 0,1,0,0;
 }
 
@@ -5996,7 +6008,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: none;
-	font: 16pt &quot;Futura&quot;;
+	font: 16pt &quot;Futura-Normal&quot;;
 	padding: 0, 1, 0, 0;
 }</string>
      </property>
@@ -6023,7 +6035,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	padding: 1,1,0,0;
 }
 
@@ -6032,7 +6044,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: none;
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	padding: 0, 1, 0, 0;
 }</string>
      </property>

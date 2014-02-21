@@ -44,7 +44,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				10pt &quot;Futura&quot;;
+	font: 				10pt &quot;Futura-Normal&quot;;
 	border:				none;
 }
 
@@ -53,33 +53,10 @@ QLabel:hover
 	border:				none;
 }  
 
-/* ---------- QLineEdit ------------*/
-QLineEdit
-{
-	font: 10pt &quot;Futura&quot;;
-	background: none;
-	border: none;
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
-QLineEdit:focus
-{
-	font: 10pt &quot;Futura&quot;;
-	background: none;
-	border: none;
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	background:rgba(0,174,239,0);
 	color: white;
 	padding:0, 3, 0, 0;
@@ -94,7 +71,7 @@ QCheckBox:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(40, 40, 40);
 	color: white;
@@ -105,7 +82,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Futura-Normal&quot;;
 	padding-left: 5px;
 	min-width: 100px;
 }
@@ -151,7 +128,7 @@ QComboBox::down-arrow
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -170,7 +147,7 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
+     <family>Futura-Normal</family>
      <pointsize>-1</pointsize>
      <weight>50</weight>
      <italic>false</italic>

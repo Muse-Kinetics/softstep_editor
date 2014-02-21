@@ -34,109 +34,32 @@ QFrame
 /* ---------- QLabels ------------*/
 QLabel
 {
-	background:		rgba(0,0,0,0);
+	background:	rgba(0,0,0,0);
 	color: 				white;
-	font: 				11pt &quot;Futura&quot;;
-	border:				none;
+	font: 				10pt &quot;Futura-Normal&quot;;
+	border:			none;
 }
 
 QLabel:hover
 {
-	border:				none;
-}
-
-/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 10pt &quot;Futura&quot;;
-	border: 2px solid rgb(0,174,239);
-	background-color: rgba(0, 0, 0, 255);
-	color: white;
-	padding:0, 3, 0, 0;
-}
-
-QSpinBox::focus
-{
-	border: none;
-	outline: none;
-}
-
-/* ---------- QLineEdit ------------*/
-QLineEdit
-{
-	font: 10pt &quot;Futura&quot;;
-	background: rgba(0,174,239,0);
-	border: 2px solid rgba(0,174,239,255);
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
-QLineEdit:focus
-{
-	font: 10pt &quot;Futura&quot;;
-	background: rgba(0,174,239,0);
-	border: 2px solid white;
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
-/* ---------- QCheckBox ------------*/
-QCheckBox
-{
-	font: 10pt &quot;Futura&quot;;
-	background:rgba(0,174,239,0);
-	color: white;
-	padding:0, 3, 0, 0;
-	border: none;
-}
-
-QCheckBox:focus
-{
-	background:rgba(0,174,239,0);
-}
-
-
-/* ------- QStackedWidget ---------*/
-QStackedWidget
-{
-border-top: 1px solid white;
-background: black;
+	border:	none;
 }
 
 /*---------- QPushButton ---------*/
 QPushButton
 {
 	border: 2px solid rgba(0,174,239,255);
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	color: white;
 }
 
 QPushButton:pressed
 {
 	border: 2px solid white;
-	font: 9pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	background: rgba(0,174,239,255);
 	color: white;
 }
-
-/*---------- QProgress Bar ---------*/
-QProgressBar 
-{
-border: 2px solid rgb(60, 60, 60);
-padding: 0px;
-background: white;
- }
-
-QProgressBar::chunk
-{
-background-color: rgba(0,174,239,255);
-border-radius: 1px;
-}
-
 </string>
   </property>
   <widget class="QFrame" name="warningFrame">
@@ -197,8 +120,8 @@ border:none;
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>11</pointsize>
+       <family>Futura-Normal</family>
+       <pointsize>10</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>

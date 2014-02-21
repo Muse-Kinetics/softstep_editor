@@ -199,7 +199,7 @@ QPushButton:pressed
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>30</x>
        <y>40</y>
        <width>81</width>
        <height>16</height>
@@ -221,7 +221,7 @@ QPushButton:pressed
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>50</x>
        <y>60</y>
        <width>61</width>
        <height>16</height>
@@ -275,7 +275,7 @@ QPushButton:pressed
     <widget class="QLabel" name="expected">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>120</x>
        <y>40</y>
        <width>111</width>
        <height>16</height>
@@ -297,7 +297,7 @@ QPushButton:pressed
     <widget class="QLabel" name="found">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>120</x>
        <y>60</y>
        <width>111</width>
        <height>16</height>
@@ -319,7 +319,7 @@ QPushButton:pressed
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>30</x>
        <y>80</y>
        <width>81</width>
        <height>16</height>
@@ -341,7 +341,7 @@ QPushButton:pressed
     <widget class="QLabel" name="editor_version">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>120</x>
        <y>80</y>
        <width>111</width>
        <height>16</height>

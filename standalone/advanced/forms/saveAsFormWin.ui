@@ -25,7 +25,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				10pt &quot;Futura&quot;;
+	font: 				10pt &quot;Futura-Normal&quot;;
 	border:				none;
 }
 
@@ -37,7 +37,7 @@ QLabel:hover
 /*-------QPushButton-------*/
 QPushButton
 {
-	font: 8px &quot;Futura&quot;;
+	font: 8px &quot;Futura-Normal&quot;;
 	color: white;
 	border: 2px solid rgb(0, 174, 239);
 }
@@ -50,7 +50,7 @@ QPushButton:pressed
 /*-------QToolButton-------*/
 QToolButton
 {
-	font: 8px &quot;Futura&quot;;
+	font: 8px &quot;Futura-Normal&quot;;
 	color: white;
 	border: 2px solid rgb(0, 174, 239);
 }
@@ -63,7 +63,7 @@ QToolButton:pressed
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	background: rgb(18, 18, 18);
 	border: 2px solid rgb(0, 174, 239);
 	border-radius: 0px;
@@ -74,7 +74,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgb(0, 174, 239);
 	border-radius: 0px;
@@ -86,7 +86,7 @@ QLineEdit:focus
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 9px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -152,8 +152,8 @@ QToolTip
     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Futura'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;What's my name?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Futura-Normal'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Futura-Normal';&quot;&gt;What's my name?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

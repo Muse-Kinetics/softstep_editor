@@ -249,7 +249,7 @@ QComboBox::down-arrow
        <rect>
         <x>15</x>
         <y>45</y>
-        <width>46</width>
+        <width>48</width>
         <height>20</height>
        </rect>
       </property>
@@ -283,9 +283,9 @@ QToolButton:pressed
      <widget class="QToolButton" name="saveas">
       <property name="geometry">
        <rect>
-        <x>70</x>
+        <x>69</x>
         <y>45</y>
-        <width>46</width>
+        <width>48</width>
         <height>20</height>
        </rect>
       </property>
@@ -319,9 +319,9 @@ QToolButton:pressed
      <widget class="QToolButton" name="revert">
       <property name="geometry">
        <rect>
-        <x>124</x>
+        <x>122</x>
         <y>45</y>
-        <width>46</width>
+        <width>48</width>
         <height>20</height>
        </rect>
       </property>
@@ -355,9 +355,9 @@ QToolButton:pressed
      <widget class="QToolButton" name="deletepreset">
       <property name="geometry">
        <rect>
-        <x>178</x>
+        <x>176</x>
         <y>45</y>
-        <width>46</width>
+        <width>48</width>
         <height>20</height>
        </rect>
       </property>

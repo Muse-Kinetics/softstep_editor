@@ -201,7 +201,7 @@ QRadioButton::indicator:checked:pressed
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 7px &quot;Futura&quot;;
+	font: 10pt &quot;Futura&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
