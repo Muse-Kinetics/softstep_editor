@@ -599,7 +599,9 @@ void MainWindow::slotConnectInterfaces()
     }
 
     //Save As
+    connect(ui->saveas, SIGNAL(clicked()), disableWidget, SLOT(raise()));
     connect(ui->saveas, SIGNAL(clicked()), disableWidget, SLOT(show()));
+    connect(ui->saveas, SIGNAL(clicked()), saveAsDialogWidget, SLOT(raise()));
     connect(ui->saveas, SIGNAL(clicked()), saveAsDialogWidget, SLOT(show()));
     connect(ui->saveas, SIGNAL(clicked()), saveAsDialogForm->name, SLOT(setFocus()));
     connect(saveAsDialogForm->cancel, SIGNAL(clicked()), saveAsDialogWidget, SLOT(close()));
@@ -613,7 +615,9 @@ void MainWindow::slotConnectInterfaces()
     connect(importOldPresetHandler, SIGNAL(signalAddRemovePreset()), this, SLOT(slotPopulatePresetMenu()));
 
     //Delete
+    connect(ui->deletepreset, SIGNAL(clicked()), disableWidget, SLOT(raise()));
     connect(ui->deletepreset, SIGNAL(clicked()), disableWidget, SLOT(show()));
+    connect(ui->deletepreset, SIGNAL(clicked()), deleteDialogWidget, SLOT(raise()));
     connect(ui->deletepreset, SIGNAL(clicked()), deleteDialogWidget, SLOT(show()));
     connect(deleteDialogForm->cancel, SIGNAL(clicked()), disableWidget, SLOT(close()));
     connect(deleteDialogForm->cancel, SIGNAL(clicked()), deleteDialogWidget, SLOT(close()));
@@ -901,7 +905,9 @@ void MainWindow::slotInitMenuBar()
     //Reload Firmware
     updatefw = new QAction("Update/Reload Firmware...", hardware);
     actionList.append(updatefw);
+    connect(updatefw, SIGNAL(triggered()), disableWidget, SLOT(raise()));
     connect(updatefw, SIGNAL(triggered()), disableWidget, SLOT(show()));
+    connect(updatefw, SIGNAL(triggered()), fwUpdateDialogWidget, SLOT(raise()));
     connect(updatefw, SIGNAL(triggered()), fwUpdateDialogWidget, SLOT(show()));
     //connect(updatefw, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
     hardware->addAction(updatefw);
@@ -914,7 +920,9 @@ void MainWindow::slotInitMenuBar()
     //About
     QAction* about = new QAction("About SoftStep Advanced Editor", help);
     actionList.append(about);
+    connect(about, SIGNAL(triggered()), disableWidget, SLOT(raise()));
     connect(about, SIGNAL(triggered()), disableWidget, SLOT(show()));
+    connect(about, SIGNAL(triggered()), aboutFormWidget, SLOT(raise()));
     connect(about, SIGNAL(triggered()), aboutFormWidget, SLOT(show()));
     //connect(about, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
     help->addAction(about);
