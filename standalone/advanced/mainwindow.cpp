@@ -50,8 +50,8 @@ MainWindow::MainWindow(QWidget *parent) :
     copyPasteHandler(new CopyPasteHandler(presetInterface,this)),
     midiParse(new MidiParse()),
     disableWidget(new QWidget(this)),
-    importOldPresetHandler(new ImportOldPresetHandler(presetInterface,this)),
-    oscInterface(new OscInterface(this))
+    importOldPresetHandler(new ImportOldPresetHandler(presetInterface,0)),
+    oscInterface(new OscInterface(0))
 {
     midiDeviceManager = new MidiDeviceManager(this);
 
@@ -249,7 +249,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *)
 {
+#ifdef Q_OS_MAC
     midiDeviceManager->ioGate = false;
+#else
+    midiDeviceManager->ioGate = false;
+    midiDeviceManager->slotCloseMidiIn();
+    midiDeviceManager->slotCloseMidiOut();
+#endif
+
     qDebug() << "closing...";
     //presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
 }
