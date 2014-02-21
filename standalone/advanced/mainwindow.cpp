@@ -777,8 +777,10 @@ void MainWindow::slotConnectInterfaces()
 
     //Import old Preset Dialoge
     connect(importOldPresetHandler, SIGNAL(signalPathFound()), importOldDialogWidget, SLOT(show()));
+    connect(importOldPresetHandler, SIGNAL(signalPathFound()), importOldDialogWidget, SLOT(raise()));
     connect(importOldPresetHandler, SIGNAL(signalImportingComplete()), importOldDialogWidget, SLOT(hide()));
     connect(importOldPresetHandler, SIGNAL(signalPathNotFound()), importOldNotFoundDialogWidget, SLOT(show()));
+    connect(importOldPresetHandler, SIGNAL(signalPathNotFound()), importOldNotFoundDialogWidget, SLOT(raise()));
     connect(importOldNotFoundDialog->ok, SIGNAL(clicked()), importOldNotFoundDialogWidget, SLOT(hide()));
     connect(importOldPresetHandler, SIGNAL(signalImportingPresetNum(QString)), importOldDialog->importMessage, SLOT(setText(QString)));
 
@@ -1005,6 +1007,7 @@ void MainWindow::slotModlineWarning(QString modlineWarningMessage)
 {
     modlineWarningDialog->label->setText(modlineWarningMessage);
     modlineWarningDialogWidget->show();
+    modlineWarningDialogWidget->raise();
 }
 
 void MainWindow::slotSelectedKey(int selectedKey)
