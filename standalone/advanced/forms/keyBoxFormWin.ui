@@ -73,12 +73,13 @@ QLineEdit:focus
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 8px &quot;Futura&quot;;
+	font: 12px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
-	width: 22px;
+	min-width: 45px;
+	min-height: 20px;
 }</string>
   </property>
   <widget class="QFrame" name="keyBoxFrame">
@@ -147,12 +148,17 @@ QToolTip
      </rect>
     </property>
     <property name="toolTip">
-     <string notr="true">&lt;b&gt;Key Name&lt;/b&gt;&lt;p&gt;Set the name of this key.</string>
+     <string notr="true">Key Name&lt;p&gt;Set the name of this key.</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit
 {
 	padding-top: 1px;
+}
+
+QToolTip
+{
+	width: 45px;
 }</string>
     </property>
     <property name="inputMethodHints">

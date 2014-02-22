@@ -70,7 +70,7 @@ QLineEdit:focus
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura-Normal&quot;;
+	font: 12px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -110,7 +110,7 @@ QToolTip
     </rect>
    </property>
    <property name="toolTip">
-    <string>&lt;b&gt;Key Name&lt;/b&gt;&lt;p&gt;Set the name of this key.</string>
+    <string>Key Name&lt;p&gt;Set the name of this key.</string>
    </property>
    <property name="styleSheet">
     <string notr="true">QLineEdit

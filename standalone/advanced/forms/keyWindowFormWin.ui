@@ -103,6 +103,7 @@ QComboBox QListView
 	background-color: rgb(40, 40, 40);
 	border: transparent;
 	font: 7px &quot;Tahoma&quot;;
+	color: white;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -150,7 +151,7 @@ QComboBox::down-arrow
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 8px &quot;Futura-Normal&quot;;
+	font: 12px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);

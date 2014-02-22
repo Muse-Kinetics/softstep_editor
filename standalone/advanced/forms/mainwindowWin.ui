@@ -38,12 +38,12 @@ QLineEdit
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 8px &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
-	width: 22px;
+	min-width: 45px;
 	min-height:20px;
 }
 
@@ -419,6 +419,7 @@ QComboBox QListView
 	background-color: rgb(40, 40, 40);
 	border: transparent;
 	font: 8px &quot;Futura-Normal&quot;;
+	color: white;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -582,7 +583,7 @@ QToolButton::disabled
 
 QToolTip
 {
-	font: 8pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 }</string>
      </property>
      <property name="text">
@@ -646,7 +647,7 @@ QToolTip
       <enum>Qt::DefaultContextMenu</enum>
      </property>
      <property name="toolTip">
-      <string>Sets the current preset's display name. &lt;p&gt; Anything entered here appears on&lt;br&gt; the SoftStep's alphanumeric display&lt;br&gt; when the preset is selected. &lt;p&gt;Limited to a maximum of four &lt;br&gt;characters.</string>
+      <string>Sets the current preset's display name. &lt;p&gt; Anything entered here appears on&lt;br&gt; the SoftStep's alphanumeric display&lt;br&gt; when the preset is selected. &lt;p&gt;Limited to a maximum of four characters.</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QLineEdit

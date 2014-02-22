@@ -231,7 +231,7 @@ QSlider::add-page:horizontal
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura-Normal&quot;;
+	font: 12px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -501,6 +501,9 @@ QRadioButton::indicator:checked:pressed  {
         <height>21</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Set how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key Mode:&lt;/b&gt; Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Adjacent Key Lockout:&lt;/b&gt; Keys immediately adjacent to an activated key cannot be triggered. (Hosted mode only)&lt;p&gt;&lt;b&gt;Multiple Key Mode:&lt;/b&gt; Any key can be activated at any time.</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">QRadioButton
 {
@@ -555,6 +558,9 @@ QRadioButton::indicator:checked:pressed
         <width>123</width>
         <height>21</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>Set how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key Mode:&lt;/b&gt; Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Adjacent Key Lockout:&lt;/b&gt; Keys immediately adjacent to an activated key cannot be triggered. (Hosted mode only)&lt;p&gt;&lt;b&gt;Multiple Key Mode:&lt;/b&gt; Any key can be activated at any time.</string>
       </property>
       <property name="styleSheet">
        <string notr="true">QRadioButton
@@ -621,6 +627,9 @@ QRadioButton::indicator:checked:disabled
         <height>21</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Set how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key Mode:&lt;/b&gt; Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Adjacent Key Lockout:&lt;/b&gt; Keys immediately adjacent to an activated key cannot be triggered. (Hosted mode only)&lt;p&gt;&lt;b&gt;Multiple Key Mode:&lt;/b&gt; Any key can be activated at any time.</string>
+      </property>
       <property name="styleSheet">
        <string notr="true">QRadioButton
 {
@@ -673,7 +682,7 @@ QRadioButton::indicator:checked:pressed
      <widget class="QLabel" name="label_27">
       <property name="geometry">
        <rect>
-        <x>-2</x>
+        <x>-5</x>
         <y>19</y>
         <width>61</width>
         <height>34</height>
@@ -682,21 +691,17 @@ QRadioButton::indicator:checked:pressed
       <property name="font">
        <font>
         <family>Futura-Normal</family>
-        <pointsize>-1</pointsize>
-        <weight>75</weight>
+        <pointsize>10</pointsize>
+        <weight>50</weight>
         <italic>false</italic>
-        <bold>true</bold>
+        <bold>false</bold>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: bold 10px;</string>
+       <string notr="true">font: 10pt &quot;Futura-Normal&quot;;</string>
       </property>
       <property name="text">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Futura'; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Key Safety&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>Key Safety</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -785,13 +790,13 @@ p, li { white-space: pre-wrap; }
       <font>
        <family>Futura-Normal</family>
        <pointsize>-1</pointsize>
-       <weight>75</weight>
+       <weight>50</weight>
        <italic>false</italic>
-       <bold>true</bold>
+       <bold>false</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: bold 10px;</string>
+      <string notr="true">font: 12px;</string>
      </property>
      <property name="text">
       <string>Sensitivity</string>
@@ -2974,6 +2979,9 @@ QSpinBox
         <height>18</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">font: 8pt &quot;Futura-Normal&quot;;</string>
+      </property>
       <property name="text">
        <string>off thresh</string>
       </property>
@@ -3122,6 +3130,9 @@ QSpinBox
         <width>41</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 8pt &quot;Futura-Normal&quot;;</string>
       </property>
       <property name="text">
        <string>on thresh</string>
@@ -3469,7 +3480,7 @@ QLineEdit:disabled
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -3636,6 +3647,24 @@ QToolTip
       <property name="toolTip">
        <string>Sets the MIDI message type to listen for. All other message types will be ignored.&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; Listens for MIDI notes&lt;br&gt;&lt;b&gt;CC:&lt;/b&gt; Listens for CC messages&lt;br&gt;&lt;b&gt;Program:&lt;/b&gt; Listens for program changes&lt;br&gt;</string>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox
+{
+
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura-Normal&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+	min-height:20px;
+}</string>
+      </property>
       <item>
        <property name="text">
         <string>Note</string>
@@ -3680,6 +3709,24 @@ QToolTip
       <property name="toolTip">
        <string>Sets the MIDI message type to listen for. All other message types will be ignored.&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; Listens for MIDI notes&lt;br&gt;&lt;b&gt;CC:&lt;/b&gt; Listens for CC messages&lt;br&gt;&lt;b&gt;Program:&lt;/b&gt; Listens for program changes&lt;br&gt;</string>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox
+{
+
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura-Normal&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+	min-height:20px;
+}</string>
+      </property>
       <item>
        <property name="text">
         <string>Note</string>
@@ -3721,6 +3768,24 @@ QToolTip
       <property name="toolTip">
        <string>Sets the MIDI message type to listen for. All other message types will be ignored.&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; Listens for MIDI notes&lt;br&gt;&lt;b&gt;CC:&lt;/b&gt; Listens for CC messages&lt;br&gt;&lt;b&gt;Program:&lt;/b&gt; Listens for program changes&lt;br&gt;</string>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox
+{
+
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura-Normal&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+	min-height:20px;
+}</string>
+      </property>
       <item>
        <property name="text">
         <string>Note</string>
@@ -3761,6 +3826,24 @@ QToolTip
       </property>
       <property name="toolTip">
        <string>Sets the MIDI message type to listen for. All other message types will be ignored.&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; Listens for MIDI notes&lt;br&gt;&lt;b&gt;CC:&lt;/b&gt; Listens for CC messages&lt;br&gt;&lt;b&gt;Program:&lt;/b&gt; Listens for program changes&lt;br&gt;</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox
+{
+
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura-Normal&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+	min-height:20px;
+}</string>
       </property>
       <item>
        <property name="text">
@@ -4095,7 +4178,7 @@ QToolTip
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -4513,7 +4596,7 @@ QToolTip
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -4615,6 +4698,24 @@ QToolTip
       </property>
       <property name="toolTip">
        <string>Sets the MIDI message type to listen for. All other message types will be ignored.&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; Listens for MIDI notes&lt;br&gt;&lt;b&gt;CC:&lt;/b&gt; Listens for CC messages&lt;br&gt;&lt;b&gt;Program:&lt;/b&gt; Listens for program changes&lt;br&gt;</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox
+{
+
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura-Normal&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+	min-height:20px;
+}</string>
       </property>
       <item>
        <property name="text">
@@ -6134,7 +6235,7 @@ QToolButton:pressed
      </rect>
     </property>
     <property name="toolTip">
-     <string>Click to display settings that &lt;br&gt;apply to the entire SoftStep.</string>
+     <string>Click to display settings &lt;br&gt;that apply to the entire SoftStep.</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QRadioButton
