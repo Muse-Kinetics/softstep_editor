@@ -186,7 +186,7 @@ background: black;
     <property name="geometry">
      <rect>
       <x>845</x>
-      <y>150</y>
+      <y>130</y>
       <width>141</width>
       <height>111</height>
      </rect>
@@ -455,7 +455,7 @@ color: red;</string>
     <property name="geometry">
      <rect>
       <x>844</x>
-      <y>80</y>
+      <y>70</y>
       <width>89</width>
       <height>20</height>
      </rect>
@@ -474,7 +474,7 @@ color: red;</string>
     <property name="geometry">
      <rect>
       <x>945</x>
-      <y>280</y>
+      <y>245</y>
       <width>40</width>
       <height>20</height>
      </rect>
@@ -502,7 +502,7 @@ color: red;</string>
     <property name="geometry">
      <rect>
       <x>845</x>
-      <y>305</y>
+      <y>275</y>
       <width>140</width>
       <height>50</height>
      </rect>
@@ -544,7 +544,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>844</x>
-      <y>280</y>
+      <y>245</y>
       <width>89</width>
       <height>20</height>
      </rect>
@@ -563,9 +563,9 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>844</x>
-      <y>104</y>
+      <y>95</y>
       <width>89</width>
-      <height>20</height>
+      <height>24</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -582,7 +582,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>945</x>
-      <y>80</y>
+      <y>70</y>
       <width>40</width>
       <height>20</height>
      </rect>
@@ -610,7 +610,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>945</x>
-      <y>103</y>
+      <y>95</y>
       <width>24</width>
       <height>24</height>
      </rect>
@@ -625,6 +625,51 @@ QPushButton:pressed
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="revert">
+    <property name="geometry">
+     <rect>
+      <x>845</x>
+      <y>330</y>
+      <width>140</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::NoContextMenu</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/*---------- QPushButton ---------*/
+QPushButton
+{
+	border: 4px solid rgba(0,174,239,255);
+	font: 10pt &quot;Futura&quot;;
+	color: white;
+}
+
+QPushButton:pressed
+{
+	background: rgba(0,174,239,255);
+	border: 4px solid white;
+	font: 10pt &quot;Futura&quot;;
+	color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>REVERT</string>
+    </property>
+   </widget>
    <zorder>settingsFrame</zorder>
    <zorder>softstepLabel</zorder>
    <zorder>connectedLabel</zorder>
@@ -635,6 +680,7 @@ QPushButton:pressed
    <zorder>currentPreset</zorder>
    <zorder>update</zorder>
    <zorder>currentPresetLabel</zorder>
+   <zorder>revert</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
