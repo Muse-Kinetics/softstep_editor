@@ -93,7 +93,7 @@ MainWindow::MainWindow(QWidget *parent) :
     factoryPresetNameLabel->hide();
     factoryPresetNameLabel->resize(this->size());
     factoryPresetNameLabel->setAlignment(Qt::AlignCenter);
-    factoryPresetNameLabel->setStyleSheet("font: 36pt \"Futura\"; color: white");
+    factoryPresetNameLabel->setStyleSheet("font: 26pt \"Futura\"; color: white");
 
     //Coverup for dialogs
     disableWidget = new QWidget(this);
@@ -310,6 +310,7 @@ void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap master)
         ui->backlightLabel->raise();
         ui->softstepLabel->raise();
         ui->connectedLabel->raise();
+        ui->revert->raise();
 
         ui->midiChannel->setFocusPolicy(Qt::NoFocus);
         ui->navPadCC->setFocusPolicy(Qt::NoFocus);
