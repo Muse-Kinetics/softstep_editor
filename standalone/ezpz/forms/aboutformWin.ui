@@ -195,7 +195,7 @@ QLabel
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>60</x>
        <y>30</y>
        <width>51</width>
        <height>16</height>
@@ -217,7 +217,7 @@ QLabel
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>60</x>
        <y>50</y>
        <width>51</width>
        <height>16</height>
@@ -271,7 +271,7 @@ QLabel
     <widget class="QLabel" name="expected">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>120</x>
        <y>30</y>
        <width>111</width>
        <height>16</height>
@@ -293,7 +293,7 @@ QLabel
     <widget class="QLabel" name="found">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>120</x>
        <y>50</y>
        <width>111</width>
        <height>16</height>
