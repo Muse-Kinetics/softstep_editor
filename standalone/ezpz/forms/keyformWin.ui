@@ -577,7 +577,7 @@ border-top: 1px solid white;
      <x>10</x>
      <y>105</y>
      <width>136</width>
-     <height>41</height>
+     <height>44</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -701,9 +701,9 @@ border: 2px solid white;
      <property name="geometry">
       <rect>
        <x>111</x>
-       <y>20</y>
-       <width>20</width>
-       <height>24</height>
+       <y>19</y>
+       <width>21</width>
+       <height>23</height>
       </rect>
      </property>
      <property name="focusPolicy">
@@ -1051,8 +1051,8 @@ QCheckBox::indicator {
       <rect>
        <x>111</x>
        <y>20</y>
-       <width>20</width>
-       <height>24</height>
+       <width>22</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="focusPolicy">
