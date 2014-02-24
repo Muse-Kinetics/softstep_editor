@@ -1365,6 +1365,8 @@ void MainWindow::slotSetMode()
         importOldPreset->setText("Import Standalone Presets from V1.21");
     }
 
+    presetInterface->slotRecallPreset(1);
+
     settingsWindow->slotEmitAllSettings();
 }
 
