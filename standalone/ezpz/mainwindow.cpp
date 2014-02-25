@@ -15,6 +15,15 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutForm(new Ui::AboutForm)
 {
 
+#ifdef Q_OS_MAC
+    mdm = new MidiDeviceManager(this);
+#else
+    //midiThread = new QThread(this);
+    mdm = new MidiDeviceManager(0);
+    //mdm->moveToThread(midiThread);
+    //midiThread->start();
+#endif
+
     //Mainwindow Ui
     ui->setupUi(this);
 
@@ -44,17 +53,6 @@ MainWindow::MainWindow(QWidget *parent) :
     presetInterface = new PresetInterface(this);
     sysExComposer = new SysExComposer(0);
     copyPasteHandler = new CopyPasteHandler(presetInterface,this);
-
-
-
-#ifdef Q_OS_MAC
-    mdm = new MidiDeviceManager(this);
-#else
-    midiThread = new QThread(this);
-    mdm = new MidiDeviceManager(0);
-    mdm->moveToThread(midiThread);
-    midiThread->start();
-#endif
 
     this->installEventFilter(this);
 
@@ -186,6 +184,12 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 
 void MainWindow::closeEvent(QCloseEvent *)
 {
+#ifdef Q_OS_MAC
+#else
+    mdm->slotCloseMidiIn();
+    mdm->slotCloseMidiOut();
+#endif
+
     qDebug() << "closing...";
     //presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
 }
@@ -469,7 +473,15 @@ void MainWindow::slotUpdateFirmware()
     fwProgressDialog->progressBar->setMaximum(0);
 #endif
     QApplication::processEvents();
-    sysExComposer->slotUpdateFirmware();
+    //sysExComposer->slotUpdateFirmware();
+
+    mdm->slotCloseMidiOut();
+    mdm->slotCloseMidiIn();
+    mdm->fwUpdateRequested = true;
+
+    syxutilProcess = new QProcess;
+    syxutilProcess->setWorkingDirectory("./");
+    syxutilProcess->start("syxutil.exe");
 }
 
 void MainWindow::slotUpdateFwProgressBar(int bytes)
@@ -480,6 +492,16 @@ void MainWindow::slotUpdateFwProgressBar(int bytes)
     }
     else
     {
+#ifdef Q_OS_MAC
+#else
+
+        //qDebug() << "process ID: " << syxutilProcess->pid();
+        //syxutilProcess->kill();
+        //delete syxutilProcess;
+        //syxutilProcess = 0;
+
+        //system("exit");
+#endif
         fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
         fwProgressDialogWidget->close();
         fwUpdateCompleteDialogWidget->show();

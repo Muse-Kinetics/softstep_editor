@@ -117,6 +117,11 @@ public:
     void closeEvent(QCloseEvent *);
     void keyPressEvent(QKeyEvent *);
 
+#ifdef Q_OS_MAC
+#else
+    QProcess *syxutilProcess;
+#endif
+
 signals:
     void signalStandaloneOn();
 

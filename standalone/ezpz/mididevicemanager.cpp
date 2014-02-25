@@ -417,12 +417,13 @@ MidiDeviceManager::MidiDeviceManager(QObject *parent) :
     //Devices
     devicePoller = new QTimer(this);
     connect(devicePoller, SIGNAL(timeout()), this, SLOT(slotPollDevices()));
-    devicePoller->start(1);
+    devicePoller->start(1000);
 
     //Version
     versionPoller = new QTimer(this);
     connect(versionPoller, SIGNAL(timeout()), this, SLOT(slotPollVersion()));
     versionReply = false;
+    queryReplied = false;
 }
 
 void MidiDeviceManager::slotStandaloneOn()
@@ -466,7 +467,8 @@ bool MidiDeviceManager::connectSource()
         slotOpenMidiIn(getSource());
         slotOpenMidiOut(getDestination());
         versionReply = false;
-        versionPoller->start(1);
+        queryReplied = false;
+        versionPoller->start(1000);
         return true;
     }
     else
@@ -790,6 +792,7 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, i
 
 void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
 {
+    /*
     qDebug() << "sysex length" << sysExMessageByteArray.count();
 
     if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 91 && !versionReply)
@@ -798,6 +801,85 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
         versionReply = true;
         Sleep(500);
         emit signalProcessFwQueryReply(sysExMessageByteArray);
+    }
+    */
+
+    qDebug() << "sysex length" << sysExMessageByteArray.count();
+
+    /*
+    for(int i = 0; i < sysExMessageByteArray.size(); i++)
+    {
+        int x = (uint)sysExMessageByteArray.at(i);
+        QString xAsHex = QString("0x%1").arg(x, 0, 16);
+        qDebug() << xAsHex;
+    }
+    */
+
+    qDebug() << "reply index" << sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4));
+
+    //---------- PRE v76 reply
+    if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 91 && !queryReplied)
+    {
+        qDebug() << "Got the reply" << sysExMessageByteArray.count();
+        queryReplied = true;
+
+#ifdef Q_OS_MAC
+
+#else
+        if(fwUpdateRequested)
+        {
+            fwUpdateRequested = false;
+            signalFwBytesLeft(0);
+            QApplication::processEvents();
+        }
+
+#endif
+
+        //qDebug() << foundBootloaderVersion;
+        //qDebug() << foundFirmwwareVersion;
+        //qDebug() << expectedBootloaderVersion;
+        //qDebug() << expectedFirmwareVersion;
+
+        //emit signalFirmwareOutOfDate(expectedBootloaderVersion,foundBootloaderVersion,expectedFirmwareVersion,foundFirmwwareVersion);
+        emit signalProcessFwQueryReply(sysExMessageByteArray);
+    }
+
+    //---------- POST v76 reply
+    else if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 128 && !queryReplied)
+    {
+        qDebug() << "Got the reply p76" << sysExMessageByteArray.count();
+        /*
+        for(int i = 0; i < sysExMessageByteArray.size(); i++)
+        {
+            int x = (uint)sysExMessageByteArray.at(i);
+            QString xAsHex = QString("0x%1").arg(x, 0, 16);
+            qDebug() << xAsHex;
+        }*/
+
+        queryReplied = true;
+
+#ifdef Q_OS_MAC
+
+#else
+        if(fwUpdateRequested)
+        {
+            fwUpdateRequested = false;
+            signalFwBytesLeft(0);
+            QApplication::processEvents();
+        }
+
+#endif
+
+        emit signalProcessFwQueryReply(sysExMessageByteArray);
+        qDebug() << "emit this signal!";
+
+    }
+
+    //If a query was sent and we got a bad reply
+    else if(!queryReplied)
+    {
+        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
+        //QTimer::singleShot(1000, this, SLOT(slotDeviceQueryWait()));
     }
 }
 
@@ -816,7 +898,7 @@ void MidiDeviceManager::slotPollDevices()
 
 void MidiDeviceManager::slotPollVersion()
 {
-    if(!versionReply)
+    if(!queryReplied)
     {
         slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
         emit signalConnected(false);
@@ -839,7 +921,7 @@ void MidiDeviceManager::slotPollVersion()
 
 void CALLBACK MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_PTR dwInstance,DWORD_PTR dwParam1,DWORD_PTR dwParam2)
 {
-    qDebug() << "midi in" << dwParam1 << dwParam2;
+    //qDebug() << "midi in" << dwParam1 << dwParam2;
 
     /*/qDebug() << MIM_DATA << uMsg;
     //qDebug() << dwParam;
@@ -851,22 +933,22 @@ void CALLBACK MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_
 
     switch(wMsg){
     case MIM_OPEN:
-        qDebug("MMOPEN");
+        //qDebug("MMOPEN");
         break;
     case MIM_ERROR:
-        qDebug("MMERROR");
+        //qDebug("MMERROR");
         break;
     case MIM_LONGERROR:
-        qDebug("MIM_LONGERROR");
+        //qDebug("MIM_LONGERROR");
         break;
     case MIM_MOREDATA:
-        qDebug("MIM_MOREDATA");
+        //qDebug("MIM_MOREDATA");
         break;
     case MIM_CLOSE:
-        qDebug("MIM_ClOSE");
+        //qDebug("MIM_ClOSE");
         break;
     case MIM_DATA:
-        qDebug("MIM_DATA");
+        //qDebug("MIM_DATA");
         break;
     case MIM_LONGDATA:
     {
@@ -922,8 +1004,8 @@ void CALLBACK MidiDeviceManager::midiOutCallback(HMIDIOUT handle, UINT uMsg, DWO
 
         if(mda->fwUpdateRequested == true)
         {
-            mda->fwUpdateRequested = false;
-            emit mda->signalFwBytesLeft(0);
+            //mda->fwUpdateRequested = false;
+            //emit mda->signalFwBytesLeft(0);
             //mda->slotCloseMidiIn();
             //mda->slotCloseMidiIn();
             //mda->numDevices = 0; //Resets polling
