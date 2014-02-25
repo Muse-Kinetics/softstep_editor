@@ -1151,17 +1151,26 @@ void MainWindow::slotUpdateFirmware()
 {
     fwoodDialogWidget->hide();
     QApplication::processEvents();
+    fwProgressDialogWidget->raise();
+    QApplication::processEvents();
     fwProgressDialogWidget->show();
     QApplication::processEvents();
     fwProgressDialog->progressBar->setMinimum(0);
     QApplication::processEvents();
 #ifdef Q_OS_MAC
     fwProgressDialog->progressBar->setMaximum(sysExComposer->fwFileSize);
-#else
-    fwProgressDialog->progressBar->setMaximum(0);
-#endif
     QApplication::processEvents();
     sysExComposer->slotUpdateFirmware();
+#else
+    fwProgressDialog->progressBar->setMaximum(0);
+    midiDeviceManager->slotCloseMidiOut();
+    midiDeviceManager->slotCloseMidiIn();
+    midiDeviceManager->fwUpdateRequested = true;
+
+    syxutilProcess = new QProcess;
+    syxutilProcess->setWorkingDirectory("./");
+    syxutilProcess->start("syxutil.exe");
+#endif
 }
 
 void MainWindow::slotUpdateFwProgressBar(int bytes)
@@ -1173,7 +1182,11 @@ void MainWindow::slotUpdateFwProgressBar(int bytes)
     else
     {
         fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
+        QApplication::processEvents();
         fwProgressDialogWidget->close();
+        QApplication::processEvents();
+        fwUpdateCompleteDialogWidget->raise();
+        QApplication::processEvents();
         fwUpdateCompleteDialogWidget->show();
 
         qDebug() << "fw update complete;";

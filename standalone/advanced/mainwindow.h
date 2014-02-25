@@ -135,6 +135,11 @@ public:
 
     void closeEvent(QCloseEvent *);
 
+#ifdef Q_OS_MAC
+#else
+    QProcess *syxutilProcess;
+#endif
+
 signals:
     void signalSaveAs(QString presetName);
     void signalSetMode(QString mode);

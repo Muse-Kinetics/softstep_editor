@@ -778,6 +778,8 @@ MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
 {
     ioGate = true;
 
+    fwUpdateRequested = false;
+
     numDevices = 0;
 
     sysExType = "None";
@@ -1148,6 +1150,18 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
         qDebug() << "Got the reply" << sysExMessageByteArray.count();
         queryReplied = true;
 
+#ifdef Q_OS_MAC
+
+#else
+        if(fwUpdateRequested)
+        {
+            fwUpdateRequested = false;
+            signalFwBytesLeft(0);
+            QApplication::processEvents();
+        }
+
+#endif
+
         //qDebug() << foundBootloaderVersion;
         //qDebug() << foundFirmwwareVersion;
         //qDebug() << expectedBootloaderVersion;
@@ -1168,6 +1182,18 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
             QString xAsHex = QString("0x%1").arg(x, 0, 16);
             qDebug() << xAsHex;
         }*/
+
+#ifdef Q_OS_MAC
+
+#else
+        if(fwUpdateRequested)
+        {
+            fwUpdateRequested = false;
+            signalFwBytesLeft(0);
+            QApplication::processEvents();
+        }
+
+#endif
 
         queryReplied = true;
 
@@ -1773,11 +1799,11 @@ void CALLBACK MidiDeviceManager::midiOutCallback(HMIDIOUT handle, UINT uMsg, DWO
 
         if(mda->fwUpdateRequested == true)
         {
-            mda->fwUpdateRequested = false;
-            emit mda->signalFwBytesLeft(0);
+            //mda->fwUpdateRequested = false;
+            //emit mda->signalFwBytesLeft(0);
             //mda->slotCloseMidiIn();
             //mda->slotCloseMidiIn();
-            mda->numDevices = 0; //Resets polling
+            //mda->numDevices = 0; //Resets polling
             //qDebug() << "Get Source" << mda->getSource();
         }
     }
