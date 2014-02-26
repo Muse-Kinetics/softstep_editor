@@ -236,8 +236,10 @@ MainWindow::MainWindow(QWidget *parent) :
 #else
     //Attempt to Connect SoftStep
     midiDeviceManager->devicePoller->start(500);
-    midiDeviceManager->hosted_slotRepopulateMidiSourceDests();
+    //midiDeviceManager->hosted_slotRepopulateMidiSourceDests();
 #endif
+
+
 
     midiDeviceManager->slotHostedOnOff(true);
 }
@@ -1232,6 +1234,11 @@ void MainWindow::slotSetMode()
     {
         mode = "standalone";
     }
+
+#ifdef Q_OS_MAC
+#else
+    midiDeviceManager->hosted_slotRepopulateMidiSourceDests();
+#endif
 
     //----------------- Set child modes
 

@@ -1261,7 +1261,6 @@ void MidiDeviceManager::slotSetMode(QString m)
     {
         slotHostedOnOff(false);
     }
-
 }
 
 void MidiDeviceManager::slotHostedOnOff(bool onOff)
@@ -1451,6 +1450,8 @@ void MidiDeviceManager::hosted_slotSendPacket(QString port, MIDIPacket packet)
 void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
 {
     //Called when midi system changes, automaticall called on hosted to standlaone/switch because of "SoftStep Share"
+
+    qDebug() << "__________ hosted_slotRepopulateMidiSourceDests()";
 
     //----------------------- Get non SSCOM sources
     midiInputSources.clear();
