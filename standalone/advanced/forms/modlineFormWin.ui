@@ -4497,9 +4497,9 @@ QComboBox QAbstractItemView::item
   <widget class="QLabel" name="label_13">
    <property name="geometry">
     <rect>
-     <x>32</x>
+     <x>28</x>
      <y>2</y>
-     <width>21</width>
+     <width>31</width>
      <height>16</height>
     </rect>
    </property>
@@ -4669,9 +4669,9 @@ QComboBox QAbstractItemView::item
   <widget class="QLabel" name="label_42">
    <property name="geometry">
     <rect>
-     <x>493</x>
+     <x>490</x>
      <y>2</y>
-     <width>31</width>
+     <width>37</width>
      <height>16</height>
     </rect>
    </property>

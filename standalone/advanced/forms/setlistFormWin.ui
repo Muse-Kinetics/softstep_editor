@@ -71,7 +71,7 @@ QCheckBox:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(40, 40, 40);
 	color: white;
@@ -82,7 +82,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Tahoma&quot;;
 	color: white;
 	padding-left: 5px;
 	min-width: 100px;
