@@ -30,7 +30,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	border:				none;
 }
 
@@ -42,7 +42,7 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	border: 2px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
@@ -58,7 +58,7 @@ QSpinBox::focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	background: rgba(0,174,239,0);
 	border: 2px solid rgba(0,174,239,255);
 	border-radius: 0px;
@@ -69,7 +69,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	background: rgba(0,174,239,0);
 	border: 2px solid white;
 	border-radius: 0px;
@@ -81,7 +81,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	background:rgba(0,174,239,0);
 	color: white;
 	padding:0, 3, 0, 0;
@@ -105,14 +105,14 @@ background: black;
 QPushButton
 {
 	border: 2px solid rgba(0,174,239,255);
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	color: white;
 }
 
 QPushButton:pressed
 {
 	border: 2px solid white;
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	background: rgba(0,174,239,255);
 	color: white;
 }
@@ -173,12 +173,12 @@ QPushButton:pressed
 
 QLabel
 {
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 9pt &quot;Corbel&quot;;
 }
 
 QPushButton
 {
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 }</string>
     </property>
     <property name="frameShape">
@@ -217,7 +217,7 @@ QPushButton
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
+       <family>Corbel</family>
        <pointsize>12</pointsize>
        <weight>50</weight>
        <italic>false</italic>
@@ -267,7 +267,7 @@ QPushButton
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
+       <family>Corbel</family>
        <pointsize>9</pointsize>
        <weight>50</weight>
        <italic>false</italic>
@@ -298,7 +298,7 @@ QPushButton
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
+       <family>Corbel</family>
        <pointsize>9</pointsize>
        <weight>50</weight>
        <italic>false</italic>

@@ -166,12 +166,12 @@ QPushButton:pressed
 
 QLabel
 {
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 9pt &quot;Corbel&quot;;
 }
 
 QPushButton
 {
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 }</string>
     </property>
     <property name="frameShape">
@@ -202,7 +202,7 @@ QPushButton
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>60</x>
        <y>30</y>
        <width>51</width>
        <height>16</height>
@@ -224,7 +224,7 @@ QPushButton
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>60</x>
        <y>50</y>
        <width>51</width>
        <height>16</height>
@@ -254,7 +254,7 @@ QPushButton
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
+       <family>Corbel</family>
        <pointsize>12</pointsize>
        <weight>50</weight>
        <italic>false</italic>
@@ -277,9 +277,9 @@ QPushButton
     <widget class="QLabel" name="expected">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>120</x>
        <y>30</y>
-       <width>111</width>
+       <width>95</width>
        <height>16</height>
       </rect>
      </property>
@@ -299,9 +299,9 @@ QPushButton
     <widget class="QLabel" name="found">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>120</x>
        <y>50</y>
-       <width>111</width>
+       <width>95</width>
        <height>16</height>
       </rect>
      </property>

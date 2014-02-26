@@ -30,7 +30,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				7pt &quot;Futura&quot;;
+	font: 				7pt &quot;Corbel&quot;;
 	border:				none;
 }
 
@@ -39,49 +39,10 @@ QLabel:hover
 	border:				none;
 }  
 
-/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 8pt &quot;Futura&quot;;
-	border: 2px solid rgb(0,174,239);
-	background-color: rgba(0, 0, 0, 255);
-	color: white;
-	padding:0, 3, 0, 0;
-}
-
-QSpinBox::focus
-{
-	border: none;
-	outline: none;
-}
-
-/* ---------- QLineEdit ------------*/
-QLineEdit
-{
-	font: 7pt &quot;Futura&quot;;
-	background: rgba(0,174,239,0);
-	border: 2px solid rgba(0,174,239,255);
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
-QLineEdit:focus
-{
-	font: 7pt &quot;Futura&quot;;
-	background: rgba(0,174,239,0);
-	border: 2px solid white;
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	background:rgba(0,174,239,0);
 	color: white;
 	padding:0, 3, 0, 0;
@@ -105,14 +66,14 @@ background: black;
 QPushButton
 {
 	border: 2px solid rgba(0,174,239,255);
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	color: white;
 }
 
 QPushButton:pressed
 {
 	border: 2px solid white;
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	background: rgba(0,174,239,255);
 	color: white;
 }
@@ -164,7 +125,7 @@ QPushButton:pressed
 
 QLabel
 {
-	font: 8pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 }</string>
     </property>
     <property name="frameShape">
@@ -247,7 +208,7 @@ QLabel
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
+       <family>Corbel</family>
        <pointsize>12</pointsize>
        <weight>50</weight>
        <italic>false</italic>
@@ -258,7 +219,7 @@ QLabel
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">font:12pt &quot;Futura-Normal&quot;;
+      <string notr="true">font:12pt &quot;Corbel&quot;;
 </string>
      </property>
      <property name="text">

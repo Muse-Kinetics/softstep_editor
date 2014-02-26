@@ -33,7 +33,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				8pt &quot;Futura-Normal&quot;;
+	font: 				8pt &quot;Corbel&quot;;
 	border:				none;
 }
 
@@ -45,7 +45,7 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 8pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	border: 2px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 255);
 	color: white;
@@ -61,7 +61,7 @@ QSpinBox::focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 8pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	background: rgba(0,174,239,0);
 	border: 2px solid rgba(0,174,239,255);
 	border-radius: 0px;
@@ -70,7 +70,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 8pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	background: rgba(0,174,239,0);
 	border: 2px solid white;
 	border-radius: 0px;
@@ -80,7 +80,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 8pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	background:rgba(0,174,239,0);
 	color: white;
 	padding:0, 0, 0, 0;
@@ -113,7 +113,7 @@ background: black;
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
+     <family>Corbel</family>
      <pointsize>8</pointsize>
      <weight>50</weight>
      <italic>false</italic>
