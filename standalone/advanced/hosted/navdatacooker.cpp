@@ -441,7 +441,7 @@ int NavDataCooker::navNFootOn()
 {
     if(footOnOffN)
     {
-        return 1;
+        return 127;
     }
     else
     {
@@ -453,7 +453,7 @@ int NavDataCooker::navSFootOn()
 {
     if(footOnOffS)
     {
-        return 1;
+        return 127;
     }
     else
     {
@@ -465,7 +465,7 @@ int NavDataCooker::navNFootOff()
 {
     if(!footOnOffN)
     {
-        return 1;
+        return 127;
     }
     else
     {
@@ -477,7 +477,7 @@ int NavDataCooker::navSFootOff()
 {
     if(!footOnOffS)
     {
-        return 1;
+        return 127;
     }
     else
     {
