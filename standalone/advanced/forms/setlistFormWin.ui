@@ -44,7 +44,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				10pt &quot;Futura-Normal&quot;;
+	font: 				10pt &quot;Corbel&quot;;
 	border:				none;
 }
 
@@ -56,7 +56,7 @@ QLabel:hover
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Corbel&quot;;
 	background:rgba(0,174,239,0);
 	color: white;
 	padding:0, 3, 0, 0;
@@ -71,7 +71,7 @@ QCheckBox:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(40, 40, 40);
 	color: white;
@@ -82,7 +82,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 8pt &quot;Tahoma&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	color: white;
 	padding-left: 5px;
 	min-width: 100px;
@@ -129,7 +129,7 @@ QComboBox::down-arrow
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 12px &quot;Futura-Normal&quot;;
+	font: 12px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -148,19 +148,18 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
+     <family>Corbel</family>
      <pointsize>-1</pointsize>
-     <weight>50</weight>
+     <weight>75</weight>
      <italic>false</italic>
-     <bold>false</bold>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QLabel
 	{
-		font: 16px;
+		font: bold 16px;
 		font.underline: 1;
-		font.letterSpacing: 100;
 		border-bottom: 2px solid white;
 	}</string>
    </property>

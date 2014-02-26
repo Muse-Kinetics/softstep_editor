@@ -118,7 +118,16 @@ QToolTip
 
 
 }
-</string>
+
+QLabel
+{
+	font: 10pt &quot;Corbel&quot;;
+}
+
+QPushButton
+{
+	font: 8pt &quot;Corbel&quot;;
+}</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>

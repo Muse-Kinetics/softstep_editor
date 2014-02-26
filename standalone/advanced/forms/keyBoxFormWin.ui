@@ -28,7 +28,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				10pt &quot;Futura&quot;;
+	font: 				10pt &quot;Corbel&quot;;
 	border:				none;
 }
 
@@ -73,7 +73,7 @@ QLineEdit:focus
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 12px &quot;Futura-Normal&quot;;
+	font: 12px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);

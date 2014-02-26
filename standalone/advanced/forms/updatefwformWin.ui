@@ -36,7 +36,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				10pt &quot;Futura-Normal&quot;;
+	font: 				10pt &quot;Corbel&quot;;
 	border:				none;
 }
 
@@ -45,80 +45,18 @@ QLabel:hover
 	border:				none;
 }  
 
-/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 10pt &quot;Futura-Normal&quot;;
-	border: 2px solid rgb(0,174,239);
-	background-color: rgba(0, 0, 0, 255);
-	color: white;
-	padding:0, 3, 0, 0;
-}
-
-QSpinBox::focus
-{
-	border: none;
-	outline: none;
-}
-
-/* ---------- QLineEdit ------------*/
-QLineEdit
-{
-	font: 10pt &quot;Futura-Normal&quot;;
-	background: rgba(0,174,239,0);
-	border: 2px solid rgba(0,174,239,255);
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
-QLineEdit:focus
-{
-	font: 10pt &quot;Futura-Normal&quot;;
-	background: rgba(0,174,239,0);
-	border: 2px solid white;
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
-/* ---------- QCheckBox ------------*/
-QCheckBox
-{
-	font: 10pt &quot;Futura-Normal&quot;;
-	background:rgba(0,174,239,0);
-	color: white;
-	padding:0, 3, 0, 0;
-	border: none;
-}
-
-QCheckBox:focus
-{
-	background:rgba(0,174,239,0);
-}
-
-
-/* ------- QStackedWidget ---------*/
-QStackedWidget
-{
-border-top: 1px solid white;
-background: black;
-}
-
 /*---------- QPushButton ---------*/
 QPushButton
 {
 	border: 2px solid rgba(0,174,239,255);
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	color: white;
 }
 
 QPushButton:pressed
 {
 	border: 2px solid white;
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	background: rgba(0,174,239,255);
 	color: white;
 }
@@ -126,7 +64,7 @@ QPushButton:pressed
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 12px &quot;Futura-Normal&quot;;
+	font: 12px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -219,7 +157,7 @@ QToolTip
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
+       <family>Corbel</family>
        <pointsize>10</pointsize>
        <weight>50</weight>
        <italic>false</italic>
@@ -272,7 +210,7 @@ QToolTip
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
+       <family>Corbel</family>
        <pointsize>10</pointsize>
        <weight>50</weight>
        <italic>false</italic>
@@ -303,7 +241,7 @@ QToolTip
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
+       <family>Corbel</family>
        <pointsize>10</pointsize>
        <weight>50</weight>
        <italic>false</italic>

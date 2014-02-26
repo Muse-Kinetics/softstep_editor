@@ -25,7 +25,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				8pt &quot;Futura-Normal&quot;;
+	font: 				7pt &quot;Corbel&quot;;
 	border:				none;
 }
 
@@ -37,7 +37,7 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 8pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: (18, 18, 18);
 	color: white;
@@ -53,7 +53,7 @@ QSpinBox::focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Corbel&quot;;
 	background: none;
 	color: white;
 	padding:0, 3, 0, 0;
@@ -146,7 +146,7 @@ QComboBox::down-arrow
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 12px &quot;Futura-Normal&quot;;
+	font: 12px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -469,7 +469,7 @@ QToolTip
 QRadioButton
 {
 	color: rgba(255,255,255,250);
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	border: none;
 }
 
@@ -524,7 +524,7 @@ QRadioButton::indicator:checked:pressed  {
 QRadioButton
 {
 	color: rgba(255,255,255,250);
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	border: none;
 }
 
@@ -822,8 +822,8 @@ QSpinBox:disabled
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
-     <pointsize>8</pointsize>
+     <family>Corbel</family>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -960,8 +960,8 @@ QCheckBox::indicator:checked:disabled
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
-     <pointsize>8</pointsize>
+     <family>Corbel</family>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
@@ -1026,7 +1026,7 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="label_22">
    <property name="geometry">
     <rect>
-     <x>720</x>
+     <x>723</x>
      <y>9</y>
      <width>31</width>
      <height>16</height>
@@ -1034,8 +1034,8 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
-     <pointsize>8</pointsize>
+     <family>Corbel</family>
+     <pointsize>7</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>

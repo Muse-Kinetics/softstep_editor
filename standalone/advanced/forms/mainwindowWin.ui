@@ -139,7 +139,7 @@ QPushButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	padding: 0,1,0,0;
 }
 
@@ -148,7 +148,7 @@ QPushButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: none;
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	padding: 0, 1, 0, 0;
 }
 
@@ -158,7 +158,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	padding: 0,1,0,0;
 }
 
@@ -167,7 +167,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	padding: 0, 1, 0, 0;
 }
 
@@ -177,13 +177,13 @@ QLabel
 	background: rgba(0,0,0,0);
 	color: white;
 	border: none;
-	font: 7pt &quot;Futura&quot;;
+	font: 7pt &quot;Corbel&quot;;
 }
 
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 8pt &quot;Futura&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	border: 2px solid rgb(0,174,239);
 	background-color: rgba(28, 28, 29);
 	color: white;
@@ -263,7 +263,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 6pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	padding: 0,0,0,0;
 }
 
@@ -272,7 +272,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 6pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	padding: 0, 0, 0, 0;
 }</string>
       </property>
@@ -335,7 +335,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 6pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	padding: 0,0,0,0;
 }
 
@@ -344,7 +344,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 6pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	padding: 0, 0, 0, 0;
 }</string>
       </property>
@@ -371,7 +371,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 6pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	padding: 0,0,0,0;
 }
 
@@ -380,7 +380,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 6pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	padding: 0, 0, 0, 0;
 }</string>
       </property>
@@ -407,7 +407,7 @@ QToolButton:pressed
        <string notr="true">/*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 8pt &quot;Tahomal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(40, 40, 40);
 	color: white;
@@ -418,7 +418,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 8px &quot;Tahoma&quot;;
+	font: 8px &quot;Corbel&quot;;
 	color: white;
 	padding-left: 3px;
 	padding-right: 3px;
@@ -561,7 +561,7 @@ QToolButton
 {
 	background: rgb(40, 40, 40);
 	border: 2px solid rgba(0,174,239,255);
-	font: 14pt &quot;Futura-Normal&quot;;
+	font: bold 14pt &quot;Corbel&quot;;
 	color: white;
 }
 
@@ -569,7 +569,7 @@ QToolButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: none;
-	font: 14pt &quot;Futura-Normal&quot;;
+	font: bold 14pt &quot;Corbel&quot;;
 	color: white;
 }
 
@@ -577,13 +577,13 @@ QToolButton::disabled
 {
 	background: rgba(60, 60, 60, 75);
 	border: 2px solid rgba(0, 56, 77, 255);
-	font: 14pt &quot;Futura-Normal&quot;;
+	font: bold 14pt &quot;Corbel&quot;;
 	color: rgba(255, 255, 255, 35);
 }
 
 QToolTip
 {
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Corbel&quot;;
 }</string>
      </property>
      <property name="text">
@@ -758,7 +758,7 @@ QCheckBox
 {
 	background: none;
     color: transparent;
-    font: 8pt &quot;Futura-Normal&quot;;
+    font: 8pt &quot;Corbel&quot;;
 }
 
 QCheckBox::indicator
@@ -851,11 +851,11 @@ QCheckBox::indicator:checked:pressed:focus
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
+       <family>Corbel</family>
        <pointsize>14</pointsize>
-       <weight>50</weight>
+       <weight>75</weight>
        <italic>false</italic>
-       <bold>false</bold>
+       <bold>true</bold>
       </font>
      </property>
      <property name="toolTip">
@@ -867,7 +867,7 @@ QPushButton
 {
 	background: rgb(40, 40, 40);
 	border: 2px solid rgba(0,174,239,255);
-	font: 14pt &quot;Futura-Normal&quot;;
+	font: bold 14pt &quot;Corbel&quot;;
 	color: white;
 }
 
@@ -875,7 +875,7 @@ QPushButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: none;
-	font: 14pt &quot;Futura-Normal&quot;;
+	font: bold 14pt &quot;Corbel&quot;;
 	color: white;
 }</string>
      </property>
@@ -912,11 +912,11 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
+       <family>Corbel</family>
        <pointsize>14</pointsize>
-       <weight>50</weight>
+       <weight>75</weight>
        <italic>false</italic>
-       <bold>false</bold>
+       <bold>true</bold>
       </font>
      </property>
      <property name="toolTip">
@@ -928,7 +928,7 @@ QPushButton
 {
 	background: rgb(40, 40, 40);
 	border: 2px solid rgba(0,174,239,255);
-	font: 14pt &quot;Futura-Normal&quot;;
+	font: bold 14pt &quot;Corbel&quot;;
 	color: white;
 }
 
@@ -936,7 +936,7 @@ QPushButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: none;
-	font: 14pt &quot;Futura-Normal&quot;;
+	font: bold 14pt &quot;Corbel&quot;;
 	color: white;
 }</string>
      </property>

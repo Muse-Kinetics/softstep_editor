@@ -25,7 +25,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				10pt &quot;Futura-Normal&quot;;
+	font: 				10pt &quot;Corbel&quot;;
 	border:				none;
 }
 
@@ -37,7 +37,7 @@ QLabel:hover
 /*-------QPushButton-------*/
 QPushButton
 {
-	font: 8px &quot;Futura-Normal&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	color: white;
 	border: 2px solid rgb(0, 174, 239);
 }
@@ -50,7 +50,7 @@ QPushButton:pressed
 /*-------QToolButton-------*/
 QToolButton
 {
-	font: 8px &quot;Futura-Normal&quot;;
+	font: 7pt &quot;Corbel&quot;;
 	color: white;
 	border: 2px solid rgb(0, 174, 239);
 }
@@ -63,7 +63,7 @@ QToolButton:pressed
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	background: rgb(18, 18, 18);
 	border: 2px solid rgb(0, 174, 239);
 	border-radius: 0px;
@@ -74,7 +74,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgb(0, 174, 239);
 	border-radius: 0px;
@@ -86,7 +86,7 @@ QLineEdit:focus
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 12px &quot;Futura-Normal&quot;;
+	font: 12px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);

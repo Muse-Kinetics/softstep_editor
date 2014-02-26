@@ -36,7 +36,7 @@ QLabel
 {
 	background:	rgba(0,0,0,0);
 	color: 				white;
-	font: 				10pt &quot;Futura-Normal&quot;;
+	font: 				10pt &quot;Corbel&quot;;
 	border:			none;
 }
 
@@ -49,14 +49,14 @@ QLabel:hover
 QPushButton
 {
 	border: 2px solid rgba(0,174,239,255);
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	color: white;
 }
 
 QPushButton:pressed
 {
 	border: 2px solid white;
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Corbel&quot;;
 	background: rgba(0,174,239,255);
 	color: white;
 }
@@ -120,7 +120,7 @@ border:none;
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
+       <family>Corbel</family>
        <pointsize>10</pointsize>
        <weight>50</weight>
        <italic>false</italic>
