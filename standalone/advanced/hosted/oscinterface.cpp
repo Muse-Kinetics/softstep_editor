@@ -200,13 +200,13 @@ void OscInterface::slotReadPendingDatagrams()
 
 void OscInterface::slotSetInputEnable(int inputNum, bool enabled)
 {
-    qDebug() << "set enabled" << inputNum << enabled;
+    //qDebug() << "set enabled" << inputNum << enabled;
     oscEnabled[inputNum] = enabled;
 }
 
 void OscInterface::slotSetOSCAddressTags(int inputNum, QString tag)
 {
-    qDebug() << "set address tag" << inputNum << tag;
+    //qDebug() << "set address tag" << inputNum << tag;
     oscAddressTag[inputNum] = tag;
 }
 

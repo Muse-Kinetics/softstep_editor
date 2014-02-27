@@ -236,10 +236,10 @@ QPushButton
     <widget class="QLabel" name="expected">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>120</x>
        <y>30</y>
-       <width>111</width>
-       <height>16</height>
+       <width>71</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="focusPolicy">
@@ -258,10 +258,10 @@ QPushButton
     <widget class="QLabel" name="found">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>120</x>
        <y>50</y>
-       <width>111</width>
-       <height>16</height>
+       <width>71</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="focusPolicy">

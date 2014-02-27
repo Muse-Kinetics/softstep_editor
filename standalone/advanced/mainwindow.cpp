@@ -1110,8 +1110,10 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
 
         fwoodDialogForm->expected->setText(QString("%1").arg(embedded));
         fwoodDialogForm->found->setText(QString("%1").arg(connected));
+        disableWidget->raise();
         disableWidget->show();
         //slotEnableDisableMenu();
+        fwoodDialogWidget->raise();
         fwoodDialogWidget->show();
         qDebug() << "_____ Your firmware version is out of date _____";
         QApplication::processEvents();
