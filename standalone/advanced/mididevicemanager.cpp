@@ -1147,8 +1147,10 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
     //---------- PRE v76 reply
     if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 91 && !queryReplied)
     {
-        qDebug() << "Got the reply" << sysExMessageByteArray.count();
+
+        qDebug() << "------- PRE V76 Got the reply" << sysExMessageByteArray.count();
         queryReplied = true;
+
 
 #ifdef Q_OS_MAC
 
@@ -1169,6 +1171,7 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
 
         //emit signalFirmwareOutOfDate(expectedBootloaderVersion,foundBootloaderVersion,expectedFirmwareVersion,foundFirmwwareVersion);
         emit signalProcessFwQueryReply(sysExMessageByteArray);
+
     }
 
     //---------- POST v76 reply
@@ -1205,7 +1208,8 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
     //If a query was sent and we got a bad reply
     else if(!queryReplied)
     {
-        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
+        //Windows -- do nothing, handled by version poller...
+        //slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
     }
 }
 
@@ -1218,8 +1222,8 @@ void MidiDeviceManager::slotPollDevices()
     if(numDevices != midiInGetNumDevs())
     {
         numDevices = midiInGetNumDevs();
-        hosted_slotRepopulateMidiSourceDests();
-        hosted_slotConnectExternalMidiInputSources();
+        //hosted_slotRepopulateMidiSourceDests();
+        //hosted_slotConnectExternalMidiInputSources();
         connectSource();
     }
 }
