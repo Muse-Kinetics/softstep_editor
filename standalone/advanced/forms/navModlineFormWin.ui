@@ -592,10 +592,10 @@ QSpinBox:disabled
     <enum>QAbstractSpinBox::NoButtons</enum>
    </property>
    <property name="minimum">
-    <number>-127</number>
+    <number>-999</number>
    </property>
    <property name="maximum">
-    <number>127</number>
+    <number>999</number>
    </property>
   </widget>
   <widget class="QSpinBox" name="max">
