@@ -377,36 +377,6 @@ MidiDeviceManager::MidiDeviceManager(QObject *parent) :
     inBootloader = false;
     fwUpdateRequested = false;
 
-    //Load Firmware File into a byte array
-    firmware = new QFile(":firmware/resources/firmware/QuNexus_Firmware.syx");
-    firmware->open(QIODevice::ReadOnly);
-    firmwareByteArray = firmware->readAll();
-
-    //------------------------------------- Set Version Expectations & Initialize Found Strings
-    bootloaderVersion[0] = 0x01;
-    bootloaderVersion[1] = 0x00;
-    bootloaderVersion[2] = 0x00;
-
-    firmwareVersion[0] = 0x01;
-    firmwareVersion[1] = 0x01;
-    firmwareVersion[2] = 0x07;
-
-    versionSum = 0;
-
-    foundBootloaderVersion = QString("Found Bootloader Version: Not Connected\n");
-
-    foundFirmwwareVersion = QString("Found Firmware Version: Not Connected\n");
-
-    expectedBootloaderVersion = QString("Expected Bootloader Version: %1.%2.%3\n")
-            .arg(int(bootloaderVersion[0]))
-            .arg(int(bootloaderVersion[1]))
-            .arg(int(bootloaderVersion[2]));
-
-    expectedFirmwareVersion = QString("Expected Firmware Version: %1.%2.%3\n")
-            .arg(int(firmwareVersion[0]))
-            .arg(int(firmwareVersion[1]))
-            .arg(int(firmwareVersion[2]));
-
     inHandle = NULL;
     outHandle = NULL;
     connected = false;
@@ -878,7 +848,7 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
     //If a query was sent and we got a bad reply
     else if(!queryReplied)
     {
-        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
+        //slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
         //QTimer::singleShot(1000, this, SLOT(slotDeviceQueryWait()));
     }
 }
