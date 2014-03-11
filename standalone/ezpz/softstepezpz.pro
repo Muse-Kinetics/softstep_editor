@@ -80,7 +80,8 @@ OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
                 resources/sendbuttondirtystylesheet.qss \
     resources/sendbuttoncleanstylesheet.qss \
     resources/sendbuttoncleanstylesheet_windows.qss \
-    resources/sendbuttondirtystylesheet_windows.qss
+    resources/sendbuttondirtystylesheet_windows.qss \
+    resources/appicon.ico
                 #doc.txt
 
 RESOURCES =    Resources.qrc

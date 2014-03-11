@@ -481,7 +481,7 @@ void MainWindow::slotUpdateFirmware()
 
     syxutilProcess = new QProcess;
     syxutilProcess->setWorkingDirectory("./");
-    syxutilProcess->start("syxutil.exe");
+    syxutilProcess->start("FirmwareUpdater.exe");
 }
 
 void MainWindow::slotUpdateFwProgressBar(int bytes)
