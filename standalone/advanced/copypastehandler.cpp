@@ -24,7 +24,8 @@ void CopyPasteHandler::slotClearPreset()
 #if defined(Q_OS_MAC) && !defined(QT_DEBUG)
     filename.remove(filename.length() - 5, filename.length()); //Remove "MacOS" from path string
     filename.append("Resources/Blank.softsteppreset");
-
+#elif !defined(Q_OS_MAC) && !defined(QT_DEBUG)
+    filename = QString("resources/Blank.softsteppreset");
 #else
     filename = QString("./Blank.softsteppreset");
 

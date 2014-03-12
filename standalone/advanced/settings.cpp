@@ -1241,7 +1241,7 @@ void Settings::slotLoadTableOnStartup()
     //Open pedal table
     if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        //qDebug("Pedal Table Found");
+        qDebug("Pedal Table Found");
 
         QByteArray pedalTableByteArray = pedalTableFile->readAll();
 
@@ -1282,7 +1282,6 @@ void Settings::slotWritePedalTableToDisk(QByteArray tableByteArray)
     QString pedalFilename = QCoreApplication::applicationDirPath();
     pedalFilename.remove(pedalFilename.length() - 5, pedalFilename.length()); //Remove "MacOS" from path string
     QFile *pedalTableFile = new QFile(QString("%1Resources/pedalTable.txt").arg(pedalFilename));
-
 #else
     QFile *pedalTableFile = new QFile("resources/pedalTable.txt");
 #endif

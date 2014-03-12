@@ -216,6 +216,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //load fonts
     QString droidFont;
     QString futuraFont;
+    QString futuraBFont;
+    QString corbelFont;
+    QString corbelBFont;
     QString fontPath = QCoreApplication::applicationDirPath();
 
 #if defined(Q_OS_MAC) && !defined(QT_DEBUG)
@@ -223,13 +226,29 @@ MainWindow::MainWindow(QWidget *parent) :
     droidFont = QString("%1Resources/DroidSansMono.ttf").arg(fontPath);
     futuraFont = QString("%1Resources/Futura-Bold.ttf").arg(fontPath);
 
+    QFontDatabase::addApplicationFont(droidFont);
+    QFontDatabase::addApplicationFont(futuraFont);
+
+#elif !defined(Q_OS_MAC) && !defined(QT_DEBUG)
+    droidFont = "./resources/DroidSansMono.ttf";
+    futuraFont = "./resources/futura-normal.ttf";
+    futuraBFont = "./resources/Futura-Bold.ttf";
+    corbelFont = "./resources/corbel.ttf";
+    corbelBFont = "./resources/corbelb.ttf";
+
+    QFontDatabase::addApplicationFont(droidFont);
+    QFontDatabase::addApplicationFont(futuraFont);
+    QFontDatabase::addApplicationFont(futuraBFont);
+    QFontDatabase::addApplicationFont(corbelFont);
+    QFontDatabase::addApplicationFont(corbelBFont);
 #else
     droidFont = "./resources/DroidSansMono.ttf";
     futuraFont = "./resources/Futura-Bold.ttf";
 
-#endif
     QFontDatabase::addApplicationFont(droidFont);
     QFontDatabase::addApplicationFont(futuraFont);
+
+#endif
 
 #ifdef Q_OS_MAC
     midiDeviceManager->connectSource();

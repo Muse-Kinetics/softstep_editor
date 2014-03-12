@@ -218,4 +218,7 @@ OTHER_FILES += \
     CalibrationTable.qml \
     resources/devicestyle.qss \
     resources/DroidSansMono.ttf \
-    resources/Futura-Bold.ttf
+    resources/Futura-Bold.ttf \
+    resources/futura-normal.ttf \
+    resources/corbelb.ttf \
+    resources/corbel.ttf
