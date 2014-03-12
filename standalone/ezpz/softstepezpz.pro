@@ -81,7 +81,12 @@ OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
     resources/sendbuttoncleanstylesheet.qss \
     resources/sendbuttoncleanstylesheet_windows.qss \
     resources/sendbuttondirtystylesheet_windows.qss \
-    resources/appicon.ico
+    resources/appicon.ico \
+    resources/futura-normal.ttf \
+    resources/Futura-Bold.ttf \
+    resources/DroidSansMono.ttf \
+    resources/corbelb.ttf \
+    resources/corbel.ttf
                 #doc.txt
 
 RESOURCES =    Resources.qrc

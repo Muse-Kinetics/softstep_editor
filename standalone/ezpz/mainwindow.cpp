@@ -167,6 +167,43 @@ MainWindow::MainWindow(QWidget *parent) :
         spinbox->installEventFilter(&scrollEventFilter);
     }
 
+    //load fonts
+    QString droidFont;
+    QString futuraFont;
+    QString futuraBFont;
+    QString corbelFont;
+    QString corbelBFont;
+    QString fontPath = QCoreApplication::applicationDirPath();
+
+#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
+    fontPath.remove(fontPath.length() - 5, fontPath.length());
+    droidFont = QString("%1Resources/DroidSansMono.ttf").arg(fontPath);
+    futuraFont = QString("%1Resources/Futura-Bold.ttf").arg(fontPath);
+
+    QFontDatabase::addApplicationFont(droidFont);
+    QFontDatabase::addApplicationFont(futuraFont);
+#elif !defined(Q_OS_MAC) && !defined(QT_DEBUG)
+    droidFont = "./resources/DroidSansMono.ttf";
+    futuraFont = "./resources/futura-normal.ttf";
+    futuraBFont = "./resources/Futura-Bold.ttf";
+    corbelFont = "./resources/corbel.ttf";
+    corbelBFont = "./resources/corbelb.ttf";
+
+    QFontDatabase::addApplicationFont(droidFont);
+    QFontDatabase::addApplicationFont(futuraFont);
+    QFontDatabase::addApplicationFont(futuraBFont);
+    QFontDatabase::addApplicationFont(corbelFont);
+    QFontDatabase::addApplicationFont(corbelBFont);
+
+#else
+    droidFont = "./resources/DroidSansBono.ttf";
+    futuraFont = "./resources/Futura-Bold.ttf";
+
+    QFontDatabase::addApplicationFont(droidFont);
+    QFontDatabase::addApplicationFont(futuraFont);
+
+#endif
+
 }
 
 MainWindow::~MainWindow()
