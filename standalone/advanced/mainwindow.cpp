@@ -229,7 +229,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QFontDatabase::addApplicationFont(droidFont);
     QFontDatabase::addApplicationFont(futuraFont);
 
-#elif !defined(Q_OS_MAC) && !defined(QT_DEBUG)
+#elif !defined(Q_OS_MAC)
     droidFont = "./resources/DroidSansMono.ttf";
     futuraFont = "./resources/futura-normal.ttf";
     futuraBFont = "./resources/Futura-Bold.ttf";

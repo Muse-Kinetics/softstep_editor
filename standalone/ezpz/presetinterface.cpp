@@ -159,6 +159,9 @@ void PresetInterface::slotRevertPreset()
     {
         //Load preset from master map into the copy
         jsonMasterMapCopy.insert(QString("Preset_00%1").arg(currentPresetNum), jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap());
+        //global parameters
+        jsonMasterMapCopy.insert("backlight", jsonMasterMap.value("backlight").toBool());
+        jsonMasterMapCopy.insert("sensitivity", jsonMasterMap.value("sensitivity").toDouble());
         qDebug() << "preset" << currentPresetNum << "should revert now";
         //slotRecallPreset(currentPresetNum);
         emit signalRecallPreset(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMapCopy);

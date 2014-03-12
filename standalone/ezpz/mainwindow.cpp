@@ -182,7 +182,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QFontDatabase::addApplicationFont(droidFont);
     QFontDatabase::addApplicationFont(futuraFont);
-#elif !defined(Q_OS_MAC) && !defined(QT_DEBUG)
+#elif !defined(Q_OS_MAC)
     droidFont = "./resources/DroidSansMono.ttf";
     futuraFont = "./resources/futura-normal.ttf";
     futuraBFont = "./resources/Futura-Bold.ttf";
@@ -399,7 +399,7 @@ void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap master)
 
     //Global
     ui->sensitivity->setValue(master.value(QString("sensitivity")).toDouble());
-    ui->backlight->setChecked(master.value(QString("backlight")).toInt());
+    ui->backlight->setChecked(master.value(QString("backlight")).toBool());
 
     //Preset
     ui->midiChannel->setValue(preset.value(QString("midiChannel")).toInt());
