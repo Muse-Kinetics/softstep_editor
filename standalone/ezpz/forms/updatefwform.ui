@@ -243,7 +243,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>27</y>
+       <y>32</y>
        <width>224</width>
        <height>21</height>
       </rect>
@@ -274,7 +274,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>40</y>
+       <y>46</y>
        <width>224</width>
        <height>21</height>
       </rect>
@@ -296,7 +296,7 @@ QPushButton:pressed
 </string>
      </property>
      <property name="text">
-      <string>to your SoftStep</string>
+      <string>to the connected SoftStep</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

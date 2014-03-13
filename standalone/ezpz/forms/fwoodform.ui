@@ -175,7 +175,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>90</y>
+       <y>94</y>
        <width>51</width>
        <height>20</height>
       </rect>
@@ -193,8 +193,8 @@ QPushButton:pressed
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>30</y>
+       <x>55</x>
+       <y>22</y>
        <width>51</width>
        <height>16</height>
       </rect>
@@ -215,8 +215,8 @@ QPushButton:pressed
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>50</y>
+       <x>55</x>
+       <y>39</y>
        <width>51</width>
        <height>16</height>
       </rect>
@@ -238,7 +238,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>0</y>
+       <y>-4</y>
        <width>224</width>
        <height>31</height>
       </rect>
@@ -269,8 +269,8 @@ QPushButton:pressed
     <widget class="QLabel" name="expected">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>30</y>
+       <x>115</x>
+       <y>22</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -291,8 +291,8 @@ QPushButton:pressed
     <widget class="QLabel" name="found">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>50</y>
+       <x>115</x>
+       <y>39</y>
        <width>111</width>
        <height>16</height>
       </rect>
@@ -314,7 +314,7 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>59</x>
-       <y>90</y>
+       <y>94</y>
        <width>51</width>
        <height>20</height>
       </rect>
@@ -327,6 +327,70 @@ QPushButton:pressed
      </property>
      <property name="text">
       <string>CANCEL</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>70</y>
+       <width>224</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font:10pt &quot;Futura&quot;;
+</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;presets currently on the connected SoftStep.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>56</y>
+       <width>224</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font:10pt &quot;Futura&quot;;
+</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;NOTE: Updating firmware will overwrite any&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>

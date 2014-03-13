@@ -215,10 +215,10 @@ QPushButton:pressed
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>60</y>
-       <width>51</width>
-       <height>16</height>
+       <width>61</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="focusPolicy">
@@ -313,10 +313,10 @@ QPushButton:pressed
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>40</x>
+       <x>30</x>
        <y>80</y>
-       <width>71</width>
-       <height>16</height>
+       <width>81</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="focusPolicy">
