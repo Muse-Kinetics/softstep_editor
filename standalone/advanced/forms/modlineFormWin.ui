@@ -16,9 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-/*	background: rgb(0,0,0); */
 	background:		rgb(80, 80, 80);	
-	/*border: 3px rgb(25, 25, 25);*/
 }
 
 /* ------- QStackedWidget ---------*/
@@ -202,12 +200,11 @@ QRadioButton::indicator:checked:pressed
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
-	width: 22px;
 }</string>
   </property>
   <widget class="QLabel" name="instanceLabel">
@@ -322,7 +319,11 @@ QCheckBox::indicator:checked:pressed:focus
 {
     image: url(:/resources/modline_enable1_toggle_off.png);
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="text">
     <string/>
@@ -421,7 +422,11 @@ QComboBox:disabled
 	border-color: rgba(0, 174, 239, 75);
 	color: rgba(255, 255, 255, 75);
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="sizeAdjustPolicy">
     <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -493,7 +498,11 @@ QSpinBox:disabled
 	font: 8pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 75);
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -551,7 +560,11 @@ QSpinBox:disabled
 	font: 10pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 90);
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -637,6 +650,12 @@ QSpinBox:disabled
    <property name="toolTip">
     <string>Multiply by the set amount.</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
+   </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
@@ -673,6 +692,12 @@ QSpinBox:disabled
    </property>
    <property name="toolTip">
     <string>Add the set amount &lt;br&gt;(use negative numbers to subtract).</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -754,6 +779,11 @@ QSpinBox:disabled
 	border-color: rgba(236, 0, 140, 90);
 	font: 10pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 90);
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <property name="frame">
@@ -814,6 +844,11 @@ QComboBox QListView
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 55px;
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <item>
@@ -891,6 +926,12 @@ QComboBox QListView
    <property name="toolTip">
     <string>Sets the minimum value that can be output (range: 0-127).</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
+   </property>
    <property name="frame">
     <bool>true</bool>
    </property>
@@ -928,6 +969,12 @@ QComboBox QListView
    <property name="toolTip">
     <string>Sets the maximum value that can be output (range: 0-127).</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
+   </property>
    <property name="frame">
     <bool>true</bool>
    </property>
@@ -964,6 +1011,12 @@ QComboBox QListView
    </property>
    <property name="toolTip">
     <string>The amount of time (in milliseconds) it takes to slide/interpolate to the next value&lt;p&gt;Smaller values can smooth out jumpy data, while larger values can create ramps between values.&lt;p&gt;&lt;b&gt;Example&lt;/b&gt;: A value of 127 going through the modline with a smoothing value of 3000 would result in a three second ramp up to 127.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -1021,7 +1074,11 @@ QSpinBox:disabled
 	font: 10pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 90);
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -1065,6 +1122,12 @@ QSpinBox:disabled
    </property>
    <property name="toolTip">
     <string>Sets the type of MIDI message to output.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -1160,7 +1223,10 @@ QSpinBox:disabled
     <string>Sets the type of sensor data coming from the SoftStep.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -1506,7 +1572,11 @@ QComboBox QListView
 	padding-right: 3px;
 	min-width: 65px;
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -1596,6 +1666,11 @@ QComboBox
 QComboBox QListView
 {
 	min-width: 67px;
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <item>
@@ -1803,10 +1878,15 @@ QComboBox::down-arrow
 	image: url(:/resources/modline_combobox_menu_arrows.png);
 	padding-right: 10px;
 }
-</string>
+
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -2192,6 +2272,11 @@ QComboBox::down-arrow
 	background: none;
 	image: url(:/resources/modline_combobox_menu_arrows.png);
 	padding-right: 10px;
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
      </property>
      <property name="maxVisibleItems">
@@ -2241,6 +2326,12 @@ QComboBox::down-arrow
      <property name="toolTip">
       <string>Sets the velocity for the note messages.</string>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
+     </property>
      <property name="frame">
       <bool>true</bool>
      </property>
@@ -2277,6 +2368,12 @@ QComboBox::down-arrow
      </property>
      <property name="toolTip">
       <string>Sets the MIDI channel to output on.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
      </property>
      <property name="frame">
       <bool>true</bool>
@@ -4028,7 +4125,7 @@ QLabel
 }</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">
@@ -4479,6 +4576,11 @@ QComboBox QAbstractItemView::item
 	background-color: rgba(18, 18, 18, 255);
 	border: 1px solid rgba(0,174,239,90);
 	color: rgba(255, 255, 255, 90);
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <property name="frame">
@@ -4795,6 +4897,12 @@ QComboBox QAbstractItemView::item
    </property>
    <property name="toolTip">
     <string>This selects which modline's &lt;br&gt;data will be used for the display parameters above. Only one may be selected per key.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="text">
     <string/>

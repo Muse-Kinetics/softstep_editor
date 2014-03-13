@@ -146,7 +146,7 @@ QComboBox::down-arrow
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 12px &quot;Corbel&quot;;
+	font: 10px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -224,7 +224,12 @@ QCheckBox::indicator:checked:pressed:focus
 {
     image: url(:/resources/keyWindow_ledSettings_toggle_off.png);
 }
-</string>
+
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="text">
     <string>CheckBox</string>
@@ -438,14 +443,13 @@ QCheckBox::indicator:checked:pressed:focus
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
-	width: 22px;
 	image: none;
-}s</string>
+}</string>
    </property>
    <property name="text">
     <string/>
@@ -591,6 +595,12 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
    <property name="toolTip">
     <string>One or two characters that can be added before &lt;br&gt;the parameter value on the SoftStep's display.&lt;p&gt;&lt;b&gt;Example&lt;/b&gt;: A prefix of &quot;NI&quot; and a value of 34 coming through the modline would show &quot;NI34&quot; on the display.</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
+   </property>
    <property name="maxLength">
     <number>2</number>
    </property>
@@ -627,6 +637,12 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
    <property name="toolTip">
     <string>Sets the name for this key.&lt;p&gt;(Four character maximum)</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
+   </property>
    <property name="maxLength">
     <number>4</number>
    </property>
@@ -662,6 +678,12 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
    </property>
    <property name="toolTip">
     <string>Sets the SoftStep display behavior.&lt;p&gt;&lt;b&gt;None&lt;/b&gt;: Pressing this key will have no effect on the display.&lt;p&gt;&lt;b&gt;Always&lt;/b&gt;: Key name will be displayed every time this key is pressed.&lt;p&gt;&lt;b&gt;Once&lt;/b&gt;: Key name will be displayed once when the key is pressed, then show the prefix + parameter value (Hosted mode only).&lt;p&gt;&lt;b&gt;Initial/Return&lt;/b&gt;: Prefix + parameter value will be displayed when this key is active, then display the key name when inactive (Hosted mode only).&lt;p&gt;&lt;b&gt;Immed Param&lt;/b&gt;: (Immediate Parameter) Displays the prefix and parameter value when this key is activated.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="currentIndex">
     <number>0</number>
@@ -716,6 +738,9 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
      <height>22</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>Delete the bottom modline (minimum of 2)</string>
+   </property>
    <property name="styleSheet">
     <string notr="true">QToolButton
 {
@@ -729,6 +754,11 @@ QToolButton:pressed
 	background: none;
 	border: none;
 	image: url(:/resources/keyWindow_deleteModline_button_clicked.png);
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <property name="text">
@@ -744,6 +774,9 @@ QToolButton:pressed
      <height>22</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>Add a modline (maximum of 6)</string>
+   </property>
    <property name="styleSheet">
     <string notr="true">QToolButton
 {
@@ -757,6 +790,11 @@ QToolButton:pressed
 	background: none;
 	border: none;
 	image: url(:/resources/keyWindow_addModline_button_clicked.png);
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <property name="text">
@@ -799,7 +837,11 @@ QSpinBox:disabled
 	font: 8pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 75)
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -869,7 +911,11 @@ QSpinBox:disabled
 	font: 8pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 75)
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -943,6 +989,11 @@ QCheckBox::indicator:unchecked:disabled
 QCheckBox::indicator:checked:disabled
 {
 	image:url(:/resources/checkbox_off_disabled.png)
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <property name="text">
@@ -1003,7 +1054,7 @@ QLabel
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);

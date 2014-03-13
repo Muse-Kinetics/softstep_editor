@@ -231,12 +231,12 @@ QSlider::add-page:horizontal
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 12px &quot;Futura-Normal&quot;;
+	font: 10px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
-	width: 22px;
+	min-height: 16px;
 }
 
 </string>
@@ -468,7 +468,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
@@ -4173,21 +4173,9 @@ QToolTip
        <string>Sets the MIDI message type to listen for. All other message types will be ignored.&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; Listens for MIDI notes&lt;br&gt;&lt;b&gt;CC:&lt;/b&gt; Listens for CC messages&lt;br&gt;&lt;b&gt;Program:&lt;/b&gt; Listens for program changes&lt;br&gt;</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">QComboBox
+       <string notr="true">QToolTip
 {
-
-}
-
-/*-------QToolTip-------*/
-QToolTip
-{
-	font: 10px &quot;Futura-Normal&quot;;
-	color: rgb(255, 255, 255);
-	background: rgba(40, 40, 40, 140);
-	border: 1px solid rgb(120, 120, 120);
-	padding: 2px;
-	width: 22px;
-	min-height:20px;
+	min-height: 16px;
 }</string>
       </property>
       <item>

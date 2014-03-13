@@ -202,12 +202,11 @@ QRadioButton::indicator:checked:pressed
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 12pt &quot;Futura&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
-	width: 22px;
 }</string>
   </property>
   <widget class="QLabel" name="label_33">
@@ -269,7 +268,12 @@ QSpinBox:disabled
 	font: 10pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 90);
 }
-</string>
+
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -369,7 +373,12 @@ QSpinBox:disabled
 	font: 10pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 90);
 }
-</string>
+
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -466,11 +475,21 @@ QSpinBox:disabled
     <string>The amount of time (in milliseconds) to delay the modline data.&lt;p&gt;&lt;b&gt;Example&lt;/b&gt;: A delay of 2000 would delay any messages by two seconds.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">QSpinBox:disabled
+    <string notr="true">QSpinBox
+{
+
+}
+
+QSpinBox:disabled
 {
 	background-color: rgba(18, 18, 18, 255);
 	border: 1px solid rgba(0,174,239,90);
 	color: rgba(255, 255, 255, 90);
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <property name="frame">
@@ -548,6 +567,12 @@ QSpinBox:disabled
    <property name="toolTip">
     <string>Sets the minimum value that can be output (range: 0-127).</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
+   </property>
    <property name="frame">
     <bool>true</bool>
    </property>
@@ -585,6 +610,12 @@ QSpinBox:disabled
    <property name="toolTip">
     <string>Add the set amount &lt;br&gt;(use negative numbers to subtract).</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
+   </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
@@ -621,6 +652,12 @@ QSpinBox:disabled
    </property>
    <property name="toolTip">
     <string>Sets the maximum value that can be output (range: 0-127).</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -719,6 +756,12 @@ QSpinBox:disabled
    <property name="toolTip">
     <string>The amount of time (in milliseconds) it takes to slide/interpolate to the next value&lt;p&gt;Smaller values can smooth out jumpy data, while larger values can create ramps between values.&lt;p&gt;&lt;b&gt;Example&lt;/b&gt;: A value of 127 going through the modline with a smoothing value of 3000 would result in a three second ramp up to 127.</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
+   </property>
    <property name="frame">
     <bool>true</bool>
    </property>
@@ -757,7 +800,10 @@ QSpinBox:disabled
     <string>This value will be sent through the modline if an init mode is enabled.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -814,6 +860,12 @@ QSpinBox:disabled
    </property>
    <property name="toolTip">
     <string>Sets the type of MIDI message to output.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -957,7 +1009,12 @@ QCheckBox::indicator:checked:pressed:focus
 {
     image: url(:/resources/modline_enable1_toggle_off.png);
 }
-</string>
+
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="text">
     <string/>
@@ -1116,7 +1173,12 @@ QComboBox::down-arrow
 	image: url(:/resources/modline_combobox_menu_arrows.png);
 	padding-right: 10px;
 }
-</string>
+
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="currentIndex">
     <number>8</number>
@@ -3821,7 +3883,10 @@ QLabel
     <string>Sets the type of sensor data coming from the SoftStep.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -4040,7 +4105,12 @@ QSpinBox:disabled
 	font: 10pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 90);
 }
-</string>
+
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -4138,6 +4208,11 @@ QComboBox QListView
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 55px;
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <item>
@@ -4199,6 +4274,12 @@ QComboBox QListView
    </property>
    <property name="toolTip">
     <string>Multiply by the set amount.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -4303,7 +4384,12 @@ QComboBox:disabled
 	border-color: rgba(0, 174, 239, 75);
 	color: rgba(255, 255, 255, 75);
 }
-</string>
+
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="sizeAdjustPolicy">
     <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -4374,6 +4460,15 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
      <width>20</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="toolTip">
+    <string>This selects which modline's &lt;br&gt;data will be used for the display parameters above. Only one may be selected per key.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="text">
     <string/>

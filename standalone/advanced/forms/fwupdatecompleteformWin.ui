@@ -65,12 +65,11 @@ QPushButton:pressed
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 12px &quot;Corbel&quot;;
+	font: 10px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
-	width: 22px;
 }</string>
   </property>
   <widget class="QFrame" name="warningFrame">
@@ -160,7 +159,10 @@ QToolTip
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
      </property>
      <property name="text">
       <string>OK</string>

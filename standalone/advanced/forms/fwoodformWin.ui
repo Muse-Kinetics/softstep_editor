@@ -66,12 +66,11 @@ QPushButton:pressed
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 12px &quot;Futura-Normal&quot;;
+	font: 10px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
-	width: 22px;
 }</string>
   </property>
   <widget class="QFrame" name="warningFrame">
@@ -151,7 +150,10 @@ QPushButton
       <string>Engage.</string>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
      </property>
      <property name="text">
       <string>UPDATE</string>
@@ -212,7 +214,7 @@ QPushButton
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
+       <family>Corbel</family>
        <pointsize>10</pointsize>
        <weight>50</weight>
        <italic>false</italic>
@@ -223,7 +225,7 @@ QPushButton
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">font:10pt &quot;Futura-Normal&quot;;
+      <string notr="true">font:10pt &quot;Corbel&quot;;
 </string>
      </property>
      <property name="text">
@@ -293,7 +295,10 @@ QPushButton
       <string>I don't care! I don't want to update!</string>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
      </property>
      <property name="text">
       <string>CANCEL</string>

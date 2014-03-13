@@ -38,13 +38,12 @@ QLineEdit
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
-	min-width: 45px;
-	min-height:20px;
+
 }
 
 QMenuBar
@@ -86,6 +85,11 @@ background: rgb(30,30,30);
 	color: red;
 	background: rgb(40, 40, 40);
 	padding: 0px 0px 0px 3px;
+}
+
+QToolTip
+{
+	min-width: 60px;
 }</string>
     </property>
     <property name="text">
@@ -457,7 +461,10 @@ QComboBox::drop-down
 	padding: 1px 1px 1px 4px;
 }
 
-</string>
+QToolTip
+{
+	min-height: 18px;
+}</string>
       </property>
       <property name="editable">
        <bool>false</bool>
@@ -579,11 +586,6 @@ QToolButton::disabled
 	border: 2px solid rgba(0, 56, 77, 255);
 	font: bold 14pt &quot;Corbel&quot;;
 	color: rgba(255, 255, 255, 35);
-}
-
-QToolTip
-{
-	font: 10pt &quot;Corbel&quot;;
 }</string>
      </property>
      <property name="text">
@@ -750,7 +752,7 @@ QLineEdit:focus
       </rect>
      </property>
      <property name="toolTip">
-      <string>Switch between Hosted and Standalone mode.</string>
+      <string>Switch between Hosted &lt;br&gt;and Standalone mode.</string>
      </property>
      <property name="styleSheet">
       <string notr="true"> /* ---------- QCheckBox ------------*/
@@ -877,6 +879,11 @@ QPushButton:pressed
 	border: none;
 	font: bold 14pt &quot;Corbel&quot;;
 	color: white;
+}
+
+QToolTip
+{
+	min-height: 18px;
 }</string>
      </property>
      <property name="text">
@@ -938,6 +945,11 @@ QPushButton:pressed
 	border: none;
 	font: bold 14pt &quot;Corbel&quot;;
 	color: white;
+}
+
+QToolTip
+{
+	min-height: 18px;
 }</string>
      </property>
      <property name="text">

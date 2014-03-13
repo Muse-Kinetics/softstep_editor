@@ -151,12 +151,11 @@ QComboBox::down-arrow
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 12px &quot;Futura-Normal&quot;;
+	font: 10px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
-	width: 22px;
 }</string>
   </property>
   <widget class="QCheckBox" name="ledDisplayCheckBox">
@@ -169,7 +168,7 @@ QToolTip
     </rect>
    </property>
    <property name="toolTip">
-    <string>Show/Hide the LED and display options for this key.</string>
+    <string>Show/Hide the LED and &lt;br&gt;display options for this key.</string>
    </property>
    <property name="styleSheet">
     <string notr="true">/* ---------- QCheckBox ------------*/
@@ -671,6 +670,11 @@ QToolButton:pressed
 	background: none;
 	border: none;
 	image: url(:/resources/keyWindow_addModline_button_clicked.png);
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <property name="text">
@@ -702,6 +706,11 @@ QToolButton:pressed
 	background: none;
 	border: none;
 	image: url(:/resources/keyWindow_deleteModline_button_clicked.png);
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <property name="text">
@@ -814,7 +823,7 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
    <property name="toolTip">
-    <string>Sets the maximum value for the key counter.&lt;br&gt;No values above this number will be output.</string>
+    <string>Sets the maximum value for the key counter.&lt;p&gt;No values above this number will be output.</string>
    </property>
    <property name="styleSheet">
     <string notr="true">/* ---------- QSpinBox ------------*/
@@ -884,7 +893,7 @@ QSpinBox:disabled
     </rect>
    </property>
    <property name="toolTip">
-    <string>When checked, the key counter&lt;br&gt; will loop back to the minimum &lt;br&gt;value once the maximum &lt;br&gt;value is exceeded (and vice versa).&lt;p&gt;When unchecked, the counter will stop &lt;br&gt;once the minimum or maximum &lt;br&gt;values are reached.</string>
+    <string>When checked, the key counter will loop back to the minimum value once the maximum value is exceeded (and vice versa).&lt;p&gt;When unchecked, the counter will stop once the minimum or maximum values are reached.</string>
    </property>
    <property name="styleSheet">
     <string notr="true">QCheckBox
@@ -952,7 +961,7 @@ QCheckBox::indicator:checked:disabled
     </rect>
    </property>
    <property name="toolTip">
-    <string>Sets the minimum value for the key counter.&lt;br&gt;No values below this number will be output.</string>
+    <string>Sets the minimum value for the key counter.&lt;p&gt;No values below this number will be output.</string>
    </property>
    <property name="styleSheet">
     <string notr="true">/* ---------- QSpinBox ------------*/
