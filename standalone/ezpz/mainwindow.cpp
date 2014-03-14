@@ -91,7 +91,11 @@ MainWindow::MainWindow(QWidget *parent) :
     factoryPresetNameLabel->hide();
     factoryPresetNameLabel->resize(this->size());
     factoryPresetNameLabel->setAlignment(Qt::AlignCenter);
+#ifdef Q_OS_MAC
+    factoryPresetNameLabel->setStyleSheet("font: 36pt \"Futura\"; color: white");
+#else
     factoryPresetNameLabel->setStyleSheet("font: 26pt \"Futura\"; color: white");
+#endif
 
     //Coverup for dialogs
     disableWidget = new QWidget(this);
@@ -194,14 +198,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QFontDatabase::addApplicationFont(futuraBFont);
     QFontDatabase::addApplicationFont(corbelFont);
     QFontDatabase::addApplicationFont(corbelBFont);
-
 #else
     droidFont = "./resources/DroidSansBono.ttf";
     futuraFont = "./resources/Futura-Bold.ttf";
 
     QFontDatabase::addApplicationFont(droidFont);
     QFontDatabase::addApplicationFont(futuraFont);
-
 #endif
 
 }
@@ -223,10 +225,9 @@ void MainWindow::closeEvent(QCloseEvent *)
 {
 #ifdef Q_OS_MAC
 #else
-    mdm->slotCloseMidiIn();
-    mdm->slotCloseMidiOut();
+	mdm->slotCloseMidiIn();
+	mdm->slotCloseMidiOut();
 #endif
-
     qDebug() << "closing...";
     //presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
 }
@@ -510,15 +511,18 @@ void MainWindow::slotUpdateFirmware()
     fwProgressDialog->progressBar->setMaximum(0);
 #endif
     QApplication::processEvents();
-    //sysExComposer->slotUpdateFirmware();
 
-    mdm->slotCloseMidiOut();
-    mdm->slotCloseMidiIn();
-    mdm->fwUpdateRequested = true;
-
-    syxutilProcess = new QProcess;
-    syxutilProcess->setWorkingDirectory("./");
-    syxutilProcess->start("FirmwareUpdater.exe");
+#ifdef Q_OS_MAC
+    sysExComposer->slotUpdateFirmware();
+#else
+	mdm->slotCloseMidiOut();
+	mdm->slotCloseMidiIn();
+	mdm->fwUpdateRequested = true;
+	
+	syxutilProcess = new QProcess;
+	syxutilProcess->setWorkingDirectory("./");
+	syxutilProcess->start("FirmwareUpdater.exe");
+#endif
 }
 
 void MainWindow::slotUpdateFwProgressBar(int bytes)
@@ -529,16 +533,6 @@ void MainWindow::slotUpdateFwProgressBar(int bytes)
     }
     else
     {
-#ifdef Q_OS_MAC
-#else
-
-        //qDebug() << "process ID: " << syxutilProcess->pid();
-        //syxutilProcess->kill();
-        //delete syxutilProcess;
-        //syxutilProcess = 0;
-
-        //system("exit");
-#endif
         fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
         fwProgressDialogWidget->close();
         fwUpdateCompleteDialogWidget->show();
