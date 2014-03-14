@@ -284,9 +284,9 @@ QToolTip
     <widget class="QLabel" name="expected">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>120</x>
        <y>21</y>
-       <width>111</width>
+       <width>91</width>
        <height>16</height>
       </rect>
      </property>
@@ -306,9 +306,9 @@ QToolTip
     <widget class="QLabel" name="found">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>120</x>
        <y>41</y>
-       <width>111</width>
+       <width>91</width>
        <height>16</height>
       </rect>
      </property>

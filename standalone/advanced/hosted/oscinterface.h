@@ -26,18 +26,9 @@ public:
 
     QString         ip;
 
-#ifdef Q_OS_MAC
-    struct OscInput
-    {
-        bool    enabled;
-        QString addressTag;
-        int     inputVal;
-    } oscInput[8];
-#else
     bool oscEnabled[8];
     QString oscAddressTag[8];
     int oscInputVal[8];
-#endif
     
 signals:
     void signalSendOscMessageToSource(int sourceNum, int val);

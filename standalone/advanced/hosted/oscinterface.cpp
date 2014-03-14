@@ -6,40 +6,7 @@
 OscInterface::OscInterface(QObject *parent) :
     QObject(parent)
 {
-
-#ifdef Q_OS_MAC
     //----- Init
-    //Inputs
-    for(int i = 0; i < 8; i++)
-    {
-        oscInput[i].enabled = false;
-        oscInput[i].addressTag = "";
-        oscInput[i].inputVal = 0;
-    }
-
-    //Ports
-    inputPort = 7755;
-    outputPort = 7788;
-
-    //IP
-    ip = "127.0.0.1";
-
-    socket = new QUdpSocket(this);
-    socket->bind(QHostAddress(ip), inputPort);
-
-    connect(socket, SIGNAL(readyRead()), this, SLOT(slotReadPendingDatagrams()));
-
-    msgVal[0] = 0;
-    msgVal[1] = 0;
-    msgVal[2] = 0;
-    msgVal[3] = 0;
-
-    //slotWriteDatagram("", 0);
-#else
-    //----- Init
-
-
-
     //Inputs
     for(int i = 0; i < 8; i++)
     {
@@ -68,8 +35,6 @@ OscInterface::OscInterface(QObject *parent) :
     msgVal[3] = 0;
 
     //slotWriteDatagram("", 0);
-#endif
-
 }
 
 
