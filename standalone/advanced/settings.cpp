@@ -1007,7 +1007,27 @@ void Settings::slotEmitAllSettings()
 
 
     //------------ Sensor Response
-    emit signalSetSensorResponse(settingsForm->sensorresponse_checkbox->isChecked());
+    //this is incorrect in standalone mode and we thought we'd just switch the image label so that we wouldn't have to ask Chuck to fix anything
+    //in order for switching the image to make sense, we also had to make it incorrect in hosted mode -- which is why this is all weird.
+    if(mode == "hosted")
+    {
+        bool sensorResponseChecked = settingsForm->sensorresponse_checkbox->isChecked();
+
+        if(sensorResponseChecked)
+        {
+            sensorResponseChecked = false;
+        }
+        else
+        {
+            sensorResponseChecked = true;
+        }
+
+        emit signalSetSensorResponse(sensorResponseChecked);
+    }
+    else if(mode == "standalone")
+    {
+        emit signalSetSensorResponse(settingsForm->sensorresponse_checkbox->isChecked());
+    }
 
     //------------ Display Mode (0-127 vs 1-128)
     emit signalSetDisplayMode(settingsForm->displaymode_checkbox->isChecked());
