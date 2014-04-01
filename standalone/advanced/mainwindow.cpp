@@ -1005,7 +1005,7 @@ void MainWindow::slotOpenDoc()
 {
     //QFile *file = new QFile(":doc.txt");
     //file->open(QFile::ReadOnly);
-    QDesktopServices::openUrl(QUrl("http://files.keithmcmillen.com/downloads/softstep/SoftStep_Manual_v2.0.pdf"));
+    QDesktopServices::openUrl(QUrl("http://files.keithmcmillen.com/downloads/softstep/SoftStep_Manual_v2.01.pdf"));
     //qDebug() << (QLatin1String)file->readLine(0);
     //file->close();
 }

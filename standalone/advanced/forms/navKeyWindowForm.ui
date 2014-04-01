@@ -68,7 +68,7 @@ QCheckBox:focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 9pt &quot;Tahoma&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -86,7 +86,7 @@ QLineEdit:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 9pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -604,7 +604,7 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+    <string notr="true">font: 9pt &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -640,7 +640,7 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+    <string notr="true">font: 9pt &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -696,7 +696,7 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 8pt &quot;Tahoma&quot;;
+    <string notr="true">font: 9pt &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
