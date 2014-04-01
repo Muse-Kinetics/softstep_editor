@@ -311,7 +311,7 @@ QLabel
       <string notr="true"/>
      </property>
      <property name="text">
-      <string>2.0</string>
+      <string>2.01</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
