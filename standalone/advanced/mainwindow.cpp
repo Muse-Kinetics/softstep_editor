@@ -1053,7 +1053,7 @@ void MainWindow::slotConnected(bool connection)
     if(connection)
     {
         ui->connectedLabel->setText("SOFTSTEP CONNECTED");
-        ui->connectedLabel->setFixedSize(138, 22);
+        ui->connectedLabel->setFixedSize(162, 22);
         ui->connectedLabel->setToolTip("\\(^-^)/");
 #ifdef Q_OS_MAC
         //ui->connectedLabel->move(553, 81);
