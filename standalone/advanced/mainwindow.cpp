@@ -431,6 +431,8 @@ void MainWindow::slotConnectInterfaces()
         {
             connect(&key[k]->dataCooker, SIGNAL(signalThisKeyPressed(int)), &key[l]->alphaNumManager, SLOT(slotDisplayKeyName(int)));
             connect(&key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), &key[l]->alphaNumManager, SLOT(slotKeyOff(int)));
+            //connect(&key[k]->dataCooker, SIGNAL(signalXIncClockStart(int)), &key[k]->dataCooker, SLOT(slotXIncClockStart(int)));
+            //connect(&key[k]->dataCooker, SIGNAL(signalXIncClockStop()), &key[k]->dataCooker, SLOT(slotXIncClockStop()));
         }
 
         //Reset nav "once" display mode

@@ -147,6 +147,10 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
     connect(&yLatcher, SIGNAL(signalReturnValue(int,int)), this, SLOT(slotYLatchReturn(int,int)));
 
     //Connect Inc/Dec Clocks
+    connect(this, SIGNAL(signalXIncClockStart(int)), this, SLOT(slotXIncClockStart(int)));
+    connect(this, SIGNAL(signalXIncClockStop()), this, SLOT(slotXIncClockStop()));
+    connect(this, SIGNAL(signalYIncClockStart(int)), this, SLOT(slotYIncClockStart(int)));
+    connect(this, SIGNAL(signalYIncClockStop()), this, SLOT(slotYIncClockStop()));
     connect(yIncClock, SIGNAL(timeout()), this, SLOT(slotTickYIncrementClock()), Qt::DirectConnection);
     connect(xIncClock, SIGNAL(timeout()), this, SLOT(slotTickXIncrementClock()), Qt::DirectConnection);
 
@@ -838,7 +842,8 @@ void DataCooker::xIncrement()
             if(!xIncClock->isActive())
             {
                 //Start it...
-                xIncClock->start(xAccel + 1); //Need to implement scaling here
+                emit signalXIncClockStart(xAccel + 1);
+                //xIncClock->start(xAccel + 1); //Need to implement scaling here
             }
         }
 
@@ -852,7 +857,8 @@ void DataCooker::xIncrement()
             if(!xIncClock->isActive())
             {
                 //Start it...
-                xIncClock->start(xAccel + 1); //Need to implement scaling here
+                emit signalXIncClockStart(xAccel + 1);
+                //xIncClock->start(xAccel + 1); //Need to implement scaling here
             }
         }
 
@@ -860,14 +866,16 @@ void DataCooker::xIncrement()
         else
         {
             //Stop clock
-            xIncClock->stop();
+            emit signalXIncClockStop();
+            //xIncClock->stop();
         }
     }
 
     //If foot off, stop clock
     else
     {
-        xIncClock->stop();
+        emit signalXIncClockStop();
+        //xIncClock->stop();
     }
 }
 
@@ -902,8 +910,19 @@ void DataCooker::slotTickXIncrementClock()
     //If foot off, stop clock
     else
     {
-        xIncClock->stop();
+        emit signalXIncClockStop();
+        //xIncClock->stop();
     }
+}
+
+void DataCooker::slotXIncClockStart(int num)
+{
+    xIncClock->start(num); //Need to implement scaling here
+}
+
+void DataCooker::slotXIncClockStop()
+{
+    xIncClock->stop();
 }
 
 void DataCooker::slotXIncSet(int i)
@@ -928,7 +947,8 @@ void DataCooker::yIncrement()
             if(!yIncClock->isActive())
             {
                 //Start it...
-                yIncClock->start((yAccel + 1)); //Need to implement scaling here
+                emit signalYIncClockStart(yAccel + 1);
+                //yIncClock->start((yAccel + 1)); //Need to implement scaling here
             }
         }
 
@@ -942,7 +962,8 @@ void DataCooker::yIncrement()
             if(!yIncClock->isActive())
             {
                 //Start it...
-                yIncClock->start((yAccel + 1)); //Need to implement scaling here
+                emit signalYIncClockStart(yAccel + 1);
+                //yIncClock->start((yAccel + 1)); //Need to implement scaling here
             }
         }
 
@@ -950,14 +971,16 @@ void DataCooker::yIncrement()
         else
         {
             //Stop clock
-            yIncClock->stop();
+            emit signalYIncClockStop();
+            //yIncClock->stop();
         }
     }
 
     //If foot off, stop clock
     else
     {
-        yIncClock->stop();
+        emit signalYIncClockStop();
+        //yIncClock->stop();
     }
 }
 
@@ -987,8 +1010,19 @@ void DataCooker::slotTickYIncrementClock()
     }
     else
     {
-        yIncClock->stop();
+        emit signalYIncClockStop();
+        //yIncClock->stop();
     }
+}
+
+void DataCooker::slotYIncClockStart(int num)
+{
+    yIncClock->start(num);
+}
+
+void DataCooker::slotYIncClockStop()
+{
+    yIncClock->stop();
 }
 
 void DataCooker::slotYIncSet(int i)

@@ -137,6 +137,12 @@ signals:
     //Key Safetey / Lockout signals
     void signalLockoutKeyPressedReleased(int keyNumber,bool pressedReleased);
 
+    //increment sources clock start/stop
+    void signalXIncClockStart(int num);
+    void signalXIncClockStop();
+    void signalYIncClockStart(int num);
+    void signalYIncClockStop();
+
     
 public slots:
     void slotUpdateVals(int cc, int val);
@@ -220,7 +226,11 @@ public slots:
     //------------------------------------------------------- OSC
     void slotReceiveOscInput(int inputNum, int val);
 
-
+    //increment sources clock start/stop
+    void slotXIncClockStart(int num);
+    void slotXIncClockStop();
+    void slotYIncClockStart(int num);
+    void slotYIncClockStop();
 
 };
 
