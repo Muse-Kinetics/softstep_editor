@@ -966,10 +966,12 @@ void MainWindow::slotInitMenuBar()
         if(sessionSettings->value("toolTipsEnabled").toBool())
         {
             toolTipsEnable = new QAction("Hide Tool Tips", file);
+            qDebug() << "Hide Tool Tips";
         }
         else
         {
             toolTipsEnable = new QAction("Show Tool Tips", file);
+            qDebug() << "Show Tool Tips";
         }
     }
     else
@@ -991,12 +993,14 @@ void MainWindow::slotEnableDisableToolTips()
 {
     if(sessionSettings->value("toolTipsEnabled").toBool())
     {
+        qDebug() << "slotEnableDisableToolTips called - turn off tool tips";
         toolTipsEnable->setText("Show Tool Tips");
         sessionSettings->setValue("toolTipsEnabled", false);
         scrollEventFilter.toolTipsOn = false;
     }
     else
     {
+        qDebug() << "slotEnableDisableToolTips called - turn on tool tips";
         toolTipsEnable->setText("Hide Tool Tips");
         sessionSettings->setValue("toolTipsEnabled", true);
         scrollEventFilter.toolTipsOn = true;
