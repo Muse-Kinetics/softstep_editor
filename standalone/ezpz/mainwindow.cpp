@@ -180,12 +180,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QString fontPath = QCoreApplication::applicationDirPath();
 
 #if defined(Q_OS_MAC) && !defined(QT_DEBUG)
-    fontPath.remove(fontPath.length() - 5, fontPath.length());
-    droidFont = QString("%1Resources/DroidSansMono.ttf").arg(fontPath);
-    futuraFont = QString("%1Resources/Futura-Bold.ttf").arg(fontPath);
+// If this is uncommented, release builds get the wrong font.
+//    fontPath.remove(fontPath.length() - 5, fontPath.length());
+//    droidFont = QString("%1Resources/DroidSansMono.ttf").arg(fontPath);
+//    futuraFont = QString("%1Resources/Futura-Bold.ttf").arg(fontPath);
 
-    QFontDatabase::addApplicationFont(droidFont);
-    QFontDatabase::addApplicationFont(futuraFont);
+//    QFontDatabase::addApplicationFont(droidFont);
+//    QFontDatabase::addApplicationFont(futuraFont);
 #elif !defined(Q_OS_MAC)
     droidFont = "./resources/DroidSansMono.ttf";
     futuraFont = "./resources/futura-normal.ttf";
@@ -435,6 +436,8 @@ void MainWindow::slotDisplaySaveState(bool dirty)
 
 void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
 {
+    Q_UNUSED(embeddedVersion);
+
     //qDebug() << "slotReceiveVersions called connected:" << connectedVersion << connected;
     connectedVersionString = connectedVersion;
     connectedVersionInt = connected;

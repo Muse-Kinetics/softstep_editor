@@ -1,6 +1,8 @@
 // Copyright (c) 2025 KMI Music, Inc.
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#include <QFileDialog>
+
 #include "presetinterface.h"
 
 PresetInterface::PresetInterface(QWidget *parent) :
@@ -20,7 +22,7 @@ void PresetInterface::slotUpdateJSONPath()
 {
     jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
 
-#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
+#if defined(Q_OS_MAC) // This doesn't work: && !defined(QT_DEBUG)
     jsonPath.remove(jsonPath.length() - 5, jsonPath.length()); //Remove "MacOS" from path string
     if(mode == "hosted")
     {
@@ -42,6 +44,9 @@ void PresetInterface::slotUpdateJSONPath()
     }
 
 #endif
+
+    qDebug() << jsonPath;
+
 }
 
 void PresetInterface::slotPopulatePresetMenu(QComboBox* presetMenu)

@@ -6,8 +6,10 @@
 
 QT       += core gui \
             svg \
-            declarative \
+            qml quick quickwidgets \
             network
+
+QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

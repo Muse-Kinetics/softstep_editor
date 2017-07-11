@@ -11,7 +11,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
 
     jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
 
-#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
+#if defined(Q_OS_MAC) // if uncommented, presets don't load: && !defined(QT_DEBUG)
     jsonPath.remove(jsonPath.length() - 5, jsonPath.length()); //Remove "MacOS" from path string
     jsonPath.append("Resources/presets/softstepezpz.json");
 #else

@@ -643,7 +643,7 @@ void Settings::slotSetJSONPath()
 {
     jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
 
-#if defined(Q_OS_MAC)  && !defined(QT_DEBUG)
+#if defined(Q_OS_MAC)  //&& !defined(QT_DEBUG)
     jsonPath.remove(jsonPath.length() - 5, jsonPath.length());  //remove "MacOS" from path string
     jsonPath.append("Resources/presets/settings.json");
 
@@ -1249,7 +1249,7 @@ void Settings::slotStopCalibrationStandAlone()
 void Settings::slotLoadTableOnStartup()
 {
     //Load pedal table file
-#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
+#if defined(Q_OS_MAC) //&& !defined(QT_DEBUG)
     QString pedalFilename = QCoreApplication::applicationDirPath();
     pedalFilename.remove(pedalFilename.length() - 5, pedalFilename.length()); //Remove "MacOS" from path string
     QFile *pedalTableFile = new QFile(QString("%1Resources/pedalTable.txt").arg(pedalFilename));
@@ -1298,7 +1298,7 @@ void Settings::slotWritePedalTableToDisk(QByteArray tableByteArray)
 
     qDebug() << "write pedal table to disk" << tableByteArray.size();
     //Load pedal table file
-#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
+#if defined(Q_OS_MAC) //&& !defined(QT_DEBUG)
     QString pedalFilename = QCoreApplication::applicationDirPath();
     pedalFilename.remove(pedalFilename.length() - 5, pedalFilename.length()); //Remove "MacOS" from path string
     QFile *pedalTableFile = new QFile(QString("%1Resources/pedalTable.txt").arg(pedalFilename));

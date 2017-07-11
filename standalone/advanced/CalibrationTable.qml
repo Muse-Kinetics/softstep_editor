@@ -1,5 +1,5 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
-import QtQuick 1.0
+import QtQuick 2.9
 
 Rectangle
 {
@@ -20,7 +20,7 @@ Rectangle
         //console.log(y);
         //console.log(size);
 
-        var newObject = Qt.createQmlObject('import QtQuick 1.0; Rectangle {color: Qt.rgba(230/255, 0/255, 134/255,1);}', main, "block");
+        var newObject = Qt.createQmlObject('import QtQuick 2.9; Rectangle {color: Qt.rgba(230/255, 0/255, 134/255,1);}', main, "block");
 
         newObject.x = x*107 + 2;
         newObject.y = 109 - y*107;
@@ -35,14 +35,14 @@ Rectangle
     {
         //console.log("clearBlock called............");
 
-        var newObject = Qt.createQmlObject('import QtQuick 1.0; Rectangle {color: Qt.rgba(50/255, 50/255, 50/255,1); x:2; y:2; width: 109; height: 109;}', main, "clear");
+        var newObject = Qt.createQmlObject('import QtQuick 2.9; Rectangle {color: Qt.rgba(50/255, 50/255, 50/255,1); x:2; y:2; width: 109; height: 109;}', main, "clear");
     }
 
     function drawLinear()
     {
         for(var i = 0; i < 109; i++)
         {
-            var newObject = Qt.createQmlObject('import QtQuick 1.0; Rectangle {color: Qt.rgba(230/255, 0/255, 134/255,1);}', main, "block");
+            var newObject = Qt.createQmlObject('import QtQuick 2.9; Rectangle {color: Qt.rgba(230/255, 0/255, 134/255,1);}', main, "block");
 
             newObject.x = i+2;
             newObject.y = 109 - i;

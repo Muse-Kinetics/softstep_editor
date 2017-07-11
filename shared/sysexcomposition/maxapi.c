@@ -64,6 +64,9 @@ t_symbol *gensym(char *str)
 
 void *outlet_anything(void *o, t_symbol *s, short ac, t_atom *av)
 {
+    Q_UNUSED(o);
+    Q_UNUSED(s);
+
     //printf("outlet_anything: %s",s->s_name);
 
     int i;

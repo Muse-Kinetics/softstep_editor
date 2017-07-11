@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QVariant>
 #include <QtGui>
+#include <QComboBox>
 
 #include "qjson/src/parser.h"
 #include "qjson/src/serializer.h"

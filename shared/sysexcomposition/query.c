@@ -118,14 +118,17 @@ void sysex_completion_flag_clear(void){
 }
 void send_debug_msg(t_softstep *x)
 {
-	sysex_completion_flag_clear();
+    Q_UNUSED(x);
+
+    sysex_completion_flag_clear();
 	post("hw debug: %s",get_sysex_debug());
 }
 
 int fw_process_midi(int midiVal,int *buildNum,int *error,char *version)
 {
-	
-	if ((fw_status_current.valid = fw_status_get(
+    Q_UNUSED(midiVal);
+
+    if ((fw_status_current.valid = fw_status_get(
                                                 &fw_status_current.buildNum,
                                                 &fw_status_current.error,
                                                 fw_status_current.version)))

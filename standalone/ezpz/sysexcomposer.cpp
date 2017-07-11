@@ -38,7 +38,7 @@ void SysExComposer::slotGetEmbeddedVersion()
 
     QString sysExPath = QCoreApplication::applicationDirPath(); //get bundle path
 
-#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
+#if defined(Q_OS_MAC) // if uncommented, firmware update doesn't: && !defined(QT_DEBUG)
     sysExPath.remove(sysExPath.length() - 5, sysExPath.length()); //Remove "MacOS" from path string
     sysExPath.append("Resources/SoftStep.syx");
 
@@ -85,6 +85,8 @@ void SysExComposer::slotGetEmbeddedVersion()
 
 void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, QVariantMap master, qlonglong presetNum)
 {
+    Q_UNUSED(presetNum)
+
     t_softstep *x = softstep_init();
 
     QMapIterator<QString, QVariant> i(presetSent);

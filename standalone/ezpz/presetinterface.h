@@ -8,6 +8,12 @@
 #include <QDebug>
 #include <QVariant>
 #include <QtGui>
+#include <QFileDialog>
+#include <QSpinBox>
+#include <QDoubleSpinBox>
+#include <QLineEdit>
+#include <QAction>
+#include <QCheckBox>
 
 #include "qjson/src/parser.h"
 #include "qjson/src/serializer.h"

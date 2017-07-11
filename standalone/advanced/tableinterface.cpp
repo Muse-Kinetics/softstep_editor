@@ -1,7 +1,12 @@
 // Copyright (c) 2025 KMI Music, Inc.
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#include <QQuickView>
+#include <QQuickItem>
+#include <QQmlContext>
+#include <QQuickWidget>
 #include "tableinterface.h"
+
 
 TableInerface::TableInerface(QWidget *parent) :
     QWidget(parent)
@@ -18,9 +23,10 @@ TableInerface::TableInerface(QWidget *parent) :
     //-------- Setup QML Ui
     qmlWidget = new QWidget(uiWidget);
 
-    QDeclarativeView* qmlView = new QDeclarativeView;
-    qmlView->rootContext()->setContextProperty("TableInterface", this);
+    QQuickWidget* qmlView = new QQuickWidget;
     qmlView->setSource(QUrl("qrc:/CalibrationTable.qml"));
+
+    qmlView->rootContext()->setContextProperty("TableInterface", this);
 
     QVBoxLayout *layout = new QVBoxLayout(qmlWidget);
     layout->addWidget(qmlView);

@@ -10,6 +10,7 @@
 #include "utils.h"
 #include "softstep.h"
 #include "query.h"
+#include "attribute.h"
 
 
 void prepare_presets(t_softstep *x)

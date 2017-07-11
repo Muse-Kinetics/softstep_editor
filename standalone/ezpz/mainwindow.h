@@ -6,6 +6,11 @@
 
 #include <QMainWindow>
 #include <QVariant>
+#include <QComboBox>
+#include <QMenuBar>
+#include <QMenu>
+#include <QAction>
+#include <qglobal.h>
 
 #include "key.h"
 #include "presetinterface.h"

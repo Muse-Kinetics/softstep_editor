@@ -4,6 +4,9 @@
 
 #include <stdlib.h>
 #include <string.h>
+
+#include <qglobal.h>
+
 #include "softstep.h"
 #include "syxformats.h"
 #include "midi.h"
@@ -18,20 +21,20 @@ PACKET_DATA_INFO packet_data_info;
 PACKET_DATA pd;
 
 const SYSEX_HANDLER sysex_handlers[] = {
-    0,0,0,0,NULL,// 0 request_fw_version,
-    0,0,0,0,NULL,// 1 request_fw_update,
-    0,0,0,0,NULL,// 2 digit display
-    0,0,0,0,NULL,// 3 leds
-    0,0,0,0,NULL,// 4 EL
-    &sysex_data,sizeof(struct SYSEX_DATA),null_open,null_datum,fw_header_close,// 5
-    0,0,null_open,null_datum,null_close,// 6 EL
-    0,0,null_open,null_datum,null_close,// 7 EL
-    0,0,0,0,NULL,// 8 EL
-    0,0,0,0,NULL,// 9 EL
-    0,0,0,0,NULL,// 10 EL
-    0,0,0,0,NULL,// 11 EL
-    &sysex_data,sizeof(struct SYSEX_DATA),null_open,null_datum,debug_msg_close,// 12
-    &sysex_data,sizeof(struct SYSEX_DATA),null_open,null_datum,misc_info_close,// 13  ****** new entry *********
+    {0,0,0,0,NULL},// 0 request_fw_version,
+    {0,0,0,0,NULL},// 1 request_fw_update,
+    {0,0,0,0,NULL},// 2 digit display
+    {0,0,0,0,NULL},// 3 leds
+    {0,0,0,0,NULL},// 4 EL
+    {&sysex_data,sizeof(struct SYSEX_DATA),null_open,null_datum,fw_header_close},// 5
+    {0,0,null_open,null_datum,null_close},// 6 EL
+    {0,0,null_open,null_datum,null_close},// 7 EL
+    {0,0,0,0,NULL},// 8 EL
+    {0,0,0,0,NULL},// 9 EL
+    {0,0,0,0,NULL},// 10 EL
+    {0,0,0,0,NULL},// 11 EL
+    {&sysex_data,sizeof(struct SYSEX_DATA),null_open,null_datum,debug_msg_close},// 12
+    {&sysex_data,sizeof(struct SYSEX_DATA),null_open,null_datum,misc_info_close},// 13  ****** new entry *********
     
 };
 
@@ -46,7 +49,7 @@ union {
 } core_sx;
 
 
-long core_sx_count;
+unsigned long core_sx_count;
 int sysex_rx_completion_type = 0;
 
 unsigned char core_sx_state;
@@ -77,6 +80,8 @@ void misc_info_close(unsigned char success)
 }
 
 void debug_msg_close(unsigned char success) {
+    Q_UNUSED(success);
+
     //	int i;
     //	for(i=0;i<10;i++)
     //		post("debug_msg: [%p] [%02x] [%c]",&sysex_data,sysex_data.u.debug_msg[i],sysex_data.u.debug_msg[i]);
@@ -103,12 +108,13 @@ unsigned char midi_sx_decode_get(unsigned char *val) {
 	return 0;
 }
 void null_datum(unsigned char val) {
-	val= val;
+    Q_UNUSED(val);
 }
 unsigned char null_open(void) {
 	return 1;
 }
 void null_close(unsigned char success) {
+    Q_UNUSED(success);
 }
 void sx_init(void) {
 	core_sx_state = CORE_SX_START;

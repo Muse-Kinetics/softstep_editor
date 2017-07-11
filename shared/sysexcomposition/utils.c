@@ -14,7 +14,7 @@
 #include "syxtx.h"
 #include "utils.h"
 
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(WIN64)
 #define _WINDOWS
 #endif
 

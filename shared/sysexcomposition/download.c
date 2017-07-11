@@ -17,7 +17,7 @@ int modline_is_output_reference(MODLINE *modline,int *index);
 void send_standalone_settings(t_softstep *x);
 void send_standalone_image(t_softstep *x);
 
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
 #define _WINDOWS
 #endif
 

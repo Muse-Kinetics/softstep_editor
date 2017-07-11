@@ -6,7 +6,11 @@
 
 #include "stdio.h"
 
-#ifdef _WIN32 || _WIN64
+#ifndef Q_UNUSED
+#define Q_UNUSED(x) (void)x;
+#endif
+
+#if defined(_WIN32) || defined(WIN64)
 #define _WINDOWS
 #endif
 
@@ -45,9 +49,17 @@
 
 #define CSTR(val) CFStringGetCStringPtr(val,CFStringGetSystemEncoding())
 typedef unsigned char Byte;
+
+#ifndef false
 #define false   0
+#endif
+
 #define FALSE   0
+
+#ifndef true
 #define true    1
+#endif
+
 #define TRUE    1
 
 

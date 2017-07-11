@@ -6,6 +6,8 @@
 
 #include <QWidget>
 #include <QtGui>
+#include <QLabel>
+#include <QSlider>
 
 class Pedal : public QWidget
 {

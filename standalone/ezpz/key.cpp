@@ -719,6 +719,8 @@ void Key::slotValueChanged()
 
 void Key::slotRecallPreset(QVariantMap preset, QVariantMap master)
 {
+    Q_UNUSED(master);
+
     //qDebug() << "--------------------------------------- recall preset - key:" << instance << preset.value(QString("%1_key_source").arg(instance)).toString();
 
     //Show/Hide Factory/Custom Preset

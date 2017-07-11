@@ -301,7 +301,7 @@ QPushButton
       <string notr="true">font: 10pt;</string>
      </property>
      <property name="text">
-      <string>2.03</string>
+      <string>2.04</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

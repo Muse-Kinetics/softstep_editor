@@ -7,8 +7,8 @@
 #include <QWidget>
 #include <QtGui>
 #include <QLayout>
-#include <QDeclarativeView>
-#include <QDeclarativeContext>
+#include <QtQml/QQmlEngine>
+#include <QtQuick/QQuickView>
 #include <QDebug>
 
 #ifdef Q_OS_MAC

@@ -3,6 +3,7 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //#define DEVELOPMENT
 
+
 #include <stdlib.h>
 #include <string.h>
 #include "maxapi.h"
@@ -17,6 +18,8 @@
 #include <stdarg.h>
 #include <ctype.h>
 #include "syxtx.h"
+
+#include <qglobal.h>
 
 
 char *garageband_function_list[] = {"None","Rewind_to_Start","Rewind","Play","Fast_Forward","Loop","Record"};
@@ -753,8 +756,6 @@ void post_par_list(short argc,t_atom *argv, char *fmt,...) {
     printf("\n");
 
     va_end(a_list);
-
-    return argv;
 }
 int par_match(short argc,t_atom *argv,...) {
     int i,type;
@@ -896,9 +897,17 @@ void write_c(char *title,void *data,int length,t_softstep *x)
     write_c_data(data,length,x);
     write_c_end(x);
 }
+
 void par_error(t_softstep *x,short argc,t_atom *argv,char *msg)
 {
-    //post_par_list(argc,argv,"**************  No match for %s: key[%d] ************",msg,x->key_num);
+#if 1
+    Q_UNUSED(x);
+    Q_UNUSED(argc);
+    Q_UNUSED(argv);
+    Q_UNUSED(msg);
+#else
+    post_par_list(argc,argv,"**************  No match for %s: key[%d] ************",msg,x->key_num);
+#endif
 }
 
 int get_index_verbose = 0;
@@ -954,6 +963,8 @@ int get_index_str(char *list[],char *str)
     return 0;
 }
 void sx_send_list(t_softstep *x,int type,char *description) {
+    Q_UNUSED(description);
+
     //printf("sx_send_list[%s] -- len[%i] -- type[%i]\n",description, midi_sx_length(), type);
     //fflush(stdout);
 

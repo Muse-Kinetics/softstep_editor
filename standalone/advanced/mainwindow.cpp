@@ -4,6 +4,11 @@
 #include "mainwindow.h"
 //#include "ui_mainwindowWin.h"
 
+#include <QDesktopWidget>
+#include <QMenuBar>
+#include <QMenu>
+#include <QAction>
+
 #define MAINWINDOW_WIDTH 690
 #ifdef Q_OS_MAC
 #define MAINWINDOW_HEIGHT 279
@@ -221,7 +226,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QString corbelBFont;
     QString fontPath = QCoreApplication::applicationDirPath();
 
-#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
+#if defined(Q_OS_MAC) // && !defined(QT_DEBUG)
     fontPath.remove(fontPath.length() - 5, fontPath.length());
     droidFont = QString("%1Resources/DroidSansMono.ttf").arg(fontPath);
     futuraFont = QString("%1Resources/Futura-Bold.ttf").arg(fontPath);
