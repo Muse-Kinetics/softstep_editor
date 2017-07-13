@@ -229,7 +229,7 @@ MainWindow::MainWindow(QWidget *parent) :
 #if defined(Q_OS_MAC) // && !defined(QT_DEBUG)
     fontPath.remove(fontPath.length() - 5, fontPath.length());
     droidFont = QString("%1Resources/DroidSansMono.ttf").arg(fontPath);
-    futuraFont = QString("%1Resources/Futura-Bold.ttf").arg(fontPath);
+    futuraFont = QString("%1Resources/futura-normal.ttf").arg(fontPath);
 
     QFontDatabase::addApplicationFont(droidFont);
     QFontDatabase::addApplicationFont(futuraFont);
