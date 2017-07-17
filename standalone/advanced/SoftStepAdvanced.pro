@@ -6,12 +6,10 @@
 
 QT       += core gui \
             svg \
-            qml quick quickwidgets \
-            network
+            qml quick widgets quickwidgets
+
 
 QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = "SoftStep Advanced Editor"
 TEMPLATE = app
@@ -79,7 +77,6 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexcomposition/maxapi.h \
                 ../../shared/sysexcomposition/download.h \
                 ../../shared/sysexcomposition/attribute.h \
-                ../../shared/sysexcomposition/sysexcomposer.h \
                 ../../shared/sysexmessages.h \
                 settings.h \
                 mididevicemanager.h \
