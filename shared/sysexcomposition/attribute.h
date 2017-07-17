@@ -46,7 +46,6 @@ void float_fix(FIXED_PT *val,float fval);
 void par_error(t_softstep *x,short argc,t_atom *argv,char *msg);
 void crc_init(void);
 t_softstep *softstep_init(void);
-int firmware_compatable(int build_num);
 void sendSysex(unsigned char *src,int len, int type);
 
 unsigned char *image; int imageLength;

@@ -105,7 +105,7 @@ void OscInterface::slotReadPendingDatagrams()
             for(int i = 0; i < datagram.size(); i++)
             {
                 //Scrool up to a null or , (type tag)
-                if(datagram.at(i) != NULL && datagram.at(i) != ',')
+                if(datagram.at(i) != 0 && datagram.at(i) != ',')
                 {
                     msgAddress.append(datagram.at(i));
                 }

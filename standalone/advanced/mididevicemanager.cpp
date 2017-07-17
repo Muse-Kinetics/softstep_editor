@@ -2,7 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "mididevicemanager.h"
-#include "sysexMessages.h"
+#include "sysexmessages.h"
 
 #ifdef Q_OS_MAC
 MidiDeviceManager *callbackClassPointer;
@@ -94,7 +94,7 @@ void MidiDeviceManager::slotSetMode(QString m)
 int MidiDeviceManager::getSource()
 {
     //Returns index of first instance of SSCOM Port 1
-    for(int i=0; i<MIDIGetNumberOfSources(); i++)
+    for(unsigned int i=0; i<MIDIGetNumberOfSources(); i++)
     {
         if(getDisplayName(MIDIGetSource(i)).contains("SSCOM") && getDisplayName(MIDIGetSource(i)).contains("1"))
         {
@@ -108,7 +108,7 @@ int MidiDeviceManager::getSource()
 int MidiDeviceManager::getDestination()
 {
     //Returns index of first instance of SSCOM Port 1
-    for(int i=0; i<MIDIGetNumberOfDestinations(); i++)
+    for(unsigned int i=0; i<MIDIGetNumberOfDestinations(); i++)
     {
 
         //qDebug() << "destination namE" << getDisplayName(MIDIGetDestination(i)) << i;
@@ -372,7 +372,7 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char* bytes, i
         {
             QApplication::processEvents();
 
-            if(bytes != sysExMsgReq->bytesToSend)
+            if(bytes != (long)sysExMsgReq->bytesToSend)
             {
                 bytes = sysExMsgReq->bytesToSend;
 
@@ -495,7 +495,7 @@ void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
     //----------------------- Get non SSCOM sources
     midiInputSources.clear();
 
-    for(int i=0; i<MIDIGetNumberOfSources(); i++)
+    for(unsigned int i=0; i<MIDIGetNumberOfSources(); i++)
     {
         //Allocate new array of endpoint pointers for passing as refcon
         midiInputSourcePointers = new MIDIEndpointRef[MIDIGetNumberOfSources()];
@@ -528,9 +528,9 @@ void MidiDeviceManager::hosted_slotRepopulateMidiSourceDests()
     externalDests.clear();
 
     //Make sure SoftStep Share is in there but points to nothing
-    externalDests.insert("SoftStep Share", NULL);
+    externalDests.insert("SoftStep Share", 0);
 
-    for(int i=0; i<MIDIGetNumberOfDestinations(); i++)
+    for(unsigned int i=0; i<MIDIGetNumberOfDestinations(); i++)
     {
         ///qDebug() << "Destinations: " << getDisplayName(MIDIGetSource(i));
 
@@ -566,7 +566,7 @@ void MidiDeviceManager::hosted_slotConnectExternalMidiInputSources()
 {
     //er = midiInputSources.value(getDisplayName(MIDIGetSource(0)));
 
-    for(int i=0; i<MIDIGetNumberOfSources(); i++)
+    for(unsigned int i=0; i<MIDIGetNumberOfSources(); i++)
     {
         if(getDisplayName(MIDIGetSource(i)).contains("SSCOM") && getDisplayName(MIDIGetSource(i)).contains("1"))
         {
@@ -594,6 +594,7 @@ void MidiDeviceManager::hosted_slotConnectExternalMidiInputSources()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void midiSystemChanged(const MIDINotification *message, void *refCon)
 {
+    Q_UNUSED(refCon);
 
     //------------------------------------------- this function needs optimization, too many calls to repopulate menus, but will do for now
     bool repopulateMidiSourceDests = false;
@@ -663,8 +664,7 @@ void midiSystemChanged(const MIDINotification *message, void *refCon)
     }
     else if(message->messageID == kMIDIMsgSetupChanged)
     {
-        MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
-
+        // MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
         //qDebug() << "midi setup changed" << message->messageID << msg->childType << callbackClassPointer->getDisplayName(msg->child);
         repopulateMidiSourceDests = true;
     }
@@ -679,6 +679,9 @@ void midiSystemChanged(const MIDINotification *message, void *refCon)
 
 void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon){
 
+    Q_UNUSED(readProcRefCon);
+    Q_UNUSED(srcConnRefCon);
+
     if(callbackClassPointer->ioGate)
     {
         //qDebug() << "incoming midi";
@@ -686,7 +689,7 @@ void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *src
         const MIDIPacket *packet = &pktlist->packet[0];
 
         //for number packets in packet list
-        for(int i =0; i < pktlist->numPackets; i++)
+        for(unsigned int i =0; i < pktlist->numPackets; i++)
         {
 
             //for length of packet
@@ -741,6 +744,8 @@ void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *src
 
 void midiInputIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon)
 {
+    Q_UNUSED(readProcRefCon);
+
     if(callbackClassPointer->ioGate)
     {
         //Receives midi from SoftStep Share
@@ -750,7 +755,7 @@ void midiInputIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, 
         const MIDIPacket *packet = &pktlist->packet[0];
 
         //for number packets in packet list
-        for(int i =0; i < pktlist->numPackets; i++)
+        for(unsigned int i =0; i < pktlist->numPackets; i++)
         {
             //for length of packet
             for(int j = 0; j < packet->length; j++)
@@ -769,6 +774,8 @@ void midiInputIncomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, 
 
 void sysExComplete(MIDISysexSendRequest* request)
 {
+    Q_UNUSED(request);
+
     //qDebug() << "Sys Ex Sent";
 }
 #else

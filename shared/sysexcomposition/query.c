@@ -8,7 +8,8 @@
 #include "utils.h"
 #include "string.h"
 #include "syxformats.h"
-
+#include "download.h"
+#include "attribute.h"
 
 typedef struct {int valid,buildNum,error;char version[30];} FW_STATUS;
 
@@ -35,10 +36,10 @@ unsigned char fw_query_syx_qunexus[] = {
     0x00,0x30,0xF7
 };
 
-struct {int valid,buildnum,error;char version[20];} fw_status = {0,0,0};
+struct {int valid,buildnum,error;char version[20];} fw_status = {0,0,0,{0}};
 
-FW_STATUS fw_status_embedded = {0,0,0};
-FW_STATUS fw_status_current = {0,0,0};
+FW_STATUS fw_status_embedded = {0,0,0,{0}};
+FW_STATUS fw_status_current = {0,0,0,{0}};
 void fw_header_close(unsigned char success) {
     //	post("fw_header_close[%d]",success);
 	if (success)

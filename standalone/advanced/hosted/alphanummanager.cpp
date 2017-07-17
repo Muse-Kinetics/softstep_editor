@@ -14,6 +14,7 @@ AlphaNumManager::AlphaNumManager(QObject *parent) :
 
 void AlphaNumManager::slotDisplayParam(int modlineNum, int val)
 {
+    Q_UNUSED(modlineNum);
     //qDebug() << "instance" << instanceNum << "display param called" << "sender name" << QObject::sender()->objectName() << "modline num" << modlineNum << "val" << val;
 
     //------------ Format prefix and value

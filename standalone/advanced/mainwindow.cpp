@@ -1106,6 +1106,8 @@ void MainWindow::slotConnected(bool connection)
 
 void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion, int hardware)
 {
+    Q_UNUSED(embeddedVersion);
+
     qDebug() << "slotReceiveVersions";
     connectedVersionString = connectedVersion;
     connectedVersionInt = connected;
@@ -1442,8 +1444,8 @@ void MainWindow::slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> external
             else
             {
                 QMap<QString, MIDIEndpointRef> standaloneDevices;
-                standaloneDevices.insert("SSCOM Port 1", NULL);
-                standaloneDevices.insert("SoftStep Expander", NULL);
+                standaloneDevices.insert("SSCOM Port 1", 0);
+                standaloneDevices.insert("SoftStep Expander", 0);
 
                 key[i]->modline[j]->hosted_slotPopulateDeviceMenu(standaloneDevices);
             }
@@ -1466,8 +1468,8 @@ void MainWindow::slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> external
         else
         {
             QMap<QString, MIDIEndpointRef> standaloneDevices;
-            standaloneDevices.insert("SSCOM Port 1", NULL);
-            standaloneDevices.insert("SoftStep Expander", NULL);
+            standaloneDevices.insert("SSCOM Port 1", 0);
+            standaloneDevices.insert("SoftStep Expander", 0);
 
             navKey->navModline[n]->hosted_slotPopulateDeviceMenu(standaloneDevices);
         }

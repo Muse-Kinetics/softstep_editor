@@ -267,7 +267,7 @@ void Key::slotValueChanged()
         emit signalStoreValue(QString("%1_key_").arg(keyInstance+1) + jsonName, value, -1);
 
         //If an alphanum param was modified update it's members
-        if(updateAlphaDisplayParams = true)
+        if(updateAlphaDisplayParams == true)
         {
             slotSetAlphaNumSettings();
         }
@@ -566,7 +566,7 @@ void Key::slotCounter(QString whatToDo, int val)
         }
         else if(!wrap && counter == max)
         {
-            counter == max;
+            // counter == max;
         }
         else if(counter < min)
         {
@@ -585,7 +585,7 @@ void Key::slotCounter(QString whatToDo, int val)
         }
         else if(!wrap && counter == min)
         {
-            counter == min;
+            // counter == min;
         }
         else
         {

@@ -843,10 +843,6 @@ void NavModline::slotMinMax(int input)
         {
             input = max;
         }
-        else
-        {
-            input = input;
-        }
     }
     slotSmooth(input);
 }

@@ -116,6 +116,8 @@ void StateRecall::slotStoreInitModeState(int modlineNum, bool called)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void StateRecall::slotRecallState(QString name)
 {
+    Q_UNUSED(name);
+
     /*
     //Inc-Dec
     emit signalStateRecallYIncDec(yIncDecState.value(name));

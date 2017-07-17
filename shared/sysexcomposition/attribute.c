@@ -215,8 +215,10 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
             x->current_image->nm.key[x->key_num].prefix_index = LE_short(x->current_list->strings.size);
             strcpy(x->current_list->strings.data+x->current_list->strings.size,str);
             x->current_list->strings.size += len + 1;
-        } else
-            x->current_image->nm.key[x->key_num].prefix_index;
+        } else {
+            //    x->current_image->nm.key[x->key_num].prefix_index;
+        }
+
         return;
     }
 
@@ -742,7 +744,7 @@ void vpost_par_list(short argc,t_atom *argv, char *fmt,va_list a_list) {
     vsnprintf(emsg,sizeof(emsg),fmt,a_list);
 
     par_list_str(argc,argv,emsg+strlen(emsg),(int) (sizeof(emsg)-strlen(emsg)));
-    post(emsg);
+    post("%s", emsg);
     printf("\n");
 
 }

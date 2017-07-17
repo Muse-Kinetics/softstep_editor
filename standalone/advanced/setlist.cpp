@@ -69,6 +69,8 @@ void Setlist::slotCheckBoxClicked()
 
 void Setlist::slotMenuChanged(int menuNum)
 {
+    Q_UNUSED(menuNum);
+
     QComboBox* menu = (QComboBox*)QObject::sender();
     int i = menu->objectName().remove("setlistmenu").toInt();
     QCheckBox* checkBox = setlistWidget->findChild<QCheckBox *>(QString("enable%1").arg(i));
@@ -264,8 +266,6 @@ void Setlist::slotChangePreset(bool prevOrNext)
     //If setlist is NOT empty
     if(!setlistEmpty)
     {
-        int initialSlot = currentSetlistSlot;
-
         //If move to next command...
         if(prevOrNext)
         {

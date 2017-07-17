@@ -797,6 +797,8 @@ int DataCooker::xLatch(int modlineNum)
 
 void DataCooker::slotXLatchReturn(int val, int modlineNum)
 {
+    Q_UNUSED(modlineNum);
+
     for(int i = 0; i < 6; i++)
     {
         emit signalTransformSource(val, i, "X Latch");
@@ -820,6 +822,8 @@ int DataCooker::yLatch(int modlineNum)
 
 void DataCooker::slotYLatchReturn(int val, int modlineNum)
 {
+    Q_UNUSED(modlineNum);
+
     for(int i = 0; i < 6; i++)
     {
         emit signalTransformSource(val, i, "Y Latch");
@@ -1097,7 +1101,7 @@ void DataCooker::fastTrig()
 
 void DataCooker::slotFastTriggerReturn()
 {
-    int outputVal = pressureLive(); //Only call once, send duplicates
+    // Apparently unused: int outputVal = pressureLive(); //Only call once, send duplicates
 
     //Emit positive
     for(int i = 0; i < 6; i++)
@@ -1137,7 +1141,7 @@ void DataCooker::dblTrig()
 
 void DataCooker::slotDblTriggerReturn()
 {
-    int outputVal = pressureLive(); //Only call once, send duplicates
+    // Apparently unused: int outputVal = pressureLive(); //Only call once, send duplicates
 
     //Emit positive
     for(int i = 0; i < 6; i++)
@@ -1177,7 +1181,7 @@ void DataCooker::longTrig()
 
 void DataCooker::slotLongTriggerReturn()
 {
-    int outputVal = pressureLive(); //Only call once, send duplicates
+    // Apparently unused: int outputVal = pressureLive(); //Only call once, send duplicates
 
     //Emit positive
     for(int i = 0; i < 6; i++)

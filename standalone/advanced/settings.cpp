@@ -972,7 +972,7 @@ void Settings::slotEmitAllSettings()
     emit signalSetGlobalGain((double)(settingsForm->global_gain_slider->value()) * 0.01);
 
     //---------------- Key Safety
-    int lockoutMode;
+    int lockoutMode = 0;
 
     if(settingsForm->multiplekeymode->isChecked())
     {

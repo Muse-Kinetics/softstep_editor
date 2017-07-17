@@ -36,6 +36,8 @@ DisplaySink::DisplaySink(QObject *parent) :
 
 void DisplaySink::slotAddAlphaPacket(QString port, QList<MIDIPacket> packetList)
 {
+    Q_UNUSED(port);
+
     //qDebug() << "add alpha packet" << alphaLastPacketList.size() << packetList.size();// << alphaLastPacketList.at(0).data[0];s
 
     bool newPacket = false;
@@ -85,6 +87,8 @@ void DisplaySink::slotAddAlphaPacket(QString port, QList<MIDIPacket> packetList)
 
 void DisplaySink::slotAddLEDPacket(QString port, QList<MIDIPacket> packetList)
 {
+    Q_UNUSED(port);
+
     bool newPacket = false;
 
     //qDebug() << "slotAddLEDPacket size" << packetList.size() << ledLastPacketList.size();

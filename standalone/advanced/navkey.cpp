@@ -227,7 +227,7 @@ void NavKey::slotValueChanged()
         emit signalStoreValue(QString("nav_%1").arg(jsonName), value, -1);
 
         //if an alphanum param was modified update its members
-        if(updateAlphaDisplayParams = true)
+        if(updateAlphaDisplayParams == true)
         {
             slotSetAlphaNumSettings();
         }
@@ -544,7 +544,7 @@ void NavKey::slotCounter(QString whatToDo, int val)
         }
         else if(!wrap && counter == max)
         {
-            counter == max;
+            // why?: counter == max;
         }
         else if(counter < min)
         {
@@ -563,7 +563,7 @@ void NavKey::slotCounter(QString whatToDo, int val)
         }
         else if(!wrap && counter == min)
         {
-            counter == min;
+            // why?: counter == min;
         }
         else
         {

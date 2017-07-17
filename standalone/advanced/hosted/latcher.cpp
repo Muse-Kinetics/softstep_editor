@@ -44,6 +44,8 @@ void Latcher::receiveInput(int val, int modlineNum)
 
 void Latcher::slotInputFromStream(const int &val)
 {
+    Q_UNUSED(val);
+
     //qDebug() << "latch buffer" << buffer.first();
     //buffer.removeFirst();
 }
