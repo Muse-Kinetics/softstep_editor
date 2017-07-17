@@ -8,7 +8,6 @@
 #include <QtGui>
 #include <QLayout>
 #include <QtQml/QQmlEngine>
-#include <QtQuick/QQuickView>
 #include <QDebug>
 
 #ifdef Q_OS_MAC
