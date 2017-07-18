@@ -18,6 +18,56 @@ Setlist::Setlist(QWidget *parent) :
     repopulating = false;
 
     currentSetlistSlot = -1;
+
+    // If setlist JSON files do not exist in AppDataLocation, copy the defaults from the application bundle dir.
+
+    // Get platform dependant path to read only setlists directory inside the app bundle/package
+    QString appPackageDirPath = QCoreApplication::applicationDirPath();
+
+#if defined(Q_OS_MAC)
+    //Remove "MacOS" from path string
+    appPackageDirPath.remove(appPackageDirPath.length() - 5, appPackageDirPath.length());
+
+    QString setlistsDirSrcPath = appPackageDirPath + "Resources/presets";
+#else
+    QString setlistsDirSrcPath = QString("./presets");
+#endif
+
+    // Get path to writeable app data directory
+    QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
+    if (appDataDirPath.isEmpty()) {
+        qFatal("Cannot determine setlist storage location");
+    }
+
+    // Create destination setlists subdirectory if it doesn't exist
+    QString setlistsDirDestPath = appDataDirPath;
+
+    if (!QDir(setlistsDirDestPath).exists()) {
+        QDir().mkpath(setlistsDirDestPath);
+    }
+
+    // If either setlist file doesn't exist at the destination, copy it there
+    QString setlistFileDestPath = setlistsDirDestPath + "/hosted_setlist.json";
+    QString setlistFileSrcPath = setlistsDirSrcPath + "/hosted_setlist.json";
+
+    if (!QFile::exists(setlistFileDestPath))
+    {
+        if (QFile::copy(setlistFileSrcPath, setlistFileDestPath) == false) {
+            qFatal("Cannot copy default setlist file to application data path!");
+        }
+    }
+
+    // Non-hosted setlists file
+    setlistFileDestPath = setlistsDirDestPath + "/setlist.json";
+    setlistFileSrcPath = setlistsDirSrcPath + "/setlist.json";
+
+    if (!QFile::exists(setlistFileDestPath))
+    {
+        if (QFile::copy(setlistFileSrcPath, setlistFileDestPath) == false) {
+            qFatal("Cannot copy default setlist file to application data path!");
+        }
+    }
 }
 
 QStringList Setlist::getSetlistMap()
@@ -193,29 +243,19 @@ void Setlist::slotSetMode(QString m)
 
 void Setlist::slotUpdateJSONPath()
 {
-    jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
+    QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QString setlistsDirDestPath = appDataDirPath += "/presets";
 
-#if defined(Q_OS_MAC) // && !defined(QT_DEBUG)
-    jsonPath.remove(jsonPath.length() - 5, jsonPath.length()); //Remove "MacOS" from path string
-    if(mode == "hosted")
-    {
-        jsonPath.append("Resources/presets/hosted_setlist.json");
-    }
-    else
-    {
-        jsonPath.append("Resources/presets/setlist.json");
+    jsonPath = setlistsDirDestPath;
+
+    if(mode == "hosted") {
+        jsonPath.append("/hosted_setlist.json");
+    } else {
+        jsonPath.append("/setlist.json");
     }
 
-#else
-    if(mode == "hosted")
-    {
-        jsonPath = QString("./presets/hosted_setlist.json");
-    }
-    else
-    {
-        jsonPath = QString("./presets/setlist.json");
-    }
-#endif
+    // Fixme: don't leave this on
+    qDebug() << jsonPath;
 }
 
 void Setlist::slotReadSetlist()
