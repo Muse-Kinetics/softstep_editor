@@ -9,17 +9,53 @@ PresetInterface::PresetInterface(QWidget *parent) :
     connected = false;
     settings = new QSettings(this);
 
-    jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
 
-#if defined(Q_OS_MAC) // if uncommented, presets don't load: && !defined(QT_DEBUG)
-    jsonPath.remove(jsonPath.length() - 5, jsonPath.length()); //Remove "MacOS" from path string
-    jsonPath.append("Resources/presets/softstepezpz.json");
+    // If preset JSON files do not exist in AppDataLocation, copy the defaults from the application bundle dir.
+
+    // Get platform dependant path to read only presets directory inside the app bundle/package
+    QString appPackageDirPath = QCoreApplication::applicationDirPath();
+
+#if defined(Q_OS_MAC)
+    //Remove "MacOS" from path string
+    appPackageDirPath.remove(appPackageDirPath.length() - 5, appPackageDirPath.length());
+
+    QString presetsDirSrcPath = appPackageDirPath + "Resources/presets";
 #else
-    jsonPath = QString("./presets/softstepezpz.json");
+    QString presetsDirSrcPath = QString("./presets");
 #endif
 
+    // Get path to writeable app data directory
+    QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
+    if (appDataDirPath.isEmpty()) {
+        qFatal("Cannot determine preset storage location");
+    }
+
+    // Create destination presets subdirectory if it doesn't exist
+    QString presetsDirDestPath = appDataDirPath;
+
+    if (!QDir(presetsDirDestPath).exists()) {
+        QDir().mkpath(presetsDirDestPath);
+    }
+
+    // If either preset file doesn't exist at the destination, copy it there
+    QString presetFileDestPath = presetsDirDestPath + "/presets.json";
+    QString presetFileSrcPath = presetsDirSrcPath + "/softstepezpz.json";
+
+    if (!QFile::exists(presetFileDestPath))
+    {
+        if (QFile::copy(presetFileSrcPath, presetFileDestPath) == false) {
+            qFatal("Cannot copy default preset file to application data path!");
+        }
+    }
+
+    // make file path available
+    jsonPath = presetFileDestPath;
+
+    // Read presets
     slotReadJSON();
 
+    // For generating default preset file from app
     //writeDefualtJSON();
 }
 
