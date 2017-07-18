@@ -200,7 +200,7 @@ void MidiDeviceManager::slotSendSysEx(QString messageID,unsigned char* bytes, in
         {
             QApplication::processEvents();
 
-            if(bytes != sysExMsgReq->bytesToSend)
+            if(bytes != (long)sysExMsgReq->bytesToSend)
             {
                 bytes = sysExMsgReq->bytesToSend;
 

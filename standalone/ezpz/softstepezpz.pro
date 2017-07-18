@@ -53,7 +53,6 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexcomposition/maxapi.h \
                 ../../shared/sysexcomposition/download.h \
                 ../../shared/sysexcomposition/attribute.h \
-                ../../shared/sysexcomposition/sysexcomposer.h \
                 ../../shared/sysexmessages.h \
     stylesheets.h \
     factorypresets.h \
