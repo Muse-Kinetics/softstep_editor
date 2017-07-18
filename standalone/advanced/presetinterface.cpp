@@ -57,6 +57,9 @@ PresetInterface::PresetInterface(QWidget *parent) :
             qFatal("Cannot copy default preset file to application data path!");
         }
     }
+
+    // For generating default preset file from app
+    //writeDefualtJSON();
 }
 
 QVariantMap PresetInterface::getPresetMap(int presetNum)
