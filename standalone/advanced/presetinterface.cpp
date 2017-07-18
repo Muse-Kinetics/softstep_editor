@@ -8,9 +8,57 @@
 PresetInterface::PresetInterface(QWidget *parent) :
     QWidget(parent)
 {
+    // If preset JSON files do not exist in AppDataLocation, copy the defaults from the application bundle dir.
 
+    // Get platform dependant path to read only presets directory inside the app bundle/package
+    QString appPackageDirPath = QCoreApplication::applicationDirPath();
 
-    //writeDefualtJSON();
+#if defined(Q_OS_MAC)
+    //Remove "MacOS" from path string
+    appPackageDirPath.remove(appPackageDirPath.length() - 5, appPackageDirPath.length());
+
+    QString presetsDirSrcPath = appPackageDirPath + "Resources/presets";
+#else
+    QString presetsDirSrcPath = QString("./presets");
+#endif
+
+    // Get path to writeable app data directory
+    QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
+    if (appDataDirPath.isEmpty()) {
+        qFatal("Cannot determine preset storage location");
+    }
+
+    // Create destination presets subdirectory if it doesn't exist
+    QString presetsDirDestPath = appDataDirPath + "/presets";
+
+    if (!QDir(presetsDirDestPath).exists()) {
+        QDir().mkpath(presetsDirDestPath);
+    }
+
+    // If either preset file doesn't exist at the destination, copy it there
+    QString presetFileDestPath = presetsDirDestPath + "/hosted_softstepadvanced.json";
+
+    QString presetFileSrcPath = presetsDirSrcPath + "/hosted_softstepadvanced.json";
+
+    if (!QFile::exists(presetFileDestPath))
+    {
+        if (QFile::copy(presetFileSrcPath, presetFileDestPath) == false) {
+            qFatal("Cannot copy default preset file to application data path!");
+        }
+    }
+
+    // Non-hosted presets file
+    presetFileDestPath = presetsDirDestPath + "/softstepadvanced.json";
+
+    presetFileSrcPath = presetsDirSrcPath + "/softstepadvanced.json";
+
+    if (!QFile::exists(presetFileDestPath))
+    {
+        if (QFile::copy(presetFileSrcPath, presetFileDestPath) == false) {
+            qFatal("Cannot copy default preset file to application data path!");
+        }
+    }
 }
 
 QVariantMap PresetInterface::getPresetMap(int presetNum)
@@ -20,33 +68,19 @@ QVariantMap PresetInterface::getPresetMap(int presetNum)
 
 void PresetInterface::slotUpdateJSONPath()
 {
-    jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
+    QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QString presetsDirDestPath = appDataDirPath += "/presets";
 
-#if defined(Q_OS_MAC) // This doesn't work: && !defined(QT_DEBUG)
-    jsonPath.remove(jsonPath.length() - 5, jsonPath.length()); //Remove "MacOS" from path string
-    if(mode == "hosted")
-    {
-        jsonPath.append("Resources/presets/hosted_softstepadvanced.json");
-    }
-    else
-    {
-        jsonPath.append("Resources/presets/softstepadvanced.json");
+    jsonPath = presetsDirDestPath;
+
+     if (mode == "hosted") {
+        jsonPath.append("/hosted_softstepadvanced.json");
+    } else {
+        jsonPath.append("/softstepadvanced.json");
     }
 
-#else
-    if(mode == "hosted")
-    {
-        jsonPath = QString("./presets/hosted_softstepadvanced.json");
-    }
-    else
-    {
-        jsonPath = QString("./presets/softstepadvanced.json");
-    }
-
-#endif
-
+    // Fixme: don't leave this on
     qDebug() << jsonPath;
-
 }
 
 void PresetInterface::slotPopulatePresetMenu(QComboBox* presetMenu)
