@@ -43,11 +43,11 @@ MainWindow::MainWindow(QWidget *parent) :
     styleSheets = new StyleSheets();
 
     //Settings
-    QCoreApplication::setApplicationName("SoftStepEasyEditor");
-    QCoreApplication::setOrganizationName("KeithMcMillenInstruments");
+    QCoreApplication::setApplicationName("SoftStep Easy Editor");
+    QCoreApplication::setOrganizationName("Keith McMillen Instruments");
     QCoreApplication::setOrganizationDomain("keithmcmillen.com");
-    settings = new QSettings();
 
+    settings = new QSettings();
 
     //Construct Children
     presetInterface = new PresetInterface(this);
