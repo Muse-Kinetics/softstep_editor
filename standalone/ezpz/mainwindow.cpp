@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     styleSheets = new StyleSheets();
 
     //Settings
-    QCoreApplication::setApplicationName("SoftStep Easy Editor");
+    QCoreApplication::setApplicationName("SoftStep Basic Editor");
     QCoreApplication::setOrganizationName("Keith McMillen Instruments");
     QCoreApplication::setOrganizationDomain("keithmcmillen.com");
 
