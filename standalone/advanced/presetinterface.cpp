@@ -30,15 +30,14 @@ PresetInterface::PresetInterface(QWidget *parent) :
     }
 
     // Create destination presets subdirectory if it doesn't exist
-    QString presetsDirDestPath = appDataDirPath + "/presets";
+    QString presetsDirDestPath = appDataDirPath;
 
     if (!QDir(presetsDirDestPath).exists()) {
         QDir().mkpath(presetsDirDestPath);
     }
 
     // If either preset file doesn't exist at the destination, copy it there
-    QString presetFileDestPath = presetsDirDestPath + "/hosted_softstepadvanced.json";
-
+    QString presetFileDestPath = presetsDirDestPath + "/hosted_presets.json";
     QString presetFileSrcPath = presetsDirSrcPath + "/hosted_softstepadvanced.json";
 
     if (!QFile::exists(presetFileDestPath))
@@ -49,8 +48,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
     }
 
     // Non-hosted presets file
-    presetFileDestPath = presetsDirDestPath + "/softstepadvanced.json";
-
+    presetFileDestPath = presetsDirDestPath + "/presets.json";
     presetFileSrcPath = presetsDirSrcPath + "/softstepadvanced.json";
 
     if (!QFile::exists(presetFileDestPath))
@@ -69,14 +67,14 @@ QVariantMap PresetInterface::getPresetMap(int presetNum)
 void PresetInterface::slotUpdateJSONPath()
 {
     QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    QString presetsDirDestPath = appDataDirPath += "/presets";
+    QString presetsDirDestPath = appDataDirPath;
 
     jsonPath = presetsDirDestPath;
 
      if (mode == "hosted") {
-        jsonPath.append("/hosted_softstepadvanced.json");
+        jsonPath.append("/hosted_presets.json");
     } else {
-        jsonPath.append("/softstepadvanced.json");
+        jsonPath.append("/presets.json");
     }
 
     // Fixme: don't leave this on
