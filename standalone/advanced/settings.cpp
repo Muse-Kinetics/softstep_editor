@@ -27,7 +27,47 @@ Settings::Settings(QWidget *parent) :
     settingsForm->setupUi(settingsWidget);
     //settingsWidget->setFixedSize(320,492);
     settingsWidget->setWindowTitle(QString("Settings"));
-    slotSetJSONPath();
+
+    // If Settings JSON file does not exist in AppDataLocation, copy the default from the application bundle dir.
+    // Get platform dependant path to read only presets directory inside the app bundle/package
+    QString appPackageDirPath = QCoreApplication::applicationDirPath();
+
+#if defined(Q_OS_MAC)
+    //Remove "MacOS" from path string
+    appPackageDirPath.remove(appPackageDirPath.length() - 5, appPackageDirPath.length());
+
+    QString settingsDirSrcPath = appPackageDirPath + "Resources/presets";
+#else
+    QString settingsDirSrcPath = QString("./presets");
+#endif
+
+    // Get path to writeable app data directory
+    QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
+    if (appDataDirPath.isEmpty()) {
+        qFatal("Cannot determine settings storage location");
+    }
+
+    // Create destination settings subdirectory if it doesn't exist
+    QString settingsDirDestPath = appDataDirPath;
+
+    if (!QDir(settingsDirDestPath).exists()) {
+        QDir().mkpath(settingsDirDestPath);
+    }
+
+    // If either preset file doesn't exist at the destination, copy it there
+    QString settingsFileDestPath = settingsDirDestPath + "/settings.json";
+    QString settingsFileSrcPath = settingsDirSrcPath + "/settings.json";
+
+    if (!QFile::exists(settingsFileDestPath))
+    {
+        if (QFile::copy(settingsFileSrcPath, settingsFileDestPath) == false) {
+            qFatal("Cannot copy default settings file to application data path!");
+        }
+    }
+
+    // Save location of settings file
+    jsonPath = settingsFileDestPath;
 
     //Pedal Table
     pedalLiveTableInterface = new TableInerface(settingsForm->pedalLiveWidget);
@@ -641,15 +681,8 @@ void Settings::slotSetMidiInputLineParams()
 
 void Settings::slotSetJSONPath()
 {
-    jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
-
-#if defined(Q_OS_MAC)  //&& !defined(QT_DEBUG)
-    jsonPath.remove(jsonPath.length() - 5, jsonPath.length());  //remove "MacOS" from path string
-    jsonPath.append("Resources/presets/settings.json");
-
-#else
-    jsonPath = QString("./presets/settings.json");
-#endif
+    // now done in constructor.
+    // fixme: figure out how to remove reference to this.
 }
 
 void Settings::slotReadSettings()
