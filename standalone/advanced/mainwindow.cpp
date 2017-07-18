@@ -48,24 +48,24 @@ MainWindow::MainWindow(QWidget *parent) :
     importOldNotFoundDialogWidget(new QWidget(this)),
 
     modlineWarningDialog(new Ui::ModlineWarningForm),
-    modlineWarningDialogWidget(new QWidget(this)),
-
-    sysExComposer(new SysExComposer(this)),
-    presetInterface(new PresetInterface(this)),
-    copyPasteHandler(new CopyPasteHandler(presetInterface,this)),
-    midiParse(new MidiParse()),
-    disableWidget(new QWidget(this)),
-    importOldPresetHandler(new ImportOldPresetHandler(presetInterface,0)),
-    oscInterface(new OscInterface(0))
+    modlineWarningDialogWidget(new QWidget(this))
 {
-    midiDeviceManager = new MidiDeviceManager(this);
 
     //PList stuff
-    QCoreApplication::setApplicationName("SoftStepAdvancedEditor");
-    QCoreApplication::setOrganizationName("KeithMcMillenInstruments");
+    QCoreApplication::setApplicationName("SoftStep Advanced Editor");
+    QCoreApplication::setOrganizationName("Keith McMillen Instruments");
     QCoreApplication::setOrganizationDomain("keithmcmillen.com");
 
     sessionSettings = new QSettings(this);
+
+    midiDeviceManager = new MidiDeviceManager(this);
+    sysExComposer = new SysExComposer(this);
+    presetInterface = new PresetInterface(this);
+    copyPasteHandler = new CopyPasteHandler(presetInterface,this);
+    midiParse = new MidiParse();
+    disableWidget = new QWidget(this);
+    importOldPresetHandler = new ImportOldPresetHandler(presetInterface,0);
+    oscInterface = new OscInterface(0);
 
     //Mainwindow Ui
     ui->setupUi(this);
