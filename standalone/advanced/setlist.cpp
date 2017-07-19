@@ -244,7 +244,7 @@ void Setlist::slotSetMode(QString m)
 void Setlist::slotUpdateJSONPath()
 {
     QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    QString setlistsDirDestPath = appDataDirPath += "/presets";
+    QString setlistsDirDestPath = appDataDirPath;
 
     jsonPath = setlistsDirDestPath;
 
@@ -255,7 +255,7 @@ void Setlist::slotUpdateJSONPath()
     }
 
     // Fixme: don't leave this on
-    qDebug() << jsonPath;
+    // qDebug() << jsonPath;
 }
 
 void Setlist::slotReadSetlist()

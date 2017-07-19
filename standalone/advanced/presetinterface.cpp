@@ -81,7 +81,7 @@ void PresetInterface::slotUpdateJSONPath()
     }
 
     // Fixme: don't leave this on
-    qDebug() << jsonPath;
+    // qDebug() << jsonPath;
 }
 
 void PresetInterface::slotPopulatePresetMenu(QComboBox* presetMenu)
