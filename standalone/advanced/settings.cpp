@@ -69,7 +69,30 @@ Settings::Settings(QWidget *parent) :
     // Save location of settings file
     jsonPath = settingsFileDestPath;
 
-    //Pedal Table
+
+    // Now handle the Pedal Table file.
+    appPackageDirPath = QCoreApplication::applicationDirPath();
+
+#if defined(Q_OS_MAC)
+    //Remove "MacOS" from path string
+    appPackageDirPath.remove(appPackageDirPath.length() - 5, appPackageDirPath.length());
+
+    settingsDirSrcPath = appPackageDirPath + "Resources";
+#else
+    settingsDirSrcPath = QString("./");
+#endif
+
+    QString pedalTableFileDestPath = settingsDirDestPath + "/pedalTable.txt";
+    QString pedalTableFileSrcPath = settingsDirSrcPath + "/pedalTable.txt";
+
+    if (!QFile::exists(pedalTableFileDestPath))
+    {
+        if (QFile::copy(pedalTableFileSrcPath, pedalTableFileDestPath) == false) {
+            qFatal("Cannot copy default pedal table file to application data path!");
+        }
+    }
+
+    // Create table interface
     pedalLiveTableInterface = new TableInerface(settingsForm->pedalLiveWidget);
 
     for(int i = 0; i < NUM_MIDI_INPUTS; i++)
@@ -1281,17 +1304,11 @@ void Settings::slotStopCalibrationStandAlone()
 
 void Settings::slotLoadTableOnStartup()
 {
-    //Load pedal table file
-#if defined(Q_OS_MAC) //&& !defined(QT_DEBUG)
-    QString pedalFilename = QCoreApplication::applicationDirPath();
-    pedalFilename.remove(pedalFilename.length() - 5, pedalFilename.length()); //Remove "MacOS" from path string
-    QFile *pedalTableFile = new QFile(QString("%1Resources/pedalTable.txt").arg(pedalFilename));
+    // Load pedal table file
+    QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QFile *pedalTableFile = new QFile(appDataPath + "/pedalTable.txt");
 
-#else
-    QFile *pedalTableFile = new QFile("resources/pedalTable.txt");
-#endif
-
-    //Open pedal table
+    // Open pedal table
     if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
     {
         qDebug("Pedal Table Found");
@@ -1330,14 +1347,10 @@ void Settings::slotWritePedalTableToDisk(QByteArray tableByteArray)
 {
 
     qDebug() << "write pedal table to disk" << tableByteArray.size();
+
     //Load pedal table file
-#if defined(Q_OS_MAC) //&& !defined(QT_DEBUG)
-    QString pedalFilename = QCoreApplication::applicationDirPath();
-    pedalFilename.remove(pedalFilename.length() - 5, pedalFilename.length()); //Remove "MacOS" from path string
-    QFile *pedalTableFile = new QFile(QString("%1Resources/pedalTable.txt").arg(pedalFilename));
-#else
-    QFile *pedalTableFile = new QFile("resources/pedalTable.txt");
-#endif
+    QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QFile *pedalTableFile = new QFile(appDataPath + "/pedalTable.txt");
 
     //Open Pedal File
     if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
