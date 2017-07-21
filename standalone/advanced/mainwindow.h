@@ -134,6 +134,7 @@ public:
     QList<int> lockoutKeysPressed;
 
     void closeEvent(QCloseEvent *);
+    bool event( QEvent* ev );
 
 #ifdef Q_OS_MAC
 #else

@@ -273,6 +273,17 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+bool MainWindow::event( QEvent* ev )
+{
+    if (ev->type() == QEvent::WindowActivate) {
+        // window was activated
+        // Use hidden/background label to take UI focus so Qt doesn't pick something at random for us.
+        ui->label_3->setFocus();
+     }
+
+    return QMainWindow::event( ev );
+}
+
 void MainWindow::closeEvent(QCloseEvent *)
 {
 #ifdef Q_OS_MAC
