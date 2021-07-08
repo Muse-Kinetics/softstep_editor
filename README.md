@@ -2,7 +2,7 @@
 
 Git repo (converted from SVN) with source for Easy and Advanced SoftStep editor.
 
-Builds against Qt 5.9.1.
+Builds against Qt 5.14.2.
 
 Deployment for macOS:
 
