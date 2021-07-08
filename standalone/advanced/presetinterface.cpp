@@ -496,7 +496,7 @@ void PresetInterface::slotImportPreset()
     filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), QString("./"), tr("SoftStep Advanced Editor Preset Files (*.softsteppreset)"));
 
     //If file is selected
-    if(filename != NULL)
+    if(filename.isNull() != 1)
     {
         //open file
         QFile* presetFile = new QFile(filename);

@@ -5,7 +5,7 @@
 #include "mainwindow.h"
 
 #include <QDebug>
-#include <QDesktopWidget>
+#include <QtWidgets>
 
 /*-------KEYWINDOW SIZE CONSTANTS-------*/
 #define KEYWINDOW_LG_WIDTH 1150

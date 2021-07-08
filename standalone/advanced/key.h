@@ -8,6 +8,7 @@
 #include <QtGui>
 #include <QDebug>
 #include <QVariant>
+#include <QButtonGroup>
 
 #include "modline.h"
 #include "stylesheets.h"
