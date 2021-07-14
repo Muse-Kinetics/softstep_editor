@@ -15,8 +15,8 @@
 #include <QAction>
 #include <QCheckBox>
 
-#include "qjson/src/parser.h"
-#include "qjson/src/serializer.h"
+//#include "qjson/src/parser.h"
+//#include "qjson/src/serializer.h"
 
 #define NUM_PRESETS 10
 
@@ -32,8 +32,8 @@ public:
 
     QSettings *settings;
 
-    QJson::Parser       parser;
-    QJson::Serializer   serializer;
+//    QJson::Parser       parser;
+//    QJson::Serializer   serializer;
 
     QFile *jsonFile;
     bool ok;

@@ -123,8 +123,21 @@ void PresetInterface::slotReadJSON()
     {
         qDebug("SoftStep Easy Editor JSON Found");
 
-        QByteArray jsonByteArray = jsonFile->readAll();//load json file into a byte array to be processd by the parser
-        jsonMasterMap = parser.parse(jsonByteArray, &ok).toMap(); //parse the json data, convert it to a map and set it equal to the master jsonMap
+//        QByteArray jsonByteArray = jsonFile->readAll();//load json file into a byte array to be processd by the parser
+        // error object
+        QJsonParseError JsonParseError;
+        // convert file to QJsonDocument. this can be read/written to
+        QJsonDocument JsonDocument = QJsonDocument::fromJson(jsonFile->readAll(), &JsonParseError);
+        // close jsonFile
+        jsonFile->close();
+        // convert QJsonDocument to QJsonObject. this can be queried and modified in a human-readable way
+        QJsonObject RootObject = JsonDocument.object();
+
+        QByteArray jsonByteArray = JsonDocument.toJson();
+
+        jsonMasterMap = RootObject.toVariantMap();
+
+//        jsonMasterMap = parser.parse(jsonByteArray, &ok).toMap(); //parse the json data, convert it to a map and set it equal to the master jsonMap
         jsonMasterMapCopy = jsonMasterMap;
 
         //-------
@@ -159,10 +172,12 @@ void PresetInterface::slotWriteJSON(QVariantMap jsonMap)
     if(jsonFile->open(QIODevice::ReadWrite | QIODevice::Text))
     {
         //Serialize JSON, write to file
-        QByteArray ba = serializer.serialize(jsonMap); //serialize the master json map into the byte array
+//        QByteArray ba = serializer.serialize(jsonMap); //serialize the master json map into the byte array
+        QJsonDocument jsonPresets = QJsonDocument::fromVariant(jsonMap);
 
         jsonFile->resize(0);
-        jsonFile->write(ba);
+//        jsonFile->write(ba);
+        jsonFile->write(jsonPresets.toJson()); //write json byte array to file
     }
     else
     {
@@ -216,16 +231,27 @@ void PresetInterface::slotImportPreset()
     filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), QString("./"), tr("SoftStep Basic Editor Preset Files (*.softstepbasicpreset)"));
 
     //If file is selected
-    if(filename != NULL)
+    if(!filename.isNull())
     {
         //open file
         QFile* presetFile = new QFile(filename);
-        presetFile->open(QIODevice::ReadOnly);
+        presetFile->open(QIODevice::ReadOnly | QIODevice::Text);
 
-        QByteArray presetByteArray = presetFile->readAll();
+        // error object
+        QJsonParseError JsonParseError;
+        // convert file to QJsonDocument. this can be read/written to
+        QJsonDocument JsonDocument = QJsonDocument::fromJson(presetFile->readAll(), &JsonParseError);
+
+        // convert QJsonDocument to QJsonObject. this can be queried and modified in a human-readable way
+        QJsonObject RootObject = JsonDocument.object();
+
+//        QByteArray presetByteArray = presetFile->readAll();
+//        QByteArray presetByteArray = JsonDocument.toJson();
         presetFile->close();
 
-        QVariantMap importedPresetMap = parser.parse(presetByteArray, &ok).toMap();
+//        QVariantMap importedPresetMap = parser.parse(presetByteArray, &ok).toMap();
+
+        QVariantMap importedPresetMap = RootObject.toVariantMap();
 
         //--------------- Check for MISSING parameters in the Imported Preset --------------
         slotConstructDefaultMap();
@@ -294,13 +320,16 @@ void PresetInterface::slotExportPreset()
     //------------------- Open, Write, and Close
     presetFile->open(QIODevice::WriteOnly);
 
-    QByteArray presetByteArray = serializer.serialize(exportedPresetMap);
+//    QByteArray presetByteArray = serializer.serialize(exportedPresetMap);
+
+    QJsonDocument jsonPresets = QJsonDocument::fromVariant(exportedPresetMap);
 
     presetFile->resize(0);
-    presetFile->write(presetByteArray);
+//    presetFile->write(presetByteArray);
+    presetFile->write(jsonPresets.toJson()); //write json byte array to file
     presetFile->close();
 
-    presetByteArray.clear();
+//    presetByteArray.clear();
 }
 
 void PresetInterface::slotConstructDefaultMap()
