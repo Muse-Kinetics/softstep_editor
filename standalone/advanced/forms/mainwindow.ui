@@ -169,7 +169,7 @@ QComboBox
 {
 	font: 10pt &quot;Futura&quot;;
 	border: 2px solid rgb(0,174,239);
-	background-color: rgba(28, 28, 29);
+	background-color: rgb(28, 28, 29);
 	color: white;
  }
 

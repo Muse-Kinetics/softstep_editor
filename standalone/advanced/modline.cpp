@@ -2,6 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "modline.h"
+#include <QAbstractItemView>
 
 #ifdef Q_OS_MAC
 #include <CoreMIDI/CoreMIDI.h>
@@ -79,6 +80,47 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
 
 void Modline::slotConnectElements()
 {
+    // fix ui element styles
+    foreach(QWidget* widget, formWidget->findChildren<QWidget *>())
+    {
+        //check object type here
+        if(widget->metaObject()->className() == QString("QSpinBox"))
+        {
+           //
+        }
+        else if(widget->metaObject()->className() == QString("QDoubleSpinBox"))
+        {
+            //
+        }
+        else if(widget->metaObject()->className() == QString("QCheckBox"))
+        {
+           //
+        }
+        else if(widget->metaObject()->className() == QString("QComboBox"))
+        {
+            QComboBox* combobox = qobject_cast<QComboBox *>(widget);
+            QString comboName = combobox->objectName();
+            //qDebug() << "Combobox name: " << comboName;
+
+            int width = combobox->minimumSizeHint().width() + 35;
+            width = (width > 150) ? 150 : width;
+
+            combobox->view()->setMinimumWidth(width);
+            combobox->view()->setMaximumWidth(150);
+        }
+        else if(widget->metaObject()->className() == QString("QLineEdit"))
+        {
+           //
+        }
+        else if(widget->metaObject()->className() == QString("QRadioButton"))
+        {
+           //
+        }
+    }
+
+
+
+
     //enable checkbox
     connect(modlineForm->enable,SIGNAL(clicked()),this,SLOT(slotValueChanged()));
 
@@ -725,31 +767,31 @@ void Modline::hosted_slotPopulateDeviceMenu(QMap<QString, MIDIEndpointRef> exter
     for (i = externalDevices.begin(); i != externalDevices.end(); ++i)
     {
         //Note Set
-        modlineForm->notedevice->addItem(i.key());
+        modlineForm->notedevice->addItem(i.key().left(25));
 
         //Note Live
-        modlineForm->notelivedevice->addItem(i.key());
+        modlineForm->notelivedevice->addItem(i.key().left(25));
 
         //CC
-        modlineForm->controldevice->addItem(i.key());
+        modlineForm->controldevice->addItem(i.key().left(25));
 
         //Bank
-        modlineForm->bankdevice->addItem(i.key());
+        modlineForm->bankdevice->addItem(i.key().left(25));
 
         //Program
-        modlineForm->programdevice->addItem(i.key());
+        modlineForm->programdevice->addItem(i.key().left(25));
 
         //Pitch Bend
-        modlineForm->benddevice->addItem(i.key());
+        modlineForm->benddevice->addItem(i.key().left(25));
 
         //MMC
-        modlineForm->mmcdevice->addItem(i.key());
+        modlineForm->mmcdevice->addItem(i.key().left(25));
 
         //Aftertouch
-        modlineForm->aftertouchdevice->addItem(i.key());
+        modlineForm->aftertouchdevice->addItem(i.key().left(25));
 
         //Poly Aftertouch
-        modlineForm->polydevice->addItem(i.key());
+        modlineForm->polydevice->addItem(i.key().left(25));
     }
 
 

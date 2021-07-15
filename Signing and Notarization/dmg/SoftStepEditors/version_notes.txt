@@ -1,0 +1,36 @@
+==============================================
+SoftStep Basic & Advanced Editor Version 2.04
+==============================================
+
+!!!!! FOR Mac Only!!!!!!!!
+
+Full Documentation available at http://files.keithmcmillen.com/downloads/softstep/SoftStep_Manual_v2.01.pdf
+
+If you experience any problems or have questions regarding the SoftStep Editor install process, submit a support request at http://www.keithmcmillen.com/support outlining the problems you are experiencing.
+
+Keith McMillen Instruments - http://www.keithmcmillen.com
+
+Built on 7/19/2017
+
+-----------------------------------
+ADVANCED & BASIC EDITOR
+___________________________________
+
+NEW FEATURES:
+
+__
+
+BUG FIXES:
+
+- fixes issue where editor presets would not load on recent macOS versions.
+__
+
+KNOWN ISSUES:
+
+-
+__
+
+
+SoftStep Team:
+Keith McMillen, Conner Lacy, Chuck Carlson, Evan Adams, Evan Bogonia, Diane Douglas, Tom Ferguson, Jay Fields, Matt Hettich, David Hishinuma, Sarah Howe, Daniel McAnulty, Dennis Saputelli, Dustin Schultz, Barry Threw, Nick Wang, Carson Whitley, Steve Wright, and Darren Gibbs.
+__

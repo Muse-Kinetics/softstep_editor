@@ -194,6 +194,19 @@ ICON = resources/appicon.icns
 RESOURCES += \
     resources.qrc
 
+#--------------- contents/resources --------
+
+macx{
+    softStepSysEx.files = $$PWD/../../shared/SoftStep.syx
+    softStepSysEx.path = Contents/Resources
+    QMAKE_BUNDLE_DATA += softStepSysEx
+
+    softStepPresets.files = $$PWD/presets
+    softStepPresets.path = Contents/Resources
+    QMAKE_BUNDLE_DATA += softStepPresets
+}
+
+
 OTHER_FILES += \
     resources/modline_enable1_stylesheet.qss \
     resources/modline_enable2_stylesheet.qss \

@@ -125,11 +125,20 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 7px &quot;Tahoma&quot;;
-	color: white;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 35px;
+	font: 9px &quot;Tahoma&quot;;
+	padding-left: 0px;
+	padding-right: 0px;
+	min-width: 175px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+     min-width: 175px;
+	text-align: left;
+	padding-left: 0px;
+	padding-right: 0px;
+
 }
 
 QComboBox::item:alternate
@@ -256,6 +265,9 @@ QToolTip
     <font>
      <family>Futura</family>
      <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="toolTip">

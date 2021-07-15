@@ -4,14 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Resources/DroidSansMono.ttf</key>
-		<data>
-		K8l7nAJ143NE667Cjx4ecDsSLgQ=
-		</data>
-		<key>Resources/Futura-Bold.ttf</key>
-		<data>
-		vZcUbZowB4aOZ4ZEce2+XBfphkA=
-		</data>
 		<key>Resources/SoftStep.syx</key>
 		<data>
 		84WYbh17fqS3iXw57ifwtP8+g3o=
@@ -24,13 +16,21 @@
 		<data>
 		2jmj7l5rSw0yVb/vlWAYkK/YBwk=
 		</data>
-		<key>Resources/futura-normal.ttf</key>
+		<key>Resources/presets/.DS_Store</key>
 		<data>
-		W8iUBk6tez9rHefRrkIsgsPHvvY=
+		WEH+q6NAjseNAFkEgaPOeSoRXHE=
 		</data>
 		<key>Resources/presets/softstepezpz.json</key>
 		<data>
 		dT26G5ij1m0/WFs3ONHaD9ssihI=
+		</data>
+		<key>Resources/presets/softstepezpz.json.zip</key>
+		<data>
+		H/JdyeCjiXEXSZ2brrnJ8LQOYCQ=
+		</data>
+		<key>Resources/presets/softstepezpz_win.zip</key>
+		<data>
+		94dhsOJhVFRRs+KS3h7Zwxg/ZrE=
 		</data>
 		<key>Resources/qt.conf</key>
 		<data>
@@ -43,34 +43,34 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			q6E+T8BLDGs2cCHeDsdRLqBZjBM=
+			CZXxuaN3mRZ1lXWJ+wv0CRChoDk=
 			</data>
 			<key>requirement</key>
 			<string>identifier "org.qt-project.QtCore" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
+		</dict>
+		<key>Frameworks/QtDBus.framework</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			2bN43xk1sqjd4WWZVM5HcP17obA=
+			</data>
+			<key>requirement</key>
+			<string>identifier "org.qt-project.QtDBus" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
 		</dict>
 		<key>Frameworks/QtGui.framework</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			9UTdlWwWdMtSTjZkJKBZzuKpm4Y=
+			VjYo8Xr0oxiti3K0BkZetx0PehI=
 			</data>
 			<key>requirement</key>
 			<string>identifier "org.qt-project.QtGui" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
-		</dict>
-		<key>Frameworks/QtPrintSupport.framework</key>
-		<dict>
-			<key>cdhash</key>
-			<data>
-			WbUGHTV33zeidkxNC4KFR4lBAWw=
-			</data>
-			<key>requirement</key>
-			<string>identifier "org.qt-project.QtPrintSupport" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
 		</dict>
 		<key>Frameworks/QtSvg.framework</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			YMETL7uooe9/teHcTIKIb/1lA2A=
+			X6ee2WTt4Nydm+wIcqMhSAzEE8s=
 			</data>
 			<key>requirement</key>
 			<string>identifier "org.qt-project.QtSvg" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
@@ -79,7 +79,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			Z1fGouUE0BXLv60LHbrn3kWtmLA=
+			QglxQA0/3G7P/J3WLjv3debTOXQ=
 			</data>
 			<key>requirement</key>
 			<string>identifier "org.qt-project.QtWidgets" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
@@ -88,7 +88,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			6HV/erh/7kJ/FLXUbNtbKURcYy8=
+			xlgagR7UF9cc4ygI42QwRSMfzTo=
 			</data>
 			<key>requirement</key>
 			<string>identifier libqsvgicon and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
@@ -97,25 +97,16 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			BJjV8PqCiUkVhhjj4jF9pmDL5Do=
+			bFpQecA0+eNYTpBoc69UqulWJGc=
 			</data>
 			<key>requirement</key>
 			<string>identifier libqgif and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
-		</dict>
-		<key>PlugIns/imageformats/libqicns.dylib</key>
-		<dict>
-			<key>cdhash</key>
-			<data>
-			/9z/TK85BOZPo1d5dET8MdHBmGs=
-			</data>
-			<key>requirement</key>
-			<string>identifier libqicns and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
 		</dict>
 		<key>PlugIns/imageformats/libqico.dylib</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			NpOD6xqXEhe1fDALbnCBVv0iOFk=
+			RWBNVeNTaLy80HdhwmBX22SwZIU=
 			</data>
 			<key>requirement</key>
 			<string>identifier libqico and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
@@ -124,120 +115,40 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			Az/4/d0s5rBwyJhlOYlYROZaA0s=
+			TOWStPD8ecFnA3cks/z9Pu2G0Kc=
 			</data>
 			<key>requirement</key>
 			<string>identifier libqjpeg and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
-		</dict>
-		<key>PlugIns/imageformats/libqmacjp2.dylib</key>
-		<dict>
-			<key>cdhash</key>
-			<data>
-			9pyALXpVj54k5674SdKApabCI+s=
-			</data>
-			<key>requirement</key>
-			<string>identifier libqmacjp2 and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
 		</dict>
 		<key>PlugIns/imageformats/libqsvg.dylib</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			JaipyF/niWedPT4EK5j4UhP4J9A=
+			criogKnCw6ebbFhNH9uqTY1l8bc=
 			</data>
 			<key>requirement</key>
 			<string>identifier libqsvg and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
-		</dict>
-		<key>PlugIns/imageformats/libqsvg_debug.dylib</key>
-		<dict>
-			<key>cdhash</key>
-			<data>
-			4o6wiwZiKRI3Tc6YLyGcCgHfRew=
-			</data>
-			<key>requirement</key>
-			<string>identifier "libqsvg_debug" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
-		</dict>
-		<key>PlugIns/imageformats/libqtga.dylib</key>
-		<dict>
-			<key>cdhash</key>
-			<data>
-			5cayCcbgGWYzIIkCjFF7HVO+YtM=
-			</data>
-			<key>requirement</key>
-			<string>identifier libqtga and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
-		</dict>
-		<key>PlugIns/imageformats/libqtiff.dylib</key>
-		<dict>
-			<key>cdhash</key>
-			<data>
-			MJxqT966PoN7tfzDL/Xwpih8ZAo=
-			</data>
-			<key>requirement</key>
-			<string>identifier libqtiff and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
-		</dict>
-		<key>PlugIns/imageformats/libqwbmp.dylib</key>
-		<dict>
-			<key>cdhash</key>
-			<data>
-			qeiQowZlKPlFmnaHG3h5d6UK0zo=
-			</data>
-			<key>requirement</key>
-			<string>identifier libqwbmp and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
-		</dict>
-		<key>PlugIns/imageformats/libqwebp.dylib</key>
-		<dict>
-			<key>cdhash</key>
-			<data>
-			KGhU84Ax3+vYKL1WS3w15v8iDrs=
-			</data>
-			<key>requirement</key>
-			<string>identifier libqwebp and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
 		</dict>
 		<key>PlugIns/platforms/libqcocoa.dylib</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			r9tfimcv09My34FeKCEnJWsJHu8=
+			O+ZG1aCQz2cR9d3kCvpE7iAvAHo=
 			</data>
 			<key>requirement</key>
 			<string>identifier libqcocoa and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
 		</dict>
-		<key>PlugIns/printsupport/libcocoaprintersupport.dylib</key>
+		<key>PlugIns/styles/libqmacstyle.dylib</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			1bBLY7CI06Kns4ty2YbDNpBJh3A=
+			Mdlj7/uicIxwyE/I09768Mvjucs=
 			</data>
 			<key>requirement</key>
-			<string>identifier libcocoaprintersupport and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
-		</dict>
-		<key>Resources/DroidSansMono.ttf</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			K8l7nAJ143NE667Cjx4ecDsSLgQ=
-			</data>
-			<key>hash2</key>
-			<data>
-			MFEurbRgSOPfrwSL4ODCdtER/B3pc3EZcQSfQl6/+mc=
-			</data>
-		</dict>
-		<key>Resources/Futura-Bold.ttf</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			vZcUbZowB4aOZ4ZEce2+XBfphkA=
-			</data>
-			<key>hash2</key>
-			<data>
-			eX4mBzT2XOHkdLXnLc3j5XM9rJfvVULDV4QMPP7VXk8=
-			</data>
+			<string>identifier libqmacstyle and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = ***REMOVED***</string>
 		</dict>
 		<key>Resources/SoftStep.syx</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			84WYbh17fqS3iXw57ifwtP8+g3o=
-			</data>
 			<key>hash2</key>
 			<data>
 			N/yZzc3+zaXmWDA/7/ojcKDjhKGKykQ6yQK50rE1Mok=
@@ -245,10 +156,6 @@
 		</dict>
 		<key>Resources/appicon.icns</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			IXH4guP1tKt/FAQk10vwZPsitEE=
-			</data>
 			<key>hash2</key>
 			<data>
 			2xkZ2muIX7VwYUyORuqbqqT8Kaje02JLOuVHlWZ64xU=
@@ -256,43 +163,34 @@
 		</dict>
 		<key>Resources/empty.lproj</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			2jmj7l5rSw0yVb/vlWAYkK/YBwk=
-			</data>
 			<key>hash2</key>
 			<data>
 			47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
 			</data>
 		</dict>
-		<key>Resources/futura-normal.ttf</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			W8iUBk6tez9rHefRrkIsgsPHvvY=
-			</data>
-			<key>hash2</key>
-			<data>
-			kj2MwYqA1UlEWLvvuVh/jQxhYOonemehcttFEiMipCg=
-			</data>
-		</dict>
 		<key>Resources/presets/softstepezpz.json</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			dT26G5ij1m0/WFs3ONHaD9ssihI=
-			</data>
 			<key>hash2</key>
 			<data>
 			nBSPFKqNEwvI0WMwJRICGxRt83TDR9Rq5Yc0axUdAQs=
 			</data>
 		</dict>
+		<key>Resources/presets/softstepezpz.json.zip</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			uQskq6hqtJe1Pvu4dHKvC7EwkcSk3mDVzRO87ahbQXY=
+			</data>
+		</dict>
+		<key>Resources/presets/softstepezpz_win.zip</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Lor1t/mILe71PMlKRnHU8pZqvMalgKQ8wx1fYz6I0nw=
+			</data>
+		</dict>
 		<key>Resources/qt.conf</key>
 		<dict>
-			<key>hash</key>
-			<data>
-			u1InvBL0gidAkO1kS8ZQpocORVU=
-			</data>
 			<key>hash2</key>
 			<data>
 			qpc3X3VoXSaLHbBg8mvJVZMcFogxIwC2HZmBFfgAH7A=

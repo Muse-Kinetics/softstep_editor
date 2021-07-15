@@ -47,6 +47,8 @@ void SysExComposer::slotGetEmbeddedVersion()
     FILE *fd = fopen(sysExPath.toUtf8(),"rb");
 #endif
 
+    qDebug() << "sysEx path: " << sysExPath;
+
     if (fd)
     {
         int fchar;

@@ -1442,7 +1442,10 @@ void MainWindow::slotSetMode()
 
 void MainWindow::slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> externalDevices)
 {
-    //qDebug() << "-------------------------------- populate device menus";
+    qDebug() << "-------------------------------- populate device menus";
+    qDebug() << externalDevices;
+    qDebug() << "------------------------------------------------------";
+
     QMap<QString, MIDIEndpointRef> standalone;
 
     for(int i = 0; i < 10; i++)

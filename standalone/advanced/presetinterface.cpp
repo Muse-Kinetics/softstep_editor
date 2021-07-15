@@ -40,6 +40,9 @@ PresetInterface::PresetInterface(QWidget *parent) :
     QString presetFileDestPath = presetsDirDestPath + "/hosted_presets.json";
     QString presetFileSrcPath = presetsDirSrcPath + "/hosted_softstepadvanced.json";
 
+     qDebug() << "Hosted presetsDirSrcPath: " << presetsDirSrcPath;
+     qDebug() << "Hosted presetFileDestPath: " << presetFileDestPath;
+
     if (!QFile::exists(presetFileDestPath))
     {
         if (QFile::copy(presetFileSrcPath, presetFileDestPath) == false) {
@@ -50,6 +53,9 @@ PresetInterface::PresetInterface(QWidget *parent) :
     // Non-hosted presets file
     presetFileDestPath = presetsDirDestPath + "/presets.json";
     presetFileSrcPath = presetsDirSrcPath + "/softstepadvanced.json";
+
+    qDebug() << "presetsDirSrcPath: " << presetsDirSrcPath;
+    qDebug() << "presetFileDestPath: " << presetFileDestPath;
 
     if (!QFile::exists(presetFileDestPath))
     {

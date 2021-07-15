@@ -90,7 +90,7 @@ QComboBox
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 3px 1px 4px;
+	padding: 1px 1px 1px 1px;
  }
 
 QComboBox QListView
@@ -98,9 +98,8 @@ QComboBox QListView
 	background-color: rgb(40, 40, 40);
 	border: transparent;
 	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 35px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 QComboBox::item:alternate
@@ -661,6 +660,12 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
    </property>
    <property name="toolTip">
     <string>Sets the SoftStep display behavior.&lt;p&gt;&lt;b&gt;None&lt;/b&gt;: Pressing this key will have no effect on the display.&lt;p&gt;&lt;b&gt;Always&lt;/b&gt;: Key name will be displayed every time this key is pressed.&lt;p&gt;&lt;b&gt;Once&lt;/b&gt;: Key name will be displayed once when the key is pressed, then show the prefix + parameter value (Hosted mode only).&lt;p&gt;&lt;b&gt;Initial/Return&lt;/b&gt;: Prefix + parameter value will be displayed when this key is active, then display the key name when inactive (Hosted mode only).&lt;p&gt;&lt;b&gt;Immed Param&lt;/b&gt;: (Immediate Parameter) Displays the prefix and parameter value when this key is activated.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QComboBox QListView
+{
+	min-width: 175px;
+}</string>
    </property>
    <property name="currentIndex">
     <number>0</number>

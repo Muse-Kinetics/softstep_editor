@@ -18,7 +18,7 @@ QComboBox QListView
 QComboBox QAbstractItemView::item
 {
 	min-height: 65px;
-	min-width: 65px;
+        min-width: 175px;
 
 }
 
@@ -41,7 +41,7 @@ QComboBox::drop-down
 	width: 1px;
 	height: 1px;
 	subcontrol-origin: margin;
-	subcontrol-position: right center;
+        subcontrol-position: right center;
 	border-left-width: 0px;
 	border-right-width: 0px;
 	border-top-width: 0px;

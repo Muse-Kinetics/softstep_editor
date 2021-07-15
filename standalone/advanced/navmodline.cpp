@@ -2,6 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "navmodline.h"
+#include <QAbstractItemView>
 
 //constants for various modline arrangement parameters
 #define MODLINE_WINDOW_WIDTH 967
@@ -86,6 +87,12 @@ void NavModline::slotConnectElements()
         {
             QComboBox* combobox = qobject_cast<QComboBox *>(widget);
             QString comboName = combobox->objectName();
+
+            int width = combobox->minimumSizeHint().width() + 35;
+            width = (width > 150) ? 150 : width;
+
+            combobox->view()->setMinimumWidth(width);
+            combobox->view()->setMaximumWidth(150);
 
             if(comboName == "initmode") //initmode only exists in hosted mode
             {
