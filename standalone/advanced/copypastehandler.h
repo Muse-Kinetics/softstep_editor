@@ -13,7 +13,7 @@
 #include "presetinterface.h"
 #include "mididevicemanager.h"
 
-#include "qjson/src/parser.h"
+//#include "qjson/src/parser.h"
 
 class CopyPasteHandler : public QObject
 {
@@ -26,7 +26,7 @@ public:
     QVariantMap presetCopiedMap;
     QVariantMap keyCopiedMap;
 
-    QJson::Parser parser;
+//    QJson::Parser parser;
 
     QString mode;
 

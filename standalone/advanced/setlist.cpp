@@ -267,9 +267,21 @@ void Setlist::slotReadSetlist()
     {
         //qDebug("Setlist JSON Found");
 
-        QByteArray setlistByteArray = jsonFile->readAll();
+        // error object
+        QJsonParseError JsonParseError;
+        // convert file to QJsonDocument. this can be read/written to
+        QJsonDocument JsonDocument = QJsonDocument::fromJson(jsonFile->readAll(), &JsonParseError);
+        // close jsonFile
+        jsonFile->close();
+        // convert QJsonDocument to QJsonObject. this can be queried and modified in a human-readable way
+        QJsonObject RootObject = JsonDocument.object();
 
-        setlist = parser.parse(setlistByteArray, &ok).toMap(); //parse the json data, convert it to a map and set it equal to the master jsonMap
+//        QByteArray setlistByteArray = jsonFile->readAll();
+
+        QByteArray setlistByteArray = JsonDocument.toJson();
+
+//        setlist = parser.parse(setlistByteArray, &ok).toMap(); //parse the json data, convert it to a map and set it equal to the master jsonMap
+        setlist = RootObject.toVariantMap();
     }
     else
     {
@@ -287,10 +299,12 @@ void Setlist::slotWriteSetlist()
     if(jsonFile->open(QIODevice::ReadWrite | QIODevice::Text))
     {
         //Serialize JSON, write to file
-        QByteArray ba = serializer.serialize(setlist); //serialize the master json map into the byte array
+//        QByteArray ba = serializer.serialize(setlist); //serialize the master json map into the byte array
+        QJsonDocument jsonPresets = QJsonDocument::fromVariant(setlist);
 
         jsonFile->resize(0);
-        jsonFile->write(ba);
+//        jsonFile->write(ba);
+        jsonFile->write(jsonPresets.toJson());
     }
     else
     {

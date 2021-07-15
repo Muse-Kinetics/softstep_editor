@@ -4,7 +4,7 @@
 #include "mainwindow.h"
 //#include "ui_mainwindowWin.h"
 
-#include <QDesktopWidget>
+//#include <QDesktopWidget>
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
@@ -71,7 +71,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("SoftStep Advanced Editor");
     this->setFixedSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
-    QRect screenGeometry = QApplication::desktop()->availableGeometry();
+//    QRect screenGeometry = QApplication::desktop()->availableGeometry();
+
+
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->geometry();
+
     this->setGeometry(screenGeometry.width() / 4, 50, MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
 
     ui->connectedLabel->setText("SOFTSTEP NOT CONNECTED");
@@ -907,14 +912,14 @@ void MainWindow::slotInitMenuBar()
     copyPresetAct = new QAction("Copy Preset", edit);
     actionList.append(copyPresetAct);
     edit->addAction(copyPresetAct);
-    copyPresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_C));
+    copyPresetAct->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_C));
     connect(copyPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyPreset()));
     //copyPresetAct->setDisabled(true);
 
     pastePresetAct = new QAction("Paste Preset", edit);
     actionList.append(pastePresetAct);
     edit->addAction(pastePresetAct);
-    pastePresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_V));
+    pastePresetAct->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_V));
     connect(pastePresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPastePreset()));
     pastePresetAct->setDisabled(true);
 
@@ -928,14 +933,14 @@ void MainWindow::slotInitMenuBar()
     copyKeyAct = new QAction("Copy Key", edit);
     actionList.append(copyKeyAct);
     edit->addAction(copyKeyAct);
-    copyKeyAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
+    copyKeyAct->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_C));
     connect(copyKeyAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyKey()));
     copyKeyAct->setDisabled(true);
 
     pasteKeyAct = new QAction("Paste Key", edit);
     actionList.append(pasteKeyAct);
     edit->addAction(pasteKeyAct);
-    pasteKeyAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_V));
+    pasteKeyAct->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_V));
     connect(pasteKeyAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPasteKey()));
     pasteKeyAct->setDisabled(true);
 

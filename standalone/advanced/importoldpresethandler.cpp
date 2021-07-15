@@ -21,7 +21,7 @@ void ImportOldPresetHandler::slotImportOldPreset()
     filepath = QFileDialog::getExistingDirectory(presetInterface, tr("Navigate to your SoftStep Editor Version 1.21 'Presets' Folder"), QString("./"));
 
     //If file is selected
-    if(filepath != NULL)
+    if(!filepath.isNull())
     {
         if(mode == "hosted")
         {
@@ -45,12 +45,24 @@ void ImportOldPresetHandler::slotImportOldPreset()
         {
             emit signalPathFound();
 
-            presetFile->open(QIODevice::ReadOnly);
+            presetFile->open(QIODevice::ReadOnly | QIODevice::Text);
+            // error object
+            QJsonParseError JsonParseError;
+            // convert file to QJsonDocument. this can be read/written to
+            QJsonDocument JsonDocument = QJsonDocument::fromJson(presetFile->readAll(), &JsonParseError);
+            // close jsonFile
+            presetFile->close();
+            // convert QJsonDocument to QJsonObject. this can be queried and modified in a human-readable way
+            QJsonObject RootObject = JsonDocument.object();
 
-            QByteArray presetByteArray = presetFile->readAll();
+
+//            QByteArray presetByteArray = presetFile->readAll();
+            QByteArray presetByteArray = JsonDocument.toJson();
+
             presetFile->close();
 
-            QVariantMap importedMap = presetInterface->parser.parse(presetByteArray, &ok).toMap();
+//            QVariantMap importedMap = presetInterface->parser.parse(presetByteArray, &ok).toMap();
+            QVariantMap importedMap = RootObject.toVariantMap();
 
             QMapIterator<QString, QVariant> i(importedMap);
 

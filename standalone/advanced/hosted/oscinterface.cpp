@@ -199,7 +199,7 @@ void OscInterface::slotWriteDatagram(QString tag, int val)
     //char byte[12] = {0x2F, 0x30, 0x00, 0x00, 0x2C, 0x69, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01};
 
     QByteArray address;
-    address.append(tag);
+    address.append(tag.toUtf8());
 
     //---- Format Address
     //Must have address with size greater than 0

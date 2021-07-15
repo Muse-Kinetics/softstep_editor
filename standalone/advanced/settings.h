@@ -22,8 +22,8 @@
 #include "ui_settingsFormWin.h"
 #endif //Q_OS_MAC
 
-#include "qjson/src/parser.h"
-#include "qjson/src/serializer.h"
+//#include "qjson/src/parser.h"
+//#include "qjson/src/serializer.h"
 
 #include "hosted/midiinput.h"
 #include "pedal.h"
@@ -53,8 +53,8 @@ public:
     QVariantMap settings;
     QVariantMap defaultGlobalMap;
 
-    QJson::Parser parser;
-    QJson::Serializer serializer;
+//    QJson::Parser parser;
+//    QJson::Serializer serializer;
 
     QString jsonPath;
     QFile *josnFile;

@@ -10,8 +10,8 @@
 #include <QtGui>
 #include <QComboBox>
 
-#include "qjson/src/parser.h"
-#include "qjson/src/serializer.h"
+//#include "qjson/src/parser.h"
+//#include "qjson/src/serializer.h"
 
 class PresetInterface : public QWidget
 {
@@ -32,8 +32,8 @@ public:
 
 
 
-    QJson::Parser       parser;
-    QJson::Serializer   serializer;
+//    QJson::Parser       parser;
+//    QJson::Serializer   serializer;
 
     QFile *jsonFile;
     bool ok;

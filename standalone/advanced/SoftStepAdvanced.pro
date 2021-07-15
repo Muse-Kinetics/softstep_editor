@@ -153,13 +153,13 @@ static{
 DEFINES += STATIC_BUILD
 }
 
-INCLUDEPATH +=  ../../shared/qjson/src
+#INCLUDEPATH +=  ../../shared/qjson/src
 
-SOURCES +=      ../../shared/qjson/src/json_parser.cc \
-                ../../shared/qjson/src/json_scanner.cpp \
-                ../../shared/qjson/src/parser.cpp \
-                ../../shared/qjson/src/qobjecthelper.cpp \
-                ../../shared/qjson/src/serializer.cpp
+#SOURCES +=      ../../shared/qjson/src/json_parser.cc \
+#                ../../shared/qjson/src/json_scanner.cpp \
+#                ../../shared/qjson/src/parser.cpp \
+#                ../../shared/qjson/src/qobjecthelper.cpp \
+#                ../../shared/qjson/src/serializer.cpp
 
 #------------------oscpack------------------#
 #-------------------------------------------#

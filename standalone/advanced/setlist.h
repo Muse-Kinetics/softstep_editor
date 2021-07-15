@@ -7,8 +7,8 @@
 #include <QWidget>
 #include <QtGui>
 
-#include "qjson/src/parser.h"
-#include "qjson/src/serializer.h"
+//#include "qjson/src/parser.h"
+//#include "qjson/src/serializer.h"
 
 #ifdef Q_OS_MAC
 #include "ui_setlistForm.h"
@@ -35,8 +35,8 @@ public:
     QStringList hostedSetlist;
     QVariantMap setlist;
 
-    QJson::Parser       parser;
-    QJson::Serializer   serializer;
+//    QJson::Parser       parser;
+//    QJson::Serializer   serializer;
 
     QString jsonPath;
     QFile *jsonFile;

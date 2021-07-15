@@ -30,7 +30,8 @@ TableInerface::TableInerface(QWidget *parent) :
     QVBoxLayout *layout = new QVBoxLayout(qmlWidget);
     layout->addWidget(qmlView);
     layout->setSpacing(0);
-    layout->setMargin(0);
+//    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setStretch(0,0);
 
     //Set Root object for function access
