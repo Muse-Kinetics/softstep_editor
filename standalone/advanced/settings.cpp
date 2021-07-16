@@ -137,10 +137,10 @@ Settings::Settings(QWidget *parent) :
 
     //set which stacked widget to initiallize in and connect the buttons to the view selector--I chose the global page for now
     settingsForm->settingsViews->setCurrentIndex(0);
-    connect(settingsForm->settingsglobalbutton,SIGNAL(clicked()),this,SLOT(slotViewSelector()));
-    connect(settingsForm->settingskeybutton,SIGNAL(clicked()),this,SLOT(slotViewSelector()));
-    connect(settingsForm->settingsinputbutton,SIGNAL(clicked()),this,SLOT(slotViewSelector()));
-    connect(settingsForm->settingspedalbutton,SIGNAL(clicked()),this,SLOT(slotViewSelector()));
+    connect(settingsForm->settingsglobalbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
+    connect(settingsForm->settingskeybutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
+    connect(settingsForm->settingsinputbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
+    connect(settingsForm->settingspedalbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
 
     //slotWriteDefaultSettings();
     slotRecallSettings();
@@ -582,10 +582,12 @@ void Settings::slotRecallSettings()
 
 void Settings::slotViewSelector()
 {
-    //qDebug() << "slotViewSelectorCalled";
+    qDebug() << "slotViewSelectorCalled";
     if(QObject::sender())
     {
         QObject *sender = QObject::sender();
+
+        qDebug() << "Sender: " << sender;
 
         if(sender == settingsForm->settingsglobalbutton)
         {
@@ -609,6 +611,7 @@ void Settings::slotViewSelector()
             settingsForm->settingsViews->setCurrentIndex(3);
             settingsWidget->setFixedSize(320, 415);
         }
+        qDebug() << "settingsViews->currentIndex: " << settingsForm->settingsViews->currentIndex();
     }
 }
 
@@ -717,9 +720,20 @@ void Settings::slotReadSettings()
     {
         //qDebug("Settings JSON Found");
 
-        QByteArray settingsByteArray = jsonFile->readAll();
+        // error object
+        QJsonParseError JsonParseError;
+        // convert file to QJsonDocument. this can be read/written to
+        QJsonDocument JsonDocument = QJsonDocument::fromJson(jsonFile->readAll(), &JsonParseError);
+        // close jsonFile
+        jsonFile->close();
+        // convert QJsonDocument to QJsonObject. this can be queried and modified in a human-readable way
+        QJsonObject RootObject = JsonDocument.object();
 
-        settings = parser.parse(settingsByteArray, &ok).toMap(); //parse the json data, convert it to a map and set it equal to the master jsonMap
+//        QByteArray settingsByteArray = jsonFile->readAll();
+        QByteArray settingsByteArray = JsonDocument.toJson();
+
+//        settings = parser.parse(settingsByteArray, &ok).toMap(); //parse the json data, convert it to a map and set it equal to the master jsonMap
+        settings = RootObject.toVariantMap();
     }
     else
     {
@@ -737,10 +751,11 @@ void Settings::slotWriteSettings()
     if(jsonFile->open(QIODevice::ReadWrite | QIODevice::Text))
     {
         //serialize JSON, write to file
-        QByteArray ba = serializer.serialize(settings); //serialize the master json map into the byte array
-
+//        QByteArray ba = serializer.serialize(settings); //serialize the master json map into the byte array
+        QJsonDocument jsonPresets = QJsonDocument::fromVariant(settings);
         jsonFile->resize(0);
-        jsonFile->write(ba);
+//        jsonFile->write(ba);
+        jsonFile->write(jsonPresets.toJson());
     }
     else
     {

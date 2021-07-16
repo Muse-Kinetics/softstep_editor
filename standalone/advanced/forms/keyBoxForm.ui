@@ -118,7 +118,7 @@ QToolTip
    <widget class="QToolButton" name="openWindow">
     <property name="geometry">
      <rect>
-      <x>7</x>
+      <x>6</x>
       <y>13</y>
       <width>40</width>
       <height>40</height>
@@ -140,9 +140,9 @@ QToolTip
    <widget class="QLineEdit" name="keyName">
     <property name="geometry">
      <rect>
-      <x>52</x>
+      <x>48</x>
       <y>21</y>
-      <width>40</width>
+      <width>45</width>
       <height>26</height>
      </rect>
     </property>
@@ -153,6 +153,8 @@ QToolTip
      <string notr="true">QLineEdit
 {
 	padding-top: 1px;
+	padding-left: 2px;
+	text-align: center;
 }</string>
     </property>
     <property name="inputMethodHints">

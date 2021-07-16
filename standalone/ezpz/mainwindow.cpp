@@ -87,7 +87,7 @@ MainWindow::MainWindow(QWidget *parent) :
     factoryPresetCoverWidget1->resize(this->size());
     factoryPresetCoverWidget1->setStyleSheet("QWidget{ background: rgba(0,0,0,200); }");
 
-    factoryPresetNameLabel = new QLabel(ui->centralWidget,0);
+    factoryPresetNameLabel = new QLabel(ui->centralWidget);
     factoryPresetNameLabel->hide();
     factoryPresetNameLabel->resize(this->size());
     factoryPresetNameLabel->setAlignment(Qt::AlignCenter);
@@ -580,13 +580,13 @@ void MainWindow::slotInitMenuBar()
     copyPresetAct = new QAction("Copy Preset", edit);
     actionList.append(copyPresetAct);
     edit->addAction(copyPresetAct);
-    copyPresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_C));
+    copyPresetAct->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_C));
     connect(copyPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyPreset()));
 
     pastePresetAct = new QAction("Paste Preset", edit);
     actionList.append(pastePresetAct);
     edit->addAction(pastePresetAct);
-    pastePresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_V));
+    pastePresetAct->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_V));
     connect(pastePresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPastePreset()));
     pastePresetAct->setDisabled(true);
 

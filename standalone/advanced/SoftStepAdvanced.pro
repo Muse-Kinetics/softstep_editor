@@ -153,13 +153,13 @@ static{
 DEFINES += STATIC_BUILD
 }
 
-INCLUDEPATH +=  ../../shared/qjson/src
+#INCLUDEPATH +=  ../../shared/qjson/src
 
-SOURCES +=      ../../shared/qjson/src/json_parser.cc \
-                ../../shared/qjson/src/json_scanner.cpp \
-                ../../shared/qjson/src/parser.cpp \
-                ../../shared/qjson/src/qobjecthelper.cpp \
-                ../../shared/qjson/src/serializer.cpp
+#SOURCES +=      ../../shared/qjson/src/json_parser.cc \
+#                ../../shared/qjson/src/json_scanner.cpp \
+#                ../../shared/qjson/src/parser.cpp \
+#                ../../shared/qjson/src/qobjecthelper.cpp \
+#                ../../shared/qjson/src/serializer.cpp
 
 #------------------oscpack------------------#
 #-------------------------------------------#
@@ -193,6 +193,19 @@ ICON = resources/appicon.icns
 
 RESOURCES += \
     resources.qrc
+
+#--------------- contents/resources --------
+
+macx{
+    softStepSysEx.files = $$PWD/../../shared/SoftStep.syx
+    softStepSysEx.path = Contents/Resources
+    QMAKE_BUNDLE_DATA += softStepSysEx
+
+    softStepPresets.files = $$PWD/presets
+    softStepPresets.path = Contents/Resources
+    QMAKE_BUNDLE_DATA += softStepPresets
+}
+
 
 OTHER_FILES += \
     resources/modline_enable1_stylesheet.qss \

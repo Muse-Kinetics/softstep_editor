@@ -2,7 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include <QtWidgets>
-#include <QDesktopWidget>
+//#include <QDesktopWidget>
 
 #include "navkey.h"
 
@@ -48,7 +48,11 @@ NavKey::NavKey(QWidget *parent) :
     //set ub the nav pad window
     navKeyWindowForm->setupUi(navKeyWindowWidget);
     navKeyWindowWidget->setFixedSize(NAVWINDOW_SM_WIDTH,NAVWINDOW_HEIGHT);
-    QRect screenGeometry = QApplication::desktop()->availableGeometry();
+//    QRect screenGeometry = QApplication::desktop()->availableGeometry();
+
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->geometry();
+
     navKeyWindowWidget->setGeometry(170, (screenGeometry.height() / 2.4) + 150, NAVWINDOW_SM_WIDTH, NAVWINDOW_HEIGHT);
     navKeyWindowWidget->setWindowTitle(QString("Nav Pad Modulation"));
     navKeyWindowWidget->hide();

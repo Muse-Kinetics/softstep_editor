@@ -81,7 +81,7 @@ QToolTip
   <widget class="QPushButton" name="openNavWindow">
    <property name="geometry">
     <rect>
-     <x>7</x>
+     <x>6</x>
      <y>13</y>
      <width>38</width>
      <height>38</height>
@@ -103,9 +103,9 @@ QToolTip
   <widget class="QLineEdit" name="keyName">
    <property name="geometry">
     <rect>
-     <x>52</x>
+     <x>48</x>
      <y>21</y>
-     <width>40</width>
+     <width>45</width>
      <height>26</height>
     </rect>
    </property>
