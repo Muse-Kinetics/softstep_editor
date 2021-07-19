@@ -130,7 +130,6 @@ QComboBox QListView
 	font: 9px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
-	min-width: 35px;
 }
 
 QComboBox::item:alternate
@@ -814,6 +813,13 @@ QSpinBox:disabled
    <property name="toolTip">
     <string>Sets the type of MIDI message to output.</string>
    </property>
+   <property name="styleSheet">
+    <string notr="true">
+QComboBox QListView
+{
+	min-width: 120px;
+}</string>
+   </property>
    <item>
     <property name="text">
      <string>None</string>
@@ -893,6 +899,9 @@ QSpinBox:disabled
     <font>
      <family>Futura</family>
      <pointsize>10</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="toolTip">
@@ -3263,7 +3272,7 @@ QComboBox::down-arrow
       <rect>
        <x>104</x>
        <y>0</y>
-       <width>116</width>
+       <width>110</width>
        <height>18</height>
       </rect>
      </property>
@@ -3299,14 +3308,16 @@ QComboBox QListView
 	font: 9px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
-	min-width: 65px;
+	min-width: 150px;
 	min-height: 25px;
 }
+
+
 
 QComboBox QAbstractItemView::item
 {
 	min-height: 65px;
-	min-width: 65px;
+	min-width: 170px;
 
 }
 
@@ -3413,7 +3424,7 @@ QLabel
 }</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">
@@ -3820,7 +3831,10 @@ QLabel
     <string>Sets the type of sensor data coming from the SoftStep.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QComboBox QAbstractItemView {
+    margin-top: 0px;
+	min-width: 150px;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -4136,7 +4150,7 @@ QComboBox QListView
 	font: 9px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
-	min-width: 55px;
+	min-width: 85px;
 }</string>
    </property>
    <item>
@@ -4254,8 +4268,10 @@ QComboBox QListView
 	font: 9px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
-	min-width: 35px;
+	min-width: 85px;
 }
+
+
 
 QComboBox::item:alternate
 {

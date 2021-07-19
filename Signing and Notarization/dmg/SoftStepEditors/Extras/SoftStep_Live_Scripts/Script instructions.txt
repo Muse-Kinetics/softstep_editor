@@ -1,0 +1,26 @@
+This folder contains two versions of the script:
+* SoftStepMixer - compatible with Ableton versions 9 and 10
+* SoftStepMixer11 - compatible with Ableton 11
+
+Use this script with the Ableton Live Control preset. It is one of the factory presets. It appears on the SoftStep display as "LIVE".  
+
+Mac:
+
+	1.	Locate your Ableton Live application (must be original, not alias or shortcut):
+	2.	Ctrl-click on the .app file and go to "Show Package Contents"
+	3.	Now go into the "/Contents/App-Resources/MIDI Remote Scripts/" folder
+	4.	Paste the "SoftStepMixer" or "SoftStepMixer11" folder into the "MIDI Remote Scripts" folder.
+
+Windows:
+
+	1.	Locate Ableton Live's "MIDI Remote Scripts" folder:
+		⁃	On Windows XP - C:/Documents and Settings/All Users/Application Data/Ableton/Live 9/Resources/MIDI Remote Scripts
+		⁃	On Windows 7 - C:/ProgramData/Ableton/Live 9/Resources/MIDI Remote Scripts
+	2.	Paste the "SoftStepMixer" or "SoftStepMixer11" folder into the "MIDI Remote Scripts" folder
+
+Note to Windows 7 users: The “ProgramData” folder is hidden. If you need to find it go to “Control Panel”, then to “Appearance and Personalization”. Find “Folder Options” and click on where it says “Show hidden files and folders”. A window will pop up. Under the “Hidden files and folders” label, click “Show hidden files, folders, and drives”. Now press “apply” and you should be able to find the “Program Data” folder. After copying the installation files into their proper locations you go back to Folder Options and click “Don’t show hidden files, folders, or drives”.
+
+
+If certain controls on the SoftStep aren’t working as expected in Ableton Live...
+
+Make sure to plug the SoftStep in BEFORE opening Ableton Live or after plugging the SoftStep in, make sure to re-select "SoftStepMixer" as the MIDI Control Surface in Ableton Live’s MIDI Preferences.

@@ -52,6 +52,8 @@ void SysExComposer::slotGetEmbeddedVersion()
     FILE *fd = fopen(sysExPath.toUtf8(),"rb");
 #endif
 
+    qDebug() << "SysEx Path: " << sysExPath;
+
     if (fd)
     {
         int fchar;
@@ -634,12 +636,14 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
 
 void SysExComposer::slotGetConnectedVersion(QByteArray msg)
 {
+    qDebug() << "slotGetConnectedVersion called";
+
     t_softstep *x = softstep_init();
 
     for(int i =0 ; i < msg.count(); i++)
     {
         //Sleep(5);
-        qDebug() << "firmware version msg" << msg.at(i) << (unsigned char)msg.at(i);
+        //qDebug() << "firmware version msg" << msg.at(i) << (unsigned char)msg.at(i);
         softstep_midi_process(x,&x->version_connected, msg.at(i));
     }
 

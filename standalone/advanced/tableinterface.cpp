@@ -10,6 +10,8 @@
 TableInerface::TableInerface(QWidget *parent) :
     QWidget(parent)
 {
+
+
     //Make Window a Tool Window, Set Size
     this->setWindowFlags(Qt::Widget);
     this->setFixedSize(114,114);
@@ -23,6 +25,10 @@ TableInerface::TableInerface(QWidget *parent) :
     qmlWidget = new QWidget(uiWidget);
 
     QQuickWidget* qmlView = new QQuickWidget;
+
+    // set engine as opengl
+    qmlView->quickWindow()->setGraphicsApi(QSGRendererInterface::OpenGL);
+
     qmlView->setSource(QUrl("qrc:/CalibrationTable.qml"));
 
     qmlView->rootContext()->setContextProperty("TableInterface", this);

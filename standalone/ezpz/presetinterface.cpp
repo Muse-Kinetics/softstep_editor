@@ -24,6 +24,8 @@ PresetInterface::PresetInterface(QWidget *parent) :
     QString presetsDirSrcPath = QString("./presets");
 #endif
 
+    qDebug() << "presetsDirSrcPath: " << presetsDirSrcPath;
+
     // Get path to writeable app data directory
     QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 
@@ -33,6 +35,8 @@ PresetInterface::PresetInterface(QWidget *parent) :
 
     // Create destination presets subdirectory if it doesn't exist
     QString presetsDirDestPath = appDataDirPath;
+
+    qDebug() << "presetsDirDestPath: " << presetsDirDestPath;
 
     if (!QDir(presetsDirDestPath).exists()) {
         QDir().mkpath(presetsDirDestPath);

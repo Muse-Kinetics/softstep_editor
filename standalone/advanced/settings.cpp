@@ -137,10 +137,10 @@ Settings::Settings(QWidget *parent) :
 
     //set which stacked widget to initiallize in and connect the buttons to the view selector--I chose the global page for now
     settingsForm->settingsViews->setCurrentIndex(0);
-    connect(settingsForm->settingsglobalbutton,SIGNAL(clicked()),this,SLOT(slotViewSelector()));
-    connect(settingsForm->settingskeybutton,SIGNAL(clicked()),this,SLOT(slotViewSelector()));
-    connect(settingsForm->settingsinputbutton,SIGNAL(clicked()),this,SLOT(slotViewSelector()));
-    connect(settingsForm->settingspedalbutton,SIGNAL(clicked()),this,SLOT(slotViewSelector()));
+    connect(settingsForm->settingsglobalbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
+    connect(settingsForm->settingskeybutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
+    connect(settingsForm->settingsinputbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
+    connect(settingsForm->settingspedalbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
 
     //slotWriteDefaultSettings();
     slotRecallSettings();
@@ -582,10 +582,12 @@ void Settings::slotRecallSettings()
 
 void Settings::slotViewSelector()
 {
-    //qDebug() << "slotViewSelectorCalled";
+    qDebug() << "slotViewSelectorCalled";
     if(QObject::sender())
     {
         QObject *sender = QObject::sender();
+
+        qDebug() << "Sender: " << sender;
 
         if(sender == settingsForm->settingsglobalbutton)
         {
@@ -609,6 +611,7 @@ void Settings::slotViewSelector()
             settingsForm->settingsViews->setCurrentIndex(3);
             settingsWidget->setFixedSize(320, 415);
         }
+        qDebug() << "settingsViews->currentIndex: " << settingsForm->settingsViews->currentIndex();
     }
 }
 
