@@ -64,7 +64,7 @@ typedef struct {unsigned char status;
 #define	SUB_MODEL			0
 #define	UNIT_ID				0
 
-#define	MAX_DEST	2
+//#define	MAX_DEST	2
 
 #define	NOTE_VELOCITY_DEFAULT	0x40
 

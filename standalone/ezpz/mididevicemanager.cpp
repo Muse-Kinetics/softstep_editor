@@ -5,366 +5,367 @@
 #include "sysexmessages.h"
 
 #ifdef Q_OS_MAC
-MidiDeviceManager *callbackClassPointer;
+SS_MidiDeviceManager *callbackClassPointer;
 void midiSystemChanged(const MIDINotification *message, void *refCon);                          //Called when the system's MIDI has changed
 void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon);    //Called upon incoming midi from connected port
 void sysExComplete(MIDISysexSendRequest*);                                                      //Called when sysex event has been completely sent
 
 
-MidiDeviceManager::MidiDeviceManager(QWidget *parent) :
+SS_MidiDeviceManager::SS_MidiDeviceManager(QWidget *parent) :
     QWidget(parent)
 {
-    inBootloader = false;
-    fwUpdateRequested = false;
+//    inBootloader = false;
+//    fwUpdateRequested = false;
 
-    sysexFIFOClock = new QTimer();
-    connect(sysexFIFOClock, SIGNAL(timeout()), this, SLOT(slotDrainSysexFIFO()));
+//    sysexFIFOClock = new QTimer();
+//    connect(sysexFIFOClock, SIGNAL(timeout()), this, SLOT(slotDrainSysexFIFO()));
 
-    callbackClassPointer = this;
+//    callbackClassPointer = this;
 
-    createAppMidiClient();
+//    createAppMidiClient();
 }
 
-void MidiDeviceManager::slotStandaloneOn()
+void SS_MidiDeviceManager::slotStandaloneOn()
 {
-    sysexFIFOClock->stop();
-    sysexFIFOsQueue.clear();
+    // EB TODO - reconnect this with new handlers
+//    sysexFIFOClock->stop();
+//    sysexFIFOsQueue.clear();
 
 
-    sysexFIFOsQueue.append(_fw_tether_off);
-    sysexFIFOsQueue.append(_fw_standalone_on);
-    sysexFIFOsQueue.append(_fw_scenechange_on_persist);
-    sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
-    sysexFIFOsQueue.append(_fw_nav_standalone_on);
+//    sysexFIFOsQueue.append(_fw_tether_off);
+//    sysexFIFOsQueue.append(_fw_standalone_on);
+//    sysexFIFOsQueue.append(_fw_scenechange_on_persist);
+//    sysexFIFOsQueue.append(_fw_nav_standalone_on_persist);
+//    sysexFIFOsQueue.append(_fw_nav_standalone_on);
 
 
-    //sysexFIFOsQueue.append(_fw_tether_off);
-    //sysexFIFOsQueue.append(_fw_nav_tether_off);
-    //sysexFIFOsQueue.append(_fw_standalone_on);
+//    //sysexFIFOsQueue.append(_fw_tether_off);
+//    //sysexFIFOsQueue.append(_fw_nav_tether_off);
+//    //sysexFIFOsQueue.append(_fw_standalone_on);
 
 
-    sysexFIFOClock->start(100);
+//    sysexFIFOClock->start(100);
 }
 
-void MidiDeviceManager::slotDrainSysexFIFO()
-{
-    //If anything in list, send the next message
-    if(!sysexFIFOsQueue.isEmpty())
-    {
-        slotSendSysEx("message", sysexFIFOsQueue.first(), 43, "SSCOM Port 1");
-        sysexFIFOsQueue.removeFirst();
-    }
+//void SS_MidiDeviceManager::slotDrainSysexFIFO()
+//{
+//    //If anything in list, send the next message
+//    if(!sysexFIFOsQueue.isEmpty())
+//    {
+//        slotSendSysEx("message", sysexFIFOsQueue.first(), 43, "SSCOM Port 1");
+//        sysexFIFOsQueue.removeFirst();
+//    }
 
-    //Otherwise stop calling function
-    else
-    {
-        sysexFIFOClock->stop();
-    }
-}
+//    //Otherwise stop calling function
+//    else
+//    {
+//        sysexFIFOClock->stop();
+//    }
+//}
 
-void MidiDeviceManager::createAppMidiClient()
-{
-    MIDIClientCreate(CFSTR("QuNexus MIDI Client"), midiSystemChanged, this, &appClientRef);
-    MIDIInputPortCreate(appClientRef, CFSTR("QuNexus MIDI Client In Port"), incomingMidi, this, &appInPortRef);
-    MIDIOutputPortCreate(appClientRef, CFSTR("QuNexus MIDI Client Out Port"), &appOutPortRef);
-}
+//void SS_MidiDeviceManager::createAppMidiClient()
+//{
+//    MIDIClientCreate(CFSTR("QuNexus MIDI Client"), midiSystemChanged, this, &appClientRef);
+//    MIDIInputPortCreate(appClientRef, CFSTR("QuNexus MIDI Client In Port"), incomingMidi, this, &appInPortRef);
+//    MIDIOutputPortCreate(appClientRef, CFSTR("QuNexus MIDI Client Out Port"), &appOutPortRef);
+//}
 
-bool MidiDeviceManager::connectSource()
-{
-    if(getSource() != -1)
-    {
-        qDebug() << "connect source called";
-        //Connect Source
-        MIDIEndpointRef endpointRef = MIDIGetSource(getSource());
-        MIDIPortConnectSource(appInPortRef, endpointRef, &endpointRef);
-        //qDebug() << "Source Connected: " << sourceName;
+//bool SS_MidiDeviceManager::connectSource()
+//{
+//    if(getSource() != -1)
+//    {
+//        qDebug() << "connect source called";
+//        //Connect Source
+//        MIDIEndpointRef endpointRef = MIDIGetSource(getSource());
+//        MIDIPortConnectSource(appInPortRef, endpointRef, &endpointRef);
+//        //qDebug() << "Source Connected: " << sourceName;
 
-        queryReplied = false;
-        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
-        return true;
-    }
-    else
-    {
-        emit signalConnected(false);
-        return false;
-    }
-}
+//        queryReplied = false;
+//        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
+//        return true;
+//    }
+//    else
+//    {
+//        emit signalConnected(false);
+//        return false;
+//    }
+//}
 
-int MidiDeviceManager::getSource()
-{
-    //Returns index of first instance of SSCOM Port 1
-    for(unsigned int i=0; i<MIDIGetNumberOfSources(); i++)
-    {
-        if(getDisplayName(MIDIGetSource(i)).contains("SSCOM") && getDisplayName(MIDIGetSource(i)).contains("1"))
-        {
-            return i;
-        }
-    }
+//int SS_MidiDeviceManager::getSource()
+//{
+//    //Returns index of first instance of SSCOM Port 1
+//    for(unsigned int i=0; i<MIDIGetNumberOfSources(); i++)
+//    {
+//        if(getDisplayName(MIDIGetSource(i)).contains("SSCOM") && getDisplayName(MIDIGetSource(i)).contains("1"))
+//        {
+//            return i;
+//        }
+//    }
 
-    return -1;
-}
+//    return -1;
+//}
 
-int MidiDeviceManager::getDestination()
-{
-    //Returns index of first instance of SSCOM Port 1
-    for(unsigned int i=0; i<MIDIGetNumberOfDestinations(); i++)
-    {
-        if(getDisplayName(MIDIGetDestination(i)).contains("SSCOM") && getDisplayName(MIDIGetDestination(i)).contains("1"))
-        {
-            return i;
-        }
-    }
+//int SS_MidiDeviceManager::getDestination()
+//{
+//    //Returns index of first instance of SSCOM Port 1
+//    for(unsigned int i=0; i<MIDIGetNumberOfDestinations(); i++)
+//    {
+//        if(getDisplayName(MIDIGetDestination(i)).contains("SSCOM") && getDisplayName(MIDIGetDestination(i)).contains("1"))
+//        {
+//            return i;
+//        }
+//    }
 
-    return -1;
-}
+//    return -1;
+//}
 
-void MidiDeviceManager::slotRequestFirmwareUpdate()
-{
-    //No bootloader for softstep -- QuNexus legacy
-}
+//void SS_MidiDeviceManager::slotRequestFirmwareUpdate()
+//{
+//    //No bootloader for softstep -- QuNexus legacy
+//}
 
-void MidiDeviceManager::slotEnterBootloader()
-{
-    //No bootloader for softstep -- QuNexus legacy
-}
+//void SS_MidiDeviceManager::slotEnterBootloader()
+//{
+//    //No bootloader for softstep -- QuNexus legacy
+//}
 
-void MidiDeviceManager::slotUpdateFirmware()
-{
-    //Not used -- handled in sysex composer
-}
+//void SS_MidiDeviceManager::slotUpdateFirmware()
+//{
+//    //Not used -- handled in sysex composer
+//}
 
 
 ////////////////////////////////////////////////////////
 ///////////////// Helper Funcitons /////////////////////
 ////////////////////////////////////////////////////////
-QString MidiDeviceManager::getDisplayName(MIDIObjectRef object)
-{
-    // Returns the display name of a given MIDIObjectRef as an NSString
-    CFStringRef name = nil; //place holder for name
+//QString SS_MidiDeviceManager::getDisplayName(MIDIObjectRef object)
+//{
+//    // Returns the display name of a given MIDIObjectRef as an NSString
+//    CFStringRef name = nil; //place holder for name
 
-    if(noErr != MIDIObjectGetStringProperty(object, kMIDIPropertyDisplayName, &name))
-    {//get the name using midi services function
-        return nil;
-    }
+//    if(noErr != MIDIObjectGetStringProperty(object, kMIDIPropertyDisplayName, &name))
+//    {//get the name using midi services function
+//        return nil;
+//    }
 
-    return QString(cFStringRefToQString(name)); //return the name
-}
+//    return QString(cFStringRefToQString(name)); //return the name
+//}
 
-QString MidiDeviceManager::cFStringRefToQString(CFStringRef ref)
-{
-    //this function just translates a CFStringRef into a QString
-    CFRange range;
-    range.location = 0;
-    range.length = CFStringGetLength(ref);
-    QString result(range.length, QChar(0));
+//QString SS_MidiDeviceManager::cFStringRefToQString(CFStringRef ref)
+//{
+//    //this function just translates a CFStringRef into a QString
+//    CFRange range;
+//    range.location = 0;
+//    range.length = CFStringGetLength(ref);
+//    QString result(range.length, QChar(0));
 
-    UniChar *chars = new UniChar[range.length];
-    CFStringGetCharacters(ref, range, chars);
-    //[nsstr getCharacters:chars range:range];
-    result = QString::fromUtf16(chars, range.length);
-    delete[] chars;
-    return result;
-}
+//    UniChar *chars = new UniChar[range.length];
+//    CFStringGetCharacters(ref, range, chars);
+//    //[nsstr getCharacters:chars range:range];
+//    result = QString::fromUtf16(chars, range.length);
+//    delete[] chars;
+//    return result;
+//}
 
-void MidiDeviceManager::slotSendSysEx(QString messageID,unsigned char* bytes, int len, QString destinationName)
-{
+//void SS_MidiDeviceManager::slotSendSysEx(QString messageID,unsigned char* bytes, int len, QString destinationName)
+//{
 
-    if(getDestination() > -1)
-    {
-        int dest = getDestination();
+//    if(getDestination() > -1)
+//    {
+//        int dest = getDestination();
 
-        //Creat char array to hold sysex bytes
-        //unsigned char* sysExCharData = new unsigned char(sysExMessageByteArray.size());
+//        //Creat char array to hold sysex bytes
+//        //unsigned char* sysExCharData = new unsigned char(sysExMessageByteArray.size());
 
-        //Assign bytes to char array
-        //sysExCharData = (unsigned char*)sysExMessageByteArray.data();
+//        //Assign bytes to char array
+//        //sysExCharData = (unsigned char*)sysExMessageByteArray.data();
 
-        //Create new sysex event/request
-        MIDISysexSendRequest* sysExMsgReq = new MIDISysexSendRequest;
+//        //Create new sysex event/request
+//        MIDISysexSendRequest* sysExMsgReq = new MIDISysexSendRequest;
 
-        //Set the message's fields
-        sysExMsgReq->destination = MIDIGetDestination(dest);
-        sysExMsgReq->data = (const Byte *)bytes;
-        sysExMsgReq->bytesToSend = len;
-        sysExMsgReq->complete = false;
-        sysExMsgReq->completionProc = &sysExComplete;
-        sysExMsgReq->completionRefCon = bytes;
+//        //Set the message's fields
+//        sysExMsgReq->destination = MIDIGetDestination(dest);
+//        sysExMsgReq->data = (const Byte *)bytes;
+//        sysExMsgReq->bytesToSend = len;
+//        sysExMsgReq->complete = false;
+//        sysExMsgReq->completionProc = &sysExComplete;
+//        sysExMsgReq->completionRefCon = bytes;
 
-        //Send the message
-        MIDISendSysex(sysExMsgReq);
+//        //Send the message
+//        MIDISendSysex(sysExMsgReq);
 
-        //Wait for entire message to be sent
-        int bytes = -1;
+//        //Wait for entire message to be sent
+//        int bytes = -1;
 
-        while(!sysExMsgReq->complete)
-        {
-            QApplication::processEvents();
+//        while(!sysExMsgReq->complete)
+//        {
+//            QApplication::processEvents();
 
-            if(bytes != (long)sysExMsgReq->bytesToSend)
-            {
-                bytes = sysExMsgReq->bytesToSend;
+//            if(bytes != (long)sysExMsgReq->bytesToSend)
+//            {
+//                bytes = sysExMsgReq->bytesToSend;
 
-                if(messageID == "update firmware")
-                {
-                    emit signalFwBytesLeft(sysExMsgReq->bytesToSend);
-                }
-            }
-            //qDebug() << "sysEx msg bytes left:" << bytes;
-        }
+//                if(messageID == "update firmware")
+//                {
+//                    emit signalFwBytesLeft(sysExMsgReq->bytesToSend);
+//                }
+//            }
+//            //qDebug() << "sysEx msg bytes left:" << bytes;
+//        }
 
-        if(messageID == "presets image")
-        {
-            qDebug() << "MDM -- Presets sent";
-            emit signalPresetsSent();
-        }
+//        if(messageID == "presets image")
+//        {
+//            qDebug() << "MDM -- Presets sent";
+//            emit signalPresetsSent();
+//        }
 
-        if(messageID == "settings image")
-        {
-            qDebug() << "MDM -- Settings sent";
-            emit signalSettingsSent();
-        }
+//        if(messageID == "settings image")
+//        {
+//            qDebug() << "MDM -- Settings sent";
+//            emit signalSettingsSent();
+//        }
 
-    }
-    else
-    {
-        qDebug() << "Matching Destination: " << destinationName << " NOT Found!";
-    }
-}
+//    }
+//    else
+//    {
+//        qDebug() << "Matching Destination: " << destinationName << " NOT Found!";
+//    }
+//}
 
-void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
-{
-    qDebug() << "sysex length" << sysExMessageByteArray.count();
+//void SS_MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
+//{
+//    qDebug() << "sysex length" << sysExMessageByteArray.count();
 
-    //---------- PRE v76 reply
-    if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 91 && !queryReplied)
-    {
-        //qDebug() << "Got the reply" << sysExMessageByteArray.count();
-        queryReplied = true;
+//    //---------- PRE v76 reply
+//    if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 91 && !queryReplied)
+//    {
+//        //qDebug() << "Got the reply" << sysExMessageByteArray.count();
+//        queryReplied = true;
 
-        //qDebug() << foundBootloaderVersion;
-        //qDebug() << foundFirmwwareVersion;
-        //qDebug() << expectedBootloaderVersion;
-        //qDebug() << expectedFirmwareVersion;
+//        //qDebug() << foundBootloaderVersion;
+//        //qDebug() << foundFirmwwareVersion;
+//        //qDebug() << expectedBootloaderVersion;
+//        //qDebug() << expectedFirmwareVersion;
 
-        //emit signalFirmwareOutOfDate(expectedBootloaderVersion,foundBootloaderVersion,expectedFirmwareVersion,foundFirmwwareVersion);
-        emit signalProcessFwQueryReply(sysExMessageByteArray);
-    }
+//        //emit signalFirmwareOutOfDate(expectedBootloaderVersion,foundBootloaderVersion,expectedFirmwareVersion,foundFirmwwareVersion);
+//        emit signalProcessFwQueryReply(sysExMessageByteArray);
+//    }
 
-    //---------- POST v76 reply
-    else if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 128 && !queryReplied)
-    {
-        /*for(int i = 0; i < sysExMessageByteArray.size(); i++)
-        {
-            int x = (uint)sysExMessageByteArray.at(i);
-            QString xAsHex = QString("0x%1").arg(x, 0, 16);
-            qDebug() << xAsHex;
-        }*/
+//    //---------- POST v76 reply
+//    else if(sysExMessageByteArray.indexOf(QByteArray((const char*)_fw_query_reply_header, 4)) == 2 && sysExMessageByteArray.size() == 128 && !queryReplied)
+//    {
+//        /*for(int i = 0; i < sysExMessageByteArray.size(); i++)
+//        {
+//            int x = (uint)sysExMessageByteArray.at(i);
+//            QString xAsHex = QString("0x%1").arg(x, 0, 16);
+//            qDebug() << xAsHex;
+//        }*/
 
-        queryReplied = true;
+//        queryReplied = true;
 
-        emit signalProcessFwQueryReply(sysExMessageByteArray);
+//        emit signalProcessFwQueryReply(sysExMessageByteArray);
 
-    }
+//    }
 
-    //If a query was sent and we got a bad reply
-    else if(!queryReplied)
-    {
-        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
-    }
-}
+//    //If a query was sent and we got a bad reply
+//    else if(!queryReplied)
+//    {
+//        slotSendSysEx("deviceQuery", _fw_query_syx_softstep, 67, "SSCOM Port 1");
+//    }
+//}
 
 
 
-////////////////////////////////////////////////////////
-////////////////Non-Class Callbacks ////////////////////
-////////////////////////////////////////////////////////
-void midiSystemChanged(const MIDINotification *message, void *refCon)
-{
-    Q_UNUSED(refCon)
+//////////////////////////////////////////////////////////
+//////////////////Non-Class Callbacks ////////////////////
+//////////////////////////////////////////////////////////
+//void midiSystemChanged(const MIDINotification *message, void *refCon)
+//{
+//    Q_UNUSED(refCon)
 
-    if(message->messageID == kMIDIMsgObjectAdded)
-    {
-        MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
+//    if(message->messageID == kMIDIMsgObjectAdded)
+//    {
+//        MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
 
-        if(msg->childType == kMIDIObjectType_Source)
-        {
-            if(callbackClassPointer->getDisplayName(msg->child).contains("SSCOM") && callbackClassPointer->getDisplayName(msg->child).contains("1"))
-            {
-                callbackClassPointer->connectSource();
-            }
-        }
-    }
+//        if(msg->childType == kMIDIObjectType_Source)
+//        {
+//            if(callbackClassPointer->getDisplayName(msg->child).contains("SSCOM") && callbackClassPointer->getDisplayName(msg->child).contains("1"))
+//            {
+//                callbackClassPointer->connectSource();
+//            }
+//        }
+//    }
 
-    else if(message->messageID == kMIDIMsgObjectRemoved)
-    {
-        MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
+//    else if(message->messageID == kMIDIMsgObjectRemoved)
+//    {
+//        MIDIObjectAddRemoveNotification *msg = (MIDIObjectAddRemoveNotification *)message;
 
-        if(msg->childType == kMIDIObjectType_Source)
-        {
-            if(callbackClassPointer->getDisplayName(msg->child).contains("SSCOM") && callbackClassPointer->getDisplayName(msg->child).contains("1"))
-            {
-                callbackClassPointer->connectSource();
-            }
-        }
-    }
-}
+//        if(msg->childType == kMIDIObjectType_Source)
+//        {
+//            if(callbackClassPointer->getDisplayName(msg->child).contains("SSCOM") && callbackClassPointer->getDisplayName(msg->child).contains("1"))
+//            {
+//                callbackClassPointer->connectSource();
+//            }
+//        }
+//    }
+//}
 
-void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon){
+//void incomingMidi(const MIDIPacketList *pktlist, void *readProcRefCon, void *srcConnRefCon){
 
-    Q_UNUSED(readProcRefCon)
-    Q_UNUSED(srcConnRefCon)
+//    Q_UNUSED(readProcRefCon)
+//    Q_UNUSED(srcConnRefCon)
 
-    //iterate through midi packets and process according to type
-    const MIDIPacket *packet = &pktlist->packet[0];
+//    //iterate through midi packets and process according to type
+//    const MIDIPacket *packet = &pktlist->packet[0];
 
-    //for number packets in packet list
-    for(unsigned int i =0; i < pktlist->numPackets; i++)
-    {
-        //for length of packet
-        for(int j = 0; j < packet->length; j++)
-        {
-            //If a SysEx Start Byte, set filter switch
-            if(packet->data[j] == 240)
-            {
-                callbackClassPointer->isSysEx = true;
-            }
+//    //for number packets in packet list
+//    for(unsigned int i =0; i < pktlist->numPackets; i++)
+//    {
+//        //for length of packet
+//        for(int j = 0; j < packet->length; j++)
+//        {
+//            //If a SysEx Start Byte, set filter switch
+//            if(packet->data[j] == 240)
+//            {
+//                callbackClassPointer->isSysEx = true;
+//            }
 
-            //If a SysEx End Byte, set filter switch off and send last bytes
-            else if (packet->data[j] == 247)
-            {
-                callbackClassPointer->isSysEx = false;
-                callbackClassPointer->sysExMessage.append(packet->data[j]);
-                //qDebug() << "----- SysEx In ----- :" << packet->data[j];
+//            //If a SysEx End Byte, set filter switch off and send last bytes
+//            else if (packet->data[j] == 247)
+//            {
+//                callbackClassPointer->isSysEx = false;
+//                callbackClassPointer->sysExMessage.append(packet->data[j]);
+//                //qDebug() << "----- SysEx In ----- :" << packet->data[j];
 
-                callbackClassPointer->slotProcessSysEx(callbackClassPointer->sysExMessage);
-                callbackClassPointer->sysExMessage.clear();
-            }
+//                callbackClassPointer->slotProcessSysEx(callbackClassPointer->sysExMessage);
+//                callbackClassPointer->sysExMessage.clear();
+//            }
 
-            //Processes SysEx
-            if(callbackClassPointer->isSysEx)
-            {
-                callbackClassPointer->sysExMessage.append(packet->data[j]);
-                //qDebug() << "----- SysEx In ----- :" << packet->data[j];
-            }
-            else if(packet->data[j] != 247)
-            {
-                qDebug() << "MIDI Channel Event: " << packet->data[j];
-            }
-        }
+//            //Processes SysEx
+//            if(callbackClassPointer->isSysEx)
+//            {
+//                callbackClassPointer->sysExMessage.append(packet->data[j]);
+//                //qDebug() << "----- SysEx In ----- :" << packet->data[j];
+//            }
+//            else if(packet->data[j] != 247)
+//            {
+//                qDebug() << "MIDI Channel Event: " << packet->data[j];
+//            }
+//        }
 
-        //advance packet in midi packet list
-        packet = MIDIPacketNext(packet);
-    }
-}
+//        //advance packet in midi packet list
+//        packet = MIDIPacketNext(packet);
+//    }
+//}
 
-void sysExComplete(MIDISysexSendRequest* request)
-{
-    Q_UNUSED(request)
-    qDebug() << "Sys Ex Sent";
-}
+//void sysExComplete(MIDISysexSendRequest* request)
+//{
+//    Q_UNUSED(request)
+//    qDebug() << "Sys Ex Sent";
+//}
 #else
 
-MidiDeviceManager::MidiDeviceManager(QObject *parent) :
+SS_MidiDeviceManager::SS_MidiDeviceManager(QObject *parent) :
     QObject(parent)
 {
     settingsSent = true;
@@ -402,7 +403,7 @@ MidiDeviceManager::MidiDeviceManager(QObject *parent) :
     queryReplied = false;
 }
 
-void MidiDeviceManager::slotStandaloneOn()
+void SS_MidiDeviceManager::slotStandaloneOn()
 {
     sysexFIFOClock->stop();
     sysexFIFOsQueue.clear();
@@ -415,7 +416,7 @@ void MidiDeviceManager::slotStandaloneOn()
     sysexFIFOClock->start(100);
 }
 
-void MidiDeviceManager::slotDrainSysexFIFO()
+void SS_MidiDeviceManager::slotDrainSysexFIFO()
 {
     //If anything in list, send the next message
     if(!sysexFIFOsQueue.isEmpty())
@@ -431,7 +432,7 @@ void MidiDeviceManager::slotDrainSysexFIFO()
     }
 }
 
-bool MidiDeviceManager::connectSource()
+bool SS_MidiDeviceManager::connectSource()
 {
     qDebug() << "connect source" << getSource();
 
@@ -456,7 +457,7 @@ bool MidiDeviceManager::connectSource()
     }
 }
 
-void MidiDeviceManager::slotOpenMidiIn(int index){
+void SS_MidiDeviceManager::slotOpenMidiIn(int index){
 
     DWORD   err;
 
@@ -519,7 +520,7 @@ void MidiDeviceManager::slotOpenMidiIn(int index){
     }
 }
 
-void MidiDeviceManager::slotOpenMidiOut(int index){
+void SS_MidiDeviceManager::slotOpenMidiOut(int index){
 
     DWORD   err;
 
@@ -540,7 +541,7 @@ void MidiDeviceManager::slotOpenMidiOut(int index){
 
 }
 
-void MidiDeviceManager::slotCloseMidiIn(){
+void SS_MidiDeviceManager::slotCloseMidiIn(){
 
     DWORD   err;
 
@@ -562,7 +563,7 @@ void MidiDeviceManager::slotCloseMidiIn(){
     qDebug() << "CLOSE MIDI IN ERR" << err;
 }
 
-void MidiDeviceManager::slotCloseMidiOut(){
+void SS_MidiDeviceManager::slotCloseMidiOut(){
 
     qDebug() << "slot close OUT device";
     DWORD   err;
@@ -588,7 +589,7 @@ void MidiDeviceManager::slotCloseMidiOut(){
     qDebug() << "CLOSE MIDI OUT ERR" << err;
 }
 
-int MidiDeviceManager::getSource()
+int SS_MidiDeviceManager::getSource()
 {
     qDebug() << "get source";
 
@@ -621,7 +622,7 @@ int MidiDeviceManager::getSource()
     return -1;
 }
 
-int MidiDeviceManager::getDestination()
+int SS_MidiDeviceManager::getDestination()
 {
     if(QSysInfo::windowsVersion() == QSysInfo::WV_XP)
     {
@@ -650,7 +651,7 @@ int MidiDeviceManager::getDestination()
     return -1;
 }
 
-QString MidiDeviceManager::getDisplayName(int deviceIndex, QString inOrOut)
+QString SS_MidiDeviceManager::getDisplayName(int deviceIndex, QString inOrOut)
 {
     if(inOrOut == "In")
     {
@@ -699,7 +700,7 @@ QString MidiDeviceManager::getDisplayName(int deviceIndex, QString inOrOut)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, int len, QString destinationName)
+void SS_MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, int len, QString destinationName)
 {
 
     if(messageID == "update firmware")
@@ -766,7 +767,7 @@ void MidiDeviceManager::slotSendSysEx(QString messageID, unsigned char *sysEx, i
     }
 }
 
-void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
+void SS_MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
 {
     /*
     qDebug() << "sysex length" << sysExMessageByteArray.count();
@@ -859,7 +860,7 @@ void MidiDeviceManager::slotProcessSysEx(QByteArray sysExMessageByteArray)
     }
 }
 
-void MidiDeviceManager::slotPollDevices()
+void SS_MidiDeviceManager::slotPollDevices()
 {
 
     //static int numDevices = 0;
@@ -872,7 +873,7 @@ void MidiDeviceManager::slotPollDevices()
     }
 }
 
-void MidiDeviceManager::slotPollVersion()
+void SS_MidiDeviceManager::slotPollVersion()
 {
     if(!queryReplied)
     {
@@ -895,7 +896,7 @@ void MidiDeviceManager::slotPollVersion()
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void CALLBACK MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_PTR dwInstance,DWORD_PTR dwParam1,DWORD_PTR dwParam2)
+void CALLBACK SS_MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_PTR dwInstance,DWORD_PTR dwParam1,DWORD_PTR dwParam2)
 {
     //qDebug() << "midi in" << dwParam1 << dwParam2;
 
@@ -905,7 +906,7 @@ void CALLBACK MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_
                 << "data1" << ((dwParam>>8) & 0xFF)
                 << "data2" << ((dwParam>>16) & 0xFF); //status byte*/
 
-    MidiDeviceManager *mdm = (MidiDeviceManager *) dwInstance;
+    SS_MidiDeviceManager *mdm = (SS_MidiDeviceManager *) dwInstance;
 
     switch(wMsg){
     case MIM_OPEN:
@@ -949,7 +950,7 @@ void CALLBACK MidiDeviceManager::midiInCallback(HMIDIIN hMidiIn,UINT wMsg,DWORD_
     }
 }
 
-void CALLBACK MidiDeviceManager::midiOutCallback(HMIDIOUT handle, UINT uMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam, DWORD_PTR dwParam1)
+void CALLBACK SS_MidiDeviceManager::midiOutCallback(HMIDIOUT handle, UINT uMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam, DWORD_PTR dwParam1)
 {
     //qDebug() <<  "msg type" << uMsg << MOM_DONE << MOM_CLOSE << MOM_OPEN;
 
@@ -970,7 +971,7 @@ void CALLBACK MidiDeviceManager::midiOutCallback(HMIDIOUT handle, UINT uMsg, DWO
 
     }
 
-    MidiDeviceManager *mda = (MidiDeviceManager *) dwInstance;
+    SS_MidiDeviceManager *mda = (SS_MidiDeviceManager *) dwInstance;
 
     if(uMsg == MOM_DONE){
         //midiOutUnprepareHeader(mda->outHandle, &mda->sysExOutHdr, sizeof(MIDIHDR));

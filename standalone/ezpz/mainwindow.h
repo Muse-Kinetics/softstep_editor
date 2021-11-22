@@ -36,6 +36,15 @@
 #include "ui_mainwindowWin.h"
 #endif
 
+// midi overhaul
+#include "kmi_ports.h"
+#include "KMI_mdm.h"
+#include "RtMidi.h"
+#include "KMI_DevData.h"
+#include <fwupdate.h>
+#include "kmi_updates.h"
+#include "midi.h"
+// end midi overhaul
 
 namespace Ui {
 class MainWindow;
@@ -49,6 +58,44 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    // ------- fw update overhaul
+    QByteArray applicationVersion, thisFw;
+    QString betaVersion;
+    KMI_Updates * checkUpdates;
+    fwUpdate* fwUpdateWindow;
+
+    // FWUpdate Styles
+    QFile*              fwUpdateStylesFile;
+    QString             fwUpdateStylesString;
+
+    // ------- end fw update overhaul ----------------------------
+
+    // ------ midi overhaul --------------------------------------------------------
+
+    // kmiPorts handles MIDI I/O changes
+    KMI_Ports *kmiPorts;
+
+    // create KMI devices
+    MidiDeviceManager* SoftStep;
+
+    // create a virtual port on MacOS, iOS, and Linux. Not supported on Windows.
+#ifndef Q_OS_WIN
+    MidiDeviceManager* virtualMidiPort;
+#endif
+
+    // MIDI aux inputs and outputs are defined here. For products like SoftStep (advanced), you would define 8 inputs for controllers
+    // and one output for hosted mode. For other editors you would likely define one output port for to mirror the
+    // incoming MIDI from the controller, as a workaround for Windows not sharing ports.
+    // For KMI_Central we are using these for the input/output dropdowns as a simple MIDI route demo.
+    MidiDeviceManager* midiAuxOut;
+
+    // version strings for console and about window
+    QString deviceBootloaderVersionString();
+    QString deviceFirmwareVersionString();
+    QString applicationFirmwareVersionString();
+
+    // ------ end midi overhaul --------------------------------------------------------
+
     StyleSheets* styleSheets;
     PresetInterface *presetInterface;
     SysExComposer   *sysExComposer;
@@ -56,7 +103,7 @@ public:
     ScrollEventFilter scrollEventFilter;
 
     QThread* midiThread;
-    MidiDeviceManager *mdm;
+    SS_MidiDeviceManager *mdm;
 
     bool connected;
 
@@ -131,12 +178,26 @@ signals:
     void signalStandaloneOn();
 
 public slots:
+
+
+    // ------ midi overhaul --------------------------------------------------------
+    void slotMIDIPortChange(QString, uchar, uchar, int); // handles changes to MIDI i/o
+    void slotRefreshConnection();
+    void slotBootloaderMode(bool fwUpdateRequested);
+    void slotFwUpdateSuccessCloseDialog(bool);
+    void slotForceFirmwareUpdate();
+    void slotFirmwareDetected(MidiDeviceManager *thisMDM, bool);
+    void slotUpdateMIDIaux();
+
+    // ------ end midi overhaul --------------------------------------------------------
+
+
     void slotConnectInterfaces();
     void slotRecallPreset(QVariantMap preset, QVariantMap master);
     void slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion);
     void slotConnected(bool);
-    void slotUpdateFirmware();
-    void slotUpdateFwProgressBar(int);
+//    void slotUpdateFirmware();
+//    void slotUpdateFwProgressBar(int);
     void slotInitMenuBar();
     void slotUpdatePasteAvailability();
     void slotOpenDocumentation();   

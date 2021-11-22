@@ -34,15 +34,15 @@ public:
     bool            isFactoryPreset[10];
     
 signals:
-    void    signalSendSysEx(QString messageID, unsigned char* message, int messageLength, QString destinationName);
+    void    signalSendSysEx(unsigned char* message, int messageLength);
     void    signalSendBuildNums(int,QString, int, QString);
     void    signalUpdateComplete();
     
 public slots:
     void    slotComposeAttributeListFromPreset(QVariantMap presetSent, QVariantMap, qlonglong);
-    void    slotGetConnectedVersion(QByteArray);
-    void    slotGetEmbeddedVersion();
-    void    slotUpdateFirmware();
+//    void    slotGetConnectedVersion(QByteArray);
+//    void    slotGetEmbeddedVersion();
+//    void    slotUpdateFirmware();
     void    slotComposeFactoryPreset(long p, QString factoryPresetName, t_softstep *x);
 
     void    slotSettingsSent();

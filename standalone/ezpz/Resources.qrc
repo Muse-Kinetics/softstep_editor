@@ -18,5 +18,12 @@
         <file>resources/toggle_on_disabled.png</file>
         <file>resources/toggle_on_focus.png</file>
         <file>resources/toggle_on.png</file>
+        <file>resources/stylesheets/fwUpdateStyles_lightBlue.qss</file>
+        <file>resources/stylesheets/fwUpdateStyles_red.qss</file>
+        <file>resources/stylesheets/GrayButtonStyleSheet.qss</file>
+        <file>resources/stylesheets/RedButtonStyleSheet.qss</file>
+        <file>resources/firmware/Softstep_Firmware_v0.9.8.syx</file>
     </qresource>
+    <qresource prefix="/stylesheets"/>
+    <qresource prefix="/firmware"/>
 </RCC>

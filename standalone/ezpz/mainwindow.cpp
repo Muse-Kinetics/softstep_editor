@@ -3,7 +3,8 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "mainwindow.h"
 
-
+#include <KMI_FwVersions.h>
+#include <kmi_updates.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,10 +17,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
 #ifdef Q_OS_MAC
-    mdm = new MidiDeviceManager(this);
+    mdm = new SS_MidiDeviceManager(this);
 #else
     //midiThread = new QThread(this);
-    mdm = new MidiDeviceManager(0);
+    mdm = new SS_MidiDeviceManager(0);
     //mdm->moveToThread(midiThread);
     //midiThread->start();
 #endif
@@ -46,6 +47,72 @@ MainWindow::MainWindow(QWidget *parent) :
     QCoreApplication::setApplicationName("SoftStep Basic Editor");
     QCoreApplication::setOrganizationName("Keith McMillen Instruments");
     QCoreApplication::setOrganizationDomain("keithmcmillen.com");
+
+    // ---- FW update overhaul ----------------------------
+
+    qDebug() << "System Locale: " << QLocale::system().name();
+
+    // application version
+    applicationVersion.resize(3);
+
+    applicationVersion[0] = 2;
+    applicationVersion[1] = 0;
+    applicationVersion[2] = 5;
+    betaVersion = "I"; // leave blank for release
+
+    // store the SoftStep device firmware version
+    thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_softstep), sizeof(_fw_ver_softstep));
+
+    // ---- end FW update overhaul ----------------------------
+
+
+    // ******************************
+    // KMI_Ports
+    // ******************************
+
+    // kmiPorts reports changes in MIDI i/o
+    kmiPorts = new KMI_Ports(this);
+
+#ifndef Q_OS_WIN
+    //kmiPorts->slotCreateVirtualIn("SoftStep Editor");
+    //kmiPorts->slotCreateVirtualOut("SoftStep Editor");
+#endif
+
+    // start polling at 100ms intervals
+    kmiPorts->devicePoller->start(100);
+
+    // connect kmiPorts to our handler
+    connect(kmiPorts, SIGNAL(signalPortUpdated(QString, uchar, uchar, int)),
+            this, SLOT(slotMIDIPortChange(QString, uchar, uchar, int)));
+
+    //qDebug() << "end connect";
+
+    // ******************************
+    // create KMI device handlers
+    // ******************************
+
+    SoftStep = new MidiDeviceManager(this, PID_SOFTSTEP, "SoftStep");
+
+    // setup firmware image
+
+    QString thisFwFile = QString("://resources/firmware/Softstep_Firmware_v%1.%2.%3.syx")
+            .arg(uchar(thisFw.at(0)))
+            .arg(uchar(thisFw.at(1)))
+            .arg(uchar(thisFw.at(2)));
+
+    qDebug() << "fwFilename: " << thisFwFile;
+
+    SoftStep->slotOpenFirmwareFile(thisFwFile);
+
+    // connect firmware signals
+    qDebug() << "connect signalFirmwareDetected";
+
+    // setup MIDI aux output
+    midiAuxOut = new MidiDeviceManager(this, PID_AUX, "MIDI Thru");
+
+    // ******************************
+    // end KMI_Ports and device handlers
+    // ******************************
 
     settings = new QSettings();
 
@@ -151,12 +218,12 @@ MainWindow::MainWindow(QWidget *parent) :
         key[i-1]->slotConnectElements();
     }
 
-#ifdef Q_OS_MAC
-    mdm->connectSource();
-#else
-    //Attempt to Connect SoftStep
-    //mdm->devicePoller->start(1000);
-#endif
+//#ifdef Q_OS_MAC
+//    mdm->connectSource();
+//#else
+//    //Attempt to Connect SoftStep
+//    //mdm->devicePoller->start(1000);
+//#endif
 
     //menubar->actions().at(0)->setEnabled(false);
 
@@ -235,8 +302,59 @@ void MainWindow::closeEvent(QCloseEvent *)
 
 void MainWindow::slotConnectInterfaces()
 {
+    // ---- midi and firmware update overhaul --------------
+
+    // connect dropdowns and connection status to MIDI aux ports
+    //connect(ui->midi_output, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUpdateMIDIaux()));
+    //connect(SoftStep, SIGNAL(signalConnected(bool)), this, SLOT(slotUpdateMIDIaux()));
+
+    //qDebug() << "connected aux port";
+
+    // fwupdate stylesheets
+#ifdef Q_OS_MAC
+
+    fwUpdateStylesFile = new QFile("://resources/stylesheets/fwUpdateStyles_lightBlue.qss");
+#else
+    fwUpdateStylesFile = new QFile(":stylesheets/resources/stylesheets/GeneralStylesWindows.qss");
+#endif
+    fwUpdateStylesFile->open(QFile::ReadOnly);
+    fwUpdateStylesString = QLatin1String(fwUpdateStylesFile->readAll());
+
+    // Firmware update Window
+    fwUpdateWindow = new fwUpdate(this, "SoftStep", applicationFirmwareVersionString());
+    fwUpdateWindow->setStyleSheet(fwUpdateStylesString);
+
+    // MIDI
+
+    // connect firmware detection
+    connect(SoftStep, SIGNAL(signalFirmwareDetected(MidiDeviceManager*, bool)), this, SLOT(slotFirmwareDetected(MidiDeviceManager*, bool)));
+
+    // connect firmware update window and midi device manager controls and messaging
+    connect(fwUpdateWindow, SIGNAL(signalRequestFwUpdate()), SoftStep, SLOT(slotRequestFirmwareUpdate()));                      // request fw
+    connect(SoftStep, SIGNAL(signalFwConsoleMessage(QString)), fwUpdateWindow, SLOT(slotAppendTextToConsole(QString)));         // messaging
+    connect(SoftStep, SIGNAL(signalFwProgress(int)), fwUpdateWindow, SLOT(slotUpdateProgressBar(int)));                         // console
+    connect(SoftStep, SIGNAL(signalFirmwareUpdateComplete(bool)), fwUpdateWindow, SLOT(slotFwUpdateComplete(bool)));            // Update Complete
+    connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), SoftStep, SLOT(slotFirmwareUpdateReset()));                        // stop timeout timers
+    connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccessCloseDialog(bool)), this, SLOT(slotFwUpdateSuccessCloseDialog(bool)));  // close fw dialog and connect
+    //connect(SoftStep, SIGNAL(signalRequestGlobals()), this, SLOT(slotSendGlobalsRequest()));                                  // request globals
+
+    // handle device unexpectedly in bootloader mode
+    connect(SoftStep, SIGNAL(signalBootloaderMode(bool)), this, SLOT(slotBootloaderMode(bool)));
+
+    // reset portlist after sending bootloader commands, catch changes to port names
+    connect(SoftStep, SIGNAL(signalBeginBlTimer()), this, SLOT(slotRefreshConnection()));
+    connect(SoftStep, SIGNAL(signalBeginFwTimer()), this, SLOT(slotRefreshConnection()));
+
+    // EB TODO - connect sysex handlers
+    //connect(sysExEncDecode, SIGNAL(signalGlobalsReceivedDoFwUd()), SoftStep, SLOT(slotRequestFirmwareUpdate()));              // if fwupdate requested globals then alert that we've saved them
+    //connect(sysExEncDecode, SIGNAL(signalGlobalsReceived()), this, SLOT(slotEnableGlobalsWindows()));                         // enable globals window when we receive this
+    //connect(SoftStep, SIGNAL(signalRestoreGlobals()), this, SLOT(slotEncodeGlobals()));                                       // restore the globals after fw update
+
+    // ---- end midi and fw update overhaul --------------------
+
     //Connected Indicator
-    connect(mdm, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
+    // EB TODO - reconnect this
+    //connect(mdm, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
 
     //About Ok Button
     connect(aboutForm->ok, SIGNAL(clicked()), aboutFormWidget, SLOT(close()));
@@ -244,30 +362,32 @@ void MainWindow::slotConnectInterfaces()
     connect(aboutForm->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //SysEx
-    connect(mdm, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
+    // EB TODO - reconnect this
+    //connect(mdm, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
     connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString)), this, SLOT(slotReceiveVersions(int,QString, int, QString)));
 
     //----------------------------- Firmware Updating
     //Firmware Out of Date Dialog
-    connect(fwoodDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
-    connect(fwoodDialog->cancel, SIGNAL(clicked()), fwoodDialogWidget, SLOT(close()));
-    connect(fwoodDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
-    connect(fwoodDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
+    // EB TODO - reconnect this
+    //connect(fwoodDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
+//    connect(fwoodDialog->cancel, SIGNAL(clicked()), fwoodDialogWidget, SLOT(close()));
+//    connect(fwoodDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+//    connect(fwoodDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //Firmware Update Dialog
-    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
-    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
-    connect(fwUpdateDialog->update, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
-    connect(fwUpdateDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
-    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
+//    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
+//    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+//    connect(fwUpdateDialog->update, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
+//    connect(fwUpdateDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
+//    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //Firmware Progress Bar
-    connect(mdm, SIGNAL(signalFwBytesLeft(int)), this, SLOT(slotUpdateFwProgressBar(int)));
+    //connect(mdm, SIGNAL(signalFwBytesLeft(int)), this, SLOT(slotUpdateFwProgressBar(int)));
 
     //Firmware Update Complete Dialog
-    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), fwUpdateCompleteDialogWidget, SLOT(close()));
-    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
-    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
+//    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), fwUpdateCompleteDialogWidget, SLOT(close()));
+//    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+//    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //Preset Recall
     connect(ui->currentPreset, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
@@ -315,8 +435,14 @@ void MainWindow::slotConnectInterfaces()
     ui->update->setText("SAVE");
 
     //Standalone Download
-    connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
-    connect(this, SIGNAL(signalStandaloneOn()), mdm, SLOT(slotStandaloneOn()));
+    //connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
+
+    // MIDI overhaul
+    connect(sysExComposer, SIGNAL(signalSendSysEx(unsigned char*, int)), SoftStep, SLOT(slotSendSysEx(unsigned char*, int)));
+
+
+    // EB TODO - reconnect this
+    //connect(this, SIGNAL(signalStandaloneOn()), mdm, SLOT(slotStandaloneOn()));
     connect(mdm, SIGNAL(signalSettingsSent()), sysExComposer, SLOT(slotSettingsSent()));
     connect(mdm, SIGNAL(signalPresetsSent()), sysExComposer, SLOT(slotPresetsSent()));
 
@@ -500,47 +626,47 @@ void MainWindow::slotConnected(bool connection)
     }
 }
 
-void MainWindow::slotUpdateFirmware()
-{
-    fwoodDialogWidget->hide();
-    QApplication::processEvents();
-    fwProgressDialogWidget->show();
-    QApplication::processEvents();
-    fwProgressDialog->progressBar->setMinimum(0);
-    QApplication::processEvents();
-#ifdef Q_OS_MAC
-    fwProgressDialog->progressBar->setMaximum(sysExComposer->fwFileSize);
-#else
-    fwProgressDialog->progressBar->setMaximum(0);
-#endif
-    QApplication::processEvents();
+//void MainWindow::slotUpdateFirmware()
+//{
+//    fwoodDialogWidget->hide();
+//    QApplication::processEvents();
+//    fwProgressDialogWidget->show();
+//    QApplication::processEvents();
+//    fwProgressDialog->progressBar->setMinimum(0);
+//    QApplication::processEvents();
+//#ifdef Q_OS_MAC
+//    fwProgressDialog->progressBar->setMaximum(sysExComposer->fwFileSize);
+//#else
+//    fwProgressDialog->progressBar->setMaximum(0);
+//#endif
+//    QApplication::processEvents();
 
-#ifdef Q_OS_MAC
-    sysExComposer->slotUpdateFirmware();
-#else
-	mdm->slotCloseMidiOut();
-	mdm->slotCloseMidiIn();
-	mdm->fwUpdateRequested = true;
+//#ifdef Q_OS_MAC
+//    //sysExComposer->slotUpdateFirmware();
+//#else
+//	mdm->slotCloseMidiOut();
+//	mdm->slotCloseMidiIn();
+//	mdm->fwUpdateRequested = true;
 	
-	syxutilProcess = new QProcess;
-	syxutilProcess->setWorkingDirectory("./");
-	syxutilProcess->start("FirmwareUpdater.exe");
-#endif
-}
+//	syxutilProcess = new QProcess;
+//	syxutilProcess->setWorkingDirectory("./");
+//	syxutilProcess->start("FirmwareUpdater.exe");
+//#endif
+//}
 
-void MainWindow::slotUpdateFwProgressBar(int bytes)
-{
-    if(bytes != 0)
-    {
-        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
-    }
-    else
-    {
-        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
-        fwProgressDialogWidget->close();
-        fwUpdateCompleteDialogWidget->show();
-    }
-}
+//void MainWindow::slotUpdateFwProgressBar(int bytes)
+//{
+//    if(bytes != 0)
+//    {
+//        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
+//    }
+//    else
+//    {
+//        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
+//        fwProgressDialogWidget->close();
+//        fwUpdateCompleteDialogWidget->show();
+//    }
+//}
 
 void MainWindow::slotInitMenuBar()
 {
@@ -781,3 +907,220 @@ void MainWindow::slotConnectUpdate()
     qDebug("download preset ended");
     connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
 }
+
+
+
+// --------------------------------------------------------------------------------------
+// ------ midi overhaul -----------------------------------------------------------------
+// --------------------------------------------------------------------------------------
+
+void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messageType, int portNum)
+{
+    qDebug() << "slotMIDIPortChange - " << kmiPorts->mType[messageType] << kmiPorts->inOut[inOrOut] << " portName:" << portName << " messageType: " << " portNum: " << portNum << "\n";
+
+    switch (messageType)
+    {
+    case PORT_CONNECT:
+
+//        // update dropdown
+//        if (inOrOut == PORT_OUT && portName != SS_OUT_P1) // don't create feedback loop
+//        {
+//            QComboBox *thisDropDown = ui->midi_outputs;
+
+//            thisDropDown->addItem(portName); // update dropdown
+//            slotFixDropDownWidth(thisDropDown);
+//        }
+
+        // **** SoftStep connect *****************************************
+        if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1) && inOrOut == PORT_IN)
+        {
+            SoftStep->slotSetExpectedFW(thisFw);
+            SoftStep->updatePortIn(portNum);
+            fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Connected\n");
+        }
+        else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1) && inOrOut == PORT_OUT)
+        {
+            SoftStep->updatePortOut(portNum);
+            SoftStep->slotStartPolling("PORT_CONNECT"); // start polling when output port is added
+        }
+
+        break;
+    case PORT_DISCONNECT:
+
+//        if (inOrOut == PORT_OUT)
+//        {
+//            // update dropdown
+//            if (ui->midi_outputs->currentText() == portName)
+//                ui->midi_outputs->setCurrentIndex(0);
+
+//            ui->midi_outputs->removeItem(ui->midi_outputs->findText(portName));
+//        }
+
+        // **** SoftStep disconnect **************************************
+        if (portName == SS_IN_P1 || portName == SS_OLD_IN_P1)
+        {
+            // close ports and stop polling
+            SoftStep->slotCloseMidiIn();
+            SoftStep->slotCloseMidiOut();
+            SoftStep->slotStopPolling("PORT_DISCONNECT");
+            if (inOrOut == PORT_IN) fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Disconnected\n");
+        }
+
+        break;
+    case PORT_CHANGED:
+        //qDebug() << " PORT CHANGED - name: " << portName << portName << " inOrOut: " << kmiPorts->inOut[inOrOut] << " messageType: " << kmiPorts->mType[messageType] << " portNum: " << portNum << "\n";
+
+        // **** SoftStep renumber ****************************************
+        if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1) && inOrOut == PORT_IN)
+        {
+            SoftStep->updatePortIn(portNum);
+        }
+        else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1) && inOrOut == PORT_OUT)
+        {
+            SoftStep->updatePortOut(portNum);
+        }
+
+        break;
+    default:
+        break;
+    }
+}
+
+// close and then reopen the SoftStep ports
+// this is needed when the bootloader and app port names do not match
+void MainWindow::slotRefreshConnection()
+{
+    qDebug() << "slotRefreshConnection called";
+#ifndef Q_OS_WIN
+    SoftStep->slotResetConnections(SS_IN_P1, SS_BL_PORT);
+#endif
+}
+
+
+void MainWindow::slotBootloaderMode(bool fwUpdateRequested)
+{
+    qDebug() << "slotBootloaderMode called - fwUpdateRequested: "<< fwUpdateRequested;
+    if (!fwUpdateRequested)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Your device is in bootloader mode. Click OK to attempt a firmware update.");
+        msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        int ret = msgBox.exec();
+
+        if(ret == QMessageBox::Ok)
+        {
+            slotForceFirmwareUpdate();
+        }
+    }
+}
+
+void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
+{
+    qDebug() << "slotFwUpdateSuccessCloseDialog called - success: " << success;
+
+    if (success)
+    {
+        SoftStep->fwUpdateRequested = false;
+        // EB TODO - translate connection strings here
+        //slotUpdateMIDIaux();
+        //slotSoftStepConnected(true);
+        //slotEnableDisableMidiFunctions(true);
+        //slotSyncSoftStepDialog();
+    }
+    else
+    {
+        SoftStep->slotFirmwareUpdateReset();
+        //slotSoftStepConnected(false);
+        //slotEnableDisableMidiFunctions(false);
+    }
+
+}
+
+void MainWindow::slotForceFirmwareUpdate()
+{
+    slotFirmwareDetected(SoftStep, false); // act as if we received a firmware mismatch
+}
+
+void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
+{
+    qDebug() << "slotFirmwareDetected called";
+    if (matches)
+    {
+        qDebug() << "FirmwareMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
+
+        //---------------------------------- Sync SoftStep Dialog
+        // MIDI Overhaul
+        //slotSyncSoftStepDialog();
+    }
+    else
+    {
+        qDebug() << "Firmware MisMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
+
+        // setup sysex connections to receive globals data
+        SoftStep->disconnect(SIGNAL(signalRxSysExBA(QByteArray))); // disconnect to be safe
+
+        // EB TODO - connect this to softStep sysex handlers
+        //connect(SoftStep, SIGNAL(signalRxSysExBA(QByteArray)), sysExEncDecode, SLOT(slotProcessSysEx(QByteArray)));
+
+        fwUpdateWindow->slotClearText();
+        fwUpdateWindow->slotAppendTextToConsole(deviceBootloaderVersionString());
+        fwUpdateWindow->slotAppendTextToConsole(deviceFirmwareVersionString());
+
+        fwUpdateWindow->show();
+    }
+}
+
+// connect SoftStep midi input to to midi aux out
+void MainWindow::slotUpdateMIDIaux()
+{
+    //qDebug() << "slotUpdateMIDIaux called";
+
+    SoftStep->disconnect(SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)));
+
+    if (!connected) return; // don't continue if we aren't connected
+// EB TODO - connect this to the aux port dropdown
+//    if (ui->midi_outputs->currentText() != "None")
+//    {
+//        // set and open the ports
+//        int thisOutPort = kmiPorts->getOutPortNumber(ui->midi_outputs->currentText());
+//        midiAuxOut->updatePortOut(thisOutPort);
+//        midiAuxOut->slotOpenMidiOut();
+//        connect(SoftStep, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), midiAuxOut, SLOT(slotSendMIDI(uchar, uchar, uchar, uchar)));
+//    }
+//    else
+//    {
+//        midiAuxOut->slotCloseMidiOut();
+//    }
+}
+
+QString MainWindow::deviceBootloaderVersionString()
+{
+    return QString("Device Bootloader Version: %1.%2.%3\n\n")
+            .arg(uchar(SoftStep->devicebootloaderVersion.at(0)))
+            .arg(uchar(SoftStep->devicebootloaderVersion.at(1)))
+            .arg(uchar(SoftStep->devicebootloaderVersion.at(2)));
+}
+
+
+QString MainWindow::deviceFirmwareVersionString()
+{
+    return QString("Device Firmware Version: %1.%2.%3")
+            .arg(uchar(SoftStep->deviceFirmwareVersion.at(0)))
+            .arg(uchar(SoftStep->deviceFirmwareVersion.at(1)))
+            .arg(uchar(SoftStep->deviceFirmwareVersion.at(2)));
+}
+
+QString MainWindow::applicationFirmwareVersionString()
+{
+    return QString("Application Firmware Version: %1.%2.%3\n\n")
+            .arg(uchar(thisFw.at(0)))
+            .arg(uchar(thisFw.at(1)))
+            .arg(uchar(thisFw.at(2)));
+}
+
+
+// --------------------------------------------------------------------------------------
+// ------ end midi overhaul -------------------------------------------------------------
+// --------------------------------------------------------------------------------------
+

@@ -1,0 +1,12 @@
+[submodule "shared/KMI_Ports"]
+	path = shared/KMI_Ports
+url=https://bitbucket.org/keith-mcmillen-instruments/kmi_ports.git
+[submodule "shared/KMI_MDM"]
+	path = shared/KMI_MDM
+url=https://bitbucket.org/keith-mcmillen-instruments/kmi_midi_device_manager.git
+[submodule "shared/rtmidi"]
+	path = shared/rtmidi
+	url = https://github.com/thestk/rtmidi.git
+[submodule "shared/KMI_Updates"]
+	path = shared/KMI_Updates
+	url = https://bitbucket.org/keith-mcmillen-instruments/kmi_updates.git

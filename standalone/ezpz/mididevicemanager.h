@@ -1,8 +1,8 @@
 // Copyright (c) 2025 KMI Music, Inc.
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-#ifndef MIDIDEVICEMANAGER_H
-#define MIDIDEVICEMANAGER_H
+#ifndef SS_MIDIDEVICEMANAGER_H
+#define SS_MIDIDEVICEMANAGER_H
 
 #include <QDebug>
 #include <QWidget>
@@ -21,11 +21,11 @@
 
 enum{NORMAL, BOOTLOADER_POST_UPDATE_REQUEST, BOOTLOADER_NO_UPDATE_REQUEST};
 
-class MidiDeviceManager : public QWidget
+class SS_MidiDeviceManager : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MidiDeviceManager(QWidget *parent = 0);
+    explicit SS_MidiDeviceManager(QWidget *parent = 0);
 
     //SysExEncode*        sysExEncode;
 
@@ -61,7 +61,7 @@ public:
     int getSource();
 
     //Connects a source to our app
-    bool connectSource();
+    //bool connectSource();
 
     //Describes whether or not a fw update has been requested-- useful for managing bootloader reconnects
     bool fwUpdateRequested;
@@ -77,39 +77,39 @@ public:
         bool      queryReplied;
     
 signals:
-    void signalFirmwareOutOfDate(QString expectedBoot, QString foundBoot, QString expectedFirmware, QString foundFirmware);
-    void signalProgressDialog(QString messageType, int val);
-    void signalFirmwareUpdateComplete();
+   // void signalFirmwareOutOfDate(QString expectedBoot, QString foundBoot, QString expectedFirmware, QString foundFirmware);
+    //void signalProgressDialog(QString messageType, int val);
+    //void signalFirmwareUpdateComplete();
     void signalSendPerKeySensitivities(QByteArray);
     void signalEncodePerKeySensitivities(QString, QList<int>);
     void signalSendSettings();
-    void signalProcessFwQueryReply(QByteArray);
-    void signalConnected(bool);
-    void signalFwBytesLeft(int);
+    //void signalProcessFwQueryReply(QByteArray);
+    //void signalConnected(bool);
+    //void signalFwBytesLeft(int);
 
     void signalPresetsSent();
     void signalSettingsSent();
     
 public slots:
-    void slotRequestFirmwareUpdate();
-    void slotUpdateFirmware();
-    void slotEnterBootloader();
-    void slotSendSysEx(QString messageID, unsigned char* bytes, int len, QString destinationName);
-    void slotProcessSysEx(QByteArray sysExMessageByteArray);
+    //void slotRequestFirmwareUpdate();
+    //void slotUpdateFirmware();
+    //void slotEnterBootloader();
+    //void slotSendSysEx(QString messageID, unsigned char* bytes, int len, QString destinationName);
+    //void slotProcessSysEx(QByteArray sysExMessageByteArray);
 
     void slotStandaloneOn();
-    void slotDrainSysexFIFO();
+    //void slotDrainSysexFIFO();
 };
 #else
 #include <Windows.h>
 #include <MMSystem.h>
 #include <Dbt.h>
 
-class MidiDeviceManager : public QObject
+class SS_MidiDeviceManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit MidiDeviceManager(QObject *parent = 0);
+    explicit SS_MidiDeviceManager(QObject *parent = 0);
 
     //----------------------------------------- Windows MIDI & Windowing Services -----------------------------------------//
     MIDIOUTCAPS     mocs;
@@ -207,4 +207,4 @@ public slots:
 };
 
 #endif // Q_OS_MAC
-#endif // MIDIDEVICEMANAGER_H
+#endif // SS_MidiDeviceManager_H

@@ -21,7 +21,7 @@ extern "C"
 SysExComposer::SysExComposer(QWidget *parent) :
     QWidget(parent)
 {
-    slotGetEmbeddedVersion();
+    //slotGetEmbeddedVersion();
     isSoftStep2 = false;
 
     factoryPresets = new FactoryPresets();
@@ -32,58 +32,58 @@ SysExComposer::~SysExComposer()
     //free(fwFile);
 }
 
-void SysExComposer::slotGetEmbeddedVersion()
-{
-    t_softstep *x = softstep_init();
+//void SysExComposer::slotGetEmbeddedVersion()
+//{
+//    t_softstep *x = softstep_init();
 
-    QString sysExPath = QCoreApplication::applicationDirPath(); //get bundle path
+//    QString sysExPath = QCoreApplication::applicationDirPath(); //get bundle path
 
-#if defined(Q_OS_MAC) // if uncommented, firmware update doesn't: && !defined(QT_DEBUG)
-    sysExPath.remove(sysExPath.length() - 5, sysExPath.length()); //Remove "MacOS" from path string
-    sysExPath.append("Resources/SoftStep.syx");
+//#if defined(Q_OS_MAC) // if uncommented, firmware update doesn't: && !defined(QT_DEBUG)
+//    sysExPath.remove(sysExPath.length() - 5, sysExPath.length()); //Remove "MacOS" from path string
+//    sysExPath.append("Resources/SoftStep.syx");
 
-#else
-    sysExPath = QString("./SoftStep.syx");
-#endif
+//#else
+//    sysExPath = QString("./SoftStep.syx");
+//#endif
 
-#ifdef Q_OS_MAC
-    FILE *fd = fopen(sysExPath.toUtf8(),"r");
-#else
-    FILE *fd = fopen(sysExPath.toUtf8(),"rb");
-#endif
+//#ifdef Q_OS_MAC
+//    FILE *fd = fopen(sysExPath.toUtf8(),"r");
+//#else
+//    FILE *fd = fopen(sysExPath.toUtf8(),"rb");
+//#endif
 
-    qDebug() << "SysEx Path: " << sysExPath;
+//    qDebug() << "SysEx Path: " << sysExPath;
 
-    if (fd)
-    {
-        int fchar;
+//    if (fd)
+//    {
+//        int fchar;
 
-        fseek(fd, 0l, SEEK_END);
-        fwFileSize = ftell(fd);
-        rewind(fd);
+//        fseek(fd, 0l, SEEK_END);
+//        fwFileSize = ftell(fd);
+//        rewind(fd);
 
-        fwFile = (unsigned char*)malloc(fwFileSize*sizeof(unsigned char));
-        qDebug() << fread(fwFile,1,fwFileSize, fd);
+//        fwFile = (unsigned char*)malloc(fwFileSize*sizeof(unsigned char));
+//        qDebug() << fread(fwFile,1,fwFileSize, fd);
 
-        qDebug() << fwFile[fwFileSize - 1];
+//        qDebug() << fwFile[fwFileSize - 1];
 
-        rewind(fd);
+//        rewind(fd);
 
-        while ( (fchar = fgetc(fd)) != EOF)
-        {
-            softstep_midi_process(x,&x->version_embedded,fchar);
-        }
+//        while ( (fchar = fgetc(fd)) != EOF)
+//        {
+//            softstep_midi_process(x,&x->version_embedded,fchar);
+//        }
 
-        embeddedbuildNum = x->version_embedded.buildnum;
-        embeddedVersion = QString(x->version_embedded.version);
-    }
-    else
-    {
-        embeddedbuildNum = -1;
-        embeddedVersion = QString("Not Found");
-        qDebug() << "______ SoftStep.syx not found. ______";
-    }
-}
+//        embeddedbuildNum = x->version_embedded.buildnum;
+//        embeddedVersion = QString(x->version_embedded.version);
+//    }
+//    else
+//    {
+//        embeddedbuildNum = -1;
+//        embeddedVersion = QString("Not Found");
+//        qDebug() << "______ SoftStep.syx not found. ______";
+//    }
+//}
 
 void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, QVariantMap master, qlonglong presetNum)
 {
@@ -478,7 +478,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
 
 
     //Send Settings
-    emit signalSendSysEx(QString("settings image"), settings, settingsLength, QString("SSCOM Port 1"));
+    emit signalSendSysEx(settings, settingsLength);
 
 
 }
@@ -488,7 +488,7 @@ void SysExComposer::slotSettingsSent()
     qDebug("freeing settings");
     free(settings);
 
-    emit signalSendSysEx(QString("presets image"), image, imageLength, QString("SSCOM Port 1"));
+    emit signalSendSysEx(image, imageLength);
 }
 
 void SysExComposer::slotPresetsSent()
@@ -634,36 +634,36 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
 
 }
 
-void SysExComposer::slotGetConnectedVersion(QByteArray msg)
-{
-    qDebug() << "slotGetConnectedVersion called";
+//void SysExComposer::slotGetConnectedVersion(QByteArray msg)
+//{
+//    qDebug() << "slotGetConnectedVersion called";
 
-    t_softstep *x = softstep_init();
+//    t_softstep *x = softstep_init();
 
-    for(int i =0 ; i < msg.count(); i++)
-    {
-        //Sleep(5);
-        //qDebug() << "firmware version msg" << msg.at(i) << (unsigned char)msg.at(i);
-        softstep_midi_process(x,&x->version_connected, msg.at(i));
-    }
+//    for(int i =0 ; i < msg.count(); i++)
+//    {
+//        //Sleep(5);
+//        //qDebug() << "firmware version msg" << msg.at(i) << (unsigned char)msg.at(i);
+//        softstep_midi_process(x,&x->version_connected, msg.at(i));
+//    }
 
-#ifdef Q_OS_MAC
-        connectedBuildNum = (int)msg.at(68);
-#else
-        connectedBuildNum = x->version_connected.buildnum;
-#endif
+//#ifdef Q_OS_MAC
+//        connectedBuildNum = (int)msg.at(68);
+//#else
+//        connectedBuildNum = x->version_connected.buildnum;
+//#endif
 
-    connectedVersion = QString(x->version_connected.version);
+//    connectedVersion = QString(x->version_connected.version);
 
-    qDebug() << "_____ Connected:" << connectedBuildNum;
-    qDebug() << "______ Embedded:" << embeddedbuildNum;
+//    qDebug() << "_____ Connected:" << connectedBuildNum;
+//    qDebug() << "______ Embedded:" << embeddedbuildNum;
 
-    emit signalSendBuildNums(connectedBuildNum, connectedVersion, embeddedbuildNum, embeddedVersion);
-}
+//    emit signalSendBuildNums(connectedBuildNum, connectedVersion, embeddedbuildNum, embeddedVersion);
+//}
 
-void SysExComposer::slotUpdateFirmware()
-{
-    qDebug() << "update firmware called" << fwFileSize;
-    //QApplication::processEvents();
-    emit signalSendSysEx(QString("update firmware"), (unsigned char*)fwFile, fwFileSize, QString("SSCOM Port 1"));
-}
+//void SysExComposer::slotUpdateFirmware()
+//{
+//    qDebug() << "update firmware called" << fwFileSize;
+//    //QApplication::processEvents();
+//    emit signalSendSysEx(QString("update firmware"), (unsigned char*)fwFile, fwFileSize, QString("SSCOM Port 1"));
+//}
