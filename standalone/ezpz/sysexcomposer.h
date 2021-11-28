@@ -47,6 +47,7 @@ public slots:
 
     void    slotSettingsSent();
     void    slotPresetsSent();
+    void    slotStandaloneOn();
 };
 
 #endif // SYSEXCOMPOSER_H

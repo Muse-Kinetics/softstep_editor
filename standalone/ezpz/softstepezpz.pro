@@ -37,7 +37,7 @@ SOURCES +=      main.cpp\
                 mainwindow.cpp \
                 key.cpp \
                 presetinterface.cpp \
-                mididevicemanager.cpp \
+#                mididevicemanager.cpp \
                 sysexcomposer.cpp \
                 ../../shared/sysexcomposition/utils.c \
                 ../../shared/sysexcomposition/syxtx.c \
@@ -64,7 +64,7 @@ HEADERS  +=     mainwindow.h \
     ../../shared/rtmidi/RtMidi.h \
                 key.h \
                 presetinterface.h \
-                mididevicemanager.h \
+#                mididevicemanager.h \
                 sysexcomposer.h \
                 ../../shared/sysexcomposition/utils.h \
                 ../../shared/sysexcomposition/syxtx.h \

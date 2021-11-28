@@ -16,14 +16,14 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutForm(new Ui::AboutForm)
 {
 
-#ifdef Q_OS_MAC
-    mdm = new SS_MidiDeviceManager(this);
-#else
-    //midiThread = new QThread(this);
-    mdm = new SS_MidiDeviceManager(0);
-    //mdm->moveToThread(midiThread);
-    //midiThread->start();
-#endif
+//#ifdef Q_OS_MAC
+//    mdm = new SS_MidiDeviceManager(this);
+//#else
+//    //midiThread = new QThread(this);
+//    mdm = new SS_MidiDeviceManager(0);
+//    //mdm->moveToThread(midiThread);
+//    //midiThread->start();
+//#endif
 
     //Mainwindow Ui
     ui->setupUi(this);
@@ -196,9 +196,6 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutForm->setupUi(aboutFormWidget);
     aboutFormWidget->move(this->width()/2 - aboutFormWidget->width()/2, this->height()/2 - aboutFormWidget->height()/2);
 
-    aboutForm->expected->setText(QString("%1").arg(sysExComposer->embeddedbuildNum));
-
-
 
     //this->installEventFilter(this);
 
@@ -292,9 +289,10 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 void MainWindow::closeEvent(QCloseEvent *)
 {
 #ifdef Q_OS_MAC
+
 #else
-	mdm->slotCloseMidiIn();
-	mdm->slotCloseMidiOut();
+    SoftStep->slotCloseMidiIn();
+    SoftStep->slotCloseMidiOut();
 #endif
     qDebug() << "closing...";
     //presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
@@ -304,9 +302,8 @@ void MainWindow::slotConnectInterfaces()
 {
     // ---- midi and firmware update overhaul --------------
 
-    // connect dropdowns and connection status to MIDI aux ports
+    // connect dropdowns to MIDI aux ports
     //connect(ui->midi_output, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUpdateMIDIaux()));
-    //connect(SoftStep, SIGNAL(signalConnected(bool)), this, SLOT(slotUpdateMIDIaux()));
 
     //qDebug() << "connected aux port";
 
@@ -345,16 +342,11 @@ void MainWindow::slotConnectInterfaces()
     connect(SoftStep, SIGNAL(signalBeginBlTimer()), this, SLOT(slotRefreshConnection()));
     connect(SoftStep, SIGNAL(signalBeginFwTimer()), this, SLOT(slotRefreshConnection()));
 
-    // EB TODO - connect sysex handlers
-    //connect(sysExEncDecode, SIGNAL(signalGlobalsReceivedDoFwUd()), SoftStep, SLOT(slotRequestFirmwareUpdate()));              // if fwupdate requested globals then alert that we've saved them
-    //connect(sysExEncDecode, SIGNAL(signalGlobalsReceived()), this, SLOT(slotEnableGlobalsWindows()));                         // enable globals window when we receive this
-    //connect(SoftStep, SIGNAL(signalRestoreGlobals()), this, SLOT(slotEncodeGlobals()));                                       // restore the globals after fw update
-
     // ---- end midi and fw update overhaul --------------------
 
     //Connected Indicator
-    // EB TODO - reconnect this
     //connect(mdm, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
+    connect(SoftStep, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
 
     //About Ok Button
     connect(aboutForm->ok, SIGNAL(clicked()), aboutFormWidget, SLOT(close()));
@@ -364,7 +356,7 @@ void MainWindow::slotConnectInterfaces()
     //SysEx
     // EB TODO - reconnect this
     //connect(mdm, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
-    connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString)), this, SLOT(slotReceiveVersions(int,QString, int, QString)));
+    //connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString)), this, SLOT(slotReceiveVersions(int,QString, int, QString)));
 
     //----------------------------- Firmware Updating
     //Firmware Out of Date Dialog
@@ -439,13 +431,6 @@ void MainWindow::slotConnectInterfaces()
 
     // MIDI overhaul
     connect(sysExComposer, SIGNAL(signalSendSysEx(unsigned char*, int)), SoftStep, SLOT(slotSendSysEx(unsigned char*, int)));
-
-
-    // EB TODO - reconnect this
-    //connect(this, SIGNAL(signalStandaloneOn()), mdm, SLOT(slotStandaloneOn()));
-    connect(mdm, SIGNAL(signalSettingsSent()), sysExComposer, SLOT(slotSettingsSent()));
-    connect(mdm, SIGNAL(signalPresetsSent()), sysExComposer, SLOT(slotPresetsSent()));
-
 
 
     //!!!!!!!!!!!!!! Why is this happening in connect interfaces?
@@ -560,33 +545,66 @@ void MainWindow::slotDisplaySaveState(bool dirty)
 
 }
 
-void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
+void MainWindow::slotUpdateAboutWindow()
 {
-    Q_UNUSED(embeddedVersion);
+    qDebug() << "slotUpdateAboutWindow called";
+    aboutForm->aboutTitle->setText(QString("SoftStep Basic Editor v%1.%2.%3")
+                               .arg(uchar(applicationVersion.at(0)))
+                               .arg(uchar(applicationVersion.at(1)))
+                               .arg(uchar(applicationVersion.at(2))));
 
-    //qDebug() << "slotReceiveVersions called connected:" << connectedVersion << connected;
-    connectedVersionString = connectedVersion;
-    connectedVersionInt = connected;
-
-    aboutForm->found->setText(QString("%1").arg(connectedVersionInt));
-
-    slotConnected(true);
-
-    if(connected != embedded)
+    if (betaVersion != "")
     {
-        fwoodDialog->expected->setText(QString("%1").arg(embedded));
-        fwoodDialog->found->setText(QString("%1").arg(connected));
-        disableWidget->show();
-        slotEnableDisableMenu();
-        fwoodDialogWidget->show();
-        //qDebug() << "_____ Your firmware version is out of date _____";
+        aboutForm->aboutTitle->setText(aboutForm->aboutTitle->text().append(betaVersion));
     }
 
-    mdm->slotStandaloneOn();
+    QString thisLabelString;
+    if (connected)
+    {
+        thisLabelString = deviceBootloaderVersionString();
 
-    //End of sysex inquiry process, put board into standalone mode
-    //emit signalStandaloneOn();
+        thisLabelString.append(applicationFirmwareVersionString());
+
+        thisLabelString.append(deviceFirmwareVersionString());
+    }
+    else
+    {
+        thisLabelString = applicationFirmwareVersionString();
+
+        thisLabelString.append(QString("Device Not Connected"));
+    }
+
+    aboutForm->fwInfo->setText(thisLabelString);
+
 }
+
+//void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
+//{
+//    Q_UNUSED(embeddedVersion);
+
+//    //qDebug() << "slotReceiveVersions called connected:" << connectedVersion << connected;
+//    connectedVersionString = connectedVersion;
+//    connectedVersionInt = connected;
+
+//    aboutForm->found->setText(QString("%1").arg(connectedVersionInt));
+
+//    slotConnected(true);
+
+//    if(connected != embedded)
+//    {
+//        fwoodDialog->expected->setText(QString("%1").arg(embedded));
+//        fwoodDialog->found->setText(QString("%1").arg(connected));
+//        disableWidget->show();
+//        slotEnableDisableMenu();
+//        fwoodDialogWidget->show();
+//        //qDebug() << "_____ Your firmware version is out of date _____";
+//    }
+
+//    mdm->slotStandaloneOn();
+
+//    //End of sysex inquiry process, put board into standalone mode
+//    //emit signalStandaloneOn();
+//}
 
 void MainWindow::slotConnected(bool connection)
 {
@@ -595,6 +613,9 @@ void MainWindow::slotConnected(bool connection)
 
     if(connection)
     {
+        connected = true;
+        sysExComposer->slotStandaloneOn();
+
         ui->connectedLabel->setText("CONNECTED");
 #ifdef Q_OS_MAC
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");
@@ -602,13 +623,14 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(0,200,0,255);");
 #endif
         ui->update->setText("SAVE + SEND");
-        aboutForm->found->setText(QString("%1").arg(connectedVersionInt));
         presetInterface->connected = true;
 
         updatefw->setEnabled(true);
+
     }
     else
     {
+        connected = false;
         //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
         //ui->connectedLabel->setText("Not Connected");
         ui->connectedLabel->setText("NOT CONNECTED");
@@ -619,11 +641,11 @@ void MainWindow::slotConnected(bool connection)
 #endif
         ui->update->setText("SAVE");
 
-        aboutForm->found->setText("Not Connected");
         presetInterface->connected = false;
 
         updatefw->setEnabled(false);
     }
+    slotUpdateAboutWindow();
 }
 
 //void MainWindow::slotUpdateFirmware()

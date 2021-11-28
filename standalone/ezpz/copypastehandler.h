@@ -10,7 +10,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include "presetinterface.h"
-#include "mididevicemanager.h"
+//#include "mididevicemanager.h"
 
 class CopyPasteHandler : public QObject
 {

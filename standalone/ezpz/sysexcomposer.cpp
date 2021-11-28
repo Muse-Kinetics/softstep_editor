@@ -4,6 +4,7 @@
 #include "sysexcomposer.h"
 #include "QDebug"
 #include "QApplication"
+#include "sysexmessages.h"
 
 extern "C"
 {
@@ -11,9 +12,9 @@ extern "C"
 #include <stdlib.h>
 #include <string.h>
 #include "maxapi.h"
-#include "utils.h"
+//#include "utils.h"
 //#include "softstep.h"
-#include "query.h"
+//#include "query.h"
 #include "attribute.h"
 }
 
@@ -479,7 +480,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
 
     //Send Settings
     emit signalSendSysEx(settings, settingsLength);
-
+    slotSettingsSent();
 
 }
 
@@ -489,6 +490,7 @@ void SysExComposer::slotSettingsSent()
     free(settings);
 
     emit signalSendSysEx(image, imageLength);
+    slotPresetsSent();
 }
 
 void SysExComposer::slotPresetsSent()
@@ -631,6 +633,17 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
         attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("%1_modline%2_displaylinked").arg(k).arg(m)).toString().toUtf8().constData());
     }
 
+
+}
+
+void SysExComposer::slotStandaloneOn()
+{
+    // EB TODO - reconnect this with new handlers
+    emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
+    emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
+    emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist));
+    emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
+    emit signalSendSysEx(_fw_nav_standalone_on, sizeof(_fw_nav_standalone_on));
 
 }
 
