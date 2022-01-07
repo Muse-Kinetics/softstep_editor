@@ -46,6 +46,7 @@ class SoftStepMixer(ControlSurface):
   def _setup_mixer_control(self):
     num_tracks = 5
     yincrements = [61,62,63,64,65]
+    mastercc = 60
     #set up the mixer
     self.mixer = MixerComponent(num_tracks, 2)  #(num_tracks, num_returns, with_eqs, with_filters)
     self.mixer.set_track_offset(0)  #sets start point for mixer strip (offset from left)
@@ -54,6 +55,8 @@ class SoftStepMixer(ControlSurface):
     #set volume controls
     for index in range(num_tracks):
     	self.mixer.channel_strip(index).set_volume_control(EncoderElement(MIDI_CC_TYPE,CHANNEL,yincrements[index],Live.MidiMap.MapMode.absolute))
+
+    self.mixer.master_strip().set_volume_control(EncoderElement(MIDI_CC_TYPE,CHANNEL,mastercc,Live.MidiMap.MapMode.absolute))
         
     
   def disconnect(self):
