@@ -638,7 +638,6 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
 
 void SysExComposer::slotStandaloneOn()
 {
-    // EB TODO - reconnect this with new handlers
     emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
     emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
     emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist));

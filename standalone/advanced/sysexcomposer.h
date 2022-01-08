@@ -9,6 +9,8 @@
 #include <QFile>
 #include <QCoreApplication>
 
+#include "hosted/midiformatoutput.h"
+
 extern "C"
 {
 #include "softstep.h"
@@ -32,19 +34,50 @@ public:
 
     //t_softstep *x;
 
+    //Standalone pedal calibration
+    QString calibrationPhase;
+
+    //---------------- Hosted Source Sending ---------------//
+    MidiFormatOutput midiFormatOutput;
+    QMap<QString, int> externalDests;
+    QMap<QString, int> midiInputSources;
+
 signals:
-    void    signalSendSysEx(QString messageID, unsigned char* message, int messageLength, QString destinationName);
+    //void    signalSendSysEx(QString messageID, unsigned char* message, int messageLength, QString destinationName);
+    void    signalSendSysEx(unsigned char* message, int messageLength);
     void    signalSendBuildNums(int,QString, int, QString, int hardware);
     void    signalUpdateComplete();
 
+    void    signalStartStandaloneCalibration();
+
 public slots:
     void    slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settingsMapGlobal, QList<int> pedalTable);
-    void    slotGetConnectedVersion(QByteArray);
-    void    slotGetEmbeddedVersion();
-    void    slotUpdateFirmware();
+    //void    slotGetConnectedVersion(QByteArray);
+    //void    slotGetEmbeddedVersion();
+    //void    slotUpdateFirmware();
 
     void    slotSettingsSent();
     void    slotPresetsSent();
+
+    // from old mididevicemanager
+
+    void slotHostedOnOff(bool onOff);
+
+    //--------------------------- Pedal Calibration
+    void slotTetherOnOffInStandalone(bool onOff);
+
+    //--------------------------- One-off sysex messages
+    void slotSceneChangeOnOff(bool onOff);
+    void slotBackLightOnOff(bool onOff);
+
+    void hosted_slotParsePacket(QByteArray packet);
+    void hosted_slotSendPacket(QString port, QByteArray packet);
+    void hosted_slotRepopulateMidiSourceDests();
+
+    //-------------------------- MIDI Input from Settings
+    void hosted_slotParseMidiInputPacket(QByteArray packet, QString deviceName);
+    void hosted_slotConnectExternalMidiInputSources();
+
 };
 
 #endif // SYSEXCOMPOSER_H

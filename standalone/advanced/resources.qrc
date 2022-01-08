@@ -182,5 +182,11 @@
         <file>resources/displaymode_unchecked_pressed.png</file>
         <file>resources/displaymode_unchecked.png</file>
         <file>resources/keysafety_adjacentlockout_disabled.png</file>
+        <file>resources/stylesheets/fwUpdateStyles_lightBlue.qss</file>
+        <file>resources/stylesheets/fwUpdateStyles_red.qss</file>
+        <file>resources/stylesheets/GrayButtonStyleSheet.qss</file>
+        <file>resources/stylesheets/RedButtonStyleSheet.qss</file>
+        <file>resources/firmware/Softstep_Firmware_v1.0.0.syx</file>
+        <file>resources/firmware/Softstep-99-bootloader-trojan-horse.syx</file>
     </qresource>
 </RCC>

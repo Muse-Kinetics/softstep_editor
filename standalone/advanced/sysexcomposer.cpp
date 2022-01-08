@@ -5,6 +5,7 @@
 
 #include "QDebug"
 #include "QApplication"
+#include "sysexmessages.h"
 
 extern "C"
 {
@@ -22,69 +23,69 @@ SysExComposer::SysExComposer(QWidget *parent) :
     QWidget(parent)
 {
     //x = softstep_init();
-    slotGetEmbeddedVersion();
+    //slotGetEmbeddedVersion();
     isSoftStep2 = false;
-    connectedBuildNum = -1;
+    //connectedBuildNum = -1;
 }
 
-void SysExComposer::slotGetEmbeddedVersion()
-{
-    t_softstep *x = softstep_init();
+//void SysExComposer::slotGetEmbeddedVersion()
+//{
+//    t_softstep *x = softstep_init();
 
-    QString sysExPath = QCoreApplication::applicationDirPath(); //get bundle path
+//    QString sysExPath = QCoreApplication::applicationDirPath(); //get bundle path
 
-#if defined(Q_OS_MAC) // && !defined(QT_DEBUG)
-    sysExPath.remove(sysExPath.length() - 5, sysExPath.length()); //Remove "MacOS" from path string
-    sysExPath.append("Resources/SoftStep.syx");
+//#if defined(Q_OS_MAC) // && !defined(QT_DEBUG)
+//    sysExPath.remove(sysExPath.length() - 5, sysExPath.length()); //Remove "MacOS" from path string
+//    sysExPath.append("Resources/SoftStep.syx");
 
-#else
-    sysExPath = QString("./SoftStep.syx");
-#endif
+//#else
+//    sysExPath = QString("./SoftStep.syx");
+//#endif
 
-#ifdef Q_OS_MAC
-    FILE *fd = fopen(sysExPath.toUtf8(),"r");
-#else
-    FILE *fd = fopen(sysExPath.toUtf8(),"rb");
-#endif
+//#ifdef Q_OS_MAC
+//    FILE *fd = fopen(sysExPath.toUtf8(),"r");
+//#else
+//    FILE *fd = fopen(sysExPath.toUtf8(),"rb");
+//#endif
 
-    qDebug() << "sysEx path: " << sysExPath;
+//    qDebug() << "sysEx path: " << sysExPath;
 
-    if (fd)
-    {
-        int fchar;
+//    if (fd)
+//    {
+//        int fchar;
 
-#ifdef Q_OS_MAC
-        fseek(fd, 0l, SEEK_END);
-        fwFileSize = ftell(fd);
-        rewind(fd);
+//#ifdef Q_OS_MAC
+//        fseek(fd, 0l, SEEK_END);
+//        fwFileSize = ftell(fd);
+//        rewind(fd);
 
-        fwFile = (unsigned char*)malloc(fwFileSize*sizeof(unsigned char));
-        fread(fwFile,1,fwFileSize, fd);
+//        fwFile = (unsigned char*)malloc(fwFileSize*sizeof(unsigned char));
+//        fread(fwFile,1,fwFileSize, fd);
 
-        //qDebug() << fwFile[fwFileSize - 1];
+//        //qDebug() << fwFile[fwFileSize - 1];
 
-        rewind(fd);
-#else
+//        rewind(fd);
+//#else
 
-#endif
-        while ( (fchar = fgetc(fd)) != EOF)
-        {
-            QCoreApplication::processEvents();
-            softstep_midi_process(x,&x->version_embedded,fchar);
-        }
+//#endif
+//        while ( (fchar = fgetc(fd)) != EOF)
+//        {
+//            QCoreApplication::processEvents();
+//            softstep_midi_process(x,&x->version_embedded,fchar);
+//        }
 
-        embeddedbuildNum = x->version_embedded.buildnum;
-        embeddedVersion = QString(x->version_embedded.version);
-    }
-    else
-    {
-        embeddedbuildNum = -1;
-        embeddedVersion = QString("Not Found");
-        qDebug() << "WARNING: SoftStep.syx not found.";
-    }
+//        embeddedbuildNum = x->version_embedded.buildnum;
+//        embeddedVersion = QString(x->version_embedded.version);
+//    }
+//    else
+//    {
+//        embeddedbuildNum = -1;
+//        embeddedVersion = QString("Not Found");
+//        qDebug() << "WARNING: SoftStep.syx not found.";
+//    }
 
-    //qDebug() << "sysexpath" << sysExPath << "file size" << fwFileSize << "69078";
-}
+//    //qDebug() << "sysexpath" << sysExPath << "file size" << fwFileSize << "69078";
+//}
 
 void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settingsMapGlobal, QList<int> pedalTable)
 {
@@ -569,8 +570,11 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     qDebug() << "settings" << settings << "settingsLength" << settingsLength;
 
 
-    emit signalSendSysEx(QString("settings image"), settings, settingsLength, QString("SSCOM Port 1"));
+    //emit signalSendSysEx(QString("settings image"), settings, settingsLength, QString("SSCOM Port 1"));
 
+    //Send Settings
+    emit signalSendSysEx(settings, settingsLength);
+    slotSettingsSent();
 }
 
 void SysExComposer::slotSettingsSent()
@@ -578,7 +582,8 @@ void SysExComposer::slotSettingsSent()
     qDebug("freeing settings");
     free(settings);
 
-    emit signalSendSysEx(QString("presets image"), image, imageLength, QString("SSCOM Port 1"));
+    emit signalSendSysEx(image, imageLength);
+    slotPresetsSent();
 }
 
 void SysExComposer::slotPresetsSent()
@@ -591,70 +596,307 @@ void SysExComposer::slotPresetsSent()
     emit signalUpdateComplete();
 }
 
-void SysExComposer::slotGetConnectedVersion(QByteArray msg)
+//void SysExComposer::slotGetConnectedVersion(QByteArray msg)
+//{
+//    qDebug() << "signal was received" << msg.count();
+
+//    t_softstep *x = softstep_init();
+
+//    for(int i =0 ; i < msg.count(); i++)
+//    {
+//        softstep_midi_process(x,&x->version_connected, msg.at(i));
+//    }
+
+//    //If POST v76 firmware -- where SS2 differentiaion was introduced
+//    if(msg.size() > 91)
+//    {
+//        if(msg.at(107))
+//        {
+//            qDebug() << "SS2";
+//            isSoftStep2 = true;
+//        }
+//        else
+//        {
+//            qDebug() << "SS1";
+//            isSoftStep2 = false;
+//        }
+//    }
+
+//    //If for some reason we get a version number of 0, try sending the message again
+//    if(x->version_connected.buildnum == 0)
+//    {
+//        /*
+//        unsigned char _fw_query_syx_softstep_sysexcomposer[] =
+//        {
+//            0xF0,0x00,0x1B,0x48,0x7A,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+//            0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+//            0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+//            0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0x00,0x00,0x00,0x00,0x04,0x40,
+//            0x00,0x30,0xF7
+//        };
+//        */
+
+
+
+//        //emit signalSendSysEx("deviceQuery", _fw_query_syx_softstep_sysexcomposer, 67, "SSCOM Port 1");
+//        //return;
+//    }
+
+//    qDebug() << "___________ connected version number indexed" << (int)msg.at(68);
+
+//#ifdef Q_OS_MAC
+//    //connectedBuildNum = x->version_connected.buildnum;
+//    connectedBuildNum = (int)msg.at(68);
+//    connectedVersion = QString(x->version_connected.version);
+//#else
+//    connectedBuildNum = x->version_connected.buildnum;
+//#endif
+//    qDebug() << "_____ Connected:" << connectedBuildNum;
+//    qDebug() << "______ Embedded:" << embeddedbuildNum;
+
+//    emit signalSendBuildNums(connectedBuildNum, connectedVersion, embeddedbuildNum, embeddedVersion, (uint)isSoftStep2);
+//}
+
+//void SysExComposer::slotUpdateFirmware()
+//{
+//    //qDebug() << "update firmware called" << fwFileSize;
+//    //QApplication::processEvents();
+//    emit signalSendSysEx(QString("update firmware"), (unsigned char*)fwFile, fwFileSize, QString("SSCOM Port 1"));
+//}
+
+void SysExComposer::slotHostedOnOff(bool onOff)
 {
-    qDebug() << "signal was received" << msg.count();
-
-    t_softstep *x = softstep_init();
-
-    for(int i =0 ; i < msg.count(); i++)
+    //FIFO necessary because firmware requires delay between messages
+    if(!onOff)
     {
-        softstep_midi_process(x,&x->version_connected, msg.at(i));
-    }
+        //mode = "standalone";
 
-    //If POST v76 firmware -- where SS2 differentiaion was introduced
-    if(msg.size() > 91)
+        emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
+        emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
+        //emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist));
+        emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
+        emit signalSendSysEx(_fw_nav_standalone_on, sizeof(_fw_nav_standalone_on));
+    }
+    else
     {
-        if(msg.at(107))
-        {
-            qDebug() << "SS2";
-            isSoftStep2 = true;
-        }
-        else
-        {
-            qDebug() << "SS1";
-            isSoftStep2 = false;
-        }
+        //mode = "hosted";
+
+        emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist));
+        emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
+        emit signalSendSysEx(_fw_tether_on, sizeof(_fw_tether_on));
+        emit signalSendSysEx(_fw_standalone_off, sizeof(_fw_standalone_off));
+        emit signalSendSysEx(_fw_nav_standalone_off, sizeof(_fw_nav_standalone_off));
     }
-
-    //If for some reason we get a version number of 0, try sending the message again
-    if(x->version_connected.buildnum == 0)
-    {
-        /*
-        unsigned char _fw_query_syx_softstep_sysexcomposer[] =
-        {
-            0xF0,0x00,0x1B,0x48,0x7A,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
-            0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
-            0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
-            0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0x00,0x00,0x00,0x00,0x04,0x40,
-            0x00,0x30,0xF7
-        };
-        */
-
-
-
-        //emit signalSendSysEx("deviceQuery", _fw_query_syx_softstep_sysexcomposer, 67, "SSCOM Port 1");
-        //return;
-    }
-
-    qDebug() << "___________ connected version number indexed" << (int)msg.at(68);
-
-#ifdef Q_OS_MAC
-    //connectedBuildNum = x->version_connected.buildnum;
-    connectedBuildNum = (int)msg.at(68);
-    connectedVersion = QString(x->version_connected.version);
-#else
-    connectedBuildNum = x->version_connected.buildnum;
-#endif
-    qDebug() << "_____ Connected:" << connectedBuildNum;
-    qDebug() << "______ Embedded:" << embeddedbuildNum;
-
-    emit signalSendBuildNums(connectedBuildNum, connectedVersion, embeddedbuildNum, embeddedVersion, (uint)isSoftStep2);
 }
 
-void SysExComposer::slotUpdateFirmware()
+void SysExComposer::slotSceneChangeOnOff(bool onOff)
 {
-    //qDebug() << "update firmware called" << fwFileSize;
-    //QApplication::processEvents();
-    emit signalSendSysEx(QString("update firmware"), (unsigned char*)fwFile, fwFileSize, QString("SSCOM Port 1"));
+    //qDebug() << "scene change on/off";
+
+    if(onOff)
+    {
+        emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
+        emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
+        emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist));
+        emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
+        emit signalSendSysEx(_fw_nav_standalone_on, sizeof(_fw_nav_standalone_on));
+    }
+    else
+    {
+        emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
+        emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
+        emit signalSendSysEx(_fw_scenechange_off_persist, sizeof(_fw_scenechange_off_persist));
+        emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
+        emit signalSendSysEx(_fw_nav_standalone_on, sizeof(_fw_nav_standalone_on));
+    }
+}
+
+void SysExComposer::slotBackLightOnOff(bool onOff)
+{
+    if(onOff)
+    {
+        emit signalSendSysEx(_backlight_on, sizeof(_backlight_on));
+    }
+    else
+    {
+        emit signalSendSysEx(_backlight_off, sizeof(_backlight_off));
+    }
+
+}
+
+void SysExComposer::slotTetherOnOffInStandalone(bool onOff)
+{
+
+    //---- !!!! This function only used for pedal calibration !!! ----//
+
+    //Turn tether on during calibration
+    if(onOff)
+    {
+        calibrationPhase = "start"; // see the original mididevicemanager, which would emit start/stop calibration signals when FIFO would empty
+
+        emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist));
+        emit signalSendSysEx(_fw_tether_on, sizeof(_fw_tether_on));
+        emit signalSendSysEx(_fw_standalone_off, sizeof(_fw_standalone_off));
+        emit signalSendSysEx(_fw_nav_standalone_off, sizeof(_fw_nav_standalone_off));
+
+        //Cue calibration start
+        emit signalStartStandaloneCalibration();
+    }
+
+    //Turn thether off at end of calibration
+    else
+    {
+        calibrationPhase = "stop";
+
+        emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
+        emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
+        emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
+        emit signalSendSysEx(_fw_nav_standalone_on, sizeof(_fw_nav_standalone_on));
+
+    }
+}
+
+// EB TODO - lots of re-writes here
+//------------------------------------------------------ Hosted
+void SysExComposer::hosted_slotParsePacket(QByteArray packet)
+{
+    //Sends raw packet to be parsed from SSCOM Port 1
+//    emit hosted_signalParsePacket(packet);
+}
+
+void SysExComposer::hosted_slotSendPacket(QString port, QByteArray packet)
+{
+    //Semds Packet to external dest
+    //qDebug() << "hosted_slotSendPacketCalled - data:" << packet.data[0] << packet.data[1] << packet.data[2] << "length, time : " << packet.length << packet.timeStamp << "\n";
+
+    //Packet Size max size
+    Byte packetListSize[256];
+
+    //Allocates bytes, sets size of total packetlist
+//    MIDIPacketList* packetList = (MIDIPacketList*)packetListSize;
+
+    //Initialize packet
+//    MIDIPacket* pkt = MIDIPacketListInit(packetList); //Init midi packet
+
+    //Add new packet to list
+//    MIDIPacketListAdd(packetList, 256, pkt, 0, packet.length, packet.data);
+
+    //---------------------------- Send packet to virtual source
+
+    if(port == "SoftStep Share")
+    {
+//        MIDIReceived(appVirtualSourceRef, packetList);
+    }
+    else if(port.contains("SSCOM") && port.contains("1"))
+    {
+        //qDebug() << "send message to SSCOM1";
+//        MIDISend(appOutPortRef, sscomPort1DestRef, packetList);
+    }
+    else
+    {
+//        MIDISend(appOutPortRef, externalDests.value(port), packetList);
+    }
+
+}
+
+void SysExComposer::hosted_slotRepopulateMidiSourceDests()
+{
+    //Called when midi system changes, automaticall called on hosted to standlaone/switch because of "SoftStep Share"
+
+    //----------------------- Get non SSCOM sources
+    midiInputSources.clear();
+
+    // EB TODO - this needs an entire re-write
+
+//    for(unsigned int i=0; i<MIDIGetNumberOfSources(); i++)
+//    {
+//        //Allocate new array of endpoint pointers for passing as refcon
+//        midiInputSourcePointers = new MIDIEndpointRef[MIDIGetNumberOfSources()];
+
+//        //Expander
+//        if(getDisplayName(MIDIGetSource(i)).contains("SSCOM") && getDisplayName(MIDIGetSource(i)).contains("2"))
+//        {
+//            midiInputSources.insert("SoftStep Expander", MIDIGetSource(i));
+
+//            //Insert MIDIEndpointRef into array
+//            //midiInputSourcePointers[i] = MIDIGetSource(i);
+//        }
+
+//        if(!getDisplayName(MIDIGetSource(i)).contains("SSCOM") && !getDisplayName(MIDIGetSource(i)).contains("SoftStep Share"))
+//        {
+//            //qDebug() << "Non-SoftStep Source: " << getDisplayName(MIDIGetSource(i));
+
+//            //Store name of midi input source and it's endpoint ref
+//            midiInputSources.insert(getDisplayName(MIDIGetSource(i)), MIDIGetSource(i));
+
+//            //Insert MIDIEndpointRef into array
+//            //midiInputSourcePointers[i] = MIDIGetSource(i);
+//        }
+//    }
+
+//    //Sends sources to midi input in settings page, connected in mainwindow
+//    emit hosted_signalMidiInputSourceMenus(midiInputSources);
+
+//    //----------------------- Get non SSCOM destinations
+//    externalDests.clear();
+
+//    //Make sure SoftStep Share is in there but points to nothing
+//    externalDests.insert("SoftStep Share", 0);
+
+//    for(unsigned int i=0; i<MIDIGetNumberOfDestinations(); i++)
+//    {
+//        ///qDebug() << "Destinations: " << getDisplayName(MIDIGetSource(i));
+
+//        if(!getDisplayName(MIDIGetDestination(i)).contains("SSCOM Port 1") && !getDisplayName(MIDIGetDestination(i)).contains("SoftStep Share"))
+//        {
+//            if(getDisplayName(MIDIGetDestination(i)).contains("SSCOM Port 2"))
+//            {
+//                //We would like port 2 to be named SoftStep Expander
+//                externalDests.insert("SoftStep Expander", MIDIGetDestination(i));
+//            }
+//            else
+//            {
+//                //Store name of dest and it's endpoint ref
+//                externalDests.insert(getDisplayName(MIDIGetDestination(i)), MIDIGetDestination(i));
+//            }
+//            //qDebug() << "Non-SoftStep Destination: " << getDisplayName(MIDIGetDestination(i));
+//        }
+//    }
+
+//    //qDebug() << "Modline Device Menus:" << externalDests.keys();
+
+//    //Sneds destinations to device menus in modlines
+//    emit hosted_signalPopulateDeviceMenus(externalDests);
+}
+
+void SysExComposer::hosted_slotParseMidiInputPacket(QByteArray, QString deviceName)
+{
+    //Sends raw packet to be parsed from SSCOM Port 1
+    //emit hosted_signalParseMidiInputPacket(packet, deviceName);
+}
+
+void SysExComposer::hosted_slotConnectExternalMidiInputSources()
+{
+    //er = midiInputSources.value(getDisplayName(MIDIGetSource(0)));
+
+    // EB TODO - this needs an entire re-write
+//    for(unsigned int i=0; i<MIDIGetNumberOfSources(); i++)
+//    {
+//        if(getDisplayName(MIDIGetSource(i)).contains("SSCOM") && getDisplayName(MIDIGetSource(i)).contains("1"))
+//        {
+//            //Filter out SSCOM Port 1 and
+//        }
+//        else
+//        {
+//            //midiInputSources.value(getDisplayName(MIDIGetSource(i)));
+
+//            //MIDIEndpointRef* epr = &midiInputSourcePointers[i];
+
+//            midiInputSourcePointers[i] = MIDIGetSource(i);
+
+//            //qDebug() << "----------------------------" << "slot connect external midi sources" << getDisplayName(MIDIGetSource(i)) << midiInputSourcePointers[i];
+
+//            MIDIPortConnectSource(midiInputPort, MIDIGetSource(i), (void*)&midiInputSourcePointers[i]);
+//        }
+//    }
 }

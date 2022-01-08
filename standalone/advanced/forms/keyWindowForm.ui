@@ -380,48 +380,6 @@ QCheckBox::indicator:checked:pressed:focus
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>48</x>
-     <y>64</y>
-     <width>31</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_inits_label.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>106</x>
-     <y>64</y>
-     <width>95</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_dataSources_label.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QLabel" name="dataSourcesBracketLabel">
    <property name="geometry">
     <rect>
@@ -458,48 +416,6 @@ QCheckBox::indicator:checked:pressed:focus
 	border: none;
 	padding: none;
 	background-image: url(:/resources/keyWindow_dataModifiers_label_bracket.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_7">
-   <property name="geometry">
-    <rect>
-     <x>341</x>
-     <y>63</y>
-     <width>108</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_dataModifiers_label.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_8">
-   <property name="geometry">
-    <rect>
-     <x>705</x>
-     <y>63</y>
-     <width>113</width>
-     <height>14</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_outputSettings_label.png);
 }</string>
    </property>
    <property name="text">
@@ -1022,6 +938,122 @@ QSpinBox:disabled
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>62</y>
+      <width>291</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  12pt &quot;Futura&quot;;
+	border:				none;
+
+
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string>Data Modifiers</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>62</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  12pt &quot;Futura&quot;;
+	border:				none;
+
+
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string>Data Sources</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>62</y>
+      <width>291</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  12pt &quot;Futura&quot;;
+	border:				none;
+
+
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string>Output Settings</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>62</y>
+      <width>51</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  14pt &quot;Futura&quot;;
+	border:				none;
+
+
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string>Inits</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <zorder>frame</zorder>
   <zorder>ledDisplayCheckBox</zorder>
@@ -1029,12 +1061,8 @@ QSpinBox:disabled
   <zorder>keyWindowInstanceLabel</zorder>
   <zorder>label</zorder>
   <zorder>initsBracketLabel</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_4</zorder>
   <zorder>dataSourcesBracketLabel</zorder>
   <zorder>dataModifiersBracketLabel</zorder>
-  <zorder>label_7</zorder>
-  <zorder>label_8</zorder>
   <zorder>outputSettingsBracketLabel</zorder>
   <zorder>leddisplaymode</zorder>
   <zorder>keyname</zorder>

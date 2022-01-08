@@ -11,7 +11,7 @@
 #include <QUrl>
 
 #include "presetinterface.h"
-#include "mididevicemanager.h"
+//#include "mididevicemanager.h"
 
 //#include "qjson/src/parser.h"
 

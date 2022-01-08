@@ -45,16 +45,16 @@ QToolTip
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>558</x>
+      <x>497</x>
       <y>81</y>
-      <width>133</width>
+      <width>175</width>
       <height>22</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Futura</family>
-      <pointsize>10</pointsize>
+      <pointsize>12</pointsize>
       <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
@@ -66,7 +66,7 @@ QToolTip
     <property name="styleSheet">
      <string notr="true">QLabel
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 12pt &quot;Futura&quot;;
 	color: red;
 	background: rgb(40, 40, 40);
 	padding: 0px 0px 0px 3px;
@@ -76,7 +76,7 @@ QToolTip
      <string>SOFTSTEP CONNECTED</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QFrame" name="frame_presets">
@@ -514,27 +514,6 @@ QToolTip
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>492</x>
-      <y>7</y>
-      <width>184</width>
-      <height>65</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel
-{
-	border: none;
-	background: transparent;
-	background-image: url(:/resources/mainWindow_logo.png);
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QFrame" name="frame_displayname">
     <property name="geometry">
      <rect>
@@ -598,23 +577,29 @@ QLineEdit:focus
     <widget class="QLabel" name="presetlabel_3">
      <property name="geometry">
       <rect>
-       <x>14</x>
+       <x>11</x>
        <y>8</y>
-       <width>73</width>
+       <width>79</width>
        <height>10</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QFrame
+      <string notr="true">QLabel
 {
-	border: none;
-	padding: none;
-	background: none;
-	background-image: url(:/resources/mainWindow_displayname_label.png);
-}</string>
+	background:		none;
+	color: 				white;
+	font:  10pt &quot;Futura&quot;;
+	border:				none;
+
+
+}
+</string>
      </property>
      <property name="text">
-      <string/>
+      <string>DISPLAY NAME</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>
@@ -681,7 +666,7 @@ QCheckBox
 {
 	background: none;
     color: transparent;
-    font: 10pt &quot;Futura&quot;;
+    font: 12pt &quot;Futura&quot;;
 }
 
 QCheckBox::indicator
@@ -882,6 +867,60 @@ QPushButton:pressed
     </property>
     <property name="text">
      <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>486</x>
+      <y>0</y>
+      <width>194</width>
+      <height>63</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  49pt &quot;Futura&quot;;
+	border:				none;
+
+
+}</string>
+    </property>
+    <property name="text">
+     <string>SoftStep</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>523</x>
+      <y>55</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  20pt &quot;Futura PT&quot;;
+	border:				none;
+
+
+}</string>
+    </property>
+    <property name="text">
+     <string>ADVANCED</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

@@ -37,8 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connected = false;
 
-    connectedVersionString = "Not Connected";
-    connectedVersionInt = -1;
+    //connectedVersionString = "Not Connected";
+    //connectedVersionInt = -1;
 
     //StyleSheets
     styleSheets = new StyleSheets();
@@ -672,7 +672,6 @@ void MainWindow::slotConnected(bool connection)
 
     if(connection)
     {
-        connected = true;
         sysExComposer->slotStandaloneOn();
 
         ui->connectedLabel->setText("CONNECTED");
@@ -689,7 +688,6 @@ void MainWindow::slotConnected(bool connection)
     }
     else
     {
-        connected = false;
         //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
         //ui->connectedLabel->setText("Not Connected");
         ui->connectedLabel->setText("NOT CONNECTED");

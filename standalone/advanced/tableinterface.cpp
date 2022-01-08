@@ -27,7 +27,7 @@ TableInerface::TableInerface(QWidget *parent) :
     QQuickWidget* qmlView = new QQuickWidget;
 
     // set engine as opengl
-    qmlView->quickWindow()->setGraphicsApi(QSGRendererInterface::OpenGL);
+    //qmlView->quickWindow()->setGraphicsApi(QSGRendererInterface::OpenGL);
 
     qmlView->setSource(QUrl("qrc:/CalibrationTable.qml"));
 

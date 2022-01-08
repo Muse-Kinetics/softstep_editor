@@ -19,9 +19,19 @@ INCLUDEPATH +=  forms \
                 ../../shared/sysexcomposition \
                 ../../shared \
                 ../../shared/images \
-                ../../shared/stylesheets
+                ../../shared/stylesheets \
+                ../../shared/KMI_MDM \
+                ../../shared/KMI_MDM/fwupdate \
+                ../../shared/KMI_Ports \
+                ../../shared/KMI_Updates \
+                ../../shared/rtmidi
 
 SOURCES +=      main.cpp\
+    ../../shared/KMI_MDM/KMI_mdm.cpp \
+    ../../shared/KMI_MDM/fwupdate/fwupdate.cpp \
+    ../../shared/KMI_Ports/kmi_ports.cpp \
+    ../../shared/KMI_Updates/kmi_updates.cpp \
+    ../../shared/rtmidi/RtMidi.cpp \
                 mainwindow.cpp \
                 modline.cpp \
                 key.cpp \
@@ -36,7 +46,7 @@ SOURCES +=      main.cpp\
                 ../../shared/sysexcomposition/mainsysex.c \
                 sysexcomposer.cpp \
                 settings.cpp \
-                mididevicemanager.cpp \
+#                mididevicemanager.cpp \
                 stylesheets.cpp \
     setlist.cpp \
     hosted/slewer.cpp \
@@ -63,6 +73,14 @@ SOURCES +=      main.cpp\
     hosted/oscinterface.cpp
 
 HEADERS  +=     mainwindow.h \
+    ../../shared/KMI_MDM/KMI_DevData.h \
+    ../../shared/KMI_MDM/KMI_FwVersions.h \
+    ../../shared/KMI_MDM/KMI_SysexMessages.h \
+    ../../shared/KMI_MDM/KMI_mdm.h \
+    ../../shared/KMI_MDM/fwupdate/fwupdate.h \
+    ../../shared/KMI_Ports/kmi_ports.h \
+    ../../shared/KMI_Updates/kmi_updates.h \
+    ../../shared/rtmidi/RtMidi.h \
                 modline.h \
                 key.h \
                 presetinterface.h \
@@ -79,7 +97,7 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexcomposition/attribute.h \
                 ../../shared/sysexmessages.h \
                 settings.h \
-                mididevicemanager.h \
+#                mididevicemanager.h \
                 stylesheets.h \
     setlist.h \
     hosted/slewer.h \
@@ -107,6 +125,7 @@ HEADERS  +=     mainwindow.h \
     WindowsMidiTypes.h
 
 FORMS    +=     forms/mainwindow.ui \
+                ../../shared/KMI_MDM/fwupdate/fwupdate.ui \
                 forms/modlineForm.ui \
                 forms/keyWindowForm.ui \
                 forms/settingsForm.ui \
@@ -170,16 +189,16 @@ SOURCES +=
 
 #---------------------LIBS--------------------#
 #---------------------------------------------#
-win32{
-LIBS +=         -lwinmm
-}
+#win32{
+#LIBS +=         -lwinmm
+#}
 
-macx{
-LIBS +=         -framework CoreMIDI
-LIBS +=         -framework CoreFoundation
-LIBS +=         -framework Cocoa
-LIBS +=         -framework CoreServices
-}
+#macx{
+#LIBS +=         -framework CoreMIDI
+#LIBS +=         -framework CoreFoundation
+#LIBS +=         -framework Cocoa
+#LIBS +=         -framework CoreServices
+#}
 
 #--------------------Icons--------------------#
 #---------------------------------------------#
@@ -197,9 +216,9 @@ RESOURCES += \
 #--------------- contents/resources --------
 
 macx{
-    softStepSysEx.files = $$PWD/../../shared/SoftStep.syx
-    softStepSysEx.path = Contents/Resources
-    QMAKE_BUNDLE_DATA += softStepSysEx
+#    softStepSysEx.files = $$PWD/../../shared/SoftStep.syx
+#    softStepSysEx.path = Contents/Resources
+#    QMAKE_BUNDLE_DATA += softStepSysEx
 
     softStepPresets.files = $$PWD/presets
     softStepPresets.path = Contents/Resources
@@ -208,6 +227,7 @@ macx{
 
 
 OTHER_FILES += \
+    ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
     resources/modline_enable1_stylesheet.qss \
     resources/modline_enable2_stylesheet.qss \
     resources/modline_enable3_stylesheet.qss \
@@ -234,3 +254,63 @@ OTHER_FILES += \
     resources/futura-normal.ttf \
     resources/corbelb.ttf \
     resources/corbel.ttf
+
+
+#-------------------MIDI--------------------#
+#-------------------------------------------#
+
+#DEFINES += \
+    MDM_DEBUG_ENABLED # enable deeper deebugging for KMI Midi Device Manager
+
+# These defines set RtMidi to the correct OS API
+macx{
+    DEFINES += __MACOSX_CORE__=1
+    LIBS += -framework CoreMidi
+    LIBS += -framework CoreAudio
+    LIBS += -framework CoreFoundation
+}
+
+#ios{
+#    DEFINES += TARGET_OS_IPHONE=1
+#    LIBS += -framework CoreMidi
+#    LIBS += -framework CoreAudio
+#    LIBS += -framework CoreFoundation
+
+#}
+
+#VERSION = 1.2.3
+
+#android {
+#    androidmanifestupdate.commands =  sed -i \'\' -E -e \'s/(versionName=)(\"([0-9]\.?)+\")/\\1\"$$VERSION\"/g\' $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml
+#    QMAKE_EXTRA_TARGETS += androidmanifestupdate
+#    PRE_TARGETDEPS += androidmanifestupdate
+#}
+
+#ios {
+#    plistupdate.commands = /usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $$VERSION\" $$QMAKE_INFO_PLIST
+#    QMAKE_EXTRA_TARGETS += plistupdate
+#    PRE_TARGETDEPS += plistupdate
+#}
+
+
+linux{
+    DEFINES += define __LINUX_ALSA__=1
+    LIBS += -lasound
+}
+
+win32{
+    DEFINES += __WINDOWS_MM__=1
+        LIBS += -lwinmm
+}
+# end rtmidi defines
+
+
+# SSL support for checking for updates on windows
+win32{
+    LIBS += -LC:\Qt6\Tools\OpenSSL\Win_x64\lib -llibcrypto
+    INCLUDEPATH+= C:\Qt6\Tools\OpenSSL\Win_x64\include\openssl
+    LIBS += -LC:\Qt\Tools\OpenSSL\Win_x64\lib -llibcrypto
+    INCLUDEPATH+= C:\Qt\Tools\OpenSSL\Win_x64\include\openssl
+}
+
+DISTFILES +=

@@ -9,6 +9,9 @@
 #include <QMenu>
 #include <QAction>
 
+#include <KMI_FwVersions.h>
+#include <kmi_updates.h>
+
 #define MAINWINDOW_WIDTH 690
 #ifdef Q_OS_MAC
 #define MAINWINDOW_HEIGHT 279
@@ -58,7 +61,87 @@ MainWindow::MainWindow(QWidget *parent) :
 
     sessionSettings = new QSettings(this);
 
-    midiDeviceManager = new MidiDeviceManager(this);
+    //midiDeviceManager = new MidiDeviceManager(this);
+
+    // ---- FW update overhaul ----------------------------
+
+    qDebug() << "System Locale: " << QLocale::system().name();
+
+    // application version
+    applicationVersion.resize(3);
+
+    // pre bootloader app version was 2.04, revving to 3.0.0 for bootloader trojan
+    applicationVersion[0] = 3;
+    applicationVersion[1] = 0;
+    applicationVersion[2] = 0;
+    betaVersion = "A"; // leave blank for release
+
+    // store the SoftStep device firmware version
+    thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_softstep), sizeof(_fw_ver_softstep));
+
+    // ---- end FW update overhaul ----------------------------
+
+
+    // ******************************
+    // KMI_Ports
+    // ******************************
+
+    // kmiPorts reports changes in MIDI i/o
+    kmiPorts = new KMI_Ports(this);
+
+#ifndef Q_OS_WIN
+    //kmiPorts->slotCreateVirtualIn("SoftStep Editor");
+    //kmiPorts->slotCreateVirtualOut("SoftStep Editor");
+#endif
+
+    // start polling at 100ms intervals
+    kmiPorts->devicePoller->start(100);
+
+    // connect kmiPorts to our handler
+    connect(kmiPorts, SIGNAL(signalPortUpdated(QString, uchar, uchar, int)),
+            this, SLOT(slotMIDIPortChange(QString, uchar, uchar, int)));
+
+    //qDebug() << "end connect";
+
+    // ******************************
+    // create KMI device handlers
+    // ******************************
+
+    SoftStep = new MidiDeviceManager(this, PID_SOFTSTEP, "SoftStep");
+
+    // setup bootloader/firmware images
+
+    QString thisBlFile = QString(":/resources/firmware/Softstep-99-bootloader-trojan-horse.syx");
+    qDebug() << "thisBlFile: " << thisBlFile;
+
+    if (!SoftStep->slotOpenBootloaderFile(thisBlFile))
+    {
+       slotCreateDialog("Error: Bootloader file not found!\n\nPlease re-install the SoftStep editor.");
+    }
+
+
+    QString thisFwFile = QString("://resources/firmware/Softstep_Firmware_v%1.%2.%3.syx")
+            .arg(uchar(thisFw.at(0)))
+            .arg(uchar(thisFw.at(1)))
+            .arg(uchar(thisFw.at(2)));
+
+    qDebug() << "thisFwFile: " << thisFwFile;
+
+    if (!SoftStep->slotOpenFirmwareFile(thisFwFile))
+    {
+       slotCreateDialog("Error: Firmware file not found!\n\nPlease re-install the SoftStep editor.");
+    }
+
+    // connect firmware signals
+    qDebug() << "connect signalFirmwareDetected";
+
+    // setup MIDI aux output
+    midiAuxOut = new MidiDeviceManager(this, PID_AUX, "MIDI Thru");
+
+    // ******************************
+    // end KMI_Ports and device handlers
+    // ******************************
+
     sysExComposer = new SysExComposer(this);
     presetInterface = new PresetInterface(this);
     copyPasteHandler = new CopyPasteHandler(presetInterface,this);
@@ -80,13 +163,13 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setGeometry(screenGeometry.width() / 4, 50, MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
 
     ui->connectedLabel->setText("SOFTSTEP NOT CONNECTED");
-    ui->connectedLabel->setFixedSize(162, 22);
+    //ui->connectedLabel->setFixedSize(162, 22);
     ui->connectedLabel->setToolTip("[ o_0 ]");
 #ifdef Q_OS_MAC
-    ui->connectedLabel->move(529, 81);
+    //ui->connectedLabel->move(529, 81);
     ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #else
-    ui->connectedLabel->move(529, 100);
+    //ui->connectedLabel->move(529, 100);
     ui->connectedLabel->setStyleSheet("font:7pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #endif
 
@@ -152,7 +235,7 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutFormWidget->hide();
     aboutForm->setupUi(aboutFormWidget);
     aboutFormWidget->move(this->width()/2 - aboutFormWidget->width()/2, this->height()/2 - aboutFormWidget->height()/2);
-    aboutForm->expected->setText(QString("%1").arg(sysExComposer->embeddedbuildNum));
+    //aboutForm->expected->setText(QString("%1").arg(sysExComposer->embeddedbuildNum));
 
     //Import Old Preset Dialog
     importOldDialogWidget->hide();
@@ -260,22 +343,60 @@ MainWindow::MainWindow(QWidget *parent) :
 
 #endif
 
-#ifdef Q_OS_MAC
-    midiDeviceManager->connectSource();
-#else
-    //Attempt to Connect SoftStep
-    midiDeviceManager->devicePoller->start(500);
-    //midiDeviceManager->hosted_slotRepopulateMidiSourceDests();
-#endif
+//#ifdef Q_OS_MAC
+//    midiDeviceManager->connectSource();
+//#else
+//    //Attempt to Connect SoftStep
+//    midiDeviceManager->devicePoller->start(500);
+//    //midiDeviceManager->hosted_slotRepopulateMidiSourceDests();
+//#endif
 
 
-
-    midiDeviceManager->slotHostedOnOff(true);
+    // EB TODO - point this to the new method
+    sysExComposer->slotHostedOnOff(true);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+
+void MainWindow::slotCreateDialog(QString dialogText)
+{
+    QDialog *msgBox = new QDialog(this);
+    msgBox->setMinimumSize(300, 100);
+    msgBox->setFixedSize(300, 100);
+
+    QPoint centerparent(
+                this->x() + ((this->frameGeometry().width() - msgBox->frameGeometry().width()) /2),
+                this->y() + ((this->frameGeometry().height() - msgBox->frameGeometry().height()) /2));
+
+    msgBox->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+    msgBox->move(centerparent);
+
+
+    msgBox->setStyleSheet("QWidget{background: rgba(100,100,100, 255); border-color:black; border:5px}");
+
+    QLabel* text = new QLabel(dialogText, msgBox, Qt::WindowFlags());
+    text->setAlignment(Qt::AlignCenter);
+    text->setMinimumSize(300, 50);
+    text->setFixedSize(300, 50);
+    text->move(0, 10);
+
+#ifdef Q_OS_MAC // EB attempt to make this cross platform
+    text->setStyleSheet("font: 12pt;");
+#else
+    text->setStyleSheet("font: 10pt;");
+#endif
+
+    QPushButton* okButton = new QPushButton(msgBox);
+    okButton->setStyleSheet(grayStyleString);
+    okButton->setText("Ok");
+    okButton->setGeometry(QRect(140, 60, 70, 28));
+    connect(okButton, SIGNAL(clicked()), msgBox, SLOT(close()));
+
+    msgBox->exec();
 }
 
 bool MainWindow::event( QEvent* ev )
@@ -292,13 +413,11 @@ bool MainWindow::event( QEvent* ev )
 void MainWindow::closeEvent(QCloseEvent *)
 {
 #ifdef Q_OS_MAC
-    midiDeviceManager->ioGate = false;
-#else
-    midiDeviceManager->ioGate = false;
-    midiDeviceManager->slotCloseMidiIn();
-    midiDeviceManager->slotCloseMidiOut();
-#endif
 
+#else
+    SoftStep->slotCloseMidiIn();
+    SoftStep->slotCloseMidiOut();
+#endif
     qDebug() << "closing...";
     //presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
 }
@@ -367,6 +486,65 @@ void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap)
 
 void MainWindow::slotConnectInterfaces()
 {
+
+    // ---- midi and firmware update overhaul --------------
+
+    // connect dropdowns to MIDI aux ports
+    //connect(ui->midi_output, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUpdateMIDIaux()));
+
+    //qDebug() << "connected aux port";
+
+    //StyleSheets for primary pushbuttons
+    blueStyleFile = new QFile(":/resources/stylesheets/fwUpdateStyles_lightBlue.qss");
+    blueStyleFile->open(QFile::ReadOnly);
+    blueStyleString = QLatin1String(blueStyleFile->readAll());
+
+    //StyleSheets for secondary pushbuttons
+    grayStyleFile = new QFile(":/resources/stylesheets/GrayButtonStyleSheet.qss");
+    grayStyleFile->open(QFile::ReadOnly);
+    grayStyleString = QLatin1String(grayStyleFile->readAll());
+
+    // fwupdate stylesheets
+#ifdef Q_OS_MAC
+
+    fwUpdateStylesFile = new QFile("://resources/stylesheets/fwUpdateStyles_lightBlue.qss");
+#else
+    fwUpdateStylesFile = new QFile(":stylesheets/resources/stylesheets/GeneralStylesWindows.qss");
+#endif
+    fwUpdateStylesFile->open(QFile::ReadOnly);
+    fwUpdateStylesString = QLatin1String(fwUpdateStylesFile->readAll());
+
+    // Firmware update Window
+    fwUpdateWindow = new fwUpdate(this, "SoftStep", applicationFirmwareVersionString());
+    fwUpdateWindow->setStyleSheet(fwUpdateStylesString);
+
+    // MIDI
+
+    // connect firmware detection
+    connect(SoftStep, SIGNAL(signalFirmwareDetected(MidiDeviceManager*, bool)), this, SLOT(slotFirmwareDetected(MidiDeviceManager*, bool)));
+
+    // connect firmware update window and midi device manager controls and messaging
+    connect(fwUpdateWindow, SIGNAL(signalRequestFwUpdate()), SoftStep, SLOT(slotRequestFirmwareUpdate()));                      // request fw
+    connect(SoftStep, SIGNAL(signalFwConsoleMessage(QString)), fwUpdateWindow, SLOT(slotAppendTextToConsole(QString)));         // messaging
+    connect(SoftStep, SIGNAL(signalFwProgress(int)), fwUpdateWindow, SLOT(slotUpdateProgressBar(int)));                         // console
+    connect(SoftStep, SIGNAL(signalFirmwareUpdateComplete(bool)), fwUpdateWindow, SLOT(slotFwUpdateComplete(bool)));            // Update Complete
+    connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), SoftStep, SLOT(slotFirmwareUpdateReset()));                        // stop timeout timers
+    connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccessCloseDialog(bool)), this, SLOT(slotFwUpdateSuccessCloseDialog(bool)));  // close fw dialog and connect
+    //connect(SoftStep, SIGNAL(signalRequestGlobals()), this, SLOT(slotSendGlobalsRequest()));                                  // request globals
+
+    // handle device unexpectedly in bootloader mode
+    connect(SoftStep, SIGNAL(signalBootloaderMode(bool)), this, SLOT(slotBootloaderMode(bool)));
+
+    // reset portlist after sending bootloader commands, catch changes to port names
+    connect(SoftStep, SIGNAL(signalBeginBlTimer()), this, SLOT(slotRefreshConnection()));
+    connect(SoftStep, SIGNAL(signalBeginFwTimer()), this, SLOT(slotRefreshConnection()));
+
+    // ---- end midi and fw update overhaul --------------------
+
+    //Connected Indicator
+    connect(SoftStep, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////// Hosted / Standalone ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -374,139 +552,140 @@ void MainWindow::slotConnectInterfaces()
     //-------------------------------------- Mode Switching - children handled in slotSetMode
     connect(ui->mode, SIGNAL(clicked()), this, SLOT(slotSetMode()));
 
-    //-------------------------------------- Hosted MIDI
-#ifdef Q_OS_MAC
-    connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)), Qt::DirectConnection);
-#else
-    connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)), Qt::DirectConnection);
-#endif
-    //Midi Inputs from Settings
-    for(int i=0; i < 8; i++)
-    {
-        //get signal from midi device manager
-        connect(midiDeviceManager, SIGNAL(hosted_signalParseMidiInputPacket(const MIDIPacket*, QString)), &settingsWindow->midiInputLine[i], SLOT(slotReceiveInput(const MIDIPacket*, QString)),Qt::DirectConnection);
+    // EB TODO - rebuild these connections
+//    //-------------------------------------- Hosted MIDI
+//#ifdef Q_OS_MAC
+//    connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)), Qt::DirectConnection);
+//#else
+//    connect(midiDeviceManager, SIGNAL(hosted_signalParsePacket(const MIDIPacket*)), midiParse, SLOT(slotParsePacket(const MIDIPacket*)), Qt::DirectConnection);
+//#endif
+//    //Midi Inputs from Settings
+//    for(int i=0; i < 8; i++)
+//    {
+//        //get signal from midi device manager
+//        connect(midiDeviceManager, SIGNAL(hosted_signalParseMidiInputPacket(const MIDIPacket*, QString)), &settingsWindow->midiInputLine[i], SLOT(slotReceiveInput(const MIDIPacket*, QString)),Qt::DirectConnection);
 
-        //send signal from midi input lines to
-        for(int k = 0; k < 10; k++)
-        {
-            connect(&settingsWindow->midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), &key[k]->dataCooker, SLOT(slotReceiveMidiInput(int,QString)));
-        }
-        connect(&settingsWindow->midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), &navKey->dataCooker, SLOT(slotReceiveMidiInput(int,QString)));
-    }
+//        //send signal from midi input lines to
+//        for(int k = 0; k < 10; k++)
+//        {
+//            connect(&settingsWindow->midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), &key[k]->dataCooker, SLOT(slotReceiveMidiInput(int,QString)));
+//        }
+//        connect(&settingsWindow->midiInputLine[i], SIGNAL(signalSendInputToModlines(int,QString)), &navKey->dataCooker, SLOT(slotReceiveMidiInput(int,QString)));
+//    }
 
-    //Device menu population
-    connect(midiDeviceManager, SIGNAL(hosted_signalPopulateDeviceMenus(QMap<QString,MIDIEndpointRef>)), this, SLOT(slotPopulateDeviceMenus(QMap<QString,MIDIEndpointRef>)));
+//    //Device menu population
+//    connect(midiDeviceManager, SIGNAL(hosted_signalPopulateDeviceMenus(QMap<QString,MIDIEndpointRef>)), this, SLOT(slotPopulateDeviceMenus(QMap<QString,MIDIEndpointRef>)));
 
-    //Midi input menu population
-    connect(midiDeviceManager, SIGNAL(hosted_signalMidiInputSourceMenus(QMap<QString,MIDIEndpointRef>)), settingsWindow, SLOT(slotPopulateInputMenus(QMap<QString,MIDIEndpointRef>)));
+//    //Midi input menu population
+//    connect(midiDeviceManager, SIGNAL(hosted_signalMidiInputSourceMenus(QMap<QString,MIDIEndpointRef>)), settingsWindow, SLOT(slotPopulateInputMenus(QMap<QString,MIDIEndpointRef>)));
 
-    for(int k = 0; k < 10; k++)
-    {
-        //Midi Parsing to each Key's data cooker
-        connect(midiParse, SIGNAL(signalUpdateSensor(int,int)), &key[k]->dataCooker, SLOT(slotUpdateVals(int,int)), Qt::DirectConnection);
+//    for(int k = 0; k < 10; k++)
+//    {
+//        //Midi Parsing to each Key's data cooker
+//        connect(midiParse, SIGNAL(signalUpdateSensor(int,int)), &key[k]->dataCooker, SLOT(slotUpdateVals(int,int)), Qt::DirectConnection);
 
-        for(int m = 0; m < 6; m++)
-        {
-            //Output signals listed in modline.h, slots in midiformat.h
-            //Note Live
-            connect(key[k]->modline[m], SIGNAL(hosted_signalNoteLive(QString,int,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotNoteLive(QString,int,int,int,int)));
+//        for(int m = 0; m < 6; m++)
+//        {
+//            //Output signals listed in modline.h, slots in midiformat.h
+//            //Note Live
+//            connect(key[k]->modline[m], SIGNAL(hosted_signalNoteLive(QString,int,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotNoteLive(QString,int,int,int,int)));
 
-            //Note Set
-            connect(key[k]->modline[m], SIGNAL(hosted_signalNoteSet(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotNoteSet(QString,int,int,int)));
+//            //Note Set
+//            connect(key[k]->modline[m], SIGNAL(hosted_signalNoteSet(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotNoteSet(QString,int,int,int)));
 
-            //CCs
-            connect(key[k]->modline[m], SIGNAL(hosted_signalCC(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotCC(QString,int,int,int)));
+//            //CCs
+//            connect(key[k]->modline[m], SIGNAL(hosted_signalCC(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotCC(QString,int,int,int)));
 
-            //Bank
-            connect(key[k]->modline[m], SIGNAL(hosted_signalBank(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotBank(QString,int,int,int)));
+//            //Bank
+//            connect(key[k]->modline[m], SIGNAL(hosted_signalBank(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotBank(QString,int,int,int)));
 
-            //OSC goes here ----------------------
+//            //OSC goes here ----------------------
 
-            //Program
-            connect(key[k]->modline[m], SIGNAL(hosted_signalProgram(QString,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotProgram(QString,int,int)));
+//            //Program
+//            connect(key[k]->modline[m], SIGNAL(hosted_signalProgram(QString,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotProgram(QString,int,int)));
 
-            //Pitch Bend
-            connect(key[k]->modline[m], SIGNAL(hosted_signalPitchBend(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotPitchBend(QString,int,int,int)));
+//            //Pitch Bend
+//            connect(key[k]->modline[m], SIGNAL(hosted_signalPitchBend(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotPitchBend(QString,int,int,int)));
 
-            //MMC
-            connect(key[k]->modline[m], SIGNAL(hosted_signalMMC(QString,int,QString)),&midiDeviceManager->midiFormatOutput, SLOT(slotMMC(QString,int,QString)));
+//            //MMC
+//            connect(key[k]->modline[m], SIGNAL(hosted_signalMMC(QString,int,QString)),&midiDeviceManager->midiFormatOutput, SLOT(slotMMC(QString,int,QString)));
 
-            //Aftertouch
-            connect(key[k]->modline[m], SIGNAL(hosted_signalAftertouch(QString,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotAftertouch(QString,int,int)));
+//            //Aftertouch
+//            connect(key[k]->modline[m], SIGNAL(hosted_signalAftertouch(QString,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotAftertouch(QString,int,int)));
 
-            //PolyAftertouch
-            connect(key[k]->modline[m], SIGNAL(hosted_signalPolyAftertouch(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotPolyAftertouch(QString,int,int,int)));
+//            //PolyAftertouch
+//            connect(key[k]->modline[m], SIGNAL(hosted_signalPolyAftertouch(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotPolyAftertouch(QString,int,int,int)));
 
-            //Garageband goes here -------------
-            //HUI goes here --------------------
+//            //Garageband goes here -------------
+//            //HUI goes here --------------------
 
-        }
+//        }
 
-        //Alphanumeric midi out
-        connect(&key[k]->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddAlphaPacket(QString,QList<MIDIPacket>)),Qt::DirectConnection);
+//        //Alphanumeric midi out
+//        connect(&key[k]->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddAlphaPacket(QString,QList<MIDIPacket>)),Qt::DirectConnection);
 
-        //Led and Display midi out
-        connect(&key[k]->ledManager, SIGNAL(signalSendLEDControl(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddLEDPacket(QString,QList<MIDIPacket>)),Qt::DirectConnection);
+//        //Led and Display midi out
+//        connect(&key[k]->ledManager, SIGNAL(signalSendLEDControl(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddLEDPacket(QString,QList<MIDIPacket>)),Qt::DirectConnection);
 
-        for(int l = 0; l < 10; l++)
-        {
-            connect(&key[k]->dataCooker, SIGNAL(signalThisKeyPressed(int)), &key[l]->alphaNumManager, SLOT(slotDisplayKeyName(int)));
-            connect(&key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), &key[l]->alphaNumManager, SLOT(slotKeyOff(int)));
-            //connect(&key[k]->dataCooker, SIGNAL(signalXIncClockStart(int)), &key[k]->dataCooker, SLOT(slotXIncClockStart(int)));
-            //connect(&key[k]->dataCooker, SIGNAL(signalXIncClockStop()), &key[k]->dataCooker, SLOT(slotXIncClockStop()));
-        }
+//        for(int l = 0; l < 10; l++)
+//        {
+//            connect(&key[k]->dataCooker, SIGNAL(signalThisKeyPressed(int)), &key[l]->alphaNumManager, SLOT(slotDisplayKeyName(int)));
+//            connect(&key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), &key[l]->alphaNumManager, SLOT(slotKeyOff(int)));
+//            //connect(&key[k]->dataCooker, SIGNAL(signalXIncClockStart(int)), &key[k]->dataCooker, SLOT(slotXIncClockStart(int)));
+//            //connect(&key[k]->dataCooker, SIGNAL(signalXIncClockStop()), &key[k]->dataCooker, SLOT(slotXIncClockStop()));
+//        }
 
-        //Reset nav "once" display mode
-        connect(&key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), &navKey->alphaNumManager, SLOT(slotCloseParamDisplay()));
-    }
+//        //Reset nav "once" display mode
+//        connect(&key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), &navKey->alphaNumManager, SLOT(slotCloseParamDisplay()));
+//    }
 
     connect(&navKey->dataCooker, SIGNAL(signalThisKeyOff(int)), &navKey->alphaNumManager, SLOT(slotKeyOff(int)));
 
 
-    //nav pad
-    connect(midiParse, SIGNAL(signalUpdateSensor(int,int)), &navKey->dataCooker, SLOT(slotUpdateVals(int,int)), Qt::DirectConnection);
-    for(int n = 0; n < 6; n++)
-    {
-        //output signals listed in navModline.h, slots in midiformat.h
-        //Note Live
-        connect(navKey->navModline[n], SIGNAL(hosted_signalNoteLive(QString,int,int,int,int)), &midiDeviceManager->midiFormatOutput, SLOT(slotNoteLive(QString,int,int,int,int)));
+//    //nav pad
+//    connect(midiParse, SIGNAL(signalUpdateSensor(int,int)), &navKey->dataCooker, SLOT(slotUpdateVals(int,int)), Qt::DirectConnection);
+//    for(int n = 0; n < 6; n++)
+//    {
+//        //output signals listed in navModline.h, slots in midiformat.h
+//        //Note Live
+//        connect(navKey->navModline[n], SIGNAL(hosted_signalNoteLive(QString,int,int,int,int)), &midiDeviceManager->midiFormatOutput, SLOT(slotNoteLive(QString,int,int,int,int)));
 
-        //Note Set
-        connect(navKey->navModline[n], SIGNAL(hosted_signalNoteSet(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotNoteSet(QString,int,int,int)));
+//        //Note Set
+//        connect(navKey->navModline[n], SIGNAL(hosted_signalNoteSet(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotNoteSet(QString,int,int,int)));
 
-        //CCs
-        connect(navKey->navModline[n], SIGNAL(hosted_signalCC(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotCC(QString,int,int,int)));
+//        //CCs
+//        connect(navKey->navModline[n], SIGNAL(hosted_signalCC(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotCC(QString,int,int,int)));
 
-        //Bank
-        connect(navKey->navModline[n], SIGNAL(hosted_signalBank(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotBank(QString,int,int,int)));
+//        //Bank
+//        connect(navKey->navModline[n], SIGNAL(hosted_signalBank(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotBank(QString,int,int,int)));
 
-        //OSC goes here ----------------------
+//        //OSC goes here ----------------------
 
-        //Program
-        connect(navKey->navModline[n], SIGNAL(hosted_signalProgram(QString,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotProgram(QString,int,int)));
+//        //Program
+//        connect(navKey->navModline[n], SIGNAL(hosted_signalProgram(QString,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotProgram(QString,int,int)));
 
-        //Pitch Bend
-        connect(navKey->navModline[n], SIGNAL(hosted_signalPitchBend(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotPitchBend(QString,int,int,int)));
+//        //Pitch Bend
+//        connect(navKey->navModline[n], SIGNAL(hosted_signalPitchBend(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotPitchBend(QString,int,int,int)));
 
-        //MMC
-        connect(navKey->navModline[n], SIGNAL(hosted_signalMMC(QString,int,QString)),&midiDeviceManager->midiFormatOutput, SLOT(slotMMC(QString,int,QString)));
+//        //MMC
+//        connect(navKey->navModline[n], SIGNAL(hosted_signalMMC(QString,int,QString)),&midiDeviceManager->midiFormatOutput, SLOT(slotMMC(QString,int,QString)));
 
-        //Aftertouch
-        connect(navKey->navModline[n], SIGNAL(hosted_signalAftertouch(QString,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotAftertouch(QString,int,int)));
+//        //Aftertouch
+//        connect(navKey->navModline[n], SIGNAL(hosted_signalAftertouch(QString,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotAftertouch(QString,int,int)));
 
-        //PolyAftertouch
-        connect(navKey->navModline[n], SIGNAL(hosted_signalPolyAftertouch(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotPolyAftertouch(QString,int,int,int)));
+//        //PolyAftertouch
+//        connect(navKey->navModline[n], SIGNAL(hosted_signalPolyAftertouch(QString,int,int,int)),&midiDeviceManager->midiFormatOutput, SLOT(slotPolyAftertouch(QString,int,int,int)));
 
-        //Garageband goes here -------------
-        //HUI goes here --------------------
-    }
+//        //Garageband goes here -------------
+//        //HUI goes here --------------------
+//    }
 
     //Alphanumeric MIDI Out
     connect(&navKey->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddAlphaPacket(QString,QList<MIDIPacket>)), Qt::DirectConnection);
     connect(&navKey->dataCooker, SIGNAL(signalThisKeyPressed(int)), &navKey->alphaNumManager, SLOT(slotDisplayKeyName(int)));
 
-
-    connect(&displaySink, SIGNAL(signalSendPacket(QString,MIDIPacket)), midiDeviceManager, SLOT(hosted_slotSendPacket(QString,MIDIPacket)),Qt::DirectConnection);
+    // EB TODO - reconnect this
+    //connect(&displaySink, SIGNAL(signalSendPacket(QString,MIDIPacket)), midiDeviceManager, SLOT(hosted_slotSendPacket(QString,MIDIPacket)),Qt::DirectConnection);
 
     //Hosted Key Pressed Source Routing, Nav Y sources
     for(int k = 0; k < 10; k++)
@@ -521,8 +700,6 @@ void MainWindow::slotConnectInterfaces()
         }
     }
 
-    //Connected Indicator
-    connect(midiDeviceManager, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
 
     //connect the preset interface to the preset menu
     connect(presetInterface, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
@@ -674,9 +851,12 @@ void MainWindow::slotConnectInterfaces()
     connect(ui->opensetlist, SIGNAL(clicked()), setlist, SLOT(slotShowSetlist()));
     connect(presetInterface, SIGNAL(signalPopulateSetlistMenus(QComboBox*)), setlist, SLOT(slotPopulateSetlistMenus(QComboBox*)));
 
+
+
     //Version Checking
-    connect(midiDeviceManager, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
-    connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString, int)), this, SLOT(slotReceiveVersions(int,QString, int, QString, int)), Qt::DirectConnection);
+    // EB note - these are also commented out in EZ, not necessary anymore
+    //connect(midiDeviceManager, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
+    //connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString, int)), this, SLOT(slotReceiveVersions(int,QString, int, QString, int)), Qt::DirectConnection);
 
 
 
@@ -725,11 +905,11 @@ void MainWindow::slotConnectInterfaces()
     connect(key[0]->dataCooker.pedal, SIGNAL(signalResetOnZeroInput()), settingsWindow, SLOT(slotResetCalibration()), Qt::QueuedConnection);
 
 
+// EB TODO - reconnect these
+//    connect(midiDeviceManager, SIGNAL(signalStartStandaloneCalibration()), settingsWindow, SLOT(slotStartCalibrationStandAlone()));
+//    connect(midiDeviceManager, SIGNAL(signalStopStandaloneCalibration()), settingsWindow, SLOT(slotStopCalibrationStandAlone()));
 
-    connect(midiDeviceManager, SIGNAL(signalStartStandaloneCalibration()), settingsWindow, SLOT(slotStartCalibrationStandAlone()));
-    connect(midiDeviceManager, SIGNAL(signalStopStandaloneCalibration()), settingsWindow, SLOT(slotStopCalibrationStandAlone()));
-
-    connect(settingsWindow, SIGNAL(signalTetherOnOffInStandalone(bool)), midiDeviceManager, SLOT(slotTetherOnOffInStandalone(bool)));
+   connect(settingsWindow, SIGNAL(signalTetherOnOffInStandalone(bool)), sysExComposer, SLOT(slotTetherOnOffInStandalone(bool)));
 
     //------------------------------- Nav
     connect(settingsWindow, SIGNAL(signalSetGlobalGain(float)), &navKey->dataCooker, SLOT(slotSetGlobalGain(float)));
@@ -755,8 +935,9 @@ void MainWindow::slotConnectInterfaces()
 
 
     //------------- Scene Change on/off sysex command
-    connect(settingsWindow, SIGNAL(signalSetSceneChanging(bool)), midiDeviceManager, SLOT(slotSceneChangeOnOff(bool)));
-    connect(settingsWindow, SIGNAL(signalSetBacklight(bool)), midiDeviceManager, SLOT(slotBackLightOnOff(bool)));
+// EB TODO - move these to sysexcomposer
+    connect(settingsWindow, SIGNAL(signalSetSceneChanging(bool)), sysExComposer, SLOT(slotSceneChangeOnOff(bool)));
+    connect(settingsWindow, SIGNAL(signalSetBacklight(bool)), sysExComposer, SLOT(slotBackLightOnOff(bool)));
 
     //----------------------------- OSC
     connect(settingsWindow, SIGNAL(signalSetOscAddress(int,QString)), oscInterface, SLOT(slotSetOSCAddressTags(int,QString)));
@@ -794,24 +975,24 @@ void MainWindow::slotConnectInterfaces()
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //Firmware Out of Date
-    connect(fwoodDialogForm->cancel, SIGNAL(clicked()), fwoodDialogWidget, SLOT(close()));
-    connect(fwoodDialogForm->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
-    connect(fwoodDialogForm->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+//    connect(fwoodDialogForm->cancel, SIGNAL(clicked()), fwoodDialogWidget, SLOT(close()));
+//    connect(fwoodDialogForm->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
+//    connect(fwoodDialogForm->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
     //connect(fwoodDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //Firmware Update Dialog
-    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
-    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
-    connect(fwUpdateDialog->update, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
-    connect(fwUpdateDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
+//    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
+//    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+//    connect(fwUpdateDialog->update, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
+//    connect(fwUpdateDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
     //connect(fwUpdateDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
-    //Firmware Progress Bar
-    connect(midiDeviceManager, SIGNAL(signalFwBytesLeft(int)), this, SLOT(slotUpdateFwProgressBar(int)));
+//    //Firmware Progress Bar
+//    connect(midiDeviceManager, SIGNAL(signalFwBytesLeft(int)), this, SLOT(slotUpdateFwProgressBar(int)));
 
-    //Firmware Update Complete Dialog
-    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), fwUpdateCompleteDialogWidget, SLOT(close()));
-    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+//    //Firmware Update Complete Dialog
+//    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), fwUpdateCompleteDialogWidget, SLOT(close()));
+//    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
     //connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //About Ok Button
@@ -841,12 +1022,13 @@ void MainWindow::slotConnectInterfaces()
     connect(ui->update, SIGNAL(clicked()), this, SLOT(slotDisconnectUpdate()));
     //connect(ui->update, SIGNAL(clicked()), this, SLOT(slotUpdatePresets()));
 
-    //Send SysEx from sysexComposer
-    connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), midiDeviceManager, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
+// EB TODO - reconnect these
+//    //Send SysEx from sysexComposer
+    connect(sysExComposer, SIGNAL(signalSendSysEx(unsigned char*, int)), SoftStep, SLOT(slotSendSysEx(unsigned char*, int)));
 
-    //Standalone Download
-    connect(midiDeviceManager, SIGNAL(signalSettingsSent()), sysExComposer, SLOT(slotSettingsSent()));
-    connect(midiDeviceManager, SIGNAL(signalPresetsSent()), sysExComposer, SLOT(slotPresetsSent()));
+//    //Standalone Download
+//    connect(midiDeviceManager, SIGNAL(signalSettingsSent()), sysExComposer, SLOT(slotSettingsSent()));
+//    connect(midiDeviceManager, SIGNAL(signalPresetsSent()), sysExComposer, SLOT(slotPresetsSent()));
 
     //Signal Update Complete
     connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectUpdate()));
@@ -949,12 +1131,11 @@ void MainWindow::slotInitMenuBar()
     hardware->setObjectName("HardwareMenu");
 
     //Reload Firmware
-    updatefw = new QAction("Update/Reload Firmware...", hardware);
+    updatefw = new QAction("Force Firmware Update...", hardware);
     actionList.append(updatefw);
     connect(updatefw, SIGNAL(triggered()), disableWidget, SLOT(raise()));
     connect(updatefw, SIGNAL(triggered()), disableWidget, SLOT(show()));
-    connect(updatefw, SIGNAL(triggered()), fwUpdateDialogWidget, SLOT(raise()));
-    connect(updatefw, SIGNAL(triggered()), fwUpdateDialogWidget, SLOT(show()));
+    connect(updatefw, SIGNAL(triggered()), this, SLOT(slotForceFirmwareUpdate()));
     //connect(updatefw, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
     hardware->addAction(updatefw);
     menubar->addMenu(hardware);
@@ -1074,23 +1255,56 @@ void MainWindow::slotSelectedKey(int selectedKey)
     copyKeyAct->setDisabled(false);
 }
 
+void MainWindow::slotUpdateAboutWindow()
+{
+    qDebug() << "slotUpdateAboutWindow called";
+    aboutForm->aboutTitle->setText(QString("SoftStep Advanced Editor\nv%1.%2.%3")
+                               .arg(uchar(applicationVersion.at(0)))
+                               .arg(uchar(applicationVersion.at(1)))
+                               .arg(uchar(applicationVersion.at(2))));
+
+    if (betaVersion != "")
+    {
+        aboutForm->aboutTitle->setText(aboutForm->aboutTitle->text().append(betaVersion));
+    }
+
+    QString thisLabelString;
+    if (connected)
+    {
+        thisLabelString = deviceBootloaderVersionString();
+
+        thisLabelString.append(applicationFirmwareVersionString());
+
+        thisLabelString.append(deviceFirmwareVersionString());
+    }
+    else
+    {
+        thisLabelString = applicationFirmwareVersionString();
+
+        thisLabelString.append(QString("Device Not Connected"));
+    }
+
+    aboutForm->fwInfo->setText(thisLabelString);
+
+}
+
 void MainWindow::slotConnected(bool connection)
 {
     qDebug() << "slot connected.";
     if(connection)
     {
         ui->connectedLabel->setText("SOFTSTEP CONNECTED");
-        ui->connectedLabel->setFixedSize(162, 22);
+        //ui->connectedLabel->setFixedSize(162, 22);
         ui->connectedLabel->setToolTip("\\(^-^)/");
 #ifdef Q_OS_MAC
         //ui->connectedLabel->move(553, 81);
-        ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
+        ui->connectedLabel->setStyleSheet("font:12pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-top: 2px; padding-bottom: 2px;");
 #else
         //ui->connectedLabel->move(553, 100);
-        ui->connectedLabel->setStyleSheet("font:7pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
+        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-top: 2px; padding-bottom: 2px;");
 #endif
         //ui->update->setText("SAVE + SEND");
-        aboutForm->found->setText(QString("%1").arg(connectedVersionInt));
+        //aboutForm->found->setText(QString("%1").arg(connectedVersionInt));
         //presetInterface->connected = true;
 
         updatefw->setEnabled(true);
@@ -1101,34 +1315,36 @@ void MainWindow::slotConnected(bool connection)
         //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
         //ui->connectedLabel->setText("Not Connected");
         ui->connectedLabel->setText("SOFTSTEP NOT CONNECTED");
-        ui->connectedLabel->setFixedSize(162, 22);
+        //ui->connectedLabel->setFixedSize(162, 22);
         ui->connectedLabel->setToolTip("[ o_0 ]");
 
 #ifdef Q_OS_MAC
-        ui->connectedLabel->move(529, 81);
-        ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
+        //ui->connectedLabel->move(529, 81);
+        ui->connectedLabel->setStyleSheet("font:12pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-top: 2px; padding-bottom: 2px;");
 #else
-        ui->connectedLabel->move(529, 100);
-        ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
+        //ui->connectedLabel->move(529, 100);
+        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-top: 2px; padding-bottom: 2px;");
 #endif
         //ui->update->setText("SAVE");
 
-        aboutForm->found->setText("Not Connected");
+        //aboutForm->found->setText("Not Connected");
         //presetInterface->connected = false;
 
         updatefw->setEnabled(false);
     }
+    slotUpdateAboutWindow();
 }
 
 void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion, int hardware)
 {
     Q_UNUSED(embeddedVersion);
+    Q_UNUSED(embedded);
 
     qDebug() << "slotReceiveVersions";
     connectedVersionString = connectedVersion;
     connectedVersionInt = connected;
 
-    aboutForm->found->setText(QString("%1").arg(connected));
+    //aboutForm->found->setText(QString("%1").arg(connected));
 
     for(int i = 0; i < 10; i++)
     {
@@ -1138,34 +1354,36 @@ void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, in
     //First reiterate tether / standalone messages
 
     slotConnected(true);
-
+    // EB TODO - this should go in the softstep connected code
     if(mode == "hosted")
     {
         //qDebug() << "message sent";
-        midiDeviceManager->slotHostedOnOff(true);
+        // EB TODO - move this to sysexcomposer
+        sysExComposer->slotHostedOnOff(true);
     }
     else
     {
-        midiDeviceManager->slotHostedOnOff(false);
+        // EB TODO - move this to sysexcomposer
+        sysExComposer->slotHostedOnOff(false);
     }
 
 
-    if(connected != embedded)
-    {
+//    if(connected != embedded)
+//    {
 
-        qDebug() << "slotReceiveVersions unequal versions";
-        QApplication::processEvents();
+//        qDebug() << "slotReceiveVersions unequal versions";
+//        QApplication::processEvents();
 
-        fwoodDialogForm->expected->setText(QString("%1").arg(embedded));
-        fwoodDialogForm->found->setText(QString("%1").arg(connected));
-        disableWidget->raise();
-        disableWidget->show();
-        //slotEnableDisableMenu();
-        fwoodDialogWidget->raise();
-        fwoodDialogWidget->show();
-        qDebug() << "_____ Your firmware version is out of date _____";
-        QApplication::processEvents();
-    }
+//        fwoodDialogForm->expected->setText(QString("%1").arg(embedded));
+//        fwoodDialogForm->found->setText(QString("%1").arg(connected));
+//        disableWidget->raise();
+//        disableWidget->show();
+//        //slotEnableDisableMenu();
+//        fwoodDialogWidget->raise();
+//        fwoodDialogWidget->show();
+//        qDebug() << "_____ Your firmware version is out of date _____";
+//        QApplication::processEvents();
+//    }
 }
 
 void MainWindow::slotSaveAs()
@@ -1199,51 +1417,51 @@ void MainWindow::slotSaveAs()
     }
 }
 
-void MainWindow::slotUpdateFirmware()
-{
-    fwoodDialogWidget->hide();
-    QApplication::processEvents();
-    fwProgressDialogWidget->raise();
-    QApplication::processEvents();
-    fwProgressDialogWidget->show();
-    QApplication::processEvents();
-    fwProgressDialog->progressBar->setMinimum(0);
-    QApplication::processEvents();
-#ifdef Q_OS_MAC
-    fwProgressDialog->progressBar->setMaximum(sysExComposer->fwFileSize);
-    QApplication::processEvents();
-    sysExComposer->slotUpdateFirmware();
-#else
-    fwProgressDialog->progressBar->setMaximum(0);
-    midiDeviceManager->slotCloseMidiOut();
-    midiDeviceManager->slotCloseMidiIn();
-    midiDeviceManager->fwUpdateRequested = true;
+//void MainWindow::slotUpdateFirmware()
+//{
+//    fwoodDialogWidget->hide();
+//    QApplication::processEvents();
+//    fwProgressDialogWidget->raise();
+//    QApplication::processEvents();
+//    fwProgressDialogWidget->show();
+//    QApplication::processEvents();
+//    fwProgressDialog->progressBar->setMinimum(0);
+//    QApplication::processEvents();
+//#ifdef Q_OS_MAC
+//    fwProgressDialog->progressBar->setMaximum(sysExComposer->fwFileSize);
+//    QApplication::processEvents();
+//    sysExComposer->slotUpdateFirmware();
+//#else
+//    fwProgressDialog->progressBar->setMaximum(0);
+//    midiDeviceManager->slotCloseMidiOut();
+//    midiDeviceManager->slotCloseMidiIn();
+//    midiDeviceManager->fwUpdateRequested = true;
 
-    syxutilProcess = new QProcess;
-    syxutilProcess->setWorkingDirectory("./");
-    syxutilProcess->start("FirmwareUpdater.exe");
-#endif
-}
+//    syxutilProcess = new QProcess;
+//    syxutilProcess->setWorkingDirectory("./");
+//    syxutilProcess->start("FirmwareUpdater.exe");
+//#endif
+//}
 
-void MainWindow::slotUpdateFwProgressBar(int bytes)
-{
-    if(bytes != 0)
-    {
-        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
-    }
-    else
-    {
-        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
-        QApplication::processEvents();
-        fwProgressDialogWidget->close();
-        QApplication::processEvents();
-        fwUpdateCompleteDialogWidget->raise();
-        QApplication::processEvents();
-        fwUpdateCompleteDialogWidget->show();
+//void MainWindow::slotUpdateFwProgressBar(int bytes)
+//{
+//    if(bytes != 0)
+//    {
+//        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
+//    }
+//    else
+//    {
+//        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
+//        QApplication::processEvents();
+//        fwProgressDialogWidget->close();
+//        QApplication::processEvents();
+//        fwUpdateCompleteDialogWidget->raise();
+//        QApplication::processEvents();
+//        fwUpdateCompleteDialogWidget->show();
 
-        qDebug() << "fw update complete;";
-    }
-}
+//        qDebug() << "fw update complete;";
+//    }
+//}
 
 void MainWindow::slotPopulatePresetMenu()
 {
@@ -1285,10 +1503,10 @@ void MainWindow::slotSetMode()
         mode = "standalone";
     }
 
-#ifdef Q_OS_MAC
-#else
-    midiDeviceManager->hosted_slotRepopulateMidiSourceDests();
-#endif
+//#ifdef Q_OS_MAC
+//#else
+//    midiDeviceManager->hosted_slotRepopulateMidiSourceDests();
+//#endif
 
     //----------------- Set child modes
 
@@ -1371,7 +1589,9 @@ void MainWindow::slotSetMode()
     }
     navKey->slotConnectElements();
 
-    midiDeviceManager->slotSetMode(mode); //repopulation of device menus should happen here
+    // EB TODO - reconnect this
+    slotSetModeMIDI(mode); //repopulation of device menus should happen here
+
     presetInterface->slotSetMode(mode);
     setlist->slotSetMode(mode);
     copyPasteHandler->slotSetMode(mode);
@@ -1826,3 +2046,265 @@ void MainWindow::slotConnectUpdate()
     connect(ui->update, SIGNAL(clicked()), this, SLOT(slotDisconnectUpdate()));
     ui->update->setEnabled(true);
 }
+
+
+// -----------------------------
+// Signal softstep hosted/standalone modes - create and delete virtual midi port
+// -----------------------------
+
+void MainWindow::slotSetModeMIDI(QString m)
+{
+    //EB TODO - repopulation of device menus should happen here
+
+    //qDebug() << "slot set mode";
+
+    if(m == "hosted")
+    {
+        // EB TODO - redo this with RtMidi
+        //Virtual Source Creation "SoftStep Share"
+//        MIDISourceCreate(appClientRef, CFSTR("SoftStep Share"), &appVirtualSourceRef);
+
+        //hosted_slotRepopulateMidiSourceDests called here because new port is created
+
+        //Create entirely new port for external midi inputs
+//        MIDIInputPortCreate(appClientRef, CFSTR("SoftStep External MIDI In Port"), midiInputIncomingMidi, this, &midiInputPort);
+        //hosted_slotConnectExternalMidiInputSources();
+
+        sysExComposer->slotHostedOnOff(true);
+    }
+    else
+    {
+        // EB TODO - redo this with RtMidi
+        //MIDIEndpointDispose(appVirtualSourceRef);
+        //MIDIEndpointDispose(appVirtualDestRef);
+
+        //Delete external midi input port
+        //MIDIPortDispose(midiInputPort);
+
+        sysExComposer->slotHostedOnOff(false);
+    }
+}
+
+
+// --------------------------------------------------------------------------------------
+// ------ midi overhaul -----------------------------------------------------------------
+// --------------------------------------------------------------------------------------
+
+void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messageType, int portNum)
+{
+    qDebug() << "slotMIDIPortChange - " << kmiPorts->mType[messageType] << kmiPorts->inOut[inOrOut] << " portName:" << portName << " messageType: " << " portNum: " << portNum << "\n";
+
+    switch (messageType)
+    {
+    case PORT_CONNECT:
+
+//        // update dropdown
+//        if (inOrOut == PORT_OUT && portName != SS_OUT_P1) // don't create feedback loop
+//        {
+//            QComboBox *thisDropDown = ui->midi_outputs;
+
+//            thisDropDown->addItem(portName); // update dropdown
+//            slotFixDropDownWidth(thisDropDown);
+//        }
+
+        // **** SoftStep connect *****************************************
+        if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
+        {
+            SoftStep->slotSetExpectedFW(thisFw);
+            SoftStep->updatePortIn(portNum);
+            fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Connected\n");
+        }
+        else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
+        {
+            // use the port names to determine if we need to upgrade the bootloader, or if we are in bootloader mode
+            if (portName == SS_OLD_OUT_P1)
+            {
+                SoftStep->updatePID(PID_SOFTSTEP2_OLD); // this will use the old SSCOM firmware version request
+            }
+            else
+            {
+                SoftStep->updatePID(PID_SOFTSTEP); // this uses the standard SysEx ID request
+            }
+
+            SoftStep->updatePortOut(portNum);
+            SoftStep->slotStartPolling("PORT_CONNECT"); // start polling when output port is added
+        }
+
+        break;
+    case PORT_DISCONNECT:
+
+//        if (inOrOut == PORT_OUT)
+//        {
+//            // update dropdown
+//            if (ui->midi_outputs->currentText() == portName)
+//                ui->midi_outputs->setCurrentIndex(0);
+
+//            ui->midi_outputs->removeItem(ui->midi_outputs->findText(portName));
+//        }
+
+        // **** SoftStep disconnect **************************************
+        if (portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT)
+        {
+            // close ports and stop polling
+            SoftStep->slotCloseMidiIn();
+            SoftStep->slotCloseMidiOut();
+            SoftStep->slotStopPolling("PORT_DISCONNECT");
+            if (inOrOut == PORT_IN) fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Disconnected\n");
+        }
+
+        break;
+    case PORT_CHANGED:
+        //qDebug() << " PORT CHANGED - name: " << portName << portName << " inOrOut: " << kmiPorts->inOut[inOrOut] << " messageType: " << kmiPorts->mType[messageType] << " portNum: " << portNum << "\n";
+
+        // **** SoftStep renumber ****************************************
+        if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
+        {
+            SoftStep->updatePortIn(portNum);
+        }
+        else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
+        {
+            SoftStep->updatePortOut(portNum);
+        }
+
+        break;
+    default:
+        break;
+    }
+}
+
+// close and then reopen the SoftStep ports
+// this is needed when the bootloader and app port names do not match
+void MainWindow::slotRefreshConnection()
+{
+    qDebug() << "slotRefreshConnection called";
+#ifndef Q_OS_WIN
+    SoftStep->slotResetConnections(SS_IN_P1, SS_BL_PORT);
+#endif
+}
+
+
+void MainWindow::slotBootloaderMode(bool fwUpdateRequested)
+{
+    qDebug() << "slotBootloaderMode called - fwUpdateRequested: "<< fwUpdateRequested;
+    if (!fwUpdateRequested)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Your device is in bootloader mode. Click OK to attempt a firmware update.");
+        msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        int ret = msgBox.exec();
+
+        if(ret == QMessageBox::Ok)
+        {
+            slotForceFirmwareUpdate();
+        }
+    }
+}
+
+void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
+{
+    qDebug() << "slotFwUpdateSuccessCloseDialog called - success: " << success;
+
+    if (success)
+    {
+        SoftStep->fwUpdateRequested = false;
+        //slotUpdateMIDIaux();
+        slotConnected(true);
+    }
+    else
+    {
+        SoftStep->slotFirmwareUpdateReset();
+        slotConnected(false);
+    }
+    disableWidget->hide();
+    //slotEnableDisableMenu();
+}
+
+void MainWindow::slotForceFirmwareUpdate()
+{
+    slotFirmwareDetected(SoftStep, false); // act as if we received a firmware mismatch
+}
+
+void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
+{
+    qDebug() << "slotFirmwareDetected called";
+    if (matches)
+    {
+        qDebug() << "FirmwareMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
+
+        //---------------------------------- Sync SoftStep Dialog
+        // MIDI Overhaul
+        //slotSyncSoftStepDialog();
+    }
+    else
+    {
+        qDebug() << "Firmware MisMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
+
+        // setup sysex connections to receive globals data
+        SoftStep->disconnect(SIGNAL(signalRxSysExBA(QByteArray))); // disconnect to be safe
+
+        // EB TODO - connect this to softStep sysex handlers
+        //connect(SoftStep, SIGNAL(signalRxSysExBA(QByteArray)), sysExEncDecode, SLOT(slotProcessSysEx(QByteArray)));
+
+        fwUpdateWindow->slotClearText();
+        fwUpdateWindow->slotAppendTextToConsole(deviceBootloaderVersionString());
+        fwUpdateWindow->slotAppendTextToConsole(deviceFirmwareVersionString());
+
+        fwUpdateWindow->show();
+    }
+}
+
+// connect SoftStep midi input to to midi aux out
+void MainWindow::slotUpdateMIDIaux()
+{
+    //qDebug() << "slotUpdateMIDIaux called";
+
+    SoftStep->disconnect(SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)));
+
+    if (!connected) return; // don't continue if we aren't connected
+// EB TODO - connect this to the aux port dropdown
+//    if (ui->midi_outputs->currentText() != "None")
+//    {
+//        // set and open the ports
+//        int thisOutPort = kmiPorts->getOutPortNumber(ui->midi_outputs->currentText());
+//        midiAuxOut->updatePortOut(thisOutPort);
+//        midiAuxOut->slotOpenMidiOut();
+//        connect(SoftStep, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), midiAuxOut, SLOT(slotSendMIDI(uchar, uchar, uchar, uchar)));
+//    }
+//    else
+//    {
+//        midiAuxOut->slotCloseMidiOut();
+//    }
+}
+
+QString MainWindow::deviceBootloaderVersionString()
+{
+    return QString("Device Bootloader Version: %1.%2.%3\n\n")
+            .arg(uchar(SoftStep->devicebootloaderVersion.at(0)))
+            .arg(uchar(SoftStep->devicebootloaderVersion.at(1)))
+            .arg(uchar(SoftStep->devicebootloaderVersion.at(2)));
+}
+
+
+QString MainWindow::deviceFirmwareVersionString()
+{
+    return QString("Device Firmware Version: %1.%2.%3")
+            .arg(uchar(SoftStep->deviceFirmwareVersion.at(0)))
+            .arg(uchar(SoftStep->deviceFirmwareVersion.at(1)))
+            .arg(uchar(SoftStep->deviceFirmwareVersion.at(2)));
+}
+
+QString MainWindow::applicationFirmwareVersionString()
+{
+    return QString("Application Firmware Version: %1.%2.%3\n\n")
+            .arg(uchar(thisFw.at(0)))
+            .arg(uchar(thisFw.at(1)))
+            .arg(uchar(thisFw.at(2)));
+}
+
+
+// --------------------------------------------------------------------------------------
+// ------ end midi overhaul -------------------------------------------------------------
+// --------------------------------------------------------------------------------------
+
+
