@@ -9,10 +9,10 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    fwoodDialog(new Ui::FwoodDialog),
-    fwProgressDialog(new Ui::FwProgressForm),
-    fwUpdateCompleteDialog(new Ui::FwUpdateCompleteForm),
-    fwUpdateDialog(new Ui::UpdateFirmwareForm),
+//    fwoodDialog(new Ui::FwoodDialog),
+//    fwProgressDialog(new Ui::FwProgressForm),
+//    fwUpdateCompleteDialog(new Ui::FwUpdateCompleteForm),
+//    fwUpdateDialog(new Ui::UpdateFirmwareForm),
     aboutForm(new Ui::AboutForm)
 {
 
@@ -55,10 +55,11 @@ MainWindow::MainWindow(QWidget *parent) :
     // application version
     applicationVersion.resize(3);
 
-    applicationVersion[0] = 2;
+    // pre bootloader app version was 2.04, revving to 3.0.0 for bootloader trojan
+    applicationVersion[0] = 3;
     applicationVersion[1] = 0;
-    applicationVersion[2] = 5;
-    betaVersion = "I"; // leave blank for release
+    applicationVersion[2] = 0;
+    betaVersion = "A"; // leave blank for release
 
     // store the SoftStep device firmware version
     thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_softstep), sizeof(_fw_ver_softstep));
@@ -93,16 +94,27 @@ MainWindow::MainWindow(QWidget *parent) :
 
     SoftStep = new MidiDeviceManager(this, PID_SOFTSTEP, "SoftStep");
 
-    // setup firmware image
+    // setup bootloader/firmware images
+
+    QString thisBlFile = QString(":/resources/firmware/Softstep-99-bootloader-trojan-horse.syx");
+    qDebug() << "thisBlFile: " << thisBlFile;
+
+    if (!SoftStep->slotOpenBootloaderFile(thisBlFile))
+    {
+       slotCreateDialog("Error: Bootloader file not found!\n\nPlease re-install the SoftStep editor.");
+    }
 
     QString thisFwFile = QString("://resources/firmware/Softstep_Firmware_v%1.%2.%3.syx")
             .arg(uchar(thisFw.at(0)))
             .arg(uchar(thisFw.at(1)))
             .arg(uchar(thisFw.at(2)));
 
-    qDebug() << "fwFilename: " << thisFwFile;
+    qDebug() << "thisFwFile: " << thisFwFile;
 
-    SoftStep->slotOpenFirmwareFile(thisFwFile);
+    if (!SoftStep->slotOpenFirmwareFile(thisFwFile))
+    {
+       slotCreateDialog("Error: Firmware file not found!\n\nPlease re-install the SoftStep editor.");
+    }
 
     // connect firmware signals
     qDebug() << "connect signalFirmwareDetected";
@@ -171,25 +183,25 @@ MainWindow::MainWindow(QWidget *parent) :
     disableWidget->setStyleSheet("QWidget{ background: rgba(0,0,0,200); }");
 
     //Child Dialogs
-    fwoodDialogWidget = new QWidget(this);
-    fwoodDialogWidget->hide();
-    fwoodDialog->setupUi(fwoodDialogWidget);
-    fwoodDialogWidget->move(this->width()/2 - fwoodDialogWidget->width()/2, this->height()/2 - fwoodDialogWidget->height()/2);
+//    fwoodDialogWidget = new QWidget(this);
+//    fwoodDialogWidget->hide();
+//    fwoodDialog->setupUi(fwoodDialogWidget);
+//    fwoodDialogWidget->move(this->width()/2 - fwoodDialogWidget->width()/2, this->height()/2 - fwoodDialogWidget->height()/2);
 
-    fwProgressDialogWidget = new QWidget(this);
-    fwProgressDialogWidget->hide();
-    fwProgressDialog->setupUi(fwProgressDialogWidget);
-    fwProgressDialogWidget->move(this->width()/2 - fwProgressDialogWidget->width()/2, this->height()/2 - fwProgressDialogWidget->height()/2);
+//    fwProgressDialogWidget = new QWidget(this);
+//    fwProgressDialogWidget->hide();
+//    fwProgressDialog->setupUi(fwProgressDialogWidget);
+//    fwProgressDialogWidget->move(this->width()/2 - fwProgressDialogWidget->width()/2, this->height()/2 - fwProgressDialogWidget->height()/2);
 
-    fwUpdateCompleteDialogWidget = new QWidget(this);
-    fwUpdateCompleteDialogWidget->hide();
-    fwUpdateCompleteDialog->setupUi(fwUpdateCompleteDialogWidget);
-    fwUpdateCompleteDialogWidget->move(this->width()/2 - fwUpdateCompleteDialogWidget->width()/2, this->height()/2 - fwUpdateCompleteDialogWidget->height()/2);
+//    fwUpdateCompleteDialogWidget = new QWidget(this);
+//    fwUpdateCompleteDialogWidget->hide();
+//    fwUpdateCompleteDialog->setupUi(fwUpdateCompleteDialogWidget);
+//    fwUpdateCompleteDialogWidget->move(this->width()/2 - fwUpdateCompleteDialogWidget->width()/2, this->height()/2 - fwUpdateCompleteDialogWidget->height()/2);
 
-    fwUpdateDialogWidget = new QWidget(this);
-    fwUpdateDialogWidget->hide();
-    fwUpdateDialog->setupUi(fwUpdateDialogWidget);
-    fwUpdateDialogWidget->move(this->width()/2 - fwUpdateDialogWidget->width()/2, this->height()/2 - fwUpdateDialogWidget->height()/2);
+//    fwUpdateDialogWidget = new QWidget(this);
+//    fwUpdateDialogWidget->hide();
+//    fwUpdateDialog->setupUi(fwUpdateDialogWidget);
+//    fwUpdateDialogWidget->move(this->width()/2 - fwUpdateDialogWidget->width()/2, this->height()/2 - fwUpdateDialogWidget->height()/2);
 
     aboutFormWidget = new QWidget(this);
     aboutFormWidget->hide();
@@ -278,6 +290,43 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::slotCreateDialog(QString dialogText)
+{
+    QDialog *msgBox = new QDialog(this);
+    msgBox->setMinimumSize(300, 100);
+    msgBox->setFixedSize(300, 100);
+
+    QPoint centerparent(
+                this->x() + ((this->frameGeometry().width() - msgBox->frameGeometry().width()) /2),
+                this->y() + ((this->frameGeometry().height() - msgBox->frameGeometry().height()) /2));
+
+    msgBox->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+    msgBox->move(centerparent);
+
+
+    msgBox->setStyleSheet("QWidget{background: rgba(100,100,100, 255); border-color:black; border:5px}");
+
+    QLabel* text = new QLabel(dialogText, msgBox, Qt::WindowFlags());
+    text->setAlignment(Qt::AlignCenter);
+    text->setMinimumSize(300, 50);
+    text->setFixedSize(300, 50);
+    text->move(0, 10);
+
+#ifdef Q_OS_MAC // EB attempt to make this cross platform
+    text->setStyleSheet("font: 12pt;");
+#else
+    text->setStyleSheet("font: 10pt;");
+#endif
+
+    QPushButton* okButton = new QPushButton(msgBox);
+    okButton->setStyleSheet(grayStyleString);
+    okButton->setText("Ok");
+    okButton->setGeometry(QRect(140, 60, 70, 28));
+    connect(okButton, SIGNAL(clicked()), msgBox, SLOT(close()));
+
+    msgBox->exec();
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
     if((keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return) && ui->backlight->hasFocus() && !disableWidget->isVisible())
@@ -306,6 +355,16 @@ void MainWindow::slotConnectInterfaces()
     //connect(ui->midi_output, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUpdateMIDIaux()));
 
     //qDebug() << "connected aux port";
+
+    //StyleSheets for primary pushbuttons
+    blueStyleFile = new QFile(":/resources/stylesheets/fwUpdateStyles_lightBlue.qss");
+    blueStyleFile->open(QFile::ReadOnly);
+    blueStyleString = QLatin1String(blueStyleFile->readAll());
+
+    //StyleSheets for secondary pushbuttons
+    grayStyleFile = new QFile(":/resources/stylesheets/GrayButtonStyleSheet.qss");
+    grayStyleFile->open(QFile::ReadOnly);
+    grayStyleString = QLatin1String(grayStyleFile->readAll());
 
     // fwupdate stylesheets
 #ifdef Q_OS_MAC
@@ -785,10 +844,11 @@ void MainWindow::slotInitMenuBar()
     hardware->setObjectName("HardwareMenu");
 
     //Reload Firmware
-    updatefw = new QAction("Update/Reload Firmware...", hardware);
+    updatefw = new QAction("Force Firmware Update...", hardware);
     actionList.append(updatefw);
     connect(updatefw, SIGNAL(triggered()), disableWidget, SLOT(show()));
-    connect(updatefw, SIGNAL(triggered()), fwUpdateDialogWidget, SLOT(show()));
+    //connect(updatefw, SIGNAL(triggered()), fwUpdateDialogWidget, SLOT(show()));
+    connect(updatefw, SIGNAL(triggered()), this, SLOT(slotForceFirmwareUpdate()));
     connect(updatefw, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
 
     hardware->addAction(updatefw);
@@ -954,14 +1014,24 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
 //        }
 
         // **** SoftStep connect *****************************************
-        if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1) && inOrOut == PORT_IN)
-        {
+        if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
+        {   
             SoftStep->slotSetExpectedFW(thisFw);
             SoftStep->updatePortIn(portNum);
             fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Connected\n");
         }
-        else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1) && inOrOut == PORT_OUT)
+        else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
         {
+            // use the port names to determine if we need to upgrade the bootloader, or if we are in bootloader mode
+            if (portName == SS_OLD_OUT_P1)
+            {
+                SoftStep->updatePID(PID_SOFTSTEP2_OLD); // this will use the old SSCOM firmware version request
+            }
+            else
+            {
+                SoftStep->updatePID(PID_SOFTSTEP); // this uses the standard SysEx ID request
+            }
+
             SoftStep->updatePortOut(portNum);
             SoftStep->slotStartPolling("PORT_CONNECT"); // start polling when output port is added
         }
@@ -979,7 +1049,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
 //        }
 
         // **** SoftStep disconnect **************************************
-        if (portName == SS_IN_P1 || portName == SS_OLD_IN_P1)
+        if (portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT)
         {
             // close ports and stop polling
             SoftStep->slotCloseMidiIn();
@@ -993,11 +1063,11 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         //qDebug() << " PORT CHANGED - name: " << portName << portName << " inOrOut: " << kmiPorts->inOut[inOrOut] << " messageType: " << kmiPorts->mType[messageType] << " portNum: " << portNum << "\n";
 
         // **** SoftStep renumber ****************************************
-        if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1) && inOrOut == PORT_IN)
+        if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
         {
             SoftStep->updatePortIn(portNum);
         }
-        else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1) && inOrOut == PORT_OUT)
+        else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
         {
             SoftStep->updatePortOut(portNum);
         }
@@ -1044,19 +1114,16 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
     if (success)
     {
         SoftStep->fwUpdateRequested = false;
-        // EB TODO - translate connection strings here
         //slotUpdateMIDIaux();
-        //slotSoftStepConnected(true);
-        //slotEnableDisableMidiFunctions(true);
-        //slotSyncSoftStepDialog();
+        slotConnected(true);
     }
     else
     {
         SoftStep->slotFirmwareUpdateReset();
-        //slotSoftStepConnected(false);
-        //slotEnableDisableMidiFunctions(false);
+        slotConnected(false);
     }
-
+    disableWidget->hide();
+    slotEnableDisableMenu();
 }
 
 void MainWindow::slotForceFirmwareUpdate()

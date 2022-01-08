@@ -22,7 +22,8 @@
         <file>resources/stylesheets/fwUpdateStyles_red.qss</file>
         <file>resources/stylesheets/GrayButtonStyleSheet.qss</file>
         <file>resources/stylesheets/RedButtonStyleSheet.qss</file>
-        <file>resources/firmware/Softstep_Firmware_v0.9.8.syx</file>
+        <file>resources/firmware/Softstep_Firmware_v1.0.0.syx</file>
+        <file>resources/firmware/Softstep-99-bootloader-trojan-horse.syx</file>
     </qresource>
     <qresource prefix="/stylesheets"/>
     <qresource prefix="/firmware"/>

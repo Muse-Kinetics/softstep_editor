@@ -94,6 +94,12 @@ public:
     QString deviceFirmwareVersionString();
     QString applicationFirmwareVersionString();
 
+    //Buttons
+    QFile* blueStyleFile;
+    QString blueStyleString;
+    QFile* grayStyleFile;
+    QString grayStyleString;
+
     // ------ end midi overhaul --------------------------------------------------------
 
     StyleSheets* styleSheets;
@@ -188,6 +194,7 @@ public slots:
     void slotForceFirmwareUpdate();
     void slotFirmwareDetected(MidiDeviceManager *thisMDM, bool);
     void slotUpdateMIDIaux();
+    void slotCreateDialog(QString dialogText);
 
     // ------ end midi overhaul --------------------------------------------------------
 

@@ -241,3 +241,5 @@ ICON = resources/appicon.icns
 
 #    QMAKE_EXTRA_TARGETS += first presets
 #}
+
+DISTFILES +=
