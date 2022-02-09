@@ -627,6 +627,7 @@ void Key::slotCounter(QString whatToDo, int val)
 
 void Key::slotSetMainWindow(MainWindow *mainWindow)
 {
+    qDebug() << "slotSetMainWindow called, keyInstance: " << keyInstance;
     mw = mainWindow;
     dataCooker.slotSetParentKey(this);
 }

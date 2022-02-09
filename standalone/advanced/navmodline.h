@@ -152,7 +152,7 @@ public slots:
     void slotOutputRoutine(int input);
 
     void hosted_slotOutputMidi(int outputVal);
-    void hosted_slotPopulateDeviceMenu(QMap<QString, MIDIEndpointRef> externalDevices);
+    void hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevices);
 
     void slotDisplayVars();
 

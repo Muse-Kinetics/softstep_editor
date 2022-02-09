@@ -145,7 +145,7 @@ signals:
 
     
 public slots:
-    void slotUpdateVals(int cc, int val);
+    void slotUpdateVals(uchar cc, uchar val);
     void slotReceiveModlineOutput(int modlineNum, int val);
 
     void slotSetSource(QString source, int modlineInstance);

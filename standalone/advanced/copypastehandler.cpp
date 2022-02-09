@@ -78,13 +78,13 @@ void CopyPasteHandler::slotClearPreset()
             }
             if(i.key().contains("_device"))
             {
-                if(blankPresetMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+                if(blankPresetMap.value(i.key()) == "SoftStep Control Surface" && mode == "hosted")
                 {
-                    blankPresetMap.insert(i.key(), "SoftStep Share");
+                    blankPresetMap.insert(i.key(), "SoftStep Hosted Virtual Port");
                 }
-                else if(blankPresetMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+                else if(blankPresetMap.value(i.key()) == "SoftStep Hosted Virtual Port" && mode == "standalone")
                 {
-                    blankPresetMap.insert(i.key(), "SSCOM Port 1");
+                    blankPresetMap.insert(i.key(), "SoftStep Control Surface");
                 }
             }
         }
@@ -176,15 +176,15 @@ void CopyPasteHandler::slotPastePreset()
             if(i.key().contains("_device"))
             {
                 //qDebug() << "Paste Preset Parameter" << presetCopiedMap.value(i.key());
-                if(presetCopiedMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+                if(presetCopiedMap.value(i.key()) == "SoftStep Control Surface" && mode == "hosted")
                 {
-                    presetCopiedMap.insert(i.key(), "SoftStep Share");
-                    //qDebug() << "SSCOM Port 1 has been changed to SoftStep Share" << i.key();
+                    presetCopiedMap.insert(i.key(), "SoftStep Hosted Virtual Port");
+                    //qDebug() << "SoftStep Control Surface has been changed to SoftStep Hosted Virtual Port" << i.key();
                 }
-                else if(presetCopiedMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+                else if(presetCopiedMap.value(i.key()) == "SoftStep Hosted Virtual Port" && mode == "standalone")
                 {
-                    presetCopiedMap.insert(i.key(), "SSCOM Port 1");
-                    //qDebug() << "SoftStep Share has been changed to SSCOM Port 1" << i.key();
+                    presetCopiedMap.insert(i.key(), "SoftStep Control Surface");
+                    //qDebug() << "SoftStep Hosted Virtual Port has been changed to SoftStep Control Surface" << i.key();
                 }
             }
         }
@@ -272,15 +272,15 @@ void CopyPasteHandler::slotPasteNewPreset()
             if(i.key().contains("_device"))
             {
                 //qDebug() << "Paste Preset Parameter" << presetCopiedMap.value(i.key());
-                if(presetCopiedMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+                if(presetCopiedMap.value(i.key()) == "SoftStep Control Surface" && mode == "hosted")
                 {
-                    presetCopiedMap.insert(i.key(), "SoftStep Share");
-                    //qDebug() << "SSCOM Port 1 has been changed to SoftStep Share";
+                    presetCopiedMap.insert(i.key(), "SoftStep Hosted Virtual Port");
+                    //qDebug() << "SoftStep Control Surface has been changed to SoftStep Hosted Virtual Port";
                 }
-                else if(presetCopiedMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+                else if(presetCopiedMap.value(i.key()) == "SoftStep Hosted Virtual Port" && mode == "standalone")
                 {
-                    presetCopiedMap.insert(i.key(), "SSCOM Port 1");
-                    //qDebug() << "SoftStep Share has been changed to SSCOM Port 1";
+                    presetCopiedMap.insert(i.key(), "SoftStep Control Surface");
+                    //qDebug() << "SoftStep Hosted Virtual Port has been changed to SoftStep Control Surface";
                 }
             }
         }

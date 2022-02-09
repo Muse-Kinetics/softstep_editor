@@ -466,9 +466,9 @@ void Settings::slotValueChanged()
             jsonName = checkbox->objectName();
             value = checkbox->isChecked();
 
-            qDebug() << "qcheckbox json name" << jsonName;
+            //qDebug() << "qcheckbox json name" << jsonName;
 
-            if(mode == "hosted" && jsonName == "backlighting_enable")
+            if(jsonName == "backlighting_enable")
             {
                 emit signalSetBacklight(value.toBool());
             }
@@ -498,9 +498,12 @@ void Settings::slotValueChanged()
         }
 
         emit signalStoreValue(jsonName,value);
+        emit signalUpdateSettings();
+
     }
 
     //qDebug() << "value changed" << QObject::sender()->objectName();
+
 }
 
 void Settings::slotStoreSettings(QString name, QVariant value)
@@ -515,6 +518,7 @@ void Settings::slotStoreSettings(QString name, QVariant value)
 
 void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
+    qDebug() << "slotRecallPreset called";
     slotDisconnectElements();
 
     foreach(QWidget* widget, settingsWidget->findChildren<QWidget *>())
@@ -620,7 +624,7 @@ void Settings::slotResetGlobalGain()
     settingsForm->global_gain_slider->setValue(100);
 }
 
-void Settings::slotPopulateInputMenus(QMap<QString, MIDIEndpointRef> midiSources)
+void Settings::slotPopulateInputMenus(QMap<QString, int> midiSources)
 {
     //qDebug() << "slot populate input menus" << midiSources.keys();
 
@@ -1145,7 +1149,7 @@ void Settings::slotSaveSettingsTimeout()
     //If 0.5s have elapsed since last value was changed
     if(saveSettiingsTimeoutTime > 500)
     {
-        //qDebug() << "settings timeout";
+        qDebug() << "settings timeout";
 
         //Save settings
         slotWriteSettings();

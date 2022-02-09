@@ -69,6 +69,7 @@ public:
     QString mode;
     
 signals:
+    void signalUpdateSettings();
     void signalStoreValue(QString name, QVariant value);
     void signalRecallSettings(QVariantMap preset, QVariantMap settings);
 
@@ -133,7 +134,7 @@ public slots:
     void slotResetGlobalGain();
 
     //void slotSetMode(QString m);
-    void slotPopulateInputMenus(QMap<QString,MIDIEndpointRef> midiSources);
+    void slotPopulateInputMenus(QMap<QString, int> midiSources);
     //void slotCompileSettings();
 
     void slotSetMidiInputLineParams();

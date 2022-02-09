@@ -72,7 +72,7 @@ void DisplaySink::slotAddAlphaPacket(QString port, QList<MIDIPacket> packetList)
         for(int i = 0; i < packetList.size(); i++)
         {
             mostRecentAlphaList.append(packetList.at(i));
-            //emit signalSendPacket("SSCOM Port 1", packetList.at(i));
+            //emit signalSendPacket("SoftStep Control Surface", packetList.at(i));
         }
 
         if(!alphaFIFOClock.isActive())
@@ -128,7 +128,7 @@ void DisplaySink::slotAddLEDPacket(QString port, QList<MIDIPacket> packetList)
         //Iterate through packets and emit them
         for(int i = 0; i < packetList.size(); i++)
         {
-            //emit signalSendPacket("SSCOM Port 1", packetList.at(i));
+            //emit signalSendPacket("SoftStep Control Surface", packetList.at(i));
 
             displayFIFO.append(packetList.at(i));
         }
@@ -144,7 +144,7 @@ void DisplaySink::slotPollAlphaList()
 
     if(!mostRecentAlphaList.isEmpty())
     {
-        //emit signalSendPacket("SSCOM Port 1", alphaFIFOList.first());
+        //emit signalSendPacket("SoftStep Control Surface", alphaFIFOList.first());
         for(int i = 0; i < mostRecentAlphaList.size(); i++)
         {
             displayFIFO.append(mostRecentAlphaList.at(i));
@@ -162,7 +162,15 @@ void DisplaySink::slotDrainDisplayFIFO()
 {
     if(!displayFIFO.isEmpty())
     {
-        emit signalSendPacket("SSCOM Port 1", displayFIFO.first());
+        // EB - this seems to be the only place where we send sysex, so let's decode the packet
+        // both alpha and LED messages are sent as control changes
+
+        uchar status = displayFIFO.first().data[0];
+        uchar d1 = displayFIFO.first().data[1];
+        uchar d2 = displayFIFO.first().data[2];
+
+        emit signalSendPacket(status, d1, d2);
+
         displayFIFO.removeFirst();
     }
 }

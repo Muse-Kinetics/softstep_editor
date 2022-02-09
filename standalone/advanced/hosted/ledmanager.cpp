@@ -129,7 +129,7 @@ void LEDManager::processLED(int modlineNum, int greenOrRed, QString mode)
 
             packetList.append(typePacket);
 
-            emit signalSendLEDControl("SSCOM Port 1", packetList);
+            emit signalSendLEDControl("SoftStep Control Surface", packetList);
             lastPacketListSent = packetList;
 
         }
@@ -175,7 +175,7 @@ void LEDManager::slotDrainFIFO()
     }
     else
     {
-        //emit signalSendLEDControl("SSCOM Port 1", packetFIFOList.first());
+        //emit signalSendLEDControl("SoftStep Control Surface", packetFIFOList.first());
         packetFIFOList.removeFirst();
     }*/
 }
@@ -184,6 +184,6 @@ void LEDManager::slotStateRecallLedLastPacket(QList<MIDIPacket> pktlst)
 {
     //qDebug() << "led last packet" << pktlst.size();
     lastPacketListSent = pktlst;
-    emit signalSendLEDControl("SSCOM Port 1", pktlst);
+    emit signalSendLEDControl("SoftStep Control Surface", pktlst);
 
 }

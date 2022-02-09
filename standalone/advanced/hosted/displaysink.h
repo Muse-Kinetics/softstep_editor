@@ -35,7 +35,7 @@ public:
     QTimer displayFIFOClock; //Clock for draining display messages
     
 signals:
-    void signalSendPacket(QString port, MIDIPacket packet);
+    void signalSendPacket(uchar status, uchar d1, uchar d2);
     
 public slots:
     void slotAddLEDPacket(QString port, QList<MIDIPacket> packetList);

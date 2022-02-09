@@ -211,6 +211,7 @@ ICON = resources/appicon.icns
 }
 
 RESOURCES += \
+    fonts.qrc \
     resources.qrc
 
 #--------------- contents/resources --------

@@ -13,33 +13,38 @@ void MidiFormatOutput::slotPreparePacket()
 
 }
 
+// ****************************************************************
+// NOTE - channels sent to these functions are not zero indexed
+// ****************************************************************
 
 //------------------------------------- Formatting
 void MidiFormatOutput::slotNoteSet(QString port, int channel, int note, int velocity)
 {
     //qDebug() << "slotNoteSet";
+    unsigned char status;
+//    MIDIPacket packet;
 
-    MIDIPacket packet;
-
-    packet.timeStamp = 0;
-    packet.length = 3;
+//    packet.timeStamp = 0;
+//    packet.length = 3;
 
     if(velocity)
     {
         //Note On
-        packet.data[0] = 143 + channel;
+//        packet.data[0] = 143 + channel;
+        status = 144;
 
     }
     else
     {
         //Note Off
-        packet.data[0] = 127 + channel;
+//        packet.data[0] = 127 + channel;
+        status = 128;
     }
 
-    packet.data[1] = note;
-    packet.data[2] = velocity;
+//    packet.data[1] = note;
+//    packet.data[2] = velocity;
 
-    emit signalSendMidiPacketList(port, packet);
+    emit signalSendMidiPacketList(port, status, note, velocity, channel - 1);
 }
 
 void MidiFormatOutput::slotNoteLive(QString port, int channel, int oldNote, int newNote, int velocity)
@@ -53,83 +58,88 @@ void MidiFormatOutput::slotNoteLive(QString port, int channel, int oldNote, int 
     if(oldNote != -1)
     {
         //Old note
-        packet.data[0] = 127 + channel;
-        packet.data[1] = oldNote;
-        packet.data[2] = 0;
+//        packet.data[0] = 127 + channel;
+//        packet.data[1] = oldNote;
+//        packet.data[2] = 0;
 
-        emit signalSendMidiPacketList(port, packet);
+        emit signalSendMidiPacketList(port, 128, oldNote, 0, channel - 1);
     }
 
     //New Note
-    packet.data[0] = 143 + channel;
-    packet.data[1] = newNote;
-    packet.data[2] = velocity;
+//    packet.data[0] = 143 + channel;
+//    packet.data[1] = newNote;
+//    packet.data[2] = velocity;
 
-    emit signalSendMidiPacketList(port, packet);
+    emit signalSendMidiPacketList(port, 144, newNote, velocity, channel - 1);
 }
 
 void MidiFormatOutput::slotCC(QString port, int channel, int ccNum, int ccVal)
 {
     qDebug() << "slotCC called" << ccVal;
-    MIDIPacket packet;
+//    MIDIPacket packet;
+    unsigned char status = 176;
 
     //Byte packetData[3] = {176, ccNum, ccVal};
 
-    packet.timeStamp = 0;
-    packet.length = 3;
-    packet.data[0] = 175 + channel;
-    packet.data[1] = ccNum;
-    packet.data[2] = ccVal;
+//    packet.timeStamp = 0;
+//    packet.length = 3;
+//    packet.data[0] = 175 + channel;
+//    packet.data[1] = ccNum;
+//    packet.data[2] = ccVal;
 
-    emit signalSendMidiPacketList(port, packet);
+    emit signalSendMidiPacketList(port, status, ccNum, ccVal, channel - 1);
 }
 
 void MidiFormatOutput::slotBank(QString port, int channel, int msb, int lsb)
 {
-    MIDIPacket packet;
+    //MIDIPacket packet;
+    unsigned char status = 176;
 
     //Byte packetData[3] = {176, ccNum, ccVal};
 
-    packet.timeStamp = 0;
-    packet.length = 6;
-    packet.data[0] = 175 + channel;
-    packet.data[1] = 0;
-    packet.data[2] = msb;
-    packet.data[3] = 175 + channel;
-    packet.data[4] = 32;
-    packet.data[5] = lsb;
+//    packet.timeStamp = 0;
+//    packet.length = 6;
+//    packet.data[0] = 175 + channel;
+//    packet.data[1] = 0;
+//    packet.data[2] = msb;
+//    packet.data[3] = 175 + channel;
+//    packet.data[4] = 32;
+//    packet.data[5] = lsb;
 
-    emit signalSendMidiPacketList(port, packet);
+    emit signalSendMidiPacketList(port, status, 0, msb, channel - 1);
+    emit signalSendMidiPacketList(port, status, 32, lsb, channel - 1);
 }
 
 void MidiFormatOutput::slotProgram(QString port, int channel, int program)
 {
-    MIDIPacket packet;
+    uchar status = 192;
+//    MIDIPacket packet;
 
-    packet.timeStamp = 0;
-    packet.length = 2;
-    packet.data[0] = 191 + channel;
-    packet.data[1] = program;
+//    packet.timeStamp = 0;
+//    packet.length = 2;
+//    packet.data[0] = 191 + channel;
+//    packet.data[1] = program;
 
-    emit signalSendMidiPacketList(port, packet);
+    emit signalSendMidiPacketList(port, status, program, 0, channel - 1);
 }
 
 void MidiFormatOutput::slotPitchBend(QString port, int channel, int lsb, int msb)
 {
-    MIDIPacket packet;
+    uchar status = 224;
+//    MIDIPacket packet;
 
-    packet.timeStamp = 0;
-    packet.length = 3;
-    packet.data[0] = 223 + channel;
-    packet.data[1] = lsb;
-    packet.data[2] = msb;
+//    packet.timeStamp = 0;
+//    packet.length = 3;
+//    packet.data[0] = 223 + channel;
+//    packet.data[1] = lsb;
+//    packet.data[2] = msb;
 
-    emit signalSendMidiPacketList(port, packet);
+    emit signalSendMidiPacketList(port, status, lsb, msb, channel - 1);
 }
 
 void MidiFormatOutput::slotMMC(QString port, int id, QString function)
 {
-    MIDIPacket packet;
+    QByteArray packet;
 
     int functionNum = 0;
 
@@ -168,40 +178,46 @@ void MidiFormatOutput::slotMMC(QString port, int id, QString function)
 
     if(functionNum)
     {
-        packet.timeStamp = 0;
-        packet.length = 6;
-        packet.data[0] = 240;
-        packet.data[1] = 127;
-        packet.data[2] = id;
-        packet.data[3] = 6;
-        packet.data[4] = functionNum;
-        packet.data[5] = 247;
+        unsigned char thisPacket[] =
+        {
+            240,
+            127,
+            (uchar)id,
+            6,
+            (uchar)functionNum,
+            247
+        };
 
-        emit signalSendMidiPacketList(port, packet);
+
+        packet = QByteArray(reinterpret_cast<char*>(thisPacket), sizeof(thisPacket));
+
+        emit signalSendMidiPacketArray(port, packet);
     }
 }
 
 void MidiFormatOutput::slotAftertouch(QString port, int channel, int val)
 {
-    MIDIPacket packet;
+    uchar status = 208;
+//    //MIDIPacket packet;
 
-    packet.timeStamp = 0;
-    packet.length = 2;
-    packet.data[0] = 207 + channel;
-    packet.data[1] = val;
+//    packet.timeStamp = 0;
+//    packet.length = 2;
+//    packet.data[0] = 207 + channel;
+//    packet.data[1] = val;
 
-    emit signalSendMidiPacketList(port, packet);
+    emit signalSendMidiPacketList(port, status, val, 0, channel - 1);
 }
 
 void MidiFormatOutput::slotPolyAftertouch(QString port, int channel, int note, int val)
 {
-    MIDIPacket packet;
+    uchar status = 160;
+//    //MIDIPacket packet;
 
-    packet.timeStamp = 0;
-    packet.length = 3;
-    packet.data[0] = 159 + channel;
-    packet.data[1] = note;
-    packet.data[2] = val;
+//    packet.timeStamp = 0;
+//    packet.length = 3;
+//    packet.data[0] = 159 + channel;
+//    packet.data[1] = note;
+//    packet.data[2] = val;
 
-    emit signalSendMidiPacketList(port, packet);
+    emit signalSendMidiPacketList(port, status, note, val, channel - 1);
 }

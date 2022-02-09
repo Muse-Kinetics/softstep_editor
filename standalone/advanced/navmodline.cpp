@@ -589,7 +589,7 @@ void NavModline::slotPopulateMenus(QStringList source, QStringList dest, QString
     navModlineForm->destination->addItems(dest);
 }
 
-void NavModline::hosted_slotPopulateDeviceMenu(QMap<QString, MIDIEndpointRef> externalDevices)
+void NavModline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevices)
 {
     //------------------------------- Clear all device menus
 
@@ -621,7 +621,7 @@ void NavModline::hosted_slotPopulateDeviceMenu(QMap<QString, MIDIEndpointRef> ex
     navModlineForm->polydevice->clear();
 
     //-------------------------------- Populate all menus
-    QMap<QString, MIDIEndpointRef>::iterator i;
+    QMap<QString, int>::iterator i;
     for (i = externalDevices.begin(); i != externalDevices.end(); ++i)
     {
         //Note Set

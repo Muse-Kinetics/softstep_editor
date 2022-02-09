@@ -8,6 +8,8 @@
 PresetInterface::PresetInterface(QWidget *parent) :
     QWidget(parent)
 {
+
+    qDebug() << "------------ [PRESETS SETUP] ---------------------------------------------------";
     // If preset JSON files do not exist in AppDataLocation, copy the defaults from the application bundle dir.
 
     // Get platform dependant path to read only presets directory inside the app bundle/package

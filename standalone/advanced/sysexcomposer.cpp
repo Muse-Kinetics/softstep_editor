@@ -26,6 +26,7 @@ SysExComposer::SysExComposer(QWidget *parent) :
     //slotGetEmbeddedVersion();
     isSoftStep2 = false;
     //connectedBuildNum = -1;
+    connected = false;
 }
 
 //void SysExComposer::slotGetEmbeddedVersion()
@@ -86,6 +87,122 @@ SysExComposer::SysExComposer(QWidget *parent) :
 
 //    //qDebug() << "sysexpath" << sysExPath << "file size" << fwFileSize << "69078";
 //}
+
+void SysExComposer::slotComposeSettings(QVariantMap settingsMapGlobal, QList<int> pedalTable)
+{
+    //qDebug() << "slotComposeSettings called";
+
+    QVariantMap settingsMap = settingsMapGlobal.value("Global").toMap();
+
+    t_softstep *x = softstep_init();
+
+    //=========================================================================================================//
+    //================================================= Settings ==============================================//
+    //=========================================================================================================//
+
+    //------------------------------------- Global -------------------------------------//
+    //---- Sensitivity
+    attribute(x,3,A_SYM,"set",A_SYM,"Key_Response",A_LONG,settingsMap.value("sensorresponse_checkbox").toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"Global_Gain",A_FLOAT,settingsMap.value("global_gain").toFloat());
+
+    //---- Key Safety
+    //Adjacent Key Lockout - currently not implemented
+    if(settingsMap.value("adjacentkeymode").toBool())
+    {
+        //attribute(x,3,A_SYM,"set",A_SYM,"Key_Mode",A_LONG,0l);
+    }
+
+    //Single Key Lockout
+    else if(settingsMap.value("keylockoutmode").toBool())
+    {
+        attribute(x,3,A_SYM,"set",A_SYM,"Key_Mode",A_LONG,0l);
+    }
+
+    //All Keys
+    else if(settingsMap.value("multiplekeymode").toBool())
+    {
+        attribute(x,3,A_SYM,"set",A_SYM,"Key_Mode",A_LONG,1l);
+    }
+
+    //---- Pedal
+    int max = 0;
+    int min = 127;
+    for(int i = 0; i < pedalTable.size(); i++)
+    {
+        //qDebug() << "pedal table " << pedalTable;
+        //Min
+        if(pedalTable.at(i) < min)
+        {
+            min = pedalTable.at(i);
+        }
+
+        //Max
+        if(pedalTable.at(i) > max)
+        {
+            max = pedalTable.at(i);
+        }
+    }
+
+
+    //attribute(x,0,A_SYM,"set",A_SYM,"Pedal_Table",A_GIMME,-1);
+    attribute(x,4,A_SYM,"set",A_SYM,"pedalEdges",A_LONG,max, A_LONG,min);
+    //attribute(x,3,A_SYM,"set",A_SYM,"pedalHysteresis",A_LONG,7);
+    attribute(x,3,A_SYM,"set",A_SYM,"pedalFilterLength",A_LONG,3);
+
+    //---- EL
+    attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!settingsMap.value("backlighting_enable").toLongLong());
+
+    //---- Display offset 0-127, 1-128
+    attribute(x,3,A_SYM,"set",A_SYM,"prog_change_display_offset",A_LONG,settingsMap.value("displaymode_checkbox").toLongLong());
+
+
+    //qDebug() << " ---------------- el" << settingsMap.value("backlighting_enable").toLongLong();
+
+    //---- Program Change Input Channel
+    attribute(x,3,A_SYM,"set",A_SYM,"ProgramChangeInput",A_LONG,16);
+
+    //--------------------------------------  Keys  ------------------------------------//
+    for (long k=1;k<11;k++)
+    {
+        //Key Number
+        attribute(x,4,A_SYM,"set",A_SYM,"key",A_SYM,"keynum",A_LONG,k);
+
+        //Settings
+        attribute(x,3,A_SYM,"set",A_SYM,"Dead_X",A_LONG,settingsMap.value(QString("key%1_settings_xdead").arg(k)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Accel_X",A_LONG,settingsMap.value(QString("key%1_settings_xaccel").arg(k)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Dead_Y",A_LONG,settingsMap.value(QString("key%1_settings_ydead").arg(k)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,settingsMap.value(QString("key%1_settings_yaccel").arg(k)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"On_Sens",A_LONG,settingsMap.value(QString("key%1_settings_onthresh").arg(k)).toLongLong());
+        attribute(x,3,A_SYM,"set",A_SYM,"Off_Sens",A_LONG,settingsMap.value(QString("key%1_settings_offthresh").arg(k)).toLongLong());
+
+        //qDebug() << k << "y aclle" << settingsMap.value(QString("key%1_settings_yaccel").arg(k)).toLongLong();
+    }
+
+    //------------------------------------- Nav Pad ------------------------------------//
+    attribute(x,4,A_SYM,"set",A_SYM,"key",A_SYM,"keynum",A_LONG,11);
+
+    //Nav Settings1
+    attribute(x,3,A_SYM,"set",A_SYM,"North_On_Thresh",A_LONG,settingsMap.value(QString("nav_north_settings_onthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"North_Off_Thresh",A_LONG,settingsMap.value(QString("nav_north_settings_offthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"South_On_Thresh",A_LONG,settingsMap.value(QString("nav_south_settings_onthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"South_Off_Thresh",A_LONG,settingsMap.value(QString("nav_south_settings_offthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"East_On_Thresh",A_LONG,settingsMap.value(QString("nav_east_settings_onthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"East_Off_Thresh",A_LONG,settingsMap.value(QString("nav_east_settings_offthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"West_On_Thresh",A_LONG,settingsMap.value(QString("nav_west_settings_onthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"West_Off_Thresh",A_LONG,settingsMap.value(QString("nav_west_settings_offthresh")).toLongLong());
+    attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,settingsMap.value(QString("nav_settings_yaccel")).toLongLong());
+
+    attribute(x,1,A_SYM,"download");
+
+    //qDebug() << "settings" << settings << "settingsLength" << settingsLength;
+
+    //Send Settings
+    if (connected) emit signalSendSysEx(settings, settingsLength);
+
+    //qDebug("freeing settings");
+    //free(settings);
+
+}
 
 void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settingsMapGlobal, QList<int> pedalTable)
 {
@@ -566,14 +683,14 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     //=========================================================================================================//
     attribute(x,1,A_SYM,"download");
 
-    qDebug() << "image" << image << "imageLength" << imageLength;
-    qDebug() << "settings" << settings << "settingsLength" << settingsLength;
+    //qDebug() << "image" << image << "imageLength" << imageLength;
+    //qDebug() << "settings" << settings << "settingsLength" << settingsLength;
 
 
-    //emit signalSendSysEx(QString("settings image"), settings, settingsLength, QString("SSCOM Port 1"));
+    //emit signalSendSysEx(QString("settings image"), settings, settingsLength, QString("SoftStep Control Surface"));
 
     //Send Settings
-    emit signalSendSysEx(settings, settingsLength);
+    if (connected) emit signalSendSysEx(settings, settingsLength);
     slotSettingsSent();
 }
 
@@ -582,7 +699,7 @@ void SysExComposer::slotSettingsSent()
     qDebug("freeing settings");
     free(settings);
 
-    emit signalSendSysEx(image, imageLength);
+    if (connected) emit signalSendSysEx(image, imageLength);
     slotPresetsSent();
 }
 
@@ -638,7 +755,7 @@ void SysExComposer::slotPresetsSent()
 
 
 
-//        //emit signalSendSysEx("deviceQuery", _fw_query_syx_softstep_sysexcomposer, 67, "SSCOM Port 1");
+//        //emit signalSendSysEx("deviceQuery", _fw_query_syx_softstep_sysexcomposer, 67, "SoftStep Control Surface");
 //        //return;
 //    }
 
@@ -661,12 +778,16 @@ void SysExComposer::slotPresetsSent()
 //{
 //    //qDebug() << "update firmware called" << fwFileSize;
 //    //QApplication::processEvents();
-//    emit signalSendSysEx(QString("update firmware"), (unsigned char*)fwFile, fwFileSize, QString("SSCOM Port 1"));
+//    emit signalSendSysEx(QString("update firmware"), (unsigned char*)fwFile, fwFileSize, QString("SoftStep Control Surface"));
 //}
 
 void SysExComposer::slotHostedOnOff(bool onOff)
 {
-    //FIFO necessary because firmware requires delay between messages
+    qDebug() << "slotHostedOnOff called - connected: " << connected;
+
+    if (!connected) return; // don't send when not connected
+
+    //EB old comment: FIFO necessary because firmware requires delay between messages
     if(!onOff)
     {
         //mode = "standalone";
@@ -691,7 +812,9 @@ void SysExComposer::slotHostedOnOff(bool onOff)
 
 void SysExComposer::slotSceneChangeOnOff(bool onOff)
 {
-    //qDebug() << "scene change on/off";
+    qDebug() << "scene change on/off - connected: " << connected;
+
+    if (!connected) return; // don't send when not connected
 
     if(onOff)
     {
@@ -713,6 +836,10 @@ void SysExComposer::slotSceneChangeOnOff(bool onOff)
 
 void SysExComposer::slotBackLightOnOff(bool onOff)
 {
+    qDebug() << "slotBackLightOnOff called - connected: " << connected;
+
+    if (!connected) return; // don't send when not connected
+
     if(onOff)
     {
         emit signalSendSysEx(_backlight_on, sizeof(_backlight_on));
@@ -726,13 +853,15 @@ void SysExComposer::slotBackLightOnOff(bool onOff)
 
 void SysExComposer::slotTetherOnOffInStandalone(bool onOff)
 {
-
+    qDebug() << "slotTetherOnOffInStandalone called";
     //---- !!!! This function only used for pedal calibration !!! ----//
 
     //Turn tether on during calibration
     if(onOff)
     {
         calibrationPhase = "start"; // see the original mididevicemanager, which would emit start/stop calibration signals when FIFO would empty
+
+        if (!connected) return; // don't send when not connected - EB TODO - this might need to move up so as to not modify calibrationPhase
 
         emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist));
         emit signalSendSysEx(_fw_tether_on, sizeof(_fw_tether_on));
@@ -748,6 +877,8 @@ void SysExComposer::slotTetherOnOffInStandalone(bool onOff)
     {
         calibrationPhase = "stop";
 
+        if (!connected) return; // don't send when not connected
+
         emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
         emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
         emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
@@ -757,20 +888,22 @@ void SysExComposer::slotTetherOnOffInStandalone(bool onOff)
 }
 
 // EB TODO - lots of re-writes here
+// this is handled in MainWindow::slotProcessInputToHostedMode
 //------------------------------------------------------ Hosted
-void SysExComposer::hosted_slotParsePacket(QByteArray packet)
-{
-    //Sends raw packet to be parsed from SSCOM Port 1
-//    emit hosted_signalParsePacket(packet);
-}
+//void SysExComposer::hosted_slotParsePacket(QByteArray packet)
+//{
+//    //Sends raw packet to be parsed from SoftStep Control Surface
+//    emit hosted_signalParsePacket(&packet);
+//}
 
-void SysExComposer::hosted_slotSendPacket(QString port, QByteArray packet)
-{
-    //Semds Packet to external dest
-    //qDebug() << "hosted_slotSendPacketCalled - data:" << packet.data[0] << packet.data[1] << packet.data[2] << "length, time : " << packet.length << packet.timeStamp << "\n";
+// EB - not integrated yet, explore how this works
+//void SysExComposer::hosted_slotSendPacket(QString port, QByteArray packet)
+//{
+//    //Semds Packet to external dest
+//    //qDebug() << "hosted_slotSendPacketCalled - data:" << packet.data[0] << packet.data[1] << packet.data[2] << "length, time : " << packet.length << packet.timeStamp << "\n";
 
-    //Packet Size max size
-    Byte packetListSize[256];
+//    //Packet Size max size
+//    Byte packetListSize[256];
 
     //Allocates bytes, sets size of total packetlist
 //    MIDIPacketList* packetList = (MIDIPacketList*)packetListSize;
@@ -783,28 +916,29 @@ void SysExComposer::hosted_slotSendPacket(QString port, QByteArray packet)
 
     //---------------------------- Send packet to virtual source
 
-    if(port == "SoftStep Share")
-    {
+//    if(port == "SoftStep Hosted Virtual Port")
+//    {
 //        MIDIReceived(appVirtualSourceRef, packetList);
-    }
-    else if(port.contains("SSCOM") && port.contains("1"))
-    {
-        //qDebug() << "send message to SSCOM1";
-//        MIDISend(appOutPortRef, sscomPort1DestRef, packetList);
-    }
-    else
-    {
-//        MIDISend(appOutPortRef, externalDests.value(port), packetList);
-    }
+//    }
+//    else if(port.contains("SoftStep Control Surface"))
+//    {
+//        //qDebug() << "send message to SSCOM1";
+////        MIDISend(appOutPortRef, sscomPort1DestRef, packetList);
+//    }
+//    else
+//    {
+////        MIDISend(appOutPortRef, externalDests.value(port), packetList);
+//    }
 
-}
+//}
 
-void SysExComposer::hosted_slotRepopulateMidiSourceDests()
-{
+// EB - this has been integrated into MainWindow::slotMIDIPortChange
+//void SysExComposer::hosted_slotRepopulateMidiSourceDests()
+//{
     //Called when midi system changes, automaticall called on hosted to standlaone/switch because of "SoftStep Share"
 
     //----------------------- Get non SSCOM sources
-    midiInputSources.clear();
+    //midiInputSources.clear();
 
     // EB TODO - this needs an entire re-write
 
@@ -814,7 +948,7 @@ void SysExComposer::hosted_slotRepopulateMidiSourceDests()
 //        midiInputSourcePointers = new MIDIEndpointRef[MIDIGetNumberOfSources()];
 
 //        //Expander
-//        if(getDisplayName(MIDIGetSource(i)).contains("SSCOM") && getDisplayName(MIDIGetSource(i)).contains("2"))
+//        if(getDisplayName(MIDIGetSource(i)).contains("SoftStep Expander"))
 //        {
 //            midiInputSources.insert("SoftStep Expander", MIDIGetSource(i));
 
@@ -822,7 +956,7 @@ void SysExComposer::hosted_slotRepopulateMidiSourceDests()
 //            //midiInputSourcePointers[i] = MIDIGetSource(i);
 //        }
 
-//        if(!getDisplayName(MIDIGetSource(i)).contains("SSCOM") && !getDisplayName(MIDIGetSource(i)).contains("SoftStep Share"))
+//        if(!getDisplayName(MIDIGetSource(i)).contains("SoftStep"))
 //        {
 //            //qDebug() << "Non-SoftStep Source: " << getDisplayName(MIDIGetSource(i));
 
@@ -847,9 +981,9 @@ void SysExComposer::hosted_slotRepopulateMidiSourceDests()
 //    {
 //        ///qDebug() << "Destinations: " << getDisplayName(MIDIGetSource(i));
 
-//        if(!getDisplayName(MIDIGetDestination(i)).contains("SSCOM Port 1") && !getDisplayName(MIDIGetDestination(i)).contains("SoftStep Share"))
+//        if(!getDisplayName(MIDIGetDestination(i)).contains("SoftStep Control Surface") && !getDisplayName(MIDIGetDestination(i)).contains("SoftStep Hosted Virtual Port"))
 //        {
-//            if(getDisplayName(MIDIGetDestination(i)).contains("SSCOM Port 2"))
+//            if(getDisplayName(MIDIGetDestination(i)).contains("SoftStep Expander"))
 //            {
 //                //We would like port 2 to be named SoftStep Expander
 //                externalDests.insert("SoftStep Expander", MIDIGetDestination(i));
@@ -867,24 +1001,26 @@ void SysExComposer::hosted_slotRepopulateMidiSourceDests()
 
 //    //Sneds destinations to device menus in modlines
 //    emit hosted_signalPopulateDeviceMenus(externalDests);
-}
+//}
 
-void SysExComposer::hosted_slotParseMidiInputPacket(QByteArray, QString deviceName)
-{
-    //Sends raw packet to be parsed from SSCOM Port 1
-    //emit hosted_signalParseMidiInputPacket(packet, deviceName);
-}
+// this may not be necessary anymore
+//void SysExComposer::hosted_slotParseMidiInputPacket(QByteArray, QString deviceName)
+//{
+//    //Sends raw packet to be parsed from SoftStep Control Surface
+//    //emit hosted_signalParseMidiInputPacket(packet, deviceName);
+//}
 
-void SysExComposer::hosted_slotConnectExternalMidiInputSources()
-{
+// EB not integrated yet, but may not be necessary
+//void SysExComposer::hosted_slotConnectExternalMidiInputSources()
+//{
     //er = midiInputSources.value(getDisplayName(MIDIGetSource(0)));
 
     // EB TODO - this needs an entire re-write
 //    for(unsigned int i=0; i<MIDIGetNumberOfSources(); i++)
 //    {
-//        if(getDisplayName(MIDIGetSource(i)).contains("SSCOM") && getDisplayName(MIDIGetSource(i)).contains("1"))
+//        if(getDisplayName(MIDIGetSource(i)).contains("SoftStep Control Surface"))
 //        {
-//            //Filter out SSCOM Port 1 and
+//            //Filter out SoftStep Control Surface and
 //        }
 //        else
 //        {
@@ -899,4 +1035,4 @@ void SysExComposer::hosted_slotConnectExternalMidiInputSources()
 //            MIDIPortConnectSource(midiInputPort, MIDIGetSource(i), (void*)&midiInputSourcePointers[i]);
 //        }
 //    }
-}
+//}

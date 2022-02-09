@@ -165,13 +165,13 @@ void ImportOldPresetHandler::slotNormalizePresetMap()
         //if copying from one mode to the other the device menu values for port 1 should change
         if(i.key().contains("_device"))
         {
-            if(importedNewPresetMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+            if(importedNewPresetMap.value(i.key()) == "SoftStep Control Surface" && mode == "hosted")
             {
                 importedNewPresetMap.insert(i.key(), "SoftStep Share");
             }
             else if(importedNewPresetMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
             {
-                importedNewPresetMap.insert(i.key(), "SSCOM Port 1");
+                importedNewPresetMap.insert(i.key(), "SoftStep Control Surface");
             }
         }
     }

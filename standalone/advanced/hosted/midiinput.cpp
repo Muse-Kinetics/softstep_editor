@@ -8,11 +8,13 @@ MidiInput::MidiInput(QWidget *parent) :
 {
 }
 
-void MidiInput::slotReceiveInput(const MIDIPacket *packet, QString deviceName)
+void MidiInput::slotReceiveInput(int status, int firstByte, int secondByte, int chan, QString deviceName)
 {
-    int status = packet->data[0];
-    int firstByte = packet->data[1];
-    int secondByte = packet->data[2];
+    Q_UNUSED(chan);
+
+//    int status = packet->data[0];
+//    int firstByte = packet->data[1];
+//    int secondByte = packet->data[2];
     //qDebug() << packet->data[0];
 
     //If modline is on...

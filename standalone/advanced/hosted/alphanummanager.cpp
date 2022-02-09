@@ -103,7 +103,7 @@ void AlphaNumManager::slotFormatAndOutputString(QString displayString)
         packetList.append(packet);
     }
 
-    emit signalSendDisplayVals("SSCOM Port 1", packetList);
+    emit signalSendDisplayVals("SoftStep Control Surface", packetList);
 }
 
 void AlphaNumManager::slotDisplayKeyName(int keyNum)
@@ -211,7 +211,7 @@ void AlphaNumManager::slotDrainFIFO()
     }
     else
     {
-        //emit signalSendDisplayVals("SSCOM Port 1", packetFIFOList.first());
+        //emit signalSendDisplayVals("SoftStep Control Surface", packetFIFOList.first());
         packetFIFOList.removeFirst();
     }
 }

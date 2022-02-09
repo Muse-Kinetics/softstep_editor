@@ -33,7 +33,7 @@ signals:
     void signalSendInputToModlines(int val, QString instnace);
     
 public slots:
-    void slotReceiveInput(const MIDIPacket *packet, QString deviceName);
+    void slotReceiveInput(int status, int firstByte, int secondByte, int chan, QString deviceName);
     
 };
 

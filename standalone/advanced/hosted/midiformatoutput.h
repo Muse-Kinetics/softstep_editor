@@ -29,11 +29,8 @@ public:
     
 signals:
 
-#ifdef Q_OS_MAC
-    void signalSendMidiPacketList(QString port, MIDIPacket packet);
-#else
-    void signalSendMidiPacketList(QString port, MIDIPacket packet);
-#endif
+    void signalSendMidiPacketList(QString port, uchar status, uchar d1, uchar d2, uchar channel);
+    void signalSendMidiPacketArray(QString port, QByteArray packet);
 
 public slots:
     void slotPreparePacket();

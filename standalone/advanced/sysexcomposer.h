@@ -29,6 +29,7 @@ public:
     unsigned char*  fwFile;
     int             fwFileSize;
     bool            isSoftStep2;
+    bool            connected;
 
     //QList<QVariantMap> setlist;
 
@@ -37,20 +38,19 @@ public:
     //Standalone pedal calibration
     QString calibrationPhase;
 
-    //---------------- Hosted Source Sending ---------------//
-    MidiFormatOutput midiFormatOutput;
-    QMap<QString, int> externalDests;
-    QMap<QString, int> midiInputSources;
-
 signals:
     //void    signalSendSysEx(QString messageID, unsigned char* message, int messageLength, QString destinationName);
     void    signalSendSysEx(unsigned char* message, int messageLength);
-    void    signalSendBuildNums(int,QString, int, QString, int hardware);
+    //void    signalSendBuildNums(int,QString, int, QString, int hardware);
     void    signalUpdateComplete();
 
     void    signalStartStandaloneCalibration();
 
+    // from mididevicemanager
+    void    hosted_signalParsePacket(QByteArray *packet);
+
 public slots:
+    void    slotComposeSettings(QVariantMap settingsMapGlobal, QList<int> pedalTable);
     void    slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settingsMapGlobal, QList<int> pedalTable);
     //void    slotGetConnectedVersion(QByteArray);
     //void    slotGetEmbeddedVersion();
@@ -70,13 +70,13 @@ public slots:
     void slotSceneChangeOnOff(bool onOff);
     void slotBackLightOnOff(bool onOff);
 
-    void hosted_slotParsePacket(QByteArray packet);
-    void hosted_slotSendPacket(QString port, QByteArray packet);
-    void hosted_slotRepopulateMidiSourceDests();
+    //void hosted_slotParsePacket(QByteArray packet);
+    //void hosted_slotSendPacket(QString port, QByteArray packet);
+    //void hosted_slotRepopulateMidiSourceDests();
 
     //-------------------------- MIDI Input from Settings
-    void hosted_slotParseMidiInputPacket(QByteArray packet, QString deviceName);
-    void hosted_slotConnectExternalMidiInputSources();
+    //void hosted_slotParseMidiInputPacket(QByteArray packet, QString deviceName);
+    //void hosted_slotConnectExternalMidiInputSources();
 
 };
 

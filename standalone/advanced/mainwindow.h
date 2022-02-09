@@ -103,7 +103,9 @@ public:
     // and one output for hosted mode. For other editors you would likely define one output port for to mirror the
     // incoming MIDI from the controller, as a workaround for Windows not sharing ports.
     // For KMI_Central we are using these for the input/output dropdowns as a simple MIDI route demo.
-    MidiDeviceManager* midiAuxOut;
+    MidiDeviceManager* midiAuxIn[8];
+
+    MidiDeviceManager* hostedOutput; // dynamically opens destination ports with every message
 
     // version strings for console and about window
     QString deviceBootloaderVersionString();
@@ -190,6 +192,11 @@ public:
     //Key Lockout
     QList<int> lockoutKeysPressed;
 
+    //---------------- Hosted Source Sending ---------------//
+    MidiFormatOutput midiFormatOutput;
+    QMap<QString, int> externalDests;
+    QMap<QString, int> midiInputSources;
+
     void closeEvent(QCloseEvent *);
     bool event( QEvent* ev );
 
@@ -207,6 +214,8 @@ signals:
 
     void signalSetPresetNameInKeys(QString);
 
+    void signalUpdateSensor(uchar cc, uchar val);
+
 public slots:
 
 
@@ -220,7 +229,21 @@ public slots:
     void slotUpdateMIDIaux();
     void slotCreateDialog(QString dialogText);
 
+    // ext midi sources
+    void slotParseMidiAuxIn_A(uchar status, uchar d1, uchar d2, uchar chan);
+    void slotParseMidiAuxIn_B(uchar status, uchar d1, uchar d2, uchar chan);
+    void slotParseMidiAuxIn_C(uchar status, uchar d1, uchar d2, uchar chan);
+    void slotParseMidiAuxIn_D(uchar status, uchar d1, uchar d2, uchar chan);
+    void slotParseMidiAuxIn_E(uchar status, uchar d1, uchar d2, uchar chan);
+    void slotParseMidiAuxIn_F(uchar status, uchar d1, uchar d2, uchar chan);
+    void slotParseMidiAuxIn_G(uchar status, uchar d1, uchar d2, uchar chan);
+    void slotParseMidiAuxIn_H(uchar status, uchar d1, uchar d2, uchar chan);
+
     // ------ end midi overhaul --------------------------------------------------------
+
+    // replace mididevicemanager functionality
+    void slotProcessInputToHostedMode(uchar chan, uchar cc, uchar val);
+
 
     void slotConnectInterfaces();
     void slotConnectElements();
@@ -249,7 +272,7 @@ public slots:
 
     void slotSetMode();
     void slotPopulateSourceDestLists();
-    void slotPopulateDeviceMenus(QMap<QString, MIDIEndpointRef> externalDevices);
+    void slotPopulateDeviceMenus(QMap<QString, int> externalDevices);
 
     void slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion, int hardware);
 
@@ -264,11 +287,14 @@ public slots:
 
     //-------------- Standalone Preset Updating / Sending
     void slotUpdatePresets();
+    void slotUpdateSettings();
     void slotDisconnectUpdate();
     void slotConnectUpdate();
 
     //-------------- from previous mididevicemanager
     void slotSetModeMIDI(QString m);
+    void hosted_slotSendPacket(QString portName, uchar status, uchar d1, uchar d2, uchar chan);
+    void hosted_slotSendPacketArray(QString, QByteArray);
 
 private:
     Ui::MainWindow *ui;

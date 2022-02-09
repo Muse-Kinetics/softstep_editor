@@ -40,6 +40,8 @@ NavKey::NavKey(QWidget *parent) :
 
     dataCooker.hide();
 
+    qDebug() << "------------ [NAVKEY SETUP] ---------------------------------------------------";
+
     //set up the nav pad box
     navBoxForm->setupUi(navBoxWidget);
     navBoxWidget->setFixedSize(NAVBOX_WIDTH,NAVBOX_HEIGHT);
