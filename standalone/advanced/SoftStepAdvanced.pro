@@ -211,8 +211,9 @@ ICON = resources/appicon.icns
 }
 
 RESOURCES += \
-    fonts.qrc \
-    resources.qrc
+    ../../shared/KMI_MDM/fwupdate/fw_stylesheets.qrc \
+    resources.qrc \
+    resources/fonts/fonts.qrc
 
 #--------------- contents/resources --------
 

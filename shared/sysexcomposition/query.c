@@ -89,6 +89,7 @@ void fw_header_close(unsigned char success) {
 		}
 	}
 }
+
 int fw_status_get(int *buildNum,int *error,char *version)
 {
 	if (sysex_rx_completion_type)
@@ -100,7 +101,8 @@ int fw_status_get(int *buildNum,int *error,char *version)
 	
 	return (sysex_rx_completion_type);
 }
-char *get_sysex_debug(void)
+
+unsigned char *get_sysex_debug(void)
 {
     //	char i,c;
 	
@@ -114,9 +116,11 @@ char *get_sysex_debug(void)
 	
 	return sysex_data.u.debug_msg;
 }
+
 void sysex_completion_flag_clear(void){
 	sysex_rx_completion_type = 0;
 }
+
 void send_debug_msg(t_softstep *x)
 {
     Q_UNUSED(x);

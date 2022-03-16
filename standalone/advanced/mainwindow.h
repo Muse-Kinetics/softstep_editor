@@ -155,10 +155,10 @@ public:
     //Dialogs
     QWidget     *saveAsDialogWidget;
     QWidget     *deleteDialogWidget;
-    QWidget     *fwoodDialogWidget;
-    QWidget     *fwProgressDialogWidget;
-    QWidget     *fwUpdateCompleteDialogWidget;
-    QWidget     *fwUpdateDialogWidget;
+//    QWidget     *fwoodDialogWidget;
+//    QWidget     *fwProgressDialogWidget;
+//    QWidget     *fwUpdateCompleteDialogWidget;
+//    QWidget     *fwUpdateDialogWidget;
     QWidget     *aboutFormWidget;
     QWidget     *importOldDialogWidget;
     QWidget     *importOldNotFoundDialogWidget;
@@ -186,8 +186,8 @@ public:
     Settings *settingsWindow;
     Setlist *setlist;
 
-    QString connectedVersionString;
-    int connectedVersionInt;
+//    QString connectedVersionString;
+//    int connectedVersionInt;
 
     //Key Lockout
     QList<int> lockoutKeysPressed;
@@ -274,7 +274,7 @@ public slots:
     void slotPopulateSourceDestLists();
     void slotPopulateDeviceMenus(QMap<QString, int> externalDevices);
 
-    void slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion, int hardware);
+    //void slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion, int hardware);
 
     void slotRecallPresetFromSetlist(QString presetName);
 

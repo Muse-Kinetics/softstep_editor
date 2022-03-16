@@ -180,11 +180,11 @@ MainWindow::MainWindow(QWidget *parent) :
     // ---- FONTS --------------------------
     qDebug() << "------------ [FONTS SETUP] ---------------------------------------------------";
 
-    QString droidFont = ":/resources/fonts/DroidSansMono.ttf";
-    QString futuraFont = ":/resources/fonts/futura-normal.ttf";
-    QString futuraBFont = ":/resources/fonts/Futura-Bold.ttf";
-    QString corbelFont = ":/resources/fonts/corbel.ttf";
-    QString corbelBFont = ":/resources/fonts/corbelb.ttf";
+    QString droidFont = ":/fonts/droid-sans/DroidSansMono.ttf";
+    QString futuraFont = ":/fonts/futura/futura-normal.ttf";
+    QString futuraBFont = ":/fonts/futura/Futura-Bold.ttf";
+    QString corbelFont = ":/fonts/corbel/corbel.ttf";
+    QString corbelBFont = ":/fonts/corbel/fonts/corbelb.ttf";
 
     if (QFontDatabase::addApplicationFont(droidFont) == -1) qDebug() << "Could not load font: " << droidFont;
     if (QFontDatabase::addApplicationFont(futuraFont) == -1) qDebug() << "Could not load font: " << futuraFont;
@@ -229,8 +229,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //construct Nav Window
     navKey = new NavKey(this);
 
-    connectedVersionString = "Not Connected";
-    connectedVersionInt = -1;
+//    connectedVersionString = "Not Connected";
+//    connectedVersionInt = -1;
 
     //------------------------------------- Dialogs
     //Some bizarre positioning happening here to center these.... don't get it at the moment.
@@ -246,24 +246,24 @@ MainWindow::MainWindow(QWidget *parent) :
     deleteDialogForm->setupUi(deleteDialogWidget);
 
     //Firmware Out of Date
-    fwoodDialogWidget->hide();
-    fwoodDialogWidget->setGeometry(this->width()/2 - fwoodDialogWidget->width(), this->height()/2 - fwoodDialogWidget->height(), fwoodDialogWidget->width(), fwoodDialogWidget->height());
-    fwoodDialogForm->setupUi(fwoodDialogWidget);
+//    fwoodDialogWidget->hide();
+//    fwoodDialogWidget->setGeometry(this->width()/2 - fwoodDialogWidget->width(), this->height()/2 - fwoodDialogWidget->height(), fwoodDialogWidget->width(), fwoodDialogWidget->height());
+//    fwoodDialogForm->setupUi(fwoodDialogWidget);
 
-    //Firmware Progress Bar
-    fwProgressDialogWidget->hide();
-    fwProgressDialog->setupUi(fwProgressDialogWidget);
-    fwProgressDialogWidget->move(this->width()/2 - fwProgressDialogWidget->width()/2, this->height()/2 - fwProgressDialogWidget->height()/2);
+//    //Firmware Progress Bar
+//    fwProgressDialogWidget->hide();
+//    fwProgressDialog->setupUi(fwProgressDialogWidget);
+//    fwProgressDialogWidget->move(this->width()/2 - fwProgressDialogWidget->width()/2, this->height()/2 - fwProgressDialogWidget->height()/2);
 
-    //Firmware Update Complete Dialog
-    fwUpdateCompleteDialogWidget->hide();
-    fwUpdateCompleteDialog->setupUi(fwUpdateCompleteDialogWidget);
-    fwUpdateCompleteDialogWidget->move(this->width()/2 - fwUpdateCompleteDialogWidget->width()/2, this->height()/2 - fwUpdateCompleteDialogWidget->height()/2);
+//    //Firmware Update Complete Dialog
+//    fwUpdateCompleteDialogWidget->hide();
+//    fwUpdateCompleteDialog->setupUi(fwUpdateCompleteDialogWidget);
+//    fwUpdateCompleteDialogWidget->move(this->width()/2 - fwUpdateCompleteDialogWidget->width()/2, this->height()/2 - fwUpdateCompleteDialogWidget->height()/2);
 
-    //Firmware Update Confirm Dialog
-    fwUpdateDialogWidget->hide();
-    fwUpdateDialog->setupUi(fwUpdateDialogWidget);
-    fwUpdateDialogWidget->move(this->width()/2 - fwUpdateDialogWidget->width()/2, this->height()/2 - fwUpdateDialogWidget->height()/2);
+//    //Firmware Update Confirm Dialog
+//    fwUpdateDialogWidget->hide();
+//    fwUpdateDialog->setupUi(fwUpdateDialogWidget);
+//    fwUpdateDialogWidget->move(this->width()/2 - fwUpdateDialogWidget->width()/2, this->height()/2 - fwUpdateDialogWidget->height()/2);
 
     //About Window
     aboutFormWidget->hide();
@@ -414,8 +414,8 @@ void MainWindow::closeEvent(QCloseEvent *)
 #ifdef Q_OS_MAC
 
 #else
-    SoftStep->slotCloseMidiIn();
-    SoftStep->slotCloseMidiOut();
+    SoftStep->slotCloseMidiIn(SIGNAL_NONE);
+    SoftStep->slotCloseMidiOut(SIGNAL_NONE);
 #endif
     qDebug() << "closing...";
     //presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
@@ -494,20 +494,10 @@ void MainWindow::slotConnectInterfaces()
 
     //qDebug() << "connected aux port";
 
-    //StyleSheets for primary pushbuttons
-    blueStyleFile = new QFile(":/resources/stylesheets/fwUpdateStyles_lightBlue.qss");
-    if (!blueStyleFile->open(QFile::ReadOnly)) qDebug() << "ERROR: could not open stylesheet: " << blueStyleFile->fileName();
-    blueStyleString = QLatin1String(blueStyleFile->readAll());
-
-    //StyleSheets for secondary pushbuttons
-    grayStyleFile = new QFile(":/resources/stylesheets/GrayButtonStyleSheet.qss");
-    if (!grayStyleFile->open(QFile::ReadOnly)) qDebug() << "ERROR: could not open stylesheet: " << grayStyleFile->fileName();
-    grayStyleString = QLatin1String(grayStyleFile->readAll());
-
     // fwupdate stylesheets
 #ifdef Q_OS_MAC
 
-    fwUpdateStylesFile = new QFile("://resources/stylesheets/fwUpdateStyles_lightBlue.qss");
+    fwUpdateStylesFile = new QFile(":/stylesheets/fwUpdateStyles_lightBlue.qss");
 #else
     fwUpdateStylesFile = new QFile(":stylesheets/resources/stylesheets/GeneralStylesWindows.qss");
 #endif
@@ -649,7 +639,7 @@ void MainWindow::slotConnectInterfaces()
 
 
     //nav pad
-    connect(this, SIGNAL(signalUpdateSensor(int,int)), &navKey->dataCooker, SLOT(slotUpdateVals(int,int)), Qt::DirectConnection);
+    connect(this, SIGNAL(signalUpdateSensor(uchar, uchar)), &navKey->dataCooker, SLOT(slotUpdateVals(uchar, uchar)), Qt::DirectConnection);
     for(int n = 0; n < 6; n++)
     {
         //output signals listed in navModline.h, slots in midiformat.h
@@ -1298,7 +1288,7 @@ void MainWindow::slotUpdateAboutWindow()
 
 void MainWindow::slotConnected(bool connection)
 {
-    qDebug() << "slot connected.";
+    qDebug() << "slot connected: " << connection;
     if(connection)
     {
         ui->connectedLabel->setText("SOFTSTEP CONNECTED");
@@ -1314,6 +1304,17 @@ void MainWindow::slotConnected(bool connection)
 
         updatefw->setEnabled(true);
         sysExComposer->connected = true;
+
+        // here we detect which version of SoftStep we are connected to
+        bool isSS2 = SoftStep->PID_MIDI = PID_SOFTSTEP1 ? false : true;
+        qDebug() << "SoftStep" << (1 + int(isSS2)) << " detected";
+
+        for(int i = 0; i < 10; i++)
+        {
+            key[i]->dataCooker.isSS2 = isSS2;
+        }
+
+        sysExComposer->slotHostedOnOff(mode == "hosted" ? true : false);
 
     }
     else // disconnect
@@ -1342,57 +1343,57 @@ void MainWindow::slotConnected(bool connection)
     slotUpdateAboutWindow();
 }
 
-void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion, int hardware)
-{
-    Q_UNUSED(embeddedVersion);
-    Q_UNUSED(embedded);
+//void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion, int hardware)
+//{
+//    Q_UNUSED(embeddedVersion);
+//    Q_UNUSED(embedded);
 
-    qDebug() << "slotReceiveVersions";
-    connectedVersionString = connectedVersion;
-    connectedVersionInt = connected;
+//    qDebug() << "slotReceiveVersions";
+////    connectedVersionString = connectedVersion;
+////    connectedVersionInt = connected;
 
-    //aboutForm->found->setText(QString("%1").arg(connected));
+//    //aboutForm->found->setText(QString("%1").arg(connected));
 
-    // EB TODO - SSCOM sent a flag for SS1 vs SS2. Need to encode this into the MIDI PID and then update like below
-    for(int i = 0; i < 10; i++)
-    {
-        key[i]->dataCooker.isSS2 = (bool)hardware;
-    }
-
-    //First reiterate tether / standalone messages
-
-    slotConnected(true);
-    // EB TODO - this should go in the softstep connected code
-    if(mode == "hosted")
-    {
-        //qDebug() << "message sent";
-        // EB TODO - move this to sysexcomposer
-        sysExComposer->slotHostedOnOff(true);
-    }
-    else
-    {
-        // EB TODO - move this to sysexcomposer
-        sysExComposer->slotHostedOnOff(false);
-    }
-
-
-//    if(connected != embedded)
+//    // EB TODO - SSCOM sent a flag for SS1 vs SS2. Need to encode this into the MIDI PID and then update like below
+//    for(int i = 0; i < 10; i++)
 //    {
-
-//        qDebug() << "slotReceiveVersions unequal versions";
-//        QApplication::processEvents();
-
-//        fwoodDialogForm->expected->setText(QString("%1").arg(embedded));
-//        fwoodDialogForm->found->setText(QString("%1").arg(connected));
-//        disableWidget->raise();
-//        disableWidget->show();
-//        //slotEnableDisableMenu();
-//        fwoodDialogWidget->raise();
-//        fwoodDialogWidget->show();
-//        qDebug() << "_____ Your firmware version is out of date _____";
-//        QApplication::processEvents();
+//        key[i]->dataCooker.isSS2 = (bool)hardware;
 //    }
-}
+
+//    //First reiterate tether / standalone messages
+
+//    slotConnected(true);
+//    // EB TODO - this should go in the softstep connected code
+//    if(mode == "hosted")
+//    {
+//        //qDebug() << "message sent";
+//        // EB TODO - move this to sysexcomposer
+//        sysExComposer->slotHostedOnOff(true);
+//    }
+//    else
+//    {
+//        // EB TODO - move this to sysexcomposer
+//        sysExComposer->slotHostedOnOff(false);
+//    }
+
+
+////    if(connected != embedded)
+////    {
+
+////        qDebug() << "slotReceiveVersions unequal versions";
+////        QApplication::processEvents();
+
+////        fwoodDialogForm->expected->setText(QString("%1").arg(embedded));
+////        fwoodDialogForm->found->setText(QString("%1").arg(connected));
+////        disableWidget->raise();
+////        disableWidget->show();
+////        //slotEnableDisableMenu();
+////        fwoodDialogWidget->raise();
+////        fwoodDialogWidget->show();
+////        qDebug() << "_____ Your firmware version is out of date _____";
+////        QApplication::processEvents();
+////    }
+//}
 
 void MainWindow::slotSaveAs()
 {
@@ -1682,9 +1683,9 @@ void MainWindow::slotSetMode()
 
 void MainWindow::slotPopulateDeviceMenus(QMap<QString, int> externalDevices)
 {
-    qDebug() << "-------------------------------- populate device menus";
-    qDebug() << externalDevices;
-    qDebug() << "------------------------------------------------------";
+//    qDebug() << "-------------------------------- populate device menus";
+//    qDebug() << externalDevices;
+//    qDebug() << "------------------------------------------------------";
 
     QMap<QString, int> standalone;
 
@@ -2081,7 +2082,7 @@ void MainWindow::slotSetModeMIDI(QString m)
 {
     //EB TODO - repopulation of device menus should happen here
 
-    //qDebug() << "slot set mode";
+    qDebug() << "slot set mode: " << m;
 
     if(m == "hosted")
     {
@@ -2182,8 +2183,8 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         if (portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT)
         {
             // close ports and stop polling
-            SoftStep->slotCloseMidiIn();
-            SoftStep->slotCloseMidiOut();
+            SoftStep->slotCloseMidiIn(SIGNAL_SEND);
+            SoftStep->slotCloseMidiOut(SIGNAL_SEND);
             SoftStep->slotStopPolling("PORT_DISCONNECT");
             if (inOrOut == PORT_IN) fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Disconnected\n");
         }
@@ -2240,7 +2241,14 @@ void MainWindow::slotRefreshConnection()
 {
     qDebug() << "slotRefreshConnection called";
 #ifndef Q_OS_WIN
-    SoftStep->slotResetConnections(SS_IN_P1, SS_BL_PORT);
+    if (!SoftStep->bootloaderMode) // app->bootLoader
+    {
+        SoftStep->slotResetConnections(SS_OLD_IN_P1, SS_BL_PORT);
+    }
+    else
+    {
+        SoftStep->slotResetConnections(SS_OUT_P1, SS_BL_PORT);
+    }
 #endif
 }
 
@@ -2389,7 +2397,11 @@ void MainWindow::slotProcessInputToHostedMode(uchar chan, uchar cc, uchar val)
 
 void MainWindow::hosted_slotSendPacket(QString portName, uchar status, uchar d1, uchar d2, uchar chan)
 {
-
+    Q_UNUSED(portName);
+    Q_UNUSED(status);
+    Q_UNUSED(d1);
+    Q_UNUSED(d2);
+    Q_UNUSED(chan);
 }
 
 void MainWindow::hosted_slotSendPacketArray(QString, QByteArray)

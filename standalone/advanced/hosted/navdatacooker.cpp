@@ -86,7 +86,7 @@ void NavDataCooker::slotSetSource(QString source, int modlineInstance)
     }
 }
 
-void NavDataCooker::slotUpdateVals(int cc, int val)
+void NavDataCooker::slotUpdateVals(uchar cc, uchar val)
 {
     val *= globalGain;
 

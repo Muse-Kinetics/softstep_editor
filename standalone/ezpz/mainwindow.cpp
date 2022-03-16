@@ -340,8 +340,8 @@ void MainWindow::closeEvent(QCloseEvent *)
 #ifdef Q_OS_MAC
 
 #else
-    SoftStep->slotCloseMidiIn();
-    SoftStep->slotCloseMidiOut();
+    SoftStep->slotCloseMidiIn(SIGNAL_NONE);
+    SoftStep->slotCloseMidiOut(SIGNAL_NONE);
 #endif
     qDebug() << "closing...";
     //presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
@@ -1050,8 +1050,8 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         if (portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT)
         {
             // close ports and stop polling
-            SoftStep->slotCloseMidiIn();
-            SoftStep->slotCloseMidiOut();
+            SoftStep->slotCloseMidiIn(SIGNAL_SEND);
+            SoftStep->slotCloseMidiOut(SIGNAL_SEND);
             SoftStep->slotStopPolling("PORT_DISCONNECT");
             if (inOrOut == PORT_IN) fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Disconnected\n");
         }
@@ -1082,7 +1082,14 @@ void MainWindow::slotRefreshConnection()
 {
     qDebug() << "slotRefreshConnection called";
 #ifndef Q_OS_WIN
-    SoftStep->slotResetConnections(SS_IN_P1, SS_BL_PORT);
+    if (!SoftStep->bootloaderMode) // app->bootLoader
+    {
+        SoftStep->slotResetConnections(SS_OLD_IN_P1, SS_BL_PORT);
+    }
+    else
+    {
+        SoftStep->slotResetConnections(SS_OUT_P1, SS_BL_PORT);
+    }
 #endif
 }
 

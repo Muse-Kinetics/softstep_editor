@@ -90,7 +90,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         download_file_open(x,"scenes");
 #endif
 
-        post("download\n");
+        //post("download\n");
 
         download_start(x);
         return;

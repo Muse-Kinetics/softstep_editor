@@ -57,7 +57,7 @@ struct SYSEX_DATA {
 	union {
 		struct FW_HEADER fw_header;
         struct MISC_INFO misc_info;
-		char debug_msg[200];
+        unsigned char debug_msg[200];
 	} u;
 };
 

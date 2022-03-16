@@ -118,7 +118,7 @@ signals:
     void signalDisplayProgramChangeDecade(int);
     
 public slots:
-    void slotUpdateVals(int cc, int val);
+    void slotUpdateVals(uchar cc, uchar val);
 
     void slotSetSource(QString source, int modlineInstance);
 
