@@ -251,11 +251,6 @@ OTHER_FILES += \
     resources/keybox_boxselected.qss \
     CalibrationTable.qml \
     resources/devicestyle.qss \
-    resources/DroidSansMono.ttf \
-    resources/Futura-Bold.ttf \
-    resources/futura-normal.ttf \
-    resources/corbelb.ttf \
-    resources/corbel.ttf
 
 
 #-------------------MIDI--------------------#

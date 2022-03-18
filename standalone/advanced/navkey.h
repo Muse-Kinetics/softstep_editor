@@ -42,6 +42,8 @@ public:
     int numModlines;
     QString mode;
 
+    bool showDisplaySettings;
+
     //--------------------------------------- Hosted
     NavDataCooker dataCooker;
     AlphaNumManager alphaNumManager;
@@ -77,7 +79,7 @@ public slots:
     void slotCounter(QString whatToDo, int val);
 
     //window resizing functions for the add/subtract buttons and the display settings button
-    void slotShowDisplaySettings(bool);
+    void slotShowDisplaySettings();
     void slotRecallShowModlines(QVariantMap, QVariantMap);
     void slotAddSubtractModlines();
     void slotWindowHeight(int);

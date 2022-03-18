@@ -247,8 +247,8 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 9pt &quot;Futura&quot;;
-	padding: 0,1,0,0;
+	font: 12pt &quot;Futura PT&quot;;
+	padding: 0,0,0,0;
 }
 
 QToolButton:pressed
@@ -256,8 +256,8 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 9pt &quot;Futura&quot;;
-	padding: 0, 1, 0, 0;
+	font: 12pt &quot;Futura PT&quot;;
+	padding: 0, 0, 0, 0;
 }</string>
       </property>
       <property name="text">
@@ -273,8 +273,34 @@ QToolButton:pressed
         <height>20</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="toolTip">
        <string>Save the current settings&lt;br&gt; to a new preset slot.</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 12pt &quot;Futura PT&quot;;
+	padding: 0,0,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: 2px solid rgb(230, 0, 134);
+	font: 12pt &quot;Futura PT&quot;;
+	padding: 0, 0, 0, 0;
+}</string>
       </property>
       <property name="text">
        <string>SAVE AS</string>
@@ -292,6 +318,26 @@ QToolButton:pressed
       <property name="toolTip">
        <string>Revert any unsaved &lt;br&gt;changes in the current &lt;br&gt;preset to its previously &lt;br&gt;saved state.</string>
       </property>
+      <property name="styleSheet">
+       <string notr="true">/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 12pt &quot;Futura PT&quot;;
+	padding: 0,0,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: 2px solid rgb(230, 0, 134);
+	font: 12pt &quot;Futura PT&quot;;
+	padding: 0, 0, 0, 0;
+}</string>
+      </property>
       <property name="text">
        <string>REVERT</string>
       </property>
@@ -307,6 +353,26 @@ QToolButton:pressed
       </property>
       <property name="toolTip">
        <string>Delete the currently selected preset.</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgb(230,0,134);
+	font: 12pt &quot;Futura PT&quot;;
+	padding: 0,0,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: 2px solid rgb(230, 0, 134);
+	font: 12pt &quot;Futura PT&quot;;
+	padding: 0, 0, 0, 0;
+}</string>
       </property>
       <property name="text">
        <string>DELETE</string>
@@ -331,7 +397,7 @@ QToolButton:pressed
        <string notr="true">/*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 12pt &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(40, 40, 40);
 	color: white;
@@ -342,7 +408,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 10px &quot;Futura&quot;;
+	font: 12px &quot;Futura-Normal&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -444,27 +510,6 @@ QComboBox::drop-down
        </property>
       </item>
      </widget>
-     <widget class="QLabel" name="presetlabel">
-      <property name="geometry">
-       <rect>
-        <x>-4</x>
-        <y>9</y>
-        <width>14</width>
-        <height>93</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/mainWindow_preset_label.png);
-}</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
     </widget>
     <widget class="QToolButton" name="update">
      <property name="geometry">
@@ -484,15 +529,16 @@ QToolButton
 {
 	background: rgb(40, 40, 40);
 	border: 2px solid rgba(0,174,239,255);
-	font: 16pt &quot;Futura&quot;;
+	font: 20pt &quot;Futura-Normal&quot;;
 	color: white;
+	padding: 0,-1,0,0;
 }
 
 QToolButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: none;
-	font: 16pt &quot;Futura&quot;;
+	font: 20pt &quot;Futura-Normal&quot;;
 	color: white;
 }
 
@@ -500,17 +546,40 @@ QToolButton::disabled
 {
 	background: rgba(60, 60, 60, 75);
 	border: 2px solid rgba(0, 56, 77, 255);
-	font: 16pt &quot;Futura&quot;;
+	font: 20pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 35);
 }
 
 QToolTip
 {
 	font: 10pt &quot;Futura&quot;;
-}s</string>
+}</string>
      </property>
      <property name="text">
       <string>Send To SoftStep</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>8</y>
+       <width>10</width>
+       <height>100</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">	font: 13pt &quot;Futura-Normal&quot;;
+	color: white;</string>
+     </property>
+     <property name="text">
+      <string>P R E S E T S</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>
@@ -556,6 +625,8 @@ QToolTip
 {
 	border: 3px solid rgb(200,0,104);
 	padding-bottom: 2px;
+    font: 22pt &quot;Futura PT&quot;;
+	padding: 0,-1,0,0;
 }
 
 QLineEdit:focus
@@ -645,91 +716,6 @@ QLineEdit:focus
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QCheckBox" name="mode">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>7</x>
-       <y>7</y>
-       <width>215</width>
-       <height>53</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string>Switch between Hosted and Standalone mode.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"> /* ---------- QCheckBox ------------*/
-QCheckBox
-{
-	background: none;
-    color: transparent;
-    font: 12pt &quot;Futura&quot;;
-}
-
-QCheckBox::indicator
-{
-    width: 215px;
-    height: 53px;
-	padding: 0px;
-}
-
-QCheckBox::indicator:unchecked
-{
-    image: url(:/resources/mainWindow_editormode_unchecked.png);
-}
-
-QCheckBox::indicator:unchecked:hover
-{
-    image: url(:/resources/mainWindow_editormode_unchecked.png);
-}
-
-QCheckBox::indicator:unchecked:pressed
-{
-    image: url(:/resources/mainWindow_editormode_uncheckedPressed.png);
-}
-
-QCheckBox::indicator:checked
-{
-    image: url(:/resources/mainWindow_editormode_checked.png);
-}
-
-QCheckBox::indicator:checked:pressed
-{
-    image: url(:/resources/mainWindow_editormode_checkedPressed.png);
-}
-
-QCheckBox::indicator:unchecked:focus
-{
-    image: url(:/resources/mainWindow_editormode_unchecked.png);
-}
-
-QCheckBox::indicator:unchecked:pressed:focus
-{
-    image: url(:/resources/mainWindow_editormode_uncheckedPressed.png);
-}
-
-QCheckBox::indicator:checked:focus
-{
-    image: url(:/resources/mainWindow_editormode_checked.png);
-}
-
-QCheckBox::indicator:checked:pressed:focus
-{
-    image: url(:/resources/mainWindow_editormode_checkedPressed.png);
-}
-
-</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="checked">
-      <bool>true</bool>
-     </property>
-    </widget>
     <widget class="QPushButton" name="opensetlist">
      <property name="geometry">
       <rect>
@@ -759,8 +745,8 @@ QCheckBox::indicator:checked:pressed:focus
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>16</pointsize>
+       <family>Futura-Normal</family>
+       <pointsize>20</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -775,15 +761,16 @@ QPushButton
 {
 	background: rgb(40, 40, 40);
 	border: 2px solid rgba(0,174,239,255);
-	font: 16pt &quot;Futura&quot;;
+	font: 20pt &quot;Futura-Normal&quot;;
 	color: white;
+	padding: 0,-1,0,0;
 }
 
 QPushButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: none;
-	font: 16pt &quot;Futura&quot;;
+	font: 20pt &quot;Futura-Normal&quot;;
 	color: white;
 }</string>
      </property>
@@ -820,8 +807,8 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>16</pointsize>
+       <family>Futura-Normal</family>
+       <pointsize>20</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -836,20 +823,83 @@ QPushButton
 {
 	background: rgb(40, 40, 40);
 	border: 2px solid rgba(0,174,239,255);
-	font: 16pt &quot;Futura&quot;;
+	font: 20pt &quot;Futura-Normal&quot;;
 	color: white;
+	padding: 0,-1,0,0;
 }
 
 QPushButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: none;
-	font: 16pt &quot;Futura&quot;;
+	font: 20pt &quot;Futura-Normal&quot;;
 	color: white;
 }</string>
      </property>
      <property name="text">
       <string>Settings</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="mode">
+     <property name="geometry">
+      <rect>
+       <x>7</x>
+       <y>7</y>
+       <width>215</width>
+       <height>55</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>96</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>215</width>
+       <height>55</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura PT</family>
+       <pointsize>30</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Open the setlist window.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*---------- QPushButton ---------*/
+QPushButton
+{
+	background: rgb(40, 40, 40);
+	border: 2px solid rgba(230,0,134,255);
+	font: 30pt &quot;Futura PT&quot;;
+	color: white;
+	padding: 0,-1,0,0;
+}
+
+QPushButton:pressed
+{
+	background: rgba(255,0,255,255);
+	border: none;
+	font: 20pt &quot;Futura-Normal&quot;;
+	color: white;
+}</string>
+     </property>
+     <property name="text">
+      <string>Standalone</string>
      </property>
     </widget>
    </widget>
@@ -866,7 +916,7 @@ QPushButton:pressed
      <enum>Qt::StrongFocus</enum>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -883,7 +933,7 @@ QPushButton:pressed
 {
 	background:		none;
 	color: 				white;
-	font:  49pt &quot;Futura&quot;;
+	font:  57 49pt &quot;Futura-Normal&quot;;
 	border:				none;
 
 

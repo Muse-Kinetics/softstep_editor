@@ -143,13 +143,13 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Modline",A_LONG,0l,-1) )
     {
-        //post("Modline matched");
+        post("Modline matched");
         x->mod_num_current = (int) argv[2].a_w.w_long - 1;
 
 
         x->current_modline = &x->current_image->modlines[x->key_num][x->mod_num_current];
 
-        //post("--- %s key[%d] modline[%d]",x->current_list->strings.data + LE_short(x->current_image->nm.name_index),x->key_num,x->mod_num_current);
+        post("--- %s key[%d] modline[%d]",x->current_list->strings.data + LE_short(x->current_image->nm.name_index),x->key_num,x->mod_num_current);
         return;
     }
 
@@ -547,7 +547,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
             par_match(argc,argv,A_SYM,"set",A_SYM,"Bend_Device",A_SYM,0,-1)	)
     {
         x->current_modline->port = get_index(destination_list,NULL,argv + 2);   
-        //post("Device [%s]",argv[2].a_w.w_sym->s_name);
+        post("Device [%s]",argv[2].a_w.w_sym->s_name);
         return;
     }
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Destination",A_SYM,0,-1))
@@ -572,24 +572,24 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     //	else
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Gain",A_FLOAT,0.0,-1))
     {
-        float oval,fval;
+        float fval = 0;
 
-        oval = fval = argv[2].a_w.w_float;
+        float oval = fval = argv[2].a_w.w_float;
 
         float_fix(&x->current_modline->gain,fval);
 
-                //post("set fixed point %f: %x:%x",oval,x->current_modline->gain.u.upper,x->current_modline->gain.u.lower);
+                post("set fixed point %f: %x:%x",oval,x->current_modline->gain.u.upper,x->current_modline->gain.u.lower);
 
                 //set_fixed_point(&x->current_image->gain,argv + 2);
-        //post("gain [%f]\n", argv[2].a_w.w_float);
+        post("gain [%f]\n", argv[2].a_w.w_float);
         return;
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Offset",A_FLOAT,0.0,-1))
     {
-        float oval,fval;
+        float fval = 0;
 
-        oval = fval = argv[2].a_w.w_float;
+        //float oval = fval = argv[2].a_w.w_float;
 
         float_fix(&x->current_modline->offset,fval);
 
@@ -921,7 +921,7 @@ int get_index(char *list[],char *listXlate[],t_atom *argv)
 
     STRNCPY(source,argv->a_w.w_sym->s_name,sizeof(source))
 
-            if (listXlate)
+    if (listXlate)
     {
         for(i=0;;i+=2)
         {

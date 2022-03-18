@@ -40,6 +40,8 @@ NavKey::NavKey(QWidget *parent) :
 
     dataCooker.hide();
 
+    showDisplaySettings = FALSE;
+
     qDebug() << "------------ [NAVKEY SETUP] ---------------------------------------------------";
 
     //set up the nav pad box
@@ -70,7 +72,7 @@ NavKey::NavKey(QWidget *parent) :
         navModline[i]->slotConnectElements(); //connect modlines
         displayLinkedButtonGroup.addButton(navModline[i]->displayLinkButton, i);
     }
-    connect(navKeyWindowForm->showLEDSettings, SIGNAL(toggled(bool)), this, SLOT(slotShowDisplaySettings(bool)));
+    connect(navKeyWindowForm->showLEDSettings, SIGNAL(clicked()), this, SLOT(slotShowDisplaySettings()));
     connect(navKeyWindowForm->addmodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
     connect(navKeyWindowForm->deletemodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
 
@@ -341,10 +343,11 @@ void NavKey::slotRecallPreset(QVariantMap preset, QVariantMap)
 
 }
 
-void NavKey::slotShowDisplaySettings(bool show)
+void NavKey::slotShowDisplaySettings()
 {
-    if(show == TRUE)
+    if(showDisplaySettings == FALSE)
     {
+        showDisplaySettings = TRUE;
         //show large window
         navKeyWindowWidget->setFixedWidth(NAVWINDOW_LG_WIDTH);
         //show large line separator
@@ -352,6 +355,7 @@ void NavKey::slotShowDisplaySettings(bool show)
     }
     else
     {
+        showDisplaySettings = FALSE;
         //show small window
         navKeyWindowWidget->setFixedWidth(NAVWINDOW_SM_WIDTH);
         //show small line separator

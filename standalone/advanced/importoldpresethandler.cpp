@@ -18,11 +18,21 @@ void ImportOldPresetHandler::slotImportOldPreset()
 
     QString filename = NULL;
     QString filepath = NULL;
-    filepath = QFileDialog::getExistingDirectory(presetInterface, tr("Navigate to your SoftStep Editor Version 1.21 'Presets' Folder"), QString("./"));
+
+    QSettings settings;
+
+    const QString DEFAULT_DIR_KEY("default_dir");
+
+    filepath = QFileDialog::getExistingDirectory(presetInterface, tr("Navigate to your SoftStep Editor Version 1.21 'Presets' Folder"), settings.value(DEFAULT_DIR_KEY).toString());
 
     //If file is selected
-    if(!filepath.isNull())
+    if(!filepath.isNull() && !filepath.isEmpty())
     {
+        // store this file location for the next time we open/save a file
+        // store this folder location for the next time we open a file
+        QDir CurrentDir;
+        settings.setValue(DEFAULT_DIR_KEY, CurrentDir.absoluteFilePath(filepath));
+
         if(mode == "hosted")
         {
             filename = filepath.append("/hosted/SoftStep.json");

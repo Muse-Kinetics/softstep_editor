@@ -45,6 +45,8 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
 
     dataCooker.hide();
 
+    showDisplaySettings = FALSE;
+
     //Set up the Key Box
     //keyBoxWidget = new QWidget(this);
     keyBoxForm->setupUi(keyBoxWidget);
@@ -98,7 +100,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
         displayLinkedButtonGroup.addButton(modline[i]->displayLinkButton, i);
     }
 
-    connect(keyWindowForm->ledDisplayCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotShowDisplaySettings(bool)));
+    connect(keyWindowForm->ledDisplayCheckBox, SIGNAL(clicked()), this, SLOT(slotShowDisplaySettings()));
     connect(keyWindowForm->addmodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
     connect(keyWindowForm->deletemodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
 
@@ -381,10 +383,11 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
     }
 }
 
-void Key::slotShowDisplaySettings(bool show)
+void Key::slotShowDisplaySettings()
 {
-    if(show == TRUE)
+    if(showDisplaySettings == FALSE)
     {
+        showDisplaySettings = TRUE;
         //show large window
         keyWindowWidget->setFixedWidth(KEYWINDOW_LG_WIDTH);
         keyWindowForm->frame->setFixedWidth(KEYWINDOW_LG_WIDTH);
@@ -393,6 +396,7 @@ void Key::slotShowDisplaySettings(bool show)
     }
     else
     {
+        showDisplaySettings = FALSE;
         //show small window
         keyWindowWidget->setFixedWidth(KEYWINDOW_SM_WIDTH);
         keyWindowForm->frame->setFixedWidth(KEYWINDOW_SM_WIDTH);
@@ -540,6 +544,7 @@ void Key::slotSetMode(QString m)
 
 void Key::slotPopulateMenus(QStringList displayModes)
 {
+    //qDebug() << "slotPopulateMenus - displayModes: " << displayModes;
     //Set Display Mode Menus
     keyWindowForm->leddisplaymode->clear();
     keyWindowForm->leddisplaymode->addItems(displayModes);

@@ -8,6 +8,7 @@
 #include <QVariant>
 #include <QFile>
 #include <QCoreApplication>
+#include <QElapsedTimer>
 
 #include "hosted/midiformatoutput.h"
 
@@ -30,6 +31,7 @@ public:
     int             fwFileSize;
     bool            isSoftStep2;
     bool            connected;
+    QElapsedTimer   *composeSettingsTimeout;
 
     //QList<QVariantMap> setlist;
 

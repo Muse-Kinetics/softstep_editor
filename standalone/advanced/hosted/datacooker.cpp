@@ -184,7 +184,7 @@ void DataCooker::slotSetSource(QString source, int modlineInstance)
 
 void DataCooker::slotUpdateVals(uchar cc, uchar val)
 {
-    qDebug() << "slotUpdateVals called - cc:" << cc << " val:" << val;
+    //qDebug() << "slotUpdateVals called - cc:" << cc << " val:" << val;
 
     val *= globalGain;
 
@@ -326,13 +326,13 @@ void DataCooker::slotUpdateVals(uchar cc, uchar val)
 
 
 
-        qDebug() << "Key" << keyNum << "Sensor Vals" << sensorVals[NW] << sensorVals[NE] << sensorVals[SW] << sensorVals[SE];
+        //qDebug() << "Key" << keyNum << "Sensor Vals" << sensorVals[NW] << sensorVals[NE] << sensorVals[SW] << sensorVals[SE];
 
         //Always cook raw, even if key action is now allowed
 
         if(activateKey == true)
         {
-            qDebug() << "cook this key" << keyNum;
+            //qDebug() << "cook this key" << keyNum;
             cookRaw();
             cookSources();
         }
@@ -463,7 +463,7 @@ void DataCooker::cookRaw()
     {
         //Flip on
         footOnOff = true;
-        //qDebug() << "emit key presed";
+        qDebug() << "emit key presed: " << keyNum;
         emit signalThisKeyPressed(keyNum);
     }
 
@@ -472,6 +472,7 @@ void DataCooker::cookRaw()
     {
         //Flip off
         footOnOff = false;
+        qDebug() << "signalThisKeyOff: " << keyNum;
         emit signalThisKeyOff(keyNum);
     }
 }
@@ -1380,6 +1381,7 @@ void DataCooker::slotLongTriggerLatchOff()
 //-------------------------------------------------------------------- Key Specific Sources
 void DataCooker::slotReceiveKeyPressed(int keyPressed)
 {
+    qDebug() << "DataCooker::slotReceiveKeyPressed: " << keyPressed;
     keyPressed = (keyPressed + 1)%10;
 
     previousKeyPressed[1] = previousKeyPressed[0];

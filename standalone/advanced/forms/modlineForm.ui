@@ -1813,7 +1813,7 @@ QComboBox::down-arrow
 </string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>5</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -2049,7 +2049,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SSCOM Port 1</string>
+       <string>SoftStep USB MIDI</string>
       </property>
      </item>
     </widget>
@@ -2220,7 +2220,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SSCOM Port 1</string>
+       <string>SoftStep USB MIDI</string>
       </property>
      </item>
     </widget>
@@ -2587,7 +2587,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SSCOM Port 1</string>
+       <string>SoftStep USB MIDI</string>
       </property>
      </item>
     </widget>
@@ -2758,7 +2758,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SSCOM Port 1</string>
+       <string>SoftStep USB MIDI</string>
       </property>
      </item>
     </widget>
@@ -3003,7 +3003,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SSCOM Port 1</string>
+       <string>SoftStep USB MIDI</string>
       </property>
      </item>
     </widget>
@@ -3255,7 +3255,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SSCOM Port 1</string>
+       <string>SoftStep USB MIDI</string>
       </property>
      </item>
     </widget>
@@ -3426,7 +3426,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SSCOM Port 1</string>
+       <string>SoftStep USB MIDI</string>
       </property>
      </item>
     </widget>
@@ -3720,7 +3720,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SSCOM Port 1</string>
+       <string>SoftStep USB MIDI</string>
       </property>
      </item>
     </widget>
@@ -4002,7 +4002,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SSCOM Port 1</string>
+       <string>SoftStep USB MIDI</string>
       </property>
      </item>
     </widget>
@@ -4035,7 +4035,7 @@ QLabel
 }</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">

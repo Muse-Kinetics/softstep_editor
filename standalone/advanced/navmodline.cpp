@@ -470,14 +470,30 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
     navModlineForm->aftertouchchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
     navModlineForm->polychannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
 
-    navModlineForm->notedevice->setCurrentIndex(navModlineForm->notedevice->findText(preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString()));
-    navModlineForm->notelivedevice->setCurrentIndex(navModlineForm->notedevice->findText(preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString()));
-    navModlineForm->controldevice->setCurrentIndex(navModlineForm->notedevice->findText(preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString()));
-    navModlineForm->bankdevice->setCurrentIndex(navModlineForm->notedevice->findText(preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString()));
-    navModlineForm->programdevice->setCurrentIndex(navModlineForm->notedevice->findText(preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString()));
-    navModlineForm->benddevice->setCurrentIndex(navModlineForm->notedevice->findText(preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString()));
-    navModlineForm->aftertouchdevice->setCurrentIndex(navModlineForm->notedevice->findText(preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString()));
-    navModlineForm->polydevice->setCurrentIndex(navModlineForm->notedevice->findText(preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString()));
+
+    QString presetDevice = preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString();
+
+    // fix old port names
+    if (presetDevice.contains("SSCOM"))
+    {
+        if (mode == "standalone")
+        {
+            presetDevice = "SoftStep USB MIDI";
+        }
+        else if (mode == "hosted")
+        {
+            presetDevice = "SoftStep Share";
+        }
+    }
+
+    navModlineForm->notedevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+    navModlineForm->notelivedevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+    navModlineForm->controldevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+    navModlineForm->bankdevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+    navModlineForm->programdevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+    navModlineForm->benddevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+    navModlineForm->aftertouchdevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+    navModlineForm->polydevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
 
     navModlineForm->mmcdeviceid->setValue(preset.value(QString("nav_modline%1_mmcid").arg(navInstance+1)).toInt());
     navModlineForm->mmcfunction->setCurrentIndex(navModlineForm->mmcfunction->findText(preset.value(QString("nav_modline%1_mmcfunction").arg(navInstance+1)).toString()));

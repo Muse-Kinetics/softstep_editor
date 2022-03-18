@@ -7,6 +7,7 @@
 #include "QApplication"
 #include "sysexmessages.h"
 
+
 extern "C"
 {
 #include <stdio.h>
@@ -27,6 +28,9 @@ SysExComposer::SysExComposer(QWidget *parent) :
     isSoftStep2 = false;
     //connectedBuildNum = -1;
     connected = false;
+
+    composeSettingsTimeout = new QElapsedTimer();
+    composeSettingsTimeout->start();
 }
 
 //void SysExComposer::slotGetEmbeddedVersion()
@@ -91,6 +95,16 @@ SysExComposer::SysExComposer(QWidget *parent) :
 void SysExComposer::slotComposeSettings(QVariantMap settingsMapGlobal, QList<int> pedalTable)
 {
     //qDebug() << "slotComposeSettings called";
+
+    if (composeSettingsTimeout->elapsed() < 500) // limit update to twice a second
+    {
+        return;
+    }
+    else
+    {
+        composeSettingsTimeout->restart(); // otherwise restart timer
+    }
+
 
     QVariantMap settingsMap = settingsMapGlobal.value("Global").toMap();
 
@@ -206,6 +220,7 @@ void SysExComposer::slotComposeSettings(QVariantMap settingsMapGlobal, QList<int
 
 void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settingsMapGlobal, QList<int> pedalTable)
 {
+    qDebug() << "slotComposeAttributeListFromSetlist";
 
     //For some reason there's an extra layer to get to the actual settings, the "Global" map within the settings json contains them
     //I think "Global" refers to the fact that it's for both modes, Standalone and Hosted

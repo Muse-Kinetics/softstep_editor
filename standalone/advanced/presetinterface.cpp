@@ -293,7 +293,7 @@ void PresetInterface::slotRecallPreset(int i)
 
 void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum)
 {
-    //qDebug() << "name" << name << "value" << value << "preset" << presetNum;
+    qDebug() << "slotStoreValue - name" << name << "value" << value << "preset" << presetNum;
 
     if(presetNum == -1)
     {
@@ -309,6 +309,7 @@ void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum
 
 void PresetInterface::slotCheckSaveState()
 {
+    //qDebug() << "slotCheckSaveState called";
     QStringList keyList = jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap().keys();
 
     bool dirty = false;
@@ -318,7 +319,7 @@ void PresetInterface::slotCheckSaveState()
         if(jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap().value(keyList.at(i)) !=
                 jsonMasterMap.value(slotGetPresetStringFromInt(currentPresetNum)).toMap().value(keyList.at(i)))
         {
-            qDebug() << "--------------" << keyList.at(i) << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
+            qDebug() << "Preset dirty - param: " << keyList.at(i) << " NewVal: " << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << " OldVal: " << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
             dirty = true;
         }
     }
@@ -518,11 +519,20 @@ void PresetInterface::slotImportPreset()
     //QString sender = QObject::sender()->objectName();
     QString filename = NULL;
 
-    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), QString("./"), tr("SoftStep Advanced Editor Preset Files (*.softsteppreset)"));
+    QSettings settings;
+
+    const QString DEFAULT_DIR_KEY("default_dir");
+
+    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), settings.value(DEFAULT_DIR_KEY).toString(), tr("SoftStep Advanced Editor Preset Files (*.softsteppreset)"));
 
     //If file is selected
-    if(filename.isNull() != 1)
+    if(!filename.isEmpty() && !filename.isNull())
     {
+        // store this file location for the next time we open/save a file
+        // store this folder location for the next time we open a file
+        QDir CurrentDir;
+        settings.setValue(DEFAULT_DIR_KEY, CurrentDir.absoluteFilePath(filename));
+
         //open file
         QFile* presetFile = new QFile(filename);
         presetFile->open(QIODevice::ReadOnly | QIODevice::Text);
@@ -597,13 +607,15 @@ void PresetInterface::slotImportPreset()
                 //if copying from one mode to the other the device menu values for port 1 should change
                 if(i.key().contains("_device"))
                 {
-                    if(importedPresetMap.value(i.key()) == "SSCOM Port 1" && mode == "hosted")
+                    if(mode == "hosted" &&
+                            (importedPresetMap.value(i.key()) == "SSCOM Port 1" ||
+                             importedPresetMap.value(i.key()) == "SoftStep USB MIDI" ) )
                     {
                         importedPresetMap.insert(i.key(), "SoftStep Share");
                     }
                     else if(importedPresetMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
                     {
-                        importedPresetMap.insert(i.key(), "SSCOM Port 1");
+                        importedPresetMap.insert(i.key(), "SoftStep USB MIDI");
                     }
                 }
             }
@@ -660,36 +672,58 @@ void PresetInterface::slotExportPreset()
 {
     QVariantMap exportedPresetMap = jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap();
 
+    QSettings settings;
+
+    const QString DEFAULT_DIR_KEY("default_dir");
+
     //set path and filename (default filename is the preset name
-    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("./%1").arg(exportedPresetMap.value("preset_name").toString()), tr("SoftStep Advanced Editor Preset Files (*.softsteppreset)"));
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("%1/%2").arg(settings.value(DEFAULT_DIR_KEY).toString()).arg(exportedPresetMap.value("preset_name").toString()), tr("SoftStep Advanced Editor Preset Files (*.softsteppreset)"));
 
-    //This gets the file name without the path
-    QFileInfo fileInfo(filename);
+    if(!filename.isEmpty() && !filename.isNull())
+    {
+        // store this file location for the next time we open/save a file
+        // store this folder location for the next time we open a file
+        QDir CurrentDir;
+        settings.setValue(DEFAULT_DIR_KEY, CurrentDir.absoluteFilePath(filename));
 
-    //open new file to be saved
-    QFile* presetFile = new QFile(filename);
+        //This gets the file name without the path
+        QFileInfo fileInfo(filename);
 
-    //remove extension from filename
-    QString exportedPresetName = fileInfo.fileName().remove(".softsteppreset");
+        //open new file to be saved
+        QFile* presetFile = new QFile(filename);
 
-    qDebug() << QString("filename: %1").arg(exportedPresetName);
+        //remove extension from filename
+        QString exportedPresetName = fileInfo.fileName().remove(".softsteppreset");
 
-    //replace "preset_name" with filename typed in dialog
-    exportedPresetMap.insert("preset_name", exportedPresetName);
+        qDebug() << QString("filename: %1").arg(exportedPresetName);
 
-    //------------------ Open, Write, and Close
-    presetFile->open(QIODevice::WriteOnly);
+        //replace "preset_name" with filename typed in dialog
+        exportedPresetMap.insert("preset_name", exportedPresetName);
 
-//    QByteArray presetByteArray = serializer.serialize(exportedPresetMap);
+        qDebug() << "open";
 
-    QJsonDocument jsonPresets = QJsonDocument::fromVariant(exportedPresetMap);
+        //------------------ Open, Write, and Close
+        presetFile->open(QIODevice::WriteOnly);
 
-    presetFile->resize(0);
-//    presetFile->write(presetByteArray);
-    jsonFile->write(jsonPresets.toJson());
-    presetFile->close();
+    //    QByteArray presetByteArray = serializer.serialize(exportedPresetMap);
 
-//    presetByteArray.clear();
+        qDebug() << "jsonDoc";
+
+        QJsonDocument jsonPresets = QJsonDocument::fromVariant(exportedPresetMap);
+
+        qDebug() << "resize";
+
+        presetFile->resize(0);
+    //    presetFile->write(presetByteArray);
+        qDebug() << "json write";
+
+        presetFile->write(jsonPresets.toJson());
+        qDebug() << "close";
+
+        presetFile->close();
+
+    //    presetByteArray.clear();
+    }
 }
 
 void PresetInterface::closeEvent(QCloseEvent *)
@@ -735,7 +769,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key1_modline1_mmcid"] = 0;
     defaultPresetMap["key1_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline1_channel"] = 1;
-    defaultPresetMap["key1_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key1_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key1_modline1_oscroute"] = "";
     defaultPresetMap["key1_modline1_ledgreen"] = "None";
     defaultPresetMap["key1_modline1_ledred"] = "None";
@@ -761,7 +795,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key1_modline2_mmcid"] = 0;
     defaultPresetMap["key1_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline2_channel"] = 1;
-    defaultPresetMap["key1_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key1_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key1_modline2_oscroute"] = "";
     defaultPresetMap["key1_modline2_ledgreen"] = "None";
     defaultPresetMap["key1_modline2_ledred"] = "None";
@@ -787,7 +821,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key1_modline3_mmcid"] = 0;
     defaultPresetMap["key1_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline3_channel"] = 1;
-    defaultPresetMap["key1_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key1_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key1_modline3_oscroute"] = "";
     defaultPresetMap["key1_modline3_ledgreen"] = "None";
     defaultPresetMap["key1_modline3_ledred"] = "None";
@@ -813,7 +847,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key1_modline4_mmcid"] = 0;
     defaultPresetMap["key1_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline4_channel"] = 1;
-    defaultPresetMap["key1_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key1_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key1_modline4_oscroute"] = "";
     defaultPresetMap["key1_modline4_ledgreen"] = "None";
     defaultPresetMap["key1_modline4_ledred"] = "None";
@@ -839,7 +873,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key1_modline5_mmcid"] = 0;
     defaultPresetMap["key1_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline5_channel"] = 1;
-    defaultPresetMap["key1_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key1_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key1_modline5_oscroute"] = "";
     defaultPresetMap["key1_modline5_ledgreen"] = "None";
     defaultPresetMap["key1_modline5_ledred"] = "None";
@@ -865,7 +899,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key1_modline6_mmcid"] = 0;
     defaultPresetMap["key1_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline6_channel"] = 1;
-    defaultPresetMap["key1_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key1_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key1_modline6_oscroute"] = "";
     defaultPresetMap["key1_modline6_ledgreen"] = "None";
     defaultPresetMap["key1_modline6_ledred"] = "None";
@@ -900,7 +934,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key2_modline1_mmcid"] = 0;
     defaultPresetMap["key2_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline1_channel"] = 1;
-    defaultPresetMap["key2_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key2_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key2_modline1_oscroute"] = "";
     defaultPresetMap["key2_modline1_ledgreen"] = "None";
     defaultPresetMap["key2_modline1_ledred"] = "None";
@@ -926,7 +960,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key2_modline2_mmcid"] = 0;
     defaultPresetMap["key2_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline2_channel"] = 1;
-    defaultPresetMap["key2_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key2_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key2_modline2_oscroute"] = "";
     defaultPresetMap["key2_modline2_ledgreen"] = "None";
     defaultPresetMap["key2_modline2_ledred"] = "None";
@@ -952,7 +986,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key2_modline3_mmcid"] = 0;
     defaultPresetMap["key2_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline3_channel"] = 1;
-    defaultPresetMap["key2_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key2_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key2_modline3_oscroute"] = "";
     defaultPresetMap["key2_modline3_ledgreen"] = "None";
     defaultPresetMap["key2_modline3_ledred"] = "None";
@@ -978,7 +1012,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key2_modline4_mmcid"] = 0;
     defaultPresetMap["key2_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline4_channel"] = 1;
-    defaultPresetMap["key2_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key2_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key2_modline4_oscroute"] = "";
     defaultPresetMap["key2_modline4_ledgreen"] = "None";
     defaultPresetMap["key2_modline4_ledred"] = "None";
@@ -1004,7 +1038,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key2_modline5_mmcid"] = 0;
     defaultPresetMap["key2_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline5_channel"] = 1;
-    defaultPresetMap["key2_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key2_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key2_modline5_oscroute"] = "";
     defaultPresetMap["key2_modline5_ledgreen"] = "None";
     defaultPresetMap["key2_modline5_ledred"] = "None";
@@ -1030,7 +1064,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key2_modline6_mmcid"] = 0;
     defaultPresetMap["key2_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline6_channel"] = 1;
-    defaultPresetMap["key2_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key2_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key2_modline6_oscroute"] = "";
     defaultPresetMap["key2_modline6_ledgreen"] = "None";
     defaultPresetMap["key2_modline6_ledred"] = "None";
@@ -1065,7 +1099,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key3_modline1_mmcid"] = 0;
     defaultPresetMap["key3_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline1_channel"] = 1;
-    defaultPresetMap["key3_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key3_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key3_modline1_oscroute"] = "";
     defaultPresetMap["key3_modline1_ledgreen"] = "None";
     defaultPresetMap["key3_modline1_ledred"] = "None";
@@ -1091,7 +1125,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key3_modline2_mmcid"] = 0;
     defaultPresetMap["key3_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline2_channel"] = 1;
-    defaultPresetMap["key3_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key3_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key3_modline2_oscroute"] = "";
     defaultPresetMap["key3_modline2_ledgreen"] = "None";
     defaultPresetMap["key3_modline2_ledred"] = "None";
@@ -1117,7 +1151,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key3_modline3_mmcid"] = 0;
     defaultPresetMap["key3_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline3_channel"] = 1;
-    defaultPresetMap["key3_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key3_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key3_modline3_oscroute"] = "";
     defaultPresetMap["key3_modline3_ledgreen"] = "None";
     defaultPresetMap["key3_modline3_ledred"] = "None";
@@ -1143,7 +1177,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key3_modline4_mmcid"] = 0;
     defaultPresetMap["key3_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline4_channel"] = 1;
-    defaultPresetMap["key3_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key3_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key3_modline4_oscroute"] = "";
     defaultPresetMap["key3_modline4_ledgreen"] = "None";
     defaultPresetMap["key3_modline4_ledred"] = "None";
@@ -1169,7 +1203,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key3_modline5_mmcid"] = 0;
     defaultPresetMap["key3_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline5_channel"] = 1;
-    defaultPresetMap["key3_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key3_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key3_modline5_oscroute"] = "";
     defaultPresetMap["key3_modline5_ledgreen"] = "None";
     defaultPresetMap["key3_modline5_ledred"] = "None";
@@ -1195,7 +1229,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key3_modline6_mmcid"] = 0;
     defaultPresetMap["key3_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline6_channel"] = 1;
-    defaultPresetMap["key3_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key3_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key3_modline6_oscroute"] = "";
     defaultPresetMap["key3_modline6_ledgreen"] = "None";
     defaultPresetMap["key3_modline6_ledred"] = "None";
@@ -1230,7 +1264,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key4_modline1_mmcid"] = 0;
     defaultPresetMap["key4_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline1_channel"] = 1;
-    defaultPresetMap["key4_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key4_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key4_modline1_oscroute"] = "";
     defaultPresetMap["key4_modline1_ledgreen"] = "None";
     defaultPresetMap["key4_modline1_ledred"] = "None";
@@ -1256,7 +1290,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key4_modline2_mmcid"] = 0;
     defaultPresetMap["key4_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline2_channel"] = 1;
-    defaultPresetMap["key4_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key4_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key4_modline2_oscroute"] = "";
     defaultPresetMap["key4_modline2_ledgreen"] = "None";
     defaultPresetMap["key4_modline2_ledred"] = "None";
@@ -1282,7 +1316,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key4_modline3_mmcid"] = 0;
     defaultPresetMap["key4_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline3_channel"] = 1;
-    defaultPresetMap["key4_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key4_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key4_modline3_oscroute"] = "";
     defaultPresetMap["key4_modline3_ledgreen"] = "None";
     defaultPresetMap["key4_modline3_ledred"] = "None";
@@ -1308,7 +1342,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key4_modline4_mmcid"] = 0;
     defaultPresetMap["key4_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline4_channel"] = 1;
-    defaultPresetMap["key4_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key4_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key4_modline4_oscroute"] = "";
     defaultPresetMap["key4_modline4_ledgreen"] = "None";
     defaultPresetMap["key4_modline4_ledred"] = "None";
@@ -1334,7 +1368,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key4_modline5_mmcid"] = 0;
     defaultPresetMap["key4_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline5_channel"] = 1;
-    defaultPresetMap["key4_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key4_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key4_modline5_oscroute"] = "";
     defaultPresetMap["key4_modline5_ledgreen"] = "None";
     defaultPresetMap["key4_modline5_ledred"] = "None";
@@ -1360,7 +1394,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key4_modline6_mmcid"] = 0;
     defaultPresetMap["key4_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline6_channel"] = 1;
-    defaultPresetMap["key4_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key4_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key4_modline6_oscroute"] = "";
     defaultPresetMap["key4_modline6_ledgreen"] = "None";
     defaultPresetMap["key4_modline6_ledred"] = "None";
@@ -1394,7 +1428,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key5_modline1_mmcid"] = 0;
     defaultPresetMap["key5_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline1_channel"] = 1;
-    defaultPresetMap["key5_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key5_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key5_modline1_oscroute"] = "";
     defaultPresetMap["key5_modline1_ledgreen"] = "None";
     defaultPresetMap["key5_modline1_ledred"] = "None";
@@ -1420,7 +1454,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key5_modline2_mmcid"] = 0;
     defaultPresetMap["key5_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline2_channel"] = 1;
-    defaultPresetMap["key5_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key5_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key5_modline2_oscroute"] = "";
     defaultPresetMap["key5_modline2_ledgreen"] = "None";
     defaultPresetMap["key5_modline2_ledred"] = "None";
@@ -1446,7 +1480,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key5_modline3_mmcid"] = 0;
     defaultPresetMap["key5_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline3_channel"] = 1;
-    defaultPresetMap["key5_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key5_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key5_modline3_oscroute"] = "";
     defaultPresetMap["key5_modline3_ledgreen"] = "None";
     defaultPresetMap["key5_modline3_ledred"] = "None";
@@ -1472,7 +1506,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key5_modline4_mmcid"] = 0;
     defaultPresetMap["key5_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline4_channel"] = 1;
-    defaultPresetMap["key5_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key5_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key5_modline4_oscroute"] = "";
     defaultPresetMap["key5_modline4_ledgreen"] = "None";
     defaultPresetMap["key5_modline4_ledred"] = "None";
@@ -1498,7 +1532,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key5_modline5_mmcid"] = 0;
     defaultPresetMap["key5_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline5_channel"] = 1;
-    defaultPresetMap["key5_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key5_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key5_modline5_oscroute"] = "";
     defaultPresetMap["key5_modline5_ledgreen"] = "None";
     defaultPresetMap["key5_modline5_ledred"] = "None";
@@ -1524,7 +1558,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key5_modline6_mmcid"] = 0;
     defaultPresetMap["key5_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline6_channel"] = 1;
-    defaultPresetMap["key5_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key5_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key5_modline6_oscroute"] = "";
     defaultPresetMap["key5_modline6_ledgreen"] = "None";
     defaultPresetMap["key5_modline6_ledred"] = "None";
@@ -1559,7 +1593,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key6_modline1_mmcid"] = 0;
     defaultPresetMap["key6_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline1_channel"] = 1;
-    defaultPresetMap["key6_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key6_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key6_modline1_oscroute"] = "";
     defaultPresetMap["key6_modline1_ledgreen"] = "None";
     defaultPresetMap["key6_modline1_ledred"] = "None";
@@ -1585,7 +1619,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key6_modline2_mmcid"] = 0;
     defaultPresetMap["key6_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline2_channel"] = 1;
-    defaultPresetMap["key6_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key6_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key6_modline2_oscroute"] = "";
     defaultPresetMap["key6_modline2_ledgreen"] = "None";
     defaultPresetMap["key6_modline2_ledred"] = "None";
@@ -1611,7 +1645,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key6_modline3_mmcid"] = 0;
     defaultPresetMap["key6_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline3_channel"] = 1;
-    defaultPresetMap["key6_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key6_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key6_modline3_oscroute"] = "";
     defaultPresetMap["key6_modline3_ledgreen"] = "None";
     defaultPresetMap["key6_modline3_ledred"] = "None";
@@ -1637,7 +1671,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key6_modline4_mmcid"] = 0;
     defaultPresetMap["key6_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline4_channel"] = 1;
-    defaultPresetMap["key6_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key6_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key6_modline4_oscroute"] = "";
     defaultPresetMap["key6_modline4_ledgreen"] = "None";
     defaultPresetMap["key6_modline4_ledred"] = "None";
@@ -1663,7 +1697,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key6_modline5_mmcid"] = 0;
     defaultPresetMap["key6_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline5_channel"] = 1;
-    defaultPresetMap["key6_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key6_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key6_modline5_oscroute"] = "";
     defaultPresetMap["key6_modline5_ledgreen"] = "None";
     defaultPresetMap["key6_modline5_ledred"] = "None";
@@ -1689,7 +1723,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key6_modline6_mmcid"] = 0;
     defaultPresetMap["key6_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline6_channel"] = 1;
-    defaultPresetMap["key6_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key6_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key6_modline6_oscroute"] = "";
     defaultPresetMap["key6_modline6_ledgreen"] = "None";
     defaultPresetMap["key6_modline6_ledred"] = "None";
@@ -1724,7 +1758,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key7_modline1_mmcid"] = 0;
     defaultPresetMap["key7_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline1_channel"] = 1;
-    defaultPresetMap["key7_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key7_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key7_modline1_oscroute"] = "";
     defaultPresetMap["key7_modline1_ledgreen"] = "None";
     defaultPresetMap["key7_modline1_ledred"] = "None";
@@ -1750,7 +1784,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key7_modline2_mmcid"] = 0;
     defaultPresetMap["key7_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline2_channel"] = 1;
-    defaultPresetMap["key7_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key7_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key7_modline2_oscroute"] = "";
     defaultPresetMap["key7_modline2_ledgreen"] = "None";
     defaultPresetMap["key7_modline2_ledred"] = "None";
@@ -1776,7 +1810,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key7_modline3_mmcid"] = 0;
     defaultPresetMap["key7_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline3_channel"] = 1;
-    defaultPresetMap["key7_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key7_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key7_modline3_oscroute"] = "";
     defaultPresetMap["key7_modline3_ledgreen"] = "None";
     defaultPresetMap["key7_modline3_ledred"] = "None";
@@ -1802,7 +1836,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key7_modline4_mmcid"] = 0;
     defaultPresetMap["key7_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline4_channel"] = 1;
-    defaultPresetMap["key7_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key7_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key7_modline4_oscroute"] = "";
     defaultPresetMap["key7_modline4_ledgreen"] = "None";
     defaultPresetMap["key7_modline4_ledred"] = "None";
@@ -1828,7 +1862,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key7_modline5_mmcid"] = 0;
     defaultPresetMap["key7_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline5_channel"] = 1;
-    defaultPresetMap["key7_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key7_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key7_modline5_oscroute"] = "";
     defaultPresetMap["key7_modline5_ledgreen"] = "None";
     defaultPresetMap["key7_modline5_ledred"] = "None";
@@ -1854,7 +1888,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key7_modline6_mmcid"] = 0;
     defaultPresetMap["key7_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline6_channel"] = 1;
-    defaultPresetMap["key7_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key7_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key7_modline6_oscroute"] = "";
     defaultPresetMap["key7_modline6_ledgreen"] = "None";
     defaultPresetMap["key7_modline6_ledred"] = "None";
@@ -1888,7 +1922,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key8_modline1_mmcid"] = 0;
     defaultPresetMap["key8_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline1_channel"] = 1;
-    defaultPresetMap["key8_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key8_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key8_modline1_oscroute"] = "";
     defaultPresetMap["key8_modline1_ledgreen"] = "None";
     defaultPresetMap["key8_modline1_ledred"] = "None";
@@ -1914,7 +1948,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key8_modline2_mmcid"] = 0;
     defaultPresetMap["key8_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline2_channel"] = 1;
-    defaultPresetMap["key8_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key8_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key8_modline2_oscroute"] = "";
     defaultPresetMap["key8_modline2_ledgreen"] = "None";
     defaultPresetMap["key8_modline2_ledred"] = "None";
@@ -1940,7 +1974,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key8_modline3_mmcid"] = 0;
     defaultPresetMap["key8_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline3_channel"] = 1;
-    defaultPresetMap["key8_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key8_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key8_modline3_oscroute"] = "";
     defaultPresetMap["key8_modline3_ledgreen"] = "None";
     defaultPresetMap["key8_modline3_ledred"] = "None";
@@ -1966,7 +2000,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key8_modline4_mmcid"] = 0;
     defaultPresetMap["key8_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline4_channel"] = 1;
-    defaultPresetMap["key8_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key8_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key8_modline4_oscroute"] = "";
     defaultPresetMap["key8_modline4_ledgreen"] = "None";
     defaultPresetMap["key8_modline4_ledred"] = "None";
@@ -1992,7 +2026,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key8_modline5_mmcid"] = 0;
     defaultPresetMap["key8_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline5_channel"] = 1;
-    defaultPresetMap["key8_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key8_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key8_modline5_oscroute"] = "";
     defaultPresetMap["key8_modline5_ledgreen"] = "None";
     defaultPresetMap["key8_modline5_ledred"] = "None";
@@ -2018,7 +2052,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key8_modline6_mmcid"] = 0;
     defaultPresetMap["key8_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline6_channel"] = 1;
-    defaultPresetMap["key8_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key8_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key8_modline6_oscroute"] = "";
     defaultPresetMap["key8_modline6_ledgreen"] = "None";
     defaultPresetMap["key8_modline6_ledred"] = "None";
@@ -2053,7 +2087,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key9_modline1_mmcid"] = 0;
     defaultPresetMap["key9_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline1_channel"] = 1;
-    defaultPresetMap["key9_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key9_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key9_modline1_oscroute"] = "";
     defaultPresetMap["key9_modline1_ledgreen"] = "None";
     defaultPresetMap["key9_modline1_ledred"] = "None";
@@ -2079,7 +2113,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key9_modline2_mmcid"] = 0;
     defaultPresetMap["key9_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline2_channel"] = 1;
-    defaultPresetMap["key9_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key9_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key9_modline2_oscroute"] = "";
     defaultPresetMap["key9_modline2_ledgreen"] = "None";
     defaultPresetMap["key9_modline2_ledred"] = "None";
@@ -2105,7 +2139,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key9_modline3_mmcid"] = 0;
     defaultPresetMap["key9_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline3_channel"] = 1;
-    defaultPresetMap["key9_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key9_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key9_modline3_oscroute"] = "";
     defaultPresetMap["key9_modline3_ledgreen"] = "None";
     defaultPresetMap["key9_modline3_ledred"] = "None";
@@ -2131,7 +2165,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key9_modline4_mmcid"] = 0;
     defaultPresetMap["key9_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline4_channel"] = 1;
-    defaultPresetMap["key9_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key9_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key9_modline4_oscroute"] = "";
     defaultPresetMap["key9_modline4_ledgreen"] = "None";
     defaultPresetMap["key9_modline4_ledred"] = "None";
@@ -2157,7 +2191,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key9_modline5_mmcid"] = 0;
     defaultPresetMap["key9_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline5_channel"] = 1;
-    defaultPresetMap["key9_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key9_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key9_modline5_oscroute"] = "";
     defaultPresetMap["key9_modline5_ledgreen"] = "None";
     defaultPresetMap["key9_modline5_ledred"] = "None";
@@ -2183,7 +2217,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key9_modline6_mmcid"] = 0;
     defaultPresetMap["key9_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline6_channel"] = 1;
-    defaultPresetMap["key9_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key9_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key9_modline6_oscroute"] = "";
     defaultPresetMap["key9_modline6_ledgreen"] = "None";
     defaultPresetMap["key9_modline6_ledred"] = "None";
@@ -2218,7 +2252,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key10_modline1_mmcid"] = 0;
     defaultPresetMap["key10_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline1_channel"] = 1;
-    defaultPresetMap["key10_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key10_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key10_modline1_oscroute"] = "";
     defaultPresetMap["key10_modline1_ledgreen"] = "None";
     defaultPresetMap["key10_modline1_ledred"] = "None";
@@ -2244,7 +2278,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key10_modline2_mmcid"] = 0;
     defaultPresetMap["key10_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline2_channel"] = 1;
-    defaultPresetMap["key10_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key10_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key10_modline2_oscroute"] = "";
     defaultPresetMap["key10_modline2_ledgreen"] = "None";
     defaultPresetMap["key10_modline2_ledred"] = "None";
@@ -2270,7 +2304,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key10_modline3_mmcid"] = 0;
     defaultPresetMap["key10_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline3_channel"] = 1;
-    defaultPresetMap["key10_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key10_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key10_modline3_oscroute"] = "";
     defaultPresetMap["key10_modline3_ledgreen"] = "None";
     defaultPresetMap["key10_modline3_ledred"] = "None";
@@ -2296,7 +2330,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key10_modline4_mmcid"] = 0;
     defaultPresetMap["key10_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline4_channel"] = 1;
-    defaultPresetMap["key10_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key10_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key10_modline4_oscroute"] = "";
     defaultPresetMap["key10_modline4_ledgreen"] = "None";
     defaultPresetMap["key10_modline4_ledred"] = "None";
@@ -2322,7 +2356,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key10_modline5_mmcid"] = 0;
     defaultPresetMap["key10_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline5_channel"] = 1;
-    defaultPresetMap["key10_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key10_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key10_modline5_oscroute"] = "";
     defaultPresetMap["key10_modline5_ledgreen"] = "None";
     defaultPresetMap["key10_modline5_ledred"] = "None";
@@ -2348,7 +2382,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["key10_modline6_mmcid"] = 0;
     defaultPresetMap["key10_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline6_channel"] = 1;
-    defaultPresetMap["key10_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key10_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key10_modline6_oscroute"] = "";
     defaultPresetMap["key10_modline6_ledgreen"] = "None";
     defaultPresetMap["key10_modline6_ledred"] = "None";
@@ -2541,7 +2575,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key1_modline1_mmcid"] = 0;
     defaultPresetMap["key1_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline1_channel"] = 1;
-    defaultPresetMap["key1_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key1_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key1_modline1_oscroute"] = "";
     defaultPresetMap["key1_modline1_ledgreen"] = "None";
     defaultPresetMap["key1_modline1_ledred"] = "None";
@@ -2567,7 +2601,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key1_modline2_mmcid"] = 0;
     defaultPresetMap["key1_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline2_channel"] = 1;
-    defaultPresetMap["key1_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key1_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key1_modline2_oscroute"] = "";
     defaultPresetMap["key1_modline2_ledgreen"] = "None";
     defaultPresetMap["key1_modline2_ledred"] = "None";
@@ -2593,7 +2627,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key1_modline3_mmcid"] = 0;
     defaultPresetMap["key1_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline3_channel"] = 1;
-    defaultPresetMap["key1_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key1_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key1_modline3_oscroute"] = "";
     defaultPresetMap["key1_modline3_ledgreen"] = "None";
     defaultPresetMap["key1_modline3_ledred"] = "None";
@@ -2619,7 +2653,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key1_modline4_mmcid"] = 0;
     defaultPresetMap["key1_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline4_channel"] = 1;
-    defaultPresetMap["key1_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key1_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key1_modline4_oscroute"] = "";
     defaultPresetMap["key1_modline4_ledgreen"] = "None";
     defaultPresetMap["key1_modline4_ledred"] = "None";
@@ -2645,7 +2679,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key1_modline5_mmcid"] = 0;
     defaultPresetMap["key1_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline5_channel"] = 1;
-    defaultPresetMap["key1_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key1_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key1_modline5_oscroute"] = "";
     defaultPresetMap["key1_modline5_ledgreen"] = "None";
     defaultPresetMap["key1_modline5_ledred"] = "None";
@@ -2671,7 +2705,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key1_modline6_mmcid"] = 0;
     defaultPresetMap["key1_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key1_modline6_channel"] = 1;
-    defaultPresetMap["key1_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key1_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key1_modline6_oscroute"] = "";
     defaultPresetMap["key1_modline6_ledgreen"] = "None";
     defaultPresetMap["key1_modline6_ledred"] = "None";
@@ -2706,7 +2740,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key2_modline1_mmcid"] = 0;
     defaultPresetMap["key2_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline1_channel"] = 1;
-    defaultPresetMap["key2_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key2_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key2_modline1_oscroute"] = "";
     defaultPresetMap["key2_modline1_ledgreen"] = "None";
     defaultPresetMap["key2_modline1_ledred"] = "None";
@@ -2732,7 +2766,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key2_modline2_mmcid"] = 0;
     defaultPresetMap["key2_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline2_channel"] = 1;
-    defaultPresetMap["key2_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key2_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key2_modline2_oscroute"] = "";
     defaultPresetMap["key2_modline2_ledgreen"] = "None";
     defaultPresetMap["key2_modline2_ledred"] = "None";
@@ -2758,7 +2792,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key2_modline3_mmcid"] = 0;
     defaultPresetMap["key2_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline3_channel"] = 1;
-    defaultPresetMap["key2_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key2_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key2_modline3_oscroute"] = "";
     defaultPresetMap["key2_modline3_ledgreen"] = "None";
     defaultPresetMap["key2_modline3_ledred"] = "None";
@@ -2784,7 +2818,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key2_modline4_mmcid"] = 0;
     defaultPresetMap["key2_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline4_channel"] = 1;
-    defaultPresetMap["key2_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key2_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key2_modline4_oscroute"] = "";
     defaultPresetMap["key2_modline4_ledgreen"] = "None";
     defaultPresetMap["key2_modline4_ledred"] = "None";
@@ -2810,7 +2844,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key2_modline5_mmcid"] = 0;
     defaultPresetMap["key2_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline5_channel"] = 1;
-    defaultPresetMap["key2_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key2_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key2_modline5_oscroute"] = "";
     defaultPresetMap["key2_modline5_ledgreen"] = "None";
     defaultPresetMap["key2_modline5_ledred"] = "None";
@@ -2836,7 +2870,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key2_modline6_mmcid"] = 0;
     defaultPresetMap["key2_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key2_modline6_channel"] = 1;
-    defaultPresetMap["key2_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key2_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key2_modline6_oscroute"] = "";
     defaultPresetMap["key2_modline6_ledgreen"] = "None";
     defaultPresetMap["key2_modline6_ledred"] = "None";
@@ -2871,7 +2905,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key3_modline1_mmcid"] = 0;
     defaultPresetMap["key3_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline1_channel"] = 1;
-    defaultPresetMap["key3_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key3_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key3_modline1_oscroute"] = "";
     defaultPresetMap["key3_modline1_ledgreen"] = "None";
     defaultPresetMap["key3_modline1_ledred"] = "None";
@@ -2897,7 +2931,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key3_modline2_mmcid"] = 0;
     defaultPresetMap["key3_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline2_channel"] = 1;
-    defaultPresetMap["key3_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key3_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key3_modline2_oscroute"] = "";
     defaultPresetMap["key3_modline2_ledgreen"] = "None";
     defaultPresetMap["key3_modline2_ledred"] = "None";
@@ -2923,7 +2957,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key3_modline3_mmcid"] = 0;
     defaultPresetMap["key3_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline3_channel"] = 1;
-    defaultPresetMap["key3_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key3_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key3_modline3_oscroute"] = "";
     defaultPresetMap["key3_modline3_ledgreen"] = "None";
     defaultPresetMap["key3_modline3_ledred"] = "None";
@@ -2949,7 +2983,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key3_modline4_mmcid"] = 0;
     defaultPresetMap["key3_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline4_channel"] = 1;
-    defaultPresetMap["key3_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key3_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key3_modline4_oscroute"] = "";
     defaultPresetMap["key3_modline4_ledgreen"] = "None";
     defaultPresetMap["key3_modline4_ledred"] = "None";
@@ -2975,7 +3009,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key3_modline5_mmcid"] = 0;
     defaultPresetMap["key3_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline5_channel"] = 1;
-    defaultPresetMap["key3_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key3_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key3_modline5_oscroute"] = "";
     defaultPresetMap["key3_modline5_ledgreen"] = "None";
     defaultPresetMap["key3_modline5_ledred"] = "None";
@@ -3001,7 +3035,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key3_modline6_mmcid"] = 0;
     defaultPresetMap["key3_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key3_modline6_channel"] = 1;
-    defaultPresetMap["key3_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key3_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key3_modline6_oscroute"] = "";
     defaultPresetMap["key3_modline6_ledgreen"] = "None";
     defaultPresetMap["key3_modline6_ledred"] = "None";
@@ -3036,7 +3070,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key4_modline1_mmcid"] = 0;
     defaultPresetMap["key4_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline1_channel"] = 1;
-    defaultPresetMap["key4_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key4_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key4_modline1_oscroute"] = "";
     defaultPresetMap["key4_modline1_ledgreen"] = "None";
     defaultPresetMap["key4_modline1_ledred"] = "None";
@@ -3062,7 +3096,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key4_modline2_mmcid"] = 0;
     defaultPresetMap["key4_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline2_channel"] = 1;
-    defaultPresetMap["key4_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key4_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key4_modline2_oscroute"] = "";
     defaultPresetMap["key4_modline2_ledgreen"] = "None";
     defaultPresetMap["key4_modline2_ledred"] = "None";
@@ -3088,7 +3122,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key4_modline3_mmcid"] = 0;
     defaultPresetMap["key4_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline3_channel"] = 1;
-    defaultPresetMap["key4_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key4_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key4_modline3_oscroute"] = "";
     defaultPresetMap["key4_modline3_ledgreen"] = "None";
     defaultPresetMap["key4_modline3_ledred"] = "None";
@@ -3114,7 +3148,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key4_modline4_mmcid"] = 0;
     defaultPresetMap["key4_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline4_channel"] = 1;
-    defaultPresetMap["key4_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key4_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key4_modline4_oscroute"] = "";
     defaultPresetMap["key4_modline4_ledgreen"] = "None";
     defaultPresetMap["key4_modline4_ledred"] = "None";
@@ -3140,7 +3174,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key4_modline5_mmcid"] = 0;
     defaultPresetMap["key4_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline5_channel"] = 1;
-    defaultPresetMap["key4_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key4_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key4_modline5_oscroute"] = "";
     defaultPresetMap["key4_modline5_ledgreen"] = "None";
     defaultPresetMap["key4_modline5_ledred"] = "None";
@@ -3166,7 +3200,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key4_modline6_mmcid"] = 0;
     defaultPresetMap["key4_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key4_modline6_channel"] = 1;
-    defaultPresetMap["key4_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key4_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key4_modline6_oscroute"] = "";
     defaultPresetMap["key4_modline6_ledgreen"] = "None";
     defaultPresetMap["key4_modline6_ledred"] = "None";
@@ -3200,7 +3234,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key5_modline1_mmcid"] = 0;
     defaultPresetMap["key5_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline1_channel"] = 1;
-    defaultPresetMap["key5_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key5_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key5_modline1_oscroute"] = "";
     defaultPresetMap["key5_modline1_ledgreen"] = "None";
     defaultPresetMap["key5_modline1_ledred"] = "None";
@@ -3226,7 +3260,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key5_modline2_mmcid"] = 0;
     defaultPresetMap["key5_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline2_channel"] = 1;
-    defaultPresetMap["key5_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key5_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key5_modline2_oscroute"] = "";
     defaultPresetMap["key5_modline2_ledgreen"] = "None";
     defaultPresetMap["key5_modline2_ledred"] = "None";
@@ -3252,7 +3286,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key5_modline3_mmcid"] = 0;
     defaultPresetMap["key5_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline3_channel"] = 1;
-    defaultPresetMap["key5_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key5_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key5_modline3_oscroute"] = "";
     defaultPresetMap["key5_modline3_ledgreen"] = "None";
     defaultPresetMap["key5_modline3_ledred"] = "None";
@@ -3278,7 +3312,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key5_modline4_mmcid"] = 0;
     defaultPresetMap["key5_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline4_channel"] = 1;
-    defaultPresetMap["key5_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key5_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key5_modline4_oscroute"] = "";
     defaultPresetMap["key5_modline4_ledgreen"] = "None";
     defaultPresetMap["key5_modline4_ledred"] = "None";
@@ -3304,7 +3338,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key5_modline5_mmcid"] = 0;
     defaultPresetMap["key5_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline5_channel"] = 1;
-    defaultPresetMap["key5_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key5_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key5_modline5_oscroute"] = "";
     defaultPresetMap["key5_modline5_ledgreen"] = "None";
     defaultPresetMap["key5_modline5_ledred"] = "None";
@@ -3330,7 +3364,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key5_modline6_mmcid"] = 0;
     defaultPresetMap["key5_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key5_modline6_channel"] = 1;
-    defaultPresetMap["key5_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key5_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key5_modline6_oscroute"] = "";
     defaultPresetMap["key5_modline6_ledgreen"] = "None";
     defaultPresetMap["key5_modline6_ledred"] = "None";
@@ -3365,7 +3399,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key6_modline1_mmcid"] = 0;
     defaultPresetMap["key6_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline1_channel"] = 1;
-    defaultPresetMap["key6_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key6_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key6_modline1_oscroute"] = "";
     defaultPresetMap["key6_modline1_ledgreen"] = "None";
     defaultPresetMap["key6_modline1_ledred"] = "None";
@@ -3391,7 +3425,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key6_modline2_mmcid"] = 0;
     defaultPresetMap["key6_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline2_channel"] = 1;
-    defaultPresetMap["key6_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key6_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key6_modline2_oscroute"] = "";
     defaultPresetMap["key6_modline2_ledgreen"] = "None";
     defaultPresetMap["key6_modline2_ledred"] = "None";
@@ -3417,7 +3451,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key6_modline3_mmcid"] = 0;
     defaultPresetMap["key6_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline3_channel"] = 1;
-    defaultPresetMap["key6_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key6_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key6_modline3_oscroute"] = "";
     defaultPresetMap["key6_modline3_ledgreen"] = "None";
     defaultPresetMap["key6_modline3_ledred"] = "None";
@@ -3443,7 +3477,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key6_modline4_mmcid"] = 0;
     defaultPresetMap["key6_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline4_channel"] = 1;
-    defaultPresetMap["key6_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key6_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key6_modline4_oscroute"] = "";
     defaultPresetMap["key6_modline4_ledgreen"] = "None";
     defaultPresetMap["key6_modline4_ledred"] = "None";
@@ -3469,7 +3503,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key6_modline5_mmcid"] = 0;
     defaultPresetMap["key6_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline5_channel"] = 1;
-    defaultPresetMap["key6_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key6_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key6_modline5_oscroute"] = "";
     defaultPresetMap["key6_modline5_ledgreen"] = "None";
     defaultPresetMap["key6_modline5_ledred"] = "None";
@@ -3495,7 +3529,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key6_modline6_mmcid"] = 0;
     defaultPresetMap["key6_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key6_modline6_channel"] = 1;
-    defaultPresetMap["key6_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key6_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key6_modline6_oscroute"] = "";
     defaultPresetMap["key6_modline6_ledgreen"] = "None";
     defaultPresetMap["key6_modline6_ledred"] = "None";
@@ -3530,7 +3564,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key7_modline1_mmcid"] = 0;
     defaultPresetMap["key7_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline1_channel"] = 1;
-    defaultPresetMap["key7_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key7_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key7_modline1_oscroute"] = "";
     defaultPresetMap["key7_modline1_ledgreen"] = "None";
     defaultPresetMap["key7_modline1_ledred"] = "None";
@@ -3556,7 +3590,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key7_modline2_mmcid"] = 0;
     defaultPresetMap["key7_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline2_channel"] = 1;
-    defaultPresetMap["key7_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key7_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key7_modline2_oscroute"] = "";
     defaultPresetMap["key7_modline2_ledgreen"] = "None";
     defaultPresetMap["key7_modline2_ledred"] = "None";
@@ -3582,7 +3616,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key7_modline3_mmcid"] = 0;
     defaultPresetMap["key7_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline3_channel"] = 1;
-    defaultPresetMap["key7_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key7_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key7_modline3_oscroute"] = "";
     defaultPresetMap["key7_modline3_ledgreen"] = "None";
     defaultPresetMap["key7_modline3_ledred"] = "None";
@@ -3608,7 +3642,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key7_modline4_mmcid"] = 0;
     defaultPresetMap["key7_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline4_channel"] = 1;
-    defaultPresetMap["key7_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key7_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key7_modline4_oscroute"] = "";
     defaultPresetMap["key7_modline4_ledgreen"] = "None";
     defaultPresetMap["key7_modline4_ledred"] = "None";
@@ -3634,7 +3668,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key7_modline5_mmcid"] = 0;
     defaultPresetMap["key7_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline5_channel"] = 1;
-    defaultPresetMap["key7_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key7_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key7_modline5_oscroute"] = "";
     defaultPresetMap["key7_modline5_ledgreen"] = "None";
     defaultPresetMap["key7_modline5_ledred"] = "None";
@@ -3660,7 +3694,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key7_modline6_mmcid"] = 0;
     defaultPresetMap["key7_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key7_modline6_channel"] = 1;
-    defaultPresetMap["key7_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key7_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key7_modline6_oscroute"] = "";
     defaultPresetMap["key7_modline6_ledgreen"] = "None";
     defaultPresetMap["key7_modline6_ledred"] = "None";
@@ -3694,7 +3728,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key8_modline1_mmcid"] = 0;
     defaultPresetMap["key8_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline1_channel"] = 1;
-    defaultPresetMap["key8_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key8_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key8_modline1_oscroute"] = "";
     defaultPresetMap["key8_modline1_ledgreen"] = "None";
     defaultPresetMap["key8_modline1_ledred"] = "None";
@@ -3720,7 +3754,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key8_modline2_mmcid"] = 0;
     defaultPresetMap["key8_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline2_channel"] = 1;
-    defaultPresetMap["key8_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key8_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key8_modline2_oscroute"] = "";
     defaultPresetMap["key8_modline2_ledgreen"] = "None";
     defaultPresetMap["key8_modline2_ledred"] = "None";
@@ -3746,7 +3780,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key8_modline3_mmcid"] = 0;
     defaultPresetMap["key8_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline3_channel"] = 1;
-    defaultPresetMap["key8_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key8_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key8_modline3_oscroute"] = "";
     defaultPresetMap["key8_modline3_ledgreen"] = "None";
     defaultPresetMap["key8_modline3_ledred"] = "None";
@@ -3772,7 +3806,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key8_modline4_mmcid"] = 0;
     defaultPresetMap["key8_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline4_channel"] = 1;
-    defaultPresetMap["key8_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key8_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key8_modline4_oscroute"] = "";
     defaultPresetMap["key8_modline4_ledgreen"] = "None";
     defaultPresetMap["key8_modline4_ledred"] = "None";
@@ -3798,7 +3832,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key8_modline5_mmcid"] = 0;
     defaultPresetMap["key8_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline5_channel"] = 1;
-    defaultPresetMap["key8_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key8_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key8_modline5_oscroute"] = "";
     defaultPresetMap["key8_modline5_ledgreen"] = "None";
     defaultPresetMap["key8_modline5_ledred"] = "None";
@@ -3824,7 +3858,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key8_modline6_mmcid"] = 0;
     defaultPresetMap["key8_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key8_modline6_channel"] = 1;
-    defaultPresetMap["key8_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key8_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key8_modline6_oscroute"] = "";
     defaultPresetMap["key8_modline6_ledgreen"] = "None";
     defaultPresetMap["key8_modline6_ledred"] = "None";
@@ -3859,7 +3893,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key9_modline1_mmcid"] = 0;
     defaultPresetMap["key9_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline1_channel"] = 1;
-    defaultPresetMap["key9_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key9_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key9_modline1_oscroute"] = "";
     defaultPresetMap["key9_modline1_ledgreen"] = "None";
     defaultPresetMap["key9_modline1_ledred"] = "None";
@@ -3885,7 +3919,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key9_modline2_mmcid"] = 0;
     defaultPresetMap["key9_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline2_channel"] = 1;
-    defaultPresetMap["key9_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key9_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key9_modline2_oscroute"] = "";
     defaultPresetMap["key9_modline2_ledgreen"] = "None";
     defaultPresetMap["key9_modline2_ledred"] = "None";
@@ -3911,7 +3945,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key9_modline3_mmcid"] = 0;
     defaultPresetMap["key9_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline3_channel"] = 1;
-    defaultPresetMap["key9_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key9_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key9_modline3_oscroute"] = "";
     defaultPresetMap["key9_modline3_ledgreen"] = "None";
     defaultPresetMap["key9_modline3_ledred"] = "None";
@@ -3937,7 +3971,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key9_modline4_mmcid"] = 0;
     defaultPresetMap["key9_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline4_channel"] = 1;
-    defaultPresetMap["key9_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key9_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key9_modline4_oscroute"] = "";
     defaultPresetMap["key9_modline4_ledgreen"] = "None";
     defaultPresetMap["key9_modline4_ledred"] = "None";
@@ -3963,7 +3997,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key9_modline5_mmcid"] = 0;
     defaultPresetMap["key9_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline5_channel"] = 1;
-    defaultPresetMap["key9_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key9_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key9_modline5_oscroute"] = "";
     defaultPresetMap["key9_modline5_ledgreen"] = "None";
     defaultPresetMap["key9_modline5_ledred"] = "None";
@@ -3989,7 +4023,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key9_modline6_mmcid"] = 0;
     defaultPresetMap["key9_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key9_modline6_channel"] = 1;
-    defaultPresetMap["key9_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key9_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key9_modline6_oscroute"] = "";
     defaultPresetMap["key9_modline6_ledgreen"] = "None";
     defaultPresetMap["key9_modline6_ledred"] = "None";
@@ -4024,7 +4058,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key10_modline1_mmcid"] = 0;
     defaultPresetMap["key10_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline1_channel"] = 1;
-    defaultPresetMap["key10_modline1_device"] = "SSCOM Port 1";
+    defaultPresetMap["key10_modline1_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key10_modline1_oscroute"] = "";
     defaultPresetMap["key10_modline1_ledgreen"] = "None";
     defaultPresetMap["key10_modline1_ledred"] = "None";
@@ -4050,7 +4084,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key10_modline2_mmcid"] = 0;
     defaultPresetMap["key10_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline2_channel"] = 1;
-    defaultPresetMap["key10_modline2_device"] = "SSCOM Port 1";
+    defaultPresetMap["key10_modline2_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key10_modline2_oscroute"] = "";
     defaultPresetMap["key10_modline2_ledgreen"] = "None";
     defaultPresetMap["key10_modline2_ledred"] = "None";
@@ -4076,7 +4110,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key10_modline3_mmcid"] = 0;
     defaultPresetMap["key10_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline3_channel"] = 1;
-    defaultPresetMap["key10_modline3_device"] = "SSCOM Port 1";
+    defaultPresetMap["key10_modline3_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key10_modline3_oscroute"] = "";
     defaultPresetMap["key10_modline3_ledgreen"] = "None";
     defaultPresetMap["key10_modline3_ledred"] = "None";
@@ -4102,7 +4136,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key10_modline4_mmcid"] = 0;
     defaultPresetMap["key10_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline4_channel"] = 1;
-    defaultPresetMap["key10_modline4_device"] = "SSCOM Port 1";
+    defaultPresetMap["key10_modline4_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key10_modline4_oscroute"] = "";
     defaultPresetMap["key10_modline4_ledgreen"] = "None";
     defaultPresetMap["key10_modline4_ledred"] = "None";
@@ -4128,7 +4162,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key10_modline5_mmcid"] = 0;
     defaultPresetMap["key10_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline5_channel"] = 1;
-    defaultPresetMap["key10_modline5_device"] = "SSCOM Port 1";
+    defaultPresetMap["key10_modline5_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key10_modline5_oscroute"] = "";
     defaultPresetMap["key10_modline5_ledgreen"] = "None";
     defaultPresetMap["key10_modline5_ledred"] = "None";
@@ -4154,7 +4188,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["key10_modline6_mmcid"] = 0;
     defaultPresetMap["key10_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["key10_modline6_channel"] = 1;
-    defaultPresetMap["key10_modline6_device"] = "SSCOM Port 1";
+    defaultPresetMap["key10_modline6_device"] = "SoftStep USB MIDI";
     defaultPresetMap["key10_modline6_oscroute"] = "";
     defaultPresetMap["key10_modline6_ledgreen"] = "None";
     defaultPresetMap["key10_modline6_ledred"] = "None";

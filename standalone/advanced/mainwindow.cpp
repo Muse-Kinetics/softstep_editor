@@ -21,37 +21,36 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
+
+    saveAsDialogWidget(new QWidget(this)),
+    deleteDialogWidget(new QWidget(this)),
+    aboutFormWidget(new QWidget(this)),
+
+//    fwoodDialogForm(new Ui::FwoodDialog),
+//    fwoodDialogWidget(new QWidget(this)),
+
+//    fwProgressDialog(new Ui::FwProgressForm),
+//    fwProgressDialogWidget(new QWidget(this)),
+
+//    fwUpdateCompleteDialog(new Ui::FwUpdateCompleteForm),
+//    fwUpdateCompleteDialogWidget(new QWidget(this)),
+
+//    fwUpdateDialog(new Ui::UpdateFirmwareForm),
+//    fwUpdateDialogWidget(new QWidget(this)),
+
+    importOldDialogWidget(new QWidget(this)),
+    importOldNotFoundDialogWidget(new QWidget(this)),
+    modlineWarningDialogWidget(new QWidget(this)),
+
     ui(new Ui::MainWindow),
 
     saveAsDialogForm(new Ui::saveAsDialogForm),
-    saveAsDialogWidget(new QWidget(this)),
-
     deleteDialogForm(new Ui::deleteDialogForm),
-    deleteDialogWidget(new QWidget(this)),
-
-    fwoodDialogForm(new Ui::FwoodDialog),
-    fwoodDialogWidget(new QWidget(this)),
-
-    fwProgressDialog(new Ui::FwProgressForm),
-    fwProgressDialogWidget(new QWidget(this)),
-
-    fwUpdateCompleteDialog(new Ui::FwUpdateCompleteForm),
-    fwUpdateCompleteDialogWidget(new QWidget(this)),
-
-    fwUpdateDialog(new Ui::UpdateFirmwareForm),
-    fwUpdateDialogWidget(new QWidget(this)),
-
     aboutForm(new Ui::AboutForm),
-    aboutFormWidget(new QWidget(this)),
-
     importOldDialog(new Ui::ImportOldPresetsForm),
-    importOldDialogWidget(new QWidget(this)),
-
     importOldNotFoundDialog(new Ui::ImportOldNotFoundForm),
-    importOldNotFoundDialogWidget(new QWidget(this)),
+    modlineWarningDialog(new Ui::ModlineWarningForm)
 
-    modlineWarningDialog(new Ui::ModlineWarningForm),
-    modlineWarningDialogWidget(new QWidget(this))
 {
 
     //PList stuff
@@ -150,12 +149,37 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(midiAuxIn[6], SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), this, SLOT(slotParseMidiAuxIn_G(uchar, uchar, uchar, uchar)));
     connect(midiAuxIn[7], SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), this, SLOT(slotParseMidiAuxIn_H(uchar, uchar, uchar, uchar)));
 
-    // hosted output, dynamically open/close ports with every outgoing message
-    hostedOutput = new MidiDeviceManager(this, PID_AUX, "Hosted Output");
+#ifndef Q_OS_WIN
+    // SoftStepShare
+    SoftStepShare = new MidiDeviceManager(this, PID_AUX, "SoftStep Share");
+#endif
+
+    // Hosted output - we dynamically reassign the output port for each hosted modline message
+    hostedOut = new MidiDeviceManager(this, PID_AUX, "Hosted Output");
 
     // ******************************
     // end KMI_Ports and device handlers
     // ******************************
+
+    // check for updates
+    QString jsonVersionCheckURL = "https://files.keithmcmillen.com/products/softstep/editor/softwareVersionCheck.json";
+    checkUpdates = new KMI_Updates(this, "SoftStep", sessionSettings, applicationVersion, jsonVersionCheckURL);
+
+    // default file location
+    const QString DEFAULT_DIR_KEY("default_dir");
+
+    qDebug() << "Default file save location - pre: " << sessionSettings->value(DEFAULT_DIR_KEY).toString();
+
+    // test if this is a directory
+    QFileInfo check_file(sessionSettings->value(DEFAULT_DIR_KEY).toString());
+    if (!check_file.exists() || !check_file.isDir() || sessionSettings->value(DEFAULT_DIR_KEY).toString().contains("Contents/MacOS"))
+    {
+        QString desktop = QStandardPaths::locate(QStandardPaths::DesktopLocation, QString(), QStandardPaths::LocateDirectory);
+        qDebug() << "Desktop: " << desktop;
+        sessionSettings->setValue(DEFAULT_DIR_KEY, desktop);     // if key doesn't exist, set it to desktop
+    }
+
+    qDebug() << "Default file save location - post: " << sessionSettings->value(DEFAULT_DIR_KEY).toString();
 
     sysExComposer = new SysExComposer(this);
     presetInterface = new PresetInterface(this);
@@ -184,7 +208,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QString futuraFont = ":/fonts/futura/futura-normal.ttf";
     QString futuraBFont = ":/fonts/futura/Futura-Bold.ttf";
     QString corbelFont = ":/fonts/corbel/corbel.ttf";
-    QString corbelBFont = ":/fonts/corbel/fonts/corbelb.ttf";
+    QString corbelBFont = ":/fonts/corbel/corbelb.ttf";
 
     if (QFontDatabase::addApplicationFont(droidFont) == -1) qDebug() << "Could not load font: " << droidFont;
     if (QFontDatabase::addApplicationFont(futuraFont) == -1) qDebug() << "Could not load font: " << futuraFont;
@@ -313,6 +337,14 @@ MainWindow::MainWindow(QWidget *parent) :
     settingsWindow->slotReadSettings();
     settingsWindow->slotConnectElements();
     settingsWindow->slotRecallSettings();
+
+    // check/initialize session mode
+    if(!sessionSettings->contains("previousMode"))
+    {
+        sessionSettings->setValue("previousMode", "Hosted");
+    }
+
+    mode = sessionSettings->value("previousMode").toString() == "hosted" ? "standalone" : "hosted";
 
     slotSetMode();
 
@@ -678,6 +710,7 @@ void MainWindow::slotConnectInterfaces()
 
     //Alphanumeric MIDI Out
     connect(&navKey->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddAlphaPacket(QString,QList<MIDIPacket>)), Qt::DirectConnection);
+
     connect(&navKey->dataCooker, SIGNAL(signalThisKeyPressed(int)), &navKey->alphaNumManager, SLOT(slotDisplayKeyName(int)));
 
     // EB DONE - reconnected this, using direct method for now rather than midiFormatOutput
@@ -1491,38 +1524,48 @@ void MainWindow::slotDisplaySaveState(bool dirty)
     if(dirty)
     {
         //qDebug() << "the preset is dirty";
-        ui->save->setStyleSheet("QToolButton { background:red } QToolButton:pressed { background: rgb(230,0,134) }");
+        ui->save->setStyleSheet("QToolButton { background: rgb(255, 0, 0); color: white; border: 2px solid rgb(255,0,0); font: 12pt \"Futura PT\"; padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134); color: white; border: 2px solid rgb(230, 0, 134); font: 12pt \"Futura PT\"; padding: 0, 0, 0, 0; }");
     }
     else
     {
         //qDebug() << "the preset is no longer dirty";
-        ui->save->setStyleSheet("QToolButton { background-color:rgb(40,40,40) } QToolButton:pressed { background: rgb(230,0,134) }");
+        ui->save->setStyleSheet("QToolButton { background: rgb(40, 40, 40); color: white; border: 2px solid rgb(230,0,134); font: 12pt \"Futura PT\"; padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134); color: white; border: 2px solid rgb(230, 0, 134); font: 12pt \"Futura PT\"; padding: 0, 0, 0, 0; }");
+
+        //"QToolButton { background: rgb(40, 40, 40); color: white; border: 2px solid rgb(230,0,134); font: 12pt \"Futura PT\"; padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134); color: white; border: 2px solid rgb(230, 0, 134); font: 12pt \"Futura PT\"; padding: 0, 0, 0, 0; }"
+
     }
 }
 
 void MainWindow::slotSetMode()
 {
     //Check mode
-    if(ui->mode->isChecked())
+    if(mode == "standalone")
     {
         mode = "hosted";
 
+        ui->mode->setText("Hosted");
+
         // create virtual ports
 #ifndef Q_OS_WIN
-        kmiPorts->slotCreateVirtualIn("SoftStep Hosted Virtual Port");
-        kmiPorts->slotCreateVirtualOut("SoftStep Hosted Virtual Port");
+        SoftStepShare->slotCreateVirtualIn(SS_HOSTED_PORT);
+        SoftStepShare->slotCreateVirtualOut(SS_HOSTED_PORT);
 #endif
     }
     else
     {
         mode = "standalone";
 
+        ui->mode->setText("Standalone");
+
         // close virtual ports
 #ifndef Q_OS_WIN
-        kmiPorts->slotCloseVirtualIn();
-        kmiPorts->slotCloseVirtualOut();
+        SoftStepShare->slotCloseMidiIn(SIGNAL_NONE);
+        SoftStepShare->slotCloseMidiOut(SIGNAL_NONE);
 #endif
     }
+
+    // store value for next time we open editor
+    sessionSettings->setValue("previousMode", mode);
 
 //#ifdef Q_OS_MAC
 //#else
@@ -1610,7 +1653,6 @@ void MainWindow::slotSetMode()
     }
     navKey->slotConnectElements();
 
-    // EB TODO - reconnect this
     slotSetModeMIDI(mode); //repopulation of device menus should happen here
 
     presetInterface->slotSetMode(mode);
@@ -1683,11 +1725,13 @@ void MainWindow::slotSetMode()
 
 void MainWindow::slotPopulateDeviceMenus(QMap<QString, int> externalDevices)
 {
-//    qDebug() << "-------------------------------- populate device menus";
-//    qDebug() << externalDevices;
-//    qDebug() << "------------------------------------------------------";
+    qDebug() << "-------------------------------- populate device menus";
+    qDebug() << externalDevices;
+    qDebug() << "------------------------------------------------------";
 
-    QMap<QString, int> standalone;
+    QMap<QString, int> standaloneDevices;
+    standaloneDevices.insert("SoftStep USB MIDI", 0);
+    standaloneDevices.insert("SoftStep Expander", 0);
 
     for(int i = 0; i < 10; i++)
     {
@@ -1703,10 +1747,6 @@ void MainWindow::slotPopulateDeviceMenus(QMap<QString, int> externalDevices)
             }
             else
             {
-                QMap<QString, int> standaloneDevices;
-                standaloneDevices.insert("SoftStep Control Surface", 0);
-                standaloneDevices.insert("SoftStep Expander", 0);
-
                 key[i]->modline[j]->hosted_slotPopulateDeviceMenu(standaloneDevices);
             }
 
@@ -1727,10 +1767,6 @@ void MainWindow::slotPopulateDeviceMenus(QMap<QString, int> externalDevices)
         }
         else
         {
-            QMap<QString, int> standaloneDevices;
-            standaloneDevices.insert("SoftStep Control Surface", 0);
-            standaloneDevices.insert("SoftStep Expander", 0);
-
             navKey->navModline[n]->hosted_slotPopulateDeviceMenu(standaloneDevices);
         }
 
@@ -2013,6 +2049,7 @@ void MainWindow::slotUpdatePresets()
 
 void MainWindow::slotUpdateSettings()
 {
+    //qDebug() << "slotUpdateSettings called";
     sysExComposer->slotComposeSettings(settingsWindow->settings, settingsWindow->pedalValueListGraph);
 }
 
@@ -2062,6 +2099,7 @@ void MainWindow::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleas
 
 void MainWindow::slotDisconnectUpdate()
 {
+    qDebug() << "slotDisconnectUpdate called";
     ui->update->setEnabled(false);
     disconnect(ui->update, SIGNAL(clicked()), this, SLOT(slotDisconnectUpdate()));
     slotUpdatePresets();
@@ -2069,6 +2107,7 @@ void MainWindow::slotDisconnectUpdate()
 
 void MainWindow::slotConnectUpdate()
 {
+    qDebug() << "slotConnectUpdate called";
     connect(ui->update, SIGNAL(clicked()), this, SLOT(slotDisconnectUpdate()));
     ui->update->setEnabled(true);
 }
@@ -2100,15 +2139,12 @@ void MainWindow::slotSetModeMIDI(QString m)
     }
     else
     {
-        // EB TODO - redo this with RtMidi
-        //MIDIEndpointDispose(appVirtualSourceRef);
-        //MIDIEndpointDispose(appVirtualDestRef);
 
-        //Delete external midi input port
-        //MIDIPortDispose(midiInputPort);
 
         sysExComposer->slotHostedOnOff(false);
     }
+
+    slotPopulateDeviceMenus(externalDests); // update menus
 }
 
 
@@ -2137,7 +2173,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
         {
             SoftStep->slotSetExpectedFW(thisFw);
-            SoftStep->updatePortIn(portNum);
+            SoftStep->slotUpdatePortIn(portNum);
             fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Connected\n");
         }
         else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
@@ -2145,14 +2181,14 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             // use the port names to determine if we need to upgrade the bootloader, or if we are in bootloader mode
             if (portName == SS_OLD_OUT_P1)
             {
-                SoftStep->updatePID(PID_SOFTSTEP2_OLD); // this will use the old SSCOM firmware version request
+                SoftStep->slotUpdatePID(PID_SOFTSTEP2_OLD); // this will use the old SSCOM firmware version request
             }
             else
             {
-                SoftStep->updatePID(PID_SOFTSTEP); // this uses the standard SysEx ID request
+                SoftStep->slotUpdatePID(PID_SOFTSTEP); // this uses the standard SysEx ID request
             }
 
-            SoftStep->updatePortOut(portNum);
+            SoftStep->slotUpdatePortOut(portNum);
             SoftStep->slotStartPolling("PORT_CONNECT"); // start polling when output port is added
         }
         // hosted mode
@@ -2207,11 +2243,11 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         // **** SoftStep renumber ****************************************
         if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
         {
-            SoftStep->updatePortIn(portNum);
+            SoftStep->slotUpdatePortIn(portNum);
         }
         else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
         {
-            SoftStep->updatePortOut(portNum);
+            SoftStep->slotUpdatePortOut(portNum);
         }
         // Hosted mode
         else if (inOrOut == PORT_IN && !portName.contains("SoftStep Hosted Virtual Port"))
@@ -2391,20 +2427,43 @@ void MainWindow::slotProcessInputToHostedMode(uchar chan, uchar cc, uchar val)
 {
     Q_UNUSED(chan);
 
-    qDebug() << "slotProcessInputToHostedMode called, cc: " << cc << " val: " << val;
+    //qDebug() << "slotProcessInputToHostedMode called, cc: " << cc << " val: " << val;
     emit signalUpdateSensor(cc, val);
 }
+
+
+// Hosted mode modlines route messages to midiformatoutput, which in turn calls hosted_slotSendPacket.
+// The portname is the output destination of the message. Rather than create discrete rtmidi instances
+// (which would eat memory and likely cause driver collisions on windows) we will attempt to dynamiclly
+// change the output port of a single rtmidi instance with each message.
+// For non-windows OSes, we will route messages to "Softstep Share" directly to the virtual port rtmidi instance.
 
 void MainWindow::hosted_slotSendPacket(QString portName, uchar status, uchar d1, uchar d2, uchar chan)
 {
     Q_UNUSED(portName);
-    Q_UNUSED(status);
-    Q_UNUSED(d1);
-    Q_UNUSED(d2);
-    Q_UNUSED(chan);
+
+    qDebug() << "hosted_slotSendPacket called - portName: " << portName << " status: " << status << " d1: " << d1 << " d2: " << d2 << " chan: " << chan;
+
+    if (portName == SS_HOSTED_PORT)
+    {
+        SoftStepShare->slotSendMIDI(status, d1, d2, chan);
+    }
+    else
+    {
+        int thisPort = kmiPorts->midiOutputPorts.value(portName); // get port #
+
+        if (thisPort != hostedOut->port_out) // only update the port number when it's necessary
+        {
+            hostedOut->slotUpdatePortOut(kmiPorts->getOutPortNumber(portName)); // dynamically reassign the output port for every message)
+        }
+
+        hostedOut->slotSendMIDI(status, d1, d2, chan);
+    }
 }
 
-void MainWindow::hosted_slotSendPacketArray(QString, QByteArray)
+void MainWindow::hosted_slotSendPacketArray(QString portName, QByteArray packetArray)
 {
-
+    Q_UNUSED(portName);
+    qDebug() << "hosted_slotSendPacketArray called";
+    SoftStepShare->slotSendSysExBA(packetArray);
 }

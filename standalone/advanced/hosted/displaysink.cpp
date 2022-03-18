@@ -38,7 +38,7 @@ void DisplaySink::slotAddAlphaPacket(QString port, QList<MIDIPacket> packetList)
 {
     Q_UNUSED(port);
 
-    //qDebug() << "add alpha packet" << alphaLastPacketList.size() << packetList.size();// << alphaLastPacketList.at(0).data[0];s
+    qDebug() << "add alpha packet: " << alphaLastPacketList.size() << packetList.size();// << alphaLastPacketList.at(0).data[0];s
 
     bool newPacket = false;
 
@@ -162,7 +162,7 @@ void DisplaySink::slotDrainDisplayFIFO()
 {
     if(!displayFIFO.isEmpty())
     {
-        // EB - this seems to be the only place where we send sysex, so let's decode the packet
+        // EB - this seems to be the only place where we send MIDI, so let's decode the packet
         // both alpha and LED messages are sent as control changes
 
         uchar status = displayFIFO.first().data[0];

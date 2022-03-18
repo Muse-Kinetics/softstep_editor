@@ -105,7 +105,10 @@ public:
     // For KMI_Central we are using these for the input/output dropdowns as a simple MIDI route demo.
     MidiDeviceManager* midiAuxIn[8];
 
-    MidiDeviceManager* hostedOutput; // dynamically opens destination ports with every message
+    MidiDeviceManager* SoftStepShare;
+
+    // this port is used to send MIDI to various ports when in hosted mode.
+    MidiDeviceManager* hostedOut;
 
     // version strings for console and about window
     QString deviceBootloaderVersionString();

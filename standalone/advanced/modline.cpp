@@ -323,6 +323,8 @@ void Modline::slotValueChanged()
         QObject *sender = QObject::sender();
         QVariant value;
 
+        qDebug() << "slotValueChanged - sender: " << sender->objectName();
+
         //enable checkbox
         if(sender == modlineForm->enable)
         {
@@ -392,6 +394,7 @@ void Modline::slotValueChanged()
         //Destination Menu
         else if(sender == modlineForm->destination)
         {
+            qDebug() << "modline slotvaluechanged - destination";
             slotRecallDestinationMenu();
 
             jsonName = "destination";
@@ -607,14 +610,29 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modlineForm->aftertouchchannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm->polychannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
 
-    modlineForm->notedevice->setCurrentIndex(modlineForm->notedevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
-    modlineForm->notelivedevice->setCurrentIndex(modlineForm->notedevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
-    modlineForm->controldevice->setCurrentIndex(modlineForm->notedevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
-    modlineForm->bankdevice->setCurrentIndex(modlineForm->notedevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
-    modlineForm->programdevice->setCurrentIndex(modlineForm->notedevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
-    modlineForm->benddevice->setCurrentIndex(modlineForm->notedevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
-    modlineForm->aftertouchdevice->setCurrentIndex(modlineForm->notedevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
-    modlineForm->polydevice->setCurrentIndex(modlineForm->notedevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    QString presetDevice = preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString();
+
+    // fix old port names
+    if (presetDevice.contains("SSCOM"))
+    {
+        if (mode == "standalone")
+        {
+            presetDevice = "SoftStep USB MIDI";
+        }
+        else if (mode == "hosted")
+        {
+            presetDevice = "SoftStep Share";
+        }
+    }
+
+    modlineForm->notedevice->setCurrentIndex(modlineForm->notedevice->findText(presetDevice));
+    modlineForm->notelivedevice->setCurrentIndex(modlineForm->notelivedevice->findText(presetDevice));
+    modlineForm->controldevice->setCurrentIndex(modlineForm->controldevice->findText(presetDevice));
+    modlineForm->bankdevice->setCurrentIndex(modlineForm->bankdevice->findText(presetDevice));
+    modlineForm->programdevice->setCurrentIndex(modlineForm->programdevice->findText(presetDevice));
+    modlineForm->benddevice->setCurrentIndex(modlineForm->benddevice->findText(presetDevice));
+    modlineForm->aftertouchdevice->setCurrentIndex(modlineForm->aftertouchdevice->findText(presetDevice));
+    modlineForm->polydevice->setCurrentIndex(modlineForm->polydevice->findText(presetDevice));
 
     modlineForm->mmcdeviceid->setValue(preset.value(QString("key%1_modline%2_mmcid").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
     modlineForm->mmcfunction->setCurrentIndex(modlineForm->mmcfunction->findText(preset.value(QString("key%1_modline%2_mmcfunction").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
@@ -672,6 +690,7 @@ void Modline::slotDeleteModline(int num, bool disable)
 
 void Modline::slotRecallDestinationMenu()
 {
+    //qDebug() << "Modline::slotRecallDestinationMenu called";
     //set the device view to change based on what is selected in the destination menu
     if((modlineForm->destination->currentIndex()) > 10)
     {
@@ -841,6 +860,13 @@ void Modline::slotSetTransformValues()
 //------------------------------------------------------------------------------------------- Gain / Offset
 void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
+    //qDebug() << "Modline::slotTransformSource called - key: " << keyInstance << " modLineNum: " << modlineNum << " source: " << source;
+
+//    if(QObject::sender())
+//    {
+//        qDebug() << "slotTransformSource - sender: " << QObject::sender()->objectName();
+//    }
+
     if(source == "Init")
     {
         //Set raw display value
@@ -909,6 +935,7 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
 //------------------------------------------------------------------------------------------- Table / Counter
 void Modline::slotTable(int input)
 {
+    //qDebug() << "Modline::slotTable called";
     //Clip table input
     if(input > 127)
     {
@@ -1012,6 +1039,7 @@ void Modline::slotTable(int input)
 
 void Modline::slotCounterReturn(int val)
 {
+    //qDebug() << "Modline::slotCounterReturn called";
     if(modlineForm->table->currentText().contains("Counter"))
     {
         if(modlineForm->table->currentText().contains("Set"))
@@ -1035,6 +1063,7 @@ void Modline::slotCounterReturn(int val)
 //------------------------------------------------------------------------------------------- Min / Max
 void Modline::slotMinMax(int input)
 {
+    //qDebug() << "Modline::slotMinMax called";
     //If min max are flipped... Don't know... return input for now
     if(min > max)
     {
@@ -1060,6 +1089,7 @@ void Modline::slotMinMax(int input)
 //------------------------------------------------------------------------------------------- Smooth
 void Modline::slotSmooth(int input)
 {
+    //qDebug() << "Modline::slotSmooth called";
     if(smooth)
     {
         //do something with slewer here and retun in slotSmoothReturn
@@ -1083,6 +1113,7 @@ void Modline::slotSmoothReturn(int input)
 //------------------------------------------------------------------------------------------- Delay
 void Modline::slotDelay(int input)
 {
+    //qDebug() << "Modline::slotDelay called";
 
     if(delay)
     {
@@ -1105,6 +1136,7 @@ void Modline::slotDelayReturn(int input)
 //------------------------------------------------------------------------------------------- Output
 void Modline::slotOutputRoutine(int input)
 {
+    //qDebug() << "Modline::slotOutputRoutine called";
 
     //Prepares message type to be formatted by midiformat, and then output via mididevicemanager
     hosted_slotOutputMidi(input);
@@ -1128,6 +1160,7 @@ void Modline::slotOutputRoutine(int input)
 
 void Modline::hosted_slotOutputMidi(int outputVal)
 {
+    qDebug() << "Modline::hosted_slotOutputMidi called";
     if(outputType == "Note Set")
     {
         if(outputVal)

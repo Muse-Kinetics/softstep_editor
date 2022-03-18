@@ -20,7 +20,7 @@ void MidiFormatOutput::slotPreparePacket()
 //------------------------------------- Formatting
 void MidiFormatOutput::slotNoteSet(QString port, int channel, int note, int velocity)
 {
-    //qDebug() << "slotNoteSet";
+    qDebug() << "slotNoteSet";
     unsigned char status;
 //    MIDIPacket packet;
 
@@ -49,6 +49,7 @@ void MidiFormatOutput::slotNoteSet(QString port, int channel, int note, int velo
 
 void MidiFormatOutput::slotNoteLive(QString port, int channel, int oldNote, int newNote, int velocity)
 {
+    qDebug() << "slotNoteLive";
     MIDIPacket packet;
 
     packet.timeStamp = 0;
@@ -92,6 +93,7 @@ void MidiFormatOutput::slotCC(QString port, int channel, int ccNum, int ccVal)
 
 void MidiFormatOutput::slotBank(QString port, int channel, int msb, int lsb)
 {
+    qDebug() << "slotBank";
     //MIDIPacket packet;
     unsigned char status = 176;
 
@@ -112,6 +114,7 @@ void MidiFormatOutput::slotBank(QString port, int channel, int msb, int lsb)
 
 void MidiFormatOutput::slotProgram(QString port, int channel, int program)
 {
+    qDebug() << "slotProgram";
     uchar status = 192;
 //    MIDIPacket packet;
 

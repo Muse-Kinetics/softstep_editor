@@ -116,7 +116,7 @@ void AlphaNumManager::slotDisplayKeyName(int keyNum)
     {
         keyOnOff = true;
 
-        //qDebug() << "display key name" << keyName << keyNum << instanceNum;
+        qDebug() << "display key name" << keyName << keyNum << instanceNum;
 
         //None
         if(displayMode.contains("None"))
