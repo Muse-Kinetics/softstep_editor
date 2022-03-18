@@ -53,9 +53,7 @@ QToolTip
     </property>
     <property name="font">
      <font>
-      <family>Futura</family>
       <pointsize>12</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -563,13 +561,13 @@ QToolTip
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>8</y>
+       <y>6</y>
        <width>10</width>
        <height>100</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">	font: 13pt &quot;Futura-Normal&quot;;
+      <string notr="true">	font: 12pt &quot;Futura-Normal&quot;;
 	color: white;</string>
      </property>
      <property name="text">
@@ -745,9 +743,7 @@ QLineEdit:focus
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
        <pointsize>20</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -807,9 +803,7 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
        <pointsize>20</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -869,9 +863,7 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Futura PT</family>
        <pointsize>30</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>

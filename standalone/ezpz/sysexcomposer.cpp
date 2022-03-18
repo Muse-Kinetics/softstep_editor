@@ -236,7 +236,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
                         //Devices
                         if(m == 0l)
                         {
-                            attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SSCOM_Port_1");
+                            attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SoftStep_USB_MIDI");
                         }
                         else
                         {
@@ -283,7 +283,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
 
                         if(m == 2l)
                         {
-                            attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SSCOM_Port_1");
+                            attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SoftStep_USB_MIDI");
                         }
                         else
                         {
@@ -402,7 +402,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
 
                     if(m == 0l)
                     {
-                        attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SSCOM_Port_1");
+                        attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SoftStep_USB_MIDI");
                     }
                     else
                     {
@@ -436,7 +436,7 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
 
                     if(m == 2l)
                     {
-                        attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SSCOM_Port_1");
+                        attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,"SoftStep_USB_MIDI");
                     }
                     else
                     {
@@ -566,7 +566,7 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
             attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
             //qDebug() << "------------------ " << preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData();
             QString deviceTest = preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString();
-            if(deviceTest.contains("SSCOM_Port_1") || deviceTest.contains("SoftStep_Expander"))
+            if(deviceTest.contains("SoftStep_USB_MIDI") || deviceTest.contains("SoftStep_Expander"))
             {
                 attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
             }
@@ -625,7 +625,7 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
         attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("%1_modline%2_channel").arg(k).arg(m)).toLongLong());
 
         QString deviceTest = preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString();
-        if(deviceTest.contains("SSCOM_Port_1") || deviceTest.contains("SoftStep_Expander"))
+        if(deviceTest.contains("SoftStep_USB_MIDI") || deviceTest.contains("SoftStep_Expander"))
         {
             attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
         }

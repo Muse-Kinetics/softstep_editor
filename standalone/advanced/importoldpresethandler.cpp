@@ -175,13 +175,15 @@ void ImportOldPresetHandler::slotNormalizePresetMap()
         //if copying from one mode to the other the device menu values for port 1 should change
         if(i.key().contains("_device"))
         {
-            if(importedNewPresetMap.value(i.key()) == "SoftStep Control Surface" && mode == "hosted")
+            if(mode == "hosted" &&
+                    (importedNewPresetMap.value(i.key()) == "SoftStep USB MIDI" || importedNewPresetMap.value(i.key()) == "SSCOM Port 1") )
             {
                 importedNewPresetMap.insert(i.key(), "SoftStep Share");
             }
-            else if(importedNewPresetMap.value(i.key()) == "SoftStep Share" && mode == "standalone")
+            else if(mode == "standalone" &&
+                    (importedNewPresetMap.value(i.key()) == "SoftStep Share" || importedNewPresetMap.value(i.key()) == "SSCOM Port 1") )
             {
-                importedNewPresetMap.insert(i.key(), "SoftStep Control Surface");
+                importedNewPresetMap.insert(i.key(), "SoftStep USB MIDI");
             }
         }
     }

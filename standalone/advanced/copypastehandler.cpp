@@ -78,13 +78,15 @@ void CopyPasteHandler::slotClearPreset()
             }
             if(i.key().contains("_device"))
             {
-                if(blankPresetMap.value(i.key()) == "SoftStep Control Surface" && mode == "hosted")
+                if(mode == "hosted" &&
+                        (blankPresetMap.value(i.key()) == "SoftStep USB MIDI" || blankPresetMap.value(i.key()) == "SSCOM Port 1") ) // capture old values
                 {
-                    blankPresetMap.insert(i.key(), "SoftStep Hosted Virtual Port");
+                    blankPresetMap.insert(i.key(), "SoftStep Share");
                 }
-                else if(blankPresetMap.value(i.key()) == "SoftStep Hosted Virtual Port" && mode == "standalone")
+                else if(mode == "standalone" &&
+                        (blankPresetMap.value(i.key()) == "SoftStep Share" || blankPresetMap.value(i.key()) == "SSCOM Port 1") )
                 {
-                    blankPresetMap.insert(i.key(), "SoftStep Control Surface");
+                    blankPresetMap.insert(i.key(), "SoftStep USB MIDI");
                 }
             }
         }
@@ -176,14 +178,16 @@ void CopyPasteHandler::slotPastePreset()
             if(i.key().contains("_device"))
             {
                 //qDebug() << "Paste Preset Parameter" << presetCopiedMap.value(i.key());
-                if(presetCopiedMap.value(i.key()) == "SoftStep Control Surface" && mode == "hosted")
+                if(mode == "hosted" &&
+                        (presetCopiedMap.value(i.key()) == "SoftStep USB MIDI" || presetCopiedMap.value(i.key()) == "SSCOM Port 1") ) // capture bad/old values
                 {
-                    presetCopiedMap.insert(i.key(), "SoftStep Hosted Virtual Port");
-                    //qDebug() << "SoftStep Control Surface has been changed to SoftStep Hosted Virtual Port" << i.key();
+                    presetCopiedMap.insert(i.key(), "SoftStep Share");
+                    //qDebug() << "SoftStep Control Surface has been changed to SoftStep Share" << i.key();
                 }
-                else if(presetCopiedMap.value(i.key()) == "SoftStep Hosted Virtual Port" && mode == "standalone")
+                else if(mode == "standalone" &&
+                        (presetCopiedMap.value(i.key()) == "SoftStep Share" || presetCopiedMap.value(i.key()) == "SSCOM Port 1") )
                 {
-                    presetCopiedMap.insert(i.key(), "SoftStep Control Surface");
+                    presetCopiedMap.insert(i.key(), "SoftStep USB MIDI");
                     //qDebug() << "SoftStep Hosted Virtual Port has been changed to SoftStep Control Surface" << i.key();
                 }
             }
@@ -272,14 +276,16 @@ void CopyPasteHandler::slotPasteNewPreset()
             if(i.key().contains("_device"))
             {
                 //qDebug() << "Paste Preset Parameter" << presetCopiedMap.value(i.key());
-                if(presetCopiedMap.value(i.key()) == "SoftStep Control Surface" && mode == "hosted")
+                if(mode == "hosted" &&
+                        (presetCopiedMap.value(i.key()) == "SoftStep USB MIDI" || presetCopiedMap.value(i.key()) == "SSCOM Port 1") )
                 {
-                    presetCopiedMap.insert(i.key(), "SoftStep Hosted Virtual Port");
+                    presetCopiedMap.insert(i.key(), "SoftStep Share");
                     //qDebug() << "SoftStep Control Surface has been changed to SoftStep Hosted Virtual Port";
                 }
-                else if(presetCopiedMap.value(i.key()) == "SoftStep Hosted Virtual Port" && mode == "standalone")
+                else if(mode == "standalone" &&
+                        (presetCopiedMap.value(i.key()) == "SoftStep Share" || presetCopiedMap.value(i.key()) == "SSCOM Port 1" ) )
                 {
-                    presetCopiedMap.insert(i.key(), "SoftStep Control Surface");
+                    presetCopiedMap.insert(i.key(), "SoftStep USB MIDI");
                     //qDebug() << "SoftStep Hosted Virtual Port has been changed to SoftStep Control Surface";
                 }
             }

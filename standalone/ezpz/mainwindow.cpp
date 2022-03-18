@@ -1015,7 +1015,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
         {   
             SoftStep->slotSetExpectedFW(thisFw);
-            SoftStep->updatePortIn(portNum);
+            SoftStep->slotUpdatePortIn(portNum);
             fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Connected\n");
         }
         else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
@@ -1023,14 +1023,14 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             // use the port names to determine if we need to upgrade the bootloader, or if we are in bootloader mode
             if (portName == SS_OLD_OUT_P1)
             {
-                SoftStep->updatePID(PID_SOFTSTEP2_OLD); // this will use the old SSCOM firmware version request
+                SoftStep->slotUpdatePID(PID_SOFTSTEP2_OLD); // this will use the old SSCOM firmware version request
             }
             else
             {
-                SoftStep->updatePID(PID_SOFTSTEP); // this uses the standard SysEx ID request
+                SoftStep->slotUpdatePID(PID_SOFTSTEP); // this uses the standard SysEx ID request
             }
 
-            SoftStep->updatePortOut(portNum);
+            SoftStep->slotUpdatePortOut(portNum);
             SoftStep->slotStartPolling("PORT_CONNECT"); // start polling when output port is added
         }
 
@@ -1063,11 +1063,11 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         // **** SoftStep renumber ****************************************
         if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
         {
-            SoftStep->updatePortIn(portNum);
+            SoftStep->slotUpdatePortIn(portNum);
         }
         else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
         {
-            SoftStep->updatePortOut(portNum);
+            SoftStep->slotUpdatePortOut(portNum);
         }
 
         break;
