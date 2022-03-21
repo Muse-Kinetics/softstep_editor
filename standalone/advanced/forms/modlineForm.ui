@@ -211,7 +211,7 @@ QRadioButton::indicator:checked:pressed
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -241,7 +241,7 @@ QToolTip
     <string notr="true">QLabel
 {
 	color: 				white;
-	font: 				8pt &quot;Futura&quot;;
+	font: 				8pt &quot;Futura-Normal&quot;;
 	border:				none;
 }</string>
    </property>
@@ -281,7 +281,7 @@ QToolTip
 QCheckBox
 {
     color: rgba(255,255,255,0);
-    font: 10pt &quot;Futura&quot;;
+    font: 10pt &quot;Futura-Normal&quot;;
 }
 
 QCheckBox::indicator
@@ -500,7 +500,7 @@ QSpinBox:disabled
 {
 	background-color: rgba(20, 20, 20, 75);
 	border-color: rgba(0, 174, 239, 75);
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 75);
 }
 </string>
@@ -558,7 +558,7 @@ QSpinBox:disabled
 {
 	background-color: rgba(18, 18, 18, 255);
 	border-color: rgba(236, 0, 140, 90);
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 90);
 }
 </string>
@@ -762,7 +762,7 @@ QSpinBox:disabled
 {
 	background-color: rgba(18, 18, 18, 255);
 	border-color: rgba(236, 0, 140, 90);
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 90);
 }</string>
    </property>
@@ -1025,7 +1025,7 @@ QSpinBox:disabled
 {
 	background-color: rgba(18, 18, 18, 255);
 	border-color: rgba(236, 0, 140, 90);
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 90);
 }
 </string>

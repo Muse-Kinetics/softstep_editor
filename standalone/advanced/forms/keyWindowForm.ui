@@ -30,7 +30,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				9pt &quot;Futura&quot;;
+	font: 				9pt &quot;Futura-Normal&quot;;
 	border:				none;
 }
 
@@ -42,7 +42,7 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: (18, 18, 18);
 	color: white;
@@ -58,7 +58,7 @@ QSpinBox:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	background: none;
 	color: white;
 	padding:0, 3, 0, 0;
@@ -162,7 +162,7 @@ QComboBox::down-arrow
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -242,7 +242,7 @@ QToolTip
    <property name="styleSheet">
     <string notr="true">QLabel
 {
-	font: 12pt &quot;Futura&quot;;
+	font: 12pt &quot;Futura-Normal&quot;;
 	border: none;
 	padding: none;
 	background-image: none;
@@ -622,7 +622,7 @@ QToolButton:pressed
     <string notr="true">/* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	color: white;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(20, 20, 20);
@@ -639,7 +639,7 @@ QSpinBox:disabled
 {
 	background-color: rgba(20, 20, 20, 75);
 	border-color: rgba(0, 174, 239, 75);
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 75);
 }
 </string>
@@ -760,7 +760,7 @@ QCheckBox::indicator:checked:disabled
     <string notr="true">/* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	color: white;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(20, 20, 20);
@@ -777,7 +777,7 @@ QSpinBox:disabled
 {
 	background-color: rgba(20, 20, 20, 75);
 	border-color: rgba(0, 174, 239, 75);
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	color: rgba(255, 255, 255, 75)
 }
 </string>
@@ -821,7 +821,7 @@ QSpinBox:disabled
 {
 	background:		none;
 	color: 				white;
-	font:  12pt &quot;Futura&quot;;
+	font:  12pt &quot;Futura-Normal&quot;;
 	border:				none;
 
 
@@ -850,7 +850,7 @@ QSpinBox:disabled
 {
 	background:		none;
 	color: 				white;
-	font:  12pt &quot;Futura&quot;;
+	font:  12pt &quot;Futura-Normal&quot;;
 	border:				none;
 
 
@@ -879,7 +879,7 @@ QSpinBox:disabled
 {
 	background:		none;
 	color: 				white;
-	font:  12pt &quot;Futura&quot;;
+	font:  12pt &quot;Futura-Normal&quot;;
 	border:				none;
 
 
@@ -908,7 +908,7 @@ QSpinBox:disabled
 {
 	background:		none;
 	color: 				white;
-	font:  14pt &quot;Futura&quot;;
+	font:  14pt &quot;Futura-Normal&quot;;
 	border:				none;
 
 
@@ -961,7 +961,7 @@ QToolButton::disabled
 
 QToolTip
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 }</string>
     </property>
     <property name="text">

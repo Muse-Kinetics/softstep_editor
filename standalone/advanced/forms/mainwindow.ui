@@ -32,7 +32,7 @@ QLineEdit
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura&quot;;
+	font: 10px &quot;Futura-Normal&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
@@ -64,7 +64,7 @@ QToolTip
     <property name="styleSheet">
      <string notr="true">QLabel
 {
-	font: 12pt &quot;Futura&quot;;
+	font: 12pt &quot;Futura-Normal&quot;;
 	color: red;
 	background: rgb(40, 40, 40);
 	padding: 0px 0px 0px 3px;
@@ -121,7 +121,7 @@ QPushButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	padding: 0,1,0,0;
 }
 
@@ -130,7 +130,7 @@ QPushButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: none;
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	padding: 0, 1, 0, 0;
 }
 
@@ -140,7 +140,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	padding: 0,1,0,0;
 }
 
@@ -149,7 +149,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 9pt &quot;Futura&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	padding: 0, 1, 0, 0;
 }
 
@@ -159,13 +159,13 @@ QLabel
 	background: rgba(0,0,0,0);
 	color: white;
 	border: none;
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 }
 
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 	border: 2px solid rgb(0,174,239);
 	background-color: rgb(28, 28, 29);
 	color: white;
@@ -550,7 +550,7 @@ QToolButton::disabled
 
 QToolTip
 {
-	font: 10pt &quot;Futura&quot;;
+	font: 10pt &quot;Futura-Normal&quot;;
 }</string>
      </property>
      <property name="text">
@@ -657,7 +657,7 @@ QLineEdit:focus
 {
 	background:		none;
 	color: 				white;
-	font:  10pt &quot;Futura&quot;;
+	font:  10pt &quot;Futura-Normal&quot;;
 	border:				none;
 
 

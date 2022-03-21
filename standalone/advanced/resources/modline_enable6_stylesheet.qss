@@ -2,7 +2,7 @@
 QCheckBox
 {
     color: rgba(255,255,255,0);
-    font: 10pt "Futura";
+    font: 10pt "Futura-Normal";
 }
 
 QCheckBox::indicator
