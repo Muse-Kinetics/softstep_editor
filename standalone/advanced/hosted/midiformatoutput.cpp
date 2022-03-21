@@ -114,7 +114,7 @@ void MidiFormatOutput::slotBank(QString port, int channel, int msb, int lsb)
 
 void MidiFormatOutput::slotProgram(QString port, int channel, int program)
 {
-    qDebug() << "slotProgram";
+    //qDebug() << "slotProgram";
     uchar status = 192;
 //    MIDIPacket packet;
 

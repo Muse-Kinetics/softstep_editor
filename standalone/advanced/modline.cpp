@@ -1160,7 +1160,7 @@ void Modline::slotOutputRoutine(int input)
 
 void Modline::hosted_slotOutputMidi(int outputVal)
 {
-    qDebug() << "Modline::hosted_slotOutputMidi called";
+    //qDebug() << "Modline::hosted_slotOutputMidi called";
     if(outputType == "Note Set")
     {
         if(outputVal)

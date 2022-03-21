@@ -935,7 +935,7 @@ void MainWindow::slotConnectInterfaces()
 
 
 // EB TODO - reconnect these
-    //connect(sysExComposer, SIGNAL(signalStartStandaloneCalibration()), settingsWindow, SLOT(slotStartCalibrationStandAlone()));
+    connect(sysExComposer, SIGNAL(signalStartStandaloneCalibration()), settingsWindow, SLOT(slotStartCalibrationStandAlone()));
     //connect(sysExComposer, SIGNAL(signalStopStandaloneCalibration()), settingsWindow, SLOT(slotStopCalibrationStandAlone()));
 
     connect(settingsWindow, SIGNAL(signalUpdateSettings()), this, SLOT(slotUpdateSettings()));

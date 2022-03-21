@@ -94,7 +94,7 @@ SysExComposer::SysExComposer(QWidget *parent) :
 
 void SysExComposer::slotComposeSettings(QVariantMap settingsMapGlobal, QList<int> pedalTable)
 {
-    //qDebug() << "slotComposeSettings called";
+    qDebug() << "slotComposeSettings called";
 
     if (composeSettingsTimeout->elapsed() < 500) // limit update to twice a second
     {

@@ -1381,7 +1381,7 @@ void DataCooker::slotLongTriggerLatchOff()
 //-------------------------------------------------------------------- Key Specific Sources
 void DataCooker::slotReceiveKeyPressed(int keyPressed)
 {
-    qDebug() << "DataCooker::slotReceiveKeyPressed: " << keyPressed;
+    //qDebug() << "DataCooker::slotReceiveKeyPressed: " << keyPressed;
     keyPressed = (keyPressed + 1)%10;
 
     previousKeyPressed[1] = previousKeyPressed[0];
