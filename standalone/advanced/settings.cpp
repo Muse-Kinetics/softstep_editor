@@ -480,7 +480,12 @@ void Settings::slotValueChanged()
             jsonName = combobox->objectName();
             value = combobox->currentText();
 
-            //qDebug() << "_________ ComboBox: settings slot vlaue changed" << jsonName;
+            //qDebug() << "_________ ComboBox: settings slot value changed" << jsonName;
+
+            if(combobox->objectName().contains("_settings_device"))
+            {
+                emit signalUpdateMIDIAuxDropdowns(jsonName, combobox->currentText());
+            }
         }
         //line edits (osc routes)
         else if(senderClass == "QLineEdit")
@@ -499,6 +504,7 @@ void Settings::slotValueChanged()
 
         emit signalStoreValue(jsonName,value);
         emit signalUpdateSettings();
+
 
     }
 
@@ -586,12 +592,12 @@ void Settings::slotRecallSettings()
 
 void Settings::slotViewSelector()
 {
-    qDebug() << "slotViewSelectorCalled";
+    //qDebug() << "slotViewSelectorCalled";
     if(QObject::sender())
     {
         QObject *sender = QObject::sender();
 
-        qDebug() << "Sender: " << sender;
+        //qDebug() << "Sender: " << sender;
 
         if(sender == settingsForm->settingsglobalbutton)
         {
@@ -615,7 +621,7 @@ void Settings::slotViewSelector()
             settingsForm->settingsViews->setCurrentIndex(3);
             settingsWidget->setFixedSize(320, 415);
         }
-        qDebug() << "settingsViews->currentIndex: " << settingsForm->settingsViews->currentIndex();
+        //qDebug() << "settingsViews->currentIndex: " << settingsForm->settingsViews->currentIndex();
     }
 }
 

@@ -67,6 +67,7 @@ public:
     QList<int> pedalValueListTable;
 
     QString mode;
+
     
 signals:
     void signalUpdateSettings();
@@ -112,6 +113,9 @@ signals:
     void signalSetTestValueSlider(QSlider* slider);
     void signalInitPedalTable(QByteArray);
     void signalTetherOnOffInStandalone(bool);
+
+    //---- MIDI Aux inputs
+    void signalUpdateMIDIAuxDropdowns(QString jsonName, QString value);
 
     //---- OSC
     void signalSetOscEnable(int inputNum, bool enabled);

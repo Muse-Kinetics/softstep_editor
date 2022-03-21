@@ -219,6 +219,7 @@ signals:
 
     void signalUpdateSensor(uchar cc, uchar val);
 
+
 public slots:
 
 
@@ -241,6 +242,8 @@ public slots:
     void slotParseMidiAuxIn_F(uchar status, uchar d1, uchar d2, uchar chan);
     void slotParseMidiAuxIn_G(uchar status, uchar d1, uchar d2, uchar chan);
     void slotParseMidiAuxIn_H(uchar status, uchar d1, uchar d2, uchar chan);
+
+    void slotUpdateMIDIAuxInputPorts(QString auxInput, QString port);
 
     // ------ end midi overhaul --------------------------------------------------------
 

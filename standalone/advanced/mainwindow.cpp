@@ -935,8 +935,8 @@ void MainWindow::slotConnectInterfaces()
 
 
 // EB TODO - reconnect these
-//    connect(midiDeviceManager, SIGNAL(signalStartStandaloneCalibration()), settingsWindow, SLOT(slotStartCalibrationStandAlone()));
-//    connect(midiDeviceManager, SIGNAL(signalStopStandaloneCalibration()), settingsWindow, SLOT(slotStopCalibrationStandAlone()));
+    //connect(sysExComposer, SIGNAL(signalStartStandaloneCalibration()), settingsWindow, SLOT(slotStartCalibrationStandAlone()));
+    //connect(sysExComposer, SIGNAL(signalStopStandaloneCalibration()), settingsWindow, SLOT(slotStopCalibrationStandAlone()));
 
     connect(settingsWindow, SIGNAL(signalUpdateSettings()), this, SLOT(slotUpdateSettings()));
 
@@ -969,6 +969,9 @@ void MainWindow::slotConnectInterfaces()
 // EB DONE - moved these to sysexcomposer
     connect(settingsWindow, SIGNAL(signalSetSceneChanging(bool)), sysExComposer, SLOT(slotSceneChangeOnOff(bool)));
     connect(settingsWindow, SIGNAL(signalSetBacklight(bool)), sysExComposer, SLOT(slotBackLightOnOff(bool)));
+
+    // MIDI Aux Inputs
+    connect(settingsWindow, SIGNAL(signalUpdateMIDIAuxDropdowns(QString, QString)), this, SLOT(slotUpdateMIDIAuxInputPorts(QString, QString)));
 
     //----------------------------- OSC
     connect(settingsWindow, SIGNAL(signalSetOscAddress(int,QString)), oscInterface, SLOT(slotSetOSCAddressTags(int,QString)));
@@ -2418,6 +2421,14 @@ void MainWindow::slotParseMidiAuxIn_F(uchar status, uchar d1, uchar d2, uchar ch
 void MainWindow::slotParseMidiAuxIn_G(uchar status, uchar d1, uchar d2, uchar chan) { settingsWindow->midiInputLine[6].slotReceiveInput(status, d1, d2, chan, settingsWindow->midiInputLine[6].device); }
 void MainWindow::slotParseMidiAuxIn_H(uchar status, uchar d1, uchar d2, uchar chan) { settingsWindow->midiInputLine[7].slotReceiveInput(status, d1, d2, chan, settingsWindow->midiInputLine[7].device); }
 
+void MainWindow::slotUpdateMIDIAuxInputPorts(QString auxInput, QString port)
+{
+    int inputIndex = auxInput.at(4).toLatin1() - 97; // index A = 0
+
+    qDebug() << "slotUpdateMIDIAuxInputPorts called - auxInput: " << auxInput << " index: " << inputIndex << " port: " << port;
+
+    midiAuxIn[inputIndex]->slotUpdatePortIn(kmiPorts->getInPortNumber(port)); // updates the output Port
+}
 
 // --------------------------------------------------------------------------------------
 // ------ end midi overhaul -------------------------------------------------------------
