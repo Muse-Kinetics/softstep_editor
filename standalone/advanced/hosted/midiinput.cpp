@@ -20,7 +20,7 @@ void MidiInput::slotReceiveInput(int status, int firstByte, int secondByte, int 
     //If modline is on...
     if(enable && device == deviceName)
     {
-        qDebug() << "slotReceiveInput - deviceName: " << deviceName << " status: " << status;
+        //qDebug() << "slotReceiveInput - deviceName: " << deviceName << " status: " << status;
         //And type is...
         if(type.contains("CC"))
         {

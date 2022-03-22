@@ -69,9 +69,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // application version
     applicationVersion.resize(3);
 
-    // pre bootloader app version was 2.04, revving to 3.0.0 for bootloader trojan
-    applicationVersion[0] = 3;
-    applicationVersion[1] = 0;
+    // pre bootloader app version was 2.04, revving to 2.1.0 for bootloader trojan
+    applicationVersion[0] = 2;
+    applicationVersion[1] = 1;
     applicationVersion[2] = 0;
     betaVersion = "A"; // leave blank for release
 
@@ -149,10 +149,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(midiAuxIn[6], SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), this, SLOT(slotParseMidiAuxIn_G(uchar, uchar, uchar, uchar)));
     connect(midiAuxIn[7], SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), this, SLOT(slotParseMidiAuxIn_H(uchar, uchar, uchar, uchar)));
 
-#ifndef Q_OS_WIN
     // SoftStepShare
     SoftStepShare = new MidiDeviceManager(this, PID_AUX, "SoftStep Share");
-#endif
+    connect(SoftStepShare, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), this, SLOT(hosted_slotReceiveMIDI(uchar, uchar, uchar, uchar)));
 
     // Hosted output - we dynamically reassign the output port for each hosted modline message
     hostedOut = new MidiDeviceManager(this, PID_AUX, "Hosted Output");
@@ -1728,9 +1727,9 @@ void MainWindow::slotSetMode()
 
 void MainWindow::slotPopulateDeviceMenus(QMap<QString, int> externalDevices)
 {
-    qDebug() << "-------------------------------- populate device menus";
-    qDebug() << externalDevices;
-    qDebug() << "------------------------------------------------------";
+//    qDebug() << "-------------------------------- populate device menus";
+//    qDebug() << externalDevices;
+//    qDebug() << "------------------------------------------------------";
 
     QMap<QString, int> standaloneDevices;
     standaloneDevices.insert("SoftStep USB MIDI", 0);
@@ -2421,13 +2420,32 @@ void MainWindow::slotParseMidiAuxIn_F(uchar status, uchar d1, uchar d2, uchar ch
 void MainWindow::slotParseMidiAuxIn_G(uchar status, uchar d1, uchar d2, uchar chan) { settingsWindow->midiInputLine[6].slotReceiveInput(status, d1, d2, chan, settingsWindow->midiInputLine[6].device); }
 void MainWindow::slotParseMidiAuxIn_H(uchar status, uchar d1, uchar d2, uchar chan) { settingsWindow->midiInputLine[7].slotReceiveInput(status, d1, d2, chan, settingsWindow->midiInputLine[7].device); }
 
-void MainWindow::slotUpdateMIDIAuxInputPorts(QString auxInput, QString port)
+
+
+void MainWindow::slotUpdateMIDIAuxInputPorts(QString auxInput, QString portName)
 {
     int inputIndex = auxInput.at(4).toLatin1() - 97; // index A = 0
+    int thisPort = kmiPorts->getInPortNumber(portName);
 
-    qDebug() << "slotUpdateMIDIAuxInputPorts called - auxInput: " << auxInput << " index: " << inputIndex << " port: " << port;
+    if (portName == "") return;
 
-    midiAuxIn[inputIndex]->slotUpdatePortIn(kmiPorts->getInPortNumber(port)); // updates the output Port
+    //qDebug() << "slotUpdateMIDIAuxInputPorts called - auxInput: " << auxInput << " index: " << inputIndex << " portName: " << portName << " thisPort: " << thisPort;
+
+    if (settingsWindow->midiInputLine[inputIndex].enable)
+    {
+
+        if (thisPort != midiAuxIn[inputIndex]->port_in)
+        {
+            midiAuxIn[inputIndex]->slotUpdatePortIn(thisPort); // updates the output Port
+        }
+    }
+    else if (midiAuxIn[inputIndex]->connected)
+    {
+        midiAuxIn[inputIndex]->slotCloseMidiIn();
+        midiAuxIn[inputIndex]->slotCloseMidiOut();
+        midiAuxIn[inputIndex]->connected = false;
+
+    }
 }
 
 // --------------------------------------------------------------------------------------
@@ -2477,4 +2495,23 @@ void MainWindow::hosted_slotSendPacketArray(QString portName, QByteArray packetA
     Q_UNUSED(portName);
     qDebug() << "hosted_slotSendPacketArray called";
     SoftStepShare->slotSendSysExBA(packetArray);
+}
+
+void MainWindow::hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar chan)
+{
+    Q_UNUSED(d2) // program changes don't use the second data byte
+
+    qDebug() << "hosted_slotReceiveMIDI called - status: " << status << " d1: " << d1 << " d2: " << d2 << " chan: " << chan;
+
+    if (status == MIDI_PROG_CHANGE && chan == 15) // program change channel 16 selectes presets
+    {
+        if (d1 <= ui->presetmenu->count())
+        {
+            QString thisPreset = setlist->menus.at(d1)->currentText();
+            if (thisPreset != "[EMPTY]")
+            {
+                ui->presetmenu->setCurrentText(thisPreset);
+            }
+        }
+    }
 }

@@ -301,6 +301,7 @@ public slots:
     void slotSetModeMIDI(QString m);
     void hosted_slotSendPacket(QString portName, uchar status, uchar d1, uchar d2, uchar chan);
     void hosted_slotSendPacketArray(QString, QByteArray);
+    void hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar chan);
 
 private:
     Ui::MainWindow *ui;

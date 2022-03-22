@@ -104,65 +104,6 @@ QCheckBox:focus
 	background:rgb(0,174,239);
 }
 
-/*----------- QComboBox ------------*/
-QComboBox
-{
-	font: 8pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 3px 1px 4px;
- }
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 35px;
-}
-
-QComboBox::item:alternate
-{
-	background: rgb(90, 90, 90);
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-
 
 /*------------ QPushButton -----------*/
 QPushButton {
@@ -416,17 +357,6 @@ QCheckBox::indicator:checked:pressed:focus
 {
     image: url(:/resources/toggle_focus_off.png);
 }
-
-
-/*----------- QComboBox ------------*/
-QComboBox
-{
-	font: 9pt &quot;Futura-Normal&quot;;
-	border: 1px solid rgb(0,174,239);
-	background: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 3px 1px 4px;
- }
 
 /*-------QRadioButton-------*/
 
@@ -3247,22 +3177,27 @@ QCheckBox
 	border: none;
 }
 
+
 /*----------- QComboBox ------------*/
+
+
 QComboBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 9pt &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
 	padding: 1px 3px 1px 4px;
+	text-align:right;
  }
 
 QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
+	font: 9px &quot;Futura-Normal&quot;;
+	text-align:right;
+	padding-left: 0px;
 	padding-right: 3px;
 	min-width: 35px;
 }
@@ -3276,6 +3211,8 @@ QComboBox::item:selected
 {
 	border: 1px solid transparent;
 	background: rgb(0,174,239);
+	text-align:right;
+	padding-left: 0px;
 }
 
 QComboBox::indicator
@@ -3296,6 +3233,8 @@ QComboBox::drop-down
 	border-right-width: 0px;
 	border-top-width: 0px;
 	border-bottom-width: 0px;
+	text-align:right;
+	padding-left: 0px;
 }
 
 QComboBox::down-arrow
@@ -3308,11 +3247,22 @@ QComboBox::down-arrow
 
 QComboBox:disabled
 {
-	font: 8pt &quot;Tahoma&quot;;
+	font: 8pt &quot;Futura-Normal&quot;;
 	color: (175, 175, 175, 50);
 	border: 1px solid rgba(0,174,239, 75);
 	background: rgba(18, 18, 18, 75);
 	padding: 1px 3px 1px 4px;
+	text-align:right;
+	padding-left: 0px;
+}
+
+QComboBox QAbstractItemView
+{
+    min-width: 130px;
+    min-height: 60;
+	color:white;
+	padding-left: 1px;
+	text-align:right;
 }
 
 /* ---------- QLineEdit ------------*/
@@ -3323,7 +3273,7 @@ QLineEdit
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
 	color: white;
-	padding-left: 2px;
+	padding-left: 0px;
 	padding-bottom: 2px;
 }
 
@@ -3334,7 +3284,7 @@ QLineEdit:focus
 	border: 1px solid white;
 	border-radius: 0px;
 	color: white;
-	padding-left: 2px;
+	padding-left: 0px;
 	padding-bottom: 2px;
 }
 
@@ -3345,7 +3295,7 @@ QLineEdit:disabled
 	border: 1px solid rgba(0, 174, 239, 75);
 	border-radius: 0px;
 	color: rgba(255, 255, 255, 50);
-	padding-left: 2px;
+	padding-left: 0px;
 	padding-bottom: 2px;
 }</string>
      </property>
@@ -3367,6 +3317,14 @@ QLineEdit:disabled
       <property name="toolTip">
        <string>Sets the MIDI device to receive data from</string>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 130px;
+    min-height: 60;
+	color:white;
+}</string>
+      </property>
       <item>
        <property name="text">
         <string>IAC Driver Bus</string>
@@ -3384,6 +3342,14 @@ QLineEdit:disabled
       </property>
       <property name="toolTip">
        <string>Sets the MIDI device to receive data from</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 130px;
+    min-height: 60;
+	color:white;
+}</string>
       </property>
       <item>
        <property name="text">
@@ -3403,6 +3369,14 @@ QLineEdit:disabled
       <property name="toolTip">
        <string>Sets the MIDI device to receive data from</string>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 130px;
+    min-height: 60;
+	color:white;
+}</string>
+      </property>
       <item>
        <property name="text">
         <string>IAC Driver Bus</string>
@@ -3420,6 +3394,14 @@ QLineEdit:disabled
       </property>
       <property name="toolTip">
        <string>Sets the MIDI device to receive data from</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 130px;
+    min-height: 60;
+	color:white;
+}</string>
       </property>
       <item>
        <property name="text">
@@ -3782,6 +3764,14 @@ QToolTip
       <property name="toolTip">
        <string>Sets the MIDI device to receive data from</string>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 130px;
+    min-height: 60;
+	color:white;
+}</string>
+      </property>
       <item>
        <property name="text">
         <string>IAC Driver Bus</string>
@@ -3948,6 +3938,14 @@ QToolTip
       <property name="toolTip">
        <string>Sets the MIDI device to receive data from</string>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 130px;
+    min-height: 60;
+	color:white;
+}</string>
+      </property>
       <item>
        <property name="text">
         <string>IAC Driver Bus</string>
@@ -4066,10 +4064,7 @@ QToolTip
        <string>Sets the MIDI message type to listen for. All other message types will be ignored.&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; Listens for MIDI notes&lt;br&gt;&lt;b&gt;CC:&lt;/b&gt; Listens for CC messages&lt;br&gt;&lt;b&gt;Program:&lt;/b&gt; Listens for program changes&lt;br&gt;</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">QComboBox
-{
-
-}
+       <string notr="true">
 
 /*-------QToolTip-------*/
 QToolTip
@@ -4299,6 +4294,14 @@ QToolTip
       <property name="toolTip">
        <string>Sets the MIDI device to receive data from</string>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 130px;
+    min-height: 60;
+	color:white;
+}</string>
+      </property>
       <item>
        <property name="text">
         <string>IAC Driver Bus</string>
@@ -4354,6 +4357,14 @@ QToolTip
       </property>
       <property name="toolTip">
        <string>Sets the MIDI device to receive data from</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 130px;
+    min-height: 60;
+	color:white;
+}</string>
       </property>
       <item>
        <property name="text">
