@@ -232,11 +232,22 @@ void PresetInterface::slotImportPreset()
 {
     QString filename = NULL;
 
-    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), QString("./"), tr("SoftStep Basic Editor Preset Files (*.softstepbasicpreset)"));
+    QSettings settings;
+
+    const QString DEFAULT_DIR_KEY("default_dir");
+
+    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), settings.value(DEFAULT_DIR_KEY).toString(), tr("SoftStep Basic Editor Preset Files (*.softstepbasicpreset)"));
 
     //If file is selected
-    if(!filename.isNull())
+    if(!filename.isEmpty() && !filename.isNull())
     {
+        //this gets the filename without the path
+        QFileInfo fileInfo(filename);
+
+        // store this folder location for the next time we open a file
+        QString thisDirectory = fileInfo.absolutePath();
+        settings.setValue(DEFAULT_DIR_KEY, thisDirectory);
+
         //open file
         QFile* presetFile = new QFile(filename);
         presetFile->open(QIODevice::ReadOnly | QIODevice::Text);
@@ -307,33 +318,44 @@ void PresetInterface::slotExportPreset()
 {
     QVariantMap exportedPresetMap = jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap();
 
+    QSettings settings;
+
+    const QString DEFAULT_DIR_KEY("default_dir");
+
     //set path and filename (default filename is the preset name
-    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("./%1").arg(exportedPresetMap.value("displayName").toString()), tr("SoftStep Basic Editor Preset Files (*.softstepbasicpreset)"));
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("%1/%2").arg(settings.value(DEFAULT_DIR_KEY).toString()).arg(exportedPresetMap.value("displayName").toString()), tr("SoftStep Basic Editor Preset Files (*.softstepbasicpreset)"));
 
-    //this gets the filename without the path
-    QFileInfo fileInfo(filename);
+    if(!filename.isEmpty() && !filename.isNull())
+    {
+        //this gets the filename without the path
+        QFileInfo fileInfo(filename);
 
-    //open new file to be saved
-    QFile* presetFile = new QFile(filename);
+        // store this folder location for the next time we open a file
+        QString thisDirectory = fileInfo.absolutePath();
+        settings.setValue(DEFAULT_DIR_KEY, thisDirectory);
 
-    //remove extension from filename
-    QString exportedPresetName = fileInfo.fileName().remove(".softstepbasicpreset");
+        //open new file to be saved
+        QFile* presetFile = new QFile(filename);
 
-    qDebug() << QString("filename: %1").arg(exportedPresetName);
+        //remove extension from filename
+        QString exportedPresetName = fileInfo.fileName().remove(".softstepbasicpreset");
 
-    //------------------- Open, Write, and Close
-    presetFile->open(QIODevice::WriteOnly);
+        qDebug() << QString("filename: %1").arg(exportedPresetName);
 
-//    QByteArray presetByteArray = serializer.serialize(exportedPresetMap);
+        //------------------- Open, Write, and Close
+        presetFile->open(QIODevice::WriteOnly);
 
-    QJsonDocument jsonPresets = QJsonDocument::fromVariant(exportedPresetMap);
+    //    QByteArray presetByteArray = serializer.serialize(exportedPresetMap);
 
-    presetFile->resize(0);
-//    presetFile->write(presetByteArray);
-    presetFile->write(jsonPresets.toJson()); //write json byte array to file
-    presetFile->close();
+        QJsonDocument jsonPresets = QJsonDocument::fromVariant(exportedPresetMap);
 
-//    presetByteArray.clear();
+        presetFile->resize(0);
+    //    presetFile->write(presetByteArray);
+        presetFile->write(jsonPresets.toJson()); //write json byte array to file
+        presetFile->close();
+
+    //    presetByteArray.clear();
+    }
 }
 
 void PresetInterface::slotConstructDefaultMap()

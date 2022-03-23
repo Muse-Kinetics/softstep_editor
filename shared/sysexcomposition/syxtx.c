@@ -35,15 +35,15 @@ void midi_sx_header(int device_softstep,int device_12step,int device_qunexus) {
 	midi_buffer_put_core(0x00);
     if (device_softstep)
     {
-        midi_buffer_put_core(0x1B);
-        midi_buffer_put_core(0x48);
+        midi_buffer_put_core(0x01);
+        midi_buffer_put_core(0x5F);
         midi_buffer_put_core(0x7a);
         midi_buffer_put_core(1); // product id
     }
     if (device_12step)
     {
-        midi_buffer_put_core(0x1B);
-        midi_buffer_put_core(0x48);
+        midi_buffer_put_core(0x01);
+        midi_buffer_put_core(0x5F);
         midi_buffer_put_core(0x7a);
         midi_buffer_put_core(20); // product id
     }

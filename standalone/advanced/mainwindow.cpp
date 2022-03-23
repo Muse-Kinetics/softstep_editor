@@ -163,7 +163,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // end KMI_Ports and device handlers
     // ******************************
 
-    // check for updates
+    // ******************************
+    // check for updates and set default save locations
+    // ******************************
     QString jsonVersionCheckURL = "https://files.keithmcmillen.com/products/softstep/editor/softwareVersionCheck.json";
     checkUpdates = new KMI_Updates(this, "SoftStep", sessionSettings, applicationVersion, jsonVersionCheckURL);
 
@@ -182,6 +184,8 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     qDebug() << "Default file save location - post: " << sessionSettings->value(DEFAULT_DIR_KEY).toString();
+
+    // ******************************
 
     sysExComposer = new SysExComposer(this);
     presetInterface = new PresetInterface(this);
@@ -1350,8 +1354,9 @@ void MainWindow::slotConnected(bool connection)
         sysExComposer->connected = true;
 
         // here we detect which version of SoftStep we are connected to
-        bool isSS2 = SoftStep->PID_MIDI = PID_SOFTSTEP1 ? false : true;
-        qDebug() << "SoftStep" << (1 + int(isSS2)) << " detected";
+        bool isSS2 = SoftStep->PID_MIDI == PID_SOFTSTEP1 ? false : true;
+        int ssHardware = SoftStep->PID_MIDI == PID_SOFTSTEP1 ? 1 : 2;
+        qDebug() << "SoftStep Hardware Revision: " << ssHardware << " PID: " << SoftStep->PID_MIDI << " isSS2: " << isSS2;
 
         for(int i = 0; i < 10; i++)
         {
@@ -1538,12 +1543,12 @@ void MainWindow::slotDisplaySaveState(bool dirty)
     if(dirty)
     {
         //qDebug() << "the preset is dirty";
-        ui->save->setStyleSheet("QToolButton { background: rgb(255, 0, 0); color: white; border: 2px solid rgb(255,0,0); font: 12pt \"Futura PT\"; padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134); color: white; border: 2px solid rgb(230, 0, 134); font: 12pt \"Futura PT\"; padding: 0, 0, 0, 0; }");
+        ui->save->setStyleSheet("QToolButton { background: rgb(255, 0, 0); color: white; border: 2px solid rgb(255,0,0); font: 10pt \"Futura PT\"; padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134); color: white; border: 2px solid rgb(230, 0, 134); font: 10pt \"Futura PT\"; padding: 0, 0, 0, 0; }");
     }
     else
     {
         //qDebug() << "the preset is no longer dirty";
-        ui->save->setStyleSheet("QToolButton { background: rgb(40, 40, 40); color: white; border: 2px solid rgb(230,0,134); font: 12pt \"Futura PT\"; padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134); color: white; border: 2px solid rgb(230, 0, 134); font: 12pt \"Futura PT\"; padding: 0, 0, 0, 0; }");
+        ui->save->setStyleSheet("QToolButton { background: rgb(40, 40, 40); color: white; border: 2px solid rgb(230,0,134); font: 10pt \"Futura PT\"; padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134); color: white; border: 2px solid rgb(230, 0, 134); font: 10pt \"Futura PT\"; padding: 0, 0, 0, 0; }");
 
         //"QToolButton { background: rgb(40, 40, 40); color: white; border: 2px solid rgb(230,0,134); font: 12pt \"Futura PT\"; padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134); color: white; border: 2px solid rgb(230, 0, 134); font: 12pt \"Futura PT\"; padding: 0, 0, 0, 0; }"
 

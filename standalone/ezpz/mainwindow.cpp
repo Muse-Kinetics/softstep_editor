@@ -55,9 +55,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // application version
     applicationVersion.resize(3);
 
-    // pre bootloader app version was 2.04, revving to 3.0.0 for bootloader trojan
-    applicationVersion[0] = 3;
-    applicationVersion[1] = 0;
+    // pre bootloader app version was 2.04, revving to 2.1.0 for bootloader trojan
+    applicationVersion[0] = 2;
+    applicationVersion[1] = 1;
     applicationVersion[2] = 0;
     betaVersion = "A"; // leave blank for release
 
@@ -127,6 +127,30 @@ MainWindow::MainWindow(QWidget *parent) :
     // ******************************
 
     settings = new QSettings();
+
+    // ******************************
+    // check for updates and set default save locations
+    // ******************************
+    QString jsonVersionCheckURL = "https://files.keithmcmillen.com/products/softstep/editor/softwareVersionCheck.json";
+    checkUpdates = new KMI_Updates(this, "SoftStep", settings, applicationVersion, jsonVersionCheckURL);
+
+    // default file location
+    const QString DEFAULT_DIR_KEY("default_dir");
+
+    qDebug() << "Default file save location - pre: " << settings->value(DEFAULT_DIR_KEY).toString();
+
+    // test if this is a directory
+    QFileInfo check_file(settings->value(DEFAULT_DIR_KEY).toString());
+    if (!check_file.exists() || !check_file.isDir() || settings->value(DEFAULT_DIR_KEY).toString().contains("Contents/MacOS"))
+    {
+        QString desktop = QStandardPaths::locate(QStandardPaths::DesktopLocation, QString(), QStandardPaths::LocateDirectory);
+        qDebug() << "Desktop: " << desktop;
+        settings->setValue(DEFAULT_DIR_KEY, desktop);     // if key doesn't exist, set it to desktop
+    }
+
+    qDebug() << "Default file save location - post: " << settings->value(DEFAULT_DIR_KEY).toString();
+
+    // ******************************
 
     //Construct Children
     presetInterface = new PresetInterface(this);
@@ -1177,7 +1201,6 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
     }
 }
 
-// connect SoftStep midi input to to midi aux out
 // connect SoftStep midi input to to midi thru
 void MainWindow::slotUpdateMIDIThru()
 {
@@ -1185,7 +1208,7 @@ void MainWindow::slotUpdateMIDIThru()
 
     QString currentPort = ui->midi_thru->currentText();
 
-    qDebug() << "slotUpdateMIDIThru called - currentPort: " << currentPort;
+    qDebug() << "slotUpdateMIDIThru called - currentPort: " << currentPort << " connected: " << SoftStep->connected;
 
     if (currentPort == "")
     {
@@ -1202,9 +1225,7 @@ void MainWindow::slotUpdateMIDIThru()
         // set and open the ports
         int thisOutPort = kmiPorts->getOutPortNumber(currentPort);
         MIDIThru->slotUpdatePortOut(thisOutPort); // also opens the port
-        qDebug() << "connect";
         connect(SoftStep, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), MIDIThru, SLOT(slotSendMIDI(uchar, uchar, uchar, uchar)));
-        qDebug() << "success";
     }
     else
     {

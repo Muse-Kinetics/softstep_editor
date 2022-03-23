@@ -528,10 +528,12 @@ void PresetInterface::slotImportPreset()
     //If file is selected
     if(!filename.isEmpty() && !filename.isNull())
     {
-        // store this file location for the next time we open/save a file
+        //this gets the filename without the path
+        QFileInfo fileInfo(filename);
+
         // store this folder location for the next time we open a file
-        QDir CurrentDir;
-        settings.setValue(DEFAULT_DIR_KEY, CurrentDir.absoluteFilePath(filename));
+        QString thisDirectory = fileInfo.absolutePath();
+        settings.setValue(DEFAULT_DIR_KEY, thisDirectory);
 
         //open file
         QFile* presetFile = new QFile(filename);
@@ -541,13 +543,12 @@ void PresetInterface::slotImportPreset()
         QJsonParseError JsonParseError;
         // convert file to QJsonDocument. this can be read/written to
         QJsonDocument JsonDocument = QJsonDocument::fromJson(presetFile->readAll(), &JsonParseError);
-        // close presetFile
-        presetFile->close();
+
         // convert QJsonDocument to QJsonObject. this can be queried and modified in a human-readable way
         QJsonObject RootObject = JsonDocument.object();
 
 //        QByteArray presetByteArray = presetFile->readAll();
-        QByteArray presetByteArray = JsonDocument.toJson();
+        //QByteArray presetByteArray = JsonDocument.toJson();
 
         presetFile->close();
 
@@ -681,13 +682,12 @@ void PresetInterface::slotExportPreset()
 
     if(!filename.isEmpty() && !filename.isNull())
     {
-        // store this file location for the next time we open/save a file
-        // store this folder location for the next time we open a file
-        QDir CurrentDir;
-        settings.setValue(DEFAULT_DIR_KEY, CurrentDir.absoluteFilePath(filename));
-
-        //This gets the file name without the path
+        //this gets the filename without the path
         QFileInfo fileInfo(filename);
+
+        // store this folder location for the next time we open a file
+        QString thisDirectory = fileInfo.absolutePath();
+        settings.setValue(DEFAULT_DIR_KEY, thisDirectory);
 
         //open new file to be saved
         QFile* presetFile = new QFile(filename);

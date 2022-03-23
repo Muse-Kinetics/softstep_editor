@@ -245,7 +245,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 12pt &quot;Futura PT&quot;;
+	font: 10pt &quot;Futura PT&quot;;
 	padding: 0,0,0,0;
 }
 
@@ -254,7 +254,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 12pt &quot;Futura PT&quot;;
+	font: 10pt &quot;Futura PT&quot;;
 	padding: 0, 0, 0, 0;
 }</string>
       </property>
@@ -287,7 +287,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 12pt &quot;Futura PT&quot;;
+	font: 10pt &quot;Futura PT&quot;;
 	padding: 0,0,0,0;
 }
 
@@ -296,7 +296,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 12pt &quot;Futura PT&quot;;
+	font: 10pt &quot;Futura PT&quot;;
 	padding: 0, 0, 0, 0;
 }</string>
       </property>
@@ -323,7 +323,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 12pt &quot;Futura PT&quot;;
+	font: 10pt &quot;Futura PT&quot;;
 	padding: 0,0,0,0;
 }
 
@@ -332,7 +332,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 12pt &quot;Futura PT&quot;;
+	font: 10pt &quot;Futura PT&quot;;
 	padding: 0, 0, 0, 0;
 }</string>
       </property>
@@ -359,7 +359,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 12pt &quot;Futura PT&quot;;
+	font: 10pt &quot;Futura PT&quot;;
 	padding: 0,0,0,0;
 }
 
@@ -368,7 +368,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 12pt &quot;Futura PT&quot;;
+	font: 10pt &quot;Futura PT&quot;;
 	padding: 0, 0, 0, 0;
 }</string>
       </property>

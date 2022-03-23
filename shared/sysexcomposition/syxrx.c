@@ -316,7 +316,7 @@ void sx_process(t_softstep *x,unsigned char sx_char) {
                                  
                                  (!x->device_softstep &&
                                   core_sx.standard_header.manufacturer_id2==0x01 &&
-                                  core_sx.standard_header.manufacturer_id3==0x55 &&
+                                  core_sx.standard_header.manufacturer_id3==0x5F &&
                                   core_sx.standard_header.product == 20 )) &&
                                 
                                 core_sx.standard_header.manufacturer_id4==0x7A &&

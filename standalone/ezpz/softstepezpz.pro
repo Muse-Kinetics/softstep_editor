@@ -112,7 +112,8 @@ OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
     resources/corbel.ttf
                 #doc.txt
 
-RESOURCES =    Resources.qrc
+RESOURCES =    Resources.qrc \
+    ../../shared/KMI_MDM/fwupdate/fw_stylesheets.qrc
 
 
 #--------------- contents/resources --------

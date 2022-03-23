@@ -5812,40 +5812,6 @@ QLabel:disabled
 	background: transparent;
 }
 
-/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 9px &quot;Futura-Normal&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(25, 25, 25);
-	color: white;
-	padding:0, 3, 0, 0;
-}
-
-QSpinBox::focus
-{
-	border: 1px solid white;
-	outline: none;
-}
-
-QSpinBox:disabled
-{
-	font: 9px &quot;Futura-Normal&quot;;
-	color: rgba(255, 255, 255, 50);
-	border: 1px solid rgba(0, 174, 230, 75);
-	background-color: rgba(25, 25, 25, 75);
-	padding: 0, 3, 0, 0;
-}
-
-/* ---------- QCheckBox ------------*/
-QCheckBox
-{
-	font: 10pt &quot;Futura-Normal&quot;;
-	background: transparent;
-	color: white;
-	padding:0, 3, 0, 0;
-	border: none;
-}
 
 
 /*----------- QComboBox ------------*/
@@ -5853,7 +5819,7 @@ QCheckBox
 
 QComboBox
 {
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 14pt &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -5865,7 +5831,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Futura-Normal&quot;;
+	font: 12px &quot;Futura-Normal&quot;;
 	text-align:right;
 	padding-left: 0px;
 	padding-right: 3px;
@@ -5917,7 +5883,7 @@ QComboBox::down-arrow
 
 QComboBox:disabled
 {
-	font: 8pt &quot;Futura-Normal&quot;;
+	font: 11pt &quot;Futura-Normal&quot;;
 	color: (175, 175, 175, 50);
 	border: 1px solid rgba(0,174,239, 75);
 	background: rgba(18, 18, 18, 75);
@@ -5938,7 +5904,7 @@ QComboBox QAbstractItemView
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 9px &quot;Futura-Normal&quot;;
+	font: 12px &quot;Futura-Normal&quot;;
 	background: rgba(25, 25, 25, 255);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -5949,7 +5915,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 9px &quot;Futura-Normal&quot;;
+	font: 12px &quot;Futura-Normal&quot;;
 	background: rgb(0,174,239);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -5960,7 +5926,7 @@ QLineEdit:focus
 
 QLineEdit:disabled
 {
-	font: 9px &quot;Futura-Normal&quot;;
+	font: 11px &quot;Futura-Normal&quot;;
 	background: rgba(25, 25, 25, 75);
 	border: 1px solid rgba(0, 174, 239, 75);
 	border-radius: 0px;
@@ -5981,7 +5947,7 @@ QLineEdit:disabled
         <x>30</x>
         <y>42</y>
         <width>236</width>
-        <height>18</height>
+        <height>22</height>
        </rect>
       </property>
       <property name="toolTip">
