@@ -94,21 +94,21 @@ public:
     // create KMI devices
     MidiDeviceManager* SoftStep;
 
-    // create a virtual port on MacOS, iOS, and Linux. Not supported on Windows.
-#ifndef Q_OS_WIN
-    MidiDeviceManager* virtualMidiPort;
-#endif
+    // MIDI Thru port for standalone, workaround for Windows device limitations
+    MidiDeviceManager* MIDIThru;
 
     // MIDI aux inputs and outputs are defined here. For products like SoftStep (advanced), you would define 8 inputs for controllers
-    // and one output for hosted mode. For other editors you would likely define one output port for to mirror the
-    // incoming MIDI from the controller, as a workaround for Windows not sharing ports.
-    // For KMI_Central we are using these for the input/output dropdowns as a simple MIDI route demo.
+    // and one output for hosted mode.
     MidiDeviceManager* midiAuxIn[8];
-
-    MidiDeviceManager* SoftStepShare;
 
     // this port is used to send MIDI to various ports when in hosted mode.
     MidiDeviceManager* hostedOut;
+
+    MidiDeviceManager* SoftStepShare; // virtual port device
+
+    QString MIDI_THRU_KEY;
+    QString recallMidiThruPortName;
+    QComboBox *midi_thru_dropdown;
 
     // version strings for console and about window
     QString deviceBootloaderVersionString();
@@ -230,7 +230,7 @@ public slots:
     void slotFwUpdateSuccessCloseDialog(bool);
     void slotForceFirmwareUpdate();
     void slotFirmwareDetected(MidiDeviceManager *thisMDM, bool);
-    void slotUpdateMIDIaux();
+    void slotUpdateMIDIThru();
     void slotCreateDialog(QString dialogText);
 
     // ext midi sources
@@ -244,6 +244,7 @@ public slots:
     void slotParseMidiAuxIn_H(uchar status, uchar d1, uchar d2, uchar chan);
 
     void slotUpdateMIDIAuxInputPorts(QString auxInput, QString port);
+    void slotRecallMIDIThru();
 
     // ------ end midi overhaul --------------------------------------------------------
 
@@ -302,6 +303,8 @@ public slots:
     void hosted_slotSendPacket(QString portName, uchar status, uchar d1, uchar d2, uchar chan);
     void hosted_slotSendPacketArray(QString, QByteArray);
     void hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar chan);
+
+    void slotFixDropDownWidth(QComboBox* thisDropDown);
 
 private:
     Ui::MainWindow *ui;

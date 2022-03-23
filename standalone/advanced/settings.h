@@ -68,6 +68,9 @@ public:
 
     QString mode;
 
+    //------ Form
+    Ui::settingsForm *settingsForm;
+
     
 signals:
     void signalUpdateSettings();
@@ -168,8 +171,8 @@ public slots:
     //----- OSC
     void slotSetOSCDisplayValue(int inputNum, int val);
 
-private:
-    Ui::settingsForm *settingsForm;
+//private:
+//    Ui::settingsForm *settingsForm;
     
 };
 

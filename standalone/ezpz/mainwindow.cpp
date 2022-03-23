@@ -119,8 +119,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // connect firmware signals
     qDebug() << "connect signalFirmwareDetected";
 
-    // setup MIDI aux output
-    midiAuxOut = new MidiDeviceManager(this, PID_AUX, "MIDI Thru");
+    // MIDI Thru for standalone/windows
+    MIDIThru = new MidiDeviceManager(this, PID_AUX, "MIDI THRU");
 
     // ******************************
     // end KMI_Ports and device handlers
@@ -351,10 +351,13 @@ void MainWindow::slotConnectInterfaces()
 {
     // ---- midi and firmware update overhaul --------------
 
-    // connect dropdowns to MIDI aux ports
-    //connect(ui->midi_output, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUpdateMIDIaux()));
+    // connect dropdowns and connection status to MIDI aux ports
+    connect(ui->midi_thru, SIGNAL(activated(int)), this, SLOT(slotUpdateMIDIThru()));
+    connect(SoftStep, SIGNAL(signalConnected(bool)), this, SLOT(slotUpdateMIDIThru()));
 
-    //qDebug() << "connected aux port";
+    // remember last selected MIDI aux port
+    MIDI_THRU_KEY = "midi_thru_port";
+    qDebug() << "connected midi thru port";
 
     //StyleSheets for primary pushbuttons
     blueStyleFile = new QFile(":/resources/stylesheets/fwUpdateStyles_lightBlue.qss");
@@ -685,6 +688,8 @@ void MainWindow::slotConnected(bool connection)
 
         updatefw->setEnabled(true);
 
+        // attempt to recall midi thru port when device connects
+        //slotRecallMIDIThru();
     }
     else
     {
@@ -1002,14 +1007,19 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
     {
     case PORT_CONNECT:
 
-//        // update dropdown
-//        if (inOrOut == PORT_OUT && portName != SS_OUT_P1) // don't create feedback loop
-//        {
-//            QComboBox *thisDropDown = ui->midi_outputs;
+        // update dropdown
+        if (inOrOut == PORT_OUT && portName != SS_OUT_P1) // don't create feedback loop
+        {
+            ui->midi_thru->addItem(portName); // update dropdown
+            slotFixDropDownWidth(ui->midi_thru);
 
-//            thisDropDown->addItem(portName); // update dropdown
-//            slotFixDropDownWidth(thisDropDown);
-//        }
+            if (portName == settings->value(MIDI_THRU_KEY).toString()) // if this port matches the last selected port
+            {
+                recallMidiThruPortName = portName; // store name
+                //QTimer::singleShot(500, this, SLOT(slotRecallMIDIThru())); // wait, then set/update the port
+            }
+
+        }
 
         // **** SoftStep connect *****************************************
         if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
@@ -1037,14 +1047,16 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         break;
     case PORT_DISCONNECT:
 
-//        if (inOrOut == PORT_OUT)
-//        {
-//            // update dropdown
-//            if (ui->midi_outputs->currentText() == portName)
-//                ui->midi_outputs->setCurrentIndex(0);
+        if (inOrOut == PORT_OUT)
+        {
+            // update dropdown
+            if (ui->midi_thru->currentText() == portName)
+            {
+               ui->midi_thru->removeItem(ui->midi_thru->findText(portName));
+            }
 
-//            ui->midi_outputs->removeItem(ui->midi_outputs->findText(portName));
-//        }
+            ui->midi_thru->removeItem(ui->midi_thru->findText(portName));
+        }
 
         // **** SoftStep disconnect **************************************
         if (portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT)
@@ -1119,7 +1131,7 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
     if (success)
     {
         SoftStep->fwUpdateRequested = false;
-        //slotUpdateMIDIaux();
+        slotUpdateMIDIThru();
         slotConnected(true);
     }
     else
@@ -1166,26 +1178,38 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
 }
 
 // connect SoftStep midi input to to midi aux out
-void MainWindow::slotUpdateMIDIaux()
+// connect SoftStep midi input to to midi thru
+void MainWindow::slotUpdateMIDIThru()
 {
-    //qDebug() << "slotUpdateMIDIaux called";
-
     SoftStep->disconnect(SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)));
 
-    if (!connected) return; // don't continue if we aren't connected
-// EB TODO - connect this to the aux port dropdown
-//    if (ui->midi_outputs->currentText() != "None")
-//    {
-//        // set and open the ports
-//        int thisOutPort = kmiPorts->getOutPortNumber(ui->midi_outputs->currentText());
-//        midiAuxOut->updatePortOut(thisOutPort);
-//        midiAuxOut->slotOpenMidiOut();
-//        connect(SoftStep, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), midiAuxOut, SLOT(slotSendMIDI(uchar, uchar, uchar, uchar)));
-//    }
-//    else
-//    {
-//        midiAuxOut->slotCloseMidiOut();
-//    }
+    QString currentPort = ui->midi_thru->currentText();
+
+    qDebug() << "slotUpdateMIDIThru called - currentPort: " << currentPort;
+
+    if (currentPort == "")
+    {
+        currentPort = "None";
+        ui->midi_thru->setCurrentText(currentPort);
+    }
+
+    if (!SoftStep->connected) return; // don't continue if we aren't connected
+
+    settings->setValue(MIDI_THRU_KEY, currentPort); // store this setting for the next time we run the editor
+
+    if (currentPort != "None")
+    {
+        // set and open the ports
+        int thisOutPort = kmiPorts->getOutPortNumber(currentPort);
+        MIDIThru->slotUpdatePortOut(thisOutPort); // also opens the port
+        qDebug() << "connect";
+        connect(SoftStep, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), MIDIThru, SLOT(slotSendMIDI(uchar, uchar, uchar, uchar)));
+        qDebug() << "success";
+    }
+    else
+    {
+        MIDIThru->slotCloseMidiOut();
+    }
 }
 
 QString MainWindow::deviceBootloaderVersionString()
@@ -1213,8 +1237,49 @@ QString MainWindow::applicationFirmwareVersionString()
             .arg(uchar(thisFw.at(2)));
 }
 
+void MainWindow::slotRecallMIDIThru()
+{
+    qDebug() << "slotRecallMIDIThru called, connected: " << SoftStep->connected << " recallMidiThruPortName: " << recallMidiThruPortName;
+    if (!SoftStep->connected || recallMidiThruPortName == "") return; // wait until connected to device and the previously saved port
+
+    ui->midi_thru->setCurrentText(recallMidiThruPortName);
+    slotUpdateMIDIThru();
+}
 
 // --------------------------------------------------------------------------------------
 // ------ end midi overhaul -------------------------------------------------------------
 // --------------------------------------------------------------------------------------
 
+void MainWindow::slotFixDropDownWidth(QComboBox* thisDropDown)
+{
+    int i, length = 0, index = 0;
+
+    QString thisText;
+
+    for (i = 0; i < thisDropDown->count(); i++)
+    {
+        if (length < thisDropDown->itemText(i).length())
+        {
+            thisText = thisDropDown->itemText(i);
+            length = thisDropDown->itemText(i).length();
+            index = i;
+            //qDebug() << "this text: " << thisText << " index: " << index << " i: " << i << " length: " << length;
+        }
+    }
+
+#ifdef Q_OS_MAC
+    QFont font("Futura-Normal", 12);
+    QFontMetrics fm(font);
+    int pixelsWide = fm.boundingRect(thisDropDown->itemText(index)).width() * 1.5;
+#else
+    QFont font("Droid Sans", 10);
+    QFontMetrics fm(font);
+    int pixelsWide = fm.boundingRect(thisDropDown->itemText(index)).width();
+#endif
+    int pixelsHeight = 14 * thisDropDown->count();
+    if (pixelsHeight > 500) pixelsHeight = 500;
+
+    QString comboStyleString = "QComboBox QAbstractItemView {min-width: %1px; min-height: %2px; color:white;}";
+    QString thisComboStyleString = comboStyleString.arg(pixelsWide).arg(pixelsHeight);
+    thisDropDown->setStyleSheet(thisComboStyleString);
+}

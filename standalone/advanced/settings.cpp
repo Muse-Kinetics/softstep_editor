@@ -181,6 +181,8 @@ void Settings::slotSetMode(QString m)
 
         //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
         settingsForm->oscinputframe->setEnabled(true);
+
+        settingsForm->midithruframe->hide();
     }
     else
     {
@@ -196,6 +198,8 @@ void Settings::slotSetMode(QString m)
 
         //UNCOMMENT THE LINE BELOW WHEN OSC IS READY
         settingsForm->oscinputframe->setEnabled(false);
+
+        settingsForm->midithruframe->show();
     }
 }
 

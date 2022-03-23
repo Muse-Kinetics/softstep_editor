@@ -78,16 +78,14 @@ public:
     // create KMI devices
     MidiDeviceManager* SoftStep;
 
-    // create a virtual port on MacOS, iOS, and Linux. Not supported on Windows.
-#ifndef Q_OS_WIN
-    MidiDeviceManager* virtualMidiPort;
-#endif
-
     // MIDI aux inputs and outputs are defined here. For products like SoftStep (advanced), you would define 8 inputs for controllers
     // and one output for hosted mode. For other editors you would likely define one output port for to mirror the
     // incoming MIDI from the controller, as a workaround for Windows not sharing ports.
     // For KMI_Central we are using these for the input/output dropdowns as a simple MIDI route demo.
-    MidiDeviceManager* midiAuxOut;
+    MidiDeviceManager* MIDIThru;
+
+    QString MIDI_THRU_KEY;
+    QString recallMidiThruPortName;
 
     // version strings for console and about window
     QString deviceBootloaderVersionString();
@@ -193,9 +191,9 @@ public slots:
     void slotFwUpdateSuccessCloseDialog(bool);
     void slotForceFirmwareUpdate();
     void slotFirmwareDetected(MidiDeviceManager *thisMDM, bool);
-    void slotUpdateMIDIaux();
+    void slotUpdateMIDIThru();
     void slotCreateDialog(QString dialogText);
-
+    void slotRecallMIDIThru();
     // ------ end midi overhaul --------------------------------------------------------
 
 
@@ -217,6 +215,8 @@ public slots:
     void slotEnableDisableMenu();
 
     void slotDisplayFactory();
+
+    void slotFixDropDownWidth(QComboBox* thisDropDown);
 
 private:
     Ui::MainWindow *ui;

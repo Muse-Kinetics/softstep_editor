@@ -613,9 +613,7 @@ background: black;
     </property>
     <property name="font">
      <font>
-      <family>Futura</family>
       <pointsize>-1</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -660,9 +658,7 @@ border-top: 2px solid white;
     </property>
     <property name="font">
      <font>
-      <family>Futura</family>
       <pointsize>-1</pointsize>
-      <weight>75</weight>
       <italic>false</italic>
       <bold>true</bold>
      </font>
@@ -1677,7 +1673,7 @@ QCheckBox::indicator {
      <number>127</number>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="midi_thru">
     <property name="geometry">
      <rect>
       <x>193</x>
@@ -1693,6 +1689,11 @@ QCheckBox::indicator {
 	border: 2px solid rgba(0,174,239,255);
 }  </string>
     </property>
+    <item>
+     <property name="text">
+      <string>None</string>
+     </property>
+    </item>
    </widget>
    <widget class="QLabel" name="label_30">
     <property name="geometry">
@@ -1705,9 +1706,7 @@ QCheckBox::indicator {
     </property>
     <property name="font">
      <font>
-      <family>Futura</family>
       <pointsize>-1</pointsize>
-      <weight>75</weight>
       <italic>false</italic>
       <bold>true</bold>
      </font>

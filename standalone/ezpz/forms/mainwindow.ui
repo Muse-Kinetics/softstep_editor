@@ -178,13 +178,103 @@ border-top: 1px solid white;
 background: black;
 }
 
+
+
+/*----------- QComboBox ------------*/
+
+
+QComboBox
+{
+	font: 9pt &quot;Futura-Normal&quot;;
+	border: 2px solid rgba(0,174,239,255);
+	background:		rgba(35,31,32,255);
+	color: white;
+	padding: 1px 3px 1px 4px;
+	text-align:right;
+ }
+
+QComboBox QListView
+{
+	background:		rgba(35,31,32,255);
+	border: transparent;
+	font: 9px &quot;Futura-Normal&quot;;
+	text-align:right;
+	padding-left: 0px;
+	padding-right: 3px;
+	min-width: 35px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+	text-align:right;
+	padding-left: 0px;
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	text-align:right;
+	padding-left: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+
+QComboBox:disabled
+{
+	font: 8pt &quot;Futura-Normal&quot;;
+	color: (175, 175, 175, 50);
+	border: 1px solid rgba(0,174,239, 75);
+	background: rgba(18, 18, 18, 75);
+	padding: 1px 3px 1px 4px;
+	text-align:right;
+	padding-left: 0px;
+}
+
+QComboBox QAbstractItemView
+{
+    min-width: 130px;
+    min-height: 60;
+	color:white;
+	padding-left: 1px;
+	text-align:right;
+}
+
+
 </string>
    </property>
    <widget class="QFrame" name="settingsFrame">
     <property name="geometry">
      <rect>
       <x>845</x>
-      <y>112</y>
+      <y>122</y>
       <width>141</width>
       <height>102</height>
      </rect>
@@ -289,9 +379,7 @@ background: black;
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
        <pointsize>10</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -459,9 +547,7 @@ background: black;
     </property>
     <property name="font">
      <font>
-      <family>Futura</family>
       <pointsize>8</pointsize>
-      <weight>75</weight>
       <italic>false</italic>
       <bold>true</bold>
      </font>
@@ -481,7 +567,7 @@ color: red;</string>
     <property name="geometry">
      <rect>
       <x>844</x>
-      <y>60</y>
+      <y>76</y>
       <width>89</width>
       <height>20</height>
      </rect>
@@ -538,9 +624,7 @@ color: red;</string>
     </property>
     <property name="font">
      <font>
-      <family>Futura</family>
       <pointsize>18</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -595,7 +679,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>844</x>
-      <y>88</y>
+      <y>102</y>
       <width>89</width>
       <height>20</height>
      </rect>
@@ -614,7 +698,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>945</x>
-      <y>60</y>
+      <y>76</y>
       <width>40</width>
       <height>20</height>
      </rect>
@@ -644,8 +728,8 @@ QPushButton:pressed
    <widget class="QCheckBox" name="backlight">
     <property name="geometry">
      <rect>
-      <x>945</x>
-      <y>87</y>
+      <x>944</x>
+      <y>101</y>
       <width>21</width>
       <height>21</height>
      </rect>
@@ -726,9 +810,7 @@ QCheckBox::indicator {
     </property>
     <property name="font">
      <font>
-      <family>Futura</family>
       <pointsize>10</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -760,6 +842,43 @@ QPushButton:pressed
      <string>REVERT</string>
     </property>
    </widget>
+   <widget class="QLabel" name="midiChannelLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>846</x>
+      <y>51</y>
+      <width>31</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>THRU</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="midi_thru">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>50</y>
+      <width>105</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <item>
+     <property name="text">
+      <string>None</string>
+     </property>
+    </item>
+   </widget>
    <zorder>settingsFrame</zorder>
    <zorder>softstepLabel</zorder>
    <zorder>connectedLabel</zorder>
@@ -771,6 +890,8 @@ QPushButton:pressed
    <zorder>update</zorder>
    <zorder>currentPresetLabel</zorder>
    <zorder>revert</zorder>
+   <zorder>midiChannelLabel_2</zorder>
+   <zorder>midi_thru</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
