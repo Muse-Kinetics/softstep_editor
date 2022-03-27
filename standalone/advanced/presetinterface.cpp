@@ -45,7 +45,12 @@ PresetInterface::PresetInterface(QWidget *parent) :
      qDebug() << "Hosted presetsDirSrcPath: " << presetsDirSrcPath;
      qDebug() << "Hosted presetFileDestPath: " << presetFileDestPath;
 
-    if (!QFile::exists(presetFileDestPath))
+     if (!QFile(presetFileSrcPath).exists())
+     {
+         qDebug() << "ERROR: Cannot find preset source file: " << presetFileSrcPath;
+     }
+
+     if (!QFile::exists(presetFileDestPath))
     {
         if (QFile::copy(presetFileSrcPath, presetFileDestPath) == false) {
             qFatal("Cannot copy default preset file to application data path!");

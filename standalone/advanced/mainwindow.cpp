@@ -26,18 +26,6 @@ MainWindow::MainWindow(QWidget *parent) :
     deleteDialogWidget(new QWidget(this)),
     aboutFormWidget(new QWidget(this)),
 
-//    fwoodDialogForm(new Ui::FwoodDialog),
-//    fwoodDialogWidget(new QWidget(this)),
-
-//    fwProgressDialog(new Ui::FwProgressForm),
-//    fwProgressDialogWidget(new QWidget(this)),
-
-//    fwUpdateCompleteDialog(new Ui::FwUpdateCompleteForm),
-//    fwUpdateCompleteDialogWidget(new QWidget(this)),
-
-//    fwUpdateDialog(new Ui::UpdateFirmwareForm),
-//    fwUpdateDialogWidget(new QWidget(this)),
-
     importOldDialogWidget(new QWidget(this)),
     importOldNotFoundDialogWidget(new QWidget(this)),
     modlineWarningDialogWidget(new QWidget(this)),
@@ -105,7 +93,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // setup bootloader/firmware images
     qDebug() << "\n------------ [FIRMWARE SETUP] ---------------------------------------------------";
 
-    QString thisBlFile = QString(":/resources/firmware/Softstep-99-bootloader-trojan-horse.syx");
+    QString thisBlFile = QString(":/firmware/Softstep-99-bootloader-trojan-horse.syx");
     qDebug() << "thisBlFile: " << thisBlFile;
 
     if (!SoftStep->slotOpenBootloaderFile(thisBlFile))
@@ -114,7 +102,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 
-    QString thisFwFile = QString("://resources/firmware/Softstep_Firmware_v%1.%2.%3.syx")
+    QString thisFwFile = QString(":/firmware/Softstep_Firmware_v%1.%2.%3.syx")
             .arg(uchar(thisFw.at(0)))
             .arg(uchar(thisFw.at(1)))
             .arg(uchar(thisFw.at(2)));
@@ -224,7 +212,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // ---- end FONTS -------------------------
 
+    qDebug() << "------------ [LOAD STYLESHEETS] ---------------------------------------------------";
 
+    // fwupdate stylesheets
+//#ifdef Q_OS_MAC
+    fwUpdateStylesFile = new QFile(":/stylesheets/fwUpdateStyles_lightBlue.qss");
+//#else
+//    fwUpdateStylesFile = new QFile(":stylesheets/resources/stylesheets/GeneralStylesWindows.qss");
+//#endif
+    if (!fwUpdateStylesFile->open(QFile::ReadOnly))
+    {
+        qDebug() << "ERROR: could not open stylesheet: " << fwUpdateStylesFile->fileName();
+    }
+    else
+    {
+        fwUpdateStylesString = QLatin1String(fwUpdateStylesFile->readAll());
+    }
+
+    qDebug() << "------------ [SETUP CONNECTION INDICATOR] ---------------------------------------------------";
     ui->connectedLabel->setText("SOFTSTEP NOT CONNECTED");
     //ui->connectedLabel->setFixedSize(162, 22);
     ui->connectedLabel->setToolTip("[ o_0 ]");
@@ -275,31 +280,10 @@ MainWindow::MainWindow(QWidget *parent) :
     deleteDialogWidget->setGeometry(this->width()/2 - deleteDialogWidget->width(), this->height()/2 - deleteDialogWidget->height(), deleteDialogWidget->width(), deleteDialogWidget->height());
     deleteDialogForm->setupUi(deleteDialogWidget);
 
-    //Firmware Out of Date
-//    fwoodDialogWidget->hide();
-//    fwoodDialogWidget->setGeometry(this->width()/2 - fwoodDialogWidget->width(), this->height()/2 - fwoodDialogWidget->height(), fwoodDialogWidget->width(), fwoodDialogWidget->height());
-//    fwoodDialogForm->setupUi(fwoodDialogWidget);
-
-//    //Firmware Progress Bar
-//    fwProgressDialogWidget->hide();
-//    fwProgressDialog->setupUi(fwProgressDialogWidget);
-//    fwProgressDialogWidget->move(this->width()/2 - fwProgressDialogWidget->width()/2, this->height()/2 - fwProgressDialogWidget->height()/2);
-
-//    //Firmware Update Complete Dialog
-//    fwUpdateCompleteDialogWidget->hide();
-//    fwUpdateCompleteDialog->setupUi(fwUpdateCompleteDialogWidget);
-//    fwUpdateCompleteDialogWidget->move(this->width()/2 - fwUpdateCompleteDialogWidget->width()/2, this->height()/2 - fwUpdateCompleteDialogWidget->height()/2);
-
-//    //Firmware Update Confirm Dialog
-//    fwUpdateDialogWidget->hide();
-//    fwUpdateDialog->setupUi(fwUpdateDialogWidget);
-//    fwUpdateDialogWidget->move(this->width()/2 - fwUpdateDialogWidget->width()/2, this->height()/2 - fwUpdateDialogWidget->height()/2);
-
     //About Window
     aboutFormWidget->hide();
     aboutForm->setupUi(aboutFormWidget);
     aboutFormWidget->move(this->width()/2 - aboutFormWidget->width()/2, this->height()/2 - aboutFormWidget->height()/2);
-    //aboutForm->expected->setText(QString("%1").arg(sysExComposer->embeddedbuildNum));
 
     //Import Old Preset Dialog
     importOldDialogWidget->hide();
@@ -380,19 +364,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     }
 
-
-
-//#ifdef Q_OS_MAC
-//    midiDeviceManager->connectSource();
-//#else
-//    //Attempt to Connect SoftStep
-//    midiDeviceManager->devicePoller->start(500);
-//    //midiDeviceManager->hosted_slotRepopulateMidiSourceDests();
-//#endif
-
-
-    // EB TODO - point this to the new method
-    //sysExComposer->slotHostedOnOff(true);
+    // start polling MIDI port changes at 100ms intervals
+    // had to move this to the end of setup, on Windows we were getting port changes signaling objects before they were declared
+    kmiPorts->devicePoller->start(100);
 }
 
 MainWindow::~MainWindow()

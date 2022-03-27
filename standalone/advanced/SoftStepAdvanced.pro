@@ -9,7 +9,9 @@ QT       += core gui \
             qml quick widgets quickwidgets
 
 
-QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder
+macx {
+    QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder
+}
 
 TARGET = "SoftStep Advanced Editor"
 TEMPLATE = app
@@ -212,6 +214,7 @@ ICON = resources/appicon.icns
 
 RESOURCES += \
     ../../shared/KMI_MDM/fwupdate/fw_stylesheets.qrc \
+    ../../shared/firmware/firmware.qrc \
     resources.qrc \
     resources/fonts/fonts.qrc
 
@@ -225,6 +228,17 @@ macx{
     softStepPresets.files = $$PWD/presets
     softStepPresets.path = Contents/Resources
     QMAKE_BUNDLE_DATA += softStepPresets
+}
+
+win32{
+
+    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/release/presets\")
+    export(presets.commands)
+
+    first.depends += $(first) presets
+    export(first.depends)
+
+    QMAKE_EXTRA_TARGETS += first presets
 }
 
 
