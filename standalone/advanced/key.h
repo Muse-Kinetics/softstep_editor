@@ -55,7 +55,7 @@ public:
     bool showDisplaySettings;
 
     //------------------ Hosted ------------------//
-    DataCooker dataCooker;
+    DataCooker * dataCooker;
     AlphaNumManager alphaNumManager;
     LEDManager ledManager;
 

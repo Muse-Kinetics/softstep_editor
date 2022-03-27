@@ -238,7 +238,6 @@ background: black;
       <font>
        <family>Corbel</family>
        <pointsize>8</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -368,7 +367,7 @@ background: black;
     <property name="geometry">
      <rect>
       <x>850</x>
-      <y>20</y>
+      <y>3</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -387,7 +386,7 @@ background: black;
     <property name="geometry">
      <rect>
       <x>870</x>
-      <y>51</y>
+      <y>34</y>
       <width>91</width>
       <height>20</height>
      </rect>
@@ -407,7 +406,7 @@ color: red;</string>
     <property name="geometry">
      <rect>
       <x>844</x>
-      <y>70</y>
+      <y>89</y>
       <width>89</width>
       <height>20</height>
      </rect>
@@ -463,7 +462,6 @@ color: red;</string>
      <font>
       <family>Corbel</family>
       <pointsize>12</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -515,7 +513,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>844</x>
-      <y>95</y>
+      <y>110</y>
       <width>89</width>
       <height>24</height>
      </rect>
@@ -534,7 +532,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>945</x>
-      <y>70</y>
+      <y>89</y>
       <width>40</width>
       <height>20</height>
      </rect>
@@ -562,7 +560,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>945</x>
-      <y>95</y>
+      <y>110</y>
       <width>24</width>
       <height>24</height>
      </rect>
@@ -639,7 +637,6 @@ QCheckBox::indicator:checked:disabled
      <font>
       <family>Corbel</family>
       <pointsize>8</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -671,6 +668,43 @@ QToolButton:pressed
      <string>REVERT</string>
     </property>
    </widget>
+   <widget class="QLabel" name="midiChannelLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>58</y>
+      <width>31</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>THRU</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="midi_thru">
+    <property name="geometry">
+     <rect>
+      <x>883</x>
+      <y>58</y>
+      <width>100</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <item>
+     <property name="text">
+      <string>None</string>
+     </property>
+    </item>
+   </widget>
    <zorder>settingsFrame</zorder>
    <zorder>softstepLabel</zorder>
    <zorder>connectedLabel</zorder>
@@ -682,6 +716,8 @@ QToolButton:pressed
    <zorder>update</zorder>
    <zorder>currentPresetLabel</zorder>
    <zorder>revert</zorder>
+   <zorder>midiChannelLabel_2</zorder>
+   <zorder>midi_thru</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

@@ -31,24 +31,31 @@
 #endif
 
 Key::Key(QWidget *parent, int keyInstanceNum) :
-    QWidget(parent),
-    keyBoxForm(new Ui::keyBoxForm),
-    keyWindowForm(new Ui::keyWindowForm),
-    dataCooker(keyInstanceNum, this),
-    keyWindowWidget(new QWidget(this)),
-    keyBoxWidget(new QWidget(this))
+    QWidget(parent)
 {
+
+    qDebug() << "Initialize key: " << keyInstanceNum;
     keyInstance = keyInstanceNum;
+
+    qDebug() << "keyBoxForm";
+    keyBoxForm = new Ui::keyBoxForm;
+    qDebug() << "keyWindowForm";
+    keyWindowForm = new Ui::keyWindowForm;
+    qDebug() << "dataCooker";
+    dataCooker = new DataCooker(keyInstance, this);
+//    qDebug() << "keyWindowWidget";
+    //keyWindowWidget = new QWidget(this);
+
 
     alphaNumManager.instanceNum = keyInstance;
     ledManager.keyInstanceNum = keyInstance;
 
-    dataCooker.hide();
+    dataCooker->hide();
 
     showDisplaySettings = FALSE;
 
     //Set up the Key Box
-    //keyBoxWidget = new QWidget(this);
+    keyBoxWidget = new QWidget(this);
     keyBoxForm->setupUi(keyBoxWidget);
     keyBoxWidget->setFixedSize(KEYBOX_WIDTH, KEYBOX_HEIGHT);
 
@@ -63,7 +70,7 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
 
 
     //Set up the Key Window
-    //keyWindowWidget = new QWidget();
+    keyWindowWidget = new QWidget();
     keyWindowForm->setupUi(keyWindowWidget);
     keyWindowWidget->setFixedSize(KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
     keyWindowForm->frame->setFixedSize(KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
@@ -160,11 +167,11 @@ void Key::slotConnectElements()
     for(int i = 0; i < 6; i++)
     {
         //Source Streaming
-        connect(modline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
-        connect(&dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
-        connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
-        connect(modline[i], SIGNAL(hosted_signalYIncSet(int)), &dataCooker, SLOT(slotYIncSet(int)));
-        connect(modline[i], SIGNAL(hosted_signalXIncSet(int)), &dataCooker, SLOT(slotXIncSet(int)));
+        connect(modline[i], SIGNAL(signalSetSource(QString,int)), dataCooker, SLOT(slotSetSource(QString,int)));
+        connect(dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
+        connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
+        connect(modline[i], SIGNAL(hosted_signalYIncSet(int)), dataCooker, SLOT(slotYIncSet(int)));
+        connect(modline[i], SIGNAL(hosted_signalXIncSet(int)), dataCooker, SLOT(slotXIncSet(int)));
 
         //Leds -- used modline output because all lines' logic is checked
         connect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
@@ -185,7 +192,7 @@ void Key::slotConnectElements()
     }
 
     //alphanumeric display - handled in main window
-    //connect(&dataCooker, SIGNAL(signalThisKeyPressed(int)), &alphaNumManager, SLOT(slotDisplayKeyName()));
+    //connect(dataCooker, SIGNAL(signalThisKeyPressed(int)), &alphaNumManager, SLOT(slotDisplayKeyName()));
 }
 
 void Key::slotDisconnectElements()
@@ -209,11 +216,11 @@ void Key::slotDisconnectElements()
     //Hosted streaming
     for(int i = 0; i < 6; i++)
     {
-        disconnect(modline[i], SIGNAL(signalSetSource(QString,int)), &dataCooker, SLOT(slotSetSource(QString,int)));
-        disconnect(&dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
-        disconnect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
-        disconnect(modline[i], SIGNAL(hosted_signalYIncSet(int)), &dataCooker, SLOT(slotYIncSet(int)));
-        disconnect(modline[i], SIGNAL(hosted_signalXIncSet(int)), &dataCooker, SLOT(slotXIncSet(int)));
+        disconnect(modline[i], SIGNAL(signalSetSource(QString,int)), dataCooker, SLOT(slotSetSource(QString,int)));
+        disconnect(dataCooker, SIGNAL(signalTransformSource(int, int, QString)), modline[i], SLOT(slotTransformSource(int, int, QString)));
+        disconnect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), dataCooker, SLOT(slotReceiveModlineOutput(int,int)));
+        disconnect(modline[i], SIGNAL(hosted_signalYIncSet(int)), dataCooker, SLOT(slotYIncSet(int)));
+        disconnect(modline[i], SIGNAL(hosted_signalXIncSet(int)), dataCooker, SLOT(slotXIncSet(int)));
 
         //leds -- used modline output because all lines' logic is checked
         disconnect(modline[i], SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
@@ -311,10 +318,10 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
         stateRecaller.slotStoreCounterState(counter);
 
         //Inc-Dec Counters
-        stateRecaller.slotStoreIncDecState(dataCooker.xIncCount, dataCooker.yIncCount);
+        stateRecaller.slotStoreIncDecState(dataCooker->xIncCount, dataCooker->yIncCount);
 
         //Previous Key Pressed
-        stateRecaller.slotStorePreviousKeyValueState(dataCooker.previousKeyPressed[1]);
+        stateRecaller.slotStorePreviousKeyValueState(dataCooker->previousKeyPressed[1]);
 
         for(int i=0; i < 6; i++)
         {
@@ -363,8 +370,8 @@ void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
         counter = stateRecaller.counterState.value(currentPreset);
 
         //Inc-Dec
-        dataCooker.yIncCount = stateRecaller.yIncDecState.value(currentPreset);
-        dataCooker.xIncOrDec = stateRecaller.xIncDecState.value(currentPreset);
+        dataCooker->yIncCount = stateRecaller.yIncDecState.value(currentPreset);
+        dataCooker->xIncOrDec = stateRecaller.xIncDecState.value(currentPreset);
 
         for(int i = 0; i < 6; i++)
         {
@@ -634,7 +641,7 @@ void Key::slotSetMainWindow(MainWindow *mainWindow)
 {
     qDebug() << "slotSetMainWindow called, keyInstance: " << keyInstance;
     mw = mainWindow;
-    dataCooker.slotSetParentKey(this);
+    dataCooker->slotSetParentKey(this);
 }
 
 /*void Key::slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleased)

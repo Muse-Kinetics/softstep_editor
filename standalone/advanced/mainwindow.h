@@ -21,10 +21,10 @@
 #include "importoldpresethandler.h"
 
 #ifdef Q_OS_MAC
-#include "ui_fwoodform.h"
-#include "ui_fwprogressform.h"
-#include "ui_fwupdatecompleteform.h"
-#include "ui_updatefwform.h"
+//#include "ui_fwoodform.h"
+//#include "ui_fwprogressform.h"
+//#include "ui_fwupdatecompleteform.h"
+//#include "ui_updatefwform.h"
 #include "ui_aboutform.h"
 #include "ui_mainwindow.h"
 #include "ui_saveAsForm.h"
@@ -33,10 +33,11 @@
 #include "ui_importOldNotFoundForm.h"
 #include "ui_modlineWarningForm.h"
 #else
-#include "ui_fwoodformWin.h"
-#include "ui_fwprogressformWin.h"
-#include "ui_fwupdatecompleteformWin.h"
-#include "ui_updatefwformWin.h"
+//#include "ui_fwoodformWin.h"
+//#include "ui_fwprogressformWin.h"
+//#include "ui_fwupdatecompleteformWin.h"
+//#include "ui_updatefwformWin.h"
+#include "ui_apploadformWin.h"
 #include "ui_aboutformWin.h"
 #include "ui_mainwindowWin.h"
 #include "ui_saveAsFormWin.h"
@@ -95,16 +96,16 @@ public:
     MidiDeviceManager* SoftStep;
 
     // MIDI Thru port for standalone, workaround for Windows device limitations
-    MidiDeviceManager* MIDIThru;
+    //MidiDeviceManager* MIDIThru;
 
     // MIDI aux inputs and outputs are defined here. For products like SoftStep (advanced), you would define 8 inputs for controllers
     // and one output for hosted mode.
-    MidiDeviceManager* midiAuxIn[8];
+    //MidiDeviceManager* midiAuxIn[8];
 
     // this port is used to send MIDI to various ports when in hosted mode.
-    MidiDeviceManager* hostedOut;
+    //MidiDeviceManager* hostedOut;
 
-    MidiDeviceManager* SoftStepShare; // virtual port device
+    //MidiDeviceManager* SoftStepShare; // virtual port device
 
     QString MIDI_THRU_KEY;
     QString recallMidiThruPortName;
@@ -158,6 +159,7 @@ public:
     //Dialogs
     QWidget     *saveAsDialogWidget;
     QWidget     *deleteDialogWidget;
+    //QWidget     *appLoadWidget;
 //    QWidget     *fwoodDialogWidget;
 //    QWidget     *fwProgressDialogWidget;
 //    QWidget     *fwUpdateCompleteDialogWidget;
@@ -312,11 +314,12 @@ private:
     //Dialogs
     Ui::saveAsDialogForm        *saveAsDialogForm;
     Ui::deleteDialogForm        *deleteDialogForm;
+    //Ui::AppLoadForm             *apploadForm;
 
-    Ui::FwoodDialog             *fwoodDialogForm;
-    Ui::FwProgressForm          *fwProgressDialog;
-    Ui::FwUpdateCompleteForm    *fwUpdateCompleteDialog;
-    Ui::UpdateFirmwareForm      *fwUpdateDialog;
+    //Ui::FwoodDialog             *fwoodDialogForm;
+    //Ui::FwProgressForm          *fwProgressDialog;
+    //Ui::FwUpdateCompleteForm    *fwUpdateCompleteDialog;
+    //Ui::UpdateFirmwareForm      *fwUpdateDialog;
     Ui::AboutForm               *aboutForm;
     Ui::ImportOldPresetsForm    *importOldDialog;
     Ui::ImportOldNotFoundForm   *importOldNotFoundDialog;

@@ -70,7 +70,7 @@ void midi_sx_encode_char(unsigned char val) {
 }
 void midi_sx_encode_int(unsigned short val) {
 	midi_sx_encode_char(val>>8);
-	midi_sx_encode_char(val);
+    midi_sx_encode_char((unsigned char)val);
 }
 
 void midi_sx_encode_crc_char(unsigned char val) {
@@ -79,7 +79,7 @@ void midi_sx_encode_crc_char(unsigned char val) {
 }
 void midi_sx_encode_crc_int(unsigned short val) {
 	midi_sx_encode_crc_char(val>>8);
-	midi_sx_encode_crc_char(val);
+    midi_sx_encode_crc_char((unsigned char)val);
 }
 void midi_sx_flush(void) {
 	while(midi_hi_count)

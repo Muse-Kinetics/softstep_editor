@@ -21,6 +21,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
 
     QString presetsDirSrcPath = appPackageDirPath + "Resources/presets";
 #else
+    qDebug() << "appPackageDirPath: " << appPackageDirPath;
     QString presetsDirSrcPath = QString("./presets");
 #endif
 
@@ -28,6 +29,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
 
     // Get path to writeable app data directory
     QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    qDebug() << "appDataDirPath: " << appDataDirPath;
 
     if (appDataDirPath.isEmpty()) {
         qFatal("Cannot determine preset storage location");
@@ -56,6 +58,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
     // make file path available
     jsonPath = presetFileDestPath;
 
+    qDebug("Load Presets");
     // Read presets
     slotReadJSON();
 
@@ -130,27 +133,31 @@ void PresetInterface::slotReadJSON()
 //        QByteArray jsonByteArray = jsonFile->readAll();//load json file into a byte array to be processd by the parser
         // error object
         QJsonParseError JsonParseError;
+        qDebug("1");
         // convert file to QJsonDocument. this can be read/written to
         QJsonDocument JsonDocument = QJsonDocument::fromJson(jsonFile->readAll(), &JsonParseError);
         // close jsonFile
         jsonFile->close();
         // convert QJsonDocument to QJsonObject. this can be queried and modified in a human-readable way
         QJsonObject RootObject = JsonDocument.object();
-
+qDebug("1");
         QByteArray jsonByteArray = JsonDocument.toJson();
-
+        qDebug("1");
         jsonMasterMap = RootObject.toVariantMap();
 
 //        jsonMasterMap = parser.parse(jsonByteArray, &ok).toMap(); //parse the json data, convert it to a map and set it equal to the master jsonMap
+        qDebug("1");
         jsonMasterMapCopy = jsonMasterMap;
 
         //-------
         int presetNum = 1;
 
         QStringList keyList = jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap().keys();
+qDebug("1");
 
         for(int i = 0; i < keyList.size(); i++)
         {
+            //qDebug() << "k: " << i << " /" << keyList.size();
             if(jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i)) !=
                     jsonMasterMap.value(QString("Preset_00%1").arg(presetNum)).toMap().value(keyList.at(i)))
             {
@@ -163,7 +170,7 @@ void PresetInterface::slotReadJSON()
     {
         qDebug() << "SoftStep Easy Editor JSON Not Found";
     }
-
+qDebug("end");
     jsonFile->close();
 }
 

@@ -4,7 +4,7 @@
 #include "mainwindow.h"
 
 #include <KMI_FwVersions.h>
-#include <kmi_updates.h>
+//#include <kmi_updates.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,15 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
 //    fwUpdateDialog(new Ui::UpdateFirmwareForm),
     aboutForm(new Ui::AboutForm)
 {
-
-//#ifdef Q_OS_MAC
-//    mdm = new SS_MidiDeviceManager(this);
-//#else
-//    //midiThread = new QThread(this);
-//    mdm = new SS_MidiDeviceManager(0);
-//    //mdm->moveToThread(midiThread);
-//    //midiThread->start();
-//#endif
 
     //Mainwindow Ui
     ui->setupUi(this);
@@ -79,9 +70,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //kmiPorts->slotCreateVirtualOut("SoftStep Editor");
 #endif
 
-    // start polling at 100ms intervals
-    kmiPorts->devicePoller->start(100);
-
     // connect kmiPorts to our handler
     connect(kmiPorts, SIGNAL(signalPortUpdated(QString, uchar, uchar, int)),
             this, SLOT(slotMIDIPortChange(QString, uchar, uchar, int)));
@@ -92,11 +80,11 @@ MainWindow::MainWindow(QWidget *parent) :
     // create KMI device handlers
     // ******************************
 
-    SoftStep = new MidiDeviceManager(this, PID_SOFTSTEP, "SoftStep");
+    SoftStep = new MidiDeviceManager(this, PID_SOFTSTEP2_OLD, "SoftStep");
 
     // setup bootloader/firmware images
 
-    QString thisBlFile = QString(":/resources/firmware/Softstep-99-bootloader-trojan-horse.syx");
+    QString thisBlFile = QString(":/firmware/Softstep-99-bootloader-trojan-horse.syx");
     qDebug() << "thisBlFile: " << thisBlFile;
 
     if (!SoftStep->slotOpenBootloaderFile(thisBlFile))
@@ -104,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent) :
        slotCreateDialog("Error: Bootloader file not found!\n\nPlease re-install the SoftStep editor.");
     }
 
-    QString thisFwFile = QString("://resources/firmware/Softstep_Firmware_v%1.%2.%3.syx")
+    QString thisFwFile = QString(":/firmware/Softstep_Firmware_v%1.%2.%3.syx")
             .arg(uchar(thisFw.at(0)))
             .arg(uchar(thisFw.at(1)))
             .arg(uchar(thisFw.at(2)));
@@ -116,23 +104,24 @@ MainWindow::MainWindow(QWidget *parent) :
        slotCreateDialog("Error: Firmware file not found!\n\nPlease re-install the SoftStep editor.");
     }
 
-    // connect firmware signals
-    qDebug() << "connect signalFirmwareDetected";
-
+    qDebug() << "Create MIDI THRU";
     // MIDI Thru for standalone/windows
-    MIDIThru = new MidiDeviceManager(this, PID_AUX, "MIDI THRU");
+    //MIDIThru = new MidiDeviceManager(this, PID_AUX, "MIDI THRU");
 
     // ******************************
     // end KMI_Ports and device handlers
     // ******************************
 
+    qDebug("Load application settings");
     settings = new QSettings();
 
     // ******************************
     // check for updates and set default save locations
     // ******************************
+#ifdef VERSION_CHECK_ENABLED
     QString jsonVersionCheckURL = "https://files.keithmcmillen.com/products/softstep/editor/softwareVersionCheck.json";
     checkUpdates = new KMI_Updates(this, "SoftStep", settings, applicationVersion, jsonVersionCheckURL);
+#endif // VERSION_CHECK_ENABLED
 
     // default file location
     const QString DEFAULT_DIR_KEY("default_dir");
@@ -153,10 +142,14 @@ MainWindow::MainWindow(QWidget *parent) :
     // ******************************
 
     //Construct Children
+    qDebug("PresetInterface");
     presetInterface = new PresetInterface(this);
+    qDebug("SysExComposer");
     sysExComposer = new SysExComposer(0);
+    qDebug("copyPasteHandler");
     copyPasteHandler = new CopyPasteHandler(presetInterface,this);
 
+    qDebug("EventFilter");
     this->installEventFilter(this);
 
     //QList<QWidget*> widgets = findChildren<QWidget*>();
@@ -166,7 +159,7 @@ MainWindow::MainWindow(QWidget *parent) :
         widget->setAttribute(Qt::WA_MacShowFocusRect, false);
     }
 
-
+#ifdef Q_OS_MAC
     //Disable system focus boxt on Mac
     ui->backlight->setAttribute(Qt::WA_MacShowFocusRect, false);
     ui->sensitivity->setAttribute(Qt::WA_MacShowFocusRect, false);
@@ -175,6 +168,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pedalCC->setAttribute(Qt::WA_MacShowFocusRect, false);
     ui->currentPreset->setAttribute(Qt::WA_MacShowFocusRect, false);
     ui->displayName->setAttribute(Qt::WA_MacShowFocusRect, false);
+#endif
 
     //Construct Keys
     for(int i = 1; i < 11; i++)
@@ -251,13 +245,6 @@ MainWindow::MainWindow(QWidget *parent) :
         key[i-1]->slotConnectElements();
     }
 
-//#ifdef Q_OS_MAC
-//    mdm->connectSource();
-//#else
-//    //Attempt to Connect SoftStep
-//    //mdm->devicePoller->start(1000);
-//#endif
-
     //menubar->actions().at(0)->setEnabled(false);
 
     //Disable All context menus
@@ -306,6 +293,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QFontDatabase::addApplicationFont(droidFont);
     QFontDatabase::addApplicationFont(futuraFont);
 #endif
+
+    // start polling at 100ms intervals
+    kmiPorts->devicePoller->start(100);
 
 }
 
@@ -384,12 +374,12 @@ void MainWindow::slotConnectInterfaces()
     qDebug() << "connected midi thru port";
 
     //StyleSheets for primary pushbuttons
-    blueStyleFile = new QFile(":/resources/stylesheets/fwUpdateStyles_lightBlue.qss");
+    blueStyleFile = new QFile(":/stylesheets/fwUpdateStyles_lightBlue.qss");
     blueStyleFile->open(QFile::ReadOnly);
     blueStyleString = QLatin1String(blueStyleFile->readAll());
 
     //StyleSheets for secondary pushbuttons
-    grayStyleFile = new QFile(":/resources/stylesheets/GrayButtonStyleSheet.qss");
+    grayStyleFile = new QFile(":/stylesheets/GrayButtonStyleSheet.qss");
     grayStyleFile->open(QFile::ReadOnly);
     grayStyleString = QLatin1String(grayStyleFile->readAll());
 
@@ -398,7 +388,7 @@ void MainWindow::slotConnectInterfaces()
 
     fwUpdateStylesFile = new QFile("://resources/stylesheets/fwUpdateStyles_lightBlue.qss");
 #else
-    fwUpdateStylesFile = new QFile(":stylesheets/resources/stylesheets/GeneralStylesWindows.qss");
+    fwUpdateStylesFile = new QFile(":/stylesheets/fwUpdateStyles_SoftStep.qss");
 #endif
     fwUpdateStylesFile->open(QFile::ReadOnly);
     fwUpdateStylesString = QLatin1String(fwUpdateStylesFile->readAll());
@@ -419,7 +409,6 @@ void MainWindow::slotConnectInterfaces()
     connect(SoftStep, SIGNAL(signalFirmwareUpdateComplete(bool)), fwUpdateWindow, SLOT(slotFwUpdateComplete(bool)));            // Update Complete
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), SoftStep, SLOT(slotFirmwareUpdateReset()));                        // stop timeout timers
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccessCloseDialog(bool)), this, SLOT(slotFwUpdateSuccessCloseDialog(bool)));  // close fw dialog and connect
-    //connect(SoftStep, SIGNAL(signalRequestGlobals()), this, SLOT(slotSendGlobalsRequest()));                                  // request globals
 
     // handle device unexpectedly in bootloader mode
     connect(SoftStep, SIGNAL(signalBootloaderMode(bool)), this, SLOT(slotBootloaderMode(bool)));
@@ -428,11 +417,10 @@ void MainWindow::slotConnectInterfaces()
     connect(SoftStep, SIGNAL(signalBeginBlTimer()), this, SLOT(slotRefreshConnection()));
     connect(SoftStep, SIGNAL(signalBeginFwTimer()), this, SLOT(slotRefreshConnection()));
 
-    // ---- end midi and fw update overhaul --------------------
-
     //Connected Indicator
-    //connect(mdm, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
     connect(SoftStep, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
+
+    // ---- end midi and fw update overhaul --------------------
 
     //About Ok Button
     connect(aboutForm->ok, SIGNAL(clicked()), aboutFormWidget, SLOT(close()));
@@ -733,48 +721,6 @@ void MainWindow::slotConnected(bool connection)
     }
     slotUpdateAboutWindow();
 }
-
-//void MainWindow::slotUpdateFirmware()
-//{
-//    fwoodDialogWidget->hide();
-//    QApplication::processEvents();
-//    fwProgressDialogWidget->show();
-//    QApplication::processEvents();
-//    fwProgressDialog->progressBar->setMinimum(0);
-//    QApplication::processEvents();
-//#ifdef Q_OS_MAC
-//    fwProgressDialog->progressBar->setMaximum(sysExComposer->fwFileSize);
-//#else
-//    fwProgressDialog->progressBar->setMaximum(0);
-//#endif
-//    QApplication::processEvents();
-
-//#ifdef Q_OS_MAC
-//    //sysExComposer->slotUpdateFirmware();
-//#else
-//	mdm->slotCloseMidiOut();
-//	mdm->slotCloseMidiIn();
-//	mdm->fwUpdateRequested = true;
-	
-//	syxutilProcess = new QProcess;
-//	syxutilProcess->setWorkingDirectory("./");
-//	syxutilProcess->start("FirmwareUpdater.exe");
-//#endif
-//}
-
-//void MainWindow::slotUpdateFwProgressBar(int bytes)
-//{
-//    if(bytes != 0)
-//    {
-//        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
-//    }
-//    else
-//    {
-//        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
-//        fwProgressDialogWidget->close();
-//        fwUpdateCompleteDialogWidget->show();
-//    }
-//}
 
 void MainWindow::slotInitMenuBar()
 {
@@ -1117,7 +1063,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
 void MainWindow::slotRefreshConnection()
 {
     qDebug() << "slotRefreshConnection called";
-#ifndef Q_OS_WIN
+//#ifndef Q_OS_WIN
     if (!SoftStep->bootloaderMode) // app->bootLoader
     {
         SoftStep->slotResetConnections(SS_OLD_IN_P1, SS_BL_PORT);
@@ -1126,7 +1072,7 @@ void MainWindow::slotRefreshConnection()
     {
         SoftStep->slotResetConnections(SS_OUT_P1, SS_BL_PORT);
     }
-#endif
+//#endif
 }
 
 
@@ -1175,6 +1121,7 @@ void MainWindow::slotForceFirmwareUpdate()
 void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
 {
     qDebug() << "slotFirmwareDetected called";
+    qDebug() << SoftStep->connected;
     if (matches)
     {
         qDebug() << "FirmwareMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
@@ -1185,7 +1132,7 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
     }
     else
     {
-        qDebug() << "Firmware MisMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
+        //qDebug() << "Firmware MisMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
 
         // setup sysex connections to receive globals data
         SoftStep->disconnect(SIGNAL(signalRxSysExBA(QByteArray))); // disconnect to be safe
@@ -1224,17 +1171,27 @@ void MainWindow::slotUpdateMIDIThru()
     {
         // set and open the ports
         int thisOutPort = kmiPorts->getOutPortNumber(currentPort);
-        MIDIThru->slotUpdatePortOut(thisOutPort); // also opens the port
-        connect(SoftStep, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), MIDIThru, SLOT(slotSendMIDI(uchar, uchar, uchar, uchar)));
+        //MIDIThru->slotUpdatePortOut(thisOutPort); // also opens the port
+        //connect(SoftStep, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), MIDIThru, SLOT(slotSendMIDI(uchar, uchar, uchar, uchar)));
     }
     else
     {
-        MIDIThru->slotCloseMidiOut();
+        //MIDIThru->slotCloseMidiOut();
     }
 }
 
 QString MainWindow::deviceBootloaderVersionString()
 {
+    qDebug() << "deviceBootloaderVersionString called";
+    qDebug() << "SoftStep address: " << &SoftStep;
+    qDebug() << "SoftStep pointer: " << SoftStep;
+    qDebug() << "SoftStep ObjectName: " << SoftStep->objectName;
+    qDebug() << "deviceFirmwareVersion: " << SoftStep->deviceFirmwareVersion;
+    qDebug() << "devicebootloaderVersion: " << SoftStep->devicebootloaderVersion;
+
+    qDebug() << "0: " << SoftStep->devicebootloaderVersion.at(0);
+    qDebug() << "1: " << SoftStep->devicebootloaderVersion.at(1);
+    qDebug() << "2: " << SoftStep->devicebootloaderVersion.at(2);
     return QString("Device Bootloader Version: %1.%2.%3\n\n")
             .arg(uchar(SoftStep->devicebootloaderVersion.at(0)))
             .arg(uchar(SoftStep->devicebootloaderVersion.at(1)))

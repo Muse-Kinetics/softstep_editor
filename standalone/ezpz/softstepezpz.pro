@@ -85,17 +85,17 @@ HEADERS  +=     mainwindow.h \
 FORMS    +=     forms/mainwindow.ui \
                 ../../shared/KMI_MDM/fwupdate/fwupdate.ui \
                 forms/keyform.ui \
-                forms/fwoodform.ui \
-                forms/fwprogressform.ui \
-                forms/fwupdatecompleteform.ui \
-                forms/updatefwform.ui \
+#                forms/fwoodform.ui \
+#                forms/fwprogressform.ui \
+#                forms/fwupdatecompleteform.ui \
+#                forms/updatefwform.ui \
                 forms/aboutform.ui \
                 forms/updatefwformWin.ui \
                 forms/mainwindowWin.ui \
                 forms/keyformWin.ui \
-                forms/fwupdatecompleteformWin.ui \
-                forms/fwprogressformWin.ui \
-                forms/fwoodformWin.ui \
+#                forms/fwupdatecompleteformWin.ui \
+#                forms/fwprogressformWin.ui \
+#                forms/fwoodformWin.ui \
                 forms/aboutformWin.ui \
                 forms/settingsForm.ui
 
@@ -113,7 +113,8 @@ OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
                 #doc.txt
 
 RESOURCES =    Resources.qrc \
-    ../../shared/KMI_MDM/fwupdate/fw_stylesheets.qrc
+    ../../shared/KMI_MDM/fwupdate/fw_stylesheets.qrc \
+    ../../shared/firmware/firmware.qrc
 
 
 #--------------- contents/resources --------
@@ -232,15 +233,15 @@ ICON = resources/appicon.icns
 #    QMAKE_BUNDLE_DATA += qunexusPresets
 #}
 
-#win32{
+win32{
 
-#    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/Resources/presets\")
-#    export(presets.commands)
+    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/presets\")
+    export(presets.commands)
 
-#    first.depends += $(first) presets
-#    export(first.depends)
+    first.depends += $(first) presets
+    export(first.depends)
 
-#    QMAKE_EXTRA_TARGETS += first presets
-#}
+    QMAKE_EXTRA_TARGETS += first presets
+}
 
 DISTFILES +=

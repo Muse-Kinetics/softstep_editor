@@ -6,11 +6,18 @@
 
 QT       += core gui \
             svg \
-            qml quick widgets quickwidgets
+            widgets \
+            qml \
+            quick \
+            quickwidgets
 
 
 macx {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder
+}
+
+win32 {
+    #CONFIG += console
 }
 
 TARGET = "SoftStep Advanced Editor"
@@ -128,6 +135,7 @@ HEADERS  +=     mainwindow.h \
 
 FORMS    +=     forms/mainwindow.ui \
                 ../../shared/KMI_MDM/fwupdate/fwupdate.ui \
+    forms/apploadformWin.ui \
                 forms/modlineForm.ui \
                 forms/keyWindowForm.ui \
                 forms/settingsForm.ui \
@@ -139,10 +147,10 @@ FORMS    +=     forms/mainwindow.ui \
     forms/navKeyWindowForm.ui \
     forms/navBoxForm.ui \
     forms/aboutform.ui \
-    forms/fwprogressform.ui \
-    forms/fwoodform.ui \
-    forms/updatefwform.ui \
-    forms/fwupdatecompleteform.ui \
+#    forms/fwprogressform.ui \
+#    forms/fwoodform.ui \
+#    forms/updatefwform.ui \
+#    forms/fwupdatecompleteform.ui \
     forms/pedalLiveTableForm.ui \
     forms/importOldPresetsForm.ui \
     forms/importOldNotFoundForm.ui \
@@ -162,17 +170,17 @@ FORMS    +=     forms/mainwindow.ui \
     forms/modlineWarningFormWin.ui \
     forms/importOldPresetsFormWin.ui \
     forms/importOldNotFoundFormWin.ui \
-    forms/fwupdatecompleteformWin.ui \
-    forms/fwprogressformWin.ui \
-    forms/fwoodformWin.ui \
+#    forms/fwupdatecompleteformWin.ui \
+#    forms/fwprogressformWin.ui \
+#    forms/fwoodformWin.ui \
     forms/deletePresetFormWin.ui \
     forms/aboutformWin.ui
 
 #-------------------QJson-------------------#
 #-------------------------------------------#
-static{
-DEFINES += STATIC_BUILD
-}
+#static{
+#DEFINES += STATIC_BUILD
+#}
 
 #INCLUDEPATH +=  ../../shared/qjson/src
 
@@ -184,62 +192,21 @@ DEFINES += STATIC_BUILD
 
 #------------------oscpack------------------#
 #-------------------------------------------#
-INCLUDEPATH +=
+#INCLUDEPATH +=
 
-SOURCES +=
+#SOURCES +=
 
 
-#---------------------LIBS--------------------#
+#-----------resouces and stylesheets------------#
 #---------------------------------------------#
-#win32{
-#LIBS +=         -lwinmm
-#}
 
-#macx{
-#LIBS +=         -framework CoreMIDI
-#LIBS +=         -framework CoreFoundation
-#LIBS +=         -framework Cocoa
-#LIBS +=         -framework CoreServices
-#}
 
-#--------------------Icons--------------------#
-#---------------------------------------------#
-win32{
-RC_FILE =       resources/appicon.rc.txt
-}
-
-macx{
-ICON = resources/appicon.icns
-}
 
 RESOURCES += \
     ../../shared/KMI_MDM/fwupdate/fw_stylesheets.qrc \
     ../../shared/firmware/firmware.qrc \
     resources.qrc \
     resources/fonts/fonts.qrc
-
-#--------------- contents/resources --------
-
-macx{
-#    softStepSysEx.files = $$PWD/../../shared/SoftStep.syx
-#    softStepSysEx.path = Contents/Resources
-#    QMAKE_BUNDLE_DATA += softStepSysEx
-
-    softStepPresets.files = $$PWD/presets
-    softStepPresets.path = Contents/Resources
-    QMAKE_BUNDLE_DATA += softStepPresets
-}
-
-win32{
-
-    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/release/presets\")
-    export(presets.commands)
-
-    first.depends += $(first) presets
-    export(first.depends)
-
-    QMAKE_EXTRA_TARGETS += first presets
-}
 
 
 OTHER_FILES += \
@@ -266,12 +233,16 @@ OTHER_FILES += \
     CalibrationTable.qml \
     resources/devicestyle.qss \
 
+## QML stuff
+
+QML_IMPORT_PATH =
+CONFIG += qtquickcompiler
 
 #-------------------MIDI--------------------#
 #-------------------------------------------#
 
 #DEFINES += \
-    MDM_DEBUG_ENABLED # enable deeper deebugging for KMI Midi Device Manager
+#    MDM_DEBUG_ENABLED # enable deeper deebugging for KMI Midi Device Manager
 
 # These defines set RtMidi to the correct OS API
 macx{
@@ -288,8 +259,6 @@ macx{
 #    LIBS += -framework CoreFoundation
 
 #}
-
-#VERSION = 1.2.3
 
 #android {
 #    androidmanifestupdate.commands =  sed -i \'\' -E -e \'s/(versionName=)(\"([0-9]\.?)+\")/\\1\"$$VERSION\"/g\' $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml
@@ -315,13 +284,43 @@ win32{
 }
 # end rtmidi defines
 
-
 # SSL support for checking for updates on windows
 win32{
-    LIBS += -LC:\Qt6\Tools\OpenSSL\Win_x64\lib -llibcrypto
-    INCLUDEPATH+= C:\Qt6\Tools\OpenSSL\Win_x64\include\openssl
+#    LIBS += -LC:\Qt6\Tools\OpenSSL\Win_x64\lib -llibcrypto
+#    INCLUDEPATH+= C:\Qt6\Tools\OpenSSL\Win_x64\include\openssl
     LIBS += -LC:\Qt\Tools\OpenSSL\Win_x64\lib -llibcrypto
     INCLUDEPATH+= C:\Qt\Tools\OpenSSL\Win_x64\include\openssl
 }
 
-DISTFILES +=
+#--------------------Icons--------------------#
+#---------------------------------------------#
+win32{
+RC_FILE =       resources/appicon.rc.txt
+}
+
+macx{
+ICON = resources/appicon.icns
+}
+
+#--------------- contents/resources --------
+
+macx{
+#    softStepSysEx.files = $$PWD/../../shared/SoftStep.syx
+#    softStepSysEx.path = Contents/Resources
+#    QMAKE_BUNDLE_DATA += softStepSysEx
+
+    softStepPresets.files = $$PWD/presets
+    softStepPresets.path = Contents/Resources
+    QMAKE_BUNDLE_DATA += softStepPresets
+}
+
+win32{
+
+    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/release/presets\")
+    export(presets.commands)
+
+    first.depends += $(first) presets
+    export(first.depends)
+
+    QMAKE_EXTRA_TARGETS += first presets
+}

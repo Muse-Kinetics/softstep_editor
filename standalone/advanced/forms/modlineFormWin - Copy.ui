@@ -16,9 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-/*	background: rgb(0,0,0); */
 	background:		rgb(80, 80, 80);	
-	/*border: 3px rgb(25, 25, 25);*/
 }
 
 /* ------- QStackedWidget ---------*/
@@ -34,7 +32,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				9pt &quot;Tahoma&quot;;
+	font: 				7pt &quot;Tahoma&quot;;
 	border:				none;
 }
 
@@ -46,11 +44,11 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 1px 1px 3px;
+	padding: 1px 1px 1px 0px;
 }
 
 QSpinBox:focus
@@ -61,7 +59,7 @@ QSpinBox:focus
 
 QDoubleSpinBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
@@ -77,7 +75,7 @@ QDoubleSpinBox::focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -88,7 +86,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background: rgb(0,174,239);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -100,7 +98,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background: none;
 	color: white;
 	padding:0, 3, 0, 0;
@@ -116,7 +114,7 @@ QCheckBox:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -211,12 +209,11 @@ QRadioButton::indicator:checked:pressed
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 140);
 	border: 1px solid rgb(120, 120, 120);
 	padding: 2px;
-	width: 22px;
 }</string>
   </property>
   <widget class="QLabel" name="instanceLabel">
@@ -230,8 +227,9 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
+     <family>Futura</family>
      <pointsize>8</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -240,7 +238,7 @@ QToolTip
     <string notr="true">QLabel
 {
 	color: 				white;
-	font: 				8pt &quot;Futura-Normal&quot;;
+	font: 				8pt &quot;Futura&quot;;
 	border:				none;
 }</string>
    </property>
@@ -265,8 +263,9 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
+     <family>Futura</family>
      <pointsize>10</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -279,7 +278,7 @@ QToolTip
 QCheckBox
 {
     color: rgba(255,255,255,0);
-    font: 10pt &quot;Futura-Normal&quot;;
+    font: 10pt &quot;Futura&quot;;
 }
 
 QCheckBox::indicator
@@ -332,7 +331,11 @@ QCheckBox::indicator:checked:pressed:focus
 {
     image: url(:/resources/modline_enable1_toggle_off.png);
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="text">
     <string/>
@@ -353,7 +356,8 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -368,7 +372,7 @@ QCheckBox::indicator:checked:pressed:focus
     <string notr="true">/*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -379,7 +383,9 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 7px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
 	min-width: 35px;
 }
 
@@ -428,7 +434,11 @@ QComboBox:disabled
 	border-color: rgba(0, 174, 239, 75);
 	color: rgba(255, 255, 255, 75);
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="sizeAdjustPolicy">
     <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -464,7 +474,8 @@ QComboBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -483,7 +494,7 @@ QSpinBox
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(20, 20, 20);
 	padding:0, 1, 0, 0;
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 }
 
 QSpinBox::focus
@@ -496,10 +507,14 @@ QSpinBox:disabled
 {
 	background-color: rgba(20, 20, 20, 75);
 	border-color: rgba(0, 174, 239, 75);
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 8pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 75);
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -526,7 +541,8 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -553,10 +569,14 @@ QSpinBox:disabled
 {
 	background-color: rgba(18, 18, 18, 255);
 	border-color: rgba(236, 0, 140, 90);
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 90);
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -586,7 +606,8 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -607,7 +628,8 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -628,7 +650,8 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -638,6 +661,12 @@ QSpinBox:disabled
    </property>
    <property name="toolTip">
     <string>Multiply by the set amount.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -664,7 +693,8 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -674,6 +704,12 @@ QSpinBox:disabled
    </property>
    <property name="toolTip">
     <string>Add the set amount &lt;br&gt;(use negative numbers to subtract).</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -700,7 +736,8 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -724,7 +761,8 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -751,8 +789,13 @@ QSpinBox:disabled
 {
 	background-color: rgba(18, 18, 18, 255);
 	border-color: rgba(236, 0, 140, 90);
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 90);
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <property name="frame">
@@ -783,7 +826,8 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -797,7 +841,7 @@ QSpinBox:disabled
    <property name="styleSheet">
     <string notr="true">QComboBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -808,7 +852,15 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 7px &quot;Tahoma&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 55px;
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <item>
@@ -874,7 +926,8 @@ QComboBox QListView
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -884,6 +937,12 @@ QComboBox QListView
    </property>
    <property name="toolTip">
     <string>Sets the minimum value that can be output (range: 0-127).</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -910,7 +969,8 @@ QComboBox QListView
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -920,6 +980,12 @@ QComboBox QListView
    </property>
    <property name="toolTip">
     <string>Sets the maximum value that can be output (range: 0-127).</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -946,7 +1012,8 @@ QComboBox QListView
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -956,6 +1023,12 @@ QComboBox QListView
    </property>
    <property name="toolTip">
     <string>The amount of time (in milliseconds) it takes to slide/interpolate to the next value&lt;p&gt;Smaller values can smooth out jumpy data, while larger values can create ramps between values.&lt;p&gt;&lt;b&gt;Example&lt;/b&gt;: A value of 127 going through the modline with a smoothing value of 3000 would result in a three second ramp up to 127.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -982,7 +1055,8 @@ QComboBox QListView
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1009,10 +1083,14 @@ QSpinBox:disabled
 {
 	background-color: rgba(18, 18, 18, 255);
 	border-color: rgba(236, 0, 140, 90);
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Futura&quot;;
 	color: rgba(255, 255, 255, 90);
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -1042,7 +1120,8 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1055,6 +1134,12 @@ QSpinBox:disabled
    </property>
    <property name="toolTip">
     <string>Sets the type of MIDI message to output.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -1134,7 +1219,8 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1149,7 +1235,10 @@ QSpinBox:disabled
     <string>Sets the type of sensor data coming from the SoftStep.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -1464,7 +1553,8 @@ QSpinBox:disabled
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1494,7 +1584,11 @@ QComboBox QListView
 	padding-right: 3px;
 	min-width: 65px;
 }
-</string>
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -1559,7 +1653,8 @@ QComboBox QListView
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1583,6 +1678,11 @@ QComboBox
 QComboBox QListView
 {
 	min-width: 67px;
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <item>
@@ -1661,7 +1761,7 @@ QLabel
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
@@ -1676,7 +1776,7 @@ QSpinBox:focus
 
 QDoubleSpinBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
@@ -1692,7 +1792,7 @@ QDoubleSpinBox:focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgba(0,174,239,255);
 	border-radius: 0px;
@@ -1703,7 +1803,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background: rgba(0,174,239,0);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -1715,7 +1815,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	background:rgba(0,174,239,0);
 	color: white;
 	padding:0, 3, 0, 0;
@@ -1731,7 +1831,7 @@ QCheckBox:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 9pt &quot;Tahoma&quot;;
+	font: 7pt &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -1743,7 +1843,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 7px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 65px;
@@ -1790,10 +1890,15 @@ QComboBox::down-arrow
 	image: url(:/resources/modline_combobox_menu_arrows.png);
 	padding-right: 10px;
 }
-</string>
+
+
+QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="currentIndex">
-    <number>6</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="noneDeviceView"/>
    <widget class="QWidget" name="noteSetDeviceView">
@@ -1869,7 +1974,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1908,7 +2014,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1947,7 +2054,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1986,7 +2094,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2006,6 +2115,9 @@ QComboBox::down-arrow
      <property name="maxVisibleItems">
       <number>16</number>
      </property>
+     <property name="sizeAdjustPolicy">
+      <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+     </property>
      <property name="minimumContentsLength">
       <number>100</number>
      </property>
@@ -2022,7 +2134,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SoftStep USB MIDI</string>
+       <string>SSCOM Port 1</string>
       </property>
      </item>
     </widget>
@@ -2100,7 +2212,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2125,7 +2238,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 7px &quot;Tahoma&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 65px;
@@ -2171,6 +2284,11 @@ QComboBox::down-arrow
 	background: none;
 	image: url(:/resources/modline_combobox_menu_arrows.png);
 	padding-right: 10px;
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
      </property>
      <property name="maxVisibleItems">
@@ -2192,7 +2310,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SoftStep USB MIDI</string>
+       <string>SSCOM Port 1</string>
       </property>
      </item>
     </widget>
@@ -2208,7 +2326,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2218,6 +2337,12 @@ QComboBox::down-arrow
      </property>
      <property name="toolTip">
       <string>Sets the velocity for the note messages.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
      </property>
      <property name="frame">
       <bool>true</bool>
@@ -2244,7 +2369,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2254,6 +2380,12 @@ QComboBox::down-arrow
      </property>
      <property name="toolTip">
       <string>Sets the MIDI channel to output on.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
      </property>
      <property name="frame">
       <bool>true</bool>
@@ -2283,7 +2415,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2389,7 +2522,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2425,7 +2559,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2461,7 +2596,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2553,7 +2689,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SoftStep USB MIDI</string>
+       <string>SSCOM Port 1</string>
       </property>
      </item>
     </widget>
@@ -2631,7 +2767,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2723,7 +2860,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SoftStep USB MIDI</string>
+       <string>SSCOM Port 1</string>
       </property>
      </item>
     </widget>
@@ -2739,7 +2876,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2775,7 +2913,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2873,7 +3012,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2965,7 +3105,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SoftStep USB MIDI</string>
+       <string>SSCOM Port 1</string>
       </property>
      </item>
     </widget>
@@ -2981,7 +3121,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3080,6 +3221,7 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>9</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3122,6 +3264,7 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>-1</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3214,7 +3357,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SoftStep USB MIDI</string>
+       <string>SSCOM Port 1</string>
       </property>
      </item>
     </widget>
@@ -3292,7 +3435,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3384,7 +3528,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SoftStep USB MIDI</string>
+       <string>SSCOM Port 1</string>
       </property>
      </item>
     </widget>
@@ -3400,7 +3544,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3436,7 +3581,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3583,7 +3729,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3675,7 +3822,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SoftStep USB MIDI</string>
+       <string>SSCOM Port 1</string>
       </property>
      </item>
     </widget>
@@ -3691,7 +3838,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3789,7 +3937,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3825,7 +3974,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3861,7 +4011,8 @@ QComboBox::down-arrow
      <property name="font">
       <font>
        <family>Tahoma</family>
-       <pointsize>9</pointsize>
+       <pointsize>7</pointsize>
+       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3953,7 +4104,7 @@ QComboBox::down-arrow
      </item>
      <item>
       <property name="text">
-       <string>SoftStep USB MIDI</string>
+       <string>SSCOM Port 1</string>
       </property>
      </item>
     </widget>
@@ -3986,7 +4137,7 @@ QLabel
 }</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="noneDeviceLabel"/>
    <widget class="QWidget" name="noteSetDeviceLabel">
@@ -4419,7 +4570,8 @@ QComboBox QAbstractItemView::item
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>9</pointsize>
+     <pointsize>7</pointsize>
+     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -4436,6 +4588,11 @@ QComboBox QAbstractItemView::item
 	background-color: rgba(18, 18, 18, 255);
 	border: 1px solid rgba(0,174,239,90);
 	color: rgba(255, 255, 255, 90);
+}
+
+QToolTip
+{
+	min-height: 16px;
 }</string>
    </property>
    <property name="frame">
@@ -4454,9 +4611,9 @@ QComboBox QAbstractItemView::item
   <widget class="QLabel" name="label_13">
    <property name="geometry">
     <rect>
-     <x>32</x>
+     <x>28</x>
      <y>2</y>
-     <width>21</width>
+     <width>31</width>
      <height>16</height>
     </rect>
    </property>
@@ -4626,9 +4783,9 @@ QComboBox QAbstractItemView::item
   <widget class="QLabel" name="label_42">
    <property name="geometry">
     <rect>
-     <x>494</x>
+     <x>490</x>
      <y>2</y>
-     <width>30</width>
+     <width>37</width>
      <height>16</height>
     </rect>
    </property>
@@ -4752,6 +4909,12 @@ QComboBox QAbstractItemView::item
    </property>
    <property name="toolTip">
     <string>This selects which modline's &lt;br&gt;data will be used for the display parameters above. Only one may be selected per key.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QToolTip
+{
+	min-height: 16px;
+}</string>
    </property>
    <property name="text">
     <string/>

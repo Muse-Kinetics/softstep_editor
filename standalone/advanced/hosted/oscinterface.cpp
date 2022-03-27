@@ -2,10 +2,12 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "oscinterface.h"
+#include <QDebug>
 
 OscInterface::OscInterface(QObject *parent) :
     QObject(parent)
 {
+    qDebug () << "Initialize OsctInterface";
     //----- Init
     //Inputs
     for(int i = 0; i < 8; i++)
@@ -24,9 +26,12 @@ OscInterface::OscInterface(QObject *parent) :
     //IP
     ip = "127.0.0.1";
 
+    qDebug() << "Create UDP socket";
     socket = new QUdpSocket(this);
-    socket->bind(QHostAddress(ip), inputPort);
+    qDebug() << "Bind - ip: LocalHost - port: " << inputPort;
+    socket->bind(QHostAddress::LocalHost, inputPort);
 
+    qDebug() << "connect socket to slotReadPendingDatagrams";
     connect(socket, SIGNAL(readyRead()), this, SLOT(slotReadPendingDatagrams()));
 
     msgVal[0] = 0;
@@ -49,7 +54,7 @@ void OscInterface::slotReadPendingDatagrams()
 
         socket->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
 
-        //qDebug() << "osc packet size ---- " << datagram.size() << datagram.data();
+        qDebug() << "osc packet size ---- " << datagram.size() << datagram.data();
 
         for(int i = 0; i < datagram.size(); i++)
         {
@@ -183,7 +188,7 @@ void OscInterface::slotSetOutputPort(int port)
 void OscInterface::slotSetInputPort(int port)
 {
     socket->close();
-    //qDebug() << "port changed" << port;
+    qDebug() << "port changed" << port;
     inputPort = port;
     socket->bind(QHostAddress(ip), inputPort);
 }
@@ -265,7 +270,7 @@ void OscInterface::slotWriteDatagram(QString tag, int val)
     data.append(intBytes[2]);
     data.append(intBytes[3]);
 
-    //qDebug() << "val - data.size" << data.size();
+    qDebug() << "val - data.size" << data.size();
 
     /*
     for(int i = 0; i < data.size(); i++)

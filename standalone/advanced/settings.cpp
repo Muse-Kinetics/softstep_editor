@@ -91,10 +91,10 @@ Settings::Settings(QWidget *parent) :
             qFatal("Cannot copy default pedal table file to application data path!");
         }
     }
-
+#ifdef TABLE_ENABLED
     // Create table interface
     pedalLiveTableInterface = new TableInerface(settingsForm->pedalLiveWidget);
-
+#endif // TABLE_ENABLED
     for(int i = 0; i < NUM_MIDI_INPUTS; i++)
     {
         midiInputLine[i].hide();
@@ -1220,6 +1220,7 @@ void Settings::slotResetCalibration()
 
     //calibrationTicker->stop();
     pedalValueListGraph.clear();
+#ifdef TABLE_ENABLED
     pedalLiveTableInterface->slotClearTable();
 
     for(int i = 0; i < 127; i++)
@@ -1228,7 +1229,7 @@ void Settings::slotResetCalibration()
     }
 
     pedalLiveTableInterface->slotDrawLinear();
-
+#endif // TABLE_ENABLED
     emit signalResetCalibration();
 }
 
@@ -1271,12 +1272,14 @@ void Settings::slotSetLiveValue(int val)
 
             int width = 109/count;
 
+#ifdef TABLE_ENABLED
             pedalLiveTableInterface->slotClearTable();
             for(int i = 1; i < count; i++)
             {
                 //Draw our list new value-- should only be drawing one value at a time
                 pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueListGraph.at(i))/127.0f,  width);
             }
+#endif / /TABLE_ENABLED
         }
     }
 }
@@ -1364,12 +1367,14 @@ void Settings::slotLoadTableOnStartup()
 
     //qDebug() << "--------- draw pedal cal table on load" << width << count;
 
+#ifdef TABLE_ENABLED
     pedalLiveTableInterface->slotClearTable();
     for(int i = 1; i < count; i++)
     {
         //Draw our list new value-- should only be drawing one value at a time
         pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueListGraph.at(i))/127.0f,  width);
     }
+#endif // TABLE_ENABLED
 }
 
 void Settings::slotWritePedalTableToDisk(QByteArray tableByteArray)

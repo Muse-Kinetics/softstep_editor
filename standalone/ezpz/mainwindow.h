@@ -15,7 +15,7 @@
 #include "key.h"
 #include "presetinterface.h"
 #include "sysexcomposer.h"
-#include "mididevicemanager.h"
+//#include "mididevicemanager.h"
 #include "stylesheets.h"
 #include "copypastehandler.h"
 #include "scrolleventfilter.h"
@@ -28,10 +28,10 @@
 #include "ui_aboutform.h"
 #include "ui_mainwindow.h"
 #else
-#include "ui_fwoodformWin.h"
-#include "ui_fwprogressformWin.h"
-#include "ui_fwupdatecompleteformWin.h"
-#include "ui_updatefwformWin.h"
+//#include "ui_fwoodformWin.h"
+//#include "ui_fwprogressformWin.h"
+//#include "ui_fwupdatecompleteformWin.h"
+//#include "ui_updatefwformWin.h"
 #include "ui_aboutformWin.h"
 #include "ui_mainwindowWin.h"
 #endif
@@ -42,7 +42,7 @@
 #include "RtMidi.h"
 #include "KMI_DevData.h"
 #include <fwupdate.h>
-#include "kmi_updates.h"
+//#include "kmi_updates.h"
 #include "midi.h"
 // end midi overhaul
 
@@ -61,7 +61,7 @@ public:
     // ------- fw update overhaul
     QByteArray applicationVersion, thisFw;
     QString betaVersion;
-    KMI_Updates * checkUpdates;
+//    KMI_Updates * checkUpdates;
     fwUpdate* fwUpdateWindow;
 
     // FWUpdate Styles
@@ -82,7 +82,7 @@ public:
     // and one output for hosted mode. For other editors you would likely define one output port for to mirror the
     // incoming MIDI from the controller, as a workaround for Windows not sharing ports.
     // For KMI_Central we are using these for the input/output dropdowns as a simple MIDI route demo.
-    MidiDeviceManager* MIDIThru;
+    //MidiDeviceManager* MIDIThru;
 
     QString MIDI_THRU_KEY;
     QString recallMidiThruPortName;
@@ -106,17 +106,17 @@ public:
     CopyPasteHandler* copyPasteHandler;
     ScrollEventFilter scrollEventFilter;
 
-    QThread* midiThread;
-    SS_MidiDeviceManager *mdm;
+    //QThread* midiThread;
+    //SS_MidiDeviceManager *mdm;
 
     bool connected;
 
-    QWidget* fwoodDialogWidget;
-    QWidget* fwProgressDialogWidget;
-    QWidget* fwUpdateCompleteDialogWidget;
-    QWidget* fwUpdateDialogWidget;
+//    QWidget* fwoodDialogWidget;
+//    QWidget* fwProgressDialogWidget;
+//    QWidget* fwUpdateCompleteDialogWidget;
+//    QWidget* fwUpdateDialogWidget;
     QWidget* aboutFormWidget;
-    QWidget* keyTestWidget;
+//    QWidget* keyTestWidget;
 
     QWidget* disableWidget;
     QWidget* factoryPresetCoverWidget1;
@@ -149,8 +149,8 @@ public:
 
     QComboBox *sceneTemplate;
 
-    QString connectedVersionString;
-    int connectedVersionInt;
+    //QString connectedVersionString;
+    //int connectedVersionInt;
 
 
     QLabel *midiChannelLabel;
@@ -169,13 +169,13 @@ public:
     QLabel  *connectedLightLabel;
     QPushButton *reloadFactoryScenes;
 
-    bool shiftDown;
+    //bool shiftDown;
     void closeEvent(QCloseEvent *);
     void keyPressEvent(QKeyEvent *);
 
 #ifdef Q_OS_MAC
 #else
-    QProcess *syxutilProcess;
+    //QProcess *syxutilProcess;
 #endif
 
 signals:
@@ -220,10 +220,10 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    Ui::FwoodDialog *fwoodDialog;
-    Ui::FwProgressForm *fwProgressDialog;
-    Ui::FwUpdateCompleteForm *fwUpdateCompleteDialog;
-    Ui::UpdateFirmwareForm *fwUpdateDialog;
+//    Ui::FwoodDialog *fwoodDialog;
+//    Ui::FwProgressForm *fwProgressDialog;
+//    Ui::FwUpdateCompleteForm *fwUpdateCompleteDialog;
+//    Ui::UpdateFirmwareForm *fwUpdateDialog;
     Ui::AboutForm *aboutForm;
 
 };

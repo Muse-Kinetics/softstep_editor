@@ -16,6 +16,8 @@
 #include "WindowsMidiTypes.h"
 #endif
 
+#include <QElapsedTimer>
+
 //Constants for various modline arrangement parameters
 #define MODLINE_WINDOW_WIDTH 1132
 #define MODLINE_WINDOW_HEIGHT 42
@@ -24,13 +26,18 @@
 #define MODLINE_STARTING_Y_POS 98
 
 Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
-    QWidget(parent),
-    formWidget(new QWidget(this)),
+    QWidget(parent)//,
+    //formWidget(new QWidget(this)),
     //hosted_formWidget(new QWidget(this)),
-    modlineForm(new Ui::modlineForm)
+    //modlineForm(new Ui::modlineForm)
   //hosted_modlineForm(new Ui::modlineForm_hosted)
 
 {
+    qDebug() << "init modline - key: " << keyInstanceNum << " modline: " << modlineInstanceNum;
+
+    QElapsedTimer eTimer;
+    eTimer.start();
+
     keyInstance = keyInstanceNum;
     modlineInstance = modlineInstanceNum;
 
@@ -43,21 +50,48 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     lastNote = -1;
     toggleOnMMC = false;
 
+    eTimer.restart();
+
     this->setObjectName(QString("%1_Key_%2_Modline").arg(keyInstance+1).arg(modlineInstance+1));
 
     //---------------------------------------- Set Up Ui
+    eTimer.restart();
+
+    formWidget = new QWidget(this);
+
+    eTimer.restart();
+
+    modlineForm = new Ui::modlineForm;
+
+    eTimer.restart();
+
     modlineForm->setupUi(formWidget);
+
+    qDebug() << "geometry - elapsed: " << eTimer.elapsed();
+    eTimer.restart();
 
     this->setFixedSize(MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
     this->setGeometry(MODLINE_STARTING_X_POS, MODLINE_STARTING_Y_POS + ((modlineInstance)*(MODLINE_WINDOW_HEIGHT + MODLINE_SPACING)), MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
 
+    eTimer.restart();
+
     modlineForm->instanceLabel->setText(QString("%1").arg((modlineInstance + 1)%10));
-    modlineForm->deviceViews->setCurrentIndex(0);
-    modlineForm->deviceViewLabels->setCurrentIndex(0);
+    eTimer.restart();
+
+    //modlineForm->deviceViews->setCurrentIndex(0);
+
+    eTimer.restart();
+
+    //modlineForm->deviceViewLabels->setCurrentIndex(0);
+
+    eTimer.restart();
+
     modlineForm->raw->setValue(0);
     modlineForm->enable->setStyleSheet(stylesheets.modlineEnableStyleSheet.at(modlineInstanceNum));
 
     displayLinkButton = modlineForm->modlinedisplayenable;
+
+    eTimer.restart();
 
     raw = 0;
     result = 0;
@@ -163,38 +197,47 @@ void Modline::slotConnectElements()
     connect(modlineForm->destination,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
     //destination parameters
-    connect(modlineForm->notenumber,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->notevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->notevelocity,SIGNAL(valueChanged(int)),modlineForm->notelivevelocity, SLOT(setValue(int)));
-    connect(modlineForm->notelivevelocity,SIGNAL(valueChanged(int)),modlineForm->notevelocity, SLOT(setValue(int)));
-    //connect(modlineForm->notelivevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->cc,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->bankmsb,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->polynote,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->notenumber,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->notevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->notevelocity,SIGNAL(valueChanged(int)),modlineForm->notelivevelocity, SLOT(setValue(int)));
+//    connect(modlineForm->notelivevelocity,SIGNAL(valueChanged(int)),modlineForm->notevelocity, SLOT(setValue(int)));
+//    //connect(modlineForm->notelivevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->cc,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->bankmsb,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->polynote,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
 
-    connect(modlineForm->notechannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->notelivechannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->controlchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->bankchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->programchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->bendchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->aftertouchchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->polychannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->notechannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->notelivechannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->controlchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->bankchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->programchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->bendchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->aftertouchchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->polychannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
 
-    connect(modlineForm->notedevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->notelivedevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->controldevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->bankdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->programdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->benddevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->aftertouchdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->polydevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->notedevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->notelivedevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->controldevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->bankdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->programdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->benddevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->aftertouchdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->polydevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
-    connect(modlineForm->mmcdeviceid,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->mmcfunction,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    connect(modlineForm->mmcdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->mmcdeviceid,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->mmcfunction,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->mmcdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
-    connect(modlineForm->oscroute,SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
+//    connect(modlineForm->oscroute,SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
+
+    // new, simpler method
+    connect(modlineForm->dest_b1, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    connect(modlineForm->dest_b2, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    connect(modlineForm->dest_b3, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    connect(modlineForm->dest_device, SIGNAL(textActivated(QString)), this, SLOT(slotValueChanged()));
+    connect(modlineForm->dest_mmcfunction, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    connect(modlineForm->dest_oscroute, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
+
 
     //green LED
     connect(modlineForm->ledgreen,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
@@ -261,36 +304,45 @@ void Modline::slotDisconnectElements()
     disconnect(modlineForm->destination,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
     //destination parameters
-    disconnect(modlineForm->notenumber,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->notevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    //disconnect(modlineForm->notelivevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->cc,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->bankmsb,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->polynote,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->notenumber,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->notevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    //disconnect(modlineForm->notelivevelocity,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->cc,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->bankmsb,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->polynote,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
 
-    disconnect(modlineForm->notechannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->notelivechannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->controlchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->bankchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->programchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->bendchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->aftertouchchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->polychannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->notechannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->notelivechannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->controlchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->bankchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->programchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->bendchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->aftertouchchannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->polychannel,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
 
-    disconnect(modlineForm->notedevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->notelivedevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->controldevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->bankdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->programdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->benddevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->aftertouchdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->polydevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->notedevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->notelivedevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->controldevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->bankdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->programdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->benddevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->aftertouchdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->polydevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
-    disconnect(modlineForm->mmcdeviceid,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->mmcfunction,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
-    disconnect(modlineForm->mmcdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->mmcdeviceid,SIGNAL(valueChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->mmcfunction,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->mmcdevice,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
 
-    disconnect(modlineForm->oscroute,SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
+//    disconnect(modlineForm->oscroute,SIGNAL(textEdited(QString)),this,SLOT(slotValueChanged()));
+
+    // new, simpler method
+    disconnect(modlineForm->dest_b1, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(modlineForm->dest_b2, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(modlineForm->dest_b3, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(modlineForm->dest_device, SIGNAL(textActivated(QString)), this, SLOT(slotValueChanged()));
+    disconnect(modlineForm->dest_mmcfunction, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(modlineForm->dest_oscroute, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
+
 
     //green LED
     disconnect(modlineForm->ledgreen,SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
@@ -322,11 +374,90 @@ void Modline::slotValueChanged()
         QString jsonName;
         QObject *sender = QObject::sender();
         QVariant value;
+        QString senderName = sender->objectName();
+        QString objectType = sender->metaObject()->className();
 
         qDebug() << "slotValueChanged - sender: " << sender->objectName();
 
+        // handle destination menu objects
+        if (senderName.contains("dest_"))
+        {
+            if(senderName == "dest_b1")
+            {
+                value = modlineForm->dest_b1->value();
+
+                // set jsonName based on destination/index
+                switch (modDest.index)
+                {
+                case DEST_NOTE_SET:
+                    jsonName = "note";
+                    break;
+                case DEST_MMC:
+                    jsonName = "mmcid";
+                    break;
+                }
+            }
+            else if(senderName == "dest_b2")
+            {
+                value = modlineForm->dest_b2->value();
+
+                // set jsonName based on destination/index
+                switch (modDest.index)
+                {
+                case DEST_NOTE_LIVE:
+                    jsonName = "velocity";
+                    break;
+                case DEST_CC:
+                    jsonName = "cc";
+                    break;
+                case DEST_BANK:
+                    jsonName = "bankmsb";
+                    break;
+                case DEST_POLY_AFTERTOUCH:
+                    jsonName = "note";
+                    break;
+                }
+            }
+            else if(senderName == "dest_b3")
+            {
+                value = modlineForm->dest_b3->value();
+
+                // set jsonName based on destination/index
+                switch (modDest.index)
+                {
+                case DEST_NOTE_LIVE:
+                case DEST_CC:
+                case DEST_BANK:
+                case DEST_PROGRAM:
+                case DEST_PITCH_BEND:
+                case DEST_AFTERTOUCH:
+                case DEST_POLY_AFTERTOUCH:
+                    jsonName = "channel";
+                    break;
+                }
+            }
+            else if(senderName == "dest_device")
+            {
+                value = modlineForm->dest_device->currentText();
+                jsonName = "device";
+
+            }
+            else if(senderName == "dest_mmcfunction")
+            {
+                value = modlineForm->dest_mmcfunction->currentText();
+                jsonName = "mmcfunction";
+
+            }
+            else if(senderName == "dest_oscroute")
+            {
+                jsonName = "oscroute";
+                value = modlineForm->dest_oscroute->text();
+            }
+            qDebug() << "destination menu - jsonName: " << jsonName << " value: " << value;
+        }
+
         //enable checkbox
-        if(sender == modlineForm->enable)
+        else if(sender == modlineForm->enable)
         {
             jsonName = "enable";
             value = modlineForm->enable->isChecked();
@@ -400,134 +531,134 @@ void Modline::slotValueChanged()
             jsonName = "destination";
             value = modlineForm->destination->currentText();
         }
-        //destination parameters
-        else if(sender == modlineForm->notenumber)
-        {
-            jsonName = "note";
-            value = modlineForm->notenumber->value();
-        }
-        else if(sender == modlineForm->notevelocity)
-        {
-            jsonName = "velocity";
-            value = modlineForm->notevelocity->value();
-        }
-        else if(sender == modlineForm->cc)
-        {
-            jsonName = "cc";
-            value = modlineForm->cc->value();
-        }
-        else if(sender == modlineForm->bankmsb)
-        {
-            jsonName = "bankmsb";
-            value = modlineForm->bankmsb->value();
-        }
-        else if(sender == modlineForm->polynote)
-        {
-            jsonName = "note";
-            value = modlineForm->polynote->value();
-        }
-        //channels
-        else if(sender == modlineForm->notechannel)
-        {
-            jsonName = "channel";
-            value = modlineForm->notechannel->value();
-        }
-        else if(sender == modlineForm->notelivechannel)
-        {
-            jsonName = "channel";
-            value = modlineForm->notelivechannel->value();
-        }
-        else if(sender == modlineForm->controlchannel)
-        {
-            jsonName = "channel";
-            value = modlineForm->controlchannel->value();
-        }
-        else if(sender == modlineForm->bankchannel)
-        {
-            jsonName = "channel";
-            value = modlineForm->bankchannel->value();
-        }
-        else if(sender == modlineForm->programchannel)
-        {
-            jsonName = "channel";
-            value = modlineForm->programchannel->value();
-        }
-        else if(sender == modlineForm->bendchannel)
-        {
-            jsonName = "channel";
-            value = modlineForm->bendchannel->value();
-        }
-        else if(sender == modlineForm->aftertouchchannel)
-        {
-            jsonName = "channel";
-            value = modlineForm->aftertouchchannel->value();
-        }
-        else if(sender == modlineForm->polychannel)
-        {
-            jsonName = "channel";
-            value = modlineForm->polychannel->value();
-        }
-        //devices
-        else if(sender == modlineForm->notedevice)
-        {
-            jsonName = "device";
-            value = modlineForm->notedevice->currentText();
-        }
-        else if(sender == modlineForm->notelivedevice)
-        {
-            jsonName = "device";
-            value = modlineForm->notelivedevice->currentText();
-        }
-        else if(sender == modlineForm->controldevice)
-        {
-            jsonName = "device";
-            value = modlineForm->controldevice->currentText();
-        }
-        else if(sender == modlineForm->bankdevice)
-        {
-            jsonName = "device";
-            value = modlineForm->bankdevice->currentText();
-        }
-        else if(sender == modlineForm->programdevice)
-        {
-            jsonName = "device";
-            value = modlineForm->programdevice->currentText();
-        }
-        else if(sender == modlineForm->benddevice)
-        {
-            jsonName = "device";
-            value = modlineForm->benddevice->currentText();
-        }
-        else if(sender == modlineForm->aftertouchdevice)
-        {
-            jsonName = "device";
-            value = modlineForm->aftertouchdevice->currentText();
-        }
-        else if(sender == modlineForm->polydevice)
-        {
-            jsonName = "device";
-            value = modlineForm->polydevice->currentText();
-        }
-        else if(sender == modlineForm->mmcdeviceid)
-        {
-            jsonName = "mmcid";
-            value = modlineForm->mmcdeviceid->value();
-        }
-        else if(sender == modlineForm->mmcfunction)
-        {
-            jsonName = "mmcfunction";
-            value = modlineForm->mmcfunction->currentText();
-        }
-        else if(sender == modlineForm->mmcdevice)
-        {
-            jsonName = "device";
-            value = modlineForm->mmcdevice->currentText();
-        }
-        else if(sender == modlineForm->oscroute)
-        {
-            jsonName = "oscroute";
-            value = modlineForm->oscroute->text();
-        }
+//        //destination parameters
+//        else if(sender == modlineForm->dest_b1)
+//        {
+//            jsonName = "note";
+//            value = modlineForm->dest_b1->value();
+//        }
+//        else if(sender == modlineForm->dest_b2)
+//        {
+//            jsonName = "velocity";
+//            value = modlineForm->dest_b2->value();
+//        }
+//        else if(sender == modlineForm->cc)
+//        {
+//            jsonName = "cc";
+//            value = modlineForm->cc->value();
+//        }
+//        else if(sender == modlineForm->bankmsb)
+//        {
+//            jsonName = "bankmsb";
+//            value = modlineForm->bankmsb->value();
+//        }
+//        else if(sender == modlineForm->polynote)
+//        {
+//            jsonName = "note";
+//            value = modlineForm->polynote->value();
+//        }
+//        //channels
+//        else if(sender == modlineForm->notechannel)
+//        {
+//            jsonName = "channel";
+//            value = modlineForm->notechannel->value();
+//        }
+//        else if(sender == modlineForm->notelivechannel)
+//        {
+//            jsonName = "channel";
+//            value = modlineForm->notelivechannel->value();
+//        }
+//        else if(sender == modlineForm->controlchannel)
+//        {
+//            jsonName = "channel";
+//            value = modlineForm->controlchannel->value();
+//        }
+//        else if(sender == modlineForm->bankchannel)
+//        {
+//            jsonName = "channel";
+//            value = modlineForm->bankchannel->value();
+//        }
+//        else if(sender == modlineForm->programchannel)
+//        {
+//            jsonName = "channel";
+//            value = modlineForm->programchannel->value();
+//        }
+//        else if(sender == modlineForm->bendchannel)
+//        {
+//            jsonName = "channel";
+//            value = modlineForm->bendchannel->value();
+//        }
+//        else if(sender == modlineForm->aftertouchchannel)
+//        {
+//            jsonName = "channel";
+//            value = modlineForm->aftertouchchannel->value();
+//        }
+//        else if(sender == modlineForm->polychannel)
+//        {
+//            jsonName = "channel";
+//            value = modlineForm->polychannel->value();
+//        }
+//        //devices
+//        else if(sender == modlineForm->notedevice)
+//        {
+//            jsonName = "device";
+//            value = modlineForm->notedevice->currentText();
+//        }
+//        else if(sender == modlineForm->notelivedevice)
+//        {
+//            jsonName = "device";
+//            value = modlineForm->notelivedevice->currentText();
+//        }
+//        else if(sender == modlineForm->controldevice)
+//        {
+//            jsonName = "device";
+//            value = modlineForm->controldevice->currentText();
+//        }
+//        else if(sender == modlineForm->bankdevice)
+//        {
+//            jsonName = "device";
+//            value = modlineForm->bankdevice->currentText();
+//        }
+//        else if(sender == modlineForm->programdevice)
+//        {
+//            jsonName = "device";
+//            value = modlineForm->programdevice->currentText();
+//        }
+//        else if(sender == modlineForm->benddevice)
+//        {
+//            jsonName = "device";
+//            value = modlineForm->benddevice->currentText();
+//        }
+//        else if(sender == modlineForm->aftertouchdevice)
+//        {
+//            jsonName = "device";
+//            value = modlineForm->aftertouchdevice->currentText();
+//        }
+//        else if(sender == modlineForm->polydevice)
+//        {
+//            jsonName = "device";
+//            value = modlineForm->polydevice->currentText();
+//        }
+//        else if(sender == modlineForm->mmcdeviceid)
+//        {
+//            jsonName = "mmcid";
+//            value = modlineForm->mmcdeviceid->value();
+//        }
+//        else if(sender == modlineForm->mmcfunction)
+//        {
+//            jsonName = "mmcfunction";
+//            value = modlineForm->mmcfunction->currentText();
+//        }
+//        else if(sender == modlineForm->mmcdevice)
+//        {
+//            jsonName = "device";
+//            value = modlineForm->mmcdevice->currentText();
+//        }
+//        else if(sender == modlineForm->oscroute)
+//        {
+//            jsonName = "oscroute";
+//            value = modlineForm->oscroute->text();
+//        }
         //Green LED
         else if(sender == modlineForm->ledgreen)
         {
@@ -590,25 +721,7 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modlineForm->ledgreen->setCurrentIndex(modlineForm->ledgreen->findText(preset.value(QString("key%1_modline%2_ledgreen").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
     modlineForm->ledred->setCurrentIndex(modlineForm->ledred->findText(preset.value(QString("key%1_modline%2_ledred").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
 
-
     //destination parameters
-    modlineForm->notenumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    //modlineForm->noteLiveNumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->polynote->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-
-    modlineForm->notevelocity->setValue(preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->notelivevelocity->setValue(preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->cc->setValue(preset.value(QString("key%1_modline%2_cc").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->bankmsb->setValue(preset.value(QString("key%1_modline%2_bankmsb").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-
-    modlineForm->notechannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->notelivechannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->controlchannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->bankchannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->programchannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->bendchannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->aftertouchchannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->polychannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
 
     QString presetDevice = preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString();
 
@@ -625,24 +738,65 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
         }
     }
 
-    modlineForm->notedevice->setCurrentIndex(modlineForm->notedevice->findText(presetDevice));
-    modlineForm->notelivedevice->setCurrentIndex(modlineForm->notelivedevice->findText(presetDevice));
-    modlineForm->controldevice->setCurrentIndex(modlineForm->controldevice->findText(presetDevice));
-    modlineForm->bankdevice->setCurrentIndex(modlineForm->bankdevice->findText(presetDevice));
-    modlineForm->programdevice->setCurrentIndex(modlineForm->programdevice->findText(presetDevice));
-    modlineForm->benddevice->setCurrentIndex(modlineForm->benddevice->findText(presetDevice));
-    modlineForm->aftertouchdevice->setCurrentIndex(modlineForm->aftertouchdevice->findText(presetDevice));
-    modlineForm->polydevice->setCurrentIndex(modlineForm->polydevice->findText(presetDevice));
+    //storing these in a struct for later recall when we change the destination type/index
+    modDest.outPortName = presetDevice;
+    // modDest.index = modlineForm->destination->currentIndex(); // happens in slotRecallDestinationMenu()
+    modDest.channel = preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
+    modDest.note = preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
+    modDest.velocity = preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
+    modDest.cc = preset.value(QString("key%1_modline%2_cc").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
+    modDest.bankMSB = preset.value(QString("key%1_modline%2_bankmsb").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
+    modDest.mmcID = preset.value(QString("key%1_modline%2_mmcid").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
+    modDest.mmcFunction = preset.value(QString("key%1_modline%2_mmcfunction").arg(keyInstance+1).arg(modlineInstance+1)).toString();
+    modDest.oscRoute = preset.value(QString("key%1_modline%2_oscroute").arg(keyInstance+1).arg(modlineInstance+1)).toString();
 
-    modlineForm->mmcdeviceid->setValue(preset.value(QString("key%1_modline%2_mmcid").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
-    modlineForm->mmcfunction->setCurrentIndex(modlineForm->mmcfunction->findText(preset.value(QString("key%1_modline%2_mmcfunction").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
-    modlineForm->mmcdevice->setCurrentIndex(modlineForm->mmcdevice->findText(preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
+    // update the values in the for
 
-    modlineForm->oscroute->setText(preset.value(QString("key%1_modline%2_oscroute").arg(keyInstance+1).arg(modlineInstance+1)).toString());
+    // midi port dropdown
+    modlineForm->dest_device->setCurrentText(modDest.outPortName);
+
+    // mmc function dropdown
+    modlineForm->dest_mmcfunction->setCurrentText(modDest.mmcFunction);
+
+    // osc text field
+    modlineForm->dest_oscroute->setText(modDest.oscRoute);
+
+    // Updating values and showing/hiding the shared ui elements elements happens in slotRecallDestinationMenu();
+    slotRecallDestinationMenu();
+
+    // old method
+    //modlineForm->notenumber->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+    //modlineForm->polynote->setValue(preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+
+//    modlineForm->notevelocity->setValue(preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+//    modlineForm->notelivevelocity->setValue(preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+//    modlineForm->cc->setValue(preset.value(QString("key%1_modline%2_cc").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+//    modlineForm->bankmsb->setValue(preset.value(QString("key%1_modline%2_bankmsb").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+
+//    modlineForm->notechannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+//    modlineForm->notelivechannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+//    modlineForm->controlchannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+//    modlineForm->bankchannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+//    modlineForm->programchannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+//    modlineForm->bendchannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+//    modlineForm->aftertouchchannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+//    modlineForm->polychannel->setValue(preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt());
+
+
+    // EB TODO - set these based on the current destination
+//    modlineForm->notedevice->setCurrentIndex(modlineForm->notedevice->findText(presetDevice));
+//    modlineForm->notelivedevice->setCurrentIndex(modlineForm->notelivedevice->findText(presetDevice));
+//    modlineForm->controldevice->setCurrentIndex(modlineForm->controldevice->findText(presetDevice));
+//    modlineForm->bankdevice->setCurrentIndex(modlineForm->bankdevice->findText(presetDevice));
+//    modlineForm->programdevice->setCurrentIndex(modlineForm->programdevice->findText(presetDevice));
+//    modlineForm->benddevice->setCurrentIndex(modlineForm->benddevice->findText(presetDevice));
+//    modlineForm->aftertouchdevice->setCurrentIndex(modlineForm->aftertouchdevice->findText(presetDevice));
+//    modlineForm->polydevice->setCurrentIndex(modlineForm->polydevice->findText(presetDevice));
+
+
+
 
     modlineForm->modlinedisplayenable->setChecked(preset.value(QString("key%1_modline%2_displaylinked").arg(keyInstance+1).arg(modlineInstance+1)).toBool());
-
-    slotRecallDestinationMenu();
 
     slotConnectElements();
 
@@ -688,19 +842,107 @@ void Modline::slotDeleteModline(int num, bool disable)
     }
 }
 
+
+
 void Modline::slotRecallDestinationMenu()
 {
     //qDebug() << "Modline::slotRecallDestinationMenu called";
     //set the device view to change based on what is selected in the destination menu
-    if((modlineForm->destination->currentIndex()) > 10)
+
+    modDest.index = modlineForm->destination->currentIndex();
+
+    // first hide all elements...
+
+    // input ui
+    modlineForm->dest_b1->hide();
+    modlineForm->dest_b2->hide();
+    modlineForm->dest_b3->hide();
+    modlineForm->dest_device->hide();
+    modlineForm->dest_mmcfunction->hide();
+    modlineForm->dest_oscroute->hide();
+
+    // labels
+    modlineForm->dest_label_b1->hide();
+    modlineForm->dest_label_b2->hide();
+    modlineForm->dest_label_b3->hide();
+    modlineForm->dest_label_func->hide();
+    modlineForm->dest_label_port->hide();
+
+    // ...then individually show and update them as needed
+    switch (modDest.index)
     {
-        modlineForm->deviceViews->setCurrentIndex(0);
-        modlineForm->deviceViewLabels->setCurrentIndex(0);
-    }
-    else
-    {
-        modlineForm->deviceViews->setCurrentIndex(modlineForm->destination->currentIndex());
-        modlineForm->deviceViewLabels->setCurrentIndex(modlineForm->destination->currentIndex());
+    case DEST_NOTE_SET:
+        modlineForm->dest_b1->show();
+        modlineForm->dest_label_b1->show();
+
+        modlineForm->dest_b1->setValue(modDest.note);
+    case DEST_NOTE_LIVE:
+        modlineForm->dest_b2->show();
+        modlineForm->dest_label_b2->show();
+        modlineForm->dest_b3->show();
+        modlineForm->dest_label_b3->show();
+
+        modlineForm->dest_b2->setValue(modDest.velocity);
+        modlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_CC:
+        modlineForm->dest_b2->show();
+        modlineForm->dest_label_b2->show();
+        modlineForm->dest_b3->show();
+        modlineForm->dest_label_b3->show();
+
+        modlineForm->dest_b2->setValue(modDest.cc);
+        modlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_BANK:
+        modlineForm->dest_b2->show();
+        modlineForm->dest_label_b2->show();
+        modlineForm->dest_b3->show();
+        modlineForm->dest_label_b3->show();
+
+        modlineForm->dest_b2->setValue(modDest.bankMSB);
+        modlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_PROGRAM:
+        modlineForm->dest_b3->show();
+        modlineForm->dest_label_b3->show();
+
+        modlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_OSC:
+        break;
+    case DEST_PITCH_BEND:
+        modlineForm->dest_b3->show();
+        modlineForm->dest_label_b3->show();
+
+        modlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_MMC:
+        modlineForm->dest_b1->show();
+        modlineForm->dest_label_b1->show();
+
+        modlineForm->dest_b1->setValue(modDest.mmcID);
+        break;
+    case DEST_AFTERTOUCH:
+        modlineForm->dest_b3->show();
+        modlineForm->dest_label_b3->show();
+
+        modlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_POLY_AFTERTOUCH:
+        modlineForm->dest_b2->show();
+        modlineForm->dest_label_b2->show();
+        modlineForm->dest_b3->show();
+        modlineForm->dest_label_b3->show();
+
+        modlineForm->dest_b2->setValue(modDest.note);
+        modlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_X_INC:
+    case DEST_Y_INC:
+    case DEST_NONE:
+    default:
+        break;
     }
 }
 
@@ -753,64 +995,68 @@ void Modline::slotPopulateMenus(QStringList source, QStringList dest, QStringLis
 void Modline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevices)
 {
     //-------------------------------- Clear all device menus
-
+    // EB TODO - update to use a single dropdown
     //Note Set
-    modlineForm->notedevice->clear();
 
-    //Note Live
-    modlineForm->notelivedevice->clear();
+//    modlineForm->notedevice->clear();
 
-    //CC
-    modlineForm->controldevice->clear();
+//    //Note Live
+//    modlineForm->notelivedevice->clear();
 
-    //Bank
-    modlineForm->bankdevice->clear();
+//    //CC
+//    modlineForm->controldevice->clear();
 
-    //Program
-    modlineForm->programdevice->clear();
+//    //Bank
+//    modlineForm->bankdevice->clear();
 
-    //Pitch Bend
-    modlineForm->benddevice->clear();
+//    //Program
+//    modlineForm->programdevice->clear();
 
-    //MMC
-    modlineForm->mmcdevice->clear();
+//    //Pitch Bend
+//    modlineForm->benddevice->clear();
 
-    //Aftertouch
-    modlineForm->aftertouchdevice->clear();
+//    //MMC
+//    modlineForm->mmcdevice->clear();
 
-    //Poly Aftertouch
-    modlineForm->polydevice->clear();
+//    //Aftertouch
+//    modlineForm->aftertouchdevice->clear();
+
+//    //Poly Aftertouch
+//    modlineForm->polydevice->clear();
+
+    modlineForm->dest_device->clear();
 
     //-------------------------------- Populate all menus
     QMap<QString, int>::iterator i;
     for (i = externalDevices.begin(); i != externalDevices.end(); ++i)
     {
-        //Note Set
-        modlineForm->notedevice->addItem(i.key().left(25));
+        modlineForm->dest_device->addItem(i.key().left(25));
+//        //Note Set
+//        modlineForm->notedevice->addItem(i.key().left(25));
 
-        //Note Live
-        modlineForm->notelivedevice->addItem(i.key().left(25));
+//        //Note Live
+//        modlineForm->notelivedevice->addItem(i.key().left(25));
 
-        //CC
-        modlineForm->controldevice->addItem(i.key().left(25));
+//        //CC
+//        modlineForm->controldevice->addItem(i.key().left(25));
 
-        //Bank
-        modlineForm->bankdevice->addItem(i.key().left(25));
+//        //Bank
+//        modlineForm->bankdevice->addItem(i.key().left(25));
 
-        //Program
-        modlineForm->programdevice->addItem(i.key().left(25));
+//        //Program
+//        modlineForm->programdevice->addItem(i.key().left(25));
 
-        //Pitch Bend
-        modlineForm->benddevice->addItem(i.key().left(25));
+//        //Pitch Bend
+//        modlineForm->benddevice->addItem(i.key().left(25));
 
-        //MMC
-        modlineForm->mmcdevice->addItem(i.key().left(25));
+//        //MMC
+//        modlineForm->mmcdevice->addItem(i.key().left(25));
 
-        //Aftertouch
-        modlineForm->aftertouchdevice->addItem(i.key().left(25));
+//        //Aftertouch
+//        modlineForm->aftertouchdevice->addItem(i.key().left(25));
 
-        //Poly Aftertouch
-        modlineForm->polydevice->addItem(i.key().left(25));
+//        //Poly Aftertouch
+//        modlineForm->polydevice->addItem(i.key().left(25));
     }
 
 
@@ -1160,39 +1406,40 @@ void Modline::slotOutputRoutine(int input)
 
 void Modline::hosted_slotOutputMidi(int outputVal)
 {
+    // EB TODO - update to use a single set of dropdowns
     //qDebug() << "Modline::hosted_slotOutputMidi called";
     if(outputType == "Note Set")
     {
         if(outputVal)
         {
-            emit hosted_signalNoteSet(modlineForm->notedevice->currentText(), modlineForm->notechannel->value(), modlineForm->notenumber->value(), modlineForm->notevelocity->value());
+            emit hosted_signalNoteSet(modlineForm->dest_device->currentText(), modlineForm->dest_b3->value(), modlineForm->dest_b1->value(), modlineForm->dest_b2->value());
         }
         else
         {
-            emit hosted_signalNoteSet(modlineForm->notedevice->currentText(), modlineForm->notechannel->value(), modlineForm->notenumber->value(), 0);
+            emit hosted_signalNoteSet(modlineForm->dest_device->currentText(), modlineForm->dest_b3->value(), modlineForm->dest_b1->value(), 0);
         }
     }
     else if(outputType == "Note Live")
     {
-        emit hosted_signalNoteLive(modlineForm->notelivedevice->currentText(), modlineForm->notelivechannel->value(), lastNote, outputVal, modlineForm->notelivevelocity->value());
+        emit hosted_signalNoteLive(modlineForm->dest_device->currentText(), modlineForm->dest_b3->value(), lastNote, outputVal, modlineForm->dest_b2->value());
 
         lastNote = outputVal;
     }
     else if(outputType == "CC")
     {
-        emit hosted_signalCC(modlineForm->controldevice->currentText(), modlineForm->controlchannel->value(), modlineForm->cc->value(), outputVal);
+        emit hosted_signalCC(modlineForm->dest_device->currentText(), modlineForm->dest_b3->value(), modlineForm->dest_b2->value(), outputVal);
     }
     else if(outputType == "Bank")
     {
-        emit hosted_signalBank(modlineForm->bankdevice->currentText(),  modlineForm->bankchannel->value(), modlineForm->bankmsb->value(), outputVal);
+        emit hosted_signalBank(modlineForm->dest_device->currentText(), modlineForm->dest_b3->value(), modlineForm->dest_b2->value(), outputVal);
     }
     else if(outputType == "Program")
     {
-        emit hosted_signalProgram(modlineForm->programdevice->currentText(), modlineForm->programchannel->value(), outputVal);
+        emit hosted_signalProgram(modlineForm->dest_device->currentText(), modlineForm->dest_b3->value(), outputVal);
     }
     else if(outputType == "Pitch Bend")
     {
-        emit hosted_signalPitchBend(modlineForm->benddevice->currentText(), modlineForm->bendchannel->value(), 0, outputVal);
+        emit hosted_signalPitchBend(modlineForm->dest_device->currentText(), modlineForm->dest_b3->value(), 0, outputVal);
     }
     else if(outputType == "MMC")
     {
@@ -1200,7 +1447,7 @@ void Modline::hosted_slotOutputMidi(int outputVal)
 
         if(outputVal && !toggleOnMMC)
         {
-            emit hosted_signalMMC(modlineForm->mmcdevice->currentText(), modlineForm->mmcdeviceid->value(), modlineForm->mmcfunction->currentText());
+            emit hosted_signalMMC(modlineForm->dest_device->currentText(), modlineForm->dest_b1->value(), modlineForm->dest_mmcfunction->currentText());
             toggleOnMMC = true;
         }
         else if(!outputVal)
@@ -1210,15 +1457,15 @@ void Modline::hosted_slotOutputMidi(int outputVal)
     }
     else if(outputType == "OSC")
     {
-        emit hosted_signalOSC(modlineForm->oscroute->text(), outputVal);
+        emit hosted_signalOSC(modlineForm->dest_oscroute->text(), outputVal);
     }
     else if(outputType == "Aftertouch")
     {
-        emit hosted_signalAftertouch(modlineForm->aftertouchdevice->currentText(), modlineForm->aftertouchchannel->value(), outputVal);
+        emit hosted_signalAftertouch(modlineForm->dest_device->currentText(), modlineForm->dest_b3->value(), outputVal);
     }
     else if(outputType == "Poly Aftertouch")
     {
-        emit hosted_signalPolyAftertouch(modlineForm->polydevice->currentText(), modlineForm->polychannel->value(), modlineForm->polynote->value(), outputVal);
+        emit hosted_signalPolyAftertouch(modlineForm->dest_device->currentText(), modlineForm->dest_b3->value(), modlineForm->dest_b2->value(), outputVal);
     }
     else if(outputType == "GarageBand")
     {
