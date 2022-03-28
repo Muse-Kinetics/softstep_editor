@@ -18,7 +18,7 @@ macx{
 
 INCLUDEPATH +=  forms \
                 resources \
-#                ../../shared/sysexcomposition \
+                ../../shared/sysexcomposition \
                 ../../shared \
                 ../../shared/images \
                 ../../shared/stylesheets \
@@ -37,17 +37,17 @@ SOURCES +=      main.cpp\
                 mainwindow.cpp \
 #                key.cpp \
 #                presetinterface.cpp \
-#                sysexcomposer.cpp \
-#                ../../shared/sysexcomposition/utils.c \
-#                ../../shared/sysexcomposition/syxtx.c \
-#                ../../shared/sysexcomposition/syxrx.c \
-#                ../../shared/sysexcomposition/query.c \
-#                ../../shared/sysexcomposition/maxapi.c \
-#                ../../shared/sysexcomposition/download.c \
-#                ../../shared/sysexcomposition/attribute.c \
-#                ../../shared/sysexcomposition/mainsysex.c \
+                sysexcomposer.cpp \
+                ../../shared/sysexcomposition/utils.c \
+                ../../shared/sysexcomposition/syxtx.c \
+                ../../shared/sysexcomposition/syxrx.c \
+                ../../shared/sysexcomposition/query.c \
+                ../../shared/sysexcomposition/maxapi.c \
+                ../../shared/sysexcomposition/download.c \
+                ../../shared/sysexcomposition/attribute.c \
+                ../../shared/sysexcomposition/mainsysex.c \
 #    stylesheets.cpp \
-#    factorypresets.cpp \
+    factorypresets.cpp \
 #    scrolleventfilter.cpp \
 #    copypastehandler.cpp
 
@@ -63,20 +63,20 @@ HEADERS  +=     mainwindow.h \
     ../../shared/rtmidi/RtMidi.h \
 #                key.h \
 #                presetinterface.h \
-#                sysexcomposer.h \
-#                ../../shared/sysexcomposition/utils.h \
-#                ../../shared/sysexcomposition/syxtx.h \
-#                ../../shared/sysexcomposition/syxrx.h \
-#                ../../shared/sysexcomposition/syxformats.h \
-#                ../../shared/sysexcomposition/softstep.h \
-#                ../../shared/sysexcomposition/query.h \
-#                ../../shared/sysexcomposition/midi.h \
-#                ../../shared/sysexcomposition/maxapi.h \
-#                ../../shared/sysexcomposition/download.h \
-#                ../../shared/sysexcomposition/attribute.h \
-#                ../../shared/sysexmessages.h \
+                sysexcomposer.h \
+                ../../shared/sysexcomposition/utils.h \
+                ../../shared/sysexcomposition/syxtx.h \
+                ../../shared/sysexcomposition/syxrx.h \
+                ../../shared/sysexcomposition/syxformats.h \
+                ../../shared/sysexcomposition/softstep.h \
+                ../../shared/sysexcomposition/query.h \
+                ../../shared/sysexcomposition/midi.h \
+                ../../shared/sysexcomposition/maxapi.h \
+                ../../shared/sysexcomposition/download.h \
+                ../../shared/sysexcomposition/attribute.h \
+                ../../shared/sysexmessages.h \
 #    stylesheets.h \
-#    factorypresets.h \
+    factorypresets.h \
 #    scrolleventfilter.h \
 #    copypastehandler.h
 

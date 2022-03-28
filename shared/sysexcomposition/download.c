@@ -21,9 +21,9 @@ void send_standalone_image(t_softstep *x);
 #define _WINDOWS
 #endif
 
-#ifdef	_WINDOWS
-#pragma PACK
-#endif
+//#ifdef	_WINDOWS
+#pragma pack(8) // default for x86
+//#endif
 
 STANDALONE_INFO standalone_info;
 PAD_INFO pad_info;
@@ -328,8 +328,8 @@ void send_standalone_image(t_softstep *x)
 			
 			short other_key_index,pedal_index,string_index,end_index;
 			other_key_index = preset_size;
-			pedal_index = other_key_index + other_key_count * sizeof(struct OTHER_KEY_INFO);
-			string_index = pedal_index + pedal_count * sizeof(struct OTHER_KEY_INFO);
+            pedal_index = other_key_index + (short)(other_key_count * sizeof(struct OTHER_KEY_INFO));
+            string_index = pedal_index + (short)(pedal_count * sizeof(struct OTHER_KEY_INFO));
 			end_index = string_index + list->strings.size;
 			
             //			post("preset_size[%d]",preset_size);
@@ -368,10 +368,10 @@ void send_standalone_image(t_softstep *x)
 			}
             //					post("other_key_info");
 			write_c_data(&other_key_info,other_key_count * sizeof(struct OTHER_KEY_INFO),x);
-			midi_sx_data_crc(&other_key_info,other_key_count * sizeof(struct OTHER_KEY_INFO));
+            midi_sx_data_crc(&other_key_info, (unsigned short)(other_key_count * sizeof(struct OTHER_KEY_INFO)));
             //					post("pedal_info");
 			write_c_data(&pedal_info,pedal_count * sizeof(struct OTHER_KEY_INFO),x);
-			midi_sx_data_crc(&pedal_info,pedal_count * sizeof(struct OTHER_KEY_INFO));
+            midi_sx_data_crc(&pedal_info, (unsigned short)(pedal_count * sizeof(struct OTHER_KEY_INFO)));
             //					post("strings");
 			write_c_data(list->strings.data,list->strings.size,x);
 			midi_sx_data_crc(list->strings.data,list->strings.size);

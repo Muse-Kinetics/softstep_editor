@@ -29,7 +29,7 @@ enum {SA_TYPE_PRESET_IMAGE,SA_TYPE_PRESET_SET,SA_TYPE_SETTINGS,SA_TYPE_STANDALON
 #endif
 
 #ifdef	_WINDOWS
-#pragma PACK(1)
+#pragma pack(8) // default for x86
 #endif
 
 typedef struct {

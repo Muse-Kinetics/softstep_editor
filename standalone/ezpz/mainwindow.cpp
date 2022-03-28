@@ -140,8 +140,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //Construct Children
     qDebug("PresetInterface");
     presetInterface = new PresetInterface(this);
+#endif // SERIOUS_PRUNING
     qDebug("SysExComposer");
     sysExComposer = new SysExComposer(0);
+#ifdef SERIOUS_PRUNING
     qDebug("copyPasteHandler");
     copyPasteHandler = new CopyPasteHandler(presetInterface,this);
 
@@ -444,17 +446,20 @@ void MainWindow::slotConnectInterfaces()
     connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
     connect(presetInterface, SIGNAL(signalUpdateStarted()), this, SLOT(slotDisconnectUpdate()));
     connect(presetInterface, SIGNAL(signalAttributeFormatPreset(QVariantMap,QVariantMap, qlonglong)), sysExComposer, SLOT(slotComposeAttributeListFromPreset(QVariantMap,QVariantMap, qlonglong)));
+
     connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectUpdate()));
+
     connect(ui->revert, SIGNAL(clicked()), presetInterface, SLOT(slotRevertPreset()));
     //set initial update button text
     ui->update->setText("SAVE");
 
+#endif // SERIOUS_PRUNING
     //Standalone Download
     //connect(sysExComposer, SIGNAL(signalSendSysEx(QString,unsigned char*, int,QString)), mdm, SLOT(slotSendSysEx(QString,unsigned char*, int,QString)));
 
     // MIDI overhaul
     connect(sysExComposer, SIGNAL(signalSendSysEx(unsigned char*, int)), SoftStep, SLOT(slotSendSysEx(unsigned char*, int)));
-
+#ifdef SERIOUS_PRUNING
 
     //!!!!!!!!!!!!!! Why is this happening in connect interfaces?
     //Load stylesheet and set initial text for connectedLabel
@@ -611,9 +616,9 @@ void MainWindow::slotConnected(bool connection)
 
     if(connection)
     {
-#ifdef SERIOUS_PRUNING
+//#ifdef SERIOUS_PRUNING
         sysExComposer->slotStandaloneOn();
-#endif // SERIOUS_PRUNING
+//#endif // SERIOUS_PRUNING
         ui->connectedLabel->setText("CONNECTED");
 #ifdef Q_OS_MAC
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");

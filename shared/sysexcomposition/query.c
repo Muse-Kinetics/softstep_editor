@@ -62,9 +62,9 @@ void fw_header_close(unsigned char success) {
                     fw_status.error = 0;
 		} else
 		{
-            
-			strncpy(fw_status.version,sysex_data.u.fw_header.versionString,sizeof(fw_status.version)-1);
-            
+            // EB TODO: test this on MacOS, might need to use compiler condition for strncpy with 3 arguments
+            strncpy_s(fw_status.version, sizeof(fw_status.version)-1, sysex_data.u.fw_header.versionString, sizeof(fw_status.version)-1);
+
 			if (sysex_data.u.fw_header.fixed.fw_status.part[0] == 'B')
 				fw_status.error = 1;
 			else
@@ -96,7 +96,8 @@ int fw_status_get(int *buildNum,int *error,char *version)
 	{
 		*buildNum = fw_status.buildnum;
 		*error = fw_status.error;
-		strncpy(version, fw_status.version,sizeof(fw_status.version)-1);
+        // EB TODO: potential need for compiler conditional MACOS
+        strncpy_s(version, sizeof(fw_status.version)-1, fw_status.version,sizeof(fw_status.version)-1);
 	}
 	
 	return (sysex_rx_completion_type);
@@ -145,7 +146,8 @@ int fw_process_midi(int midiVal,int *buildNum,int *error,char *version)
 		sysex_completion_flag_clear();
 		*buildNum = fw_status_current.buildNum;
 		*error = fw_status_current.error;
-		strncpy(version,fw_status_current.version,sizeof(fw_status_current.version)-1);
+        // EB TODO - test on MacOS, might need compilier conditional
+        strncpy_s(version, sizeof(fw_status.version)-1, fw_status_current.version,sizeof(fw_status_current.version)-1);
 		return 1;
 	}
 	return 0;

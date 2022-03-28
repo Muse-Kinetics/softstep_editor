@@ -11,10 +11,12 @@
 #include <QMenu>
 #include <QAction>
 #include <qglobal.h>
+
+#include "sysexcomposer.h"
 #ifdef SERIOUS_PRUNING
 #include "key.h"
 #include "presetinterface.h"
-#include "sysexcomposer.h"
+
 #include "stylesheets.h"
 #include "copypastehandler.h"
 #include "scrolleventfilter.h"
@@ -93,10 +95,11 @@ public:
     QString grayStyleString;
 
     // ------ end midi overhaul --------------------------------------------------------
+SysExComposer   *sysExComposer;
 #ifdef SERIOUS_PRUNING
     StyleSheets* styleSheets;
     PresetInterface *presetInterface;
-    SysExComposer   *sysExComposer;
+    
     CopyPasteHandler* copyPasteHandler;
     ScrollEventFilter scrollEventFilter;
 
