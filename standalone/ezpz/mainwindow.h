@@ -11,30 +11,24 @@
 #include <QMenu>
 #include <QAction>
 #include <qglobal.h>
-
+#ifdef SERIOUS_PRUNING
 #include "key.h"
 #include "presetinterface.h"
 #include "sysexcomposer.h"
-//#include "mididevicemanager.h"
 #include "stylesheets.h"
 #include "copypastehandler.h"
 #include "scrolleventfilter.h"
 
 #ifdef Q_OS_MAC
-#include "ui_fwoodform.h"
-#include "ui_fwprogressform.h"
-#include "ui_fwupdatecompleteform.h"
-#include "ui_updatefwform.h"
 #include "ui_aboutform.h"
 #include "ui_mainwindow.h"
 #else
-//#include "ui_fwoodformWin.h"
-//#include "ui_fwprogressformWin.h"
-//#include "ui_fwupdatecompleteformWin.h"
-//#include "ui_updatefwformWin.h"
 #include "ui_aboutformWin.h"
+#endif // SERIOUS_PRUNING
 #include "ui_mainwindowWin.h"
-#endif
+//#endif
+#endif // SERIOUS_PRUNING
+#include "ui_mainwindowWin.h"
 
 // midi overhaul
 #include "kmi_ports.h"
@@ -99,18 +93,16 @@ public:
     QString grayStyleString;
 
     // ------ end midi overhaul --------------------------------------------------------
-
+#ifdef SERIOUS_PRUNING
     StyleSheets* styleSheets;
     PresetInterface *presetInterface;
     SysExComposer   *sysExComposer;
     CopyPasteHandler* copyPasteHandler;
     ScrollEventFilter scrollEventFilter;
 
-    //QThread* midiThread;
-    //SS_MidiDeviceManager *mdm;
-
+#endif // SERIOUS_PRUNING
     bool connected;
-
+#ifdef SERIOUS_PRUNING
 //    QWidget* fwoodDialogWidget;
 //    QWidget* fwProgressDialogWidget;
 //    QWidget* fwUpdateCompleteDialogWidget;
@@ -168,10 +160,11 @@ public:
     QCheckBox *connectedLight;
     QLabel  *connectedLightLabel;
     QPushButton *reloadFactoryScenes;
-
+#endif // SERIOUS_PRUNING
     //bool shiftDown;
     void closeEvent(QCloseEvent *);
-    void keyPressEvent(QKeyEvent *);
+    // eb todo - uncomment this after debugging
+    //void keyPressEvent(QKeyEvent *);
 
 #ifdef Q_OS_MAC
 #else
@@ -179,8 +172,9 @@ public:
 #endif
 
 signals:
+#ifdef SERIOUS_PRUNING
     void signalStandaloneOn();
-
+#endif // SERIOUS_PRUNING
 public slots:
 
 
@@ -198,12 +192,13 @@ public slots:
 
 
     void slotConnectInterfaces();
+#ifdef SERIOUS_PRUNING
     void slotRecallPreset(QVariantMap preset, QVariantMap master);
     void slotUpdateAboutWindow();
-    //void slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion);
+#endif // SERIOUS_PRUNING
     void slotConnected(bool);
-//    void slotUpdateFirmware();
-//    void slotUpdateFwProgressBar(int);
+#ifdef SERIOUS_PRUNING
+
     void slotInitMenuBar();
     void slotUpdatePasteAvailability();
     void slotOpenDocumentation();   
@@ -217,14 +212,10 @@ public slots:
     void slotDisplayFactory();
 
     void slotFixDropDownWidth(QComboBox* thisDropDown);
-
+#endif //SERIOUS_PRUNING
 private:
     Ui::MainWindow *ui;
-//    Ui::FwoodDialog *fwoodDialog;
-//    Ui::FwProgressForm *fwProgressDialog;
-//    Ui::FwUpdateCompleteForm *fwUpdateCompleteDialog;
-//    Ui::UpdateFirmwareForm *fwUpdateDialog;
-    Ui::AboutForm *aboutForm;
+//    Ui::AboutForm *aboutForm;
 
 };
 

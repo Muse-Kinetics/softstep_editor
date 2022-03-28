@@ -8,12 +8,8 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
-//    fwoodDialog(new Ui::FwoodDialog),
-//    fwProgressDialog(new Ui::FwProgressForm),
-//    fwUpdateCompleteDialog(new Ui::FwUpdateCompleteForm),
-//    fwUpdateDialog(new Ui::UpdateFirmwareForm),
-    aboutForm(new Ui::AboutForm)
+    ui(new Ui::MainWindow)//,
+//    aboutForm(new Ui::AboutForm)
 {
 
     //Mainwindow Ui
@@ -30,10 +26,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //connectedVersionString = "Not Connected";
     //connectedVersionInt = -1;
-
+#ifdef SERIOUS_PRUNING
     //StyleSheets
     styleSheets = new StyleSheets();
-
+#endif // SERIOUS_PRUNING
     //Settings
     QCoreApplication::setApplicationName("SoftStep Basic Editor");
     QCoreApplication::setOrganizationName("Keith McMillen Instruments");
@@ -104,14 +100,14 @@ MainWindow::MainWindow(QWidget *parent) :
        slotCreateDialog("Error: Firmware file not found!\n\nPlease re-install the SoftStep editor.");
     }
 
-    qDebug() << "Create MIDI THRU";
+    //qDebug() << "Create MIDI THRU";
     // MIDI Thru for standalone/windows
     //MIDIThru = new MidiDeviceManager(this, PID_AUX, "MIDI THRU");
 
     // ******************************
     // end KMI_Ports and device handlers
     // ******************************
-
+#ifdef SERIOUS_PRUNING
     qDebug("Load application settings");
     settings = new QSettings();
 
@@ -200,27 +196,7 @@ MainWindow::MainWindow(QWidget *parent) :
     disableWidget->resize(this->size());
     disableWidget->setStyleSheet("QWidget{ background: rgba(0,0,0,200); }");
 
-    //Child Dialogs
-//    fwoodDialogWidget = new QWidget(this);
-//    fwoodDialogWidget->hide();
-//    fwoodDialog->setupUi(fwoodDialogWidget);
-//    fwoodDialogWidget->move(this->width()/2 - fwoodDialogWidget->width()/2, this->height()/2 - fwoodDialogWidget->height()/2);
-
-//    fwProgressDialogWidget = new QWidget(this);
-//    fwProgressDialogWidget->hide();
-//    fwProgressDialog->setupUi(fwProgressDialogWidget);
-//    fwProgressDialogWidget->move(this->width()/2 - fwProgressDialogWidget->width()/2, this->height()/2 - fwProgressDialogWidget->height()/2);
-
-//    fwUpdateCompleteDialogWidget = new QWidget(this);
-//    fwUpdateCompleteDialogWidget->hide();
-//    fwUpdateCompleteDialog->setupUi(fwUpdateCompleteDialogWidget);
-//    fwUpdateCompleteDialogWidget->move(this->width()/2 - fwUpdateCompleteDialogWidget->width()/2, this->height()/2 - fwUpdateCompleteDialogWidget->height()/2);
-
-//    fwUpdateDialogWidget = new QWidget(this);
-//    fwUpdateDialogWidget->hide();
-//    fwUpdateDialog->setupUi(fwUpdateDialogWidget);
-//    fwUpdateDialogWidget->move(this->width()/2 - fwUpdateDialogWidget->width()/2, this->height()/2 - fwUpdateDialogWidget->height()/2);
-
+ 
     aboutFormWidget = new QWidget(this);
     aboutFormWidget->hide();
     aboutForm->setupUi(aboutFormWidget);
@@ -230,9 +206,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //this->installEventFilter(this);
 
     slotInitMenuBar();
-
+#endif // SERIOUS_PRUNING
     slotConnectInterfaces();
-
+#ifdef SERIOUS_PRUNING
     //Load preset from last app session
     presetInterface->slotRecallPreset(1);
     //ui->currentPreset->setValue(settings->value("lastPreset").toInt());
@@ -257,7 +233,7 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         spinbox->installEventFilter(&scrollEventFilter);
     }
-
+#endif // SERIOUS_PRUNING
     //load fonts
     QString droidFont;
     QString futuraFont;
@@ -340,7 +316,7 @@ void MainWindow::slotCreateDialog(QString dialogText)
 
     msgBox->exec();
 }
-
+#ifdef SERIOUS_PRUNING
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
 {
     if((keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return) && ui->backlight->hasFocus() && !disableWidget->isVisible())
@@ -348,7 +324,7 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
         ui->backlight->setChecked(!ui->backlight->isChecked());
     }
 }
-
+#endif // SERIOUS_PRUNING
 void MainWindow::closeEvent(QCloseEvent *)
 {
 #ifdef Q_OS_MAC
@@ -364,7 +340,7 @@ void MainWindow::closeEvent(QCloseEvent *)
 void MainWindow::slotConnectInterfaces()
 {
     // ---- midi and firmware update overhaul --------------
-
+#ifdef SERIOUS_PRUNING
     // connect dropdowns and connection status to MIDI aux ports
     connect(ui->midi_thru, SIGNAL(activated(int)), this, SLOT(slotUpdateMIDIThru()));
     connect(SoftStep, SIGNAL(signalConnected(bool)), this, SLOT(slotUpdateMIDIThru()));
@@ -392,11 +368,12 @@ void MainWindow::slotConnectInterfaces()
 #endif
     fwUpdateStylesFile->open(QFile::ReadOnly);
     fwUpdateStylesString = QLatin1String(fwUpdateStylesFile->readAll());
-
+#endif // SERIOUS_PRUNING
     // Firmware update Window
     fwUpdateWindow = new fwUpdate(this, "SoftStep", applicationFirmwareVersionString());
+#ifdef SERIOUS_PRUNING
     fwUpdateWindow->setStyleSheet(fwUpdateStylesString);
-
+#endif // SERIOUS_PRUNING
     // MIDI
 
     // connect firmware detection
@@ -416,7 +393,7 @@ void MainWindow::slotConnectInterfaces()
     // reset portlist after sending bootloader commands, catch changes to port names
     connect(SoftStep, SIGNAL(signalBeginBlTimer()), this, SLOT(slotRefreshConnection()));
     connect(SoftStep, SIGNAL(signalBeginFwTimer()), this, SLOT(slotRefreshConnection()));
-
+#ifdef SERIOUS_PRUNING
     //Connected Indicator
     connect(SoftStep, SIGNAL(signalConnected(bool)), this, SLOT(slotConnected(bool)));
 
@@ -426,34 +403,6 @@ void MainWindow::slotConnectInterfaces()
     connect(aboutForm->ok, SIGNAL(clicked()), aboutFormWidget, SLOT(close()));
     connect(aboutForm->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
     connect(aboutForm->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
-
-    //SysEx
-    // EB TODO - reconnect this
-    //connect(mdm, SIGNAL(signalProcessFwQueryReply(QByteArray)), sysExComposer, SLOT(slotGetConnectedVersion(QByteArray)));
-    //connect(sysExComposer, SIGNAL(signalSendBuildNums(int,QString, int, QString)), this, SLOT(slotReceiveVersions(int,QString, int, QString)));
-
-    //----------------------------- Firmware Updating
-    //Firmware Out of Date Dialog
-    // EB TODO - reconnect this
-    //connect(fwoodDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
-//    connect(fwoodDialog->cancel, SIGNAL(clicked()), fwoodDialogWidget, SLOT(close()));
-//    connect(fwoodDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
-//    connect(fwoodDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
-
-    //Firmware Update Dialog
-//    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
-//    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
-//    connect(fwUpdateDialog->update, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
-//    connect(fwUpdateDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
-//    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
-
-    //Firmware Progress Bar
-    //connect(mdm, SIGNAL(signalFwBytesLeft(int)), this, SLOT(slotUpdateFwProgressBar(int)));
-
-    //Firmware Update Complete Dialog
-//    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), fwUpdateCompleteDialogWidget, SLOT(close()));
-//    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
-//    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //Preset Recall
     connect(ui->currentPreset, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
@@ -515,9 +464,10 @@ void MainWindow::slotConnectInterfaces()
 #else
     ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255);");
 #endif
-
+#endif // SERIOUS_PRUNING
 }
 
+#ifdef SERIOUS_PRUNING
 void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap master)
 {
     //----------------------------------- Handle keyboard commands
@@ -652,34 +602,8 @@ void MainWindow::slotUpdateAboutWindow()
 
 }
 
-//void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion)
-//{
-//    Q_UNUSED(embeddedVersion);
 
-//    //qDebug() << "slotReceiveVersions called connected:" << connectedVersion << connected;
-//    connectedVersionString = connectedVersion;
-//    connectedVersionInt = connected;
-
-//    aboutForm->found->setText(QString("%1").arg(connectedVersionInt));
-
-//    slotConnected(true);
-
-//    if(connected != embedded)
-//    {
-//        fwoodDialog->expected->setText(QString("%1").arg(embedded));
-//        fwoodDialog->found->setText(QString("%1").arg(connected));
-//        disableWidget->show();
-//        slotEnableDisableMenu();
-//        fwoodDialogWidget->show();
-//        //qDebug() << "_____ Your firmware version is out of date _____";
-//    }
-
-//    mdm->slotStandaloneOn();
-
-//    //End of sysex inquiry process, put board into standalone mode
-//    //emit signalStandaloneOn();
-//}
-
+#endif // SERIOUS_PRUNING
 void MainWindow::slotConnected(bool connection)
 {
 
@@ -687,8 +611,9 @@ void MainWindow::slotConnected(bool connection)
 
     if(connection)
     {
+#ifdef SERIOUS_PRUNING
         sysExComposer->slotStandaloneOn();
-
+#endif // SERIOUS_PRUNING
         ui->connectedLabel->setText("CONNECTED");
 #ifdef Q_OS_MAC
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");
@@ -696,10 +621,11 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(0,200,0,255);");
 #endif
         ui->update->setText("SAVE + SEND");
+#ifdef SERIOUS_PRUNING
         presetInterface->connected = true;
 
         updatefw->setEnabled(true);
-
+#endif // SERIOUS_PRUNING
         // attempt to recall midi thru port when device connects
         //slotRecallMIDIThru();
     }
@@ -714,14 +640,18 @@ void MainWindow::slotConnected(bool connection)
         ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255);");
 #endif
         ui->update->setText("SAVE");
-
+#ifdef SERIOUS_PRUNING
         presetInterface->connected = false;
 
         updatefw->setEnabled(false);
+#endif // SERIOUS_PRUNING
     }
+#ifdef SERIOUS_PRUNING
     slotUpdateAboutWindow();
+#endif // SERIOUS_PRUNING
 }
 
+#ifdef SERIOUS_PRUNING
 void MainWindow::slotInitMenuBar()
 {
     menubar = new QMenuBar(this);
@@ -963,7 +893,7 @@ void MainWindow::slotConnectUpdate()
     connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
 }
 
-
+#endif //SERIOUS_PRUNING
 
 // --------------------------------------------------------------------------------------
 // ------ midi overhaul -----------------------------------------------------------------
@@ -976,7 +906,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
     switch (messageType)
     {
     case PORT_CONNECT:
-
+#ifdef SERIOUS_PRUNING
         // update dropdown
         if (inOrOut == PORT_OUT && portName != SS_OUT_P1) // don't create feedback loop
         {
@@ -990,6 +920,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             }
 
         }
+#endif // SERIOUS_PRUNING
 
         // **** SoftStep connect *****************************************
         if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
@@ -1109,8 +1040,10 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
         SoftStep->slotFirmwareUpdateReset();
         slotConnected(false);
     }
+#ifdef SERIOUS_PRUNING
     disableWidget->hide();
     slotEnableDisableMenu();
+#endif // SERIOUS_PRUNING
 }
 
 void MainWindow::slotForceFirmwareUpdate()
@@ -1165,8 +1098,9 @@ void MainWindow::slotUpdateMIDIThru()
 
     if (!SoftStep->connected) return; // don't continue if we aren't connected
 
+#ifdef SERIOUS_PRUNING
     settings->setValue(MIDI_THRU_KEY, currentPort); // store this setting for the next time we run the editor
-
+#endif //SERIOUS_PRUNING
     if (currentPort != "None")
     {
         // set and open the ports
@@ -1227,7 +1161,7 @@ void MainWindow::slotRecallMIDIThru()
 // --------------------------------------------------------------------------------------
 // ------ end midi overhaul -------------------------------------------------------------
 // --------------------------------------------------------------------------------------
-
+#ifdef SERIOUS_PRUNING
 void MainWindow::slotFixDropDownWidth(QComboBox* thisDropDown)
 {
     int i, length = 0, index = 0;
@@ -1261,3 +1195,5 @@ void MainWindow::slotFixDropDownWidth(QComboBox* thisDropDown)
     QString thisComboStyleString = comboStyleString.arg(pixelsWide).arg(pixelsHeight);
     thisDropDown->setStyleSheet(thisComboStyleString);
 }
+
+#endif // SERIOUS_PRUNING

@@ -18,7 +18,7 @@ macx{
 
 INCLUDEPATH +=  forms \
                 resources \
-                ../../shared/sysexcomposition \
+#                ../../shared/sysexcomposition \
                 ../../shared \
                 ../../shared/images \
                 ../../shared/stylesheets \
@@ -35,22 +35,21 @@ SOURCES +=      main.cpp\
     ../../shared/KMI_Updates/kmi_updates.cpp \
     ../../shared/rtmidi/RtMidi.cpp \
                 mainwindow.cpp \
-                key.cpp \
-                presetinterface.cpp \
-#                mididevicemanager.cpp \
-                sysexcomposer.cpp \
-                ../../shared/sysexcomposition/utils.c \
-                ../../shared/sysexcomposition/syxtx.c \
-                ../../shared/sysexcomposition/syxrx.c \
-                ../../shared/sysexcomposition/query.c \
-                ../../shared/sysexcomposition/maxapi.c \
-                ../../shared/sysexcomposition/download.c \
-                ../../shared/sysexcomposition/attribute.c \
-                ../../shared/sysexcomposition/mainsysex.c \
-    stylesheets.cpp \
-    factorypresets.cpp \
-    scrolleventfilter.cpp \
-    copypastehandler.cpp
+#                key.cpp \
+#                presetinterface.cpp \
+#                sysexcomposer.cpp \
+#                ../../shared/sysexcomposition/utils.c \
+#                ../../shared/sysexcomposition/syxtx.c \
+#                ../../shared/sysexcomposition/syxrx.c \
+#                ../../shared/sysexcomposition/query.c \
+#                ../../shared/sysexcomposition/maxapi.c \
+#                ../../shared/sysexcomposition/download.c \
+#                ../../shared/sysexcomposition/attribute.c \
+#                ../../shared/sysexcomposition/mainsysex.c \
+#    stylesheets.cpp \
+#    factorypresets.cpp \
+#    scrolleventfilter.cpp \
+#    copypastehandler.cpp
 
 
 HEADERS  +=     mainwindow.h \
@@ -62,42 +61,33 @@ HEADERS  +=     mainwindow.h \
     ../../shared/KMI_Ports/kmi_ports.h \
     ../../shared/KMI_Updates/kmi_updates.h \
     ../../shared/rtmidi/RtMidi.h \
-                key.h \
-                presetinterface.h \
-#                mididevicemanager.h \
-                sysexcomposer.h \
-                ../../shared/sysexcomposition/utils.h \
-                ../../shared/sysexcomposition/syxtx.h \
-                ../../shared/sysexcomposition/syxrx.h \
-                ../../shared/sysexcomposition/syxformats.h \
-                ../../shared/sysexcomposition/softstep.h \
-                ../../shared/sysexcomposition/query.h \
-                ../../shared/sysexcomposition/midi.h \
-                ../../shared/sysexcomposition/maxapi.h \
-                ../../shared/sysexcomposition/download.h \
-                ../../shared/sysexcomposition/attribute.h \
-                ../../shared/sysexmessages.h \
-    stylesheets.h \
-    factorypresets.h \
-    scrolleventfilter.h \
-    copypastehandler.h
+#                key.h \
+#                presetinterface.h \
+#                sysexcomposer.h \
+#                ../../shared/sysexcomposition/utils.h \
+#                ../../shared/sysexcomposition/syxtx.h \
+#                ../../shared/sysexcomposition/syxrx.h \
+#                ../../shared/sysexcomposition/syxformats.h \
+#                ../../shared/sysexcomposition/softstep.h \
+#                ../../shared/sysexcomposition/query.h \
+#                ../../shared/sysexcomposition/midi.h \
+#                ../../shared/sysexcomposition/maxapi.h \
+#                ../../shared/sysexcomposition/download.h \
+#                ../../shared/sysexcomposition/attribute.h \
+#                ../../shared/sysexmessages.h \
+#    stylesheets.h \
+#    factorypresets.h \
+#    scrolleventfilter.h \
+#    copypastehandler.h
 
 FORMS    +=     forms/mainwindow.ui \
                 ../../shared/KMI_MDM/fwupdate/fwupdate.ui \
-                forms/keyform.ui \
-#                forms/fwoodform.ui \
-#                forms/fwprogressform.ui \
-#                forms/fwupdatecompleteform.ui \
-#                forms/updatefwform.ui \
-                forms/aboutform.ui \
-                forms/updatefwformWin.ui \
+#                forms/keyform.ui \
+#                forms/aboutform.ui \
                 forms/mainwindowWin.ui \
-                forms/keyformWin.ui \
-#                forms/fwupdatecompleteformWin.ui \
-#                forms/fwprogressformWin.ui \
-#                forms/fwoodformWin.ui \
-                forms/aboutformWin.ui \
-                forms/settingsForm.ui
+#                forms/keyformWin.ui \
+#                forms/aboutformWin.ui \
+#                forms/settingsForm.ui
 
 OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
                 resources/sendbuttondirtystylesheet.qss \
@@ -110,7 +100,6 @@ OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
     resources/DroidSansMono.ttf \
     resources/corbelb.ttf \
     resources/corbel.ttf
-                #doc.txt
 
 RESOURCES =    Resources.qrc \
     ../../shared/KMI_MDM/fwupdate/fw_stylesheets.qrc \
@@ -233,15 +222,15 @@ ICON = resources/appicon.icns
 #    QMAKE_BUNDLE_DATA += qunexusPresets
 #}
 
-win32{
+#win32{
 
-    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/presets\")
-    export(presets.commands)
+#    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/presets\")
+#    export(presets.commands)
 
-    first.depends += $(first) presets
-    export(first.depends)
+#    first.depends += $(first) presets
+#    export(first.depends)
 
-    QMAKE_EXTRA_TARGETS += first presets
-}
+#    QMAKE_EXTRA_TARGETS += first presets
+#}
 
-DISTFILES +=
+#DISTFILES +=
