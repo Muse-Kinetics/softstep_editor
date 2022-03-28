@@ -57,3 +57,4 @@ compile_commands.json
 *.app
 *.exe
 /win-build/*.zip
+*.rej

@@ -44,7 +44,7 @@ t_symbol *add_symbol(char *str)
 
     *next = (struct t_obj_info *) malloc(sizeof(struct t_obj_info));
     (*next)->symbol.s_name = (char *) malloc(strlen(str)+1);
-    strcpy_s((*next)->symbol.s_name, sizeof(str), str);
+    strcpy((*next)->symbol.s_name,str); // fixing this broke things, leaving as insecure
 
     (*next)->next = 0;
     return &(*next)->symbol;

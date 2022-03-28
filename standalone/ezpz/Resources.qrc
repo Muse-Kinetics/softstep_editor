@@ -18,6 +18,7 @@
         <file>resources/toggle_on_disabled.png</file>
         <file>resources/toggle_on_focus.png</file>
         <file>resources/toggle_on.png</file>
+        <file>resources/menuBarWin.qss</file>
     </qresource>
     <qresource prefix="/stylesheets"/>
     <qresource prefix="/firmware"/>

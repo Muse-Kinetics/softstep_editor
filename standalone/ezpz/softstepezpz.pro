@@ -35,8 +35,8 @@ SOURCES +=      main.cpp\
     ../../shared/KMI_Updates/kmi_updates.cpp \
     ../../shared/rtmidi/RtMidi.cpp \
                 mainwindow.cpp \
-#                key.cpp \
-#                presetinterface.cpp \
+                key.cpp \
+                presetinterface.cpp \
                 sysexcomposer.cpp \
                 ../../shared/sysexcomposition/utils.c \
                 ../../shared/sysexcomposition/syxtx.c \
@@ -46,10 +46,10 @@ SOURCES +=      main.cpp\
                 ../../shared/sysexcomposition/download.c \
                 ../../shared/sysexcomposition/attribute.c \
                 ../../shared/sysexcomposition/mainsysex.c \
-#    stylesheets.cpp \
+    stylesheets.cpp \
     factorypresets.cpp \
-#    scrolleventfilter.cpp \
-#    copypastehandler.cpp
+    scrolleventfilter.cpp \
+    copypastehandler.cpp
 
 
 HEADERS  +=     mainwindow.h \
@@ -61,8 +61,8 @@ HEADERS  +=     mainwindow.h \
     ../../shared/KMI_Ports/kmi_ports.h \
     ../../shared/KMI_Updates/kmi_updates.h \
     ../../shared/rtmidi/RtMidi.h \
-#                key.h \
-#                presetinterface.h \
+                key.h \
+                presetinterface.h \
                 sysexcomposer.h \
                 ../../shared/sysexcomposition/utils.h \
                 ../../shared/sysexcomposition/syxtx.h \
@@ -75,19 +75,19 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexcomposition/download.h \
                 ../../shared/sysexcomposition/attribute.h \
                 ../../shared/sysexmessages.h \
-#    stylesheets.h \
+    stylesheets.h \
     factorypresets.h \
-#    scrolleventfilter.h \
-#    copypastehandler.h
+    scrolleventfilter.h \
+    copypastehandler.h
 
 FORMS    +=     forms/mainwindow.ui \
                 ../../shared/KMI_MDM/fwupdate/fwupdate.ui \
-#                forms/keyform.ui \
-#                forms/aboutform.ui \
+                forms/keyform.ui \
+                forms/aboutform.ui \
                 forms/mainwindowWin.ui \
-#                forms/keyformWin.ui \
-#                forms/aboutformWin.ui \
-#                forms/settingsForm.ui
+                forms/keyformWin.ui \
+                forms/aboutformWin.ui \
+                forms/settingsForm.ui
 
 OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
                 resources/sendbuttondirtystylesheet.qss \
@@ -109,10 +109,6 @@ RESOURCES =    Resources.qrc \
 #--------------- contents/resources --------
 
 macx{
-#    softStepSysEx.files = $$PWD/../../shared/SoftStep.syx
-#    softStepSysEx.path = Contents/Resources
-#    QMAKE_BUNDLE_DATA += softStepSysEx
-
     softStepPresets.files = $$PWD/presets
     softStepPresets.path = Contents/Resources
     QMAKE_BUNDLE_DATA += softStepPresets
@@ -132,15 +128,25 @@ macx{
     LIBS += -framework CoreFoundation
 }
 
-#ios{
+win32{
+    DEFINES += __WINDOWS_MM__=1
+        LIBS += -lwinmm
+}
+
+linux{
+    DEFINES += define __LINUX_ALSA__=1
+    LIBS += -lasound
+}
+
+#ios {
 #    DEFINES += TARGET_OS_IPHONE=1
 #    LIBS += -framework CoreMidi
 #    LIBS += -framework CoreAudio
 #    LIBS += -framework CoreFoundation
-
+#    plistupdate.commands = /usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $$VERSION\" $$QMAKE_INFO_PLIST
+#    QMAKE_EXTRA_TARGETS += plistupdate
+#    PRE_TARGETDEPS += plistupdate
 #}
-
-#VERSION = 1.2.3
 
 #android {
 #    androidmanifestupdate.commands =  sed -i \'\' -E -e \'s/(versionName=)(\"([0-9]\.?)+\")/\\1\"$$VERSION\"/g\' $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml
@@ -148,22 +154,6 @@ macx{
 #    PRE_TARGETDEPS += androidmanifestupdate
 #}
 
-#ios {
-#    plistupdate.commands = /usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $$VERSION\" $$QMAKE_INFO_PLIST
-#    QMAKE_EXTRA_TARGETS += plistupdate
-#    PRE_TARGETDEPS += plistupdate
-#}
-
-
-linux{
-    DEFINES += define __LINUX_ALSA__=1
-    LIBS += -lasound
-}
-
-win32{
-    DEFINES += __WINDOWS_MM__=1
-        LIBS += -lwinmm
-}
 # end rtmidi defines
 
 # SSL support for checking for updates on windows
@@ -181,26 +171,6 @@ static{
 DEFINES += STATIC_BUILD
 }
 
-#INCLUDEPATH +=  ../../shared/qjson/src
-
-#SOURCES +=      ../../shared/qjson/src/json_parser.cc \
-#                ../../shared/qjson/src/json_scanner.cpp \
-#                ../../shared/qjson/src/parser.cpp \
-#                ../../shared/qjson/src/qobjecthelper.cpp \
-#                ../../shared/qjson/src/serializer.cpp
-
-#---------------------LIBS--------------------#
-#---------------------------------------------#
-#win32{
-#LIBS +=         -lwinmm
-#}
-
-#macx{
-#LIBS +=         -framework CoreMIDI
-#LIBS +=         -framework CoreFoundation
-#LIBS +=         -framework Cocoa
-#LIBS +=         -framework CoreServices
-#}
 
 #--------------------Icons--------------------#
 #---------------------------------------------#
@@ -222,15 +192,15 @@ ICON = resources/appicon.icns
 #    QMAKE_BUNDLE_DATA += qunexusPresets
 #}
 
-#win32{
+win32{
 
-#    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/presets\")
-#    export(presets.commands)
+    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/presets\")
+    export(presets.commands)
 
-#    first.depends += $(first) presets
-#    export(first.depends)
+    first.depends += $(first) presets
+    export(first.depends)
 
-#    QMAKE_EXTRA_TARGETS += first presets
-#}
+    QMAKE_EXTRA_TARGETS += first presets
+}
 
 #DISTFILES +=

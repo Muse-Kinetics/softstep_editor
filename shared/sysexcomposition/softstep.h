@@ -39,7 +39,7 @@
 #define	DISPLAY_USE_CONTROLLER
 
 #ifdef	_WINDOWS
-#pragma pack(8) // default for x86
+//#pragma pack(8) // default for x86
 #endif
 #ifdef _WINDOWS
 #define	STRNCPY(dest,source,len) strcpy_s(dest,len,source);
@@ -124,6 +124,8 @@ typedef struct {
 
 } t_softstep;
 
-
+#ifdef	_WINDOWS
+#pragma pack(8) // default for x86
+#endif
 
 #endif

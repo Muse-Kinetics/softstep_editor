@@ -13,6 +13,9 @@
 #include <qglobal.h>
 
 #include "sysexcomposer.h"
+
+#define SERIOUS_PRUNING
+
 #ifdef SERIOUS_PRUNING
 #include "key.h"
 #include "presetinterface.h"
@@ -38,7 +41,7 @@
 #include "RtMidi.h"
 #include "KMI_DevData.h"
 #include <fwupdate.h>
-//#include "kmi_updates.h"
+#include "kmi_updates.h"
 #include "midi.h"
 // end midi overhaul
 
@@ -57,7 +60,7 @@ public:
     // ------- fw update overhaul
     QByteArray applicationVersion, thisFw;
     QString betaVersion;
-//    KMI_Updates * checkUpdates;
+    KMI_Updates * checkUpdates;
     fwUpdate* fwUpdateWindow;
 
     // FWUpdate Styles
@@ -78,7 +81,7 @@ public:
     // and one output for hosted mode. For other editors you would likely define one output port for to mirror the
     // incoming MIDI from the controller, as a workaround for Windows not sharing ports.
     // For KMI_Central we are using these for the input/output dropdowns as a simple MIDI route demo.
-    //MidiDeviceManager* MIDIThru;
+    MidiDeviceManager* MIDIThru;
 
     QString MIDI_THRU_KEY;
     QString recallMidiThruPortName;
@@ -106,12 +109,7 @@ SysExComposer   *sysExComposer;
 #endif // SERIOUS_PRUNING
     bool connected;
 #ifdef SERIOUS_PRUNING
-//    QWidget* fwoodDialogWidget;
-//    QWidget* fwProgressDialogWidget;
-//    QWidget* fwUpdateCompleteDialogWidget;
-//    QWidget* fwUpdateDialogWidget;
     QWidget* aboutFormWidget;
-//    QWidget* keyTestWidget;
 
     QWidget* disableWidget;
     QWidget* factoryPresetCoverWidget1;
@@ -144,10 +142,6 @@ SysExComposer   *sysExComposer;
 
     QComboBox *sceneTemplate;
 
-    //QString connectedVersionString;
-    //int connectedVersionInt;
-
-
     QLabel *midiChannelLabel;
     QLabel *globalGainLabel;
     QLabel *pedalCCLabel;
@@ -164,10 +158,8 @@ SysExComposer   *sysExComposer;
     QLabel  *connectedLightLabel;
     QPushButton *reloadFactoryScenes;
 #endif // SERIOUS_PRUNING
-    //bool shiftDown;
     void closeEvent(QCloseEvent *);
-    // eb todo - uncomment this after debugging
-    //void keyPressEvent(QKeyEvent *);
+    void keyPressEvent(QKeyEvent *);
 
 #ifdef Q_OS_MAC
 #else
@@ -214,11 +206,10 @@ public slots:
 
     void slotDisplayFactory();
 
-    void slotFixDropDownWidth(QComboBox* thisDropDown);
 #endif //SERIOUS_PRUNING
 private:
     Ui::MainWindow *ui;
-//    Ui::AboutForm *aboutForm;
+    Ui::AboutForm *aboutForm;
 
 };
 

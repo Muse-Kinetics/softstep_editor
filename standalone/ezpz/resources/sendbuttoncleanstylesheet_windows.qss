@@ -2,7 +2,7 @@
 QPushButton
 {
         border: 6px solid rgba(0,174,239,255);
-        font: 14pt "Futura";
+        font: 18px "Futura";
         color: white;
         background: rgba(200,0,0,0);
 }
@@ -11,6 +11,6 @@ QPushButton:pressed
 {
         background: rgba(0,174,239,255);
         border: 6px solid white;
-        font: 16pt "Futura";
+        font: 20px "Futura";
         color: white;
 }

@@ -191,8 +191,8 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Key_Name",A_SYM,0,-1)){
         x->current_image->nm.key[x->key_num].key_name_index = LE_short(x->current_list->strings.size);
-        //strcpy(x->current_list->strings.data+x->current_list->strings.size,argv[2].a_w.w_sym->s_name);  // EB - what a cursed line of code, fixing this
-        strcpy_s(x->current_list->strings.data + x->current_list->strings.size, strlen(argv[2].a_w.w_sym->s_name), argv[2].a_w.w_sym->s_name);  // EB - what a cursed line of code, fixing this
+        strcpy(x->current_list->strings.data+x->current_list->strings.size,argv[2].a_w.w_sym->s_name);  // EB - what a cursed line of code, fixing this
+        //strcpy_s(x->current_list->strings.data + x->current_list->strings.size, strlen(argv[2].a_w.w_sym->s_name), argv[2].a_w.w_sym->s_name);  // EB - what a cursed line of code, fixing this
         x->current_list->strings.size += (int)strlen(argv[2].a_w.w_sym->s_name) + 1;
         //post("Key_Name[%s] key[%d] index[%d]",argv[2].a_w.w_sym->s_name,x->key_num,LE_short(x->current_image->nm.key[x->key_num].key_name_index));
         return;
@@ -214,7 +214,8 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
 
         if (len) {
             x->current_image->nm.key[x->key_num].prefix_index = LE_short(x->current_list->strings.size);
-            strcpy_s(x->current_list->strings.data + x->current_list->strings.size, strlen(str), str);
+            strcpy(x->current_list->strings.data+x->current_list->strings.size,str);
+            //strcpy_s(x->current_list->strings.data + x->current_list->strings.size, strlen(str), str); // this broke things
             x->current_list->strings.size += len + 1;
         } else {
             //    x->current_image->nm.key[x->key_num].prefix_index;
@@ -626,7 +627,8 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     {
         //post("setting scene name[%s] at name_index[%d]\n",argv[2].a_w.w_sym->s_name,x->current_list->strings.size);
         x->current_image->nm.name_index = LE_short(x->current_list->strings.size);
-        strcpy_s(x->current_list->strings.data + x->current_list->strings.size, strlen(argv[2].a_w.w_sym->s_name), argv[2].a_w.w_sym->s_name);
+        strcpy(x->current_list->strings.data+x->current_list->strings.size,argv[2].a_w.w_sym->s_name);
+        //strcpy_s(x->current_list->strings.data + x->current_list->strings.size, strlen(argv[2].a_w.w_sym->s_name), argv[2].a_w.w_sym->s_name); // this broke things
         x->current_list->strings.size += (int)strlen(argv[2].a_w.w_sym->s_name) + 1;
         //		post("new index[%d]",x->current_list->strings.size);
         return;

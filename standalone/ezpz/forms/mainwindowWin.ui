@@ -56,14 +56,14 @@
 QPushButton
 {
 	border: 2px solid rgba(0,174,239,255);
-	font: 7pt &quot;Corbel&quot;;
+	font: 7pt &quot;Futura-normal&quot;;
 	color: white;
 }
 
 QPushButton:pressed
 {
 	border: 2px solid white;
-	font: 7pt &quot;Corbel&quot;;
+	font: 7pt &quot;Futura-normal&quot;;
 	background: rgba(0,174,239,255);
 	color: white;
 }
@@ -74,7 +74,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 8pt &quot;Corbel&quot;;
+	font: 13px &quot;Futura-normal&quot;;
 	border:				none;
 }
 
@@ -86,11 +86,11 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 8pt &quot;Corbel&quot;;
+	font: 14px &quot;Futura-normal&quot;;
 	border: 2px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 0);
 	color: white;
-	padding:0,2, 0, 0;
+	padding:0,0, 0, 0;
 }
 
 QAbstractSpinBox:focus
@@ -101,7 +101,7 @@ QAbstractSpinBox:focus
 
 QDoubleSpinBox
 {
-	font: 8pt &quot;Corbel&quot;;
+	font: 12px &quot;Futura-normal&quot;;
 	border: 2px solid rgb(0,174,239);
 	background-color: rgba(0, 0, 0, 0);
 	color: white;
@@ -111,7 +111,7 @@ QDoubleSpinBox
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 8pt &quot;Corbel&quot;;
+	font: 8pt &quot;Futura-normal&quot;;
 	background: rgba(0,174,239,0);
 	border: 2px solid rgba(0,174,239,255);
 	border-radius: 0px;
@@ -138,9 +138,9 @@ background: black;
     <property name="geometry">
      <rect>
       <x>845</x>
-      <y>130</y>
+      <y>142</y>
       <width>141</width>
-      <height>111</height>
+      <height>100</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -236,7 +236,7 @@ background: black;
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
+       <family>Futura-normal</family>
        <pointsize>8</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -264,7 +264,7 @@ background: black;
     <widget class="QLabel" name="midiChannelLabel">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>2</x>
        <y>5</y>
        <width>89</width>
        <height>20</height>
@@ -283,7 +283,7 @@ background: black;
     <widget class="QLabel" name="sceneNameLabel">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>2</x>
        <y>80</y>
        <width>89</width>
        <height>20</height>
@@ -302,7 +302,7 @@ background: black;
     <widget class="QLabel" name="gainLabel_3">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>2</x>
        <y>30</y>
        <width>89</width>
        <height>20</height>
@@ -321,7 +321,7 @@ background: black;
     <widget class="QLabel" name="gainLabel_4">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>2</x>
        <y>55</y>
        <width>89</width>
        <height>20</height>
@@ -367,13 +367,13 @@ background: black;
     <property name="geometry">
      <rect>
       <x>850</x>
-      <y>3</y>
+      <y>21</y>
       <width>131</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 28pt &quot;Futura-Normal&quot;;</string>
+     <string notr="true">font: 29px &quot;Futura&quot;;</string>
     </property>
     <property name="text">
      <string>SoftStep</string>
@@ -385,9 +385,9 @@ background: black;
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>870</x>
-      <y>34</y>
-      <width>91</width>
+      <x>850</x>
+      <y>52</y>
+      <width>131</width>
       <height>20</height>
      </rect>
     </property>
@@ -399,14 +399,14 @@ color: red;</string>
      <string>NOT CONNECTED</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="sensitivityLabel">
     <property name="geometry">
      <rect>
-      <x>844</x>
-      <y>89</y>
+      <x>847</x>
+      <y>100</y>
       <width>89</width>
       <height>20</height>
      </rect>
@@ -493,7 +493,7 @@ QPushButton:pressed
    <widget class="QLabel" name="currentPresetLabel">
     <property name="geometry">
      <rect>
-      <x>844</x>
+      <x>846</x>
       <y>247</y>
       <width>89</width>
       <height>20</height>
@@ -503,7 +503,7 @@ QPushButton:pressed
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>CURRENT PRESET</string>
+     <string>Current Preset</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -512,8 +512,8 @@ QPushButton:pressed
    <widget class="QLabel" name="backlightLabel">
     <property name="geometry">
      <rect>
-      <x>844</x>
-      <y>110</y>
+      <x>846</x>
+      <y>122</y>
       <width>89</width>
       <height>24</height>
      </rect>
@@ -532,7 +532,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>945</x>
-      <y>89</y>
+      <y>100</y>
       <width>40</width>
       <height>20</height>
      </rect>
@@ -560,7 +560,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>945</x>
-      <y>110</y>
+      <y>122</y>
       <width>24</width>
       <height>24</height>
      </rect>
@@ -672,7 +672,7 @@ QToolButton:pressed
     <property name="geometry">
      <rect>
       <x>850</x>
-      <y>58</y>
+      <y>76</y>
       <width>31</width>
       <height>20</height>
      </rect>
@@ -691,13 +691,101 @@ QToolButton:pressed
     <property name="geometry">
      <rect>
       <x>883</x>
-      <y>58</y>
+      <y>76</y>
       <width>100</width>
       <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">
+/*----------- QComboBox ------------*/
+
+
+QComboBox
+{
+	font: 9pt &quot;Futura-Normal&quot;;
+	border: 2px solid rgba(0,174,239,255);
+	background:		rgba(35,31,32,255);
+	color: white;
+	padding: 1px 3px 1px 4px;
+	text-align:right;
+ }
+
+QComboBox QListView
+{
+	background:		rgba(35,31,32,255);
+	border: transparent;
+	font: 9px &quot;Futura-Normal&quot;;
+	text-align:right;
+	padding-left: 0px;
+	padding-right: 3px;
+	min-width: 35px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+	text-align:right;
+	padding-left: 0px;
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	text-align:right;
+	padding-left: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.png);
+	padding-right: 10px;
+}
+
+QComboBox:disabled
+{
+	font: 8pt &quot;Futura-Normal&quot;;
+	color: (175, 175, 175, 50);
+	border: 1px solid rgba(0,174,239, 75);
+	background: rgba(18, 18, 18, 75);
+	padding: 1px 3px 1px 4px;
+	text-align:right;
+	padding-left: 0px;
+}
+
+QComboBox QAbstractItemView
+{
+    min-width: 130px;
+    min-height: 60;
+	color:white;
+	padding-left: 1px;
+	text-align:right;
+}
+
+</string>
     </property>
     <item>
      <property name="text">
