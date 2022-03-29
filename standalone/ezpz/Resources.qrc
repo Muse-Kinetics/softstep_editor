@@ -2,8 +2,6 @@
     <qresource prefix="/">
         <file>resources/keyRadioButtonStylesheet.qss</file>
         <file>resources/KMi_Logo300_transparent.png</file>
-        <file>resources/softSteplogo.png</file>
-        <file>resources/softSteplogoTEST.png</file>
         <file>resources/sendbuttondirtystylesheet.qss</file>
         <file>resources/sendbuttoncleanstylesheet.qss</file>
         <file>resources/sendbuttoncleanstylesheet_windows.qss</file>
@@ -19,6 +17,18 @@
         <file>resources/toggle_on_focus.png</file>
         <file>resources/toggle_on.png</file>
         <file>resources/menuBarWin.qss</file>
+        <file>resources/radio_focus_off.svg</file>
+        <file>resources/radio_focus_on.svg</file>
+        <file>resources/radio_off.svg</file>
+        <file>resources/radio_on.svg</file>
+        <file>resources/toggle_focus_off.svg</file>
+        <file>resources/toggle_focus_on.svg</file>
+        <file>resources/toggle_off.svg</file>
+        <file>resources/toggle_off_disabled.svg</file>
+        <file>resources/toggle_off_focus.svg</file>
+        <file>resources/toggle_on.svg</file>
+        <file>resources/toggle_on_disabled.svg</file>
+        <file>resources/toggle_on_focus.svg</file>
     </qresource>
     <qresource prefix="/stylesheets"/>
     <qresource prefix="/firmware"/>

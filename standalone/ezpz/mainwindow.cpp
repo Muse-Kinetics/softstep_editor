@@ -231,15 +231,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
     fwUpdateStylesFile = new QFile("://resources/stylesheets/fwUpdateStyles_lightBlue.qss");
 #else
-    fwUpdateStylesFile = new QFile(":/stylesheets/fwUpdateStyles_SoftStep.qss");
+    fwUpdateStylesFile = new QFile(":/stylesheets/fwUpdateStyles_SoftStep_WIN.qss");
 #endif
-    fwUpdateStylesFile->open(QFile::ReadOnly);
-    fwUpdateStylesString = QLatin1String(fwUpdateStylesFile->readAll());
-
-
-    fwUpdateWindow->setStyleSheet(fwUpdateStylesString);
-
-
+    if (fwUpdateStylesFile->open(QFile::ReadOnly))
+    {
+        fwUpdateStylesString = QLatin1String(fwUpdateStylesFile->readAll());
+        fwUpdateWindow->setStyleSheet(fwUpdateStylesString);
+    }
+    else
+    {
+        qDebug() << "ERROR - could not find fwUpdate style file: " << fwUpdateStylesFile;
+    }
 
     //Load preset from last app session
     presetInterface->slotRecallPreset(1);

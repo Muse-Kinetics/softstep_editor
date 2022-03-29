@@ -23,82 +23,18 @@
 	border: 6px solid rgba(0,174,239,255);
 }  
 
-QWidget:hover
-{
-	/*border:				3px solid rgb(0, 126, 126)*/
-}        
 
-/* ---------- QLabels ------------*/
 QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				8pt &quot;Corbel&quot;;
+	font: 				10px &quot;Corbel&quot;;
 	border:				none;
 }
 
-QLabel:hover
-{
-	border:				none;
-}  
-
-/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 8pt &quot;Corbel&quot;;
-	border: 2px solid rgb(0,174,239);
-	background-color: rgba(0, 0, 0, 255);
-	color: white;
-	padding:0, 0, 0, 0;
-}
-
-QSpinBox::focus
-{
-	border: none;
-	outline: none;
-}
-
-/* ---------- QLineEdit ------------*/
-QLineEdit
-{
-	font: 8pt &quot;Corbel&quot;;
-	background: rgba(0,174,239,0);
-	border: 2px solid rgba(0,174,239,255);
-	border-radius: 0px;
-	color: white;
-}
-
-QLineEdit:focus
-{
-	font: 8pt &quot;Corbel&quot;;
-	background: rgba(0,174,239,0);
-	border: 2px solid white;
-	border-radius: 0px;
-	color: white;
-}
-
-/* ---------- QCheckBox ------------*/
-QCheckBox
-{
-	font: 8pt &quot;Corbel&quot;;
-	background:rgba(0,174,239,0);
-	color: white;
-	padding:0, 0, 0, 0;
-	border: none;
-}
-
-QCheckBox:focus
-{
-	background:rgba(0,174,239,0);
-}
 
 
-/* ------- QStackedWidget ---------*/
-QStackedWidget
-{
-border-top: 1px solid white;
-background: black;
-}
+
 
 </string>
   </property>
@@ -114,8 +50,7 @@ background: black;
    <property name="font">
     <font>
      <family>Corbel</family>
-     <pointsize>8</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -124,7 +59,27 @@ background: black;
     <enum>Qt::WheelFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">
+
+/* ---------- QLineEdit ------------*/
+QLineEdit
+{
+	font: 10px &quot;Corbel&quot;;
+	background: rgba(0,174,239,0);
+	border: 2px solid rgba(0,174,239,255);
+	border-radius: 0px;
+	color: white;
+}
+
+QLineEdit:focus
+{
+	font: 8pt &quot;Corbel&quot;;
+	background: rgba(0,174,239,0);
+	border: 2px solid white;
+	border-radius: 0px;
+	color: white;
+}
+</string>
    </property>
    <property name="text">
     <string>KEYS</string>
@@ -149,9 +104,18 @@ background: black;
     <enum>Qt::WheelFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">QCheckBox
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
 {
-color: rgba(255,255,255,250);
+	font: 10px &quot;Corbel&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 0, 0, 0;
+	border: 1px solid rgba(0,174,239,0);
+}
+
+QCheckBox:hover {
+	border: 1px solid rgba(0,174,239,0);
 }
 
 QCheckBox::indicator {
@@ -160,39 +124,39 @@ QCheckBox::indicator {
  }
 
   QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.png);
+     image: url(:/resources/radio_on.svg);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.png);
+     image: url(:/resources/radio_on.svg);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.png);
+     image: url(:/resources/radio_focus_off.svg);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.png);
+     image: url(:/resources/radio_focus_on.svg);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.png);
+     image: url(:/resources/radio_focus_on.svg);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.png);
+     image: url(:/resources/radio_focus_off.svg);
  }</string>
    </property>
    <property name="text">
@@ -212,9 +176,18 @@ QCheckBox::indicator {
     <enum>Qt::WheelFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">QCheckBox
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
 {
-color: rgba(255,255,255,250);
+	font: 10px &quot;Corbel&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 0, 0, 0;
+	border: 1px solid rgba(0,174,239,0);
+}
+
+QCheckBox:hover {
+	border: 1px solid rgba(0,174,239,0);
 }
 
 QCheckBox::indicator {
@@ -223,39 +196,39 @@ QCheckBox::indicator {
  }
 
   QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.png);
+     image: url(:/resources/radio_on.svg);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.png);
+     image: url(:/resources/radio_on.svg);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.png);
+     image: url(:/resources/radio_focus_off.svg);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.png);
+     image: url(:/resources/radio_focus_on.svg);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.png);
+     image: url(:/resources/radio_focus_on.svg);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.png);
+     image: url(:/resources/radio_focus_off.svg);
  }</string>
    </property>
    <property name="text">
@@ -275,9 +248,18 @@ QCheckBox::indicator {
     <enum>Qt::WheelFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">QCheckBox
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
 {
-color: rgba(255,255,255,250);
+	font: 10px &quot;Corbel&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 0, 0, 0;
+	border: 1px solid rgba(0,174,239,0);
+}
+
+QCheckBox:hover {
+	border: 1px solid rgba(0,174,239,0);
 }
 
 QCheckBox::indicator {
@@ -286,39 +268,39 @@ QCheckBox::indicator {
  }
 
   QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.png);
+     image: url(:/resources/radio_on.svg);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.png);
+     image: url(:/resources/radio_on.svg);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.png);
+     image: url(:/resources/radio_focus_off.svg);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.png);
+     image: url(:/resources/radio_focus_on.svg);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.png);
+     image: url(:/resources/radio_focus_on.svg);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.png);
+     image: url(:/resources/radio_focus_off.svg);
  }</string>
    </property>
    <property name="text">
@@ -338,9 +320,18 @@ QCheckBox::indicator {
     <enum>Qt::WheelFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">QCheckBox
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
 {
-color: rgba(255,255,255,250);
+	font: 10px &quot;Corbel&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 0, 0, 0;
+	border: 1px solid rgba(0,174,239,0);
+}
+
+QCheckBox:hover {
+	border: 1px solid rgba(0,174,239,0);
 }
 
 QCheckBox::indicator {
@@ -349,39 +340,39 @@ QCheckBox::indicator {
  }
 
   QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.png);
+     image: url(:/resources/radio_on.svg);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.png);
+     image: url(:/resources/radio_on.svg);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.png);
+     image: url(:/resources/radio_focus_off.svg);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.png);
+     image: url(:/resources/radio_focus_on.svg);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.png);
+     image: url(:/resources/radio_focus_on.svg);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.png);
+     image: url(:/resources/radio_focus_off.svg);
  }</string>
    </property>
    <property name="text">
@@ -401,9 +392,18 @@ QCheckBox::indicator {
     <enum>Qt::WheelFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">QCheckBox
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
 {
-color: rgba(255,255,255,250);
+	font: 10px &quot;Corbel&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 0, 0, 0;
+	border: 1px solid rgba(0,174,239,0);
+}
+
+QCheckBox:hover {
+	border: 1px solid rgba(0,174,239,0);
 }
 
 QCheckBox::indicator {
@@ -412,39 +412,39 @@ QCheckBox::indicator {
  }
 
   QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.png);
+     image: url(:/resources/radio_on.svg);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.png);
+     image: url(:/resources/radio_on.svg);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.png);
+     image: url(:/resources/radio_focus_off.svg);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.png);
+     image: url(:/resources/radio_focus_on.svg);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.png);
+     image: url(:/resources/radio_focus_on.svg);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.png);
+     image: url(:/resources/radio_focus_off.svg);
  }</string>
    </property>
    <property name="text">
@@ -467,9 +467,18 @@ QCheckBox::indicator {
     <bool>false</bool>
    </property>
    <property name="styleSheet">
-    <string notr="true">QCheckBox
+    <string notr="true">/* ---------- QCheckBox ------------*/
+QCheckBox
 {
-color: rgba(255,255,255,250);
+	font: 10px &quot;Corbel&quot;;
+	background:rgba(0,174,239,0);
+	color: white;
+	padding:0, 0, 0, 0;
+	border: 1px solid rgba(0,174,239,0);
+}
+
+QCheckBox:hover {
+	border: 1px solid rgba(0,174,239,0);
 }
 
 QCheckBox::indicator {
@@ -478,39 +487,39 @@ QCheckBox::indicator {
  }
 
   QCheckBox::indicator::unchecked {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator:unchecked:hover {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator:unchecked:pressed {
-     image: url(:/resources/radio_on.png);
+     image: url(:/resources/radio_on.svg);
  }
 
  QCheckBox::indicator::checked {
-     image: url(:/resources/radio_on.png);
+     image: url(:/resources/radio_on.svg);
  }
 
  QCheckBox::indicator:checked:pressed {
-     image: url(:/resources/radio_off.png);
+     image: url(:/resources/radio_off.svg);
  }
 
  QCheckBox::indicator::unchecked:focus {
-     image: url(:/resources/radio_focus_off.png);
+     image: url(:/resources/radio_focus_off.svg);
  }
 
  QCheckBox::indicator:unchecked:pressed:focus {
-     image: url(:/resources/radio_focus_on.png);
+     image: url(:/resources/radio_focus_on.svg);
  }
 
  QCheckBox::indicator::checked:focus {
-     image: url(:/resources/radio_focus_on.png);
+     image: url(:/resources/radio_focus_on.svg);
  }
 
  QCheckBox::indicator:checked:pressed:focus {
-     image: url(:/resources/radio_focus_off.png);
+     image: url(:/resources/radio_focus_off.svg);
  }</string>
    </property>
    <property name="text">
@@ -527,7 +536,20 @@ QCheckBox::indicator {
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 27pt &quot;Futura&quot;;</string>
+    <string notr="true">
+/* ---------- QLabels ------------*/
+QLabel
+{
+	font: 40px &quot;Futura&quot;;
+	background:		rgba(0,0,0,0);
+	color: 				white;
+	border:				none;
+}
+
+QLabel:hover
+{
+	border:				none;
+}  </string>
    </property>
    <property name="text">
     <string>0</string>
@@ -545,30 +567,26 @@ QCheckBox::indicator {
      <height>15</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">
+/* ---------- QLabels ------------*/
+QLabel
+{
+	background:		rgba(0,0,0,0);
+	color: 				white;
+	border:				none;
+}
+
+QLabel:hover
+{
+	border:				none;
+}  </string>
+   </property>
    <property name="text">
     <string>name</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="dividerLine">
-   <property name="geometry">
-    <rect>
-     <x>15</x>
-     <y>105</y>
-     <width>127</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel
-{
-border-top: 1px solid white;
-}</string>
-   </property>
-   <property name="text">
-    <string/>
    </property>
   </widget>
   <widget class="QStackedWidget" name="sourcesParams">
@@ -586,10 +604,17 @@ border-top: 1px solid white;
 border: none;
 background: rgba(0, 0, 0, 0);
 }
+
+/* ------- QStackedWidget ---------*/
+QStackedWidget
+{
+border-top: 1px solid white;
+}
+
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 8pt &quot;Futura-Normal&quot;;
+	font: 12px &quot;Futura-Normal&quot;;
 	border: 2px solid rgb(0,174,239);
 	background: rgba(0, 0, 0, 0);
 	color: white;
@@ -718,42 +743,42 @@ border: 2px solid white;
 
 QCheckBox::indicator:unchecked
 {
-	image:url(:/resources/toggle_off.png)
+	image:url(:/resources/toggle_off.svg)
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-	image:url(:/resources/toggle_off.png)
+	image:url(:/resources/toggle_off.svg)
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image:url(:/resources/toggle_on.png)
+	image:url(:/resources/toggle_on.svg)
 }
 
 QCheckBox::indicator:checked
 {
-	image:url(:/resources/toggle_on.png)
+	image:url(:/resources/toggle_on.svg)
 }
 
 QCheckBox::indicator:checked:hover
 {
-	image:url(:/resources/toggle_on.png)
+	image:url(:/resources/toggle_on.svg)
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image:url(:/resources/toggle_off.png)
+	image:url(:/resources/toggle_off.svg)
 }
 
 QCheckBox::indicator:unchecked:disabled
 {
-	image:url(:/resources/toggle_off_disabled.png)
+	image:url(:/resources/toggle_off_disabled.svg)
 }
 
 QCheckBox::indicator:checked:disabled
 {
-	image:url(:/resources/toggle_off_disabled.png)
+	image:url(:/resources/toggle_off_disabled.svg)
 }</string>
      </property>
      <property name="text">
@@ -1065,42 +1090,42 @@ QCheckBox::indicator:checked:disabled
 
 QCheckBox::indicator:unchecked
 {
-	image:url(:/resources/toggle_off.png)
+	image:url(:/resources/toggle_off.svg)
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-	image:url(:/resources/toggle_off.png)
+	image:url(:/resources/toggle_off.svg)
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image:url(:/resources/toggle_on.png)
+	image:url(:/resources/toggle_on.svg)
 }
 
 QCheckBox::indicator:checked
 {
-	image:url(:/resources/toggle_on.png)
+	image:url(:/resources/toggle_on.svg)
 }
 
 QCheckBox::indicator:checked:hover
 {
-	image:url(:/resources/toggle_on.png)
+	image:url(:/resources/toggle_on.svg)
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image:url(:/resources/toggle_off.png)
+	image:url(:/resources/toggle_off.svg)
 }
 
 QCheckBox::indicator:unchecked:disabled
 {
-	image:url(:/resources/toggle_off_disabled.png)
+	image:url(:/resources/toggle_off_disabled.svg)
 }
 
 QCheckBox::indicator:checked:disabled
 {
-	image:url(:/resources/toggle_off_disabled.png)
+	image:url(:/resources/toggle_off_disabled.svg)
 }</string>
      </property>
      <property name="text">

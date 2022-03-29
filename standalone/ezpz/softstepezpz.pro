@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT +=           core gui \
+                widgets \
                 svg \
                 network
 
@@ -87,7 +88,7 @@ FORMS    +=     forms/mainwindow.ui \
                 forms/mainwindowWin.ui \
                 forms/keyformWin.ui \
                 forms/aboutformWin.ui \
-                forms/settingsForm.ui
+#                forms/settingsForm.ui
 
 OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
                 resources/sendbuttondirtystylesheet.qss \
