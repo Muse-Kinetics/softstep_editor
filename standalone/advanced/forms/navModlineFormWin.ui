@@ -16,9 +16,8 @@
   <property name="styleSheet">
    <string notr="true">QWidget
 {
-/*	background: rgb(0,0,0); */
 	background:		rgb(80, 80, 80);	
-	border: 3px rgb(25, 25, 25);
+	border: 0px;
 }
 
 /* ------- QStackedWidget ---------*/
@@ -34,7 +33,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				7pt &quot;Tahoma&quot;;
+	font: 				11px &quot;Tahoma&quot;;
 	border:				none;
 }
 
@@ -46,14 +45,14 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 7pt &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
-	padding: 0,0,0,0;
+	padding: 1px 1px 1px 0px;
 }
 
-QSpinBox::focus
+QSpinBox:focus
 {
 	border: 1px solid white;
 	outline: none;
@@ -61,7 +60,7 @@ QSpinBox::focus
 
 QDoubleSpinBox
 {
-	font: 7pt &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
@@ -77,7 +76,7 @@ QDoubleSpinBox::focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 7pt &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -88,7 +87,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 7pt &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	background: rgb(0,174,239);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -100,7 +99,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 7pt &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	background: none;
 	color: white;
 	padding:0, 3, 0, 0;
@@ -116,22 +115,31 @@ QCheckBox:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 7pt &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 0px 1px 4px;
+	padding: 1px 3px 1px 4px;
  }
 
 QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 7px &quot;Tahoma&quot;;
-	color: white;
+	font: 11px &quot;Tahoma&quot;;
 	padding-left: 0px;
-	padding-right: 3px;
-	min-width: 100pt;
+	padding-right: 0px;
+	min-width: 175px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+     min-width: 175px;
+	text-align: left;
+	padding-left: 0px;
+	padding-right: 0px;
+
 }
 
 QComboBox::item:alternate
@@ -173,6 +181,37 @@ QComboBox::down-arrow
 	padding-right: 10px;
 }
 
+
+QScrollBar:vertical {
+background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+}
+
+/* Sets up the color and height of handle */
+QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+}
+
 /*-------QRadioButton-------*/
 QRadioButton
 {
@@ -209,22 +248,6 @@ QToolTip
 	padding: 2px;
 }</string>
   </property>
-  <widget class="QLabel" name="label_33">
-   <property name="geometry">
-    <rect>
-     <x>65</x>
-     <y>1</y>
-     <width>27</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Value</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QSpinBox" name="outputvalue">
    <property name="geometry">
     <rect>
@@ -237,8 +260,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -304,7 +326,6 @@ QToolTip
     <font>
      <family>Futura</family>
      <pointsize>8</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -342,8 +363,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -396,22 +416,6 @@ QToolTip
     <number>127</number>
    </property>
   </widget>
-  <widget class="QLabel" name="label_41">
-   <property name="geometry">
-    <rect>
-     <x>465</x>
-     <y>1</y>
-     <width>27</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Max</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
@@ -424,30 +428,13 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
    <property name="text">
     <string>=</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_36">
-   <property name="geometry">
-    <rect>
-     <x>247</x>
-     <y>1</y>
-     <width>27</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Gain</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QSpinBox" name="delay">
@@ -462,8 +449,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -517,30 +503,13 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
    <property name="text">
     <string>x</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_39">
-   <property name="geometry">
-    <rect>
-     <x>383</x>
-     <y>1</y>
-     <width>27</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Table</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QSpinBox" name="min">
@@ -555,8 +524,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -598,8 +566,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -641,8 +608,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -672,66 +638,6 @@ QToolTip
     <number>127</number>
    </property>
   </widget>
-  <widget class="QLabel" name="label_35">
-   <property name="geometry">
-    <rect>
-     <x>202</x>
-     <y>1</y>
-     <width>27</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel
-{
-	color: rgba(255, 255, 255, 90);
-}</string>
-   </property>
-   <property name="text">
-    <string>Raw</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_40">
-   <property name="geometry">
-    <rect>
-     <x>432</x>
-     <y>1</y>
-     <width>27</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Min</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_38">
-   <property name="geometry">
-    <rect>
-     <x>329</x>
-     <y>1</y>
-     <width>27</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel
-{
-	color: rgba(255, 255, 255, 90);
-}</string>
-   </property>
-   <property name="text">
-    <string>Result</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QSpinBox" name="slew">
    <property name="geometry">
     <rect>
@@ -744,8 +650,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -787,8 +692,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -818,22 +722,6 @@ QToolTip
     <number>127</number>
    </property>
   </widget>
-  <widget class="QLabel" name="label_43">
-   <property name="geometry">
-    <rect>
-     <x>529</x>
-     <y>1</y>
-     <width>27</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Delay</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QComboBox" name="destination">
    <property name="geometry">
     <rect>
@@ -846,8 +734,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -951,7 +838,6 @@ QComboBox QListView
     <font>
      <family>Futura</family>
      <pointsize>10</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1266,7 +1152,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>-1</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1309,7 +1194,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>-1</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1352,7 +1236,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>-1</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1395,7 +1278,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>-1</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1567,7 +1449,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1676,7 +1557,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1713,7 +1593,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1753,7 +1632,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1860,7 +1738,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1897,7 +1774,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1934,7 +1810,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2105,7 +1980,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2214,7 +2088,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2251,7 +2124,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2350,7 +2222,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2459,7 +2330,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2558,7 +2428,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2595,7 +2464,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2766,7 +2634,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2875,7 +2742,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -2912,7 +2778,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3066,7 +2931,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3175,7 +3039,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3274,7 +3137,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3311,7 +3173,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3348,7 +3209,6 @@ QComboBox::down-arrow
       <font>
        <family>Tahoma</family>
        <pointsize>7</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -3445,22 +3305,6 @@ QComboBox::down-arrow
      </item>
     </widget>
    </widget>
-  </widget>
-  <widget class="QLabel" name="label_13">
-   <property name="geometry">
-    <rect>
-     <x>34</x>
-     <y>1</y>
-     <width>21</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Mode</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
   </widget>
   <widget class="QStackedWidget" name="deviceViewLabels">
    <property name="geometry">
@@ -3884,8 +3728,7 @@ QLabel
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -4033,54 +3876,6 @@ QComboBox QListView
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="label_34">
-   <property name="geometry">
-    <rect>
-     <x>131</x>
-     <y>1</y>
-     <width>31</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Source</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_37">
-   <property name="geometry">
-    <rect>
-     <x>287</x>
-     <y>1</y>
-     <width>27</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Offset</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_45">
-   <property name="geometry">
-    <rect>
-     <x>608</x>
-     <y>1</y>
-     <width>77</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Message Type</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QSpinBox" name="raw">
    <property name="geometry">
     <rect>
@@ -4093,8 +3888,7 @@ QComboBox QListView
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -4147,22 +3941,6 @@ QToolTip
     <number>127</number>
    </property>
   </widget>
-  <widget class="QLabel" name="label_42">
-   <property name="geometry">
-    <rect>
-     <x>495</x>
-     <y>1</y>
-     <width>32</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Smooth</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
@@ -4175,8 +3953,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -4198,7 +3975,6 @@ QToolTip
     <font>
      <family>Tahoma</family>
      <pointsize>7</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -4282,8 +4058,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -4326,7 +4101,6 @@ QToolTip
     <font>
      <family>Tahoma</family>
      <pointsize>7</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -4432,28 +4206,6 @@ QToolTip
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="label_44">
-   <property name="geometry">
-    <rect>
-     <x>570</x>
-     <y>1</y>
-     <width>27</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel
-{
-	color: rgba(255, 255, 255, 90);
-}</string>
-   </property>
-   <property name="text">
-    <string>Value</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_48">
    <property name="geometry">
     <rect>
@@ -4529,6 +4281,264 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_42">
+   <property name="geometry">
+    <rect>
+     <x>492</x>
+     <y>1</y>
+     <width>37</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Smooth</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_43">
+   <property name="geometry">
+    <rect>
+     <x>529</x>
+     <y>1</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Delay</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_36">
+   <property name="geometry">
+    <rect>
+     <x>247</x>
+     <y>1</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Gain</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_44">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>1</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel
+{
+	color: rgba(255, 255, 255, 90);
+}</string>
+   </property>
+   <property name="text">
+    <string>Value</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_35">
+   <property name="geometry">
+    <rect>
+     <x>202</x>
+     <y>1</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel
+{
+	color: rgba(255, 255, 255, 90);
+}</string>
+   </property>
+   <property name="text">
+    <string>Raw</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_38">
+   <property name="geometry">
+    <rect>
+     <x>322</x>
+     <y>1</y>
+     <width>40</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel
+{
+	color: rgba(255, 255, 255, 90);
+}</string>
+   </property>
+   <property name="text">
+    <string>Result</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_47">
+   <property name="geometry">
+    <rect>
+     <x>1028</x>
+     <y>0</y>
+     <width>80</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Red LED</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_34">
+   <property name="geometry">
+    <rect>
+     <x>99</x>
+     <y>1</y>
+     <width>97</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Source</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_40">
+   <property name="geometry">
+    <rect>
+     <x>432</x>
+     <y>1</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Min</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_39">
+   <property name="geometry">
+    <rect>
+     <x>369</x>
+     <y>1</y>
+     <width>56</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Table</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_33">
+   <property name="geometry">
+    <rect>
+     <x>65</x>
+     <y>1</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Value</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_41">
+   <property name="geometry">
+    <rect>
+     <x>465</x>
+     <y>1</y>
+     <width>27</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Max</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_37">
+   <property name="geometry">
+    <rect>
+     <x>281</x>
+     <y>1</y>
+     <width>40</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Offset</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>28</x>
+     <y>1</y>
+     <width>39</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Mode</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_45">
+   <property name="geometry">
+    <rect>
+     <x>608</x>
+     <y>1</y>
+     <width>77</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Message Type</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

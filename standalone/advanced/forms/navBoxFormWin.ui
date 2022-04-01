@@ -25,7 +25,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				10pt &quot;Futura-Normal&quot;;
+	font: 				10px &quot;Futura-Normal&quot;;
 	border:				none;
 }
 
@@ -52,7 +52,7 @@ QPushButton:pressed
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 10pt &quot;Droid Sans Mono&quot;;
+	font: 12px &quot;Droid Sans Mono&quot;;
 	background: rgb(40, 40, 40);
 	border: 2px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -114,8 +114,16 @@ QToolTip
    <property name="styleSheet">
     <string notr="true">QLineEdit
 {
-	padding-bottom: -1px;
+	padding-top: 1px;
+}
+
+QToolTip
+{
+	width: 45px;
 }</string>
+   </property>
+   <property name="text">
+    <string>eeep</string>
    </property>
    <property name="maxLength">
     <number>4</number>

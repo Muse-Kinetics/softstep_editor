@@ -165,6 +165,18 @@ Settings::Settings(QWidget *parent) :
 
     //Inits settings window height on global
     settingsWidget->setFixedHeight(415);
+
+    // fix windows that are not on the screen
+    int posX = settingsWidget->pos().x();
+    int posY = settingsWidget->pos().y();
+
+    //qDebug() << "thisPosition - x: " << posX << " y: " << posY;
+    if (posY < 0)
+    {
+        posY = 0;
+    }
+
+    settingsWidget->move(posX, posY);
 }
 
 void Settings::slotSetMode(QString m)
@@ -250,6 +262,7 @@ void Settings::slotConnectElements()
             if(combobox->objectName().contains("_settings_device"))
             {
                 midiInputDeviceMenus.append(combobox);
+                connect(combobox, SIGNAL(activated(int)), this, SLOT(slotUserChangedMIDIaux()));
             }
 
             connect(combobox, SIGNAL(currentIndexChanged(int)),this,SLOT(slotValueChanged()));
@@ -311,6 +324,17 @@ void Settings::slotConnectElements()
     //Pedal Cal.
     connect(settingsForm->startcalibration_button, SIGNAL(clicked()), this, SLOT(slotStartCalibration()));
     connect(settingsForm->resetcalibration_button, SIGNAL(clicked()), this, SLOT(slotResetCalibration()));
+
+    // live settings to send whenever updated
+    connect(settingsForm->backlighting_enable, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
+    connect(settingsForm->scenechange_enable, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
+    connect(settingsForm->sensorresponse_checkbox, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
+    connect(settingsForm->displaymode_checkbox, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
+    connect(settingsForm->keylockoutmode, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
+    connect(settingsForm->adjacentkeymode, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
+    connect(settingsForm->multiplekeymode, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
+    connect(settingsForm->global_gain_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSendSettingsMIDI()));
+    connect(settingsForm->global_gain_resetbutton, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
 }
 
 void Settings::slotDisconnectElements()
@@ -414,6 +438,17 @@ void Settings::slotDisconnectElements()
     disconnect(settingsForm->resetcalibration_button, SIGNAL(clicked()), this, SLOT(slotResetCalibration()));
 }
 
+void Settings::slotUserChangedMIDIaux()
+{
+    //qDebug() << "slotUserChangedMIDIaux called - sender: " << QObject::sender()->objectName();
+
+    QComboBox *combobox = reinterpret_cast<QComboBox*>(QObject::sender());
+    QString portName = combobox->currentText();
+    QString midiAuxName = combobox->objectName();
+
+    emit signalUserChangedMIDIaux(midiAuxName, portName);
+}
+
 void Settings::slotValueChanged()
 {
 
@@ -507,7 +542,7 @@ void Settings::slotValueChanged()
         }
 
         emit signalStoreValue(jsonName,value);
-        emit signalUpdateSettings();
+
 
 
     }
@@ -641,8 +676,13 @@ void Settings::slotPopulateInputMenus(QMap<QString, int> midiSources)
     //Iterate through menus
     for(int m = 0;  m < midiInputDeviceMenus.size(); m++)
     {
+        QString thisPortName = midiInputDeviceMenus.at(m)->currentText(); // save
+        midiInputDeviceMenus.at(m)->blockSignals(true);
         midiInputDeviceMenus.at(m)->clear();
+        midiInputDeviceMenus.at(m)->addItem("None");
         midiInputDeviceMenus.at(m)->addItems(midiSources.keys());
+        midiInputDeviceMenus.at(m)->setCurrentText(thisPortName); // restore
+        midiInputDeviceMenus.at(m)->blockSignals(false);
     }
 }
 
@@ -1159,7 +1199,7 @@ void Settings::slotSaveSettingsTimeout()
     //If 0.5s have elapsed since last value was changed
     if(saveSettiingsTimeoutTime > 500)
     {
-        qDebug() << "settings timeout";
+        //qDebug() << "settings timeout";
 
         //Save settings
         slotWriteSettings();
@@ -1270,7 +1310,7 @@ void Settings::slotSetLiveValue(int val)
 
             //remoqDebug() << "pedal table value" << val << pedalValueListGraph.indexOf(val);
 
-            int width = 109/count;
+            //int width = 109/count;
 
 #ifdef TABLE_ENABLED
             pedalLiveTableInterface->slotClearTable();
@@ -1362,8 +1402,8 @@ void Settings::slotLoadTableOnStartup()
 
     pedalTableFile->close();
 
-    float count = pedalValueListGraph.count();
-    float width = 109.0f/count;
+    //float count = pedalValueListGraph.count();
+    //float width = 109.0f/count;
 
     //qDebug() << "--------- draw pedal cal table on load" << width << count;
 
@@ -1456,4 +1496,9 @@ void Settings::slotSetOSCDisplayValue(int inputNum, int val)
     default:
         break;
     }
+}
+
+void Settings::slotSendSettingsMIDI()
+{
+    QTimer::singleShot(100, this, SIGNAL(signalUpdateSettings()));
 }

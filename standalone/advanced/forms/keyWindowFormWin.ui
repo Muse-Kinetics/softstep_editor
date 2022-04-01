@@ -298,7 +298,6 @@ QCheckBox::indicator:checked:pressed:focus
     <font>
      <family>Futura-Bold</family>
      <pointsize>10</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -368,48 +367,6 @@ QCheckBox::indicator:checked:pressed:focus
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>48</x>
-     <y>64</y>
-     <width>31</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_inits_label.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>106</x>
-     <y>64</y>
-     <width>95</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_dataSources_label.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QLabel" name="dataSourcesBracketLabel">
    <property name="geometry">
     <rect>
@@ -446,48 +403,6 @@ QCheckBox::indicator:checked:pressed:focus
 	border: none;
 	padding: none;
 	background-image: url(:/resources/keyWindow_dataModifiers_label_bracket.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_7">
-   <property name="geometry">
-    <rect>
-     <x>341</x>
-     <y>63</y>
-     <width>108</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_dataModifiers_label.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_8">
-   <property name="geometry">
-    <rect>
-     <x>705</x>
-     <y>63</y>
-     <width>113</width>
-     <height>14</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_outputSettings_label.png);
 }</string>
    </property>
    <property name="text">
@@ -595,7 +510,7 @@ QCheckBox::indicator:checked:pressed:focus
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 7pt &quot;Tahoma&quot;;
+    <string notr="true">font: 9px &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -615,7 +530,7 @@ QCheckBox::indicator:checked:pressed:focus
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 7pt &quot;Tahoma&quot;;
+    <string notr="true">font: 9px &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -635,7 +550,7 @@ QCheckBox::indicator:checked:pressed:focus
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 7pt &quot;Tahoma&quot;;
+    <string notr="true">font: 9px &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -730,7 +645,6 @@ QToolTip
     <font>
      <family>Tahoma</family>
      <pointsize>7</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -752,65 +666,12 @@ QToolTip
     <font>
      <family>Tahoma</family>
      <pointsize>7</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
    <property name="text">
     <string>Max</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_19">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>16</width>
-     <height>39</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Futura</family>
-     <pointsize>12</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="toolTip">
-    <string>&lt;b&gt;Key Counter:&lt;/b&gt;&lt;p&gt;Increments between the specified&lt;br&gt; min and max values.&lt;p&gt;&lt;b&gt;(Hosted mode only)&lt;/b&gt;</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*-------QLabel-------*/
-QLabel
-{
-	font: 12pt &quot;Futura&quot;;
-	image: url(:/resources/counter_label.png);
-}
-
-/*-------QToolTip-------*/
-QToolTip
-{
-	font: 10px &quot;Futura&quot;;
-	color: rgb(255, 255, 255);
-	background: rgba(40, 40, 40, 140);
-	border: 1px solid rgb(120, 120, 120);
-	padding: 2px;
-	width: 22px;
-	image: none;
-}</string>
-   </property>
-   <property name="text">
-    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Futura'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
   <widget class="QSpinBox" name="counterMax">
@@ -874,7 +735,6 @@ QSpinBox:disabled
     <font>
      <family>Tahoma</family>
      <pointsize>7</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1014,6 +874,113 @@ QSpinBox:disabled
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>106</x>
+      <y>64</y>
+      <width>95</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font:  16px &quot;Futura-Normal&quot;;
+
+</string>
+    </property>
+    <property name="text">
+     <string>Data Sources</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>38</x>
+      <y>64</y>
+      <width>53</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font:  16px &quot;Futura-Normal&quot;;
+
+</string>
+    </property>
+    <property name="text">
+     <string>Inits</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>64</y>
+      <width>300</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font:  16px &quot;Futura-Normal&quot;;
+
+</string>
+    </property>
+    <property name="text">
+     <string>Data Modifiers</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>614</x>
+      <y>64</y>
+      <width>300</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font:  16px &quot;Futura-Normal&quot;;
+
+</string>
+    </property>
+    <property name="text">
+     <string>Output Settings</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>7</y>
+     <width>10</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">	font: 8px &quot;Futura-Normal&quot;;
+	color: white;</string>
+   </property>
+   <property name="text">
+    <string>C O U N T</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
   </widget>
   <zorder>frame</zorder>
   <zorder>ledDisplayCheckBox</zorder>
@@ -1021,12 +988,8 @@ QSpinBox:disabled
   <zorder>keyWindowInstanceLabel</zorder>
   <zorder>label</zorder>
   <zorder>initsBracketLabel</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_4</zorder>
   <zorder>dataSourcesBracketLabel</zorder>
   <zorder>dataModifiersBracketLabel</zorder>
-  <zorder>label_7</zorder>
-  <zorder>label_8</zorder>
   <zorder>outputSettingsBracketLabel</zorder>
   <zorder>leddisplaymode</zorder>
   <zorder>keyname</zorder>
@@ -1038,11 +1001,11 @@ QSpinBox:disabled
   <zorder>deletemodline</zorder>
   <zorder>label_20</zorder>
   <zorder>label_21</zorder>
-  <zorder>label_19</zorder>
   <zorder>counterMax</zorder>
   <zorder>label_22</zorder>
   <zorder>counterWrap</zorder>
   <zorder>counterMin</zorder>
+  <zorder>label_3</zorder>
  </widget>
  <tabstops>
   <tabstop>counterMin</tabstop>

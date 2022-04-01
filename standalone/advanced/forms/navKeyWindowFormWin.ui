@@ -25,7 +25,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				7pt &quot;Corbel&quot;;
+	font: 				12px &quot;Corbel&quot;;
 	border:				none;
 }
 
@@ -254,27 +254,6 @@ QToolTip
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>49</x>
-     <y>64</y>
-     <width>31</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_inits_label.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QLabel" name="outputSettingsBracketLabel">
    <property name="geometry">
     <rect>
@@ -290,27 +269,6 @@ QToolTip
 	border: none;
 	padding: none;
 	background-image: url(:/resources/keyWindow_outputSettings_label_bracket.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_8">
-   <property name="geometry">
-    <rect>
-     <x>705</x>
-     <y>63</y>
-     <width>113</width>
-     <height>14</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_outputSettings_label.png);
 }</string>
    </property>
    <property name="text">
@@ -359,27 +317,6 @@ QToolTip
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>106</x>
-     <y>64</y>
-     <width>95</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_dataSources_label.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QLabel" name="dataSourcesBracketLabel">
    <property name="geometry">
     <rect>
@@ -395,60 +332,6 @@ QToolTip
 	border: none;
 	padding: none;
 	background-image: url(:/resources/keyWindow_dataSources_label_bracket.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_7">
-   <property name="geometry">
-    <rect>
-     <x>341</x>
-     <y>63</y>
-     <width>108</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_dataModifiers_label.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>11</x>
-     <y>10</y>
-     <width>16</width>
-     <height>38</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Sets the Nav Pad mode.&lt;p&gt;&lt;b&gt;Modline&lt;/b&gt;: Use the Nav Pad with the modlines below like a regular SoftStep key.&lt;p&gt;&lt;b&gt;Program Change&lt;/b&gt;: For use with the Nav Yx10 &amp; Key” source — this allows the Nav pad to count &quot;decades&quot; from 0 to 12. This option will disable the use of modlines on the Nav Pad.</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel
-{
-	image: url(:/resources/mode_label.png);
-}
-
-/*-------QToolTip-------*/
-QToolTip
-{
-	font: 10px &quot;Corbel&quot;;
-	color: rgb(255, 255, 255);
-	background: rgba(40, 40, 40, 140);
-	border: 1px solid rgb(120, 120, 120);
-	padding: 2px;
-	image: none;
 }</string>
    </property>
    <property name="text">
@@ -615,7 +498,7 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 7pt &quot;Tahoma&quot;;
+    <string notr="true">font: 10px &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -657,7 +540,7 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 7pt &quot;Tahoma&quot;;
+    <string notr="true">font: 10px &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -719,7 +602,7 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 7pt &quot;Tahoma&quot;;
+    <string notr="true">font: 10px &quot;Tahoma&quot;;
 </string>
    </property>
    <property name="text">
@@ -865,8 +748,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Corbel</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1012,8 +894,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Corbel</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1035,7 +916,6 @@ QToolTip
     <font>
      <family>Futura</family>
      <pointsize>12</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1086,14 +966,120 @@ p, li { white-space: pre-wrap; }
    <property name="font">
     <font>
      <family>Corbel</family>
-     <pointsize>7</pointsize>
-     <weight>50</weight>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
    <property name="text">
     <string>Wrap</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_15">
+   <property name="geometry">
+    <rect>
+     <x>17</x>
+     <y>7</y>
+     <width>10</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">	font: 9px &quot;Futura-Normal&quot;;
+	color: white;</string>
+   </property>
+   <property name="text">
+    <string>M O D E</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_16">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>64</y>
+     <width>53</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font:  16px &quot;Futura-Normal&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Inits</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_17">
+   <property name="geometry">
+    <rect>
+     <x>616</x>
+     <y>64</y>
+     <width>300</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font:  16px &quot;Futura-Normal&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Output Settings</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_18">
+   <property name="geometry">
+    <rect>
+     <x>252</x>
+     <y>64</y>
+     <width>300</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font:  16px &quot;Futura-Normal&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Data Modifiers</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_19">
+   <property name="geometry">
+    <rect>
+     <x>108</x>
+     <y>64</y>
+     <width>95</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font:  16px &quot;Futura-Normal&quot;;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Data Sources</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

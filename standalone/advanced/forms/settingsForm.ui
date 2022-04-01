@@ -193,6 +193,7 @@ QToolTip
    </property>
    <property name="font">
     <font>
+     <family>Futura-Normal</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -609,6 +610,7 @@ QRadioButton::indicator:checked:pressed
       </property>
       <property name="font">
        <font>
+        <family>Futura-Normal</family>
         <pointsize>-1</pointsize>
         <italic>false</italic>
         <bold>true</bold>
@@ -639,6 +641,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="font">
        <font>
+        <family>Futura-Normal</family>
         <pointsize>10</pointsize>
         <italic>false</italic>
         <bold>false</bold>
@@ -707,6 +710,7 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="font">
       <font>
+       <family>Futura-Normal</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -733,6 +737,7 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="font">
       <font>
+       <family>Futura-Normal</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -759,6 +764,7 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="font">
       <font>
+       <family>Futura-Normal</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -6070,6 +6076,7 @@ background: none;</string>
        </property>
        <property name="font">
         <font>
+         <family>Futura-Normal</family>
          <pointsize>-1</pointsize>
          <italic>false</italic>
          <bold>false</bold>

@@ -225,7 +225,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 7pt &quot;Corbel&quot;;
+	font: 10px &quot;Tahoma&quot;;
 	padding: 0,0,0,0;
 }
 
@@ -234,7 +234,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 7pt &quot;Corbel&quot;;
+	font: 10px &quot;Tahoma&quot;;
 	padding: 0, 0, 0, 0;
 }</string>
       </property>
@@ -261,7 +261,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 6pt &quot;Tahoma&quot;;
+	font: 10px &quot;Tahoma&quot;;
 	padding: 0,0,0,0;
 }
 
@@ -270,7 +270,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 6pt &quot;Tahoma&quot;;
+	font: 10px &quot;Tahoma&quot;;
 	padding: 0, 0, 0, 0;
 }</string>
       </property>
@@ -297,7 +297,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 7pt &quot;Corbel&quot;;
+	font: 10px &quot;Tahoma&quot;;
 	padding: 0,0,0,0;
 }
 
@@ -306,7 +306,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 7pt &quot;Corbel&quot;;
+	font: 10px &quot;Tahoma&quot;;
 	padding: 0, 0, 0, 0;
 }</string>
       </property>
@@ -333,7 +333,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: white;
 	border: 2px solid rgb(230,0,134);
-	font: 7pt &quot;Corbel&quot;;
+	font: 10px &quot;Tahoma&quot;;
 	padding: 0,0,0,0;
 }
 
@@ -342,7 +342,7 @@ QToolButton:pressed
 	background: rgb(230, 0, 134);
 	color: white;
 	border: 2px solid rgb(230, 0, 134);
-	font: 7pt &quot;Corbel&quot;;
+	font: 10px &quot;Tahoma&quot;;
 	padding: 0, 0, 0, 0;
 }</string>
       </property>
@@ -505,7 +505,7 @@ QToolButton
 {
 	background: rgb(40, 40, 40);
 	border: 2px solid rgba(0,174,239,255);
-	font: bold 18px &quot;Corbel&quot;;
+	font: bold 20px &quot;Corbel&quot;;
 	color: white;
 }
 
@@ -663,8 +663,7 @@ QLineEdit:focus
      <property name="font">
       <font>
        <family>Corbel</family>
-       <pointsize>14</pointsize>
-       <weight>75</weight>
+       <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
       </font>
@@ -678,7 +677,7 @@ QPushButton
 {
 	background: rgb(40, 40, 40);
 	border: 2px solid rgba(0,174,239,255);
-	font: bold 14pt &quot;Corbel&quot;;
+	font: bold 24px &quot;Corbel&quot;;
 	color: white;
 }
 
@@ -686,7 +685,7 @@ QPushButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: none;
-	font: bold 14pt &quot;Corbel&quot;;
+	font: bold 24px &quot;Corbel&quot;;
 	color: white;
 }
 
@@ -729,8 +728,7 @@ QToolTip
      <property name="font">
       <font>
        <family>Corbel</family>
-       <pointsize>14</pointsize>
-       <weight>75</weight>
+       <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
       </font>
@@ -744,7 +742,7 @@ QPushButton
 {
 	background: rgb(40, 40, 40);
 	border: 2px solid rgba(0,174,239,255);
-	font: bold 14pt &quot;Corbel&quot;;
+	font: bold 24px &quot;Corbel&quot;;
 	color: white;
 }
 
@@ -752,7 +750,7 @@ QPushButton:pressed
 {
 	background: rgba(0,174,239,255);
 	border: none;
-	font: bold 14pt &quot;Corbel&quot;;
+	font: bold 24px &quot;Corbel&quot;;
 	color: white;
 }
 
@@ -796,7 +794,6 @@ QToolTip
       <font>
        <family>Futura PT</family>
        <pointsize>-1</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -847,9 +844,9 @@ QPushButton:pressed
    <widget class="QLabel" name="connectedLabel">
     <property name="geometry">
      <rect>
-      <x>494</x>
+      <x>484</x>
       <y>106</y>
-      <width>175</width>
+      <width>195</width>
       <height>22</height>
      </rect>
     </property>
@@ -857,7 +854,6 @@ QPushButton:pressed
      <font>
       <family>Futura-Normal</family>
       <pointsize>10</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -961,9 +957,9 @@ QPushButton:pressed
    <widget class="QLabel" name="presetlabel_3">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>579</x>
       <y>157</y>
-      <width>80</width>
+      <width>101</width>
       <height>15</height>
      </rect>
     </property>
@@ -972,7 +968,7 @@ QPushButton:pressed
 {
 	background:		none;
 	color: 				white;
-	font:  12px &quot;Futura-Normal&quot;;
+	font:  14px &quot;Futura-Normal&quot;;
 	border:				none;
 
 

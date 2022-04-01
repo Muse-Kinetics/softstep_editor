@@ -32,7 +32,7 @@ QLabel
 {
 	background:		none;
 	color: 				white;
-	font: 				7pt &quot;Tahoma&quot;;
+	font: 				11px &quot;Tahoma&quot;;
 	border:				none;
 }
 
@@ -44,7 +44,7 @@ QLabel:hover
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 7pt &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
@@ -59,7 +59,7 @@ QSpinBox:focus
 
 QDoubleSpinBox
 {
-	font: 7pt &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
@@ -75,7 +75,7 @@ QDoubleSpinBox::focus
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 7pt &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	background: rgb(18, 18, 18);
 	border: 1px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -86,7 +86,7 @@ QLineEdit
 
 QLineEdit:focus
 {
-	font: 7pt &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	background: rgb(0,174,239);
 	border: 1px solid white;
 	border-radius: 0px;
@@ -98,7 +98,7 @@ QLineEdit:focus
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 7pt &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	background: none;
 	color: white;
 	padding:0, 3, 0, 0;
@@ -114,7 +114,7 @@ QCheckBox:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 7pt &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -125,7 +125,7 @@ QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
+	font: 11px &quot;Tahoma&quot;;
 	padding-left: 0px;
 	padding-right: 0px;
 	min-width: 175px;
@@ -178,6 +178,37 @@ QComboBox::down-arrow
 	background: none;
 	image: url(:/resources/modline_combobox_menu_arrows.png);
 	padding-right: 10px;
+}
+
+
+QScrollBar:vertical {
+background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+}
+
+/* Sets up the color and height of handle */
+QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
 }
 
 /*-------QRadioButton-------*/
@@ -537,7 +568,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -601,7 +632,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -622,7 +653,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -643,7 +674,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -685,7 +716,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -727,7 +758,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -751,7 +782,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -914,7 +945,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -956,7 +987,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -998,7 +1029,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1040,7 +1071,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1104,7 +1135,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1202,7 +1233,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1535,7 +1566,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1634,7 +1665,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1728,7 +1759,7 @@ QToolTip
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1768,9 +1799,9 @@ QToolTip
   <widget class="QLabel" name="label_13">
    <property name="geometry">
     <rect>
-     <x>28</x>
+     <x>26</x>
      <y>2</y>
-     <width>31</width>
+     <width>39</width>
      <height>16</height>
     </rect>
    </property>
@@ -1800,9 +1831,9 @@ QToolTip
   <widget class="QLabel" name="label_34">
    <property name="geometry">
     <rect>
-     <x>129</x>
+     <x>97</x>
      <y>2</y>
-     <width>31</width>
+     <width>97</width>
      <height>16</height>
     </rect>
    </property>
@@ -1854,9 +1885,9 @@ QToolTip
   <widget class="QLabel" name="label_37">
    <property name="geometry">
     <rect>
-     <x>285</x>
+     <x>279</x>
      <y>2</y>
-     <width>27</width>
+     <width>40</width>
      <height>16</height>
     </rect>
    </property>
@@ -1870,9 +1901,9 @@ QToolTip
   <widget class="QLabel" name="label_38">
    <property name="geometry">
     <rect>
-     <x>327</x>
+     <x>320</x>
      <y>2</y>
-     <width>27</width>
+     <width>40</width>
      <height>16</height>
     </rect>
    </property>
@@ -1892,9 +1923,9 @@ QToolTip
   <widget class="QLabel" name="label_39">
    <property name="geometry">
     <rect>
-     <x>381</x>
+     <x>367</x>
      <y>2</y>
-     <width>27</width>
+     <width>56</width>
      <height>16</height>
     </rect>
    </property>
@@ -2208,7 +2239,7 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -2244,7 +2275,7 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -2280,7 +2311,7 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -2347,7 +2378,7 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -2455,7 +2486,7 @@ QComboBox::down-arrow
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>

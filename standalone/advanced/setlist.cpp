@@ -68,6 +68,18 @@ Setlist::Setlist(QWidget *parent) :
             qFatal("Cannot copy default setlist file to application data path!");
         }
     }
+
+    // fix windows that are not on the screen
+    int posX = setlistWidget->pos().x();
+    int posY = setlistWidget->pos().y();
+
+    //qDebug() << "thisPosition - x: " << posX << " y: " << posY;
+    if (posY < 0)
+    {
+        posY = 0;
+    }
+
+    setlistWidget->move(posX, posY);
 }
 
 QStringList Setlist::getSetlistMap()
@@ -154,6 +166,7 @@ void Setlist::slotInitComponents()
         }
         else if(widget->objectName().contains("menu"))
         {
+            //qDebug() << "setlist comboBox event filter";
             QComboBox *comboBox = reinterpret_cast<QComboBox *>(widget);
             menus.append(comboBox);
             connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMenuChanged(int)));

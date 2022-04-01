@@ -55,7 +55,7 @@ QToolButton:pressed
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 9pt &quot;Droid Sans Mono&quot;;
+	font: 12px &quot;Droid Sans Mono&quot;;
 	background: rgb(40, 40, 40);
 	border: 2px solid rgb(0,174,239);
 	border-radius: 0px;
@@ -79,7 +79,7 @@ QToolTip
 	padding: 2px;
 }</string>
   </property>
-  <widget class="QFrame" name="keyBoxFrame">
+  <widget class="QToolButton" name="keyBackground">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -88,67 +88,30 @@ QToolTip
      <height>64</height>
     </rect>
    </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
+   <property name="toolTip">
+    <string>Click this key box to&lt;br&gt; select it for copy/paste functionality</string>
    </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
+   <property name="styleSheet">
+    <string notr="true">image: none;</string>
    </property>
-   <widget class="QToolButton" name="keyBackground">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>101</width>
-      <height>64</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Click this key box to&lt;br&gt; select it for copy/paste functionality</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">image: none;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QToolButton" name="openWindow">
-    <property name="geometry">
-     <rect>
-      <x>7</x>
-      <y>13</y>
-      <width>40</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Futura</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string>Open this key's modulation window.</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="keyName">
-    <property name="geometry">
-     <rect>
-      <x>52</x>
-      <y>21</y>
-      <width>40</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string notr="true">Key Name&lt;p&gt;Set the name of this key.</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLineEdit
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="keyName">
+   <property name="geometry">
+    <rect>
+     <x>52</x>
+     <y>21</y>
+     <width>40</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string notr="true">Key Name&lt;p&gt;Set the name of this key.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit
 {
 	padding-top: 1px;
 }
@@ -157,20 +120,41 @@ QToolTip
 {
 	width: 45px;
 }</string>
-    </property>
-    <property name="inputMethodHints">
-     <set>Qt::ImhNone</set>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="maxLength">
-     <number>4</number>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
+   </property>
+   <property name="inputMethodHints">
+    <set>Qt::ImhNone</set>
+   </property>
+   <property name="text">
+    <string>EEE</string>
+   </property>
+   <property name="maxLength">
+    <number>4</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="openWindow">
+   <property name="geometry">
+    <rect>
+     <x>7</x>
+     <y>13</y>
+     <width>40</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Futura</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string>Open this key's modulation window.</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
   </widget>
  </widget>
  <resources/>

@@ -119,6 +119,7 @@ signals:
 
     //---- MIDI Aux inputs
     void signalUpdateMIDIAuxDropdowns(QString jsonName, QString value);
+    void signalUserChangedMIDIaux(QString, QString);
 
     //---- OSC
     void signalSetOscEnable(int inputNum, bool enabled);
@@ -167,9 +168,13 @@ public slots:
     void slotStartCalibrationStandAlone();
     void slotStopCalibrationStandAlone();
 
+    //----- MIDI Aux Inputs
+    void slotUserChangedMIDIaux();
 
     //----- OSC
     void slotSetOSCDisplayValue(int inputNum, int val);
+
+    void slotSendSettingsMIDI();
 
 //private:
 //    Ui::settingsForm *settingsForm;

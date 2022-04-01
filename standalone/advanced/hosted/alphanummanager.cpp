@@ -71,7 +71,7 @@ void AlphaNumManager::slotDisplayParam(int modlineNum, int val)
 void AlphaNumManager::slotFormatAndOutputString(QString displayString)
 {
 
-    qDebug() << "displayString" << displayString;// << "sender name" << QObject::sender()->objectName();
+    //qDebug() << "displayString" << displayString;// << "sender name" << QObject::sender()->objectName();
 
     //Make all messages of length 4
     if(displayString.size() < 4)

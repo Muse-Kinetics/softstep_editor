@@ -38,7 +38,7 @@ void DisplaySink::slotAddAlphaPacket(QString port, QList<MIDIPacket> packetList)
 {
     Q_UNUSED(port);
 
-    qDebug() << "add alpha packet: " << alphaLastPacketList.size() << packetList.size();// << alphaLastPacketList.at(0).data[0];s
+    //qDebug() << "add alpha packet: " << alphaLastPacketList.size() << packetList.size();// << alphaLastPacketList.at(0).data[0];s
 
     bool newPacket = false;
 

@@ -182,5 +182,6 @@
         <file>resources/displaymode_unchecked_pressed.png</file>
         <file>resources/displaymode_unchecked.png</file>
         <file>resources/keysafety_adjacentlockout_disabled.png</file>
+        <file>resources/Circle_Blue.svg</file>
     </qresource>
 </RCC>

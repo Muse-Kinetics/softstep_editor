@@ -6,6 +6,7 @@
 
 #include <QDebug>
 #include <QtWidgets>
+#include <QElapsedTimer>
 
 /*-------KEYWINDOW SIZE CONSTANTS-------*/
 #define KEYWINDOW_LG_WIDTH 1150
@@ -37,11 +38,14 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     qDebug() << "Initialize key: " << keyInstanceNum;
     keyInstance = keyInstanceNum;
 
-    qDebug() << "keyBoxForm";
+    QElapsedTimer eTimer;
+    eTimer.start();
+
+    //qDebug() << "key[" << keyInstance << "]: keyBoxForm - elapsed: " << eTimer.elapsed(); eTimer.start();
     keyBoxForm = new Ui::keyBoxForm;
-    qDebug() << "keyWindowForm";
+    //qDebug() << "key[" << keyInstance << "]: keyWindowForm - elapsed: " << eTimer.elapsed(); eTimer.start();
     keyWindowForm = new Ui::keyWindowForm;
-    qDebug() << "dataCooker";
+    //qDebug() << "key[" << keyInstance << "]: dataCooker - elapsed: " << eTimer.elapsed(); eTimer.start();
     dataCooker = new DataCooker(keyInstance, this);
 //    qDebug() << "keyWindowWidget";
     //keyWindowWidget = new QWidget(this);
@@ -55,9 +59,13 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     showDisplaySettings = FALSE;
 
     //Set up the Key Box
+    //qDebug() << "key[" << keyInstance << "]: keyBoxWidget - elapsed: " << eTimer.elapsed(); eTimer.start();
     keyBoxWidget = new QWidget(this);
+    //qDebug() << "key[" << keyInstance << "]: keyBoxForm setupUI - elapsed: " << eTimer.elapsed(); eTimer.start();
     keyBoxForm->setupUi(keyBoxWidget);
     keyBoxWidget->setFixedSize(KEYBOX_WIDTH, KEYBOX_HEIGHT);
+
+    //qDebug() << "key[" << keyInstance << "]: geometry - elapsed: " << eTimer.elapsed(); eTimer.start();
 
     if(keyInstanceNum < 5)
     {
@@ -70,6 +78,8 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
 
 
     //Set up the Key Window
+    //qDebug() << "key[" << keyInstance << "]: keyWindowWidget - elapsed: " << eTimer.elapsed(); eTimer.start();
+
     keyWindowWidget = new QWidget();
     keyWindowForm->setupUi(keyWindowWidget);
     keyWindowWidget->setFixedSize(KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);
@@ -96,26 +106,49 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     keyWindowWidget->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint | Qt::CustomizeWindowHint);
 
     //What's in the Key Box?
+    //qDebug() << "key[" << keyInstance << "]: connect - elapsed: " << eTimer.elapsed(); eTimer.start();
+
     connect(keyBoxForm->openWindow,SIGNAL(clicked()), this, SLOT(slotOpenWindow()));
     connect(keyBoxForm->keyBackground,SIGNAL(clicked()),this,SLOT(slotBackgroundClicked()));
 
     //What's in the Key Window?
     for(int i = 0; i < 6; i++)
     {
+        //qDebug() << "key[" << keyInstance << "]: modline[" << i << "] - elapsed: " << eTimer.elapsed(); eTimer.start();
+
         modline[i] = new Modline(keyWindowWidget, keyInstance, i);
+        //qDebug() << "key[" << keyInstance << "]: modline[" << i << "] connect - elapsed: " << eTimer.elapsed(); eTimer.start();
+
         modline[i]->slotConnectElements();
         displayLinkedButtonGroup.addButton(modline[i]->displayLinkButton, i);
     }
+
+    //qDebug() << "key[" << keyInstance << "]: keyWindowForm connect - elapsed: " << eTimer.elapsed(); eTimer.start();
 
     connect(keyWindowForm->ledDisplayCheckBox, SIGNAL(clicked()), this, SLOT(slotShowDisplaySettings()));
     connect(keyWindowForm->addmodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
     connect(keyWindowForm->deletemodline, SIGNAL(clicked()), this, SLOT(slotAddSubtractModlines()));
 
     //Carson's attempt to dynamically update the key window instance label — shit works
+    //qDebug() << "key[" << keyInstance << "]: setWindowInstance - elapsed: " << eTimer.elapsed(); eTimer.start();
+
     keyWindowForm->keyWindowInstanceLabel->setText(QString("%1").arg((keyInstance + 1) % 10));
     keyBoxForm->openWindow->setStyleSheet(stylesheets.keyBoxOpenButtonStyleSheet.at(keyInstance));
+    //qDebug() << "key[" << keyInstance << "]: done - elapsed: " << eTimer.elapsed(); eTimer.start();
 
     counter = 0;
+
+    // fix windows that are not on the screen
+    int posX = keyBoxWidget->pos().x();
+    int posY = keyBoxWidget->pos().y();
+
+    //qDebug() << "thisPosition - x: " << posX << " y: " << posY;
+    if (posY < 0)
+    {
+        posY = 0;
+    }
+
+    keyBoxWidget->move(posX, posY);
 
 }
 
@@ -135,11 +168,11 @@ void Key::slotSelectedKeyOutline(int selectedKey, bool outlined)
 {
     if(selectedKey == keyInstance && outlined == true)
     {
-        keyBoxForm->keyBoxFrame->setStyleSheet(stylesheets.keyBoxSelectedStyleSheet);
+        //keyBoxForm->keyBoxFrame->setStyleSheet(stylesheets.keyBoxSelectedStyleSheet);
     }
     else
     {
-        keyBoxForm->keyBoxFrame->setStyleSheet(stylesheets.keyBoxNotSelectedStyleSheet);
+        //keyBoxForm->keyBoxFrame->setStyleSheet(stylesheets.keyBoxNotSelectedStyleSheet);
     }
 }
 

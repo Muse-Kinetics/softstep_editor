@@ -874,6 +874,7 @@ void Modline::slotRecallDestinationMenu()
     case DEST_NOTE_SET:
         modlineForm->dest_b1->show();
         modlineForm->dest_label_b1->show();
+        modlineForm->dest_device->show();
 
         modlineForm->dest_b1->setValue(modDest.note);
     case DEST_NOTE_LIVE:
@@ -881,6 +882,7 @@ void Modline::slotRecallDestinationMenu()
         modlineForm->dest_label_b2->show();
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
+        modlineForm->dest_device->show();
 
         modlineForm->dest_b2->setValue(modDest.velocity);
         modlineForm->dest_b3->setValue(modDest.channel);
@@ -890,6 +892,7 @@ void Modline::slotRecallDestinationMenu()
         modlineForm->dest_label_b2->show();
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
+        modlineForm->dest_device->show();
 
         modlineForm->dest_b2->setValue(modDest.cc);
         modlineForm->dest_b3->setValue(modDest.channel);
@@ -899,6 +902,7 @@ void Modline::slotRecallDestinationMenu()
         modlineForm->dest_label_b2->show();
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
+        modlineForm->dest_device->show();
 
         modlineForm->dest_b2->setValue(modDest.bankMSB);
         modlineForm->dest_b3->setValue(modDest.channel);
@@ -906,26 +910,31 @@ void Modline::slotRecallDestinationMenu()
     case DEST_PROGRAM:
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
+        modlineForm->dest_device->show();
 
         modlineForm->dest_b3->setValue(modDest.channel);
         break;
     case DEST_OSC:
+        modlineForm->dest_oscroute->show();
         break;
     case DEST_PITCH_BEND:
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
+        modlineForm->dest_device->show();
 
         modlineForm->dest_b3->setValue(modDest.channel);
         break;
     case DEST_MMC:
         modlineForm->dest_b1->show();
         modlineForm->dest_label_b1->show();
+        modlineForm->dest_mmcfunction->show();
 
         modlineForm->dest_b1->setValue(modDest.mmcID);
         break;
     case DEST_AFTERTOUCH:
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
+        modlineForm->dest_device->show();
 
         modlineForm->dest_b3->setValue(modDest.channel);
         break;
@@ -934,6 +943,7 @@ void Modline::slotRecallDestinationMenu()
         modlineForm->dest_label_b2->show();
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
+        modlineForm->dest_device->show();
 
         modlineForm->dest_b2->setValue(modDest.note);
         modlineForm->dest_b3->setValue(modDest.channel);

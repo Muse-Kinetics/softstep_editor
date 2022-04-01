@@ -190,6 +190,7 @@ QSlider::handle:vertical
 	background: white;
 	border: none;
 	height: 2px;
+
 	
 }
 
@@ -214,7 +215,7 @@ QSlider::handle:horizontal
 {
 	background: white;
 	border: none;
-	width: 3px;
+	width: 8px;
 	
 }
 
@@ -254,7 +255,6 @@ QToolTip
     <font>
      <family>Futura-Normal</family>
      <pointsize>-1</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -692,7 +692,6 @@ QRadioButton::indicator:checked:pressed
        <font>
         <family>Corbel</family>
         <pointsize>10</pointsize>
-        <weight>75</weight>
         <italic>false</italic>
         <bold>true</bold>
        </font>
@@ -720,7 +719,6 @@ QRadioButton::indicator:checked:pressed
        <font>
         <family>Corbel</family>
         <pointsize>8</pointsize>
-        <weight>50</weight>
         <italic>false</italic>
         <bold>false</bold>
        </font>
@@ -790,7 +788,6 @@ p, li { white-space: pre-wrap; }
       <font>
        <family>Corbel</family>
        <pointsize>10</pointsize>
-       <weight>75</weight>
        <italic>false</italic>
        <bold>true</bold>
       </font>
@@ -818,7 +815,6 @@ p, li { white-space: pre-wrap; }
       <font>
        <family>Corbel</family>
        <pointsize>-1</pointsize>
-       <weight>75</weight>
        <italic>false</italic>
        <bold>true</bold>
       </font>
@@ -846,7 +842,6 @@ p, li { white-space: pre-wrap; }
       <font>
        <family>Corbel</family>
        <pointsize>-1</pointsize>
-       <weight>75</weight>
        <italic>false</italic>
        <bold>true</bold>
       </font>
@@ -3229,7 +3224,7 @@ QLabel
 {
 	background:		transparent;
 	color: 				white;
-	font: 				8pt &quot;Corbel&quot;;
+	font: 				10px &quot;Corbel&quot;;
 	border:				none;
 }
 
@@ -3280,21 +3275,25 @@ QCheckBox
 }
 
 /*----------- QComboBox ------------*/
+
+
 QComboBox
 {
-	font: 7pt &quot;Corbel&quot;;
+	font: 10px &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
 	padding: 1px 3px 1px 4px;
+	text-align:right;
  }
 
 QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
-	font: 7pt &quot;Corbel&quot;;
-	padding-left: 3px;
+	font: 12px &quot;Futura-Normal&quot;;
+	text-align:right;
+	padding-left: 0px;
 	padding-right: 3px;
 	min-width: 35px;
 }
@@ -3308,6 +3307,8 @@ QComboBox::item:selected
 {
 	border: 1px solid transparent;
 	background: rgb(0,174,239);
+	text-align:right;
+	padding-left: 0px;
 }
 
 QComboBox::indicator
@@ -3328,6 +3329,8 @@ QComboBox::drop-down
 	border-right-width: 0px;
 	border-top-width: 0px;
 	border-bottom-width: 0px;
+	text-align:right;
+	padding-left: 0px;
 }
 
 QComboBox::down-arrow
@@ -3340,11 +3343,22 @@ QComboBox::down-arrow
 
 QComboBox:disabled
 {
-	font: 7pt &quot;Corbel&quot;;
+	font: 11px &quot;Futura-Normal&quot;;
 	color: (175, 175, 175, 50);
 	border: 1px solid rgba(0,174,239, 75);
 	background: rgba(18, 18, 18, 75);
 	padding: 1px 3px 1px 4px;
+	text-align:right;
+	padding-left: 0px;
+}
+
+QComboBox QAbstractItemView
+{
+    min-width: 130px;
+    min-height: 60;
+	color:white;
+	padding-left: 1px;
+	text-align:right;
 }
 
 /* ---------- QLineEdit ------------*/
@@ -3379,6 +3393,38 @@ QLineEdit:disabled
 	color: rgba(255, 255, 255, 50);
 	padding-left: 2px;
 	padding-bottom: 2px;
+}
+
+/* -------------- Scroll Bar --------------- */
+
+QScrollBar:vertical {
+background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+}
+
+/* Sets up the color and height of handle */
+QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
 }</string>
      </property>
      <property name="frameShape">
@@ -3401,7 +3447,7 @@ QLineEdit:disabled
       </property>
       <item>
        <property name="text">
-        <string>IAC Driver Bus</string>
+        <string>None</string>
        </property>
       </item>
      </widget>
@@ -3419,7 +3465,7 @@ QLineEdit:disabled
       </property>
       <item>
        <property name="text">
-        <string>IAC Driver Bus</string>
+        <string>None</string>
        </property>
       </item>
      </widget>
@@ -3437,7 +3483,7 @@ QLineEdit:disabled
       </property>
       <item>
        <property name="text">
-        <string>IAC Driver Bus</string>
+        <string>None</string>
        </property>
       </item>
      </widget>
@@ -3455,7 +3501,7 @@ QLineEdit:disabled
       </property>
       <item>
        <property name="text">
-        <string>IAC Driver Bus</string>
+        <string>None</string>
        </property>
       </item>
      </widget>
@@ -3576,6 +3622,9 @@ QToolTip
       </property>
       <property name="text">
        <string>message type</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QCheckBox" name="midic_settings_enable">
@@ -3864,14 +3913,17 @@ QToolTip
      <widget class="QLabel" name="label_31">
       <property name="geometry">
        <rect>
-        <x>67</x>
+        <x>38</x>
         <y>25</y>
-        <width>31</width>
+        <width>91</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
        <string>device</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QComboBox" name="midia_settings_device">
@@ -3888,7 +3940,7 @@ QToolTip
       </property>
       <item>
        <property name="text">
-        <string>IAC Driver Bus</string>
+        <string>None</string>
        </property>
       </item>
      </widget>
@@ -4057,7 +4109,7 @@ QToolTip
       </property>
       <item>
        <property name="text">
-        <string>IAC Driver Bus</string>
+        <string>None</string>
        </property>
       </item>
      </widget>
@@ -4124,14 +4176,17 @@ QToolTip
      <widget class="QLabel" name="label_32">
       <property name="geometry">
        <rect>
-        <x>137</x>
+        <x>133</x>
         <y>25</y>
-        <width>16</width>
+        <width>21</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
        <string>ch</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QLabel" name="label_30">
@@ -4210,7 +4265,7 @@ QToolTip
      <widget class="QLabel" name="label_35">
       <property name="geometry">
        <rect>
-        <x>261</x>
+        <x>258</x>
         <y>25</y>
         <width>31</width>
         <height>16</height>
@@ -4218,6 +4273,9 @@ QToolTip
       </property>
       <property name="text">
        <string>value</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QCheckBox" name="midib_settings_enable">
@@ -4298,6 +4356,9 @@ QToolTip
       </property>
       <property name="text">
        <string>enable</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QLabel" name="label_41">
@@ -4396,7 +4457,7 @@ QToolTip
       </property>
       <item>
        <property name="text">
-        <string>IAC Driver Bus</string>
+        <string>None</string>
        </property>
       </item>
      </widget>
@@ -4452,7 +4513,7 @@ QToolTip
       </property>
       <item>
        <property name="text">
-        <string>IAC Driver Bus</string>
+        <string>None</string>
        </property>
       </item>
      </widget>
@@ -4866,10 +4927,9 @@ QLabel
 {
 	background:		transparent;
 	color: 				white;
-	font: 				8pt &quot;Corbel&quot;;
+	font: 				10px &quot;Corbel&quot;;
 	border:				none;
 }
-
 QLabel:hover
 {
 	border:				transparent;
@@ -5180,14 +5240,17 @@ QLineEdit:disabled
      <widget class="QLabel" name="label_53">
       <property name="geometry">
        <rect>
-        <x>205</x>
+        <x>182</x>
         <y>23</y>
-        <width>31</width>
+        <width>71</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
        <string>prefix</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QLabel" name="label_44">
@@ -5543,14 +5606,17 @@ QLineEdit:disabled
      <widget class="QLabel" name="label_50">
       <property name="geometry">
        <rect>
-        <x>56</x>
+        <x>35</x>
         <y>23</y>
-        <width>31</width>
+        <width>71</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
        <string>prefix</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QLabel" name="label_59">
@@ -5558,12 +5624,15 @@ QLineEdit:disabled
        <rect>
         <x>18</x>
         <y>125</y>
-        <width>95</width>
+        <width>118</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
        <string>Sending IP Address</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QCheckBox" name="oscc_input_enable">
@@ -5748,14 +5817,17 @@ QLineEdit:disabled
      <widget class="QLabel" name="label_60">
       <property name="geometry">
        <rect>
-        <x>174</x>
+        <x>166</x>
         <y>125</y>
-        <width>41</width>
+        <width>51</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
        <string>out port</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QLineEdit" name="oscd_input_route">
@@ -5774,14 +5846,17 @@ QLineEdit:disabled
      <widget class="QLabel" name="label_61">
       <property name="geometry">
        <rect>
-        <x>246</x>
+        <x>236</x>
         <y>125</y>
-        <width>41</width>
+        <width>51</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
        <string>in port</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
      <widget class="QCheckBox" name="oscd_input_enable">
@@ -5921,7 +5996,7 @@ QLabel:disabled
 
 QComboBox
 {
-	font: 14pt &quot;Futura-Normal&quot;;
+	font: 14px &quot;Futura-Normal&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
@@ -5985,7 +6060,7 @@ QComboBox::down-arrow
 
 QComboBox:disabled
 {
-	font: 11pt &quot;Futura-Normal&quot;;
+	font: 11px &quot;Futura-Normal&quot;;
 	color: (175, 175, 175, 50);
 	border: 1px solid rgba(0,174,239, 75);
 	background: rgba(18, 18, 18, 75);
@@ -6058,7 +6133,7 @@ QLineEdit:disabled
       <property name="styleSheet">
        <string notr="true">QComboBox QAbstractItemView
 {
-    min-width: 130px;
+    min-width: 150px;
     min-height: 60;
 	color:white;
 }</string>
@@ -6174,7 +6249,6 @@ background: none;</string>
         <font>
          <family>Corbel</family>
          <pointsize>-1</pointsize>
-         <weight>75</weight>
          <italic>false</italic>
          <bold>true</bold>
         </font>

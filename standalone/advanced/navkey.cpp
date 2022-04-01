@@ -79,6 +79,18 @@ NavKey::NavKey(QWidget *parent) :
     counter = 0;
 
    disableOverlay = new QWidget(navKeyWindowWidget);
+
+   // fix windows that are not on the screen
+   int posX = navKeyWindowWidget->pos().x();
+   int posY = navKeyWindowWidget->pos().y();
+
+   //qDebug() << "thisPosition - x: " << posX << " y: " << posY;
+   if (posY < 0)
+   {
+       posY = 0;
+   }
+
+   navKeyWindowWidget->move(posX, posY);
 }
 
 void NavKey::slotOpenWindow()

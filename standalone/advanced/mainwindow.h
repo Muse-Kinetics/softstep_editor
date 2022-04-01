@@ -8,6 +8,7 @@
 #include <QVariant>
 #include <QDebug>
 #include <QVariant>
+#include <QElapsedTimer>
 
 #include "key.h"
 #include "navkey.h"
@@ -75,6 +76,8 @@ public:
 
     bool connected;
 
+    bool isWindows;
+
     // ------- fw update overhaul
     QByteArray applicationVersion, thisFw;
     QString betaVersion;
@@ -96,18 +99,22 @@ public:
     MidiDeviceManager* SoftStep;
 
     // MIDI Thru port for standalone, workaround for Windows device limitations
-    //MidiDeviceManager* MIDIThru;
+    MidiDeviceManager* MIDIThru;
 
     // MIDI aux inputs and outputs are defined here. For products like SoftStep (advanced), you would define 8 inputs for controllers
     // and one output for hosted mode.
-    //MidiDeviceManager* midiAuxIn[8];
+    MidiDeviceManager* midiAuxIn[8];
 
     // this port is used to send MIDI to various ports when in hosted mode.
-    //MidiDeviceManager* hostedOut;
+    MidiDeviceManager* hostedOut;
 
-    //MidiDeviceManager* SoftStepShare; // virtual port device
+    MidiDeviceManager* SoftStepShare; // virtual port device
+    QElapsedTimer* shareElapsedTimer;
+    long lastSendSoftStepShareMessage; // stuff four 8 bit bytes into a 32 bit long and compare it
 
     QString MIDI_THRU_KEY;
+    QString MIDI_AUX_KEY[8];
+
     QString recallMidiThruPortName;
     QComboBox *midi_thru_dropdown;
 
@@ -245,6 +252,12 @@ public slots:
     void slotParseMidiAuxIn_G(uchar status, uchar d1, uchar d2, uchar chan);
     void slotParseMidiAuxIn_H(uchar status, uchar d1, uchar d2, uchar chan);
 
+    void slotParseMidiAuxIn_SoftStepShare(uchar status, uchar d1, uchar d2, uchar chan);
+
+    void slotParseMidiAuxInputs(QString auxInput, int midiInputPortNumber, uchar status, uchar d1, uchar d2, uchar chan);
+
+    void slotRestoreAllAuxDropdowns();
+    void slotUserUpdatedMIDIAuxInputPort(QString auxInput, QString portName);
     void slotUpdateMIDIAuxInputPorts(QString auxInput, QString port);
     void slotRecallMIDIThru();
 
@@ -307,6 +320,11 @@ public slots:
     void hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar chan);
 
     void slotFixDropDownWidth(QComboBox* thisDropDown);
+
+#ifdef Q_OS_WIN
+    void slotNoSharePortDialog();
+    void slotDownloadLoopMIDI();
+#endif
 
 private:
     Ui::MainWindow *ui;
