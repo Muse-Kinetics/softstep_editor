@@ -17,6 +17,11 @@ macx{
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.13
 }
 
+# uncomment to create a console/debug version of the application for windows
+#win32 {
+#    CONFIG += console
+#}
+
 INCLUDEPATH +=  forms \
                 resources \
                 ../../shared/sysexcomposition \
@@ -104,7 +109,8 @@ OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
 
 RESOURCES =    Resources.qrc \
     ../../shared/KMI_MDM/fwupdate/fw_stylesheets.qrc \
-    ../../shared/firmware/firmware.qrc
+    ../../shared/firmware/firmware.qrc \
+    resources/fonts/fonts.qrc
 
 
 #--------------- contents/resources --------

@@ -7,13 +7,6 @@ Pedal::Pedal(QWidget *parent, int keyInstance) :
     QWidget(parent),
     parentKeyInstance(keyInstance)
 {
-    /*
-    //pixmap.load(QString::fromUtf8("resources/pedal_top.png"));
-
-    QPainter painter(&pixmap);
-    painter.rotate(90);
-    painter.translate(22, 66);*/
-
     //Initialize bucket for windowing average
     pedalBucket.append(0);
     pedalBucket.append(0);

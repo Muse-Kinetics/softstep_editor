@@ -63,7 +63,7 @@ QDoubleSpinBox
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 1px 1px 3px;
+	padding: 1px 1px 1px 1px;
 }
 
 QDoubleSpinBox::focus
@@ -133,7 +133,7 @@ QComboBox QListView
 
 QComboBox QAbstractItemView::item
 {
-	min-height: 65px;
+	min-height: 14px;
      min-width: 175px;
 	text-align: left;
 	padding-left: 0px;
@@ -176,8 +176,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 11px;
+    height: 10px;
 }
 
 
@@ -215,26 +217,36 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 QRadioButton
 {
 	background: none;
+	width: 10px;
+	height: 10px;
 }
 
 QRadioButton::indicator:unchecked
 {
-	image: url(:/resources/modline_display_enable_off.png);
+	border-image: url(:/resources/modline_display_enable_off.svg) 0 0 0 0 stretch stretch;
+	width: 17px;
+	height: 17px;
 }
 
 QRadioButton::indicator:unchecked:pressed
 {
-	image: url(:/resources/modline_display_enable_on.png);
+	border-image: url(:/resources/modline_display_enable_on.svg) 0 0 0 0 stretch stretch;
+	width: 17px;
+	height: 17px;
 }
 
 QRadioButton::indicator:checked
 {
-	image: url(:/resources/modline_display_enable_on.png);
+	border-image: url(:/resources/modline_display_enable_on.svg) 0 0 0 0 stretch stretch;
+	width: 17px;
+	height: 17px;
 }
 
 QRadioButton::indicator:checked:pressed
 {
-	image: url(:/resources/modline_display_enable_off.png);
+	border-image: url(:/resources/modline_display_enable_off.svg) 0 0 0 0 stretch stretch;
+	width: 17px;
+	height: 17px;
 }
 
 /*-------QToolTip-------*/
@@ -318,47 +330,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/modline_enable1_toggle_on.png);
+    image: url(:/resources/modline_enable1_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/modline_enable1_toggle_on.png);
+    image: url(:/resources/modline_enable1_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/modline_enable1_toggle_on.png);
+    image: url(:/resources/modline_enable1_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/modline_enable1_toggle_on.png);
+    image: url(:/resources/modline_enable1_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QToolTip
@@ -378,14 +390,14 @@ QToolTip
     <rect>
      <x>25</x>
      <y>19</y>
-     <width>39</width>
+     <width>41</width>
      <height>18</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -397,76 +409,7 @@ QToolTip
     <string>Sets the init mode.&lt;p&gt;&lt;b&gt;None&lt;/b&gt;: Off. No init value will be sent.&lt;p&gt;&lt;b&gt;Once&lt;/b&gt;: Outputs the set init value the first time this preset is selected/loaded.&lt;p&gt;&lt;b&gt;Always&lt;/b&gt;: Outputs the set init value every time this preset is selected/loaded.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	font: 7pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 3px 1px 4px;
- }
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 7px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 35px;
-}
-
-QComboBox::item:alternate
-{
-	background: rgb(90, 90, 90);
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-
-QComboBox:disabled
-{
-	background-color: rgba(20, 20, 20, 75);
-	border-color: rgba(0, 174, 239, 75);
-	color: rgba(255, 255, 255, 75);
-}
-
-QToolTip
-{
-	min-height: 16px;
-}</string>
+    <string notr="true"/>
    </property>
    <property name="sizeAdjustPolicy">
     <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -493,7 +436,7 @@ QToolTip
   <widget class="QSpinBox" name="initvalue">
    <property name="geometry">
     <rect>
-     <x>66</x>
+     <x>68</x>
      <y>19</y>
      <width>22</width>
      <height>18</height>
@@ -2089,10 +2032,10 @@ QToolTip
   <widget class="QRadioButton" name="modlinedisplayenable">
    <property name="geometry">
     <rect>
-     <x>1112</x>
-     <y>18</y>
-     <width>20</width>
-     <height>20</height>
+     <x>1111</x>
+     <y>19</y>
+     <width>17</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -2107,19 +2050,29 @@ QToolTip
    <property name="text">
     <string/>
    </property>
+   <property name="iconSize">
+    <size>
+     <width>16</width>
+     <height>16</height>
+    </size>
+   </property>
   </widget>
   <widget class="QLabel" name="label_48">
    <property name="geometry">
     <rect>
-     <x>1108</x>
-     <y>3</y>
-     <width>20</width>
+     <x>1111</x>
+     <y>2</y>
+     <width>16</width>
      <height>16</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background: none;
-image: url(:/resources/modline_led_display_arrow.png);</string>
+    <string notr="true">QLabel
+{
+	background: none;
+	image: url(:/resources/modline_led_display_arrow.svg);
+	qproperty-alignment: 'AlignVCenter | AlignCenter';
+}</string>
    </property>
    <property name="text">
     <string/>
@@ -2393,62 +2346,12 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
     <string>Sets the MIDI port to which the message will be output.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
+    <string notr="true">
 QComboBox QAbstractItemView::item
 {
 	min-height: 65px;
 	min-width: 65px;
 
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
 }</string>
    </property>
    <property name="maxVisibleItems">
@@ -2495,7 +2398,7 @@ QComboBox::down-arrow
     <enum>Qt::StrongFocus</enum>
    </property>
    <property name="toolTip">
-    <string>Sets the device ID for the receiving MMC device.</string>
+    <string/>
    </property>
    <property name="frame">
     <bool>true</bool>

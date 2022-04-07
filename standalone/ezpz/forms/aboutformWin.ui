@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>240</width>
-    <height>137</height>
+    <width>360</width>
+    <height>200</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -85,8 +85,8 @@ QPushButton:pressed
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>241</width>
-     <height>137</height>
+     <width>360</width>
+     <height>200</height>
     </rect>
    </property>
    <property name="focusPolicy">
@@ -105,10 +105,10 @@ QPushButton:pressed
   <widget class="QFrame" name="warningSubFrame">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>0</x>
      <y>0</y>
-     <width>224</width>
-     <height>140</height>
+     <width>360</width>
+     <height>200</height>
     </rect>
    </property>
    <property name="focusPolicy">
@@ -136,8 +136,8 @@ QPushButton:pressed
    <widget class="QPushButton" name="ok">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>108</y>
+      <x>160</x>
+      <y>155</y>
       <width>40</width>
       <height>20</height>
      </rect>
@@ -156,9 +156,9 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>40</y>
-      <width>224</width>
-      <height>61</height>
+      <y>50</y>
+      <width>360</width>
+      <height>100</height>
      </rect>
     </property>
     <property name="focusPolicy">
@@ -179,14 +179,14 @@ QPushButton:pressed
      <rect>
       <x>0</x>
       <y>2</y>
-      <width>224</width>
-      <height>31</height>
+      <width>360</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Futura</family>
-      <pointsize>12</pointsize>
+      <pointsize>-1</pointsize>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -195,7 +195,7 @@ QPushButton:pressed
      <enum>Qt::NoFocus</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">font:12pt &quot;Futura&quot;;
+     <string notr="true">font:14px &quot;Futura&quot;;
 </string>
     </property>
     <property name="text">

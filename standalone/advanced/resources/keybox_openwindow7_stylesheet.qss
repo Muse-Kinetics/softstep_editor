@@ -3,12 +3,12 @@ QToolButton
 {
 	background: none;
 	border: none;
-	image: url(:/resources/openkeywindow7_inactive.png)
+	image: url(:/resources/openkeywindow7_inactive.svg)
 }
 
 QToolButton:pressed
 {
 	background: none;
 	border: none;
-	image: url(:/resources/openkeywindow7_active.png);
+	image: url(:/resources/openkeywindow7_active.svg);
 }

@@ -5,6 +5,8 @@
 
 #include <QDebug>
 
+#define TABLE_ENABLED
+
 Settings::Settings(QWidget *parent) :
     QWidget(parent),
     settingsForm(new Ui::settingsForm)
@@ -79,7 +81,7 @@ Settings::Settings(QWidget *parent) :
 
     settingsDirSrcPath = appPackageDirPath + "Resources";
 #else
-    settingsDirSrcPath = QString("./");
+    settingsDirSrcPath = QString("./resources");
 #endif
 
     QString pedalTableFileDestPath = settingsDirDestPath + "/pedalTable.txt";
@@ -440,7 +442,7 @@ void Settings::slotDisconnectElements()
 
 void Settings::slotUserChangedMIDIaux()
 {
-    //qDebug() << "slotUserChangedMIDIaux called - sender: " << QObject::sender()->objectName();
+    qDebug() << "slotUserChangedMIDIaux called - sender: " << QObject::sender()->objectName();
 
     QComboBox *combobox = reinterpret_cast<QComboBox*>(QObject::sender());
     QString portName = combobox->currentText();
@@ -643,7 +645,7 @@ void Settings::slotViewSelector()
             //set stackedwidget tab view
             settingsForm->settingsViews->setCurrentIndex(0);
             //resize settings window
-            settingsWidget->setFixedSize(320, 415);
+            settingsWidget->setFixedSize(320, 425);
         }
         else if(sender == settingsForm->settingskeybutton)
         {
@@ -658,7 +660,7 @@ void Settings::slotViewSelector()
         else if(sender == settingsForm->settingspedalbutton)
         {
             settingsForm->settingsViews->setCurrentIndex(3);
-            settingsWidget->setFixedSize(320, 415);
+            settingsWidget->setFixedSize(320, 465);
         }
         //qDebug() << "settingsViews->currentIndex: " << settingsForm->settingsViews->currentIndex();
     }
@@ -1310,14 +1312,14 @@ void Settings::slotSetLiveValue(int val)
 
             //remoqDebug() << "pedal table value" << val << pedalValueListGraph.indexOf(val);
 
-            //int width = 109/count;
+            int width = 109/count;
 
 #ifdef TABLE_ENABLED
             pedalLiveTableInterface->slotClearTable();
             for(int i = 1; i < count; i++)
             {
                 //Draw our list new value-- should only be drawing one value at a time
-                pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueListGraph.at(i))/127.0f,  width);
+                pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueListGraph.at(i))/127.0f, width);
             }
 #endif / /TABLE_ENABLED
         }
@@ -1402,8 +1404,8 @@ void Settings::slotLoadTableOnStartup()
 
     pedalTableFile->close();
 
-    //float count = pedalValueListGraph.count();
-    //float width = 109.0f/count;
+    float count = pedalValueListGraph.count();
+    float width = 109.0f/count;
 
     //qDebug() << "--------- draw pedal cal table on load" << width << count;
 

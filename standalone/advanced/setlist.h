@@ -55,7 +55,8 @@ public:
 
 signals:
     void signalRecallPresetFromSetlist(QString presetName);
-    
+    void signalFixDropDownWidth(QComboBox*);
+
 public slots:
     void slotMenuChanged(int menuNum);
     void slotCheckBoxClicked();

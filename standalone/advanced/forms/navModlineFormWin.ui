@@ -17,7 +17,6 @@
    <string notr="true">QWidget
 {
 	background:		rgb(80, 80, 80);	
-	border: 0px;
 }
 
 /* ------- QStackedWidget ---------*/
@@ -64,7 +63,7 @@ QDoubleSpinBox
 	border: 1px solid rgb(0,174,239);
 	background-color: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 1px 1px 3px;
+	padding: 1px 1px 1px 1px;
 }
 
 QDoubleSpinBox::focus
@@ -119,7 +118,7 @@ QComboBox
 	border: 1px solid rgb(0,174,239);
 	background: rgb(18, 18, 18);
 	color: white;
-	padding: 1px 3px 1px 4px;
+	padding: 1px 1px 1px 4px;
  }
 
 QComboBox QListView
@@ -134,7 +133,7 @@ QComboBox QListView
 
 QComboBox QAbstractItemView::item
 {
-	min-height: 65px;
+	min-height: 14px;
      min-width: 175px;
 	text-align: left;
 	padding-left: 0px;
@@ -176,9 +175,10 @@ QComboBox::drop-down
 QComboBox::down-arrow
 {
 	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 11px;
+    width: 12px;
+    height: 10px;
 }
 
 
@@ -216,26 +216,36 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 QRadioButton
 {
 	background: none;
+	width: 10px;
+	height: 10px;
 }
 
 QRadioButton::indicator:unchecked
 {
-	image: url(:/resources/modline_display_enable_off.png);
+	border-image: url(:/resources/modline_display_enable_off.svg) 0 0 0 0 stretch stretch;
+	width: 17px;
+	height: 17px;
 }
 
 QRadioButton::indicator:unchecked:pressed
 {
-	image: url(:/resources/modline_display_enable_on.png);
+	border-image: url(:/resources/modline_display_enable_on.svg) 0 0 0 0 stretch stretch;
+	width: 17px;
+	height: 17px;
 }
 
 QRadioButton::indicator:checked
 {
-	image: url(:/resources/modline_display_enable_on.png);
+	border-image: url(:/resources/modline_display_enable_on.svg) 0 0 0 0 stretch stretch;
+	width: 17px;
+	height: 17px;
 }
 
 QRadioButton::indicator:checked:pressed
 {
-	image: url(:/resources/modline_display_enable_off.png);
+	border-image: url(:/resources/modline_display_enable_off.svg) 0 0 0 0 stretch stretch;
+	width: 17px;
+	height: 17px;
 }
 
 /*-------QToolTip-------*/
@@ -683,7 +693,7 @@ QToolTip
   <widget class="QSpinBox" name="initvalue">
    <property name="geometry">
     <rect>
-     <x>68</x>
+     <x>70</x>
      <y>18</y>
      <width>22</width>
      <height>18</height>
@@ -861,47 +871,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/modline_enable1_toggle_on.png);
+    image: url(:/resources/modline_enable1_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/modline_enable1_toggle_on.png);
+    image: url(:/resources/modline_enable1_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/modline_enable1_toggle_on.png);
+    image: url(:/resources/modline_enable1_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/modline_enable1_toggle_on.png);
+    image: url(:/resources/modline_enable1_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 
@@ -916,2805 +926,6 @@ QToolTip
    <property name="tristate">
     <bool>false</bool>
    </property>
-  </widget>
-  <widget class="QStackedWidget" name="deviceViews">
-   <property name="geometry">
-    <rect>
-     <x>688</x>
-     <y>18</y>
-     <width>244</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QWidget
-{
-	background: rgba(0, 0, 0, 0);
-	border: none;
-}
-
-QLabel
-{
-	background: rgba(0, 0, 0, 0);
-	border: none;
-}
-
-/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 7pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(18, 18, 18);
-	color: white;
-	padding: 0,0,0,0;
-}
-
-QSpinBox::focus
-{
-	border: 1px solid white;
-	outline: none;
-}
-
-QDoubleSpinBox
-{
-	font: 7pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(18, 18, 18);
-	color: white;
-	padding: 0,0,0,0;
-}
-
-QDoubleSpinBox::focus
-{
-	border: 1px solid white;
-	outline: none;
-}
-
-/* ---------- QLineEdit ------------*/
-QLineEdit
-{
-	font: 7pt &quot;Tahoma&quot;;
-	background: rgb(18, 18, 18);
-	border: 1px solid rgba(0,174,239,255);
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
-QLineEdit:focus
-{
-	font: 7pt &quot;Tahoma&quot;;
-	background: rgba(0,174,239,0);
-	border: 1px solid white;
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
-/* ---------- QCheckBox ------------*/
-QCheckBox
-{
-	font: 7pt &quot;Tahoma&quot;;
-	background:rgba(0,174,239,0);
-	color: white;
-	padding:0, 3, 0, 0;
-	border: none;
-	border-radius: 0px;
-}
-
-QCheckBox:focus
-{
-	background:rgba(0,174,239,0);
-}
-
-/*----------- QComboBox ------------*/
-QComboBox
-{
-	font: 7pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 3px 1px 4px;
- }
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 7px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 35px;
-}
-
-QComboBox::item:alternate
-{
-	background: rgb(90, 90, 90);
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-
-
-QToolTip
-{
-	min-height: 16px;
-}</string>
-   </property>
-   <property name="currentIndex">
-    <number>8</number>
-   </property>
-   <widget class="QWidget" name="noneDeviceView"/>
-   <widget class="QWidget" name="noteSetDeviceView">
-    <property name="styleSheet">
-     <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-</string>
-    </property>
-    <widget class="QSpinBox" name="notenumber">
-     <property name="geometry">
-      <rect>
-       <x>5</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>-1</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI note number to output.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QSpinBox
-{
-	font: 9px &quot;Tahoma&quot;;
-}</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>127</number>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="notevelocity">
-     <property name="geometry">
-      <rect>
-       <x>37</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>-1</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the velocity for the MIDI note.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QSpinBox
-{
-	font: 9px &quot;Tahoma&quot;;
-}</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>127</number>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="notechannel">
-     <property name="geometry">
-      <rect>
-       <x>69</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>-1</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI channel to output on.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QSpinBox
-{
-	font: 9px &quot;Tahoma&quot;;
-}</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>16</number>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="notedevice">
-     <property name="geometry">
-      <rect>
-       <x>104</x>
-       <y>0</y>
-       <width>116</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>-1</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::DefaultContextMenu</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI port to which the message will be output.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-	font: 9px &quot;Tahoma&quot;;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}</string>
-     </property>
-     <property name="maxVisibleItems">
-      <number>16</number>
-     </property>
-     <property name="minimumContentsLength">
-      <number>100</number>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>8</width>
-       <height>8</height>
-      </size>
-     </property>
-     <item>
-      <property name="text">
-       <string>SoftStep Expander</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>SSCOM Port 1</string>
-      </property>
-     </item>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="noteLiveDeviceView">
-    <property name="styleSheet">
-     <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-</string>
-    </property>
-    <widget class="QComboBox" name="notelivedevice">
-     <property name="geometry">
-      <rect>
-       <x>104</x>
-       <y>0</y>
-       <width>116</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::DefaultContextMenu</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI port to which the message will be output.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}</string>
-     </property>
-     <property name="maxVisibleItems">
-      <number>16</number>
-     </property>
-     <property name="minimumContentsLength">
-      <number>100</number>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>8</width>
-       <height>8</height>
-      </size>
-     </property>
-     <item>
-      <property name="text">
-       <string>SoftStep Expander</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>SSCOM Port 1</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QSpinBox" name="notelivevelocity">
-     <property name="geometry">
-      <rect>
-       <x>37</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the velocity for the note messages.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>127</number>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="notelivechannel">
-     <property name="geometry">
-      <rect>
-       <x>69</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI channel to output on.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>16</number>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="notelivenumber">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>5</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QSpinBox
-{
-	border: transparent;
-	background: transparent;
-	color: transparent;
-}</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>127</number>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="controlDeviceView">
-    <property name="styleSheet">
-     <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-</string>
-    </property>
-    <widget class="QSpinBox" name="cc">
-     <property name="geometry">
-      <rect>
-       <x>37</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the CC number to send the modline data on.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>127</number>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="controlchannel">
-     <property name="geometry">
-      <rect>
-       <x>69</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI channel to output on.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>16</number>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="controldevice">
-     <property name="geometry">
-      <rect>
-       <x>104</x>
-       <y>0</y>
-       <width>116</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::DefaultContextMenu</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI port to which the message will be output.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}</string>
-     </property>
-     <property name="maxVisibleItems">
-      <number>16</number>
-     </property>
-     <property name="minimumContentsLength">
-      <number>100</number>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>8</width>
-       <height>8</height>
-      </size>
-     </property>
-     <item>
-      <property name="text">
-       <string>SoftStep Expander</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>SSCOM Port 1</string>
-      </property>
-     </item>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="bankDeviceView">
-    <property name="styleSheet">
-     <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-</string>
-    </property>
-    <widget class="QComboBox" name="bankdevice">
-     <property name="geometry">
-      <rect>
-       <x>104</x>
-       <y>0</y>
-       <width>116</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::DefaultContextMenu</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI port to which the message will be output.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}</string>
-     </property>
-     <property name="maxVisibleItems">
-      <number>16</number>
-     </property>
-     <property name="minimumContentsLength">
-      <number>100</number>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>8</width>
-       <height>8</height>
-      </size>
-     </property>
-     <item>
-      <property name="text">
-       <string>SoftStep Expander</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>SSCOM Port 1</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QSpinBox" name="bankmsb">
-     <property name="geometry">
-      <rect>
-       <x>37</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MSB for the bank message. The LSB will be &lt;br&gt;filled in by whatever value is coming through the modline.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>127</number>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="bankchannel">
-     <property name="geometry">
-      <rect>
-       <x>69</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI channel to output on.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>16</number>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="programDeviceView">
-    <property name="styleSheet">
-     <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-</string>
-    </property>
-    <widget class="QComboBox" name="programdevice">
-     <property name="geometry">
-      <rect>
-       <x>104</x>
-       <y>0</y>
-       <width>116</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::DefaultContextMenu</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI port to which the message will be output.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}</string>
-     </property>
-     <property name="maxVisibleItems">
-      <number>16</number>
-     </property>
-     <property name="minimumContentsLength">
-      <number>100</number>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>8</width>
-       <height>8</height>
-      </size>
-     </property>
-     <item>
-      <property name="text">
-       <string>SoftStep Expander</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>SSCOM Port 1</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QSpinBox" name="programchannel">
-     <property name="geometry">
-      <rect>
-       <x>69</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI channel to output on.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>16</number>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="bendDeviceView">
-    <property name="styleSheet">
-     <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-</string>
-    </property>
-    <widget class="QSpinBox" name="bendchannel">
-     <property name="geometry">
-      <rect>
-       <x>69</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI channel to output on.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>16</number>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="benddevice">
-     <property name="geometry">
-      <rect>
-       <x>104</x>
-       <y>0</y>
-       <width>116</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::DefaultContextMenu</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI port to which the message will be output.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}</string>
-     </property>
-     <property name="maxVisibleItems">
-      <number>16</number>
-     </property>
-     <property name="minimumContentsLength">
-      <number>100</number>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>8</width>
-       <height>8</height>
-      </size>
-     </property>
-     <item>
-      <property name="text">
-       <string>SoftStep Expander</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>SSCOM Port 1</string>
-      </property>
-     </item>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="mmcDeviceView">
-    <property name="styleSheet">
-     <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-</string>
-    </property>
-    <widget class="QComboBox" name="mmcdevice">
-     <property name="geometry">
-      <rect>
-       <x>104</x>
-       <y>0</y>
-       <width>116</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::DefaultContextMenu</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI port to which the message will be output.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}</string>
-     </property>
-     <property name="maxVisibleItems">
-      <number>16</number>
-     </property>
-     <property name="minimumContentsLength">
-      <number>100</number>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>8</width>
-       <height>8</height>
-      </size>
-     </property>
-     <item>
-      <property name="text">
-       <string>SoftStep Expander</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>SSCOM Port 1</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QSpinBox" name="mmcdeviceid">
-     <property name="geometry">
-      <rect>
-       <x>5</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the device ID for the receiving MMC device.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>127</number>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="mmcfunction">
-     <property name="geometry">
-      <rect>
-       <x>37</x>
-       <y>0</y>
-       <width>64</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::DefaultContextMenu</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the type of MMC message to output.</string>
-     </property>
-     <item>
-      <property name="text">
-       <string>Stop</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Play</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Deferred Play</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Fast Forward</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Rewind</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Punch In</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Punch Out</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Pause</string>
-      </property>
-     </item>
-    </widget>
-    <zorder>mmcdeviceid</zorder>
-    <zorder>mmcfunction</zorder>
-    <zorder>mmcdevice</zorder>
-   </widget>
-   <widget class="QWidget" name="oscDeviceView">
-    <widget class="QLineEdit" name="oscroute">
-     <property name="geometry">
-      <rect>
-       <x>104</x>
-       <y>0</y>
-       <width>116</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string>Sets the routing prefix for the OSC message.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QComboBox QListView
-{
-	min-width: 175px;
-}</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="aftertouchDeviceView">
-    <property name="styleSheet">
-     <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-</string>
-    </property>
-    <widget class="QComboBox" name="aftertouchdevice">
-     <property name="geometry">
-      <rect>
-       <x>104</x>
-       <y>0</y>
-       <width>116</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::DefaultContextMenu</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI port to which the message will be output.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}</string>
-     </property>
-     <property name="maxVisibleItems">
-      <number>16</number>
-     </property>
-     <property name="minimumContentsLength">
-      <number>100</number>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>8</width>
-       <height>8</height>
-      </size>
-     </property>
-     <item>
-      <property name="text">
-       <string>SoftStep Expander</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>SSCOM Port 1</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QSpinBox" name="aftertouchchannel">
-     <property name="geometry">
-      <rect>
-       <x>69</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI channel to output on.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>16</number>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="polyDeviceView">
-    <property name="styleSheet">
-     <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-</string>
-    </property>
-    <widget class="QSpinBox" name="polynote">
-     <property name="geometry">
-      <rect>
-       <x>37</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the note number to send the polyphonic aftertouch for.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>127</number>
-     </property>
-    </widget>
-    <widget class="QSpinBox" name="polychannel">
-     <property name="geometry">
-      <rect>
-       <x>69</x>
-       <y>0</y>
-       <width>30</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI channel to output on.</string>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-     <property name="maximum">
-      <number>16</number>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="polydevice">
-     <property name="geometry">
-      <rect>
-       <x>104</x>
-       <y>0</y>
-       <width>116</width>
-       <height>18</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Tahoma</family>
-       <pointsize>7</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::StrongFocus</enum>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::DefaultContextMenu</enum>
-     </property>
-     <property name="toolTip">
-      <string>Sets the MIDI port to which the message will be output.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	padding-right: 7px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 65px;
-	min-height: 25px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-	min-width: 65px;
-
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}</string>
-     </property>
-     <property name="maxVisibleItems">
-      <number>16</number>
-     </property>
-     <property name="minimumContentsLength">
-      <number>100</number>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>8</width>
-       <height>8</height>
-      </size>
-     </property>
-     <item>
-      <property name="text">
-       <string>SoftStep Expander</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>SSCOM Port 1</string>
-      </property>
-     </item>
-    </widget>
-   </widget>
-  </widget>
-  <widget class="QStackedWidget" name="deviceViewLabels">
-   <property name="geometry">
-    <rect>
-     <x>697</x>
-     <y>1</y>
-     <width>198</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/* ------- QStackedWidget ---------*/
-QStackedWidget
-{
-	border-left: none;
-	border-right: none;
-}
-
-QWidget
-{
-	background: rgba(0, 0, 0, 0);
-}
-
-QLabel
-{
-	background: rgba(0, 0, 0, 0);
-}</string>
-   </property>
-   <property name="currentIndex">
-    <number>9</number>
-   </property>
-   <widget class="QWidget" name="noneDeviceLabel"/>
-   <widget class="QWidget" name="noteSetDeviceLabel">
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <widget class="QLabel" name="label_6">
-     <property name="geometry">
-      <rect>
-       <x>36</x>
-       <y>0</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Vel</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_7">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>0</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ch</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_8">
-     <property name="geometry">
-      <rect>
-       <x>113</x>
-       <y>0</y>
-       <width>72</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Output Port</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="noteLiveDeviceLabel">
-    <widget class="QLabel" name="label_10">
-     <property name="geometry">
-      <rect>
-       <x>113</x>
-       <y>0</y>
-       <width>72</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Output Port</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_11">
-     <property name="geometry">
-      <rect>
-       <x>36</x>
-       <y>0</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Vel</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_12">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>0</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ch</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="controlDeviceLabel">
-    <widget class="QLabel" name="label_14">
-     <property name="geometry">
-      <rect>
-       <x>113</x>
-       <y>0</y>
-       <width>72</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Output Port</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_15">
-     <property name="geometry">
-      <rect>
-       <x>36</x>
-       <y>0</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>CC#</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_16">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>0</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ch</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="bankDeviceLabel">
-    <widget class="QLabel" name="label_17">
-     <property name="geometry">
-      <rect>
-       <x>113</x>
-       <y>0</y>
-       <width>72</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Output Port</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_18">
-     <property name="geometry">
-      <rect>
-       <x>36</x>
-       <y>0</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>MSB</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_19">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>0</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ch</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="programDeviceLabel">
-    <widget class="QLabel" name="label_20">
-     <property name="geometry">
-      <rect>
-       <x>113</x>
-       <y>0</y>
-       <width>72</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Output Port</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_22">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>0</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ch</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="bendDeviceLabel">
-    <widget class="QLabel" name="label_23">
-     <property name="geometry">
-      <rect>
-       <x>113</x>
-       <y>0</y>
-       <width>72</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Output Port</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_25">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>0</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ch</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="mmcDeviceLabel">
-    <widget class="QLabel" name="label_9">
-     <property name="geometry">
-      <rect>
-       <x>6</x>
-       <y>0</y>
-       <width>31</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>ID</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_24">
-     <property name="geometry">
-      <rect>
-       <x>113</x>
-       <y>0</y>
-       <width>72</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Output Port</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_26">
-     <property name="geometry">
-      <rect>
-       <x>42</x>
-       <y>0</y>
-       <width>41</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Function</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="oscDeviceLabel">
-    <widget class="QLabel" name="label_21">
-     <property name="geometry">
-      <rect>
-       <x>113</x>
-       <y>0</y>
-       <width>72</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Output Prefix</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="aftertouchDeviceLabel">
-    <widget class="QLabel" name="label_28">
-     <property name="geometry">
-      <rect>
-       <x>113</x>
-       <y>0</y>
-       <width>72</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Output Port</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_30">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>0</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ch</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="polyDeviceLabel">
-    <widget class="QLabel" name="label_29">
-     <property name="geometry">
-      <rect>
-       <x>113</x>
-       <y>0</y>
-       <width>72</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Output Port</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_31">
-     <property name="geometry">
-      <rect>
-       <x>35</x>
-       <y>0</y>
-       <width>31</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Note</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_32">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>0</y>
-       <width>21</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ch</string>
-     </property>
-    </widget>
-   </widget>
   </widget>
   <widget class="QComboBox" name="source">
    <property name="geometry">
@@ -3744,11 +955,7 @@ QLabel
 {
 	min-height: 16px;
 }
-
-QComboBox QListView
-{
-	min-width: 100pt;
-}</string>
+</string>
    </property>
    <item>
     <property name="text">
@@ -4093,14 +1300,14 @@ QToolTip
     <rect>
      <x>27</x>
      <y>18</y>
-     <width>39</width>
+     <width>41</width>
      <height>18</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>7</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -4112,77 +1319,7 @@ QToolTip
     <string>Sets the init mode.&lt;p&gt;&lt;b&gt;None&lt;/b&gt;: Off. No init value will be sent.&lt;p&gt;&lt;b&gt;Once&lt;/b&gt;: Outputs the set init value the first time this preset is selected/loaded.&lt;p&gt;&lt;b&gt;Always&lt;/b&gt;: Outputs the set init value every time this preset is selected/loaded.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	font: 7pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 3px 1px 4px;
- }
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 7px &quot;Tahoma&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 100px;
-}
-
-QComboBox::item:alternate
-{
-	background: rgb(90, 90, 90);
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
-}
-
-QComboBox:disabled
-{
-	background-color: rgba(20, 20, 20, 75);
-	border-color: rgba(0, 174, 239, 75);
-	color: rgba(255, 255, 255, 75);
-}
-
-
-QToolTip
-{
-	min-height: 16px;
-}</string>
+    <string notr="true"/>
    </property>
    <property name="sizeAdjustPolicy">
     <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -4209,15 +1346,15 @@ QToolTip
   <widget class="QLabel" name="label_48">
    <property name="geometry">
     <rect>
-     <x>940</x>
-     <y>5</y>
-     <width>20</width>
+     <x>942</x>
+     <y>2</y>
+     <width>16</width>
      <height>16</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background: none;
-image: url(:/resources/modline_led_display_arrow.png);</string>
+image: url(:/resources/modline_led_display_arrow.svg);</string>
    </property>
    <property name="text">
     <string/>
@@ -4226,10 +1363,10 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
   <widget class="QRadioButton" name="modlinedisplayenable">
    <property name="geometry">
     <rect>
-     <x>944</x>
-     <y>18</y>
-     <width>20</width>
-     <height>20</height>
+     <x>942</x>
+     <y>19</y>
+     <width>17</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -4541,6 +1678,381 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QLabel" name="dest_label_b2">
+   <property name="geometry">
+    <rect>
+     <x>724</x>
+     <y>1</y>
+     <width>30</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Vel</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="dest_b3">
+   <property name="geometry">
+    <rect>
+     <x>756</x>
+     <y>18</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tahoma</family>
+     <pointsize>-1</pointsize>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string>Sets the MIDI channel to output on.</string>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>16</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="dest_label_func">
+   <property name="geometry">
+    <rect>
+     <x>724</x>
+     <y>1</y>
+     <width>64</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Function</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="dest_label_b3">
+   <property name="geometry">
+    <rect>
+     <x>756</x>
+     <y>1</y>
+     <width>30</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Ch</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="dest_b1">
+   <property name="geometry">
+    <rect>
+     <x>691</x>
+     <y>18</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tahoma</family>
+     <pointsize>-1</pointsize>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string>Sets the device ID for the receiving MMC device.</string>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="dest_label_b1">
+   <property name="geometry">
+    <rect>
+     <x>691</x>
+     <y>1</y>
+     <width>30</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Note</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="dest_oscroute">
+   <property name="geometry">
+    <rect>
+     <x>791</x>
+     <y>18</y>
+     <width>116</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the routing prefix for the OSC message.</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="dest_label_port">
+   <property name="geometry">
+    <rect>
+     <x>791</x>
+     <y>1</y>
+     <width>116</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Output Port</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="dest_mmcfunction">
+   <property name="geometry">
+    <rect>
+     <x>724</x>
+     <y>18</y>
+     <width>64</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tahoma</family>
+     <pointsize>-1</pointsize>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::DefaultContextMenu</enum>
+   </property>
+   <property name="toolTip">
+    <string>Sets the type of MMC message to output.</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Stop</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Play</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Deferred Play</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Fast Forward</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Rewind</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Punch In</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Punch Out</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pause</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QSpinBox" name="dest_b2">
+   <property name="geometry">
+    <rect>
+     <x>724</x>
+     <y>18</y>
+     <width>30</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tahoma</family>
+     <pointsize>-1</pointsize>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string>Sets the CC number to send the modline data on.</string>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="dest_device">
+   <property name="geometry">
+    <rect>
+     <x>791</x>
+     <y>18</y>
+     <width>116</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tahoma</family>
+     <pointsize>-1</pointsize>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::DefaultContextMenu</enum>
+   </property>
+   <property name="toolTip">
+    <string>Sets the MIDI port to which the message will be output.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+QComboBox QAbstractItemView::item
+{
+	min-height: 65px;
+	min-width: 65px;
+
+}</string>
+   </property>
+   <property name="maxVisibleItems">
+    <number>16</number>
+   </property>
+   <property name="minimumContentsLength">
+    <number>100</number>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>8</width>
+     <height>8</height>
+    </size>
+   </property>
+   <item>
+    <property name="text">
+     <string>SoftStep Expander</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>SSCOM Port 1</string>
+    </property>
+   </item>
+  </widget>
+  <zorder>outputvalue</zorder>
+  <zorder>instanceLabel</zorder>
+  <zorder>result</zorder>
+  <zorder>label_3</zorder>
+  <zorder>delay</zorder>
+  <zorder>label</zorder>
+  <zorder>min</zorder>
+  <zorder>offset</zorder>
+  <zorder>max</zorder>
+  <zorder>slew</zorder>
+  <zorder>initvalue</zorder>
+  <zorder>destination</zorder>
+  <zorder>enable</zorder>
+  <zorder>source</zorder>
+  <zorder>raw</zorder>
+  <zorder>label_2</zorder>
+  <zorder>table</zorder>
+  <zorder>gain</zorder>
+  <zorder>initmode</zorder>
+  <zorder>label_48</zorder>
+  <zorder>modlinedisplayenable</zorder>
+  <zorder>label_4</zorder>
+  <zorder>hide_border_bleed</zorder>
+  <zorder>label_42</zorder>
+  <zorder>label_43</zorder>
+  <zorder>label_36</zorder>
+  <zorder>label_44</zorder>
+  <zorder>label_35</zorder>
+  <zorder>label_38</zorder>
+  <zorder>label_47</zorder>
+  <zorder>label_34</zorder>
+  <zorder>label_40</zorder>
+  <zorder>label_39</zorder>
+  <zorder>label_33</zorder>
+  <zorder>label_41</zorder>
+  <zorder>label_37</zorder>
+  <zorder>label_13</zorder>
+  <zorder>label_45</zorder>
+  <zorder>dest_label_b2</zorder>
+  <zorder>dest_b3</zorder>
+  <zorder>dest_label_b3</zorder>
+  <zorder>dest_b1</zorder>
+  <zorder>dest_label_b1</zorder>
+  <zorder>dest_oscroute</zorder>
+  <zorder>dest_label_port</zorder>
+  <zorder>dest_mmcfunction</zorder>
+  <zorder>dest_b2</zorder>
+  <zorder>dest_device</zorder>
+  <zorder>dest_label_func</zorder>
  </widget>
  <tabstops>
   <tabstop>enable</tabstop>
@@ -4559,33 +2071,6 @@ image: url(:/resources/modline_led_display_arrow.png);</string>
   <tabstop>outputvalue</tabstop>
   <tabstop>destination</tabstop>
   <tabstop>modlinedisplayenable</tabstop>
-  <tabstop>notenumber</tabstop>
-  <tabstop>notevelocity</tabstop>
-  <tabstop>notechannel</tabstop>
-  <tabstop>notedevice</tabstop>
-  <tabstop>notelivenumber</tabstop>
-  <tabstop>notelivevelocity</tabstop>
-  <tabstop>notelivechannel</tabstop>
-  <tabstop>notelivedevice</tabstop>
-  <tabstop>cc</tabstop>
-  <tabstop>controlchannel</tabstop>
-  <tabstop>controldevice</tabstop>
-  <tabstop>bankmsb</tabstop>
-  <tabstop>bankchannel</tabstop>
-  <tabstop>bankdevice</tabstop>
-  <tabstop>programchannel</tabstop>
-  <tabstop>programdevice</tabstop>
-  <tabstop>bendchannel</tabstop>
-  <tabstop>benddevice</tabstop>
-  <tabstop>mmcdeviceid</tabstop>
-  <tabstop>mmcfunction</tabstop>
-  <tabstop>mmcdevice</tabstop>
-  <tabstop>oscroute</tabstop>
-  <tabstop>aftertouchchannel</tabstop>
-  <tabstop>aftertouchdevice</tabstop>
-  <tabstop>polynote</tabstop>
-  <tabstop>polychannel</tabstop>
-  <tabstop>polydevice</tabstop>
  </tabstops>
  <resources/>
  <connections/>

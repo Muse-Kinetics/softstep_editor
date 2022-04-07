@@ -63,9 +63,14 @@ public:
     KMI_Updates * checkUpdates;
     fwUpdate* fwUpdateWindow;
 
-    // FWUpdate Styles
+    // Stylesheets
     QFile*              fwUpdateStylesFile;
     QString             fwUpdateStylesString;
+
+    QFile*              dialogStylesFile;
+    QString             dialogStylesString;
+
+
 
     // ------- end fw update overhaul ----------------------------
 

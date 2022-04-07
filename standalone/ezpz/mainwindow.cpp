@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     applicationVersion[0] = 2;
     applicationVersion[1] = 1;
     applicationVersion[2] = 0;
-    betaVersion = "A"; // leave blank for release
+    betaVersion = "B"; // leave blank for release
 
     // store the SoftStep device firmware version
     thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_softstep), sizeof(_fw_ver_softstep));
@@ -199,8 +199,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // Firmware update Window
     fwUpdateWindow = new fwUpdate(this, "SoftStep", applicationFirmwareVersionString());
 
-    this->installEventFilter(this);
-
     slotInitMenuBar();
 
     slotConnectInterfaces();
@@ -243,6 +241,21 @@ MainWindow::MainWindow(QWidget *parent) :
         qDebug() << "ERROR - could not find fwUpdate style file: " << fwUpdateStylesFile;
     }
 
+    // app dialog stylesheets
+#ifdef Q_OS_MAC
+    dialogStylesFile = new QFile(":/stylesheets/appDialog_SoftStep.qss");
+#else
+    dialogStylesFile = new QFile(":/stylesheets/appDialog_SoftStep_WIN.qss");
+#endif
+    if (!dialogStylesFile->open(QFile::ReadOnly))
+    {
+        qDebug() << "ERROR: could not open stylesheet: " << dialogStylesFile->fileName();
+    }
+    else
+    {
+        dialogStylesString = QLatin1String(dialogStylesFile->readAll());
+    }
+
     //Load preset from last app session
     presetInterface->slotRecallPreset(1);
     //ui->currentPreset->setValue(settings->value("lastPreset").toInt());
@@ -268,41 +281,27 @@ MainWindow::MainWindow(QWidget *parent) :
         spinbox->installEventFilter(&scrollEventFilter);
     }
 
-    //load fonts
-    QString droidFont;
-    QString futuraFont;
-    QString futuraBFont;
-    QString corbelFont;
-    QString corbelBFont;
-    QString fontPath = QCoreApplication::applicationDirPath();
+    // ---- FONTS --------------------------
+    qDebug() << "------------ [FONTS SETUP] ---------------------------------------------------";
 
-#if defined(Q_OS_MAC) && !defined(QT_DEBUG)
-// If this is uncommented, release builds get the wrong font.
-//    fontPath.remove(fontPath.length() - 5, fontPath.length());
-//    droidFont = QString("%1Resources/DroidSansMono.ttf").arg(fontPath);
-//    futuraFont = QString("%1Resources/Futura-Bold.ttf").arg(fontPath);
+    QString droidFont = ":/fonts/droid-sans/DroidSansMono.ttf";
+    QString futuraFont = ":/fonts/futura/futura-normal.ttf";
+    QString futuraBFont = ":/fonts/futura/Futura-Bold.ttf";
+    QString corbelFont = ":/fonts/corbel/corbel.ttf";
+    QString corbelBFont = ":/fonts/corbel/corbelb.ttf";
+    QString sourceFont = ":/fonts/source-sans-pro/SourceSansPro-Regular.otf";
 
-//    QFontDatabase::addApplicationFont(droidFont);
-//    QFontDatabase::addApplicationFont(futuraFont);
-#elif !defined(Q_OS_MAC)
-    droidFont = "./resources/DroidSansMono.ttf";
-    futuraFont = "./resources/futura-normal.ttf";
-    futuraBFont = "./resources/Futura-Bold.ttf";
-    corbelFont = "./resources/corbel.ttf";
-    corbelBFont = "./resources/corbelb.ttf";
 
-    QFontDatabase::addApplicationFont(droidFont);
-    QFontDatabase::addApplicationFont(futuraFont);
-    QFontDatabase::addApplicationFont(futuraBFont);
-    QFontDatabase::addApplicationFont(corbelFont);
-    QFontDatabase::addApplicationFont(corbelBFont);
-#else
-    droidFont = "./resources/DroidSansBono.ttf";
-    futuraFont = "./resources/Futura-Bold.ttf";
+    if (QFontDatabase::addApplicationFont(droidFont) == -1) qDebug() << "Could not load font: " << droidFont;
+    if (QFontDatabase::addApplicationFont(futuraFont) == -1) qDebug() << "Could not load font: " << futuraFont;
+    if (QFontDatabase::addApplicationFont(futuraBFont) == -1) qDebug() << "Could not load font: " << futuraBFont;
+    if (QFontDatabase::addApplicationFont(corbelFont) == -1) qDebug() << "Could not load font: " << corbelFont;
+    if (QFontDatabase::addApplicationFont(corbelBFont) == -1) qDebug() << "Could not load font: " << corbelBFont;
+    if (QFontDatabase::addApplicationFont(sourceFont) == -1) qDebug() << "Could not load font: " << sourceFont;
 
-    QFontDatabase::addApplicationFont(droidFont);
-    QFontDatabase::addApplicationFont(futuraFont);
-#endif
+    // ---- end FONTS -------------------------
+
+    slotUpdateAboutWindow();
 
     // start polling at 100ms intervals
     kmiPorts->devicePoller->start(100);
@@ -314,38 +313,49 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+#define DIALOG_WIDTH 400
+#define DIALOG_HEIGHT 125
+#define DIALOG_TEXT_PADDING 10
+#define DIALOG_W_CENTER (DIALOG_WIDTH / 2)
+#define DIALOG_BUTT_W 70
+#define DIALOG_BUTT_H 28
+#define DIALOG_BUTT_X DIALOG_W_CENTER - (DIALOG_BUTT_W / 2)
+#define DIALOG_BUTT_Y DIALOG_HEIGHT - DIALOG_BUTT_H - (DIALOG_TEXT_PADDING * 2)
+#define DIALOG_TEXT_W (DIALOG_WIDTH - (DIALOG_TEXT_PADDING * 2))
+#define DIALOG_TEXT_H (DIALOG_HEIGHT - DIALOG_BUTT_H - (DIALOG_TEXT_PADDING * 2))
+
 void MainWindow::slotCreateDialog(QString dialogText)
 {
     QDialog *msgBox = new QDialog(this);
-    msgBox->setMinimumSize(300, 100);
-    msgBox->setFixedSize(300, 100);
-
-    QPoint centerparent(
-                this->x() + ((this->frameGeometry().width() - msgBox->frameGeometry().width()) /2),
-                this->y() + ((this->frameGeometry().height() - msgBox->frameGeometry().height()) /2));
-
-    msgBox->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
-    msgBox->move(centerparent);
+    msgBox->setModal(true);
+    msgBox->setWindowFlags(Qt::FramelessWindowHint);
+    msgBox->setStyleSheet(dialogStylesString);
 
 
-    msgBox->setStyleSheet("QWidget{background: rgba(100,100,100, 255); border-color:black; border:5px}");
+    msgBox->setMinimumSize(DIALOG_WIDTH, DIALOG_HEIGHT);
+    msgBox->setFixedSize(DIALOG_WIDTH, DIALOG_HEIGHT);
+
+    int x = this->width();
+    int y = this->height();
+
+    int dialogX = ((x / 2) - (DIALOG_WIDTH / 2));
+    int dialogY = ((y / 2) - (DIALOG_HEIGHT / 2));
+
+    qDebug() << "parent x: " << x << " y: " << y << " dialogX: " << dialogX << "dialogY: " << dialogY;
+
+    msgBox->move(dialogX, dialogY);
 
     QLabel* text = new QLabel(dialogText, msgBox, Qt::WindowFlags());
     text->setAlignment(Qt::AlignCenter);
-    text->setMinimumSize(300, 50);
-    text->setFixedSize(300, 50);
-    text->move(0, 10);
-
-#ifdef Q_OS_MAC // EB attempt to make this cross platform
-    text->setStyleSheet("font: 12pt;");
-#else
-    text->setStyleSheet("font: 10pt;");
-#endif
+    text->setMinimumSize(DIALOG_TEXT_W, DIALOG_TEXT_H);
+    text->setFixedSize(DIALOG_TEXT_W, DIALOG_TEXT_H);
+    text->move(DIALOG_TEXT_PADDING, DIALOG_TEXT_PADDING);
 
     QPushButton* okButton = new QPushButton(msgBox);
     okButton->setStyleSheet(grayStyleString);
     okButton->setText("Ok");
-    okButton->setGeometry(QRect(140, 60, 70, 28));
+    okButton->setGeometry(QRect(DIALOG_BUTT_X, DIALOG_BUTT_Y, DIALOG_BUTT_W,DIALOG_BUTT_H));
     connect(okButton, SIGNAL(clicked()), msgBox, SLOT(close()));
 
     msgBox->exec();
@@ -627,6 +637,8 @@ void MainWindow::slotConnected(bool connection)
 
         updatefw->setEnabled(true);
 
+        connected = true;
+
         // attempt to recall midi thru port when device connects
         //slotRecallMIDIThru();
     }
@@ -645,6 +657,8 @@ void MainWindow::slotConnected(bool connection)
         presetInterface->connected = false;
 
         updatefw->setEnabled(false);
+
+        connected = false;
 
     }
 
@@ -665,7 +679,7 @@ void MainWindow::slotInitMenuBar()
         menuStyleString = QLatin1String(menuStyleFile.readAll());
         menubar->setStyleSheet(menuStyleString);
 
-        qDebug() << "menubar stylesheet: " << menubar->styleSheet();
+        //qDebug() << "menubar stylesheet: " << menubar->styleSheet();
     }
     else
     {
@@ -678,7 +692,6 @@ void MainWindow::slotInitMenuBar()
 
     //-------------------------------------------------------------------------- File
     QMenu* file = new QMenu("File");
-    qDebug() << file;
     file->setObjectName("FileMenu");
 
     //------------- Import / Export -------------//
@@ -696,7 +709,6 @@ void MainWindow::slotInitMenuBar()
 
     //-------------------------------------------------------------------------- Edit
     QMenu* edit = new QMenu("Edit ");
-    qDebug() << edit;
     edit->setObjectName("EditMenu");
     menubar->addMenu(edit);
 
@@ -926,11 +938,10 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         {
             ui->midi_thru->addItem(portName); // update dropdown
 
-
             if (portName == settings->value(MIDI_THRU_KEY).toString()) // if this port matches the last selected port
             {
                 recallMidiThruPortName = portName; // store name
-                //QTimer::singleShot(500, this, SLOT(slotRecallMIDIThru())); // wait, then set/update the port
+                QTimer::singleShot(500, this, SLOT(slotRecallMIDIThru())); // wait, then set/update the port
             }
 
         }
@@ -940,8 +951,15 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
         {   
             SoftStep->slotSetExpectedFW(thisFw);
-            SoftStep->slotUpdatePortIn(portNum);
-            fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Connected\n");
+
+            if (!SoftStep->slotUpdatePortIn(portNum))
+            {
+                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+            }
+            else
+            {
+                fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Connected\n");
+            }
         }
         else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
         {
@@ -955,8 +973,14 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
                 SoftStep->slotUpdatePID(PID_SOFTSTEP); // this uses the standard SysEx ID request
             }
 
-            SoftStep->slotUpdatePortOut(portNum);
-            SoftStep->slotStartPolling("PORT_CONNECT"); // start polling when output port is added
+            if (!SoftStep->slotUpdatePortOut(portNum))
+            {
+                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+            }
+            else
+            {
+                SoftStep->slotStartPolling("PORT_CONNECT"); // start polling when output port is added
+            }
         }
 
         break;
@@ -990,11 +1014,17 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         // **** SoftStep renumber ****************************************
         if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
         {
-            SoftStep->slotUpdatePortIn(portNum);
+            if (!SoftStep->slotUpdatePortIn(portNum))
+            {
+                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
+            }
         }
         else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
         {
-            SoftStep->slotUpdatePortOut(portNum);
+            if (!SoftStep->slotUpdatePortOut(portNum))
+            {
+                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+            }
         }
 
         break;
@@ -1068,7 +1098,6 @@ void MainWindow::slotForceFirmwareUpdate()
 void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
 {
     qDebug() << "slotFirmwareDetected called";
-    qDebug() << SoftStep->connected;
     if (matches)
     {
         qDebug() << "FirmwareMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
@@ -1090,30 +1119,61 @@ void MainWindow::slotUpdateMIDIThru()
 {
     SoftStep->disconnect(SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)));
 
-    QString currentPort = ui->midi_thru->currentText();
+    QString currentPortName = ui->midi_thru->currentText();
 
-    qDebug() << "slotUpdateMIDIThru called - currentPort: " << currentPort << " connected: " << SoftStep->connected;
+    qDebug() << "slotUpdateMIDIThru called - currentPort: " << currentPortName << " connected: " << SoftStep->connected;
 
-    if (currentPort == "")
+    if (currentPortName == "")
     {
-        currentPort = "None";
-        ui->midi_thru->setCurrentText(currentPort);
+        currentPortName = "None";
+        ui->midi_thru->blockSignals(true);
+        ui->midi_thru->setCurrentText(currentPortName);
+        ui->midi_thru->blockSignals(false);
     }
 
     if (!SoftStep->connected) return; // don't continue if we aren't connected
 
 
-    settings->setValue(MIDI_THRU_KEY, currentPort); // store this setting for the next time we run the editor
+    settings->setValue(MIDI_THRU_KEY, currentPortName); // store this setting for the next time we run the editor
 
-    if (currentPort != "None")
+    bool failure = false;
+
+    int equivalentInPort = kmiPorts->getInPortNumber(currentPortName);
+
+    if (currentPortName != "None")
     {
         // set and open the ports
-        int thisOutPort = kmiPorts->getOutPortNumber(currentPort);
-        MIDIThru->slotUpdatePortOut(thisOutPort); // also opens the port
-        connect(SoftStep, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), MIDIThru, SLOT(slotSendMIDI(uchar, uchar, uchar, uchar)));
+        int thisOutPort = kmiPorts->getOutPortNumber(currentPortName);
+        if (!MIDIThru->slotUpdatePortOut(thisOutPort)) // also opens the port
+        {
+            slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(currentPortName));
+            failure = true;
+        }
+        else
+        {
+            if (!MIDIThru->slotUpdatePortIn(equivalentInPort)) // also opens the port
+            {
+                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(currentPortName));
+                failure = true;
+            }
+            else
+            {
+                connect(SoftStep, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), MIDIThru, SLOT(slotSendMIDI(uchar, uchar, uchar, uchar)));
+            }
+        }
     }
     else
     {
+        MIDIThru->slotCloseMidiIn();
+        MIDIThru->slotCloseMidiOut();
+    }
+
+    if (failure)
+    {
+        ui->midi_thru->blockSignals(true);
+        ui->midi_thru->setCurrentText("None");
+        ui->midi_thru->blockSignals(false);
+        MIDIThru->slotCloseMidiIn();
         MIDIThru->slotCloseMidiOut();
     }
 }
@@ -1155,10 +1215,13 @@ QString MainWindow::applicationFirmwareVersionString()
 
 void MainWindow::slotRecallMIDIThru()
 {
-    qDebug() << "slotRecallMIDIThru called, connected: " << SoftStep->connected << " recallMidiThruPortName: " << recallMidiThruPortName;
-    if (!SoftStep->connected || recallMidiThruPortName == "") return; // wait until connected to device and the previously saved port
+    QString thisPortName = settings->value(MIDI_THRU_KEY).toString();
 
-    ui->midi_thru->setCurrentText(recallMidiThruPortName);
+    qDebug() << "slotRecallMIDIThru called, connected: " << SoftStep->connected << " recallMidiThruPortName: " << thisPortName;
+
+    ui->midi_thru->blockSignals(true);
+    ui->midi_thru->setCurrentText(thisPortName);
+    ui->midi_thru->blockSignals(false);
     slotUpdateMIDIThru();
 }
 

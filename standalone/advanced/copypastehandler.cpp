@@ -13,6 +13,8 @@ CopyPasteHandler::CopyPasteHandler(PresetInterface *presetInterfacer, QObject *p
 
 void CopyPasteHandler::slotSetCurrentKey(int currentKeyNum)
 {
+    if (currentKeyNum == -1) return; // -1 clears the selected key UI, don't update
+
     currentKeyNumber = currentKeyNum;
     qDebug() << "from copy paste handler - current key number is:" << currentKeyNumber;
 }
@@ -126,6 +128,8 @@ void CopyPasteHandler::slotCopyPreset()
 void CopyPasteHandler::slotPastePreset()
 {
     presetInterface->defaultPresetMap.clear();
+
+    emit signalSetSelectedKey(-1); // clear the selected keys
 
     if(mode == "standalone")
     {

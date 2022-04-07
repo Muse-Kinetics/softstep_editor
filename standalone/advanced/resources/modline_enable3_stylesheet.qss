@@ -13,45 +13,45 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/modline_enable3_toggle_off.png);
+    image: url(:/resources/modline_enable3_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/modline_enable3_toggle_off.png);
+    image: url(:/resources/modline_enable3_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/modline_enable3_toggle_on.png);
+    image: url(:/resources/modline_enable3_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/modline_enable3_toggle_on.png);
+    image: url(:/resources/modline_enable3_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/modline_enable3_toggle_off.png);
+    image: url(:/resources/modline_enable3_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/modline_enable3_toggle_off.png);
+    image: url(:/resources/modline_enable3_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/modline_enable3_toggle_on.png);
+    image: url(:/resources/modline_enable3_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/modline_enable3_toggle_on.png);
+    image: url(:/resources/modline_enable3_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/modline_enable3_toggle_off.png);
+    image: url(:/resources/modline_enable3_toggle_off.svg);
 }

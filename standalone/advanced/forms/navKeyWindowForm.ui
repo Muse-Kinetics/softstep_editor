@@ -137,8 +137,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 
 /*-------QToolTip-------*/
@@ -165,90 +167,6 @@ QToolTip
     <string notr="true">QLabel
 {
 	border-top: 2px solid white;
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="outputSettingsBracketLabel">
-   <property name="geometry">
-    <rect>
-     <x>614</x>
-     <y>82</y>
-     <width>304</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_outputSettings_label_bracket.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="dataModifiersBracketLabel">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>82</y>
-     <width>318</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_dataModifiers_label_bracket.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="initsBracketLabel">
-   <property name="geometry">
-    <rect>
-     <x>39</x>
-     <y>82</y>
-     <width>53</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_inits_label_bracket.png);
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="dataSourcesBracketLabel">
-   <property name="geometry">
-    <rect>
-     <x>106</x>
-     <y>82</y>
-     <width>95</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	background-image: url(:/resources/keyWindow_dataSources_label_bracket.png);
 }</string>
    </property>
    <property name="text">
@@ -283,27 +201,27 @@ QRadioButton::indicator  {
 }
  
 QRadioButton::indicator::unchecked  {
-    image: url(:/resources/radiobutton_unchecked.png);
+    image: url(:/resources/radiobutton_unchecked.svg);
 }
  
 QRadioButton::indicator:unchecked:hover  {
-    image: url(:/resources/radiobutton_unchecked.png);
+    image: url(:/resources/radiobutton_unchecked.svg);
 }
  
 QRadioButton::indicator:unchecked:pressed  {
-    image: url(:/resources/radiobutton_pressed.png);
+    image: url(:/resources/radiobutton_pressed.svg);
 }
  
 QRadioButton::indicator::checked  {
-    image: url(:/resources/radiobutton_checked.png);
+    image: url(:/resources/radiobutton_checked.svg);
 }
  
 QRadioButton::indicator:checked:hover  {
-    image: url(:/resources/radiobutton_checked.png);
+    image: url(:/resources/radiobutton_checked.svg);
 }
  
 QRadioButton::indicator:checked:pressed  {
-    image: url(:/resources/radiobutton_pressed.png);
+    image: url(:/resources/radiobutton_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -338,27 +256,27 @@ QRadioButton::indicator  {
 }
  
 QRadioButton::indicator::unchecked  {
-    image: url(:/resources/radiobutton_unchecked.png);
+    image: url(:/resources/radiobutton_unchecked.svg);
 }
  
 QRadioButton::indicator:unchecked:hover  {
-    image: url(:/resources/radiobutton_unchecked.png);
+    image: url(:/resources/radiobutton_unchecked.svg);
 }
  
 QRadioButton::indicator:unchecked:pressed  {
-    image: url(:/resources/radiobutton_pressed.png);
+    image: url(:/resources/radiobutton_pressed.svg);
 }
  
 QRadioButton::indicator::checked  {
-    image: url(:/resources/radiobutton_checked.png);
+    image: url(:/resources/radiobutton_checked.svg);
 }
  
 QRadioButton::indicator:checked:hover  {
-    image: url(:/resources/radiobutton_checked.png);
+    image: url(:/resources/radiobutton_checked.svg);
 }
  
 QRadioButton::indicator:checked:pressed  {
-    image: url(:/resources/radiobutton_pressed.png);
+    image: url(:/resources/radiobutton_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -377,7 +295,7 @@ QRadioButton::indicator:checked:pressed  {
    <property name="styleSheet">
     <string notr="true">background: none;
 border: none;
-image: url(:/resources/openkeywindowNav_inactive.png)</string>
+image: url(:/resources/openkeywindowNav_inactive.svg)</string>
    </property>
    <property name="text">
     <string/>
@@ -531,14 +449,14 @@ image: url(:/resources/openkeywindowNav_inactive.png)</string>
 {
 	background: none;
 	border: none;
-	image: url(:/resources/keyWindow_deleteModline_button_not_clicked.png);
+	image: url(:/resources/keyWindow_deleteModline_button_not_clicked.svg);
 }
 
 QToolButton:pressed
 {
 	background: none;
 	border: none;
-	image: url(:/resources/keyWindow_deleteModline_button_clicked.png);
+	image: url(:/resources/keyWindow_deleteModline_button_clicked.svg);
 }</string>
    </property>
    <property name="text">
@@ -559,14 +477,14 @@ QToolButton:pressed
 {
 	background: none;
 	border: none;
-	image: url(:/resources/keyWindow_addModline_button_not_clicked.png);
+	image: url(:/resources/keyWindow_addModline_button_not_clicked.svg);
 }
 
 QToolButton:pressed
 {
 	background: none;
 	border: none;
-	image: url(:/resources/keyWindow_addModline_button_clicked.png);
+	image: url(:/resources/keyWindow_addModline_button_clicked.svg);
 }</string>
    </property>
    <property name="text">
@@ -632,9 +550,8 @@ QSpinBox:disabled
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
+     <family>Futura-Normal</family>
      <pointsize>9</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -717,42 +634,42 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-	image:url(:/resources/checkbox_off.png)
+	image:url(:/resources/checkbox_off.svg)
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-	image:url(:/resources/checkbox_off.png)
+	image:url(:/resources/checkbox_off.svg)
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image:url(:/resources/checkbox_on.png)
+	image:url(:/resources/checkbox_on.svg)
 }
 
 QCheckBox::indicator:checked
 {
-	image:url(:/resources/checkbox_on.png)
+	image:url(:/resources/checkbox_on.svg)
 }
 
 QCheckBox::indicator:checked:hover
 {
-	image:url(:/resources/checkbox_on.png)
+	image:url(:/resources/checkbox_on.svg)
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image:url(:/resources/checkbox_off.png)
+	image:url(:/resources/checkbox_off.svg)
 }
 
 QCheckBox::indicator:unchecked:disabled
 {
-	image:url(:/resources/checkbox_off_disabled.png)
+	image:url(:/resources/checkbox_off_disabled.svg)
 }
 
 QCheckBox::indicator:checked:disabled
 {
-	image:url(:/resources/checkbox_off_disabled.png)
+	image:url(:/resources/checkbox_off_disabled.svg)
 }</string>
    </property>
    <property name="text">
@@ -770,9 +687,8 @@ QCheckBox::indicator:checked:disabled
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
+     <family>Futura-Normal</family>
      <pointsize>9</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -792,9 +708,8 @@ QCheckBox::indicator:checked:disabled
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
+     <family>Futura-Normal</family>
      <pointsize>9</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -1008,6 +923,90 @@ QToolTip
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="initsBracketLabel">
+   <property name="geometry">
+    <rect>
+     <x>38</x>
+     <y>82</y>
+     <width>53</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	border-image: url(:/resources/keyWindow_inits_label_bracket.svg) 0 0 0 0 stretch stretch;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="outputSettingsBracketLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>614</x>
+     <y>82</y>
+     <width>304</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	border-image: url(:/resources/keyWindow_outputSettings_label_bracket.svg) 0 0 0 0 stretch stretch;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="dataModifiersBracketLabel">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>82</y>
+     <width>318</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	border-image: url(:/resources/keyWindow_dataModifiers_label_bracket.svg) 0 0 0 0 stretch stretch;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="dataSourcesBracketLabel">
+   <property name="geometry">
+    <rect>
+     <x>106</x>
+     <y>82</y>
+     <width>95</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	border-image: url(:/resources/keyWindow_dataSources_label_bracket.svg) 0 0 0 0 stretch stretch;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

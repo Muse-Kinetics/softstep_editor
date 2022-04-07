@@ -150,6 +150,9 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
 
     keyBoxWidget->move(posX, posY);
 
+    // fix width
+    emit signalFixDropDownWidth(keyWindowForm->leddisplaymode);
+
 }
 
 void Key::slotOpenWindow()
@@ -157,22 +160,27 @@ void Key::slotOpenWindow()
     //qDebug() << QString("Open Key %1 Button clicked! Open the window!").arg(keyInstance+1);
     keyWindowWidget->show();
     keyWindowWidget->raise();
+    emit signalKeySelected(-1); // clear
 }
 
 void Key::slotBackgroundClicked()
 {
+    qDebug() << "slotBackgroundClicked - keyInstance: " << keyInstance;
     emit signalKeySelected(keyInstance);
 }
 
-void Key::slotSelectedKeyOutline(int selectedKey, bool outlined)
+void Key::slotSelectedKeyOutline(bool outlined)
 {
-    if(selectedKey == keyInstance && outlined == true)
+    //qDebug() << "slotSelectedKeyOutline called - keyInstace: " << keyInstance << " outlined: " << outlined;
+    if(outlined == true)
     {
         //keyBoxForm->keyBoxFrame->setStyleSheet(stylesheets.keyBoxSelectedStyleSheet);
+        keyBoxForm->keyBoxFrame->setStyleSheet("background-color: rgba(120,120,120,255);");
     }
     else
     {
         //keyBoxForm->keyBoxFrame->setStyleSheet(stylesheets.keyBoxNotSelectedStyleSheet);
+        keyBoxForm->keyBoxFrame->setStyleSheet("background-color: rgba(0,0,0,0);");
     }
 }
 
@@ -588,6 +596,7 @@ void Key::slotPopulateMenus(QStringList displayModes)
     //Set Display Mode Menus
     keyWindowForm->leddisplaymode->clear();
     keyWindowForm->leddisplaymode->addItems(displayModes);
+    emit signalFixDropDownWidth(keyWindowForm->leddisplaymode);
 }
 
 void Key::slotSetDataCookerSettings()

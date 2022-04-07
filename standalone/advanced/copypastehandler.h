@@ -39,6 +39,7 @@ signals:
     void signalAddRemovePreset();
     void signalPresetMenu(int numPresets);
     void signalModlineWarning(QString modlineWarningMessage);
+    void signalSetSelectedKey(int keyNum);
     
 public slots:
     void slotClearPreset();

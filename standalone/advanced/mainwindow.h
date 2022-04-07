@@ -76,7 +76,7 @@ public:
 
     bool connected;
 
-    bool isWindows;
+    bool appStillLoading;
 
     // ------- fw update overhaul
     QByteArray applicationVersion, thisFw;
@@ -87,6 +87,10 @@ public:
     // FWUpdate Styles
     QFile*              fwUpdateStylesFile;
     QString             fwUpdateStylesString;
+
+    // FWUpdate Styles
+    QFile*              dialogStylesFile;
+    QString             dialogStylesString;
 
     // ------- end fw update overhaul ----------------------------
 
@@ -316,6 +320,8 @@ public slots:
     //-------------- from previous mididevicemanager
     void slotSetModeMIDI(QString m);
     void hosted_slotSendPacket(QString portName, uchar status, uchar d1, uchar d2, uchar chan);
+    void hosted_slotSendPacketOrArray(QString portName, QByteArray packetArray, uchar status, uchar d1, uchar d2, uchar chan);
+
     void hosted_slotSendPacketArray(QString, QByteArray);
     void hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar chan);
 

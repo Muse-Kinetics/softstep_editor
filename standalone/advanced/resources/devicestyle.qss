@@ -52,6 +52,6 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
 	padding-right: 10px;
 }

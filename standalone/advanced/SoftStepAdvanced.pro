@@ -16,9 +16,10 @@ macx {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder
 }
 
-win32 {
-    #CONFIG += console
-}
+# uncomment to create a console/debug version of the application for windows
+#win32 {
+#    CONFIG += console
+#}
 
 TARGET = "SoftStep Advanced Editor"
 TEMPLATE = app
@@ -178,9 +179,9 @@ FORMS    +=     forms/mainwindow.ui \
 
 #-------------------QJson-------------------#
 #-------------------------------------------#
-#static{
-#DEFINES += STATIC_BUILD
-#}
+static{
+    DEFINES += STATIC_BUILD
+}
 
 #INCLUDEPATH +=  ../../shared/qjson/src
 

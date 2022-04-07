@@ -10,16 +10,22 @@
     <height>448</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="minimumSize">
    <size>
-    <width>200</width>
-    <height>445</height>
+    <width>240</width>
+    <height>448</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>500</width>
-    <height>500</height>
+    <width>244</width>
+    <height>448</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -30,13 +36,6 @@
 {
 	background:	 rgb(60, 60, 60);
 	border: 3px solid rgba(0,174,239,255);
-}
-
-/* ------- QStackedWidget ---------*/
-QStackedWidget
-{
-	border-left: 2px solid rgb(0,174,239);
-	border-right: 2px solid rgb(0,174,239);
 }
 
 /* ---------- QLabels ------------*/
@@ -59,7 +58,7 @@ QCheckBox
 	font: 10pt &quot;Corbel&quot;;
 	background:rgba(0,174,239,0);
 	color: white;
-	padding:0, 3, 0, 0;
+	padding:0, 0, 0, 0;
 	border: none;
 }
 
@@ -123,7 +122,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/setlist_combobox_menu_arrows.png)
+	image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	width: 14px;
+	height: 14px;
+	padding-right: 3px;
 }
 
 /*-------QToolTip-------*/
@@ -143,11 +145,13 @@ QScrollBar:vertical {
 background: black;
 /* margin sets up how far the handle can travel */
 	margin: 0px 0px 0px 0px;
+	border: none;
 }
 
 /* Sets up the color and height of handle */
 QScrollBar::handle:vertical {
 	background: rgb(0,174,239);
+	border: none;
 }
 
 /* This remvoes the bottom button by setting the height to 0px */
@@ -155,6 +159,7 @@ QScrollBar::add-line:vertical {
 	height: 0px;
 	subcontrol-position: bottom;
 	subcontrol-origin: margin;
+	border: none;
 }
 
 /* This remvoes the top button by setting the height to 0px */
@@ -162,11 +167,13 @@ QScrollBar::sub-line:vertical {
 	height: 0px;
 	subcontrol-position: top;
 	subcontrol-origin: margin;
+	border: none;
 }
 
 /* need this to get rid of crosshatching on scrollbar background */
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 	background: none;
+	border: none;
 }</string>
   </property>
   <widget class="QLabel" name="titlelabel">
@@ -202,7 +209,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>40</y>
+     <y>38</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -223,47 +230,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable1_off.png);
+    image: url(:/resources/setlistWindow_enable1_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable1_off.png);
+    image: url(:/resources/setlistWindow_enable1_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable1_on.png);
+    image: url(:/resources/setlistWindow_enable1_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable1_on.png);
+    image: url(:/resources/setlistWindow_enable1_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable1_off.png);
+    image: url(:/resources/setlistWindow_enable1_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable1_off.png);
+    image: url(:/resources/setlistWindow_enable1_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable1_on.png);
+    image: url(:/resources/setlistWindow_enable1_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable1_on.png);
+    image: url(:/resources/setlistWindow_enable1_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable1_off.png);
+    image: url(:/resources/setlistWindow_enable1_off.svg);
 }
 </string>
    </property>
@@ -275,7 +282,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>65</y>
+     <y>63</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -296,47 +303,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable2_off.png);
+    image: url(:/resources/setlistWindow_enable2_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable2_off.png);
+    image: url(:/resources/setlistWindow_enable2_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable2_on.png);
+    image: url(:/resources/setlistWindow_enable2_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable2_on.png);
+    image: url(:/resources/setlistWindow_enable2_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable2_off.png);
+    image: url(:/resources/setlistWindow_enable2_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable2_off.png);
+    image: url(:/resources/setlistWindow_enable2_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable2_on.png);
+    image: url(:/resources/setlistWindow_enable2_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable2_on.png);
+    image: url(:/resources/setlistWindow_enable2_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable2_off.png);
+    image: url(:/resources/setlistWindow_enable2_off.svg);
 }
 </string>
    </property>
@@ -348,7 +355,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>90</y>
+     <y>88</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -369,47 +376,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable3_off.png);
+    image: url(:/resources/setlistWindow_enable3_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable3_off.png);
+    image: url(:/resources/setlistWindow_enable3_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable3_on.png);
+    image: url(:/resources/setlistWindow_enable3_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable3_on.png);
+    image: url(:/resources/setlistWindow_enable3_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable3_off.png);
+    image: url(:/resources/setlistWindow_enable3_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable3_off.png);
+    image: url(:/resources/setlistWindow_enable3_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable3_on.png);
+    image: url(:/resources/setlistWindow_enable3_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable3_on.png);
+    image: url(:/resources/setlistWindow_enable3_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable3_off.png);
+    image: url(:/resources/setlistWindow_enable3_off.svg);
 }
 </string>
    </property>
@@ -421,7 +428,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>115</y>
+     <y>113</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -442,47 +449,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable4_off.png);
+    image: url(:/resources/setlistWindow_enable4_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable4_off.png);
+    image: url(:/resources/setlistWindow_enable4_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable4_on.png);
+    image: url(:/resources/setlistWindow_enable4_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable4_on.png);
+    image: url(:/resources/setlistWindow_enable4_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable4_off.png);
+    image: url(:/resources/setlistWindow_enable4_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable4_off.png);
+    image: url(:/resources/setlistWindow_enable4_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable4_on.png);
+    image: url(:/resources/setlistWindow_enable4_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable4_on.png);
+    image: url(:/resources/setlistWindow_enable4_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable4_off.png);
+    image: url(:/resources/setlistWindow_enable4_off.svg);
 }
 </string>
    </property>
@@ -494,7 +501,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>140</y>
+     <y>138</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -515,47 +522,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable5_off.png);
+    image: url(:/resources/setlistWindow_enable5_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable5_off.png);
+    image: url(:/resources/setlistWindow_enable5_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable5_on.png);
+    image: url(:/resources/setlistWindow_enable5_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable5_on.png);
+    image: url(:/resources/setlistWindow_enable5_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable5_off.png);
+    image: url(:/resources/setlistWindow_enable5_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable5_off.png);
+    image: url(:/resources/setlistWindow_enable5_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable5_on.png);
+    image: url(:/resources/setlistWindow_enable5_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable5_on.png);
+    image: url(:/resources/setlistWindow_enable5_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable5_off.png);
+    image: url(:/resources/setlistWindow_enable5_off.svg);
 }
 </string>
    </property>
@@ -567,7 +574,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>165</y>
+     <y>163</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -588,47 +595,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable6_off.png);
+    image: url(:/resources/setlistWindow_enable6_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable6_off.png);
+    image: url(:/resources/setlistWindow_enable6_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable6_on.png);
+    image: url(:/resources/setlistWindow_enable6_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable6_on.png);
+    image: url(:/resources/setlistWindow_enable6_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable6_off.png);
+    image: url(:/resources/setlistWindow_enable6_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable6_off.png);
+    image: url(:/resources/setlistWindow_enable6_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable6_on.png);
+    image: url(:/resources/setlistWindow_enable6_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable6_on.png);
+    image: url(:/resources/setlistWindow_enable6_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable6_off.png);
+    image: url(:/resources/setlistWindow_enable6_off.svg);
 }
 </string>
    </property>
@@ -640,7 +647,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>190</y>
+     <y>188</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -661,47 +668,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable7_off.png);
+    image: url(:/resources/setlistWindow_enable7_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable7_off.png);
+    image: url(:/resources/setlistWindow_enable7_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable7_on.png);
+    image: url(:/resources/setlistWindow_enable7_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable7_on.png);
+    image: url(:/resources/setlistWindow_enable7_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable7_off.png);
+    image: url(:/resources/setlistWindow_enable7_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable7_off.png);
+    image: url(:/resources/setlistWindow_enable7_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable7_on.png);
+    image: url(:/resources/setlistWindow_enable7_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable7_on.png);
+    image: url(:/resources/setlistWindow_enable7_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable7_off.png);
+    image: url(:/resources/setlistWindow_enable7_off.svg);
 }
 </string>
    </property>
@@ -713,7 +720,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>215</y>
+     <y>213</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -734,47 +741,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable8_off.png);
+    image: url(:/resources/setlistWindow_enable8_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable8_off.png);
+    image: url(:/resources/setlistWindow_enable8_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable8_on.png);
+    image: url(:/resources/setlistWindow_enable8_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable8_on.png);
+    image: url(:/resources/setlistWindow_enable8_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable8_off.png);
+    image: url(:/resources/setlistWindow_enable8_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable8_off.png);
+    image: url(:/resources/setlistWindow_enable8_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable8_on.png);
+    image: url(:/resources/setlistWindow_enable8_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable8_on.png);
+    image: url(:/resources/setlistWindow_enable8_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable8_off.png);
+    image: url(:/resources/setlistWindow_enable8_off.svg);
 }
 </string>
    </property>
@@ -786,7 +793,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>240</y>
+     <y>238</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -807,47 +814,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable9_off.png);
+    image: url(:/resources/setlistWindow_enable9_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable9_off.png);
+    image: url(:/resources/setlistWindow_enable9_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable9_on.png);
+    image: url(:/resources/setlistWindow_enable9_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable9_on.png);
+    image: url(:/resources/setlistWindow_enable9_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable9_off.png);
+    image: url(:/resources/setlistWindow_enable9_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable9_off.png);
+    image: url(:/resources/setlistWindow_enable9_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable9_on.png);
+    image: url(:/resources/setlistWindow_enable9_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable9_on.png);
+    image: url(:/resources/setlistWindow_enable9_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable9_off.png);
+    image: url(:/resources/setlistWindow_enable9_off.svg);
 }
 </string>
    </property>
@@ -859,7 +866,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>265</y>
+     <y>263</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -880,47 +887,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable10_off.png);
+    image: url(:/resources/setlistWindow_enable10_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable10_off.png);
+    image: url(:/resources/setlistWindow_enable10_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable10_on.png);
+    image: url(:/resources/setlistWindow_enable10_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable10_on.png);
+    image: url(:/resources/setlistWindow_enable10_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable10_off.png);
+    image: url(:/resources/setlistWindow_enable10_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable10_off.png);
+    image: url(:/resources/setlistWindow_enable10_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable10_on.png);
+    image: url(:/resources/setlistWindow_enable10_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable10_on.png);
+    image: url(:/resources/setlistWindow_enable10_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable10_off.png);
+    image: url(:/resources/setlistWindow_enable10_off.svg);
 }
 </string>
    </property>
@@ -932,7 +939,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>290</y>
+     <y>288</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -953,47 +960,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable11_off.png);
+    image: url(:/resources/setlistWindow_enable11_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable11_off.png);
+    image: url(:/resources/setlistWindow_enable11_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable11_on.png);
+    image: url(:/resources/setlistWindow_enable11_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable11_on.png);
+    image: url(:/resources/setlistWindow_enable11_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable11_off.png);
+    image: url(:/resources/setlistWindow_enable11_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable11_off.png);
+    image: url(:/resources/setlistWindow_enable11_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable11_on.png);
+    image: url(:/resources/setlistWindow_enable11_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable11_on.png);
+    image: url(:/resources/setlistWindow_enable11_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable11_off.png);
+    image: url(:/resources/setlistWindow_enable11_off.svg);
 }
 </string>
    </property>
@@ -1005,7 +1012,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>315</y>
+     <y>313</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -1026,47 +1033,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable12_off.png);
+    image: url(:/resources/setlistWindow_enable12_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable12_off.png);
+    image: url(:/resources/setlistWindow_enable12_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable12_on.png);
+    image: url(:/resources/setlistWindow_enable12_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable12_on.png);
+    image: url(:/resources/setlistWindow_enable12_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable12_off.png);
+    image: url(:/resources/setlistWindow_enable12_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable12_off.png);
+    image: url(:/resources/setlistWindow_enable12_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable12_on.png);
+    image: url(:/resources/setlistWindow_enable12_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable12_on.png);
+    image: url(:/resources/setlistWindow_enable12_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable12_off.png);
+    image: url(:/resources/setlistWindow_enable12_off.svg);
 }
 </string>
    </property>
@@ -1078,7 +1085,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>340</y>
+     <y>338</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -1099,47 +1106,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable13_off.png);
+    image: url(:/resources/setlistWindow_enable13_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable13_off.png);
+    image: url(:/resources/setlistWindow_enable13_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable13_on.png);
+    image: url(:/resources/setlistWindow_enable13_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable13_on.png);
+    image: url(:/resources/setlistWindow_enable13_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable13_off.png);
+    image: url(:/resources/setlistWindow_enable13_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable13_off.png);
+    image: url(:/resources/setlistWindow_enable13_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable13_on.png);
+    image: url(:/resources/setlistWindow_enable13_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable13_on.png);
+    image: url(:/resources/setlistWindow_enable13_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable13_off.png);
+    image: url(:/resources/setlistWindow_enable13_off.svg);
 }
 </string>
    </property>
@@ -1151,7 +1158,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>365</y>
+     <y>363</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -1172,47 +1179,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable14_off.png);
+    image: url(:/resources/setlistWindow_enable14_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable14_off.png);
+    image: url(:/resources/setlistWindow_enable14_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable14_on.png);
+    image: url(:/resources/setlistWindow_enable14_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable14_on.png);
+    image: url(:/resources/setlistWindow_enable14_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable14_off.png);
+    image: url(:/resources/setlistWindow_enable14_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable14_off.png);
+    image: url(:/resources/setlistWindow_enable14_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable14_on.png);
+    image: url(:/resources/setlistWindow_enable14_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable14_on.png);
+    image: url(:/resources/setlistWindow_enable14_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable14_off.png);
+    image: url(:/resources/setlistWindow_enable14_off.svg);
 }
 </string>
    </property>
@@ -1224,7 +1231,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>390</y>
+     <y>388</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -1245,47 +1252,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable15_off.png);
+    image: url(:/resources/setlistWindow_enable15_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable15_off.png);
+    image: url(:/resources/setlistWindow_enable15_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable15_on.png);
+    image: url(:/resources/setlistWindow_enable15_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable15_on.png);
+    image: url(:/resources/setlistWindow_enable15_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable15_off.png);
+    image: url(:/resources/setlistWindow_enable15_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable15_off.png);
+    image: url(:/resources/setlistWindow_enable15_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable15_on.png);
+    image: url(:/resources/setlistWindow_enable15_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable15_on.png);
+    image: url(:/resources/setlistWindow_enable15_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable15_off.png);
+    image: url(:/resources/setlistWindow_enable15_off.svg);
 }
 </string>
    </property>
@@ -1297,7 +1304,7 @@ QCheckBox::indicator:checked:pressed:focus
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>415</y>
+     <y>413</y>
      <width>22</width>
      <height>22</height>
     </rect>
@@ -1318,47 +1325,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/setlistWindow_enable16_off.png);
+    image: url(:/resources/setlistWindow_enable16_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/setlistWindow_enable16_off.png);
+    image: url(:/resources/setlistWindow_enable16_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/setlistWindow_enable16_on.png);
+    image: url(:/resources/setlistWindow_enable16_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/setlistWindow_enable16_on.png);
+    image: url(:/resources/setlistWindow_enable16_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/setlistWindow_enable16_off.png);
+    image: url(:/resources/setlistWindow_enable16_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/setlistWindow_enable16_off.png);
+    image: url(:/resources/setlistWindow_enable16_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable16_on.png);
+    image: url(:/resources/setlistWindow_enable16_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/setlistWindow_enable16_on.png);
+    image: url(:/resources/setlistWindow_enable16_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/setlistWindow_enable16_off.png);
+    image: url(:/resources/setlistWindow_enable16_off.svg);
 }
 </string>
    </property>
@@ -1375,23 +1382,6 @@ QCheckBox::indicator:checked:pressed:focus
      <height>22</height>
     </rect>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
-   <item>
-    <property name="text">
-     <string>PRESET_NAME_HERE</string>
-    </property>
-   </item>
    <item>
     <property name="text">
      <string>New Item</string>
@@ -1484,52 +1474,22 @@ QCheckBox::indicator:checked:pressed:focus
    </item>
    <item>
     <property name="text">
-     <string>1</string>
+     <string>New Item</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>2</string>
+     <string>New Item</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>3</string>
+     <string>New Item</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>4</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>5</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>6</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>7</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>8</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>9</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>10</string>
+     <string>New Item</string>
     </property>
    </item>
   </widget>
@@ -1541,18 +1501,6 @@ QCheckBox::indicator:checked:pressed:focus
      <width>195</width>
      <height>22</height>
     </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
    </property>
    <item>
     <property name="text">
@@ -1619,18 +1567,6 @@ QCheckBox::indicator:checked:pressed:focus
      <height>22</height>
     </rect>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
    <item>
     <property name="text">
      <string>PRESET_NAME_HERE</string>
@@ -1695,18 +1631,6 @@ QCheckBox::indicator:checked:pressed:focus
      <width>195</width>
      <height>22</height>
     </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
    </property>
    <item>
     <property name="text">
@@ -1773,18 +1697,6 @@ QCheckBox::indicator:checked:pressed:focus
      <height>22</height>
     </rect>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
    <item>
     <property name="text">
      <string>PRESET_NAME_HERE</string>
@@ -1849,18 +1761,6 @@ QCheckBox::indicator:checked:pressed:focus
      <width>195</width>
      <height>22</height>
     </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
    </property>
    <item>
     <property name="text">
@@ -1927,18 +1827,6 @@ QCheckBox::indicator:checked:pressed:focus
      <height>22</height>
     </rect>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
    <item>
     <property name="text">
      <string>PRESET_NAME_HERE</string>
@@ -2003,18 +1891,6 @@ QCheckBox::indicator:checked:pressed:focus
      <width>195</width>
      <height>22</height>
     </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
    </property>
    <item>
     <property name="text">
@@ -2081,18 +1957,6 @@ QCheckBox::indicator:checked:pressed:focus
      <height>22</height>
     </rect>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
    <item>
     <property name="text">
      <string>PRESET_NAME_HERE</string>
@@ -2157,18 +2021,6 @@ QCheckBox::indicator:checked:pressed:focus
      <width>195</width>
      <height>22</height>
     </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
    </property>
    <item>
     <property name="text">
@@ -2235,18 +2087,6 @@ QCheckBox::indicator:checked:pressed:focus
      <height>22</height>
     </rect>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
    <item>
     <property name="text">
      <string>PRESET_NAME_HERE</string>
@@ -2311,18 +2151,6 @@ QCheckBox::indicator:checked:pressed:focus
      <width>195</width>
      <height>22</height>
     </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
    </property>
    <item>
     <property name="text">
@@ -2389,18 +2217,6 @@ QCheckBox::indicator:checked:pressed:focus
      <height>22</height>
     </rect>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
    <item>
     <property name="text">
      <string>PRESET_NAME_HERE</string>
@@ -2465,18 +2281,6 @@ QCheckBox::indicator:checked:pressed:focus
      <width>195</width>
      <height>22</height>
     </rect>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
    </property>
    <item>
     <property name="text">
@@ -2543,18 +2347,6 @@ QCheckBox::indicator:checked:pressed:focus
      <height>22</height>
     </rect>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
    <item>
     <property name="text">
      <string>PRESET_NAME_HERE</string>
@@ -2620,18 +2412,6 @@ QCheckBox::indicator:checked:pressed:focus
      <height>22</height>
     </rect>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
    <item>
     <property name="text">
      <string>PRESET_NAME_HERE</string>
@@ -2688,6 +2468,7 @@ QCheckBox::indicator:checked:pressed:focus
     </property>
    </item>
   </widget>
+  
  </widget>
  <resources/>
  <connections/>

@@ -17,7 +17,6 @@
 #define MAINWINDOW_HEIGHT 279
 #else
 #define MAINWINDOW_HEIGHT 299
-    bool isWindows = true;
 #endif
 
 // comment these out to troubleshoot issues with building
@@ -71,7 +70,9 @@ MainWindow::MainWindow(QWidget *parent) :
     applicationVersion[0] = 2;
     applicationVersion[1] = 1;
     applicationVersion[2] = 0;
-    betaVersion = "A"; // leave blank for release
+    betaVersion = "B"; // leave blank for release
+
+    appStillLoading = true;
 
     // app load progress window
     qDebug() << "------------ [Appload Widget SETUP] ---------------------------------------------------";
@@ -261,18 +262,34 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "------------ [LOAD STYLESHEETS] ---------------------------------------------------";
 
     // fwupdate stylesheets
-//#ifdef Q_OS_MAC
-    fwUpdateStylesFile = new QFile(":/stylesheets/fwUpdateStyles_lightBlue.qss");
-//#else
-//    fwUpdateStylesFile = new QFile(":stylesheets/resources/stylesheets/GeneralStylesWindows.qss");
-//#endif
-    if (!fwUpdateStylesFile->open(QFile::ReadOnly))
+#ifdef Q_OS_MAC
+
+    fwUpdateStylesFile = new QFile("://resources/stylesheets/fwUpdateStyles_lightBlue.qss");
+#else
+    fwUpdateStylesFile = new QFile(":/stylesheets/fwUpdateStyles_SoftStep_WIN.qss");
+#endif
+    if (fwUpdateStylesFile->open(QFile::ReadOnly))
     {
-        qDebug() << "ERROR: could not open stylesheet: " << fwUpdateStylesFile->fileName();
+        fwUpdateStylesString = QLatin1String(fwUpdateStylesFile->readAll());
     }
     else
     {
-        fwUpdateStylesString = QLatin1String(fwUpdateStylesFile->readAll());
+        qDebug() << "ERROR - could not find fwUpdate style file: " << fwUpdateStylesFile;
+    }
+
+    // app dialog stylesheets
+#ifdef Q_OS_MAC
+    dialogStylesFile = new QFile(":/stylesheets/appDialog_SoftStep.qss");
+#else
+    dialogStylesFile = new QFile(":/stylesheets/appDialog_SoftStep_WIN.qss");
+#endif
+    if (!dialogStylesFile->open(QFile::ReadOnly))
+    {
+        qDebug() << "ERROR: could not open stylesheet: " << dialogStylesFile->fileName();
+    }
+    else
+    {
+        dialogStylesString = QLatin1String(dialogStylesFile->readAll());
     }
 
     qDebug() << "------------ [SETUP CONNECTION INDICATOR] ---------------------------------------------------";
@@ -441,12 +458,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     }
     apploadForm.progressBar->setValue(100);
+
+    slotUpdateAboutWindow();
+
     // start polling MIDI port changes at 100ms intervals
     // had to move this to the end of setup, on Windows we were getting port changes signaling objects before they were declared
 #ifdef MIDI_ENABLED
     kmiPorts->devicePoller->start(100);
 #endif // MIDI_ENABLED
     appLoadWidget.close();
+    appStillLoading = false;
 }
 
 MainWindow::~MainWindow()
@@ -454,43 +475,48 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+#define DIALOG_WIDTH 400
+#define DIALOG_HEIGHT 125
+#define DIALOG_TEXT_PADDING 10
+#define DIALOG_W_CENTER (DIALOG_WIDTH / 2)
+#define DIALOG_BUTT_W 70
+#define DIALOG_BUTT_H 28
+#define DIALOG_BUTT_X DIALOG_W_CENTER - (DIALOG_BUTT_W / 2)
+#define DIALOG_BUTT_Y DIALOG_HEIGHT - DIALOG_BUTT_H - (DIALOG_TEXT_PADDING * 2)
+#define DIALOG_TEXT_W (DIALOG_WIDTH - (DIALOG_TEXT_PADDING * 2))
+#define DIALOG_TEXT_H (DIALOG_HEIGHT - DIALOG_BUTT_H - (DIALOG_TEXT_PADDING * 2))
 
 void MainWindow::slotCreateDialog(QString dialogText)
 {
     QDialog *msgBox = new QDialog(this);
     msgBox->setModal(true);
     msgBox->setWindowFlags(Qt::FramelessWindowHint);
-    msgBox->setStyleSheet("QWidget{background: rgba(35,31,32,255);border: 2px solid rgba(0,174,239,255); color: white;}");
-
-    msgBox->setMinimumSize(300, 100);
-    msgBox->setFixedSize(300, 100);
-
-    QPoint centerparent(
-                this->x() + ((this->frameGeometry().width() - msgBox->frameGeometry().width()) /2),
-                this->y() + ((this->frameGeometry().height() - msgBox->frameGeometry().height()) /2));
+    msgBox->setStyleSheet(dialogStylesString);
 
 
-    msgBox->move(centerparent);
+    msgBox->setMinimumSize(DIALOG_WIDTH, DIALOG_HEIGHT);
+    msgBox->setFixedSize(DIALOG_WIDTH, DIALOG_HEIGHT);
 
+    int x = this->width();
+    int y = this->height();
 
-    msgBox->setStyleSheet("QWidget{background: rgba(100,100,100, 255); border-color:black; border:5px}");
+    int dialogX = ((x / 2) - (DIALOG_WIDTH / 2));
+    int dialogY = ((y / 2) - (DIALOG_HEIGHT / 2));
+
+    qDebug() << "parent x: " << x << " y: " << y << " dialogX: " << dialogX << "dialogY: " << dialogY;
+
+    msgBox->move(dialogX, dialogY);
 
     QLabel* text = new QLabel(dialogText, msgBox, Qt::WindowFlags());
     text->setAlignment(Qt::AlignCenter);
-    text->setMinimumSize(300, 50);
-    text->setFixedSize(300, 50);
-    text->move(0, 10);
-
-#ifdef Q_OS_MAC // EB attempt to make this cross platform
-    text->setStyleSheet("font: 12pt;");
-#else
-    text->setStyleSheet("font: 10pt;");
-#endif
+    text->setMinimumSize(DIALOG_TEXT_W, DIALOG_TEXT_H);
+    text->setFixedSize(DIALOG_TEXT_W, DIALOG_TEXT_H);
+    text->move(DIALOG_TEXT_PADDING, DIALOG_TEXT_PADDING);
 
     QPushButton* okButton = new QPushButton(msgBox);
     okButton->setStyleSheet(grayStyleString);
     okButton->setText("Ok");
-    okButton->setGeometry(QRect(140, 60, 70, 28));
+    okButton->setGeometry(QRect(DIALOG_BUTT_X, DIALOG_BUTT_Y, DIALOG_BUTT_W,DIALOG_BUTT_H));
     connect(okButton, SIGNAL(clicked()), msgBox, SLOT(close()));
 
     msgBox->exec();
@@ -705,6 +731,9 @@ void MainWindow::slotConnectInterfaces()
         //Midi Parsing to each Key's data cooker
         connect(this, SIGNAL(signalUpdateSensor(uchar,uchar)), key[k]->dataCooker, SLOT(slotUpdateVals(uchar,uchar)), Qt::DirectConnection);
 
+        connect(key[k], SIGNAL(signalFixDropDownWidth(QComboBox*)), this, SLOT(slotFixDropDownWidth(QComboBox*)));
+        slotFixDropDownWidth(key[k]->keyWindowForm->leddisplaymode);
+
         for(int m = 0; m < 6; m++)
         {
             //Output signals listed in modline.h, slots in midiformat.h
@@ -740,6 +769,9 @@ void MainWindow::slotConnectInterfaces()
             //Garageband goes here -------------
             //HUI goes here --------------------
 
+            // fix dropdowns
+            connect(key[k]->modline[m], SIGNAL(signalFixDropDownWidth(QComboBox*)), this, SLOT(slotFixDropDownWidth(QComboBox*)));
+
         }
 
 #ifdef MIDI_ENABLED
@@ -761,6 +793,11 @@ void MainWindow::slotConnectInterfaces()
         connect(key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), &navKey->alphaNumManager, SLOT(slotCloseParamDisplay()));
 #endif // MIDI_ENABLED
     }
+
+    connect(navKey, SIGNAL(signalFixDropDownWidth(QComboBox*)), this, SLOT(slotFixDropDownWidth(QComboBox*)));
+
+    slotFixDropDownWidth(navKey->navKeyWindowForm->leddisplaymode);
+
 #ifdef MIDI_ENABLED
     connect(&navKey->dataCooker, SIGNAL(signalThisKeyOff(int)), &navKey->alphaNumManager, SLOT(slotKeyOff(int)));
 
@@ -800,6 +837,9 @@ void MainWindow::slotConnectInterfaces()
 
         //Garageband goes here -------------
         //HUI goes here --------------------
+
+        // fix dropdowns
+        connect(navKey->navModline[n], SIGNAL(signalFixDropDownWidth(QComboBox*)), this, SLOT(slotFixDropDownWidth(QComboBox*)));
     }
 
     //Alphanumeric MIDI Out
@@ -882,6 +922,7 @@ void MainWindow::slotConnectInterfaces()
     //Setlist
     connect(&navKey->dataCooker, SIGNAL(signalPresetChange(bool)), setlist, SLOT(slotChangePreset(bool)));
     connect(setlist, SIGNAL(signalRecallPresetFromSetlist(QString)), this, SLOT(slotRecallPresetFromSetlist(QString)));
+    connect(setlist, SIGNAL(signalFixDropDownWidth(QComboBox*)), this, SLOT(slotFixDropDownWidth(QComboBox*)));
 
     //--------------------------------------- Parameter Storage
 
@@ -943,8 +984,9 @@ void MainWindow::slotConnectInterfaces()
     {
         connect(key[i], SIGNAL(signalKeySelected(int)), this, SLOT(slotSelectedKey(int)));
         connect(key[i], SIGNAL(signalKeySelected(int)), copyPasteHandler, SLOT(slotSetCurrentKey(int)));
-        connect(this, SIGNAL(signalSelectedKeyOutline(int,bool)), key[i], SLOT(slotSelectedKeyOutline(int,bool)));
+        //connect(this, SIGNAL(signalSelectedKeyOutline(int,bool)), key[i], SLOT(slotSelectedKeyOutline(int,bool)));
     }
+    connect(copyPasteHandler, SIGNAL(signalSetSelectedKey(int)), this, SLOT(slotSelectedKey(int)));
 #endif // EB_DEBUGGING
 #endif // KEYS_ENABLED
 
@@ -1175,15 +1217,25 @@ void MainWindow::slotConnectInterfaces()
 
 void MainWindow::slotInitMenuBar()
 {
-
-
-#ifdef Q_OS_MAC
-    menubar = new QMenuBar(0);
-#else
     menubar = new QMenuBar(this);
-    menubar->setGeometry(0,0, this->width(), 25);
-    //menubar->setStyleSheet("background: white;");
-    //menubar->setParent(ui->centralWidget);
+#ifndef Q_OS_MAC
+    QFile menuStyleFile = QFile(":/resources/menuBarWin.qss");
+    QString menuStyleString;
+
+    if (menuStyleFile.open(QFile::ReadOnly))
+    {
+        menuStyleString = QLatin1String(menuStyleFile.readAll());
+        menubar->setStyleSheet(menuStyleString);
+
+        //qDebug() << "menubar stylesheet: " << menubar->styleSheet();
+    }
+    else
+    {
+        qDebug() << "ERROR - Could not find menubar stylesheet: " << menuStyleString;
+    }
+
+
+    menubar->setGeometry(0,0, this->width(), 20);
 #endif
 
 
@@ -1376,14 +1428,18 @@ void MainWindow::slotSelectedKey(int selectedKey)
 {
     for(int i = 0; i < 10; i++)
     {
-        if(selectedKey != i)
-        {
-            //qDebug() << "from mainwindow.cpp/slotSelectedKey - key/bool" << i << "false";
-            emit signalSelectedKeyOutline(selectedKey, false);
-        }
+        bool thisState = (selectedKey != i) ? false: true;
+
+        key[i]->slotSelectedKeyOutline(thisState);
+
+
+//        {
+//            qDebug() << "from mainwindow.cpp/slotSelectedKey - key/bool" << i << "false";
+//            emit signalSelectedKeyOutline(selectedKey, false);
+//        }
     }
-    //qDebug() << "from mainwindow.cpp/slotSelectedKey - key/bool" << selectedKey << "true";
-    emit signalSelectedKeyOutline(selectedKey, true);
+//    qDebug() << "from mainwindow.cpp/slotSelectedKey - key/bool" << selectedKey << "true";
+//    emit signalSelectedKeyOutline(selectedKey, true);
 
     copyKeyAct->setDisabled(false);
 }
@@ -1665,7 +1721,10 @@ void MainWindow::slotSetMode()
         qDebug() << "Connect SoftStep Share - port in: " << thisInPort << " port out: " << thisOutPort;
         if (thisOutPort == -1)
         {
-            slotNoSharePortDialog();
+            if (!appStillLoading)
+            {
+                slotNoSharePortDialog();
+            }
         }
         else
         {
@@ -1850,6 +1909,7 @@ void MainWindow::slotSetMode()
     {
         slotRestoreAllAuxDropdowns();
     }
+    slotRecallMIDIThru();
 }
 
 void MainWindow::slotPopulateDeviceMenus(QMap<QString, int> externalDevices)
@@ -2309,8 +2369,15 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
         {
             SoftStep->slotSetExpectedFW(thisFw);
-            SoftStep->slotUpdatePortIn(portNum);
-            fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Connected\n");
+
+            if (!SoftStep->slotUpdatePortIn(portNum))
+            {
+                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+            }
+            else
+            {
+                fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Connected\n");
+            }
         }
         else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
         {
@@ -2324,8 +2391,14 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
                 SoftStep->slotUpdatePID(PID_SOFTSTEP); // this uses the standard SysEx ID request
             }
 
-            SoftStep->slotUpdatePortOut(portNum);
-            SoftStep->slotStartPolling("PORT_CONNECT"); // start polling when output port is added
+            if (!SoftStep->slotUpdatePortOut(portNum))
+            {
+                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+            }
+            else
+            {
+                SoftStep->slotStartPolling("PORT_CONNECT"); // start polling when output port is added
+            }
         }
         // hosted mode
         else if (inOrOut == PORT_IN && !portName.contains("SoftStep Hosted Virtual Port"))
@@ -2363,11 +2436,11 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             if (inOrOut == PORT_IN) fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Disconnected\n");
         }
         // hosted mode
-        else if (inOrOut == PORT_IN && !portName.contains("SoftStep Hosted Virtual Port"))
-        {
-            midiInputSources.remove(portName); // delete portname from map
-            settingsWindow->slotPopulateInputMenus(midiInputSources); // update settings dropdown menus
-        }
+//        else if (inOrOut == PORT_IN && !portName.contains("SoftStep Share"))
+//        {
+//            midiInputSources.remove(portName); // delete portname from map
+//            settingsWindow->slotPopulateInputMenus(midiInputSources); // update settings dropdown menus
+//        }
         else if (inOrOut == PORT_OUT)
         {
             externalDests.remove(portName); // store destination
@@ -2381,21 +2454,27 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         // **** SoftStep renumber ****************************************
         if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
         {
-            SoftStep->slotUpdatePortIn(portNum);
+            if (!SoftStep->slotUpdatePortIn(portNum))
+            {
+                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
+            }
         }
         else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
         {
-            SoftStep->slotUpdatePortOut(portNum);
+            if (!SoftStep->slotUpdatePortOut(portNum))
+            {
+                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+            }
         }
         // Hosted mode
-        else if (inOrOut == PORT_IN && !portName.contains("SoftStep Hosted Virtual Port"))
-        {
-            // update input map
-            midiInputSources.remove(portName); // delete portname from map
-            midiInputSources.insert(portName, portNum); // store inputs
+//        else if (inOrOut == PORT_IN && !portName.contains("SoftStep Hosted Virtual Port"))
+//        {
+//            // update input map
+//            midiInputSources.remove(portName); // delete portname from map
+//            midiInputSources.insert(portName, portNum); // store inputs
 
-            settingsWindow->slotPopulateInputMenus(midiInputSources); // update settings dropdown menus
-        }
+//            settingsWindow->slotPopulateInputMenus(midiInputSources); // update settings dropdown menus
+//        }
         else if (inOrOut == PORT_OUT)
         {
             externalDests.remove(portName); // store destination
@@ -2510,32 +2589,61 @@ void MainWindow::slotUpdateMIDIThru()
 #ifdef MIDI_ENABLED
     SoftStep->disconnect(SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)));
 
-    QString currentPort = midi_thru_dropdown->currentText();
+    QString currentPortName = midi_thru_dropdown->currentText();
 
-    qDebug() << "slotUpdateMIDIThru called - currentPort: " << currentPort;
+    qDebug() << "slotUpdateMIDIThru called - currentPortName: " << currentPortName;
 
-    if (currentPort == "")
+    if (currentPortName == "")
     {
-        currentPort = "None";
-        midi_thru_dropdown->setCurrentText(currentPort);
+        currentPortName = "None";
+        midi_thru_dropdown->blockSignals(true);
+        midi_thru_dropdown->setCurrentText(currentPortName);
+        midi_thru_dropdown->blockSignals(false);
     }
 
     if (!SoftStep->connected) return; // don't continue if we aren't connected
 
-    sessionSettings->setValue(MIDI_THRU_KEY, currentPort); // store this setting for the next time we run the editor
+    sessionSettings->setValue(MIDI_THRU_KEY, currentPortName); // store this setting for the next time we run the editor
 
-    if (currentPort != "None")
+    bool failure = false;
+
+    int equivalentInPort = kmiPorts->getInPortNumber(currentPortName);
+
+    if (currentPortName != "None")
     {
         // set and open the ports
-        int thisOutPort = kmiPorts->getOutPortNumber(currentPort);
-        MIDIThru->slotUpdatePortOut(thisOutPort); // also opens the port
-        qDebug() << "connect";
-        connect(SoftStep, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), MIDIThru, SLOT(slotSendMIDI(uchar, uchar, uchar, uchar)));
-        qDebug() << "success";
+        int thisOutPort = kmiPorts->getOutPortNumber(currentPortName);
+        if (!MIDIThru->slotUpdatePortOut(thisOutPort)) // also opens the port
+        {
+            slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(currentPortName));
+            failure = true;
+        }
+        else
+        {
+            if (!MIDIThru->slotUpdatePortIn(equivalentInPort)) // also opens the port
+            {
+                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(currentPortName));
+                failure = true;
+            }
+            else
+            {
+                connect(SoftStep, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), MIDIThru, SLOT(slotSendMIDI(uchar, uchar, uchar, uchar)));
+            }
+        }
     }
     else
     {
-        //MIDIThru->slotCloseMidiOut();
+        MIDIThru->slotCloseMidiIn();
+        MIDIThru->slotCloseMidiOut();
+    }
+
+    if (failure)
+    {
+        midi_thru_dropdown->blockSignals(true);
+        midi_thru_dropdown->setCurrentText("None");
+        midi_thru_dropdown->blockSignals(false);
+        MIDIThru->slotCloseMidiIn();
+        MIDIThru->slotCloseMidiOut();
     }
 #endif // MIDI_ENABLED
 }
@@ -2664,20 +2772,23 @@ void MainWindow::slotUpdateMIDIAuxInputPorts(QString auxInput, QString portName)
     int settingsInputIndex = auxInput.at(4).toLatin1() - 97; // index A = 0
     int thisMidiInPortNumber = kmiPorts->getInPortNumber(portName);
     int oldPortNumber = midiAuxIn[settingsInputIndex]->port_in;
-    int equivalentOutPort = kmiPorts->getOutPortNumber(portName);
+    QString oldPortName = kmiPorts->getInPortName(oldPortNumber);
+    int oldEquivalentOutPort = kmiPorts->getOutPortNumber(oldPortName);
+    int newEquivalentOutPort = kmiPorts->getOutPortNumber(portName);
+
 
     //bool thisMidiAuxInputIsActive = (oldPortNumber == -1) ? false : true;
 
-    //qDebug() << "slotUpdateMIDIAuxInputPorts called - auxInput: " << auxInput << " index: " << settingsInputIndex << " portName: " << portName << " thisPort: " << thisMidiInPortNumber;
+    qDebug() << "slotUpdateMIDIAuxInputPorts called - auxInput: " << auxInput << " index: " << settingsInputIndex << " portName: " << portName << " thisPort: " << thisMidiInPortNumber;
 
     bool reassigned = false;
     bool alreadyListening = false;
 
-    if (midiAuxIn[settingsInputIndex]->port_in_open) // if the port is open
+    if (midiAuxIn[settingsInputIndex]->port_in_open) // if the old port is open
     {
-        qDebug() << "close port: " << oldPortNumber;
+        qDebug() << "close old port: " << oldPortNumber << " oldEquivalentOutPort:" << oldEquivalentOutPort;
         midiAuxIn[settingsInputIndex]->slotCloseMidiIn(); // close it
-        if (equivalentOutPort != -1)
+        if (oldEquivalentOutPort != -1)
         {
             midiAuxIn[settingsInputIndex]->slotCloseMidiOut(); // close the corresponding out port
         }
@@ -2696,13 +2807,23 @@ void MainWindow::slotUpdateMIDIAuxInputPorts(QString auxInput, QString portName)
             {
                 if (oldPortNumber != -1)
                 {
-                    qDebug() << "Set MidiAux[" << i <<"] to  listen to " << settingsInputPortName << " on port: " << oldPortNumber;
-                    midiAuxIn[i]->slotUpdatePortIn(oldPortNumber); // set that port's midiAuxIn to handling the incoming midi
-                    if (equivalentOutPort != -1)
+                    qDebug() << "Reassign: Set MidiAux[" << i <<"] to  listen to " << settingsInputPortName << " on port: " << oldPortNumber << " oldEquivalentOutPort: " << oldEquivalentOutPort;
+
+                    settingsWindow->midiInputDeviceMenus.at(i)->blockSignals(true);
+                    if (!midiAuxIn[i]->slotUpdatePortIn(oldPortNumber)) // set that port's midiAuxIn to handling the incoming midi
                     {
-                        midiAuxIn[i]->slotUpdatePortOut(equivalentOutPort); // open the corresponding out port
+                        // couldn't open in port
+                        settingsWindow->midiInputDeviceMenus.at(i)->setCurrentText("None");
+                        slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
+                    }
+                    if (!midiAuxIn[i]->slotUpdatePortOut(oldEquivalentOutPort)) // open the corresponding out port
+                    {
+                        // couldn't open correspondig out port
+                        settingsWindow->midiInputDeviceMenus.at(i)->setCurrentText("None");
+                        slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
                     }
                     reassigned = true;
+                    settingsWindow->midiInputDeviceMenus.at(i)->blockSignals(false);
                 }
             }
             //qDebug() << "settingsInputPortNum: " << settingsInputPortNum << " thisMidiInPortNumber: " << thisMidiInPortNumber;
@@ -2716,46 +2837,50 @@ void MainWindow::slotUpdateMIDIAuxInputPorts(QString auxInput, QString portName)
 
     if (portName != "None" && portName != "" && !alreadyListening) // if we didnt find another midiAuxIn that is already assigned to this port...
     {
-        qDebug() << "Set MidiAux[" << settingsInputIndex <<"] to  listen to " << portName << " on port: " << thisMidiInPortNumber;
-        midiAuxIn[settingsInputIndex]->slotUpdatePortIn(thisMidiInPortNumber); // ...assign this input/aux pair to listen to it
-        if (equivalentOutPort != -1)
+        qDebug() << "New Assign: Set MidiAux[" << settingsInputIndex <<"] to  listen to " << portName << " on port: " << thisMidiInPortNumber << " newEquivalentOutPort: " << newEquivalentOutPort;
+
+        settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->blockSignals(true);
+        if (!midiAuxIn[settingsInputIndex]->slotUpdatePortIn(thisMidiInPortNumber)) // ...assign this input/aux pair to listen to it
         {
-            midiAuxIn[settingsInputIndex]->slotUpdatePortOut(equivalentOutPort); // open the corresponding out port
+            // couldn't open input
+            settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->setCurrentText("None");
+            slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
         }
+        if (!midiAuxIn[settingsInputIndex]->slotUpdatePortOut(newEquivalentOutPort)) // open the corresponding out port
+        {
+            // couldn't open output
+            settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->setCurrentText("None");
+            slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+        }
+        settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->blockSignals(false);
     }
-
-
-
-
-    // if the portName isn't currently open, then open it using the midiAux[x] corresponding to the auxInput
-
-
-//    if (settingsWindow->midiInputLine[inputIndex].enable)
-//    {
-
-//        if (thisPort != midiAuxIn[inputIndex]->port_in)
-//        {
-//            midiAuxIn[inputIndex]->slotUpdatePortIn(thisPort); // updates the output Port
-//        }
-//    }
-//    else if (midiAuxIn[inputIndex]->connected)
-//    {
-//        midiAuxIn[inputIndex]->slotCloseMidiIn();
-//        midiAuxIn[inputIndex]->slotCloseMidiOut();
-//        midiAuxIn[inputIndex]->connected = false;
-
-//    }
 #endif // end MIDI_AUX_ENABLED
 }
 
 void MainWindow::slotRecallMIDIThru()
 {
 #ifdef MIDI_ENABLED
-    qDebug() << "slotRecallMIDIThru called, connected: " << SoftStep->connected << " recallMidiThruPortName: " << recallMidiThruPortName;
-    if (!SoftStep->connected || recallMidiThruPortName == "") return; // wait until connected to device and the previously saved port
 
-    midi_thru_dropdown->setCurrentText(recallMidiThruPortName);
-    slotUpdateMIDIThru();
+    QString thisPortName = sessionSettings->value(MIDI_THRU_KEY).toString();
+
+    qDebug() << "slotRecallMIDIThru called, connected: " << SoftStep->connected << " recallMidiThruPortName: " << thisPortName;
+
+    if (mode == "standalone")
+    {
+        midi_thru_dropdown->blockSignals(true);
+        midi_thru_dropdown->setCurrentText(thisPortName);
+        midi_thru_dropdown->blockSignals(false);
+        slotUpdateMIDIThru();
+    }
+    else
+    {
+        midi_thru_dropdown->blockSignals(true);
+        midi_thru_dropdown->setCurrentText("None");
+        midi_thru_dropdown->blockSignals(false);
+        SoftStep->disconnect(SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)));
+        MIDIThru->slotCloseMidiIn();
+        MIDIThru->slotCloseMidiOut();
+    }
 #endif // MIDI_ENABLED
 }
 
@@ -2780,11 +2905,12 @@ void MainWindow::slotProcessInputToHostedMode(uchar chan, uchar cc, uchar val)
 // change the output port of a single rtmidi instance with each message.
 // For non-windows OSes, we will route messages to "Softstep Share" directly to the virtual port rtmidi instance.
 
-void MainWindow::hosted_slotSendPacket(QString portName, uchar status, uchar d1, uchar d2, uchar chan)
+void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packetArray, uchar status, uchar d1, uchar d2, uchar chan)
 {
 #ifdef MIDI_ENABLED
+    bool sendArray = (packetArray == "empty") ? false : true;
 
-    qDebug() << "hosted_slotSendPacket called - portName: " << portName << " status: " << status << " d1: " << d1 << " d2: " << d2 << " chan: " << chan;
+    qDebug() << "hosted_slotSendPacket called - sendArray: " << sendArray << " portName: " << portName << " status: " << status << " d1: " << d1 << " d2: " << d2 << " chan: " << chan;
 
     int destPort = kmiPorts->getOutPortNumber(portName);
 
@@ -2792,19 +2918,44 @@ void MainWindow::hosted_slotSendPacket(QString portName, uchar status, uchar d1,
 
     if (portName == SoftStep->portName_out)
     {
-        SoftStep->slotSendMIDI(status, d1, d2, chan);
+        qDebug() << "send with SoftStep";
+        if (sendArray)
+        {
+            SoftStep->slotSendSysExBA(packetArray);
+        }
+        else
+        {
+            SoftStep->slotSendMIDI(status, d1, d2, chan);
+        }
         return;
     }
     else if (portName == SoftStepShare->portName_out)
     {
+        qDebug() << "send with SoftStepShare";
         shareElapsedTimer->restart(); // set timer window to test for feedback loop
-        lastSendSoftStepShareMessage = (status << 24) + (d1 << 16) + (d2 << 8) + chan; // combine and store for easy comparison
-        SoftStepShare->slotSendMIDI(status, d1, d2, chan);
+
+        if (sendArray)
+        {
+            SoftStepShare->slotSendSysExBA(packetArray);
+        }
+        else
+        {
+            lastSendSoftStepShareMessage = (status << 24) + (d1 << 16) + (d2 << 8) + chan; // combine and store for easy comparison
+            SoftStepShare->slotSendMIDI(status, d1, d2, chan);
+        }
         return;
     }
     else if (portName == MIDIThru->portName_out)
     {
-        MIDIThru->slotSendMIDI(status, d1, d2, chan);
+        qDebug() << "send with MIDIThru";
+        if (sendArray)
+        {
+            MIDIThru->slotSendSysExBA(packetArray);
+        }
+        else
+        {
+            MIDIThru->slotSendMIDI(status, d1, d2, chan);
+        }
         return;
     }
     // scan midi aux input KMDMs
@@ -2812,14 +2963,38 @@ void MainWindow::hosted_slotSendPacket(QString portName, uchar status, uchar d1,
     {
         if (portName == midiAuxIn[i]->portName_out) // aux ins automatically open the corresponding output port when the input is opened
         {
-            midiAuxIn[i]->slotSendMIDI(status, d1, d2, chan); //
+            qDebug() << "send with midiAuxIn[" << i << "]";
+            if (sendArray)
+            {
+                midiAuxIn[i]->slotSendSysExBA(packetArray);
+            }
+            else
+            {
+                midiAuxIn[i]->slotSendMIDI(status, d1, d2, chan); //
+            }
             return;
         }
     }
 
+    qDebug() << "send with hostedOut";
     // no other KMDMs are talking to this driver, so we use hostedOut
-    hostedOut->slotUpdatePortOut(destPort);
-    hostedOut->slotSendMIDI(status, d1, d2, chan);
+
+    if (!hostedOut->slotUpdatePortOut(destPort)) // try to open this port
+    {
+        // couldn't open input
+        slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
+    }
+    else
+    {
+        if (sendArray)
+        {
+            hostedOut->slotSendSysExBA(packetArray);
+        }
+        else
+        {
+            hostedOut->slotSendMIDI(status, d1, d2, chan);
+        }
+    }
     hostedOut->slotCloseMidiOut();
 
 #endif // MIDI_ENABLED
@@ -2828,9 +3003,18 @@ void MainWindow::hosted_slotSendPacket(QString portName, uchar status, uchar d1,
 void MainWindow::hosted_slotSendPacketArray(QString portName, QByteArray packetArray)
 {
 #ifdef MIDI_ENABLED
-    Q_UNUSED(portName);
     qDebug() << "hosted_slotSendPacketArray called";
-    //SoftStepShare->slotSendSysExBA(packetArray);
+    hosted_slotSendPacketOrArray(portName, packetArray, 0, 0, 0, 0);
+#endif // MIDI_ENABLED
+}
+
+void MainWindow::hosted_slotSendPacket(QString portName, uchar status, uchar d1, uchar d2, uchar chan)
+{
+#ifdef MIDI_ENABLED
+    qDebug() << "hosted_slotSendPacket called";
+    // call the method and signal to not use the array method
+    QByteArray thisArray = "empty";
+    hosted_slotSendPacketOrArray(portName, thisArray, status, d1, d2, chan);
 #endif // MIDI_ENABLED
 }
 
@@ -2853,9 +3037,12 @@ void MainWindow::hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar 
 
     if (status == MIDI_PROG_CHANGE && chan == 15) // program change channel 16 selectes presets
     {
-        if (d1 <= ui->presetmenu->count())
+        qDebug() << "SoftStep Share Program Change channel 16 received - PC: " << d1;
+        int progChange = d1; // offset to match setlist numbering
+
+        if (progChange < setlist->getSetlistMap().size()) //
         {
-            QString thisPreset = setlist->menus.at(d1)->currentText();
+            QString thisPreset = setlist->getSetlistMap().at(progChange);
             if (thisPreset != "[EMPTY]")
             {
                 ui->presetmenu->setCurrentText(thisPreset);
@@ -2866,36 +3053,25 @@ void MainWindow::hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar 
 
 void MainWindow::slotFixDropDownWidth(QComboBox* thisDropDown)
 {
-    int i, length = 0, index = 0;
+    int IconWidth = thisDropDown->iconSize().width();
 
-    QString thisText;
+    int scroll = thisDropDown->count() <= thisDropDown->maxVisibleItems() ? 0 :
+        QApplication::style()->pixelMetric(QStyle::PixelMetric::PM_ScrollBarExtent);
 
-    for (i = 0; i < thisDropDown->count(); i++)
+    int max = 0;
+
+    for (int i = 0; i < thisDropDown->count(); i++)
     {
-        if (length < thisDropDown->itemText(i).length())
-        {
-            thisText = thisDropDown->itemText(i);
-            length = thisDropDown->itemText(i).length();
-            index = i;
-            //qDebug() << "this text: " << thisText << " index: " << index << " i: " << i << " length: " << length;
-        }
+        int width = thisDropDown->view()->fontMetrics().horizontalAdvance(thisDropDown->itemText(i));
+        if (max < width)max = width;
     }
-
-#ifdef Q_OS_MAC
-    QFont font("Futura-Normal", 12);
-    QFontMetrics fm(font);
-    int pixelsWide = fm.boundingRect(thisDropDown->itemText(index)).width() * 1.5;
-#else
-    QFont font("Droid Sans", 10);
-    QFontMetrics fm(font);
-    int pixelsWide = fm.boundingRect(thisDropDown->itemText(index)).width();
-#endif
-    int pixelsHeight = 14 * thisDropDown->count();
-    if (pixelsHeight > 500) pixelsHeight = 500;
-
-    QString comboStyleString = "QComboBox QAbstractItemView {min-width: %1px; min-height: %2px; color:white;}";
-    QString thisComboStyleString = comboStyleString.arg(pixelsWide).arg(pixelsHeight);
-    thisDropDown->setStyleSheet(thisComboStyleString);
+    int thisWidth = scroll + max + IconWidth;
+    if (thisDropDown->objectName() == "leddisplaymode")
+    {
+        thisWidth = 75; // hard code fix
+    }
+    thisDropDown->view()->setMinimumWidth(thisWidth);
+    //qDebug() << "slotFixDropDownWidth called - box: " << thisDropDown->objectName() << " width: " << thisWidth;
 }
 
 #ifdef Q_OS_WIN
@@ -2929,13 +3105,15 @@ void MainWindow::slotNoSharePortDialog()
     msgBox->setMinimumSize(DIALOG_WIN_WIDTH, DIALOG_WIN_HEIGHT);
     msgBox->setFixedSize(DIALOG_WIN_WIDTH, DIALOG_WIN_HEIGHT);
 
-    QPoint centerparent(
-                this->x() + ((this->frameGeometry().width() - msgBox->frameGeometry().width()) /2),
-                this->y() + ((this->frameGeometry().height() - msgBox->frameGeometry().height()) /2));
+    int x = this->width();
+    int y = this->height();
+
+    int dialogX = ((x / 2) - (DIALOG_WIN_WIDTH / 2));
+    int dialogY = ((y / 2) - (DIALOG_WIN_HEIGHT / 2));
 
     msgBox->setWindowFlags(Qt::FramelessWindowHint);
-    msgBox->move(centerparent);
-    msgBox->setStyleSheet("QWidget{background: rgba(35,31,32,255);border: 2px solid rgba(0,174,239,255); color: white;}");
+    msgBox->move(dialogX, dialogY);
+    msgBox->setStyleSheet(dialogStylesString);
 
     msgBox->setWindowTitle("Virtual MIDI Port Not Detected");
     QString dialogText = QString("Hosted Mode requires a virtual MIDI port named \"SoftStep Share\".\n\nPlease download LoopMIDI, create the \"SoftStep Share\"\n virtual MIDI port and try again.");
@@ -2943,8 +3121,8 @@ void MainWindow::slotNoSharePortDialog()
     text->setAlignment(Qt::AlignCenter);
     text->setMinimumSize(TEXT_WIDTH, TEXT_HEIGHT);
     text->setFixedSize(TEXT_WIDTH, TEXT_HEIGHT);
-    text->move(DIALOG_WIN_PADDING, 0);
-    text->setStyleSheet("border: 0px; color: white; font: 11pt \"Futura-normal\";");
+    text->move(DIALOG_WIN_PADDING, DIALOG_WIN_PADDING);
+    //text->setStyleSheet("border: 0px; color: white; font: 11pt \"Futura-normal\";");
 
 
     QPushButton* cancelButton = new QPushButton(msgBox);
@@ -2960,6 +3138,7 @@ void MainWindow::slotNoSharePortDialog()
     connect(downloadButton, SIGNAL(clicked()), msgBox, SLOT(close()));
     connect(downloadButton, SIGNAL(clicked()), this, SLOT(slotDownloadLoopMIDI()));
 
+    // breadcrumbs
     msgBox->exec();
 }
 

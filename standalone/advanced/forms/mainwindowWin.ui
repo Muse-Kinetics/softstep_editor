@@ -142,19 +142,32 @@ QLabel
 	font: 7pt &quot;Corbel&quot;;
 }
 
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 14px;
+    height: 14px;
+}
+
 /*----------- QComboBox ------------*/
 QComboBox
 {
 	font: 8pt &quot;Corbel&quot;;
-	border: 2px solid rgb(0,174,239);
-	background-color: rgb(28, 28, 29);
+	border: 1px solid rgb(0,174,239);
+	background: rgb(40, 40, 40);
 	color: white;
+	padding: 1px 3px 1px 4px;
  }
 
 QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
 	border: transparent;
+	font: 8px &quot;Corbel&quot;;
+	color: white;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -189,16 +202,48 @@ QComboBox::drop-down
 	border-right-width: 0px;
 	border-top-width: 0px;
 	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
 }
 
-QComboBox::down-arrow
-{
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
 	border: none;
-	background: none;
-	image: url(:/resources/setlist_combobox_menu_arrows.png);
-	padding-right: 20px;
 }
-</string>
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+	border: none;
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}
+
+QToolTip
+{
+	min-height: 18px;
+}</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -361,74 +406,6 @@ QToolButton:pressed
       </property>
       <property name="toolTip">
        <string>The preset currently being edited</string>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-	font: 8pt &quot;Corbel&quot;;
-	border: 1px solid rgb(0,174,239);
-	background: rgb(40, 40, 40);
-	color: white;
-	padding: 1px 3px 1px 4px;
- }
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 8px &quot;Corbel&quot;;
-	color: white;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 35px;
-}
-
-QComboBox::item:alternate
-{
-	background: rgb(90, 90, 90);
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-	padding: 1px 1px 1px 4px;
-}
-
-QToolTip
-{
-	min-height: 18px;
-}</string>
-      </property>
-      <property name="editable">
-       <bool>false</bool>
-      </property>
-      <property name="frame">
-       <bool>true</bool>
       </property>
       <item>
        <property name="text">
@@ -799,7 +776,14 @@ QToolTip
       </font>
      </property>
      <property name="toolTip">
-      <string>Open the setlist window.</string>
+      <string>Select &quot;Standalone&quot; or &quot;Hosted&quot; mode.
+
+Standalone - create presets and send them 
+to the SoftStep hardware. 
+
+Hosted - the SoftStep hardware controls
+ the Advanced Editor, which sends MIDI 
+using the &quot;SoftStep Share&quot; virtual MIDI port. </string>
      </property>
      <property name="styleSheet">
       <string notr="true">/*---------- QPushButton ---------*/
@@ -880,9 +864,9 @@ QPushButton:pressed
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>483</x>
       <y>80</y>
-      <width>121</width>
+      <width>194</width>
       <height>21</height>
      </rect>
     </property>
@@ -935,7 +919,7 @@ QPushButton:pressed
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>34</y>
+      <y>30</y>
       <width>10</width>
       <height>100</height>
      </rect>

@@ -516,6 +516,7 @@ void NavKey::slotPopulateMenus(QStringList displayModes)
     //Set Display Mode Menus
     navKeyWindowForm->leddisplaymode->clear();
     navKeyWindowForm->leddisplaymode->addItems(displayModes);
+    emit signalFixDropDownWidth(navKeyWindowForm->leddisplaymode);
 }
 
 void NavKey::slotSetDataCookerSettings()

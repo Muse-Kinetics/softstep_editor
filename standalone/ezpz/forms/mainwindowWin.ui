@@ -703,7 +703,7 @@ QToolButton:pressed
 
 QComboBox
 {
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 11px &quot;Source Code Pro&quot;;
 	border: 2px solid rgba(0,174,239,255);
 	background:		rgba(35,31,32,255);
 	color: white;
@@ -715,7 +715,7 @@ QComboBox QListView
 {
 	background:		rgba(35,31,32,255);
 	border: transparent;
-	font: 9px &quot;Futura-Normal&quot;;
+	font: 11px &quot;Source Code Pro&quot;;
 	text-align:right;
 	padding-left: 0px;
 	padding-right: 3px;
@@ -767,7 +767,7 @@ QComboBox::down-arrow
 
 QComboBox:disabled
 {
-	font: 8pt &quot;Futura-Normal&quot;;
+	font: 11px &quot;Source Code Pro&quot;;
 	color: (175, 175, 175, 50);
 	border: 1px solid rgba(0,174,239, 75);
 	background: rgba(18, 18, 18, 75);
@@ -778,7 +778,7 @@ QComboBox:disabled
 
 QComboBox QAbstractItemView
 {
-    min-width: 130px;
+    min-width: 170px;
     min-height: 60;
 	color:white;
 	padding-left: 1px;

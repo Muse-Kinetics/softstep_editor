@@ -133,27 +133,22 @@ void PresetInterface::slotReadJSON()
 //        QByteArray jsonByteArray = jsonFile->readAll();//load json file into a byte array to be processd by the parser
         // error object
         QJsonParseError JsonParseError;
-        qDebug("1");
         // convert file to QJsonDocument. this can be read/written to
         QJsonDocument JsonDocument = QJsonDocument::fromJson(jsonFile->readAll(), &JsonParseError);
         // close jsonFile
         jsonFile->close();
         // convert QJsonDocument to QJsonObject. this can be queried and modified in a human-readable way
         QJsonObject RootObject = JsonDocument.object();
-qDebug("1");
         QByteArray jsonByteArray = JsonDocument.toJson();
-        qDebug("1");
         jsonMasterMap = RootObject.toVariantMap();
 
 //        jsonMasterMap = parser.parse(jsonByteArray, &ok).toMap(); //parse the json data, convert it to a map and set it equal to the master jsonMap
-        qDebug("1");
         jsonMasterMapCopy = jsonMasterMap;
 
         //-------
         int presetNum = 1;
 
         QStringList keyList = jsonMasterMapCopy.value(QString("Preset_00%1").arg(presetNum)).toMap().keys();
-qDebug("1");
 
         for(int i = 0; i < keyList.size(); i++)
         {
@@ -170,7 +165,6 @@ qDebug("1");
     {
         qDebug() << "SoftStep Easy Editor JSON Not Found";
     }
-qDebug("end");
     jsonFile->close();
 }
 

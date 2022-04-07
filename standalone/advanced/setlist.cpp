@@ -2,6 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "setlist.h"
+#include <QAbstractItemView>
 
 Setlist::Setlist(QWidget *parent) :
     QWidget(parent),
@@ -131,6 +132,7 @@ void Setlist::slotCheckBoxClicked()
 
 void Setlist::slotMenuChanged(int menuNum)
 {
+    //qDebug() << "slotMenuChanged";
     Q_UNUSED(menuNum);
 
     QComboBox* menu = (QComboBox*)QObject::sender();
@@ -166,8 +168,9 @@ void Setlist::slotInitComponents()
         }
         else if(widget->objectName().contains("menu"))
         {
-            //qDebug() << "setlist comboBox event filter";
+            ;
             QComboBox *comboBox = reinterpret_cast<QComboBox *>(widget);
+            //qDebug() << "init/add setlist comboBox to menus - combobox: " << comboBox->objectName();
             menus.append(comboBox);
             connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMenuChanged(int)));
         }
@@ -223,6 +226,7 @@ void Setlist::slotPopulateSetlistMenus(QComboBox* presetMenu)
         {
             menus.at(m)->addItem(presetMenu->itemText(i), 0);
         }
+        emit signalFixDropDownWidth(menus.at(m));
     }
 
     repopulating = false;

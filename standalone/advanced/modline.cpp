@@ -375,9 +375,9 @@ void Modline::slotValueChanged()
         QObject *sender = QObject::sender();
         QVariant value;
         QString senderName = sender->objectName();
-        QString objectType = sender->metaObject()->className();
+        //QString objectType = sender->metaObject()->className();
 
-        qDebug() << "slotValueChanged - sender: " << sender->objectName();
+        //qDebug() << "slotValueChanged - sender: " << sender->objectName();
 
         // handle destination menu objects
         if (senderName.contains("dest_"))
@@ -678,7 +678,7 @@ void Modline::slotValueChanged()
             value = modlineForm->modlinedisplayenable->isChecked();
         }
 
-        emit signalStoreValue(QString("key%1_modline%2_").arg(keyInstance+1).arg(modlineInstance+1) + jsonName, value, -1);
+        emit signalStoreValue(QString("key%1_modline%2_%3").arg(keyInstance+1).arg(modlineInstance+1).arg(jsonName), value, -1);
 
         //---------- disable modline if necessary
         if(mode == "standalone" && jsonName == "enable" && value == true)
@@ -873,36 +873,49 @@ void Modline::slotRecallDestinationMenu()
     {
     case DEST_NOTE_SET:
         modlineForm->dest_b1->show();
+        modlineForm->dest_label_b1->setText("Note");
         modlineForm->dest_label_b1->show();
-        modlineForm->dest_device->show();
+        modlineForm->dest_b1->setToolTip("The note # to send");
 
         modlineForm->dest_b1->setValue(modDest.note);
     case DEST_NOTE_LIVE:
         modlineForm->dest_b2->show();
+        modlineForm->dest_label_b2->setText("Vel");
         modlineForm->dest_label_b2->show();
+        modlineForm->dest_b2->setToolTip("The velocity value to send");
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
         modlineForm->dest_device->show();
+        modlineForm->dest_label_port->setText("Output Port");
+        modlineForm->dest_label_port->show();
 
         modlineForm->dest_b2->setValue(modDest.velocity);
         modlineForm->dest_b3->setValue(modDest.channel);
         break;
     case DEST_CC:
         modlineForm->dest_b2->show();
+        modlineForm->dest_label_b2->setText("CC");
         modlineForm->dest_label_b2->show();
+        modlineForm->dest_b2->setToolTip("The CC # to send");
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
         modlineForm->dest_device->show();
+        modlineForm->dest_label_port->setText("Output Port");
+        modlineForm->dest_label_port->show();
 
         modlineForm->dest_b2->setValue(modDest.cc);
         modlineForm->dest_b3->setValue(modDest.channel);
         break;
     case DEST_BANK:
         modlineForm->dest_b2->show();
+        modlineForm->dest_label_b2->setText("MSB");
         modlineForm->dest_label_b2->show();
+        modlineForm->dest_b2->setToolTip("The bank's most significant value to send (modline value is sent as the least significant value");
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
         modlineForm->dest_device->show();
+        modlineForm->dest_label_port->setText("Output Port");
+        modlineForm->dest_label_port->show();
 
         modlineForm->dest_b2->setValue(modDest.bankMSB);
         modlineForm->dest_b3->setValue(modDest.channel);
@@ -911,23 +924,37 @@ void Modline::slotRecallDestinationMenu()
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
         modlineForm->dest_device->show();
+        modlineForm->dest_label_port->setText("Output Port");
+        modlineForm->dest_label_port->show();
 
         modlineForm->dest_b3->setValue(modDest.channel);
         break;
     case DEST_OSC:
+        qDebug() << "dest osc set";
         modlineForm->dest_oscroute->show();
+        modlineForm->dest_label_port->setText("Output Prefix");
+        modlineForm->dest_label_port->show();
         break;
     case DEST_PITCH_BEND:
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
         modlineForm->dest_device->show();
+        modlineForm->dest_label_port->setText("Output Port");
+        modlineForm->dest_label_port->show();
 
         modlineForm->dest_b3->setValue(modDest.channel);
         break;
     case DEST_MMC:
         modlineForm->dest_b1->show();
+        modlineForm->dest_label_b1->setText("ID");
         modlineForm->dest_label_b1->show();
+        modlineForm->dest_b1->setToolTip("Sets the device ID for the receiving MMC device.");
+        modlineForm->dest_label_b2->setText("Function");
+        modlineForm->dest_label_b2->show();
         modlineForm->dest_mmcfunction->show();
+        modlineForm->dest_device->show();
+        modlineForm->dest_label_port->setText("Output Port");
+        modlineForm->dest_label_port->show();
 
         modlineForm->dest_b1->setValue(modDest.mmcID);
         break;
@@ -935,15 +962,21 @@ void Modline::slotRecallDestinationMenu()
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
         modlineForm->dest_device->show();
+        modlineForm->dest_label_port->setText("Output Port");
+        modlineForm->dest_label_port->show();
 
         modlineForm->dest_b3->setValue(modDest.channel);
         break;
     case DEST_POLY_AFTERTOUCH:
         modlineForm->dest_b2->show();
+        modlineForm->dest_label_b2->setText("Note");
         modlineForm->dest_label_b2->show();
+        modlineForm->dest_b2->setToolTip("The note # to send");
         modlineForm->dest_b3->show();
         modlineForm->dest_label_b3->show();
         modlineForm->dest_device->show();
+        modlineForm->dest_label_port->setText("Output Port");
+        modlineForm->dest_label_port->show();
 
         modlineForm->dest_b2->setValue(modDest.note);
         modlineForm->dest_b3->setValue(modDest.channel);
@@ -992,20 +1025,23 @@ void Modline::slotPopulateMenus(QStringList source, QStringList dest, QStringLis
     //Set Source Menu
     modlineForm->source->clear();
     modlineForm->source->addItems(source);
+    emit signalFixDropDownWidth(modlineForm->source);
 
     //Set Table Menu
     modlineForm->table->clear();
     modlineForm->table->addItems(table);
+    emit signalFixDropDownWidth(modlineForm->table);
 
     //Set Destination Menu
     modlineForm->destination->clear();
     modlineForm->destination->addItems(dest);
+    emit signalFixDropDownWidth(modlineForm->destination);
 }
 
 void Modline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevices)
 {
     //-------------------------------- Clear all device menus
-    // EB TODO - update to use a single dropdown
+
     //Note Set
 
 //    modlineForm->notedevice->clear();

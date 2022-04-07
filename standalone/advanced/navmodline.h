@@ -29,11 +29,44 @@
 #include "hosted/ledmanager.h"
 #include "hosted/delay.h"
 
+
+
 class NavModline : public QWidget
 {
     Q_OBJECT
 public:
     explicit NavModline(QWidget *parent = 0, int navInstanceNum = 0);
+
+    enum
+    {
+        DEST_NONE,
+        DEST_NOTE_SET,
+        DEST_NOTE_LIVE,
+        DEST_CC,
+        DEST_BANK,
+        DEST_PROGRAM,
+        DEST_PITCH_BEND,
+        DEST_MMC,
+        DEST_OSC,
+        DEST_AFTERTOUCH,
+        DEST_POLY_AFTERTOUCH,
+        DEST_X_INC,
+        DEST_Y_INC
+    };
+
+    struct MOD_DEST
+    {
+        int index;
+        int channel;
+        int note;
+        int velocity;
+        int cc;
+        int bankMSB;
+        int mmcID;
+        QString mmcFunction;
+        QString oscRoute;
+        QString outPortName;
+    };
 
     StyleSheets stylesheets;
     Tables tablesClass;
@@ -51,6 +84,8 @@ public:
     int output;
 
     bool firstCall; //used to filter changes until first output routine called
+
+    MOD_DEST modDest;
 
     //-------------- Hosted
     Slewer slewer;
@@ -104,7 +139,7 @@ signals:
     void hosted_signalNoteLive(QString port,int channel, int oldNote, int newNote, int velocity);
     void hosted_signalCC(QString port, int channel, int ccNum, int ccVal);
     void hosted_signalBank(QString port, int channel, int msb, int lsb);
-    void hosted_signalOSC();
+    void hosted_signalOSC(QString address, int val);
     void hosted_signalProgram(QString port, int channel, int program);
     void hosted_signalPitchBend(QString port, int channel, int lsb, int msb);
     void hosted_signalMMC(QString port, int id, QString function);
@@ -121,6 +156,8 @@ signals:
 
     //---------- State Recall
     void hosted_signalStoreToggleState(int modlineNum, bool state);
+
+    void signalFixDropDownWidth(QComboBox*);
 
 public slots:
     void slotConnectElements();

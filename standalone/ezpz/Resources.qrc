@@ -1,21 +1,10 @@
 <RCC>
     <qresource prefix="/">
         <file>resources/keyRadioButtonStylesheet.qss</file>
-        <file>resources/KMi_Logo300_transparent.png</file>
         <file>resources/sendbuttondirtystylesheet.qss</file>
         <file>resources/sendbuttoncleanstylesheet.qss</file>
         <file>resources/sendbuttoncleanstylesheet_windows.qss</file>
         <file>resources/sendbuttondirtystylesheet_windows.qss</file>
-        <file>resources/radio_focus_off.png</file>
-        <file>resources/radio_focus_on.png</file>
-        <file>resources/radio_off.png</file>
-        <file>resources/radio_on.png</file>
-        <file>resources/toggle_off_disabled.png</file>
-        <file>resources/toggle_off_focus.png</file>
-        <file>resources/toggle_off.png</file>
-        <file>resources/toggle_on_disabled.png</file>
-        <file>resources/toggle_on_focus.png</file>
-        <file>resources/toggle_on.png</file>
         <file>resources/menuBarWin.qss</file>
         <file>resources/radio_focus_off.svg</file>
         <file>resources/radio_focus_on.svg</file>

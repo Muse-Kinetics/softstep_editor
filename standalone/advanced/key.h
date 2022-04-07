@@ -36,6 +36,8 @@ public:
 
     MainWindow *mw;
 
+    Ui::keyWindowForm *keyWindowForm;
+
     StateRecall stateRecaller;
 
     StyleSheets stylesheets;
@@ -71,6 +73,8 @@ signals:
     void signalCounterValue(int val);
 
     void signalKeySelected(int val);
+
+    void signalFixDropDownWidth(QComboBox*);
     
 public slots:
     void slotOpenWindow();
@@ -98,7 +102,7 @@ public slots:
     void slotSetPresetName(QString);
 
     void slotBackgroundClicked();
-    void slotSelectedKeyOutline(int selectedKey, bool outlined);
+    void slotSelectedKeyOutline(bool outlined);
 
     void slotSetMainWindow(MainWindow *mainWindow);
 
@@ -107,7 +111,7 @@ public slots:
 
 private:
     Ui::keyBoxForm *keyBoxForm;
-    Ui::keyWindowForm *keyWindowForm;
+
     
 };
 

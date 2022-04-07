@@ -35,6 +35,8 @@ public:
     QWidget* navKeyWindowWidget;
     QWidget* navBoxWidget;
 
+    Ui::navKeyWindowForm *navKeyWindowForm;
+
     //Ui Elements
     NavModline *navModline[6];
     QButtonGroup displayLinkedButtonGroup;
@@ -61,6 +63,9 @@ signals:
     void signalDeleteModline(int numModlines, bool disable);
 
     void signalCounterValue(int val);
+
+    void signalFixDropDownWidth(QComboBox*);
+
     
 public slots:
     void slotOpenWindow();
@@ -92,7 +97,7 @@ public slots:
 
 private:
     Ui::navBoxForm *navBoxForm;
-    Ui::navKeyWindowForm *navKeyWindowForm;
+
     
 };
 

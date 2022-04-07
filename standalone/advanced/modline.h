@@ -30,42 +30,44 @@
 #include "hosted/ledmanager.h"
 #include "hosted/delay.h"
 
-enum
-{
-    DEST_NONE,
-    DEST_NOTE_SET,
-    DEST_NOTE_LIVE,
-    DEST_CC,
-    DEST_BANK,
-    DEST_PROGRAM,
-    DEST_OSC,
-    DEST_PITCH_BEND,
-    DEST_MMC,
-    DEST_AFTERTOUCH,
-    DEST_POLY_AFTERTOUCH,
-    DEST_X_INC,
-    DEST_Y_INC
-};
 
-struct MOD_DEST
-{
-    int index;
-    int channel;
-    int note;
-    int velocity;
-    int cc;
-    int bankMSB;
-    int mmcID;
-    QString mmcFunction;
-    QString oscRoute;
-    QString outPortName;
-};
 
 class Modline : public QWidget
 {
     Q_OBJECT
 public:
     explicit Modline(QWidget *parent = 0, int keyInstanceNum = 0, int modlineInstanceNum = 0);
+
+    enum
+    {
+        DEST_NONE,
+        DEST_NOTE_SET,
+        DEST_NOTE_LIVE,
+        DEST_CC,
+        DEST_BANK,
+        DEST_PROGRAM,
+        DEST_PITCH_BEND,
+        DEST_MMC,
+        DEST_OSC,
+        DEST_AFTERTOUCH,
+        DEST_POLY_AFTERTOUCH,
+        DEST_X_INC,
+        DEST_Y_INC
+    };
+
+    struct MOD_DEST
+    {
+        int index;
+        int channel;
+        int note;
+        int velocity;
+        int cc;
+        int bankMSB;
+        int mmcID;
+        QString mmcFunction;
+        QString oscRoute;
+        QString outPortName;
+    };
 
     StyleSheets stylesheets;
     Tables tablesClass;
@@ -160,6 +162,7 @@ signals:
 
     //---------- State Recall
     void hosted_signalStoreToggleState(int modlineNum, bool state);
+    void signalFixDropDownWidth(QComboBox*);
 
 public slots:
     void slotConnectElements();

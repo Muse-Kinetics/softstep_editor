@@ -1,0 +1,137 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>arrows/modline_combobox_menu_arrows.svg</file>
+        <file>arrows/modline_led_display_arrow.svg</file>
+        <file>arrows/setlist_combobox_menu_arrows.svg</file>
+        <file>brackets/keysafety_bracket.svg</file>
+        <file>brackets/keysafety_bracket_wider.svg</file>
+        <file>brackets/keyWindow_dataModifiers_label_bracket.svg</file>
+        <file>brackets/keyWindow_dataSources_label_bracket.svg</file>
+        <file>brackets/keyWindow_inits_label_bracket.svg</file>
+        <file>brackets/keyWindow_outputSettings_label_bracket.svg</file>
+        <file>circles/modline_display_enable_off.svg</file>
+        <file>circles/modline_display_enable_on.svg</file>
+        <file>circles/modline_window_label_background.svg</file>
+        <file>circles/openkeywindow10_active.svg</file>
+        <file>circles/openkeywindow10_inactive.svg</file>
+        <file>circles/openkeywindow1_active.svg</file>
+        <file>circles/openkeywindow1_inactive.svg</file>
+        <file>circles/openkeywindow2_active.svg</file>
+        <file>circles/openkeywindow2_inactive.svg</file>
+        <file>circles/openkeywindow3_active.svg</file>
+        <file>circles/openkeywindow3_inactive.svg</file>
+        <file>circles/openkeywindow4_active.svg</file>
+        <file>circles/openkeywindow4_inactive.svg</file>
+        <file>circles/openkeywindow5_active.svg</file>
+        <file>circles/openkeywindow5_inactive.svg</file>
+        <file>circles/openkeywindow6_active.svg</file>
+        <file>circles/openkeywindow6_inactive.svg</file>
+        <file>circles/openkeywindow7_active.svg</file>
+        <file>circles/openkeywindow7_inactive.svg</file>
+        <file>circles/openkeywindow8_active.svg</file>
+        <file>circles/openkeywindow8_inactive.svg</file>
+        <file>circles/openkeywindow9_active.svg</file>
+        <file>circles/openkeywindow9_inactive.svg</file>
+        <file>circles/openkeywindowNav_active.svg</file>
+        <file>circles/openkeywindowNav_inactive.svg</file>
+        <file>circles/radio_off.svg</file>
+        <file>circles/radio_on.svg</file>
+        <file>circles/radiobutton_checked.svg</file>
+        <file>circles/radiobutton_pressed.svg</file>
+        <file>circles/radiobutton_unchecked.svg</file>
+        <file>circles/setlistWindow_enable10_off.svg</file>
+        <file>circles/setlistWindow_enable10_on.svg</file>
+        <file>circles/setlistWindow_enable11_off.svg</file>
+        <file>circles/setlistWindow_enable11_on.svg</file>
+        <file>circles/setlistWindow_enable12_off.svg</file>
+        <file>circles/setlistWindow_enable12_on.svg</file>
+        <file>circles/setlistWindow_enable13_off.svg</file>
+        <file>circles/setlistWindow_enable13_on.svg</file>
+        <file>circles/setlistWindow_enable14_off.svg</file>
+        <file>circles/setlistWindow_enable14_on.svg</file>
+        <file>circles/setlistWindow_enable15_off.svg</file>
+        <file>circles/setlistWindow_enable15_on.svg</file>
+        <file>circles/setlistWindow_enable16_off.svg</file>
+        <file>circles/setlistWindow_enable16_on.svg</file>
+        <file>circles/setlistWindow_enable1_off.svg</file>
+        <file>circles/setlistWindow_enable1_on.svg</file>
+        <file>circles/setlistWindow_enable2_off.svg</file>
+        <file>circles/setlistWindow_enable2_on.svg</file>
+        <file>circles/setlistWindow_enable3_off.svg</file>
+        <file>circles/setlistWindow_enable3_on.svg</file>
+        <file>circles/setlistWindow_enable4_off.svg</file>
+        <file>circles/setlistWindow_enable4_on.svg</file>
+        <file>circles/setlistWindow_enable5_off.svg</file>
+        <file>circles/setlistWindow_enable5_on.svg</file>
+        <file>circles/setlistWindow_enable6_off.svg</file>
+        <file>circles/setlistWindow_enable6_on.svg</file>
+        <file>circles/setlistWindow_enable7_off.svg</file>
+        <file>circles/setlistWindow_enable7_on.svg</file>
+        <file>circles/setlistWindow_enable8_off.svg</file>
+        <file>circles/setlistWindow_enable8_on.svg</file>
+        <file>circles/setlistWindow_enable9_off.svg</file>
+        <file>circles/setlistWindow_enable9_on.svg</file>
+        <file>pedal/pedal_arrow.svg</file>
+        <file>pedal/pedal_base.svg</file>
+        <file>pedal/pedal_base_big.svg</file>
+        <file>pedal/pedal_graph.svg</file>
+        <file>pedal/pedal_top.svg</file>
+        <file>pedal/pedal_top_big.svg</file>
+        <file>settings - keysafety/keysafety_adjacentkey_active.svg</file>
+        <file>settings - keysafety/keysafety_adjacentkey_inactive.svg</file>
+        <file>settings - keysafety/keysafety_adjacentlockout_active.svg</file>
+        <file>settings - keysafety/keysafety_adjacentlockout_disabled.svg</file>
+        <file>settings - keysafety/keysafety_adjacentlockout_inactive.svg</file>
+        <file>settings - keysafety/keysafety_adjacentlockout_pressed.svg</file>
+        <file>settings - keysafety/keysafety_allkeys_active.svg</file>
+        <file>settings - keysafety/keysafety_allkeys_inactive.svg</file>
+        <file>settings - keysafety/keysafety_allkeys_pressed.svg</file>
+        <file>settings - keysafety/keysafety_multiplekey_active.svg</file>
+        <file>settings - keysafety/keysafety_multiplekey_inactive.svg</file>
+        <file>settings - keysafety/keysafety_singlekey_active.svg</file>
+        <file>settings - keysafety/keysafety_singlekey_inactive.svg</file>
+        <file>settings - keysafety/keysafety_singlekey_pressed.svg</file>
+        <file>settings - menu/settingsWindow_tab_global_disabled.svg</file>
+        <file>settings - menu/settingsWindow_tab_global_enabled.svg</file>
+        <file>settings - menu/settingsWindow_tab_input_disabled.svg</file>
+        <file>settings - menu/settingsWindow_tab_input_enabled.svg</file>
+        <file>settings - menu/settingsWindow_tab_keys_disabled.svg</file>
+        <file>settings - menu/settingsWindow_tab_keys_enabled.svg</file>
+        <file>settings - menu/settingsWindow_tab_pedal_disabled.svg</file>
+        <file>settings - menu/settingsWindow_tab_pedal_enabled.svg</file>
+        <file>settings - mid buttons/backlighting_off_active.svg</file>
+        <file>settings - mid buttons/backlighting_off_inactive.svg</file>
+        <file>settings - mid buttons/backlighting_on_active.svg</file>
+        <file>settings - mid buttons/backlighting_on_inactive.svg</file>
+        <file>settings - mid buttons/displaymode_checked.svg</file>
+        <file>settings - mid buttons/displaymode_checked_disabled.svg</file>
+        <file>settings - mid buttons/displaymode_checked_pressed.svg</file>
+        <file>settings - mid buttons/displaymode_unchecked.svg</file>
+        <file>settings - mid buttons/displaymode_unchecked_disabled.svg</file>
+        <file>settings - mid buttons/displaymode_unchecked_pressed.svg</file>
+        <file>settings - mid buttons/keyWindow_ledSettings_toggle_off.svg</file>
+        <file>settings - mid buttons/keyWindow_ledSettings_toggle_on.svg</file>
+        <file>settings - mid buttons/scenechanging_off_active.svg</file>
+        <file>settings - mid buttons/scenechanging_off_disabled.svg</file>
+        <file>settings - mid buttons/scenechanging_off_inactive.svg</file>
+        <file>settings - mid buttons/scenechanging_on_active.svg</file>
+        <file>settings - mid buttons/scenechanging_on_disabled.svg</file>
+        <file>settings - mid buttons/scenechanging_on_inactive.svg</file>
+        <file>settings - mid buttons/sensorresponse_average_active.svg</file>
+        <file>settings - mid buttons/sensorresponse_average_inactive.svg</file>
+        <file>settings - mid buttons/sensorresponse_max_active.svg</file>
+        <file>settings - mid buttons/sensorresponse_max_inactive.svg</file>
+        <file>squares/checkbox_off.svg</file>
+        <file>squares/checkbox_off_disabled.svg</file>
+        <file>squares/checkbox_on.svg</file>
+        <file>squares/checkbox_on_disabled.svg</file>
+        <file>squares/keyWindow_addModline_button_clicked.svg</file>
+        <file>squares/keyWindow_addModline_button_not_clicked.svg</file>
+        <file>squares/keyWindow_deleteModline_button_not_clicked copy.svg</file>
+        <file>squares/keyWindow_deleteModline_button_not_clicked.svg</file>
+        <file>squares/toggle_focus_off.svg</file>
+        <file>squares/toggle_focus_on.svg</file>
+        <file>squares/toggle_off.svg</file>
+        <file>squares/toggle_on.svg</file>
+    </qresource>
+</RCC>

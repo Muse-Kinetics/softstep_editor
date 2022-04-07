@@ -167,8 +167,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 
 /*-------QRadioButton-------*/
@@ -179,22 +181,22 @@ QRadioButton
 
 QRadioButton::indicator:unchecked
 {
-	image: url(:/resources/modline_display_enable_off.png);
+	image: url(:/resources/modline_display_enable_off.svg);
 }
 
 QRadioButton::indicator:unchecked:pressed
 {
-	image: url(:/resources/modline_display_enable_on.png);
+	image: url(:/resources/modline_display_enable_on.svg);
 }
 
 QRadioButton::indicator:checked
 {
-	image: url(:/resources/modline_display_enable_on.png);
+	image: url(:/resources/modline_display_enable_on.svg);
 }
 
 QRadioButton::indicator:checked:pressed
 {
-	image: url(:/resources/modline_display_enable_off.png);
+	image: url(:/resources/modline_display_enable_off.svg);
 }
 
 /*-------QToolTip-------*/
@@ -923,47 +925,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/modline_enable1_toggle_on.png);
+    image: url(:/resources/modline_enable1_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/modline_enable1_toggle_on.png);
+    image: url(:/resources/modline_enable1_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/modline_enable1_toggle_on.png);
+    image: url(:/resources/modline_enable1_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/modline_enable1_toggle_on.png);
+    image: url(:/resources/modline_enable1_toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/modline_enable1_toggle_off.png);
+    image: url(:/resources/modline_enable1_toggle_off.svg);
 }
 </string>
    </property>
@@ -1121,8 +1123,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 </string>
    </property>
@@ -1186,8 +1190,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 </string>
     </property>
@@ -1403,8 +1409,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }</string>
      </property>
      <property name="maxVisibleItems">
@@ -1487,8 +1495,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 </string>
     </property>
@@ -1574,8 +1584,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }</string>
      </property>
      <property name="maxVisibleItems">
@@ -1780,8 +1792,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 </string>
     </property>
@@ -1941,8 +1955,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }</string>
      </property>
      <property name="maxVisibleItems">
@@ -2025,8 +2041,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 </string>
     </property>
@@ -2112,8 +2130,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }</string>
      </property>
      <property name="maxVisibleItems">
@@ -2270,8 +2290,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 </string>
     </property>
@@ -2357,8 +2379,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }</string>
      </property>
      <property name="maxVisibleItems">
@@ -2478,8 +2502,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 </string>
     </property>
@@ -2602,8 +2628,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }</string>
      </property>
      <property name="maxVisibleItems">
@@ -2686,8 +2714,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 </string>
     </property>
@@ -2773,8 +2803,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }</string>
      </property>
      <property name="maxVisibleItems">
@@ -2980,8 +3012,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 </string>
     </property>
@@ -3067,8 +3101,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }</string>
      </property>
      <property name="maxVisibleItems">
@@ -3188,8 +3224,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 </string>
     </property>
@@ -3351,8 +3389,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }</string>
      </property>
      <property name="maxVisibleItems">
@@ -4308,8 +4348,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 
 QComboBox:disabled
@@ -4375,7 +4417,7 @@ QComboBox:disabled
    </property>
    <property name="styleSheet">
     <string notr="true">background: none;
-image: url(:/resources/modline_led_display_arrow.png);</string>
+image: url(:/resources/modline_led_display_arrow.svg);</string>
    </property>
    <property name="text">
     <string/>

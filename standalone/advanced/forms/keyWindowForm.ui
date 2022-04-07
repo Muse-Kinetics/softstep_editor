@@ -153,8 +153,10 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
-	padding-right: 10px;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
 }
 
 
@@ -173,10 +175,10 @@ QToolTip
   <widget class="QFrame" name="keyWindowInstanceLabel_background">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>17</y>
-     <width>25</width>
-     <height>25</height>
+     <x>422</x>
+     <y>8</y>
+     <width>40</width>
+     <height>40</height>
     </rect>
    </property>
    <property name="minimumSize">
@@ -187,8 +189,8 @@ QToolTip
    </property>
    <property name="maximumSize">
     <size>
-     <width>25</width>
-     <height>25</height>
+     <width>50</width>
+     <height>50</height>
     </size>
    </property>
    <property name="styleSheet">
@@ -196,7 +198,7 @@ QToolTip
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/modline_window_label_background.png);
+	border-image: url(:/resources/modline_window_label_background.svg) 0 0 0 0 stretch stretch;
 }</string>
    </property>
    <property name="frameShape">
@@ -210,7 +212,7 @@ QToolTip
    <property name="geometry">
     <rect>
      <x>430</x>
-     <y>17</y>
+     <y>15</y>
      <width>25</width>
      <height>25</height>
     </rect>
@@ -229,9 +231,8 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
+     <family>Futura-Normal</family>
      <pointsize>12</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -294,7 +295,7 @@ QToolTip
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/keyWindow_inits_label_bracket.png);
+	border-image: url(:/resources/keyWindow_inits_label_bracket.svg) 0 0 0 0 stretch stretch;
 }</string>
    </property>
    <property name="text">
@@ -315,7 +316,7 @@ QToolTip
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/keyWindow_dataSources_label_bracket.png);
+	border-image: url(:/resources/keyWindow_dataSources_label_bracket.svg) 0 0 0 0 stretch stretch;
 }</string>
    </property>
    <property name="text">
@@ -336,7 +337,7 @@ QToolTip
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/keyWindow_dataModifiers_label_bracket.png);
+	border-image: url(:/resources/keyWindow_dataModifiers_label_bracket.svg) 0 0 0 0 stretch stretch;
 }</string>
    </property>
    <property name="text">
@@ -357,7 +358,7 @@ QToolTip
 {
 	border: none;
 	padding: none;
-	background-image: url(:/resources/keyWindow_outputSettings_label_bracket.png);
+	border-image: url(:/resources/keyWindow_outputSettings_label_bracket.svg) 0 0 0 0 stretch stretch;
 }</string>
    </property>
    <property name="text">
@@ -517,14 +518,14 @@ QToolTip
 {
 	background: none;
 	border: none;
-	image: url(:/resources/keyWindow_addModline_button_not_clicked.png);
+	image: url(:/resources/keyWindow_addModline_button_not_clicked.svg);
 }
 
 QToolButton:pressed
 {
 	background: none;
 	border: none;
-	image: url(:/resources/keyWindow_addModline_button_clicked.png);
+	image: url(:/resources/keyWindow_addModline_button_clicked.svg);
 }</string>
    </property>
    <property name="text">
@@ -548,14 +549,14 @@ QToolButton:pressed
 {
 	background: none;
 	border: none;
-	image: url(:/resources/keyWindow_deleteModline_button_not_clicked.png);
+	image: url(:/resources/keyWindow_deleteModline_button_not_clicked.svg);
 }
 
 QToolButton:pressed
 {
 	background: none;
 	border: none;
-	image: url(:/resources/keyWindow_deleteModline_button_clicked.png);
+	image: url(:/resources/keyWindow_deleteModline_button_clicked.svg);
 }</string>
    </property>
    <property name="text">
@@ -573,9 +574,8 @@ QToolButton:pressed
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
+     <family>Futura-Normal</family>
      <pointsize>9</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -595,9 +595,8 @@ QToolButton:pressed
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
+     <family>Futura-Normal</family>
      <pointsize>9</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -665,9 +664,8 @@ QSpinBox:disabled
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
+     <family>Futura-Normal</family>
      <pointsize>9</pointsize>
-     <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -702,42 +700,42 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-	image:url(:/resources/checkbox_off.png)
+	image:url(:/resources/checkbox_off.svg)
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-	image:url(:/resources/checkbox_off.png)
+	image:url(:/resources/checkbox_off.svg)
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image:url(:/resources/checkbox_on.png)
+	image:url(:/resources/checkbox_on.svg)
 }
 
 QCheckBox::indicator:checked
 {
-	image:url(:/resources/checkbox_on.png)
+	image:url(:/resources/checkbox_on.svg)
 }
 
 QCheckBox::indicator:checked:hover
 {
-	image:url(:/resources/checkbox_on.png)
+	image:url(:/resources/checkbox_on.svg)
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image:url(:/resources/checkbox_off.png)
+	image:url(:/resources/checkbox_off.svg)
 }
 
 QCheckBox::indicator:unchecked:disabled
 {
-	image:url(:/resources/checkbox_off_disabled.png)
+	image:url(:/resources/checkbox_off_disabled.svg)
 }
 
 QCheckBox::indicator:checked:disabled
 {
-	image:url(:/resources/checkbox_off_disabled.png)
+	image:url(:/resources/checkbox_off_disabled.svg)
 }</string>
    </property>
    <property name="text">
@@ -992,6 +990,126 @@ QToolTip
     </property>
    </widget>
   </widget>
+  <widget class="QLabel" name="initsBracketLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>364</y>
+     <width>53</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	border-image: url(:/resources/keyWindow_inits_label_bracket.svg) 0 0 0 0 stretch stretch;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QFrame" name="keyWindowInstanceLabel_background_2">
+   <property name="geometry">
+    <rect>
+     <x>664</x>
+     <y>290</y>
+     <width>40</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>25</width>
+     <height>25</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>50</width>
+     <height>50</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	border-image: url(:/resources/modline_window_label_background.svg) 0 0 0 0 stretch stretch;
+}</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="outputSettingsBracketLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>856</x>
+     <y>364</y>
+     <width>304</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	border-image: url(:/resources/keyWindow_outputSettings_label_bracket.svg) 0 0 0 0 stretch stretch;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="dataModifiersBracketLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>492</x>
+     <y>364</y>
+     <width>318</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	border-image: url(:/resources/keyWindow_dataModifiers_label_bracket.svg) 0 0 0 0 stretch stretch;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="dataSourcesBracketLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>348</x>
+     <y>364</y>
+     <width>95</width>
+     <height>11</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	border: none;
+	padding: none;
+	border-image: url(:/resources/keyWindow_dataSources_label_bracket.svg) 0 0 0 0 stretch stretch;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
   <zorder>frame</zorder>
   <zorder>keyWindowInstanceLabel_background</zorder>
   <zorder>keyWindowInstanceLabel</zorder>
@@ -1014,6 +1132,11 @@ QToolTip
   <zorder>label_22</zorder>
   <zorder>counterWrap</zorder>
   <zorder>counterMin</zorder>
+  <zorder>initsBracketLabel_2</zorder>
+  <zorder>keyWindowInstanceLabel_background_2</zorder>
+  <zorder>outputSettingsBracketLabel_2</zorder>
+  <zorder>dataModifiersBracketLabel_2</zorder>
+  <zorder>dataSourcesBracketLabel_2</zorder>
  </widget>
  <tabstops>
   <tabstop>counterMin</tabstop>

@@ -33,8 +33,8 @@ NavModline::NavModline(QWidget *parent, int navInstanceNum) :
     this->setGeometry(MODLINE_STARTING_X_POS, MODLINE_STARTING_Y_POS + ((navInstance)*(MODLINE_WINDOW_HEIGHT + MODLINE_SPACING)), MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
 
     navModlineForm->instanceLabel->setText(QString("%1").arg((navInstance +1)%10));
-    navModlineForm->deviceViews->setCurrentIndex(0);
-    navModlineForm->deviceViewLabels->setCurrentIndex(0);
+//    navModlineForm->deviceViews->setCurrentIndex(0);
+//    navModlineForm->deviceViewLabels->setCurrentIndex(0);
     navModlineForm->raw->setValue(0);
 
     //dynamically set the stylesheet for the "enable" checkbox
@@ -119,8 +119,8 @@ void NavModline::slotConnectElements()
     }
 
     //connect the velocity boxes to eachother
-    connect(navModlineForm->notevelocity, SIGNAL(valueChanged(int)), navModlineForm->notelivevelocity, SLOT(setValue(int)));
-    connect(navModlineForm->notelivevelocity, SIGNAL(valueChanged(int)), navModlineForm->notevelocity, SLOT(setValue(int)));
+    //connect(navModlineForm->notevelocity, SIGNAL(valueChanged(int)), navModlineForm->notelivevelocity, SLOT(setValue(int)));
+    //connect(navModlineForm->notelivevelocity, SIGNAL(valueChanged(int)), navModlineForm->notevelocity, SLOT(setValue(int)));
 
     //-------------------- Hosted
     //slewer
@@ -211,9 +211,87 @@ void NavModline::slotValueChanged()
         QString jsonName;
         QObject *sender = QObject::sender();
         QVariant value;
+        QString senderName = sender->objectName();
+
+        // handle destination menu objects
+        if (senderName.contains("dest_"))
+        {
+            if(senderName == "dest_b1")
+            {
+                value = navModlineForm->dest_b1->value();
+
+                // set jsonName based on destination/index
+                switch (modDest.index)
+                {
+                case DEST_NOTE_SET:
+                    jsonName = "note";
+                    break;
+                case DEST_MMC:
+                    jsonName = "mmcid";
+                    break;
+                }
+            }
+            else if(senderName == "dest_b2")
+            {
+                value = navModlineForm->dest_b2->value();
+
+                // set jsonName based on destination/index
+                switch (modDest.index)
+                {
+                case DEST_NOTE_LIVE:
+                    jsonName = "velocity";
+                    break;
+                case DEST_CC:
+                    jsonName = "cc";
+                    break;
+                case DEST_BANK:
+                    jsonName = "bankmsb";
+                    break;
+                case DEST_POLY_AFTERTOUCH:
+                    jsonName = "note";
+                    break;
+                }
+            }
+            else if(senderName == "dest_b3")
+            {
+                value = navModlineForm->dest_b3->value();
+
+                // set jsonName based on destination/index
+                switch (modDest.index)
+                {
+                case DEST_NOTE_LIVE:
+                case DEST_CC:
+                case DEST_BANK:
+                case DEST_PROGRAM:
+                case DEST_PITCH_BEND:
+                case DEST_AFTERTOUCH:
+                case DEST_POLY_AFTERTOUCH:
+                    jsonName = "channel";
+                    break;
+                }
+            }
+            else if(senderName == "dest_device")
+            {
+                value = navModlineForm->dest_device->currentText();
+                jsonName = "device";
+
+            }
+            else if(senderName == "dest_mmcfunction")
+            {
+                value = navModlineForm->dest_mmcfunction->currentText();
+                jsonName = "mmcfunction";
+
+            }
+            else if(senderName == "dest_oscroute")
+            {
+                jsonName = "oscroute";
+                value = navModlineForm->dest_oscroute->text();
+            }
+            qDebug() << "destination menu - jsonName: " << jsonName << " value: " << value;
+        }
 
         //enable checkbox
-        if(sender == navModlineForm->enable)
+        else if(sender == navModlineForm->enable)
         {
             jsonName = "enable";
             value = navModlineForm->enable->isChecked();
@@ -286,134 +364,134 @@ void NavModline::slotValueChanged()
             jsonName = "destination";
             value = navModlineForm->destination->currentText();
         }
-        //destination parameters
-        else if(sender == navModlineForm->notenumber)
-        {
-            jsonName = "note";
-            value = navModlineForm->notenumber->value();
-        }
-        else if(sender == navModlineForm->notevelocity)
-        {
-            jsonName = "velocity";
-            value = navModlineForm->notevelocity->value();
-        }
-        else if(sender == navModlineForm->cc)
-        {
-            jsonName = "cc";
-            value = navModlineForm->cc->value();
-        }
-        else if(sender == navModlineForm->bankmsb)
-        {
-            jsonName = "bankMSB";
-            value = navModlineForm->bankmsb->value();
-        }
-        else if(sender == navModlineForm->polynote)
-        {
-            jsonName = "note";
-            value = navModlineForm->polynote->value();
-        }
-        //channels
-        else if(sender == navModlineForm->notechannel)
-        {
-            jsonName = "channel";
-            value = navModlineForm->notechannel->value();
-        }
-        else if(sender == navModlineForm->notelivechannel)
-        {
-            jsonName = "channel";
-            value = navModlineForm->notelivechannel->value();
-        }
-        else if(sender == navModlineForm->controlchannel)
-        {
-            jsonName = "channel";
-            value = navModlineForm->controlchannel->value();
-        }
-        else if(sender == navModlineForm->bankchannel)
-        {
-            jsonName = "channel";
-            value = navModlineForm->bankchannel->value();
-        }
-        else if(sender == navModlineForm->programchannel)
-        {
-            jsonName = "channel";
-            value = navModlineForm->programchannel->value();
-        }
-        else if(sender == navModlineForm->bendchannel)
-        {
-            jsonName = "channel";
-            value = navModlineForm->bendchannel->value();
-        }
-        else if(sender == navModlineForm->aftertouchchannel)
-        {
-            jsonName = "channel";
-            value = navModlineForm->aftertouchchannel->value();
-        }
-        else if(sender == navModlineForm->polychannel)
-        {
-            jsonName = "channel";
-            value = navModlineForm->polychannel->value();
-        }
-        //devices
-        else if(sender == navModlineForm->notedevice)
-        {
-            jsonName = "device";
-            value = navModlineForm->notedevice->currentText();
-        }
-        else if(sender == navModlineForm->notelivedevice)
-        {
-            jsonName = "device";
-            value = navModlineForm->notelivedevice->currentText();
-        }
-        else if(sender == navModlineForm->controldevice)
-        {
-            jsonName = "device";
-            value = navModlineForm->controldevice->currentText();
-        }
-        else if(sender == navModlineForm->bankdevice)
-        {
-            jsonName = "device";
-            value = navModlineForm->bankdevice->currentText();
-        }
-        else if(sender == navModlineForm->programdevice)
-        {
-            jsonName = "device";
-            value = navModlineForm->programdevice->currentText();
-        }
-        else if(sender == navModlineForm->benddevice)
-        {
-            jsonName = "device";
-            value = navModlineForm->benddevice->currentText();
-        }
-        else if(sender == navModlineForm->aftertouchdevice)
-        {
-            jsonName = "device";
-            value = navModlineForm->aftertouchdevice->currentText();
-        }
-        else if(sender == navModlineForm->polydevice)
-        {
-            jsonName = "device";
-            value = navModlineForm->polydevice->currentText();
-        }
-        else if(sender == navModlineForm->mmcdeviceid)
-        {
-            jsonName = "mmcid";
-            value = navModlineForm->mmcdeviceid->value();
-        }
-        else if(sender == navModlineForm->mmcfunction)
-        {
-            jsonName = "mmcfunction";
-            value = navModlineForm->mmcfunction->currentText();
-        }
-        else if(sender == navModlineForm->mmcdevice)
-        {
-            jsonName = "device";
-            value = navModlineForm->mmcdevice->currentText();
-        }
-        else if(sender == navModlineForm->oscroute)
-        {
-            jsonName = "oscroute";
-            value = navModlineForm->oscroute->text();
-        }
+//        //destination parameters
+//        else if(sender == navModlineForm->notenumber)
+//        {
+//            jsonName = "note";
+//            value = navModlineForm->notenumber->value();
+//        }
+//        else if(sender == navModlineForm->notevelocity)
+//        {
+//            jsonName = "velocity";
+//            value = navModlineForm->notevelocity->value();
+//        }
+//        else if(sender == navModlineForm->cc)
+//        {
+//            jsonName = "cc";
+//            value = navModlineForm->cc->value();
+//        }
+//        else if(sender == navModlineForm->bankmsb)
+//        {
+//            jsonName = "bankMSB";
+//            value = navModlineForm->bankmsb->value();
+//        }
+//        else if(sender == navModlineForm->polynote)
+//        {
+//            jsonName = "note";
+//            value = navModlineForm->polynote->value();
+//        }
+//        //channels
+//        else if(sender == navModlineForm->notechannel)
+//        {
+//            jsonName = "channel";
+//            value = navModlineForm->notechannel->value();
+//        }
+//        else if(sender == navModlineForm->notelivechannel)
+//        {
+//            jsonName = "channel";
+//            value = navModlineForm->notelivechannel->value();
+//        }
+//        else if(sender == navModlineForm->controlchannel)
+//        {
+//            jsonName = "channel";
+//            value = navModlineForm->controlchannel->value();
+//        }
+//        else if(sender == navModlineForm->bankchannel)
+//        {
+//            jsonName = "channel";
+//            value = navModlineForm->bankchannel->value();
+//        }
+//        else if(sender == navModlineForm->programchannel)
+//        {
+//            jsonName = "channel";
+//            value = navModlineForm->programchannel->value();
+//        }
+//        else if(sender == navModlineForm->bendchannel)
+//        {
+//            jsonName = "channel";
+//            value = navModlineForm->bendchannel->value();
+//        }
+//        else if(sender == navModlineForm->aftertouchchannel)
+//        {
+//            jsonName = "channel";
+//            value = navModlineForm->aftertouchchannel->value();
+//        }
+//        else if(sender == navModlineForm->polychannel)
+//        {
+//            jsonName = "channel";
+//            value = navModlineForm->polychannel->value();
+//        }
+//        //devices
+//        else if(sender == navModlineForm->notedevice)
+//        {
+//            jsonName = "device";
+//            value = navModlineForm->notedevice->currentText();
+//        }
+//        else if(sender == navModlineForm->notelivedevice)
+//        {
+//            jsonName = "device";
+//            value = navModlineForm->notelivedevice->currentText();
+//        }
+//        else if(sender == navModlineForm->controldevice)
+//        {
+//            jsonName = "device";
+//            value = navModlineForm->controldevice->currentText();
+//        }
+//        else if(sender == navModlineForm->bankdevice)
+//        {
+//            jsonName = "device";
+//            value = navModlineForm->bankdevice->currentText();
+//        }
+//        else if(sender == navModlineForm->programdevice)
+//        {
+//            jsonName = "device";
+//            value = navModlineForm->programdevice->currentText();
+//        }
+//        else if(sender == navModlineForm->benddevice)
+//        {
+//            jsonName = "device";
+//            value = navModlineForm->benddevice->currentText();
+//        }
+//        else if(sender == navModlineForm->aftertouchdevice)
+//        {
+//            jsonName = "device";
+//            value = navModlineForm->aftertouchdevice->currentText();
+//        }
+//        else if(sender == navModlineForm->polydevice)
+//        {
+//            jsonName = "device";
+//            value = navModlineForm->polydevice->currentText();
+//        }
+//        else if(sender == navModlineForm->mmcdeviceid)
+//        {
+//            jsonName = "mmcid";
+//            value = navModlineForm->mmcdeviceid->value();
+//        }
+//        else if(sender == navModlineForm->mmcfunction)
+//        {
+//            jsonName = "mmcfunction";
+//            value = navModlineForm->mmcfunction->currentText();
+//        }
+//        else if(sender == navModlineForm->mmcdevice)
+//        {
+//            jsonName = "device";
+//            value = navModlineForm->mmcdevice->currentText();
+//        }
+//        else if(sender == navModlineForm->oscroute)
+//        {
+//            jsonName = "oscroute";
+//            value = navModlineForm->oscroute->text();
+//        }
         else if(sender == navModlineForm->modlinedisplayenable)
         {
             jsonName = "displaylinked";
@@ -453,22 +531,22 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
     navModlineForm->destination->setCurrentIndex(navModlineForm->destination->findText(preset.value(QString("nav_modline%1_destination").arg(navInstance+1)).toString()));
 
     //destination parameters
-    navModlineForm->notenumber->setValue(preset.value(QString("nav_modline%1_note").arg(navInstance+1)).toInt());
-    navModlineForm->polynote->setValue(preset.value(QString("nav_modline%1_note").arg(navInstance+1)).toInt());
+//    navModlineForm->notenumber->setValue(preset.value(QString("nav_modline%1_note").arg(navInstance+1)).toInt());
+//    navModlineForm->polynote->setValue(preset.value(QString("nav_modline%1_note").arg(navInstance+1)).toInt());
 
-    navModlineForm->notevelocity->setValue(preset.value(QString("nav_modline%1_velocity").arg(navInstance+1)).toInt());
-    //navModlineForm->notelivevelocity->setValue(preset.value(QString("nav_modline%1_velocity").arg(navInstance+1)).toInt());
-    navModlineForm->cc->setValue(preset.value(QString("nav_modline%1_cc").arg(navInstance+1)).toInt());
-    navModlineForm->bankmsb->setValue(preset.value(QString("nav_modline%1_bankmsb").arg(navInstance+1)).toInt());
+//    navModlineForm->notevelocity->setValue(preset.value(QString("nav_modline%1_velocity").arg(navInstance+1)).toInt());
+//    //navModlineForm->notelivevelocity->setValue(preset.value(QString("nav_modline%1_velocity").arg(navInstance+1)).toInt());
+//    navModlineForm->cc->setValue(preset.value(QString("nav_modline%1_cc").arg(navInstance+1)).toInt());
+//    navModlineForm->bankmsb->setValue(preset.value(QString("nav_modline%1_bankmsb").arg(navInstance+1)).toInt());
 
-    navModlineForm->notechannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
-    navModlineForm->notelivechannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
-    navModlineForm->controlchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
-    navModlineForm->bankchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
-    navModlineForm->programchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
-    navModlineForm->bendchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
-    navModlineForm->aftertouchchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
-    navModlineForm->polychannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
+//    navModlineForm->notechannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
+//    navModlineForm->notelivechannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
+//    navModlineForm->controlchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
+//    navModlineForm->bankchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
+//    navModlineForm->programchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
+//    navModlineForm->bendchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
+//    navModlineForm->aftertouchchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
+//    navModlineForm->polychannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
 
 
     QString presetDevice = preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString();
@@ -486,23 +564,50 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
         }
     }
 
-    navModlineForm->notedevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
-    navModlineForm->notelivedevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
-    navModlineForm->controldevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
-    navModlineForm->bankdevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
-    navModlineForm->programdevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
-    navModlineForm->benddevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
-    navModlineForm->aftertouchdevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
-    navModlineForm->polydevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+    //storing these in a struct for later recall when we change the destination type/index
+    modDest.outPortName = presetDevice;
+    // modDest.index = modlineForm->destination->currentIndex(); // happens in slotRecallDestinationMenu()
+    modDest.channel = preset.value(QString("nav_modline%2_channel").arg(navInstance+1)).toInt();
+    modDest.note = preset.value(QString("nav_modline%2_note").arg(navInstance+1)).toInt();
+    modDest.velocity = preset.value(QString("nav_modline%2_velocity").arg(navInstance+1)).toInt();
+    modDest.cc = preset.value(QString("nav_modline%2_cc").arg(navInstance+1)).toInt();
+    modDest.bankMSB = preset.value(QString("nav_modline%2_bankmsb").arg(navInstance+1)).toInt();
+    modDest.mmcID = preset.value(QString("nav_modline%2_mmcid").arg(navInstance+1)).toInt();
+    modDest.mmcFunction = preset.value(QString("nav_modline%2_mmcfunction").arg(navInstance+1)).toString();
+    modDest.oscRoute = preset.value(QString("nav_modline%2_oscroute").arg(navInstance+1)).toString();
 
-    navModlineForm->mmcdeviceid->setValue(preset.value(QString("nav_modline%1_mmcid").arg(navInstance+1)).toInt());
-    navModlineForm->mmcfunction->setCurrentIndex(navModlineForm->mmcfunction->findText(preset.value(QString("nav_modline%1_mmcfunction").arg(navInstance+1)).toString()));
-    navModlineForm->mmcdevice->setCurrentIndex(navModlineForm->mmcdevice->findText(preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString()));
+    // update the values in the for
 
-    navModlineForm->oscroute->setText(preset.value(QString("nav_modline%1_oscroute").arg(navInstance+1)).toString());
+    // midi port dropdown
+    navModlineForm->dest_device->setCurrentText(modDest.outPortName);
+
+    // mmc function dropdown
+    navModlineForm->dest_mmcfunction->setCurrentText(modDest.mmcFunction);
+
+    // osc text field
+    navModlineForm->dest_oscroute->setText(modDest.oscRoute);
+
+    // Updating values and showing/hiding the shared ui elements elements happens in slotRecallDestinationMenu();
+    slotRecallDestinationMenu();
+
+    // old method
+//    navModlineForm->notedevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+//    navModlineForm->notelivedevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+//    navModlineForm->controldevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+//    navModlineForm->bankdevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+//    navModlineForm->programdevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+//    navModlineForm->benddevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+//    navModlineForm->aftertouchdevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+//    navModlineForm->polydevice->setCurrentIndex(navModlineForm->notedevice->findText(presetDevice));
+
+//    navModlineForm->mmcdeviceid->setValue(preset.value(QString("nav_modline%1_mmcid").arg(navInstance+1)).toInt());
+//    navModlineForm->mmcfunction->setCurrentIndex(navModlineForm->mmcfunction->findText(preset.value(QString("nav_modline%1_mmcfunction").arg(navInstance+1)).toString()));
+//    navModlineForm->mmcdevice->setCurrentIndex(navModlineForm->mmcdevice->findText(preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString()));
+
+//    navModlineForm->oscroute->setText(preset.value(QString("nav_modline%1_oscroute").arg(navInstance+1)).toString());
 
     navModlineForm->modlinedisplayenable->setChecked(preset.value(QString("nav_modline%1_displaylinked").arg(navInstance+1)).toBool());
-    slotRecallDestinationMenu();
+
     slotConnectElements();
 
     //--------------- update hosted source streaming
@@ -551,16 +656,145 @@ void NavModline::slotDeleteModline(int num, bool disable)
 
 void NavModline::slotRecallDestinationMenu()
 {
+    //qDebug() << "NavModline::slotRecallDestinationMenu called";
     //set the device view to change based on what is selected in the destination menu
-    if((navModlineForm->destination->currentIndex()) > 10)
+
+    modDest.index = navModlineForm->destination->currentIndex();
+
+    // first hide all elements...
+
+    // input ui
+    navModlineForm->dest_b1->hide();
+    navModlineForm->dest_b2->hide();
+    navModlineForm->dest_b3->hide();
+    navModlineForm->dest_device->hide();
+    navModlineForm->dest_mmcfunction->hide();
+    navModlineForm->dest_oscroute->hide();
+
+    // labels
+    navModlineForm->dest_label_b1->hide();
+    navModlineForm->dest_label_b2->hide();
+    navModlineForm->dest_label_b3->hide();
+    navModlineForm->dest_label_func->hide();
+    navModlineForm->dest_label_port->hide();
+
+    // ...then individually show and update them as needed
+    switch (modDest.index)
     {
-        navModlineForm->deviceViews->setCurrentIndex(0);
-        navModlineForm->deviceViewLabels->setCurrentIndex(0);
-    }
-    else
-    {
-        navModlineForm->deviceViews->setCurrentIndex(navModlineForm->destination->currentIndex());
-        navModlineForm->deviceViewLabels->setCurrentIndex(navModlineForm->destination->currentIndex());
+    case DEST_NOTE_SET:
+        navModlineForm->dest_b1->show();
+        navModlineForm->dest_label_b1->setText("Note");
+        navModlineForm->dest_label_b1->show();
+        navModlineForm->dest_b1->setToolTip("The note # to send");
+
+        navModlineForm->dest_b1->setValue(modDest.note);
+    case DEST_NOTE_LIVE:
+        navModlineForm->dest_b2->show();
+        navModlineForm->dest_label_b2->setText("Vel");
+        navModlineForm->dest_label_b2->show();
+        navModlineForm->dest_b2->setToolTip("The velocity value to send");
+        navModlineForm->dest_b3->show();
+        navModlineForm->dest_label_b3->show();
+        navModlineForm->dest_device->show();
+        navModlineForm->dest_label_port->setText("Output Port");
+        navModlineForm->dest_label_port->show();
+
+        navModlineForm->dest_b2->setValue(modDest.velocity);
+        navModlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_CC:
+        navModlineForm->dest_b2->show();
+        navModlineForm->dest_label_b2->setText("CC");
+        navModlineForm->dest_label_b2->show();
+        navModlineForm->dest_b2->setToolTip("The CC # to send");
+        navModlineForm->dest_b3->show();
+        navModlineForm->dest_label_b3->show();
+        navModlineForm->dest_device->show();
+        navModlineForm->dest_label_port->setText("Output Port");
+        navModlineForm->dest_label_port->show();
+
+        navModlineForm->dest_b2->setValue(modDest.cc);
+        navModlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_BANK:
+        navModlineForm->dest_b2->show();
+        navModlineForm->dest_label_b2->setText("MSB");
+        navModlineForm->dest_label_b2->show();
+        navModlineForm->dest_b2->setToolTip("The bank's most significant value to send (modline value is sent as the least significant value)");
+        navModlineForm->dest_b3->show();
+        navModlineForm->dest_label_b3->show();
+        navModlineForm->dest_device->show();
+        navModlineForm->dest_label_port->setText("Output Port");
+        navModlineForm->dest_label_port->show();
+
+        navModlineForm->dest_b2->setValue(modDest.bankMSB);
+        navModlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_PROGRAM:
+        navModlineForm->dest_b3->show();
+        navModlineForm->dest_label_b3->show();
+        navModlineForm->dest_device->show();
+        navModlineForm->dest_label_port->setText("Output Port");
+        navModlineForm->dest_label_port->show();
+
+        navModlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_OSC:
+        qDebug() << "dest osc set";
+        navModlineForm->dest_oscroute->show();
+        navModlineForm->dest_label_port->setText("Output Prefix");
+        navModlineForm->dest_label_port->show();
+        break;
+    case DEST_PITCH_BEND:
+        navModlineForm->dest_b3->show();
+        navModlineForm->dest_label_b3->show();
+        navModlineForm->dest_device->show();
+        navModlineForm->dest_label_port->setText("Output Port");
+        navModlineForm->dest_label_port->show();
+
+        navModlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_MMC:
+        navModlineForm->dest_b1->show();
+        navModlineForm->dest_label_b1->setText("ID");
+        navModlineForm->dest_label_b1->show();
+        navModlineForm->dest_b1->setToolTip("Sets the device ID for the receiving MMC device.");
+        navModlineForm->dest_label_func->show();
+        navModlineForm->dest_mmcfunction->show();
+        navModlineForm->dest_device->show();
+        navModlineForm->dest_label_port->setText("Output Port");
+        navModlineForm->dest_label_port->show();
+
+        navModlineForm->dest_b1->setValue(modDest.mmcID);
+        break;
+    case DEST_AFTERTOUCH:
+        navModlineForm->dest_b3->show();
+        navModlineForm->dest_label_b3->show();
+        navModlineForm->dest_device->show();
+        navModlineForm->dest_label_port->setText("Output Port");
+        navModlineForm->dest_label_port->show();
+
+        navModlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_POLY_AFTERTOUCH:
+        navModlineForm->dest_b2->show();
+        navModlineForm->dest_label_b2->setText("Note");
+        navModlineForm->dest_label_b2->show();
+        navModlineForm->dest_b2->setToolTip("The note # to send");
+        navModlineForm->dest_b3->show();
+        navModlineForm->dest_label_b3->show();
+        navModlineForm->dest_device->show();
+        navModlineForm->dest_label_port->setText("Output Port");
+        navModlineForm->dest_label_port->show();
+
+        navModlineForm->dest_b2->setValue(modDest.note);
+        navModlineForm->dest_b3->setValue(modDest.channel);
+        break;
+    case DEST_X_INC:
+    case DEST_Y_INC:
+    case DEST_NONE:
+    default:
+        break;
     }
 }
 
@@ -595,14 +829,17 @@ void NavModline::slotPopulateMenus(QStringList source, QStringList dest, QString
     //set source menu
     navModlineForm->source->clear();
     navModlineForm->source->addItems(source);
+    emit signalFixDropDownWidth(navModlineForm->source);
 
     //set table menu
     navModlineForm->table->clear();
     navModlineForm->table->addItems(table);
+    emit signalFixDropDownWidth(navModlineForm->table);
 
     //set destination menus
     navModlineForm->destination->clear();
     navModlineForm->destination->addItems(dest);
+    emit signalFixDropDownWidth(navModlineForm->destination);
 }
 
 void NavModline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevices)
@@ -610,62 +847,66 @@ void NavModline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevice
     //------------------------------- Clear all device menus
 
     //Note Set
-    navModlineForm->notedevice->clear();
+//    navModlineForm->notedevice->clear();
 
-    //Note Live
-    navModlineForm->notelivedevice->clear();
+//    //Note Live
+//    navModlineForm->notelivedevice->clear();
 
-    //CC
-    navModlineForm->controldevice->clear();
+//    //CC
+//    navModlineForm->controldevice->clear();
 
-    //Bank
-    navModlineForm->bankdevice->clear();
+//    //Bank
+//    navModlineForm->bankdevice->clear();
 
-    //Program
-    navModlineForm->programdevice->clear();
+//    //Program
+//    navModlineForm->programdevice->clear();
 
-    //Pitch Bend
-    navModlineForm->benddevice->clear();
+//    //Pitch Bend
+//    navModlineForm->benddevice->clear();
 
-    //MMC
-    navModlineForm->mmcdevice->clear();
+//    //MMC
+//    navModlineForm->mmcdevice->clear();
 
-    //Aftertouch
-    navModlineForm->aftertouchdevice->clear();
+//    //Aftertouch
+//    navModlineForm->aftertouchdevice->clear();
 
-    //Poly Aftertouch
-    navModlineForm->polydevice->clear();
+//    //Poly Aftertouch
+//    navModlineForm->polydevice->clear();
+
+    navModlineForm->dest_device->clear();
 
     //-------------------------------- Populate all menus
     QMap<QString, int>::iterator i;
     for (i = externalDevices.begin(); i != externalDevices.end(); ++i)
     {
-        //Note Set
-        navModlineForm->notedevice->addItem(i.key());
+        navModlineForm->dest_device->addItem(i.key().left(25));
 
-        //Note Live
-        navModlineForm->notelivedevice->addItem(i.key());
+//        //Note Set
+//        navModlineForm->notedevice->addItem(i.key());
 
-        //CC
-        navModlineForm->controldevice->addItem(i.key());
+//        //Note Live
+//        navModlineForm->notelivedevice->addItem(i.key());
 
-        //Bank
-        navModlineForm->bankdevice->addItem(i.key());
+//        //CC
+//        navModlineForm->controldevice->addItem(i.key());
 
-        //Program
-        navModlineForm->programdevice->addItem(i.key());
+//        //Bank
+//        navModlineForm->bankdevice->addItem(i.key());
 
-        //Pitch Bend
-        navModlineForm->benddevice->addItem(i.key());
+//        //Program
+//        navModlineForm->programdevice->addItem(i.key());
 
-        //MMC
-        navModlineForm->mmcdevice->addItem(i.key());
+//        //Pitch Bend
+//        navModlineForm->benddevice->addItem(i.key());
 
-        //Aftertouch
-        navModlineForm->aftertouchdevice->addItem(i.key());
+//        //MMC
+//        navModlineForm->mmcdevice->addItem(i.key());
 
-        //Poly Aftertouch
-        navModlineForm->polydevice->addItem(i.key());
+//        //Aftertouch
+//        navModlineForm->aftertouchdevice->addItem(i.key());
+
+//        //Poly Aftertouch
+//        navModlineForm->polydevice->addItem(i.key());
     }
 }
 
@@ -943,38 +1184,40 @@ void NavModline::slotOutputRoutine(int input)
 
 void NavModline::hosted_slotOutputMidi(int outputVal)
 {
+    // EB TODO - update to use a single set of dropdowns
+    //qDebug() << "Modline::hosted_slotOutputMidi called";
     if(outputType == "Note Set")
     {
         if(outputVal)
         {
-            emit hosted_signalNoteSet(navModlineForm->notedevice->currentText(), navModlineForm->notechannel->value(), navModlineForm->notenumber->value(), navModlineForm->notevelocity->value());
+            emit hosted_signalNoteSet(navModlineForm->dest_device->currentText(), navModlineForm->dest_b3->value(), navModlineForm->dest_b1->value(), navModlineForm->dest_b2->value());
         }
         else
         {
-            emit hosted_signalNoteSet(navModlineForm->notedevice->currentText(), navModlineForm->notechannel->value(), navModlineForm->notenumber->value(), 0);
+            emit hosted_signalNoteSet(navModlineForm->dest_device->currentText(), navModlineForm->dest_b3->value(), navModlineForm->dest_b1->value(), 0);
         }
     }
     else if(outputType == "Note Live")
     {
-        emit hosted_signalNoteLive(navModlineForm->notelivedevice->currentText(), navModlineForm->notelivechannel->value(), lastNote, outputVal, navModlineForm->notelivevelocity->value());
+        emit hosted_signalNoteLive(navModlineForm->dest_device->currentText(), navModlineForm->dest_b3->value(), lastNote, outputVal, navModlineForm->dest_b2->value());
 
         lastNote = outputVal;
     }
     else if(outputType == "CC")
     {
-        emit hosted_signalCC(navModlineForm->controldevice->currentText(), navModlineForm->controlchannel->value(), navModlineForm->cc->value(), outputVal);
+        emit hosted_signalCC(navModlineForm->dest_device->currentText(), navModlineForm->dest_b3->value(), navModlineForm->dest_b2->value(), outputVal);
     }
     else if(outputType == "Bank")
     {
-        emit hosted_signalBank(navModlineForm->bankdevice->currentText(),  navModlineForm->bankchannel->value(), navModlineForm->bankmsb->value(), outputVal);
+        emit hosted_signalBank(navModlineForm->dest_device->currentText(), navModlineForm->dest_b3->value(), navModlineForm->dest_b2->value(), outputVal);
     }
     else if(outputType == "Program")
     {
-        emit hosted_signalProgram(navModlineForm->programdevice->currentText(), navModlineForm->programchannel->value(), outputVal);
+        emit hosted_signalProgram(navModlineForm->dest_device->currentText(), navModlineForm->dest_b3->value(), outputVal);
     }
     else if(outputType == "Pitch Bend")
     {
-        emit hosted_signalPitchBend(navModlineForm->benddevice->currentText(), navModlineForm->bendchannel->value(), 0, outputVal);
+        emit hosted_signalPitchBend(navModlineForm->dest_device->currentText(), navModlineForm->dest_b3->value(), 0, outputVal);
     }
     else if(outputType == "MMC")
     {
@@ -982,7 +1225,7 @@ void NavModline::hosted_slotOutputMidi(int outputVal)
 
         if(outputVal && !toggleOnMMC)
         {
-            emit hosted_signalMMC(navModlineForm->mmcdevice->currentText(), navModlineForm->mmcdeviceid->value(), navModlineForm->mmcfunction->currentText());
+            emit hosted_signalMMC(navModlineForm->dest_device->currentText(), navModlineForm->dest_b1->value(), navModlineForm->dest_mmcfunction->currentText());
             toggleOnMMC = true;
         }
         else if(!outputVal)
@@ -992,24 +1235,24 @@ void NavModline::hosted_slotOutputMidi(int outputVal)
     }
     else if(outputType == "OSC")
     {
-
+        emit hosted_signalOSC(navModlineForm->dest_oscroute->text(), outputVal);
     }
     else if(outputType == "Aftertouch")
     {
-        emit hosted_signalAftertouch(navModlineForm->aftertouchdevice->currentText(), navModlineForm->aftertouchchannel->value(), outputVal);
+        emit hosted_signalAftertouch(navModlineForm->dest_device->currentText(), navModlineForm->dest_b3->value(), outputVal);
     }
     else if(outputType == "Poly Aftertouch")
     {
-        emit hosted_signalPolyAftertouch(navModlineForm->polydevice->currentText(), navModlineForm->polychannel->value(), navModlineForm->polynote->value(), outputVal);
+        emit hosted_signalPolyAftertouch(navModlineForm->dest_device->currentText(), navModlineForm->dest_b3->value(), navModlineForm->dest_b2->value(), outputVal);
     }
-    /*else if(outputType == "GarageBand")
+    else if(outputType == "GarageBand")
     {
 
     }
     else if(outputType == "HUI")
     {
 
-    }*/
+    }
     else if(outputType == "Y Inc Set")
     {
         emit hosted_signalYIncSet(outputVal);

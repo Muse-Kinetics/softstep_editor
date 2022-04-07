@@ -1,11 +1,9 @@
-QToolButton
+QToolButton#keyBackground
 {
 	background: rgb(120, 120, 120);
 	border: 3px solid rgb(0, 174, 239);
 	image: none;
 }
-
-
 
 /*-------QToolTip-------*/
 QToolTip

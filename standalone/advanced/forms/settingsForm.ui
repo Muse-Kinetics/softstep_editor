@@ -316,47 +316,47 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-    image: url(:/resources/toggle_off.png);
+    image: url(:/resources/toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-    image: url(:/resources/toggle_off.png);
+    image: url(:/resources/toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-    image: url(:/resources/toggle_on.png);
+    image: url(:/resources/toggle_on.svg);
 }
 
 QCheckBox::indicator:checked
 {
-    image: url(:/resources/toggle_on.png);
+    image: url(:/resources/toggle_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-    image: url(:/resources/toggle_off.png);
+    image: url(:/resources/toggle_off.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-    image: url(:/resources/toggle_focus_off.png);
+    image: url(:/resources/toggle_focus_off.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-    image: url(:/resources/toggle_focus_on.png);
+    image: url(:/resources/toggle_focus_on.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-    image: url(:/resources/toggle_focus_on.png);
+    image: url(:/resources/toggle_focus_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-    image: url(:/resources/toggle_focus_off.png);
+    image: url(:/resources/toggle_focus_off.svg);
 }
 
 /*-------QRadioButton-------*/
@@ -373,27 +373,27 @@ QRadioButton::indicator  {
 }
  
 QRadioButton::indicator::unchecked  {
-    image: url(:/resources/radiobutton_unchecked.png);
+    image: url(:/resources/radiobutton_unchecked.svg);
 }
  
 QRadioButton::indicator:unchecked:hover  {
-    image: url(:/resources/radiobutton_unchecked.png);
+    image: url(:/resources/radiobutton_unchecked.svg);
 }
  
 QRadioButton::indicator:unchecked:pressed  {
-    image: url(:/resources/radiobutton_pressed.png);
+    image: url(:/resources/radiobutton_pressed.svg);
 }
  
 QRadioButton::indicator::checked  {
-    image: url(:/resources/radiobutton_checked.png);
+    image: url(:/resources/radiobutton_checked.svg);
 }
  
 QRadioButton::indicator:checked:hover  {
-    image: url(:/resources/radiobutton_checked.png);
+    image: url(:/resources/radiobutton_checked.svg);
 }
  
 QRadioButton::indicator:checked:pressed  {
-    image: url(:/resources/radiobutton_pressed.png);
+    image: url(:/resources/radiobutton_pressed.svg);
 }</string>
    </property>
    <property name="currentIndex">
@@ -444,32 +444,32 @@ QRadioButton::indicator
 
 QRadioButton::indicator:unchecked
 {
-	image: url(:/resources/keysafety_singlekey_inactive.png);
+	image: url(:/resources/keysafety_singlekey_inactive.svg);
 }
 
 QRadioButton::indicator:unchecked:hover
 {
-	image: url(:/resources/keysafety_singlekey_inactive.png);
+	image: url(:/resources/keysafety_singlekey_inactive.svg);
 }
 
 QRadioButton::indicator:unchecked:pressed
 {
-	image: url(:/resources/keysafety_singlekey_pressed.png);
+	image: url(:/resources/keysafety_singlekey_pressed.svg);
 }
 
 QRadioButton::indicator:checked
 {
-	image: url(:/resources/keysafety_singlekey_active.png);
+	image: url(:/resources/keysafety_singlekey_active.svg);
 }
 
 QRadioButton::indicator:checked:hover
 {
-	image: url(:/resources/keysafety_singlekey_active.png);
+	image: url(:/resources/keysafety_singlekey_active.svg);
 }
 
 QRadioButton::indicator:checked:pressed
 {
-	image: url(:/resources/keysafety_singlekey_pressed.png);
+	image: url(:/resources/keysafety_singlekey_pressed.svg);
 }</string>
       </property>
       <property name="text">
@@ -499,42 +499,42 @@ QRadioButton::indicator
 
 QRadioButton::indicator:unchecked
 {
-	image: url(:/resources/keysafety_adjacentlockout_inactive.png);
+	image: url(:/resources/keysafety_adjacentlockout_inactive.svg);
 }
 
 QRadioButton::indicator:unchecked:hover
 {
-	image: url(:/resources/keysafety_adjacentlockout_inactive.png);
+	image: url(:/resources/keysafety_adjacentlockout_inactive.svg);
 }
 
 QRadioButton::indicator:unchecked:pressed
 {
-	image: url(:/resources/keysafety_adjacentlockout_pressed.png);
+	image: url(:/resources/keysafety_adjacentlockout_pressed.svg);
 }
 
 QRadioButton::indicator:checked
 {
-	image: url(:/resources/keysafety_adjacentlockout_active.png);
+	image: url(:/resources/keysafety_adjacentlockout_active.svg);
 }
 
 QRadioButton::indicator:checked:hover
 {
-	image: url(:/resources/keysafety_adjacentlockout_active.png);
+	image: url(:/resources/keysafety_adjacentlockout_active.svg);
 }
 
 QRadioButton::indicator:checked:pressed
 {
-	image: url(:/resources/keysafety_adjacentlockout_pressed.png);
+	image: url(:/resources/keysafety_adjacentlockout_pressed.svg);
 }
 
 QRadioButton::indicator:unchecked:disabled
 {
-	image: url(:/resources/keysafety_adjacentlockout_disabled.png);
+	image: url(:/resources/keysafety_adjacentlockout_disabled.svg);
 }
 
 QRadioButton::indicator:checked:disabled
 {
-	image: url(:/resources/keysafety_adjacentlockout_disabled.png);
+	image: url(:/resources/keysafety_adjacentlockout_disabled.svg);
 }</string>
       </property>
       <property name="text">
@@ -564,32 +564,32 @@ QRadioButton::indicator
 
 QRadioButton::indicator:unchecked
 {
-	image: url(:/resources/keysafety_allkeys_inactive.png);
+	image: url(:/resources/keysafety_allkeys_inactive.svg);
 }
 
 QRadioButton::indicator:unchecked:hover
 {
-	image: url(:/resources/keysafety_allkeys_inactive.png);
+	image: url(:/resources/keysafety_allkeys_inactive.svg);
 }
 
 QRadioButton::indicator:unchecked:pressed
 {
-	image: url(:/resources/keysafety_allkeys_pressed.png);
+	image: url(:/resources/keysafety_allkeys_pressed.svg);
 }
 
 QRadioButton::indicator:checked
 {
-	image: url(:/resources/keysafety_allkeys_active.png);
+	image: url(:/resources/keysafety_allkeys_active.svg);
 }
 
 QRadioButton::indicator:checked:hover
 {
-	image: url(:/resources/keysafety_allkeys_active.png);
+	image: url(:/resources/keysafety_allkeys_active.svg);
 }
 
 QRadioButton::indicator:checked:pressed
 {
-	image: url(:/resources/keysafety_allkeys_pressed.png);
+	image: url(:/resources/keysafety_allkeys_pressed.svg);
 }</string>
       </property>
       <property name="text">
@@ -648,7 +648,7 @@ p, li { white-space: pre-wrap; }
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">image: url(:/resources/keysafety_bracket_wider.png)</string>
+       <string notr="true">image: url(:/resources/keysafety_bracket_wider.svg)</string>
       </property>
       <property name="text">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -844,62 +844,62 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/resources/scenechanging_off_inactive.png);
+	image: url(:/resources/scenechanging_off_inactive.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-	image: url(:/resources/scenechanging_off_inactive.png);
+	image: url(:/resources/scenechanging_off_inactive.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/resources/scenechanging_off_active.png);
+	image: url(:/resources/scenechanging_off_active.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/resources/scenechanging_on_inactive.png);
+	image: url(:/resources/scenechanging_on_inactive.svg);
 }
 
 QCheckBox::indicator:checked:hover
 {
-	image: url(:/resources/scenechanging_on_inactive.png);
+	image: url(:/resources/scenechanging_on_inactive.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/resources/scenechanging_on_active.png);
+	image: url(:/resources/scenechanging_on_active.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-	image: url(:/resources/scenechanging_off_inactive.png);
+	image: url(:/resources/scenechanging_off_inactive.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-	image: url(:/resources/scenechanging_off_active.png);
+	image: url(:/resources/scenechanging_off_active.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-	image: url(:/resources/scenechanging_on_inactive.png);
+	image: url(:/resources/scenechanging_on_inactive.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-	image: url(:/resources/scenechanging_on_active.png);
+	image: url(:/resources/scenechanging_on_active.svg);
 }
 
 QCheckBox::indicator:unchecked:disabled
 {
-	image: url(:/resources/scenechanging_off_disabled.png);
+	image: url(:/resources/scenechanging_off_disabled.svg);
 }
 
 QCheckBox::indicator:checked:disabled
 {
-	image: url(:/resources/scenechanging_on_disabled.png);
+	image: url(:/resources/scenechanging_on_disabled.svg);
 }</string>
      </property>
      <property name="text">
@@ -937,52 +937,52 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/resources/backlighting_off_inactive.png);
+	image: url(:/resources/backlighting_off_inactive.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-	image: url(:/resources/backlighting_off_inactive.png);
+	image: url(:/resources/backlighting_off_inactive.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/resources/backlighting_off_active.png);
+	image: url(:/resources/backlighting_off_active.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/resources/backlighting_on_inactive.png);
+	image: url(:/resources/backlighting_on_inactive.svg);
 }
 
 QCheckBox::indicator:checked:hover
 {
-	image: url(:/resources/backlighting_on_inactive.png);
+	image: url(:/resources/backlighting_on_inactive.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/resources/backlighting_on_active.png);
+	image: url(:/resources/backlighting_on_active.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-	image: url(:/resources/backlighting_off_inactive.png);
+	image: url(:/resources/backlighting_off_inactive.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-	image: url(:/resources/backlighting_off_active.png);
+	image: url(:/resources/backlighting_off_active.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-	image: url(:/resources/backlighting_on_inactive.png);
+	image: url(:/resources/backlighting_on_inactive.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-	image: url(:/resources/backlighting_on_active.png);
+	image: url(:/resources/backlighting_on_active.svg);
 }</string>
      </property>
      <property name="text">
@@ -1026,52 +1026,52 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/resources/sensorresponse_average_inactive.png);
+	image: url(:/resources/sensorresponse_average_inactive.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-	image: url(:/resources/sensorresponse_average_inactive.png);
+	image: url(:/resources/sensorresponse_average_inactive.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/resources/sensorresponse_average_active.png);
+	image: url(:/resources/sensorresponse_average_active.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/resources/sensorresponse_max_inactive.png);
+	image: url(:/resources/sensorresponse_max_inactive.svg);
 }
 
 QCheckBox::indicator:checked:hover
 {
-	image: url(:/resources/sensorresponse_max_inactive.png);
+	image: url(:/resources/sensorresponse_max_inactive.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/resources/sensorresponse_max_active.png);
+	image: url(:/resources/sensorresponse_max_active.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-	image: url(:/resources/sensorresponse_average_inactive.png);
+	image: url(:/resources/sensorresponse_average_inactive.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-	image: url(:/resources/sensorresponse_average_active.png);
+	image: url(:/resources/sensorresponse_average_active.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-	image: url(:/resources/sensorresponse_max_inactive.png);
+	image: url(:/resources/sensorresponse_max_inactive.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-	image: url(:/resources/sensorresponse_max_active.png);
+	image: url(:/resources/sensorresponse_max_active.svg);
 }</string>
      </property>
      <property name="text">
@@ -1109,62 +1109,62 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/resources/displaymode_unchecked.png);
+	image: url(:/resources/displaymode_unchecked.svg);
 }
 
 QCheckBox::indicator:unchecked:hover
 {
-	image: url(:/resources/displaymode_unchecked.png);
+	image: url(:/resources/displaymode_unchecked.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/resources/displaymode_unchecked_pressed.png);
+	image: url(:/resources/displaymode_unchecked_pressed.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/resources/displaymode_checked.png);
+	image: url(:/resources/displaymode_checked.svg);
 }
 
 QCheckBox::indicator:checked:hover
 {
-	image: url(:/resources/displaymode_checked.png);
+	image: url(:/resources/displaymode_checked.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/resources/displaymode_checked_pressed.png);
+	image: url(:/resources/displaymode_checked_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked:focus
 {
-	image: url(:/resources/displaymode_unchecked.png);
+	image: url(:/resources/displaymode_unchecked.svg);
 }
 
 QCheckBox::indicator:unchecked:pressed:focus
 {
-	image: url(:/resources/displaymode_unchecked_pressed.png);
+	image: url(:/resources/displaymode_unchecked_pressed.svg);
 }
 
 QCheckBox::indicator:checked:focus
 {
-	image: url(:/resources/displaymode_checked.png);
+	image: url(:/resources/displaymode_checked.svg);
 }
 
 QCheckBox::indicator:checked:pressed:focus
 {
-	image: url(:/resources/displaymode_checked_pressed.png);
+	image: url(:/resources/displaymode_checked_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked:disabled
 {
-	image: url(:/resources/displaymode_unchecked_disabled.png);
+	image: url(:/resources/displaymode_unchecked_disabled.svg);
 }
 
 QCheckBox::indicator:checked:disabled
 {
-	image: url(:/resources/displaymode_checked_disabled.png);
+	image: url(:/resources/displaymode_checked_disabled.svg);
 }</string>
      </property>
      <property name="text">
@@ -3247,7 +3247,13 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
+	image: url(:/resources/modline_image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;_arrows.svg);
 	padding-right: 10px;
 }
 
@@ -4875,7 +4881,13 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
+	image: url(:/resources/modline_image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;_arrows.svg);
 	padding-right: 10px;
 }
 
@@ -5883,7 +5895,13 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.png);
+	image: url(:/resources/modline_image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;
+	padding-right: 12px;
+    width: 18px;
+    height: 18px;_arrows.svg);
 	padding-right: 10px;
 }
 
@@ -6041,7 +6059,7 @@ QLineEdit:disabled
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">image: url(:/resources/pedal_top.png);
+        <string notr="true">image: url(:/resources/pedal_top.svg);
 background: none;</string>
        </property>
        <property name="text">
@@ -6058,7 +6076,7 @@ background: none;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">image: url(:/resources/pedal_arrow.png);
+        <string notr="true">image: url(:/resources/pedal_arrow.svg);
 background: none;</string>
        </property>
        <property name="text">
@@ -6102,7 +6120,7 @@ background: none;</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">image: url(:/resources/pedal_base.png);
+        <string notr="true">image: url(:/resources/pedal_base.svg);
 background: none;</string>
        </property>
        <property name="text">
@@ -6355,32 +6373,32 @@ QToolButton:pressed
 
 QRadioButton::indicator::unchecked
 {
-	image: url(:/resources/settingsWindow_tab_global_disabled.png);
+	image: url(:/resources/settingsWindow_tab_global_disabled.svg);
 }
 
 QRadioButton::indicator:unchecked:hover
 {
-	image: url(:/resources/settingsWindow_tab_global_disabled.png);
+	image: url(:/resources/settingsWindow_tab_global_disabled.svg);
 }
 
 QRadioButton::indicator:unchecked:pressed
 {
-	image: url(:/resources/settingsWindow_tab_global_disabled.png);
+	image: url(:/resources/settingsWindow_tab_global_disabled.svg);
 }
 
 QRadioButton::indicator::checked
 {
-	image: url(:/resources/settingsWindow_tab_global_enabled.png);
+	image: url(:/resources/settingsWindow_tab_global_enabled.svg);
 }
 
 QRadioButton::indicator:checked:hover
 {
-	image: url(:/resources/settingsWindow_tab_global_enabled.png);
+	image: url(:/resources/settingsWindow_tab_global_enabled.svg);
 }
 
 QRadioButton::indicator:checked:pressed
 {
-	image: url(:/resources/settingsWindow_tab_global_enabled.png);
+	image: url(:/resources/settingsWindow_tab_global_enabled.svg);
 }</string>
     </property>
     <property name="text">
@@ -6411,32 +6429,32 @@ QRadioButton::indicator:checked:pressed
 
 QRadioButton::indicator::unchecked
 {
-	image: url(:/resources/settingsWindow_tab_keys_disabled.png);
+	image: url(:/resources/settingsWindow_tab_keys_disabled.svg);
 }
 
 QRadioButton::indicator:unchecked:hover
 {
-	image: url(:/resources/settingsWindow_tab_keys_disabled.png);
+	image: url(:/resources/settingsWindow_tab_keys_disabled.svg);
 }
 
 QRadioButton::indicator:unchecked:pressed
 {
-	image: url(:/resources/settingsWindow_tab_keys_disabled.png);
+	image: url(:/resources/settingsWindow_tab_keys_disabled.svg);
 }
 
 QRadioButton::indicator::checked
 {
-	image: url(:/resources/settingsWindow_tab_keys_enabled.png);
+	image: url(:/resources/settingsWindow_tab_keys_enabled.svg);
 }
 
 QRadioButton::indicator:checked:hover
 {
-	image: url(:/resources/settingsWindow_tab_keys_enabled.png);
+	image: url(:/resources/settingsWindow_tab_keys_enabled.svg);
 }
 
 QRadioButton::indicator:checked:pressed
 {
-	image: url(:/resources/settingsWindow_tab_keys_enabled.png);
+	image: url(:/resources/settingsWindow_tab_keys_enabled.svg);
 }</string>
     </property>
     <property name="text">
@@ -6464,32 +6482,32 @@ QRadioButton::indicator:checked:pressed
 
 QRadioButton::indicator::unchecked
 {
-	image: url(:/resources/settingsWindow_tab_input_disabled.png);
+	image: url(:/resources/settingsWindow_tab_input_disabled.svg);
 }
 
 QRadioButton::indicator:unchecked:hover
 {
-	image: url(:/resources/settingsWindow_tab_input_disabled.png);
+	image: url(:/resources/settingsWindow_tab_input_disabled.svg);
 }
 
 QRadioButton::indicator:unchecked:pressed
 {
-	image: url(:/resources/settingsWindow_tab_input_disabled.png);
+	image: url(:/resources/settingsWindow_tab_input_disabled.svg);
 }
 
 QRadioButton::indicator::checked
 {
-	image: url(:/resources/settingsWindow_tab_input_enabled.png);
+	image: url(:/resources/settingsWindow_tab_input_enabled.svg);
 }
 
 QRadioButton::indicator:checked:hover
 {
-	image: url(:/resources/settingsWindow_tab_input_enabled.png);
+	image: url(:/resources/settingsWindow_tab_input_enabled.svg);
 }
 
 QRadioButton::indicator:checked:pressed
 {
-	image: url(:/resources/settingsWindow_tab_input_enabled.png);
+	image: url(:/resources/settingsWindow_tab_input_enabled.svg);
 }</string>
     </property>
     <property name="text">
@@ -6517,32 +6535,32 @@ QRadioButton::indicator:checked:pressed
 
 QRadioButton::indicator::unchecked
 {
-	image: url(:/resources/settingsWindow_tab_pedal_disabled.png);
+	image: url(:/resources/settingsWindow_tab_pedal_disabled.svg);
 }
 
 QRadioButton::indicator:unchecked:hover
 {
-	image: url(:/resources/settingsWindow_tab_pedal_disabled.png);
+	image: url(:/resources/settingsWindow_tab_pedal_disabled.svg);
 }
 
 QRadioButton::indicator:unchecked:pressed
 {
-	image: url(:/resources/settingsWindow_tab_pedal_disabled.png);
+	image: url(:/resources/settingsWindow_tab_pedal_disabled.svg);
 }
 
 QRadioButton::indicator::checked
 {
-	image: url(:/resources/settingsWindow_tab_pedal_enabled.png);
+	image: url(:/resources/settingsWindow_tab_pedal_enabled.svg);
 }
 
 QRadioButton::indicator:checked:hover
 {
-	image: url(:/resources/settingsWindow_tab_pedal_enabled.png);
+	image: url(:/resources/settingsWindow_tab_pedal_enabled.svg);
 }
 
 QRadioButton::indicator:checked:pressed
 {
-	image: url(:/resources/settingsWindow_tab_pedal_enabled.png);
+	image: url(:/resources/settingsWindow_tab_pedal_enabled.svg);
 }</string>
     </property>
     <property name="text">
