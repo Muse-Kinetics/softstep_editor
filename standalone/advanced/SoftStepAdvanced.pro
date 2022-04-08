@@ -136,6 +136,7 @@ HEADERS  +=     mainwindow.h \
 
 FORMS    +=     forms/mainwindow.ui \
                 ../../shared/KMI_MDM/fwupdate/fwupdate.ui \
+    forms/apploadform.ui \
     forms/apploadformWin.ui \
                 forms/modlineForm.ui \
                 forms/keyWindowForm.ui \

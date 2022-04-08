@@ -29,11 +29,9 @@
 #include "ui_mainwindow.h"
 #else
 #include "ui_aboutformWin.h"
-#endif // SERIOUS_PRUNING
 #include "ui_mainwindowWin.h"
-//#endif
+#endif  // Q_OS_MAC
 #endif // SERIOUS_PRUNING
-#include "ui_mainwindowWin.h"
 
 // midi overhaul
 #include "kmi_ports.h"
@@ -137,6 +135,8 @@ SysExComposer   *sysExComposer;
 
     QAction* updatefw;
 
+    QAction* toolTipsEnable;
+
     //Ui Elements
     Key *key[10];
     QSpinBox *midiChannel;
@@ -177,6 +177,7 @@ signals:
 #endif // SERIOUS_PRUNING
 public slots:
 
+    void slotEnableDisableToolTips();
 
     // ------ midi overhaul --------------------------------------------------------
     void slotMIDIPortChange(QString, uchar, uchar, int); // handles changes to MIDI i/o

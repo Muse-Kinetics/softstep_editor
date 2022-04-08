@@ -14,149 +14,84 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget
+   <string notr="true">QWidget#keyWindowForm
 {
-	background:		rgb(60, 60, 60);
+    background:     rgb(60, 60, 60);
+    border: 4px solid rgb(0,174,239);
 
 }
 
-QFrame
-{
-		border: 4px solid rgb(0,174,239);
-}
 
 /* ---------- QLabels ------------*/
 QLabel
 {
-	background:		none;
-	color: 				white;
-	font: 				9pt &quot;Futura-Normal&quot;;
-	border:				none;
+    background:     none;
+    color:              white;
+    font:               9pt &quot;Futura-Normal&quot;;
+    border:             none;
 }
 
 QLabel:hover
 {
-	border:				none;
+    border:             none;
 }
 
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
-	font: 10pt &quot;Futura-Normal&quot;;
-	border: 1px solid rgb(0,174,239);
-	background-color: (18, 18, 18);
-	color: white;
-	padding:0, 3, 0, 0;
+    font: 11px &quot;Futura-Normal&quot;;
+    color: white;
+    border: 1px solid rgb(0,174,239);
+    background-color: rgb(20, 20, 20);
+    padding:0, 0, 0, 0;
 }
 
-QSpinBox:focus
+QSpinBox::focus
 {
-	border: 1px solid rgb(255,255,255);
-	outline: none;
+    border: 1px solid rgb(255,255,255);
+    outline: none;
 }
+
+QSpinBox:disabled
+{
+    background-color: rgba(20, 20, 20, 75);
+    border-color: rgba(0, 174, 239, 75);
+    font: 9pt &quot;Futura-Normal&quot;;
+    color: rgba(255, 255, 255, 75)
+}
+
 
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
-	font: 10pt &quot;Futura-Normal&quot;;
-	background: none;
-	color: white;
-	padding:0, 3, 0, 0;
-	border: none;
+    font: 10pt &quot;Futura-Normal&quot;;
+    background: none;
+    color: white;
+    padding:0, 3, 0, 0;
+    border: none;
 }
 
 QCheckBox:focus
 {
-	background: none;
+    background: none;
 }
 
 /* ---------- QLineEdit ------------*/
 QLineEdit
 {
-	font: 9pt &quot;Tahoma&quot;;
-	background: rgb(18, 18, 18);
-	border: 1px solid rgb(0,174,239);
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
+    font: 9pt &quot;Tahoma&quot;;
+    background: rgb(18, 18, 18);
+    border: 1px solid rgb(0,174,239);
+    border-radius: 0px;
+    color: white;
+    padding-left: 2px;
+    padding-bottom: 2px;
 }
 
 QLineEdit:focus
 {
-	border: 1px solid rgb(255,255,255);
-	outline: none;
-}
-
-/*----------- QComboBox ------------*/
-QComboBox
-{
-	font: 9pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(0,174,239);
-	background: rgb(18, 18, 18);
-	color: white;
-	padding: 1px 1px 1px 1px;
- }
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 9px &quot;Tahoma&quot;;
-	padding-left: 0px;
-	padding-right: 0px;
-	min-width: 175px;
-}
-
-QComboBox QAbstractItemView::item
-{
-	min-height: 65px;
-     min-width: 175px;
-	text-align: left;
-	padding-left: 0px;
-	padding-right: 0px;
-
-}
-
-QComboBox::item:alternate
-{
-	background: rgb(90, 90, 90);
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: left center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/modline_combobox_menu_arrows.svg);
-	padding-right: 12px;
-    width: 18px;
-    height: 18px;
+    border: 1px solid rgb(255,255,255);
+    outline: none;
 }
 
 
@@ -164,21 +99,21 @@ QComboBox::down-arrow
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura-Normal&quot;;
-	color: rgb(255, 255, 255);
-	background: rgba(40, 40, 40, 140);
-	border: 1px solid rgb(120, 120, 120);
-	padding: 2px;
-	width: 22px;
+    font: 10px &quot;Futura-Normal&quot;;
+    color: rgb(255, 255, 255);
+    background: rgba(40, 40, 40, 140);
+    border: 1px solid rgb(120, 120, 120);
+    padding: 2px;
+    width: 22px;
 }</string>
   </property>
   <widget class="QFrame" name="keyWindowInstanceLabel_background">
    <property name="geometry">
     <rect>
-     <x>422</x>
-     <y>8</y>
-     <width>40</width>
-     <height>40</height>
+     <x>425</x>
+     <y>10</y>
+     <width>35</width>
+     <height>35</height>
     </rect>
    </property>
    <property name="minimumSize">
@@ -212,7 +147,7 @@ QToolTip
    <property name="geometry">
     <rect>
      <x>430</x>
-     <y>15</y>
+     <y>16</y>
      <width>25</width>
      <height>25</height>
     </rect>
@@ -231,8 +166,7 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
-     <pointsize>12</pointsize>
+     <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
     </font>
@@ -243,7 +177,7 @@ QToolTip
    <property name="styleSheet">
     <string notr="true">QLabel
 {
-	font: 12pt &quot;Futura-Normal&quot;;
+	font: 20px &quot;Futura-Normal&quot;;
 	border: none;
 	padding: none;
 	background-image: none;
@@ -368,9 +302,9 @@ QToolTip
   <widget class="QComboBox" name="leddisplaymode">
    <property name="geometry">
     <rect>
-     <x>1044</x>
+     <x>1007</x>
      <y>73</y>
-     <width>60</width>
+     <width>100</width>
      <height>18</height>
     </rect>
    </property>
@@ -378,10 +312,77 @@ QToolTip
     <string>Sets the SoftStep display behavior.&lt;p&gt;&lt;b&gt;None&lt;/b&gt;: Pressing this key will have no effect on the display.&lt;p&gt;&lt;b&gt;Always&lt;/b&gt;: Key name will be displayed every time this key is pressed.&lt;p&gt;&lt;b&gt;Once&lt;/b&gt;: Key name will be displayed once when the key is pressed, then show the prefix + parameter value (Hosted mode only).&lt;p&gt;&lt;b&gt;Initial/Return&lt;/b&gt;: Prefix + parameter value will be displayed when this key is active, then display the key name when inactive (Hosted mode only).&lt;p&gt;&lt;b&gt;Immed Param&lt;/b&gt;: (Immediate Parameter) Displays the prefix and parameter value when this key is activated.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">QComboBox QListView
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
 {
-	min-width: 120px;
-}</string>
+    font: 11px &quot;Tahoma&quot;;
+    border: 1px solid rgb(0,174,239);
+    background: rgb(18, 18, 18);
+    color: white;
+    padding: 1px 3px 1px 4px;
+    combobox-popup: 0;
+    min-width: 89px;
+ }
+
+QComboBox QAbstractItemView::item
+{
+    width: 150px;
+    height: 14px;
+    text-align: left;
+    padding-left: 0px;
+    padding-right: 0px;
+    font: 11px &quot;Tahoma&quot;;
+    background-color: rgb(40, 40, 40);
+    color: white;
+
+}
+
+/* dropdown box*/
+QComboBox QListView
+{
+    border: 1px solid rgb(0,174,239);
+    color: white;
+    font: 11px &quot;Tahoma&quot;;
+    padding-left: 0px;
+    padding-right: 0px;
+    min-width: 105px;
+    height: 40px;
+    width: 150px;
+}
+
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
+{
+    background-color: rgb(40, 40, 40);
+  selection-color: white;
+  selection-background-color: rgb(0,174,239);
+    min-width: 150px;
+}
+
+/* down arrow image */
+QComboBox::down-arrow
+{
+    border: none;
+    background: none;
+    image: url(:/resources/modline_combobox_menu_arrows.svg);
+    padding-right: 12px;
+    width: 12px;
+    height: 12px;
+}
+
+/* required for down-arrow or it's blank*/
+QComboBox::drop-down
+{
+    width: 1px;
+    height: 1px;
+    subcontrol-origin: margin;
+    subcontrol-position: right center;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+}
+</string>
    </property>
    <item>
     <property name="text">
@@ -412,7 +413,7 @@ QToolTip
   <widget class="QLineEdit" name="keyname">
    <property name="geometry">
     <rect>
-     <x>976</x>
+     <x>943</x>
      <y>73</y>
      <width>60</width>
      <height>18</height>
@@ -444,7 +445,7 @@ QToolTip
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>976</x>
+     <x>943</x>
      <y>58</y>
      <width>60</width>
      <height>16</height>
@@ -464,9 +465,9 @@ QToolTip
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>1044</x>
+     <x>1010</x>
      <y>58</y>
-     <width>60</width>
+     <width>95</width>
      <height>16</height>
     </rect>
    </property>
@@ -566,15 +567,14 @@ QToolButton:pressed
   <widget class="QLabel" name="label_20">
    <property name="geometry">
     <rect>
-     <x>32</x>
+     <x>27</x>
      <y>9</y>
-     <width>21</width>
+     <width>30</width>
      <height>16</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
      <pointsize>9</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -583,19 +583,21 @@ QToolButton:pressed
    <property name="text">
     <string>Min</string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
   <widget class="QLabel" name="label_21">
    <property name="geometry">
     <rect>
-     <x>64</x>
+     <x>60</x>
      <y>9</y>
-     <width>21</width>
+     <width>30</width>
      <height>16</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
      <pointsize>9</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -603,6 +605,9 @@ QToolButton:pressed
    </property>
    <property name="text">
     <string>Max</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QSpinBox" name="counterMax">
@@ -618,30 +623,7 @@ QToolButton:pressed
     <string>Sets the maximum value for the key counter.&lt;br&gt;No values above this number will be output.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 9pt &quot;Futura-Normal&quot;;
-	color: white;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(20, 20, 20);
-	padding:0, 3, 0, 0;
-}
-
-QSpinBox:focus
-{
-	border: 1px solid rgb(255,255,255);
-	outline: none;
-}
-
-QSpinBox:disabled
-{
-	background-color: rgba(20, 20, 20, 75);
-	border-color: rgba(0, 174, 239, 75);
-	font: 9pt &quot;Futura-Normal&quot;;
-	color: rgba(255, 255, 255, 75);
-}
-</string>
+    <string notr="true"/>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -656,7 +638,7 @@ QSpinBox:disabled
   <widget class="QLabel" name="label_22">
    <property name="geometry">
     <rect>
-     <x>93</x>
+     <x>89</x>
      <y>9</y>
      <width>31</width>
      <height>16</height>
@@ -664,7 +646,6 @@ QSpinBox:disabled
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
      <pointsize>9</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -672,6 +653,9 @@ QSpinBox:disabled
    </property>
    <property name="text">
     <string>Wrap</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QCheckBox" name="counterWrap">
@@ -755,30 +739,7 @@ QCheckBox::indicator:checked:disabled
     <string>Sets the minimum value for the key counter.&lt;br&gt;No values below this number will be output.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 9pt &quot;Futura-Normal&quot;;
-	color: white;
-	border: 1px solid rgb(0,174,239);
-	background-color: rgb(20, 20, 20);
-	padding:0, 3, 0, 0;
-}
-
-QSpinBox::focus
-{
-	border: 1px solid rgb(255,255,255);
-	outline: none;
-}
-
-QSpinBox:disabled
-{
-	background-color: rgba(20, 20, 20, 75);
-	border-color: rgba(0, 174, 239, 75);
-	font: 9pt &quot;Futura-Normal&quot;;
-	color: rgba(255, 255, 255, 75)
-}
-</string>
+    <string notr="true"/>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -990,126 +951,6 @@ QToolTip
     </property>
    </widget>
   </widget>
-  <widget class="QLabel" name="initsBracketLabel_2">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>364</y>
-     <width>53</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	border-image: url(:/resources/keyWindow_inits_label_bracket.svg) 0 0 0 0 stretch stretch;
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QFrame" name="keyWindowInstanceLabel_background_2">
-   <property name="geometry">
-    <rect>
-     <x>664</x>
-     <y>290</y>
-     <width>40</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>25</width>
-     <height>25</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>50</width>
-     <height>50</height>
-    </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	border-image: url(:/resources/modline_window_label_background.svg) 0 0 0 0 stretch stretch;
-}</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="outputSettingsBracketLabel_2">
-   <property name="geometry">
-    <rect>
-     <x>856</x>
-     <y>364</y>
-     <width>304</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	border-image: url(:/resources/keyWindow_outputSettings_label_bracket.svg) 0 0 0 0 stretch stretch;
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="dataModifiersBracketLabel_2">
-   <property name="geometry">
-    <rect>
-     <x>492</x>
-     <y>364</y>
-     <width>318</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	border-image: url(:/resources/keyWindow_dataModifiers_label_bracket.svg) 0 0 0 0 stretch stretch;
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="dataSourcesBracketLabel_2">
-   <property name="geometry">
-    <rect>
-     <x>348</x>
-     <y>364</y>
-     <width>95</width>
-     <height>11</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	border-image: url(:/resources/keyWindow_dataSources_label_bracket.svg) 0 0 0 0 stretch stretch;
-}</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <zorder>frame</zorder>
   <zorder>keyWindowInstanceLabel_background</zorder>
   <zorder>keyWindowInstanceLabel</zorder>
@@ -1132,11 +973,6 @@ QToolTip
   <zorder>label_22</zorder>
   <zorder>counterWrap</zorder>
   <zorder>counterMin</zorder>
-  <zorder>initsBracketLabel_2</zorder>
-  <zorder>keyWindowInstanceLabel_background_2</zorder>
-  <zorder>outputSettingsBracketLabel_2</zorder>
-  <zorder>dataModifiersBracketLabel_2</zorder>
-  <zorder>dataSourcesBracketLabel_2</zorder>
  </widget>
  <tabstops>
   <tabstop>counterMin</tabstop>

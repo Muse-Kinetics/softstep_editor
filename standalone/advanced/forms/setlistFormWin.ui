@@ -187,7 +187,6 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
    </property>
    <property name="font">
     <font>
-     <family>Corbel</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>true</bold>
@@ -2468,7 +2467,6 @@ QCheckBox::indicator:checked:pressed:focus
     </property>
    </item>
   </widget>
-  
  </widget>
  <resources/>
  <connections/>

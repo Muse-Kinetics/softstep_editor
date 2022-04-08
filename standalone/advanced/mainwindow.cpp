@@ -43,7 +43,6 @@ MainWindow::MainWindow(QWidget *parent) :
     saveAsDialogForm(new Ui::saveAsDialogForm),
     deleteDialogForm(new Ui::deleteDialogForm),
     aboutForm(new Ui::AboutForm),
-    //apploadForm(new Ui::AppLoadForm),
     importOldDialog(new Ui::ImportOldPresetsForm),
     importOldNotFoundDialog(new Ui::ImportOldNotFoundForm),
     modlineWarningDialog(new Ui::ModlineWarningForm)
@@ -264,7 +263,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // fwupdate stylesheets
 #ifdef Q_OS_MAC
 
-    fwUpdateStylesFile = new QFile("://resources/stylesheets/fwUpdateStyles_lightBlue.qss");
+    fwUpdateStylesFile = new QFile(":/stylesheets/fwUpdateStyles_SoftStep.qss");
 #else
     fwUpdateStylesFile = new QFile(":/stylesheets/fwUpdateStyles_SoftStep_WIN.qss");
 #endif
@@ -1691,7 +1690,7 @@ void MainWindow::slotDisplaySaveState(bool dirty)
     QString dirtyStyle = "QToolButton{ background: rgb(255, 0, 0);color: white;border: 2px solid rgb(255,0,0);font: 10px \"Tahoma\";padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134);color: white;border: 2px solid rgb(230, 0, 134);font: 10px \"Tahoma\";padding: 0, 0, 0, 0;}";
     QString cleanStyle = "QToolButton{ background: rgb(40, 40, 40);color: white;border: 2px solid rgb(230,0,134);font: 10px \"Tahoma\";padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134);color: white;border: 2px solid rgb(230, 0, 134);font: 10px \"Tahoma\";padding: 0, 0, 0, 0;}";
 #else
-    QString dirtyStyle = "QToolButton { background: rgb(255, 0, 0); color: white; border: 2px solid rgb(255,0,0); font: 10pt \"Futura PT\"; padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134); color: white; border: 2px solid rgb(230, 0, 134); font: 10pt \"Futura PT\"; padding: 0, 0, 0, 0; }":
+    QString dirtyStyle = "QToolButton { background: rgb(255, 0, 0); color: white; border: 2px solid rgb(255,0,0); font: 10pt \"Futura PT\"; padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134); color: white; border: 2px solid rgb(230, 0, 134); font: 10pt \"Futura PT\"; padding: 0, 0, 0, 0; }";
     QString cleanStyle = "QToolButton { background: rgb(40, 40, 40); color: white; border: 2px solid rgb(230,0,134); font: 10pt \"Futura PT\"; padding: 0,0,0,0;} QToolButton:pressed{ background: rgb(230, 0, 134); color: white; border: 2px solid rgb(230, 0, 134); font: 10pt \"Futura PT\"; padding: 0, 0, 0, 0; }";
 #endif
 
@@ -1715,25 +1714,29 @@ void MainWindow::slotSetMode()
     {
 
         // create virtual ports
+#ifndef Q_OS_WIN
+        SoftStepShare->slotCreateVirtualIn(SS_SHARE_PORT);
+        SoftStepShare->slotCreateVirtualOut(SS_SHARE_PORT);
+#endif
 
         int thisInPort = kmiPorts->getInPortNumber(SS_SHARE_PORT);
         int thisOutPort = kmiPorts->getOutPortNumber(SS_SHARE_PORT);
         qDebug() << "Connect SoftStep Share - port in: " << thisInPort << " port out: " << thisOutPort;
+
         if (thisOutPort == -1)
         {
+#ifdef Q_OS_WIN
             if (!appStillLoading)
             {
                 slotNoSharePortDialog();
             }
+#endif
         }
         else
         {
 #ifdef Q_OS_WIN
             SoftStepShare->slotUpdatePortIn(thisInPort);
             SoftStepShare->slotUpdatePortOut(thisOutPort);
-#else
-            SoftStepShare->slotCreateVirtualIn(SS_SHARE_PORT);
-            SoftStepShare->slotCreateVirtualOut(SS_SHARE_PORT);
 #endif
             mode = "hosted";
             ui->mode->setText("Hosted");

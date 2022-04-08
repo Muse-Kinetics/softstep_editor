@@ -142,15 +142,6 @@ QLabel
 	font: 7pt &quot;Corbel&quot;;
 }
 
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/setlist_combobox_menu_arrows.svg);
-	padding-right: 12px;
-    width: 14px;
-    height: 14px;
-}
 
 /*----------- QComboBox ------------*/
 QComboBox
@@ -190,6 +181,16 @@ QComboBox::indicator
 	selection-background-color: transparent;
 	color: transparent;
 	selection-color: white;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 14px;
+    height: 14px;
 }
 
 QComboBox::drop-down
@@ -639,7 +640,6 @@ QLineEdit:focus
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -704,7 +704,6 @@ QToolTip
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -769,7 +768,6 @@ QToolTip
      </property>
      <property name="font">
       <font>
-       <family>Futura PT</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -836,7 +834,6 @@ QPushButton:pressed
     </property>
     <property name="font">
      <font>
-      <family>Futura-Normal</family>
       <pointsize>10</pointsize>
       <italic>false</italic>
       <bold>false</bold>

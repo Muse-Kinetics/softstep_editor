@@ -20,14 +20,14 @@ bool ScrollEventFilter::eventFilter(QObject *obj, QEvent *event)
     //Scroll wheel, on combos, spinboxes
     if (event->type() == QEvent::Wheel)
     {
-        if (!widget->underMouse() && obj->objectName() != "")
+        if (!widget->underMouse() && obj->objectName() != "" && obj->objectName() != "qt_scrollarea_viewport")
         {
-            qDebug() << "scroll::eventFilter blocked underMouse() - name: " << obj->objectName() << " eventType: " << event->type();
+            //qDebug() << "scroll::eventFilter blocked underMouse() - name: " << obj->objectName() << " eventType: " << event->type();
             return true;
         }
         if (obj->objectName() == "presetmenu")
         {
-            qDebug() << "scroll::eventFilter blocked preset menu - name: " << obj->objectName() << " eventType: " << event->type();
+            //qDebug() << "scroll::eventFilter blocked preset menu - name: " << obj->objectName() << " eventType: " << event->type();
             return true;
         }
         if (obj->objectName() == "" || obj->objectName() == "qt_scrollarea_viewport")
@@ -36,7 +36,7 @@ bool ScrollEventFilter::eventFilter(QObject *obj, QEvent *event)
             return QObject::eventFilter(obj, event);
         }
         // we want to block: "presetmenu"  eventType:  QEvent::Wheel
-        qDebug() << "scroll::eventFilter blocked - name: " << obj->objectName() << " eventType: " << event->type();
+        //qDebug() << "scroll::eventFilter blocked - name: " << obj->objectName() << " eventType: " << event->type();
 
         return true;
     }

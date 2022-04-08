@@ -16,9 +16,26 @@ bool ScrollEventFilter::eventFilter(QObject *obj, QEvent *event)
     {
         return true;
     }
+    //Tooltips
+    else if(event->type() == QEvent::ToolTip )
+    {
+        //qDebug() << "toolTipsOn: " << toolTipsOn;
+        if (!toolTipsOn)
+        {
+            //qDebug() << "tooltip blockd";
+            return true;
+        }
+        else
+        {
+            //qDebug() << "tooltip allowed";
+            // standard event processing
+            return QObject::eventFilter(obj, event);
+        }
+    }
     else
     {
-        //standard event processing
-        return QObject::eventFilter(obj,event);
+        //qDebug() << "other event: " << obj->objectName() << " type: " << event->type();
+        // standard event processing
+        return QObject::eventFilter(obj, event);
     }
 }

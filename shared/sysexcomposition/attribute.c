@@ -378,7 +378,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"pedalFilterLength",A_LONG,0l,-1))
     {
-        int length = (int) argv[2].a_w.w_long;
+        //int length = (int) argv[2].a_w.w_long;
 //        if (length>=0x100)
 //            length = LE_short(length);
         x->settings.pedal_filter.length = argv[2].a_w.w_long > 5 ? 5 : (unsigned char)argv[2].a_w.w_long;

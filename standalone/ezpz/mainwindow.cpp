@@ -140,12 +140,13 @@ MainWindow::MainWindow(QWidget *parent) :
     copyPasteHandler = new CopyPasteHandler(presetInterface,this);
 
     qDebug("EventFilter");
-    this->installEventFilter(this);
+    this->installEventFilter(&scrollEventFilter);
 
     //QList<QWidget*> widgets = findChildren<QWidget*>();
     foreach (QWidget* widget, findChildren<QWidget*>())
     {
-        widget->installEventFilter(this);
+        //qDebug() << "installEventFilter: " << widget->objectName();
+        widget->installEventFilter(&scrollEventFilter);
         widget->setAttribute(Qt::WA_MacShowFocusRect, false);
     }
 
@@ -209,7 +210,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Load stylesheet and set initial text for connectedLabel
     ui->connectedLabel->setText("NOT CONNECTED");
 #ifdef Q_OS_MAC
-    ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
+    ui->connectedLabel->setStyleSheet("font:12px \"Futura\";color: rgba(200,0,0,255);");
 #else
     ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255);");
 #endif
@@ -259,7 +260,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Load preset from last app session
     presetInterface->slotRecallPreset(1);
     //ui->currentPreset->setValue(settings->value("lastPreset").toInt());
-    ui->currentPreset->setFocus();
+    //ui->currentPreset->setFocus();
 
 
     //Connect Key Elements
@@ -306,6 +307,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // start polling at 100ms intervals
     kmiPorts->devicePoller->start(100);
 
+    ui->noFocus->setFocus();
+
 }
 
 MainWindow::~MainWindow()
@@ -313,6 +316,23 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::slotEnableDisableToolTips()
+{
+    if(settings->value("toolTipsEnabled").toBool())
+    {
+        qDebug() << "slotEnableDisableToolTips called - turn off tool tips";
+        toolTipsEnable->setText("Show Tool Tips");
+        settings->setValue("toolTipsEnabled", false);
+        scrollEventFilter.toolTipsOn = false;
+    }
+    else
+    {
+        qDebug() << "slotEnableDisableToolTips called - turn on tool tips";
+        toolTipsEnable->setText("Hide Tool Tips");
+        settings->setValue("toolTipsEnabled", true);
+        scrollEventFilter.toolTipsOn = true;
+    }
+}
 
 #define DIALOG_WIDTH 400
 #define DIALOG_HEIGHT 125
@@ -366,6 +386,10 @@ void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
     if((keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return) && ui->backlight->hasFocus() && !disableWidget->isVisible())
     {
         ui->backlight->setChecked(!ui->backlight->isChecked());
+    }
+    else if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Tab || keyEvent->key() == Qt::Key_Escape)
+    {
+        ui->noFocus->setFocus();
     }
 }
 
@@ -627,7 +651,7 @@ void MainWindow::slotConnected(bool connection)
 //
         ui->connectedLabel->setText("CONNECTED");
 #ifdef Q_OS_MAC
-        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255);");
+        ui->connectedLabel->setStyleSheet("font:12px \"Futura\";color: rgba(0,200,0,255);");
 #else
         ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(0,200,0,255);");
 #endif
@@ -648,7 +672,7 @@ void MainWindow::slotConnected(bool connection)
         //ui->connectedLabel->setText("Not Connected");
         ui->connectedLabel->setText("NOT CONNECTED");
 #ifdef Q_OS_MAC
-        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255);");
+        ui->connectedLabel->setStyleSheet("font:12px \"Futura\";color: rgba(200,0,0,255);");
 #else
         ui->connectedLabel->setStyleSheet("font:6pt \"Futura\";color: rgba(200,0,0,255);");
 #endif
@@ -800,6 +824,34 @@ void MainWindow::slotInitMenuBar()
     actionList.append(doc);
     connect(doc, SIGNAL(triggered()), this, SLOT(slotOpenDocumentation()));
     help->addAction(doc);
+
+    //Tooltips
+    if(settings->contains("toolTipsEnabled"))
+    {
+        if(settings->value("toolTipsEnabled").toBool())
+        {
+            toolTipsEnable = new QAction("Hide Tool Tips", file);
+            qDebug() << "Hide Tool Tips";
+            scrollEventFilter.toolTipsOn = true;
+        }
+        else
+        {
+            toolTipsEnable = new QAction("Show Tool Tips", file);
+            qDebug() << "Show Tool Tips";
+            scrollEventFilter.toolTipsOn = false;
+        }
+    }
+    else
+    {
+        settings->setValue("toolTipsEnabled", true);
+        toolTipsEnable = new QAction("Hide Tool Tips", file);
+        scrollEventFilter.toolTipsOn = true;
+    }
+
+    connect(toolTipsEnable, SIGNAL(triggered()), this, SLOT(slotEnableDisableToolTips()));
+
+    help->addAction(toolTipsEnable);
+
     menubar->addMenu(help);
 }
 

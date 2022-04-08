@@ -161,63 +161,6 @@ QLabel
 	border: none;
 	font: 10pt &quot;Futura-Normal&quot;;
 }
-
-/*----------- QComboBox ------------*/
-QComboBox
-{
-	font: 10pt &quot;Futura-Normal&quot;;
-	border: 2px solid rgb(0,174,239);
-	background-color: rgb(28, 28, 29);
-	color: white;
- }
-
-QComboBox QListView
-{
-	background-color: rgb(40, 40, 40);
-	border: transparent;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 35px;
-}
-
-QComboBox::item:alternate
-{
-	background: rgb(90, 90, 90);
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/resources/setlist_combobox_menu_arrows.png);
-	padding-right: 20px;
-}
 </string>
      </property>
      <property name="frameShape">
@@ -392,24 +335,29 @@ QToolButton:pressed
        <bool>false</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true">/*----------- QComboBox ------------*/
+       <string notr="true">
+/*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 12pt &quot;Futura-Normal&quot;;
+	font: 13px &quot;Corbel&quot;;
 	border: 1px solid rgb(0,174,239);
 	background: rgb(40, 40, 40);
 	color: white;
 	padding: 1px 3px 1px 4px;
+
  }
 
 QComboBox QListView
 {
 	background-color: rgb(40, 40, 40);
-	border: transparent;
-	font: 12px &quot;Futura-Normal&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 35px;
+	border: 1px solid rgb(0,174,239);
+	font: 14px &quot;Corbel&quot;;
+	color: white;
+   padding-left: 0px;
+    padding-right: 0px;
+    min-width: 175px;
+    height: 200px;
+
 }
 
 QComboBox::item:alternate
@@ -431,6 +379,16 @@ QComboBox::indicator
 	selection-color: white;
 }
 
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 14px;
+    height: 14px;
+}
+
 QComboBox::drop-down
 {
 	width: 1px;
@@ -444,7 +402,40 @@ QComboBox::drop-down
 	padding: 1px 1px 1px 4px;
 }
 
-</string>
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+	border: none;
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}</string>
       </property>
       <property name="editable">
        <bool>false</bool>

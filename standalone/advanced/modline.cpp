@@ -949,9 +949,8 @@ void Modline::slotRecallDestinationMenu()
         modlineForm->dest_label_b1->setText("ID");
         modlineForm->dest_label_b1->show();
         modlineForm->dest_b1->setToolTip("Sets the device ID for the receiving MMC device.");
-        modlineForm->dest_label_b2->setText("Function");
-        modlineForm->dest_label_b2->show();
         modlineForm->dest_mmcfunction->show();
+        modlineForm->dest_label_func->show();
         modlineForm->dest_device->show();
         modlineForm->dest_label_port->setText("Output Port");
         modlineForm->dest_label_port->show();

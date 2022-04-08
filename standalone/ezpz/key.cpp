@@ -3,6 +3,18 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "key.h"
 
+#ifdef Q_OS_WIN
+#define KEYWIN_W 157
+#define KEYWIN_H 157
+#else
+#define KEYWIN_W 202
+#define KEYWIN_H 202
+#define KEYWIN_PADDING_OUTER 15
+#define KEYWIN_PADDING_INNER 12
+#define KEYWIN_ROW1_Y KEYWIN_PADDING_INNER
+#define KEYWIN_ROW2_Y KEYWIN_H + KEYWIN_PADDING_OUTER + KEYWIN_PADDING_INNER
+#endif // Q_OS_WIN/MAC
+
 Key::Key(QWidget *parent, int instanceNum) :
     QWidget(parent)
 {
@@ -16,19 +28,23 @@ Key::Key(QWidget *parent, int instanceNum) :
     QWidget *formWidget = new QWidget(this);
 
     keyForm.setupUi(formWidget);
-    this->setFixedSize(157,157);
+    this->setFixedSize(KEYWIN_W,KEYWIN_W);
+
+    formWidget->setFocusPolicy(Qt::NoFocus);
 
     keyForm.instanceLabel->setText(QString("%1").arg((instanceNum)%10));
+
+
 
 
 #ifdef Q_OS_MAC
     if(instanceNum < 6)
     {
-        this->setGeometry(10 + ((instanceNum - 1)*167),177,157,157);
+        this->setGeometry(KEYWIN_PADDING_OUTER + ((instanceNum - 1) * (KEYWIN_W + KEYWIN_PADDING_INNER)), KEYWIN_ROW2_Y, KEYWIN_W, KEYWIN_H);
     }
     else
     {
-        this->setGeometry(10 + ((instanceNum - 6)*167),10,157,157);
+        this->setGeometry(KEYWIN_PADDING_OUTER + ((instanceNum - 6) * (KEYWIN_W + KEYWIN_PADDING_INNER)), KEYWIN_ROW1_Y, KEYWIN_W, KEYWIN_H);
     }
 #else
     if(instanceNum < 6)
@@ -713,7 +729,7 @@ void Key::slotValueChanged()
             }
         }
     }
-
+    keyForm.noFocus->setFocus();
     emit signalCheckSavedState();
 }
 

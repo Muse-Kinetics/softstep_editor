@@ -1321,7 +1321,7 @@ void Settings::slotSetLiveValue(int val)
                 //Draw our list new value-- should only be drawing one value at a time
                 pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueListGraph.at(i))/127.0f, width);
             }
-#endif / /TABLE_ENABLED
+#endif //TABLE_ENABLED
         }
     }
 }

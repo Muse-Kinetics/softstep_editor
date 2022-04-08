@@ -33,6 +33,7 @@
 #include "ui_importOldPresetsForm.h"
 #include "ui_importOldNotFoundForm.h"
 #include "ui_modlineWarningForm.h"
+#include "ui_apploadform.h"
 #else
 //#include "ui_fwoodformWin.h"
 //#include "ui_fwprogressformWin.h"
