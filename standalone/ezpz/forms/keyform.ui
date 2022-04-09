@@ -385,7 +385,7 @@ border: 2px solid white;
 }</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>6</number>
    </property>
    <widget class="QWidget" name="notePage">
     <widget class="QWidget" name="horizontalLayoutWidget_2">
@@ -846,7 +846,7 @@ QCheckBox::indicator {
     </widget>
    </widget>
    <widget class="QWidget" name="xyPage">
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="layoutWidgetXYBoxes">
      <property name="geometry">
       <rect>
        <x>6</x>
@@ -1006,7 +1006,7 @@ QCheckBox::indicator {
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="layoutWidgetXyLabels">
      <property name="geometry">
       <rect>
        <x>6</x>
@@ -1143,7 +1143,7 @@ QCheckBox::indicator {
     </widget>
    </widget>
    <widget class="QWidget" name="programPage">
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="progBoxes">
      <property name="geometry">
       <rect>
        <x>6</x>
@@ -1214,7 +1214,7 @@ QCheckBox::indicator {
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="prog_labels">
      <property name="geometry">
       <rect>
        <x>6</x>

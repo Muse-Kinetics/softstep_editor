@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>240</width>
-    <height>155</height>
+    <width>360</width>
+    <height>200</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@ QLabel
 {
 	background:		rgba(0,0,0,0);
 	color: 				white;
-	font: 				10pt &quot;Futura-Normal&quot;;
+	font: 				10pt &quot;Corbel&quot;;
 	border:				none;
 }
 
@@ -45,80 +45,18 @@ QLabel:hover
 	border:				none;
 }  
 
-/* ---------- QSpinBox ------------*/
-QSpinBox
-{
-	font: 10pt &quot;Futura-Normal&quot;;
-	border: 2px solid rgb(0,174,239);
-	background-color: rgba(0, 0, 0, 255);
-	color: white;
-	padding:0, 3, 0, 0;
-}
-
-QSpinBox::focus
-{
-	border: none;
-	outline: none;
-}
-
-/* ---------- QLineEdit ------------*/
-QLineEdit
-{
-	font: 10pt &quot;Futura-Normal&quot;;
-	background: rgba(0,174,239,0);
-	border: 2px solid rgba(0,174,239,255);
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
-QLineEdit:focus
-{
-	font: 10pt &quot;Futura-Normal&quot;;
-	background: rgba(0,174,239,0);
-	border: 2px solid white;
-	border-radius: 0px;
-	color: white;
-	padding-left: 2px;
-	padding-bottom: 2px;
-}
-
-/* ---------- QCheckBox ------------*/
-QCheckBox
-{
-	font: 10pt &quot;Futura-Normal&quot;;
-	background:rgba(0,174,239,0);
-	color: white;
-	padding:0, 3, 0, 0;
-	border: none;
-}
-
-QCheckBox:focus
-{
-	background:rgba(0,174,239,0);
-}
-
-
-/* ------- QStackedWidget ---------*/
-QStackedWidget
-{
-border-top: 1px solid white;
-background: black;
-}
-
 /*---------- QPushButton ---------*/
 QPushButton
 {
 	border: 2px solid rgba(0,174,239,255);
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Corbel&quot;;
 	color: white;
 }
 
 QPushButton:pressed
 {
 	border: 2px solid white;
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Corbel&quot;;
 	background: rgba(0,174,239,255);
 	color: white;
 }
@@ -130,8 +68,8 @@ QPushButton:pressed
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>240</width>
-     <height>155</height>
+     <width>360</width>
+     <height>200</height>
     </rect>
    </property>
    <property name="focusPolicy">
@@ -149,10 +87,10 @@ QPushButton:pressed
    <widget class="QFrame" name="warningSubFrame">
     <property name="geometry">
      <rect>
-      <x>8</x>
+      <x>0</x>
       <y>8</y>
-      <width>224</width>
-      <height>140</height>
+      <width>360</width>
+      <height>200</height>
      </rect>
     </property>
     <property name="focusPolicy">
@@ -180,8 +118,8 @@ QPushButton:pressed
     <widget class="QPushButton" name="ok">
      <property name="geometry">
       <rect>
-       <x>92</x>
-       <y>110</y>
+       <x>160</x>
+       <y>155</y>
        <width>40</width>
        <height>20</height>
       </rect>
@@ -200,16 +138,17 @@ QPushButton:pressed
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>41</y>
-       <width>224</width>
-       <height>61</height>
+       <y>50</y>
+       <width>360</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: bold 8pt;</string>
+      <string notr="true">font:14px &quot;Futura-Normal&quot;;
+</string>
      </property>
      <property name="text">
       <string>SoftStep Advanced Editor</string>
@@ -223,15 +162,13 @@ QPushButton:pressed
       <rect>
        <x>0</x>
        <y>1</y>
-       <width>224</width>
-       <height>31</height>
+       <width>360</width>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Futura</family>
-       <pointsize>12</pointsize>
-       <weight>50</weight>
+       <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -240,7 +177,7 @@ QPushButton:pressed
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">font:12pt &quot;Futura-Normal&quot;;
+      <string notr="true">font:20px &quot;Futura-Normal&quot;;
 </string>
      </property>
      <property name="text">

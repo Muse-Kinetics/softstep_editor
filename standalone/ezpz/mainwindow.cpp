@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     applicationVersion[0] = 2;
     applicationVersion[1] = 1;
     applicationVersion[2] = 0;
-    betaVersion = "B"; // leave blank for release
+    betaVersion = "C"; // leave blank for release
 
     // store the SoftStep device firmware version
     thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_softstep), sizeof(_fw_ver_softstep));
@@ -68,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // create KMI device handlers
     // ******************************
 
-    SoftStep = new MidiDeviceManager(this, PID_SOFTSTEP2_OLD, "SoftStep");
+    SoftStep = new MidiDeviceManager(this, PID_SOFTSTEP2_OLD, "SoftStep", kmiPorts);
 
     // setup bootloader/firmware images
 
@@ -94,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qDebug() << "Create MIDI THRU";
     // MIDI Thru for standalone/windows
-    MIDIThru = new MidiDeviceManager(this, PID_AUX, "MIDI THRU");
+    MIDIThru = new MidiDeviceManager(this, PID_AUX, "MIDI THRU", kmiPorts);
 
     // ******************************
     // end KMI_Ports and device handlers
@@ -228,7 +228,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // fwupdate stylesheets
 #ifdef Q_OS_MAC
 
-    fwUpdateStylesFile = new QFile("://resources/stylesheets/fwUpdateStyles_lightBlue.qss");
+    fwUpdateStylesFile = new QFile(":/stylesheets/fwUpdateStyles_SoftStep.qss");
 #else
     fwUpdateStylesFile = new QFile(":/stylesheets/fwUpdateStyles_SoftStep_WIN.qss");
 #endif
@@ -1233,15 +1233,15 @@ void MainWindow::slotUpdateMIDIThru()
 QString MainWindow::deviceBootloaderVersionString()
 {
     qDebug() << "deviceBootloaderVersionString called";
-    qDebug() << "SoftStep address: " << &SoftStep;
-    qDebug() << "SoftStep pointer: " << SoftStep;
-    qDebug() << "SoftStep ObjectName: " << SoftStep->objectName;
-    qDebug() << "deviceFirmwareVersion: " << SoftStep->deviceFirmwareVersion;
+//    qDebug() << "SoftStep address: " << &SoftStep;
+//    qDebug() << "SoftStep pointer: " << SoftStep;
+//    qDebug() << "SoftStep ObjectName: " << SoftStep->objectName;
+//    qDebug() << "deviceFirmwareVersion: " << SoftStep->deviceFirmwareVersion;
     qDebug() << "devicebootloaderVersion: " << SoftStep->devicebootloaderVersion;
 
-    qDebug() << "0: " << SoftStep->devicebootloaderVersion.at(0);
-    qDebug() << "1: " << SoftStep->devicebootloaderVersion.at(1);
-    qDebug() << "2: " << SoftStep->devicebootloaderVersion.at(2);
+//    qDebug() << "0: " << SoftStep->devicebootloaderVersion.at(0);
+//    qDebug() << "1: " << SoftStep->devicebootloaderVersion.at(1);
+//    qDebug() << "2: " << SoftStep->devicebootloaderVersion.at(2);
     return QString("Device Bootloader Version: %1.%2.%3\n\n")
             .arg(uchar(SoftStep->devicebootloaderVersion.at(0)))
             .arg(uchar(SoftStep->devicebootloaderVersion.at(1)))

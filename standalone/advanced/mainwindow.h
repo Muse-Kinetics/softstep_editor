@@ -305,10 +305,6 @@ public slots:
 
     void slotRecallPresetFromSetlist(QString presetName);
 
-    //-------------- Firmware Updating
-    //void slotUpdateFirmware();
-    //void slotUpdateFwProgressBar(int);
-
     //-------------- Lockout Handling
     void slotLockoutKeyPressedReleased(int keyNumber, bool pressedReleased);
 

@@ -136,6 +136,7 @@ HEADERS  +=     mainwindow.h \
 
 FORMS    +=     forms/mainwindow.ui \
                 ../../shared/KMI_MDM/fwupdate/fwupdate.ui \
+    forms/aboutform.ui \
     forms/apploadform.ui \
     forms/apploadformWin.ui \
                 forms/modlineForm.ui \
@@ -148,7 +149,6 @@ FORMS    +=     forms/mainwindow.ui \
     forms/navModlineForm.ui \
     forms/navKeyWindowForm.ui \
     forms/navBoxForm.ui \
-    forms/aboutform.ui \
 #    forms/fwprogressform.ui \
 #    forms/fwoodform.ui \
 #    forms/updatefwform.ui \

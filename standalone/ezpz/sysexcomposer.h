@@ -40,9 +40,6 @@ signals:
     
 public slots:
     void    slotComposeAttributeListFromPreset(QVariantMap presetSent, QVariantMap, qlonglong);
-//    void    slotGetConnectedVersion(QByteArray);
-//    void    slotGetEmbeddedVersion();
-//    void    slotUpdateFirmware();
     void    slotComposeFactoryPreset(long p, QString factoryPresetName, t_softstep *x);
 
     void    slotSettingsSent();

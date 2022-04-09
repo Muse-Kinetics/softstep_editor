@@ -56,8 +56,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     sessionSettings = new QSettings(this);
 
-    //midiDeviceManager = new MidiDeviceManager(this);
-
     // ---- FW update overhaul ----------------------------
 
     qDebug() << "System Locale: " << QLocale::system().name();
@@ -69,7 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     applicationVersion[0] = 2;
     applicationVersion[1] = 1;
     applicationVersion[2] = 0;
-    betaVersion = "B"; // leave blank for release
+    betaVersion = "C"; // leave blank for release
 
     appStillLoading = true;
 
@@ -112,7 +110,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // create KMI device handlers
     // ******************************
 
-    SoftStep = new MidiDeviceManager(this, PID_SOFTSTEP, "SoftStep");
+    SoftStep = new MidiDeviceManager(this, PID_SOFTSTEP, "SoftStep", kmiPorts);
 
     // setup bootloader/firmware images
     qDebug() << "\n------------ [FIRMWARE SETUP] ---------------------------------------------------";
@@ -142,7 +140,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "connect signalFirmwareDetected";
 
     // SoftStepShare
-    SoftStepShare = new MidiDeviceManager(this, PID_AUX, "SoftStep Share");
+    SoftStepShare = new MidiDeviceManager(this, PID_AUX, "SoftStep Share", kmiPorts);
     connect(SoftStepShare, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), this, SLOT(hosted_slotReceiveMIDI(uchar, uchar, uchar, uchar)));
 
     shareElapsedTimer = new QElapsedTimer(); // used to avoid feedback loop on windows
@@ -151,14 +149,14 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifdef MIDI_AUX_ENABLED
      //setup MIDI aux input sources A-H for settings menu, explicitly coded because we are using explicit functions for each source
 
-    midiAuxIn[0] = new MidiDeviceManager(this, PID_AUX, "MIDI Input A");
-    midiAuxIn[1] = new MidiDeviceManager(this, PID_AUX, "MIDI Input B");
-    midiAuxIn[2] = new MidiDeviceManager(this, PID_AUX, "MIDI Input C");
-    midiAuxIn[3] = new MidiDeviceManager(this, PID_AUX, "MIDI Input D");
-    midiAuxIn[4] = new MidiDeviceManager(this, PID_AUX, "MIDI Input E");
-    midiAuxIn[5] = new MidiDeviceManager(this, PID_AUX, "MIDI Input F");
-    midiAuxIn[6] = new MidiDeviceManager(this, PID_AUX, "MIDI Input G");
-    midiAuxIn[7] = new MidiDeviceManager(this, PID_AUX, "MIDI Input H");
+    midiAuxIn[0] = new MidiDeviceManager(this, PID_AUX, "MIDI Input A", kmiPorts);
+    midiAuxIn[1] = new MidiDeviceManager(this, PID_AUX, "MIDI Input B", kmiPorts);
+    midiAuxIn[2] = new MidiDeviceManager(this, PID_AUX, "MIDI Input C", kmiPorts);
+    midiAuxIn[3] = new MidiDeviceManager(this, PID_AUX, "MIDI Input D", kmiPorts);
+    midiAuxIn[4] = new MidiDeviceManager(this, PID_AUX, "MIDI Input E", kmiPorts);
+    midiAuxIn[5] = new MidiDeviceManager(this, PID_AUX, "MIDI Input F", kmiPorts);
+    midiAuxIn[6] = new MidiDeviceManager(this, PID_AUX, "MIDI Input G", kmiPorts);
+    midiAuxIn[7] = new MidiDeviceManager(this, PID_AUX, "MIDI Input H", kmiPorts);
 
     connect(midiAuxIn[0], SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), this, SLOT(slotParseMidiAuxIn_A(uchar, uchar, uchar, uchar)));
     connect(midiAuxIn[1], SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), this, SLOT(slotParseMidiAuxIn_B(uchar, uchar, uchar, uchar)));
@@ -174,10 +172,10 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif // end MIDI_AUX_ENABLED
 
     // MIDI Thru for standalone/windows
-    MIDIThru = new MidiDeviceManager(this, PID_AUX, "MIDI THRU");
+    MIDIThru = new MidiDeviceManager(this, PID_AUX, "MIDI THRU", kmiPorts);
 
     // Hosted output - we dynamically reassign the output port for each hosted modline message
-    hostedOut = new MidiDeviceManager(this, PID_AUX, "Hosted Output");
+    hostedOut = new MidiDeviceManager(this, PID_AUX, "Hosted Output", kmiPorts);
 
     // ******************************
     // end KMI_Ports and device handlers
@@ -1159,27 +1157,6 @@ void MainWindow::slotConnectInterfaces()
     ///////////////////////////////////////////////////////////////// Dialogs /////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //Firmware Out of Date
-//    connect(fwoodDialogForm->cancel, SIGNAL(clicked()), fwoodDialogWidget, SLOT(close()));
-//    connect(fwoodDialogForm->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
-//    connect(fwoodDialogForm->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
-    //connect(fwoodDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
-
-    //Firmware Update Dialog
-//    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
-//    connect(fwUpdateDialog->cancel, SIGNAL(clicked()), disableWidget, SLOT(hide()));
-//    connect(fwUpdateDialog->update, SIGNAL(clicked()), fwUpdateDialogWidget, SLOT(close()));
-//    connect(fwUpdateDialog->update, SIGNAL(clicked()), this, SLOT(slotUpdateFirmware()));
-    //connect(fwUpdateDialog->cancel, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
-
-//    //Firmware Progress Bar
-//    connect(midiDeviceManager, SIGNAL(signalFwBytesLeft(int)), this, SLOT(slotUpdateFwProgressBar(int)));
-
-//    //Firmware Update Complete Dialog
-//    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), fwUpdateCompleteDialogWidget, SLOT(close()));
-//    connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
-    //connect(fwUpdateCompleteDialog->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
-
     //About Ok Button
     connect(aboutForm->ok, SIGNAL(clicked()), aboutFormWidget, SLOT(close()));
     connect(aboutForm->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
@@ -1488,9 +1465,8 @@ void MainWindow::slotConnected(bool connection)
 #else
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-top: 2px; padding-bottom: 2px;");
 #endif
-        //ui->update->setText("SAVE + SEND");
-        //aboutForm->found->setText(QString("%1").arg(connectedVersionInt));
-        //presetInterface->connected = true;
+        connected = true;
+        slotUpdateAboutWindow();
 
         updatefw->setEnabled(true);
         sysExComposer->connected = true;
@@ -1624,51 +1600,6 @@ void MainWindow::slotSaveAs()
     }
 }
 
-//void MainWindow::slotUpdateFirmware()
-//{
-//    fwoodDialogWidget->hide();
-//    QApplication::processEvents();
-//    fwProgressDialogWidget->raise();
-//    QApplication::processEvents();
-//    fwProgressDialogWidget->show();
-//    QApplication::processEvents();
-//    fwProgressDialog->progressBar->setMinimum(0);
-//    QApplication::processEvents();
-//#ifdef Q_OS_MAC
-//    fwProgressDialog->progressBar->setMaximum(sysExComposer->fwFileSize);
-//    QApplication::processEvents();
-//    sysExComposer->slotUpdateFirmware();
-//#else
-//    fwProgressDialog->progressBar->setMaximum(0);
-//    midiDeviceManager->slotCloseMidiOut();
-//    midiDeviceManager->slotCloseMidiIn();
-//    midiDeviceManager->fwUpdateRequested = true;
-
-//    syxutilProcess = new QProcess;
-//    syxutilProcess->setWorkingDirectory("./");
-//    syxutilProcess->start("FirmwareUpdater.exe");
-//#endif
-//}
-
-//void MainWindow::slotUpdateFwProgressBar(int bytes)
-//{
-//    if(bytes != 0)
-//    {
-//        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
-//    }
-//    else
-//    {
-//        fwProgressDialog->progressBar->setValue(sysExComposer->fwFileSize - bytes);
-//        QApplication::processEvents();
-//        fwProgressDialogWidget->close();
-//        QApplication::processEvents();
-//        fwUpdateCompleteDialogWidget->raise();
-//        QApplication::processEvents();
-//        fwUpdateCompleteDialogWidget->show();
-
-//        qDebug() << "fw update complete;";
-//    }
-//}
 
 void MainWindow::slotPopulatePresetMenu()
 {
