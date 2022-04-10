@@ -860,7 +860,14 @@ QPushButton:pressed
       </font>
      </property>
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:32pt;&quot;&gt;Select &amp;quot;Standalone&amp;quot; or &amp;quot;Hosted&amp;quot; mode.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:32pt;&quot;&gt;Standalone - create presets and send them &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:32pt;&quot;&gt;to the SoftStep hardware. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:32pt;&quot;&gt;Hosted - the SoftStep hardware controls&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:32pt;&quot;&gt; the Advanced Editor, which sends MIDI &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:32pt;&quot;&gt;using the &amp;quot;SoftStep Share&amp;quot; virtual MIDI port. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>Select &quot;Standalone&quot; or &quot;Hosted&quot; mode.
+
+Standalone - create presets and send them 
+to the SoftStep hardware. 
+
+Hosted - the SoftStep hardware controls
+the Advanced Editor, which sends MIDI 
+using the &quot;SoftStep Share&quot; virtual MIDI port. </string>
      </property>
      <property name="styleSheet">
       <string notr="true">/*---------- QPushButton ---------*/

@@ -307,9 +307,9 @@ ICON = resources/appicon.icns
 #--------------- contents/resources --------
 
 macx{
-#    softStepSysEx.files = $$PWD/../../shared/SoftStep.syx
-#    softStepSysEx.path = Contents/Resources
-#    QMAKE_BUNDLE_DATA += softStepSysEx
+    softStepPTable.files = $$PWD/resources/pedalTable.txt
+    softStepPTable.path = Contents/Resources
+    QMAKE_BUNDLE_DATA += softStepPTable
 
     softStepPresets.files = $$PWD/presets
     softStepPresets.path = Contents/Resources
