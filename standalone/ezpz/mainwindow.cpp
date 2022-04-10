@@ -68,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // create KMI device handlers
     // ******************************
 
-    SoftStep = new MidiDeviceManager(this, PID_SOFTSTEP2_OLD, "SoftStep", kmiPorts);
+    SoftStep = new MidiDeviceManager(this, PID_SOFTSTEP2, "SoftStep", kmiPorts);
 
     // setup bootloader/firmware images
 
@@ -304,7 +304,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     slotUpdateAboutWindow();
 
-    // start polling at 100ms intervals
+    // start polling at regular intervals
     kmiPorts->devicePoller->start(100);
 
     ui->noFocus->setFocus();
@@ -1000,7 +1000,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
 
 
         // **** SoftStep connect *****************************************
-        if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
+        if (inOrOut == PORT_IN && (portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT))
         {   
             SoftStep->slotSetExpectedFW(thisFw);
 
@@ -1013,25 +1013,30 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
                 fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Connected\n");
             }
         }
-        else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
+        else if (inOrOut == PORT_OUT && (portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT))
         {
-            // use the port names to determine if we need to upgrade the bootloader, or if we are in bootloader mode
-            if (portName == SS_OLD_OUT_P1)
-            {
-                SoftStep->slotUpdatePID(PID_SOFTSTEP2_OLD); // this will use the old SSCOM firmware version request
-            }
-            else
-            {
-                SoftStep->slotUpdatePID(PID_SOFTSTEP); // this uses the standard SysEx ID request
-            }
-
             if (!SoftStep->slotUpdatePortOut(portNum))
             {
                 slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
             }
             else
             {
-                SoftStep->slotStartPolling("PORT_CONNECT"); // start polling when output port is added
+                if (portName == SS_OLD_OUT_P1)
+                {
+                    SoftStep->deviceName = "SSCOM";
+                    if (SoftStep->fwVerPollSkipConnectCycles > 0)
+                    {
+                        SoftStep->fwVerPollSkipConnectCycles--;
+                        qDebug() << "fwVerPollSkipConnectCycles = " << SoftStep->fwVerPollSkipConnectCycles;
+                    }
+                }
+                else
+                {
+                    SoftStep->deviceName = "SoftStep";
+                    SoftStep->fwVerPollSkipConnectCycles = 0; // don't skip if bootloader or new portname
+                }
+                //SoftStep->slotStartPolling("PORT CONNECT"); // start polling when output port is added
+                SoftStep->pollingStatus = true;
             }
         }
 
@@ -1053,12 +1058,17 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         if (portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT)
         {
             // close ports and stop polling
-            SoftStep->slotCloseMidiIn(SIGNAL_SEND);
-            SoftStep->slotCloseMidiOut(SIGNAL_SEND);
-            SoftStep->slotStopPolling("PORT_DISCONNECT");
-            if (inOrOut == PORT_IN) fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Disconnected\n");
+            if (inOrOut == PORT_IN && portName == SoftStep->portName_in) // fix for ports disconnecting late during firmware update)
+            {
+                SoftStep->slotCloseMidiIn(SIGNAL_SEND);
+                fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Disconnected\n");
+            }
+            else if (portName == SoftStep->portName_out) // fix for ports disconnecting late during firmware update
+            {
+                SoftStep->slotCloseMidiOut(SIGNAL_SEND);
+                SoftStep->pollingStatus = false;
+            }
         }
-
         break;
     case PORT_CHANGED:
         //qDebug() << " PORT CHANGED - name: " << portName << portName << " inOrOut: " << kmiPorts->inOut[inOrOut] << " messageType: " << kmiPorts->mType[messageType] << " portNum: " << portNum << "\n";
@@ -1089,17 +1099,17 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
 // this is needed when the bootloader and app port names do not match
 void MainWindow::slotRefreshConnection()
 {
-    qDebug() << "slotRefreshConnection called";
-//#ifndef Q_OS_WIN
-    if (!SoftStep->bootloaderMode) // app->bootLoader
-    {
-        SoftStep->slotResetConnections(SS_OLD_IN_P1, SS_BL_PORT);
-    }
-    else
-    {
-        SoftStep->slotResetConnections(SS_OUT_P1, SS_BL_PORT);
-    }
-//#endif
+//    qDebug() << "slotRefreshConnection called";
+////#ifndef Q_OS_WIN
+//    if (!SoftStep->bootloaderMode) // app->bootLoader
+//    {
+//        SoftStep->slotResetConnections(SS_OLD_IN_P1, SS_BL_PORT);
+//    }
+//    else
+//    {
+//        SoftStep->slotResetConnections(SS_OUT_P1, SS_BL_PORT);
+//    }
+////#endif
 }
 
 
@@ -1127,7 +1137,7 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
 
     if (success)
     {
-        SoftStep->fwUpdateRequested = false;
+        //SoftStep->fwUpdateRequested = false;
         slotUpdateMIDIThru();
         slotConnected(true);
     }
