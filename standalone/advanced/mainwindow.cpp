@@ -1211,7 +1211,7 @@ void MainWindow::slotInitMenuBar()
     }
 
 
-    menubar->setGeometry(0,0, this->width(), 20);
+    menubar->setGeometry(0,0, this->width(), 25);
 #endif
 
 

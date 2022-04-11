@@ -136,7 +136,7 @@ background: black;
 /*-------QToolTip-------*/
 QToolTip
 {
-	font: 10px &quot;Futura-Normal&quot;;
+	font: 8px &quot;Corbel&quot;;
 	color: rgb(255, 255, 255);
 	background: rgba(40, 40, 40, 255);
 	border: 1px solid rgb(120, 120, 120);
@@ -249,6 +249,7 @@ QToolTip
      </property>
      <property name="font">
       <font>
+       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -445,6 +446,9 @@ color: red;</string>
     <property name="focusPolicy">
      <enum>Qt::WheelFocus</enum>
     </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:6pt; font-weight:700;&quot;&gt;Select which of the 10 SoftStep preset slots to edit/send.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
     <property name="alignment">
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
@@ -472,6 +476,7 @@ color: red;</string>
     </property>
     <property name="font">
      <font>
+      <family>Corbel</family>
       <pointsize>12</pointsize>
       <italic>false</italic>
       <bold>false</bold>
@@ -550,6 +555,12 @@ QPushButton:pressed
     </property>
     <property name="focusPolicy">
      <enum>Qt::WheelFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:6pt;&quot;&gt;Sets the global sensitivity of the SoftStep keys. Values from 0.5 to 2.55.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="alignment">
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -646,6 +657,7 @@ QCheckBox::indicator:checked:disabled
     </property>
     <property name="font">
      <font>
+      <family>Corbel</family>
       <pointsize>8</pointsize>
       <italic>false</italic>
       <bold>false</bold>
@@ -705,6 +717,9 @@ QToolButton:pressed
       <width>100</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:6pt;&quot;&gt;Route incomming MIDI messages from the SoftStep to this MIDI destination&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">
