@@ -42,41 +42,6 @@ QToolTip
 }</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="connectedLabel">
-    <property name="geometry">
-     <rect>
-      <x>497</x>
-      <y>81</y>
-      <width>175</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel
-{
-	font: 12pt &quot;Futura-Normal&quot;;
-	color: red;
-	background: rgb(40, 40, 40);
-	padding: 0px 0px 0px 3px;
-}</string>
-    </property>
-    <property name="text">
-     <string>SOFTSTEP CONNECTED</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QFrame" name="frame_presets">
     <property name="geometry">
      <rect>
@@ -734,6 +699,7 @@ QLineEdit:focus
      </property>
      <property name="font">
       <font>
+       <family>Futura-Normal</family>
        <pointsize>20</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -794,6 +760,7 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
+       <family>Futura-Normal</family>
        <pointsize>20</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -854,6 +821,7 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
+       <family>Futura PT</family>
        <pointsize>30</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -961,6 +929,34 @@ QPushButton:pressed
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="connectedLabel">
+    <property name="geometry">
+     <rect>
+      <x>479</x>
+      <y>81</y>
+      <width>201</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Indicates the connection status between
+SoftStep and the editor. Click to open
+the Connection Troubleshooter.</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+	font: 9pt &quot;Futura-Normal&quot;;
+	color: red;
+	background: rgb(40, 40, 40);
+	padding: 0px 0px 0px 3px;
+	border: 0;
+}</string>
+    </property>
+    <property name="text">
+     <string>SOFTSTEP NOT CONNECTED</string>
     </property>
    </widget>
   </widget>

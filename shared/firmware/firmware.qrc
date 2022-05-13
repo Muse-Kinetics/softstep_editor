@@ -2,6 +2,6 @@
     <qresource prefix="/firmware">
         <file>Softstep-99-bootloader-trojan-horse.syx</file>
         <file>Softstep-enter-bootloader.syx</file>
-        <file>Softstep_Firmware_v1.0.1.syx</file>
+        <file>Softstep_Firmware_v1.0.2.syx</file>
     </qresource>
 </RCC>

@@ -89,15 +89,6 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
 
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect  screenGeometry = screen->geometry();
-//    int height = screenGeometry.height();
-//    int width = screenGeometry.width();
-
-
-//    QRect rect = QApplication::desktop()->availableGeometry();
-//    widget->move(rect.center() - widget->rect().center());
-
-//    widget->move(screenGeometry.center() - widget->rect().center());
-
 
 
     keyWindowWidget->setGeometry(20 + (keyInstance * 15), (screenGeometry.height() / 2.4) + (keyInstance * 15), KEYWINDOW_SM_WIDTH, KEYWINDOW_HEIGHT);

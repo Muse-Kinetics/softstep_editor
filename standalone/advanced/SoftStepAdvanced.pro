@@ -32,6 +32,7 @@ INCLUDEPATH +=  forms \
                 ../../shared/stylesheets \
                 ../../shared/KMI_MDM \
                 ../../shared/KMI_MDM/fwupdate \
+                ../../shared/KMI_MDM/troubleshoot \
                 ../../shared/KMI_Ports \
                 ../../shared/KMI_Updates \
                 ../../shared/rtmidi
@@ -39,6 +40,7 @@ INCLUDEPATH +=  forms \
 SOURCES +=      main.cpp\
     ../../shared/KMI_MDM/KMI_mdm.cpp \
     ../../shared/KMI_MDM/fwupdate/fwupdate.cpp \
+    ../../shared/KMI_MDM/troubleshoot/troubleshoot.cpp \
     ../../shared/KMI_Ports/kmi_ports.cpp \
     ../../shared/KMI_Updates/kmi_updates.cpp \
     ../../shared/rtmidi/RtMidi.cpp \
@@ -88,6 +90,7 @@ HEADERS  +=     mainwindow.h \
     ../../shared/KMI_MDM/KMI_SysexMessages.h \
     ../../shared/KMI_MDM/KMI_mdm.h \
     ../../shared/KMI_MDM/fwupdate/fwupdate.h \
+    ../../shared/KMI_MDM/troubleshoot/troubleshoot.h \
     ../../shared/KMI_Ports/kmi_ports.h \
     ../../shared/KMI_Updates/kmi_updates.h \
     ../../shared/rtmidi/RtMidi.h \
@@ -136,6 +139,7 @@ HEADERS  +=     mainwindow.h \
 
 FORMS    +=     forms/mainwindow.ui \
                 ../../shared/KMI_MDM/fwupdate/fwupdate.ui \
+    ../../shared/KMI_MDM/troubleshoot/troubleshoot.ui \
     forms/aboutform.ui \
     forms/apploadform.ui \
     forms/apploadformWin.ui \

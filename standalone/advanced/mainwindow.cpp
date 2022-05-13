@@ -67,7 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     applicationVersion[0] = 2;
     applicationVersion[1] = 1;
     applicationVersion[2] = 0;
-    betaVersion = "C"; // leave blank for release
+    betaVersion = "E"; // leave blank for release
 
     appStillLoading = true;
 
@@ -103,6 +103,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // connect kmiPorts to our handler
     connect(kmiPorts, SIGNAL(signalPortUpdated(QString, uchar, uchar, int)),
             this, SLOT(slotMIDIPortChange(QString, uchar, uchar, int)));
+    connect(kmiPorts, SIGNAL(signalClearPortMaps()), this, SLOT(slotClearMIDIThruDropdown()));
 
     //qDebug() << "end connect";
 
@@ -292,13 +293,13 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "------------ [SETUP CONNECTION INDICATOR] ---------------------------------------------------";
     ui->connectedLabel->setText("SOFTSTEP NOT CONNECTED");
     //ui->connectedLabel->setFixedSize(162, 22);
-    ui->connectedLabel->setToolTip("[ o_0 ]");
+    //ui->connectedLabel->setToolTip("[ o_0 ]");
 #ifdef Q_OS_MAC
     //ui->connectedLabel->move(529, 81);
-    ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
+    ui->connectedLabel->setStyleSheet("font:10pt \"Futura\";color: rgba(200,200,200,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #else
     //ui->connectedLabel->move(529, 100);
-    ui->connectedLabel->setStyleSheet("font:7pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
+    ui->connectedLabel->setStyleSheet("font:7pt \"Futura\";color: rgba(200,200,200,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #endif
 
     disableWidget->hide();
@@ -458,13 +459,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     slotUpdateAboutWindow();
 
-    // start polling MIDI port changes at 100ms intervals
-    // had to move this to the end of setup, on Windows we were getting port changes signaling objects before they were declared
 #ifdef MIDI_ENABLED
-    kmiPorts->devicePoller->start(100);
+    // poll times for each OS
+    int thisPollTime = 100; // MacOS can poll slower
+#ifdef Q_OS_WIN
+    // Windows needs to poll fast, we have to catch the disconnects during fw
+    // updates because QuNexus ports are reported the same wether they are
+    // old ("port 1") or new ("QuNexus Control Surface").
+    // Testing this for SoftStep
+    thisPollTime = 100;
+#endif
+
+    kmiPorts->devicePoller->start(thisPollTime);
 #endif // MIDI_ENABLED
+
     appLoadWidget.close();
+    connected = false;
     appStillLoading = false;
+    forceFirmwareUpdate = false;
 }
 
 MainWindow::~MainWindow()
@@ -648,6 +660,17 @@ void MainWindow::slotConnectInterfaces()
     fwUpdateWindow = new fwUpdate(this, "SoftStep", applicationFirmwareVersionString());
     fwUpdateWindow->setStyleSheet(fwUpdateStylesString);
 
+    // Troubleshooting Window
+    troubleshootWindow = new troubleshoot(this, "SoftStep", applicationFirmwareVersionString());
+    //troubleshootWindow->setStyleSheet(generalStylesString);
+    troubleshootWindow->hide();
+
+    connect(kmiPorts, SIGNAL(signalInputCount(int)), troubleshootWindow, SLOT(slotInputCount(int)));
+    connect(kmiPorts, SIGNAL(signalOutputCount(int)), troubleshootWindow, SLOT(slotOutputCount(int)));
+    connect(kmiPorts, SIGNAL(signalInputPort(QString, int)), troubleshootWindow, SLOT(slotInputPort(QString, int)));
+    connect(kmiPorts, SIGNAL(signalOutputPort(QString, int)), troubleshootWindow, SLOT(slotOutputPort(QString, int)));
+
+
     qDebug() << "------------ [CONNECT MIDI] ---------------------------------------------------";
     // MIDI
 
@@ -663,12 +686,17 @@ void MainWindow::slotConnectInterfaces()
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccessCloseDialog(bool)), this, SLOT(slotFwUpdateSuccessCloseDialog(bool)));  // close fw dialog and connect
     //connect(SoftStep, SIGNAL(signalRequestGlobals()), this, SLOT(slotSendGlobalsRequest()));                                  // request globals
 
+    // connect fwUpdate console messages to connection troubleshooter
+    connect(SoftStep, SIGNAL(signalFwConsoleMessage(QString)), troubleshootWindow, SLOT(slotAppendToStatusLog(QString)));
+    connect(fwUpdateWindow, SIGNAL(signalRequestFwUpdate()), troubleshootWindow, SLOT(slotRequestFwUpdate()));
+    connect(SoftStep, SIGNAL(signalFirmwareUpdateComplete(bool)), troubleshootWindow, SLOT(slotFirmwareUpdated(bool)));
+
     // handle device unexpectedly in bootloader mode
     connect(SoftStep, SIGNAL(signalBootloaderMode(bool)), this, SLOT(slotBootloaderMode(bool)));
 
     // reset portlist after sending bootloader commands, catch changes to port names
-    connect(SoftStep, SIGNAL(signalBeginBlTimer()), this, SLOT(slotRefreshConnection()));
-    connect(SoftStep, SIGNAL(signalBeginFwTimer()), this, SLOT(slotRefreshConnection()));
+//    connect(SoftStep, SIGNAL(signalBeginBlTimer()), this, SLOT(slotRefreshConnection()));
+//    connect(SoftStep, SIGNAL(signalBeginFwTimer()), this, SLOT(slotRefreshConnection()));
 
     // ---- end midi and fw update overhaul --------------------
 
@@ -1315,6 +1343,12 @@ void MainWindow::slotInitMenuBar()
     //connect(about, SIGNAL(triggered()), this, SLOT(slotEnableDisableMenu()));
     help->addAction(about);
 
+    //Troubleshooting
+    QAction* troubleShooting = new QAction("Troubleshoot Connection", help);
+    connect(troubleShooting, SIGNAL(triggered()), this, SLOT(slotOpenTroubleshooting()));
+    connect(ui->connectedLabel, SIGNAL(pressed()), this, SLOT(slotOpenTroubleshooting()));
+    help->addAction(troubleShooting);
+
     //Doc
     QAction* doc = new QAction("Documentation...", help);
     connect(doc, SIGNAL(triggered()), this, SLOT(slotOpenDoc()));
@@ -1328,19 +1362,19 @@ void MainWindow::slotInitMenuBar()
     {
         if(sessionSettings->value("toolTipsEnabled").toBool())
         {
-            toolTipsEnable = new QAction("Hide Tool Tips", file);
+            toolTipsEnable = new QAction("Hide Tool Tips", help);
             qDebug() << "Hide Tool Tips";
         }
         else
         {
-            toolTipsEnable = new QAction("Show Tool Tips", file);
+            toolTipsEnable = new QAction("Show Tool Tips", help);
             qDebug() << "Show Tool Tips";
         }
     }
     else
     {
         sessionSettings->setValue("toolTipsEnabled", true);
-        toolTipsEnable = new QAction("Hide Tool Tips", file);
+        toolTipsEnable = new QAction("Hide Tool Tips", help);
     }
 
     connect(toolTipsEnable, SIGNAL(triggered()), this, SLOT(slotEnableDisableToolTips()));
@@ -1377,6 +1411,12 @@ void MainWindow::slotOpenDoc()
     QDesktopServices::openUrl(QUrl("http://files.keithmcmillen.com/downloads/softstep/SoftStep_Manual_v2.01.pdf"));
     //qDebug() << (QLatin1String)file->readLine(0);
     //file->close();
+}
+
+void MainWindow::slotOpenTroubleshooting()
+{
+    troubleshootWindow->show();
+    troubleshootWindow->slotScrollTroubleUp();
 }
 
 void MainWindow::slotUpdatePasteAvailability()
@@ -1459,7 +1499,7 @@ void MainWindow::slotConnected(bool connection)
     if(connection)
     {
         ui->connectedLabel->setText("SOFTSTEP CONNECTED");
-        ui->connectedLabel->setToolTip("\\(^-^)/");
+        //ui->connectedLabel->setToolTip("\\(^-^)/");
 #ifdef Q_OS_MAC
         ui->connectedLabel->setStyleSheet("font:12pt \"Futura\";color: rgba(0,200,0,255); background: rgba(40, 40, 40, 255); padding-top: 2px; padding-bottom: 2px;");
 #else
@@ -1468,7 +1508,7 @@ void MainWindow::slotConnected(bool connection)
         connected = true;
         slotUpdateAboutWindow();
 
-        updatefw->setEnabled(true);
+        //updatefw->setEnabled(true);
         sysExComposer->connected = true;
 
 #ifdef MIDI_ENABLED
@@ -1490,84 +1530,27 @@ void MainWindow::slotConnected(bool connection)
         // attempt to recall midi thru port when device connects - EB TODO - Fix this
         //slotRecallMIDIThru();
         slotRestoreAllAuxDropdowns();
+        troubleshootWindow->slotConnected(true);
     }
     else // disconnect
     {
-        //ui->connectedFrame->setStyleSheet("border: 1px solid rgb(67,67,67);background: rgb(100,100,100); border-radius:6;");
-        //ui->connectedLabel->setText("Not Connected");
         ui->connectedLabel->setText("SOFTSTEP NOT CONNECTED");
-        //ui->connectedLabel->setFixedSize(162, 22);
-        ui->connectedLabel->setToolTip("[ o_0 ]");
+        //ui->connectedLabel->setToolTip("[ o_0 ]");
 
 #ifdef Q_OS_MAC
         //ui->connectedLabel->move(529, 81);
-        ui->connectedLabel->setStyleSheet("font:12pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-top: 2px; padding-bottom: 2px;");
+        ui->connectedLabel->setStyleSheet("font:12pt \"Futura\";color: rgba(200,200,200,255); background: rgba(40, 40, 40, 255); padding-top: 2px; padding-bottom: 2px;");
 #else
         //ui->connectedLabel->move(529, 100);
-        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,0,0,255); background: rgba(40, 40, 40, 255); padding-top: 2px; padding-bottom: 2px;");
+        ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,200,200,255); background: rgba(40, 40, 40, 255); padding-top: 2px; padding-bottom: 2px;");
 #endif
-        //ui->update->setText("SAVE");
-
-        //aboutForm->found->setText("Not Connected");
-        //presetInterface->connected = false;
-
-        updatefw->setEnabled(false); // disable firmware update menu
+        //updatefw->setEnabled(false); // disable firmware update menu
         sysExComposer->connected = false; // stop sysExComposer from sending data
+        troubleshootWindow->slotConnected(false);
     }
     slotUpdateAboutWindow();
 }
 
-//void MainWindow::slotReceiveVersions(int connected, QString connectedVersion, int embedded, QString embeddedVersion, int hardware)
-//{
-//    Q_UNUSED(embeddedVersion);
-//    Q_UNUSED(embedded);
-
-//    qDebug() << "slotReceiveVersions";
-////    connectedVersionString = connectedVersion;
-////    connectedVersionInt = connected;
-
-//    //aboutForm->found->setText(QString("%1").arg(connected));
-
-//    // EB TODO - SSCOM sent a flag for SS1 vs SS2. Need to encode this into the MIDI PID and then update like below
-//    for(int i = 0; i < 10; i++)
-//    {
-//        key[i]->dataCooker->isSS2 = (bool)hardware;
-//    }
-
-//    //First reiterate tether / standalone messages
-
-//    slotConnected(true);
-//    // EB TODO - this should go in the softstep connected code
-//    if(mode == "hosted")
-//    {
-//        //qDebug() << "message sent";
-//        // EB TODO - move this to sysexcomposer
-//        sysExComposer->slotHostedOnOff(true);
-//    }
-//    else
-//    {
-//        // EB TODO - move this to sysexcomposer
-//        sysExComposer->slotHostedOnOff(false);
-//    }
-
-
-////    if(connected != embedded)
-////    {
-
-////        qDebug() << "slotReceiveVersions unequal versions";
-////        QApplication::processEvents();
-
-////        fwoodDialogForm->expected->setText(QString("%1").arg(embedded));
-////        fwoodDialogForm->found->setText(QString("%1").arg(connected));
-////        disableWidget->raise();
-////        disableWidget->show();
-////        //slotEnableDisableMenu();
-////        fwoodDialogWidget->raise();
-////        fwoodDialogWidget->show();
-////        qDebug() << "_____ Your firmware version is out of date _____";
-////        QApplication::processEvents();
-////    }
-//}
 
 void MainWindow::slotSaveAs()
 {
@@ -2304,9 +2287,25 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         {
             SoftStep->slotSetExpectedFW(thisFw);
 
+            troubleshootWindow->slotDetected();
+            ui->connectedLabel->setText("SOFTSTEP DETECTED");
+#ifdef Q_OS_MAC
+            ui->connectedLabel->setStyleSheet("font: 12pt \"Futura-Normal\";"
+                                              "color: yellow;"
+                                              "background: rgb(255, 125, 0);"
+                                              "padding: 0px 0px 0px 3px;");
+#else
+            ui->connectedLabel->setStyleSheet("font: 8pt \"Futura-Normal\";"
+                                              "color: yellow;"
+                                              "background: rgb(255, 125, 0);"
+                                              "padding: 0px 0px 0px 3px;");
+#endif
+
+
+
             if (!SoftStep->slotUpdatePortIn(portNum))
             {
-                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
             }
             else
             {
@@ -2373,11 +2372,39 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             {
                 SoftStep->slotCloseMidiIn(SIGNAL_SEND);
                 fwUpdateWindow->slotAppendTextToConsole("\nSoftStep Disconnected\n");
+
+                ui->connectedLabel->setText("SOFTSTEP NOT CONNECTED");
+        #ifdef Q_OS_MAC
+                ui->connectedLabel->setStyleSheet("font: 12pt \"Futura-Normal\";"
+                                                  "color: rgba(200,200,200,255);"
+                                                  "padding-top: 2px; padding-bottom: 2px;"
+                                                  "background: rgba(40, 40, 40, 255);");
+        #else
+                ui->connectedLabel->setStyleSheet("font: 8pt \"Futura-Normal\";"
+                                                  "color: rgba(200,200,200,255);"
+                                                  "padding-top: 2px; padding-bottom: 2px;"
+                                                  "background: rgba(40, 40, 40, 255);");
+        #endif
             }
             else if (portName == SoftStep->portName_out) // fix for ports disconnecting late during firmware update
             {
                 SoftStep->slotCloseMidiOut(SIGNAL_SEND);
                 SoftStep->pollingStatus = false;
+            }
+            else if (inOrOut == PORT_OUT)
+            {
+                ui->connectedLabel->setText("SOFTSTEP NOT CONNECTED");
+        #ifdef Q_OS_MAC
+                ui->connectedLabel->setStyleSheet("font: 12pt \"Futura-Normal\";"
+                                                  "color: rgba(200,0,0,255);"
+                                                  "padding-top: 2px; padding-bottom: 2px;"
+                                                  "background: rgba(40, 40, 40, 255);");
+        #else
+                ui->connectedLabel->setStyleSheet("font: 8pt \"Futura-Normal\";"
+                                                  "color: rgba(200,200,200,255);"
+                                                  "padding-top: 2px; padding-bottom: 2px;"
+                                                  "background: rgba(40, 40, 40, 255);");
+        #endif
             }
         }
         // hosted mode
@@ -2456,6 +2483,22 @@ void MainWindow::slotRefreshConnection()
 void MainWindow::slotBootloaderMode(bool fwUpdateRequested)
 {
     qDebug() << "slotBootloaderMode called - fwUpdateRequested: "<< fwUpdateRequested;
+
+    ui->connectedLabel->setText("BOOTLOADER");
+#ifdef Q_OS_MAC
+    ui->connectedLabel->setStyleSheet("font: 12pt \"Futura-Normal\";"
+                                      "color: rgba(200,0,0,255);"
+                                      "padding-top: 2px; padding-bottom: 2px;"
+                                      "background: rgba(0, 0, 88, 255);");
+#else
+    ui->connectedLabel->setStyleSheet("font: 8pt \"Futura-Normal\";"
+                                      "color: rgba(0,0,255,255);"
+                                      "padding-top: 2px; padding-bottom: 2px;"
+                                       "background: rgba(0, 0, 88, 255);");
+#endif
+    troubleshootWindow->slotSetDevVersion(deviceFirmwareVersionString(), deviceBootloaderVersionString());
+    troubleshootWindow->slotBootloaderMode();
+
     if (!fwUpdateRequested)
     {
         QMessageBox msgBox;
@@ -2494,13 +2537,24 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
 
 void MainWindow::slotForceFirmwareUpdate()
 {
+    if (!SoftStep->port_out_open) return;
+
     slotFirmwareDetected(SoftStep, false); // act as if we received a firmware mismatch
+    forceFirmwareUpdate = true;
 }
 
 void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
 {
 #ifdef MIDI_ENABLED
     qDebug() << "slotFirmwareDetected called";
+
+    troubleshootWindow->slotSetDevVersion(deviceFirmwareVersionString(), deviceBootloaderVersionString());
+    if (forceFirmwareUpdate)
+    {
+        troubleshootWindow->slotRequestFwUpdate();
+        forceFirmwareUpdate = false;
+    }
+
     if (matches)
     {
         qDebug() << "FirmwareMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
@@ -2512,6 +2566,19 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
     else
     {
         qDebug() << "Firmware MisMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
+
+        ui->connectedLabel->setText("FIRMWARE OUT OF DATE");
+#ifdef Q_OS_MAC
+        ui->connectedLabel->setStyleSheet("font: 12pt \"Futura-Normal\";"
+                                          "color: red;"
+                                          "background: rgb(50, 0, 0);"
+                                          "padding: 0px 0px 0px 3px;");
+#else
+        ui->connectedLabel->setStyleSheet("font: 8pt \"Futura-Normal\";"
+                                          "color: red;"
+                                          "background: rgb(50, 0, 0);"
+                                          "padding: 0px 0px 0px 3px;");
+#endif
 
         // setup sysex connections to receive globals data
         SoftStep->disconnect(SIGNAL(signalRxSysExBA(QByteArray))); // disconnect to be safe
@@ -2828,6 +2895,13 @@ void MainWindow::slotRecallMIDIThru()
     }
 #endif // MIDI_ENABLED
 }
+
+void MainWindow::slotClearMIDIThruDropdown()
+{
+    midi_thru_dropdown->clear();
+    midi_thru_dropdown->addItem("None");
+}
+
 
 // --------------------------------------------------------------------------------------
 // ------ end midi overhaul -------------------------------------------------------------

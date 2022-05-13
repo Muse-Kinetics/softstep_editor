@@ -59,6 +59,7 @@
 #include "RtMidi.h"
 #include "KMI_DevData.h"
 #include <fwupdate.h>
+#include <troubleshoot.h>
 #include "kmi_updates.h"
 #include "midi.h"
 // end midi overhaul
@@ -76,6 +77,7 @@ public:
     ~MainWindow();
 
     bool connected;
+    bool forceFirmwareUpdate;
 
     bool appStillLoading;
 
@@ -84,6 +86,7 @@ public:
     QString betaVersion;
     KMI_Updates * checkUpdates;
     fwUpdate* fwUpdateWindow;
+    troubleshoot* troubleshootWindow;
 
     // FWUpdate Styles
     QFile*              fwUpdateStylesFile;
@@ -265,6 +268,7 @@ public slots:
     void slotUserUpdatedMIDIAuxInputPort(QString auxInput, QString portName);
     void slotUpdateMIDIAuxInputPorts(QString auxInput, QString port);
     void slotRecallMIDIThru();
+    void slotClearMIDIThruDropdown();
 
     // ------ end midi overhaul --------------------------------------------------------
 
@@ -279,6 +283,7 @@ public slots:
     //------------- Menu Bar
     void slotInitMenuBar();
     void slotOpenDoc();
+    void slotOpenTroubleshooting();
     void slotEnableDisableToolTips();
 
     void slotUpdatePasteAvailability();

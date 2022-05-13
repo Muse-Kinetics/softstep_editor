@@ -3,7 +3,7 @@
 url=ssh://git@bitbucket.org/keith-mcmillen-instruments/kmi_ports.git
 [submodule "shared/KMI_MDM"]
 	path = shared/KMI_MDM
-url=https://bitbucket.org/keith-mcmillen-instruments/kmi_midi_device_manager.git
+url=ssh://git@bitbucket.org/keith-mcmillen-instruments/kmi_midi_device_manager.git
 [submodule "shared/rtmidi"]
 	path = shared/rtmidi
 	url = https://github.com/thestk/rtmidi.git
