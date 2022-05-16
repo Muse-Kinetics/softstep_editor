@@ -39,6 +39,7 @@
 #include "RtMidi.h"
 #include "KMI_DevData.h"
 #include <fwupdate.h>
+#include <troubleshoot.h>
 #include "kmi_updates.h"
 #include "midi.h"
 // end midi overhaul
@@ -60,6 +61,8 @@ public:
     QString betaVersion;
     KMI_Updates * checkUpdates;
     fwUpdate* fwUpdateWindow;
+    troubleshoot* troubleshootWindow;
+
 
     // Stylesheets
     QFile*              fwUpdateStylesFile;
@@ -111,6 +114,7 @@ SysExComposer   *sysExComposer;
 
 #endif // SERIOUS_PRUNING
     bool connected;
+    bool forceFirmwareUpdate;
 #ifdef SERIOUS_PRUNING
     QWidget* aboutFormWidget;
 
@@ -189,6 +193,7 @@ public slots:
     void slotUpdateMIDIThru();
     void slotCreateDialog(QString dialogText);
     void slotRecallMIDIThru();
+    void slotClearMIDIThruDropdown();
     // ------ end midi overhaul --------------------------------------------------------
 
 
@@ -203,14 +208,13 @@ public slots:
     void slotInitMenuBar();
     void slotUpdatePasteAvailability();
     void slotOpenDocumentation();   
+    void slotOpenTroubleshooting();
     void slotDisconnectUpdate();
     void slotConnectUpdate();
     void slotDisplaySaveState(bool);
     void slotEnableDisableUseCustomPreset(bool);
 
     void slotEnableDisableMenu();
-
-    void slotDisplayFactory();
 
 #endif //SERIOUS_PRUNING
 private:

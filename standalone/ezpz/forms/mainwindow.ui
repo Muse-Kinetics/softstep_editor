@@ -302,33 +302,6 @@ QToolTip
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="connectedLabel">
-    <property name="geometry">
-     <rect>
-      <x>1118</x>
-      <y>54</y>
-      <width>131</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>-1</pointsize>
-      <italic>false</italic>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font:bold 12px &quot;Futura&quot;;
-color: red;</string>
-    </property>
-    <property name="text">
-     <string>NOT CONNECTED</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QPushButton" name="update">
     <property name="geometry">
      <rect>
@@ -340,6 +313,7 @@ color: red;</string>
     </property>
     <property name="font">
      <font>
+      <family>Futura</family>
       <pointsize>18</pointsize>
       <italic>false</italic>
       <bold>false</bold>
@@ -383,6 +357,7 @@ QPushButton:pressed
     </property>
     <property name="font">
      <font>
+      <family>Futura</family>
       <pointsize>10</pointsize>
       <italic>false</italic>
       <bold>false</bold>
@@ -464,7 +439,7 @@ QPushButton:pressed
       <x>1062</x>
       <y>113</y>
       <width>206</width>
-      <height>204</height>
+      <height>201</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout" columnstretch="0,0">
@@ -737,6 +712,7 @@ QCheckBox::indicator {
       <widget class="QLineEdit" name="displayName">
        <property name="font">
         <font>
+         <family>Futura</family>
          <pointsize>-1</pointsize>
          <italic>false</italic>
          <bold>false</bold>
@@ -836,14 +812,50 @@ QCheckBox::indicator {
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="connectedLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>1118</x>
+      <y>54</y>
+      <width>131</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget
+{
+	border: none;
+}
+
+/*---------- QPushButton ---------*/
+QPushButton
+{
+	border: 0px solid rgba(0,174,239,0);
+	background:		rgba(0,0,0,0);
+	font:bold 12px &quot;Futura&quot;;
+	color: rgb(200,200,200);
+}
+
+QPushButton:pressed
+{
+	border: 2px solid white;
+	font: 10px &quot;Futura-normal&quot;;
+	background: rgba(0,174,239,255);
+	color: white;
+}</string>
+    </property>
+    <property name="text">
+     <string>NOT CONNECTED</string>
+    </property>
+   </widget>
    <zorder>noFocus</zorder>
    <zorder>layoutWidget</zorder>
    <zorder>softstepLabel</zorder>
-   <zorder>connectedLabel</zorder>
    <zorder>update</zorder>
    <zorder>revert</zorder>
    <zorder>midiChannelLabel_2</zorder>
    <zorder>midi_thru</zorder>
+   <zorder>connectedLabel_2</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

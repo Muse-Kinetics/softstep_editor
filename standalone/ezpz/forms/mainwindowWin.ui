@@ -395,26 +395,6 @@ QToolTip
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="connectedLabel">
-    <property name="geometry">
-     <rect>
-      <x>850</x>
-      <y>52</y>
-      <width>131</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font:8pt &quot;Futura-Normal&quot;;
-color: red;</string>
-    </property>
-    <property name="text">
-     <string>NOT CONNECTED</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="sensitivityLabel">
     <property name="geometry">
      <rect>
@@ -840,9 +820,37 @@ QComboBox QAbstractItemView
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="connectedLabel">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>57</y>
+      <width>131</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Indicates the connection status between the
+SoftStep and the editor. Click to open the
+Connection Troubleshooter.</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QPushButton
+{
+	border: 0px solid rgba(0,174,239,0);
+	background:		rgba(0,0,0,0);
+	font:8pt &quot;Futura-Normal&quot;;
+	color: rgb(200,200,200);
+}
+</string>
+    </property>
+    <property name="text">
+     <string>NOT CONNECTED</string>
+    </property>
+   </widget>
    <zorder>settingsFrame</zorder>
    <zorder>softstepLabel</zorder>
-   <zorder>connectedLabel</zorder>
    <zorder>sensitivityLabel</zorder>
    <zorder>backlightLabel</zorder>
    <zorder>sensitivity</zorder>
@@ -854,6 +862,7 @@ QComboBox QAbstractItemView
    <zorder>midiChannelLabel_2</zorder>
    <zorder>midi_thru</zorder>
    <zorder>noFocus</zorder>
+   <zorder>connectedLabel</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
