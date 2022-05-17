@@ -10,7 +10,6 @@ QT +=           core gui \
                 network
 
 TARGET =        "SoftStep Basic Editor"
-
 TEMPLATE =      app
 
 macx{
@@ -21,6 +20,26 @@ macx{
 #win32 {
 #    CONFIG += console
 #}
+
+# still holding onto support for High Sierra here, separate build
+message("Building with Qt $${QT_VERSION}")
+
+# build with Qt 5.11.3 to support El Capitan, Sierra, and High Sierra
+lessThan(QT_MAJOR_VERSION, 6){
+    macx{
+        message("Building legacy MacOS Intel Binary")
+        QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.11
+    }
+}
+
+# build with Qt 6.2.1 to support Mojave and later
+versionAtLeast(QT_VERSION, 6.2.1){
+    macx{
+        message("Building Apple M1/Intel Universal Binary")
+        QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.14
+        QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
+    }
+}
 
 INCLUDEPATH +=  forms \
                 resources \

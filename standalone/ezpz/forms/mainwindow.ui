@@ -313,7 +313,6 @@ QToolTip
     </property>
     <property name="font">
      <font>
-      <family>Futura</family>
       <pointsize>18</pointsize>
       <italic>false</italic>
       <bold>false</bold>
@@ -357,7 +356,6 @@ QPushButton:pressed
     </property>
     <property name="font">
      <font>
-      <family>Futura</family>
       <pointsize>10</pointsize>
       <italic>false</italic>
       <bold>false</bold>
@@ -712,7 +710,6 @@ QCheckBox::indicator {
       <widget class="QLineEdit" name="displayName">
        <property name="font">
         <font>
-         <family>Futura</family>
          <pointsize>-1</pointsize>
          <italic>false</italic>
          <bold>false</bold>
@@ -812,7 +809,7 @@ QCheckBox::indicator {
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="connectedLabel_2">
+   <widget class="QPushButton" name="connectedLabel">
     <property name="geometry">
      <rect>
       <x>1118</x>
@@ -855,7 +852,7 @@ QPushButton:pressed
    <zorder>revert</zorder>
    <zorder>midiChannelLabel_2</zorder>
    <zorder>midi_thru</zorder>
-   <zorder>connectedLabel_2</zorder>
+   <zorder>connectedLabel</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

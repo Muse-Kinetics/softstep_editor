@@ -67,7 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     applicationVersion[0] = 2;
     applicationVersion[1] = 1;
     applicationVersion[2] = 0;
-    betaVersion = "E"; // leave blank for release
+    betaVersion = "F"; // leave blank for release
 
     appStillLoading = true;
 
