@@ -71,7 +71,7 @@ void AlphaNumManager::slotDisplayParam(int modlineNum, int val)
 void AlphaNumManager::slotFormatAndOutputString(QString displayString)
 {
 
-    //qDebug() << "displayString" << displayString;// << "sender name" << QObject::sender()->objectName();
+    qDebug() << "displayString" << displayString;// << "sender name" << QObject::sender()->objectName();
 
     //Make all messages of length 4
     if(displayString.size() < 4)
@@ -82,28 +82,31 @@ void AlphaNumManager::slotFormatAndOutputString(QString displayString)
         }
     }
 
-    packetList.clear();
-#ifdef Q_OS_MAC
-    ushort vals[displayString.size()];
-#else
-    ushort vals[200];
-#endif
+
+//#ifdef Q_OS_MAC
+//    ushort vals[displayString.size()];
+//#else
+//    ushort vals[200];
+//#endif
     for(int i = 0; i < displayString.size(); i++)
     {
-        vals[i] = displayString.at(i).unicode();
+//        vals[i] = displayString.at(i).unicode();
 
-        MIDIPacket packet;
-        packet.timeStamp = 0;
-        packet.length = 3;
+//        MIDIPacket packet;
+//        packet.timeStamp = 0;
+//        packet.length = 3;
 
-        packet.data[0] = 176;
-        packet.data[1] = 50 + i;
-        packet.data[2] = vals[i];
+//        packet.data[0] = 176;
+//        packet.data[1] = 50 + i;
+//        packet.data[2] = vals[i];
 
-        packetList.append(packet);
+//        packetList.append(packet);
+
+        qDebug() << "display send packet: " << displayString.at(i).unicode();
+        emit signalSendPacket(176, 50 + i, displayString.at(i).unicode());
     }
 
-    emit signalSendDisplayVals("SoftStep Control Surface", packetList);
+    //emit signalSendDisplayVals("SoftStep Control Surface", packetList);
 }
 
 void AlphaNumManager::slotDisplayKeyName(int keyNum)
@@ -116,7 +119,7 @@ void AlphaNumManager::slotDisplayKeyName(int keyNum)
     {
         keyOnOff = true;
 
-        qDebug() << "display key name" << keyName << keyNum << instanceNum;
+        qDebug() << "display key name" << keyName << keyNum << instanceNum << " displayMode: " << displayMode;
 
         //None
         if(displayMode.contains("None"))

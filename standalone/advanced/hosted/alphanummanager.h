@@ -43,6 +43,7 @@ public:
     
 signals:
     void signalSendDisplayVals(QString port, QList<MIDIPacket> packet);
+    void signalSendPacket(uchar status, uchar  d1, uchar d2);
     
 public slots:
     void slotDisplayKeyName(int keyNum);

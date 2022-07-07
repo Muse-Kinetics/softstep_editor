@@ -170,7 +170,7 @@ public slots:
 
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
-    void slotTestValues(int value);
+    void slotTestValues();
     void slotRecallDestinationMenu();
     void slotDeleteModline(int num, bool disable);
     void slotDisableModline(QString parameterName);

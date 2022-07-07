@@ -105,7 +105,105 @@ QToolTip
     border: 1px solid rgb(120, 120, 120);
     padding: 2px;
     width: 22px;
-}</string>
+}
+
+/*#################################*/
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+    font: 11px &quot;Tahoma&quot;;
+    border: 1px solid rgb(0,174,239);
+    background: rgb(18, 18, 18);
+    color: white;
+    padding: 1px 3px 1px 4px;
+    combobox-popup: 0;
+ }
+
+/* dropdown box*/
+QComboBox QListView
+{
+    border: 1px solid rgb(0,174,239);
+	color: white;
+    font: 11px &quot;Tahoma&quot;;
+    padding-left: 0px;
+    padding-right: 0px;
+    min-width: 175px;
+    height: 200px;
+}
+
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
+{
+    background-color: rgb(40, 40, 40);
+  selection-color: white;
+  selection-background-color: rgb(0,174,239);
+}
+
+/* down arrow image */
+QComboBox::down-arrow
+{
+    border: none;
+    background: none;
+    image: url(:/resources/modline_combobox_menu_arrows.svg);
+    padding-right: 12px;
+    width: 12px;
+    height: 12px;
+}
+
+/* required for down-arrow or it's blank*/
+QComboBox::drop-down
+{
+    width: 1px;
+    height: 1px;
+    subcontrol-origin: margin;
+    subcontrol-position: right center;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+}
+
+
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+	border: none;
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}
+
+/* -------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------*/
+</string>
   </property>
   <widget class="QFrame" name="keyWindowInstanceLabel_background">
    <property name="geometry">
@@ -312,77 +410,7 @@ QToolTip
     <string>Sets the SoftStep display behavior.&lt;p&gt;&lt;b&gt;None&lt;/b&gt;: Pressing this key will have no effect on the display.&lt;p&gt;&lt;b&gt;Always&lt;/b&gt;: Key name will be displayed every time this key is pressed.&lt;p&gt;&lt;b&gt;Once&lt;/b&gt;: Key name will be displayed once when the key is pressed, then show the prefix + parameter value (Hosted mode only).&lt;p&gt;&lt;b&gt;Initial/Return&lt;/b&gt;: Prefix + parameter value will be displayed when this key is active, then display the key name when inactive (Hosted mode only).&lt;p&gt;&lt;b&gt;Immed Param&lt;/b&gt;: (Immediate Parameter) Displays the prefix and parameter value when this key is activated.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-    font: 11px &quot;Tahoma&quot;;
-    border: 1px solid rgb(0,174,239);
-    background: rgb(18, 18, 18);
-    color: white;
-    padding: 1px 3px 1px 4px;
-    combobox-popup: 0;
-    min-width: 89px;
- }
-
-QComboBox QAbstractItemView::item
-{
-    width: 150px;
-    height: 14px;
-    text-align: left;
-    padding-left: 0px;
-    padding-right: 0px;
-    font: 11px &quot;Tahoma&quot;;
-    background-color: rgb(40, 40, 40);
-    color: white;
-
-}
-
-/* dropdown box*/
-QComboBox QListView
-{
-    border: 1px solid rgb(0,174,239);
-    color: white;
-    font: 11px &quot;Tahoma&quot;;
-    padding-left: 0px;
-    padding-right: 0px;
-    min-width: 105px;
-    height: 40px;
-    width: 150px;
-}
-
-/*----------- dropdown items hovered ------------*/
-QComboBox QAbstractItemView
-{
-    background-color: rgb(40, 40, 40);
-  selection-color: white;
-  selection-background-color: rgb(0,174,239);
-    min-width: 150px;
-}
-
-/* down arrow image */
-QComboBox::down-arrow
-{
-    border: none;
-    background: none;
-    image: url(:/resources/modline_combobox_menu_arrows.svg);
-    padding-right: 12px;
-    width: 12px;
-    height: 12px;
-}
-
-/* required for down-arrow or it's blank*/
-QComboBox::drop-down
-{
-    width: 1px;
-    height: 1px;
-    subcontrol-origin: margin;
-    subcontrol-position: right center;
-    border-left-width: 0px;
-    border-right-width: 0px;
-    border-top-width: 0px;
-    border-bottom-width: 0px;
-}
-</string>
+    <string notr="true"/>
    </property>
    <item>
     <property name="text">

@@ -166,5 +166,6 @@
         <file>resources/modline_enable6_toggle_off.svg</file>
         <file>resources/modline_enable6_toggle_on.svg</file>
         <file>resources/menuBarWin.qss</file>
+        <file>Blank.softsteppreset</file>
     </qresource>
 </RCC>

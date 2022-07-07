@@ -378,6 +378,14 @@ QComboBox QListView
     padding-right: 0px;
     min-width: 55px;
     height: 200px;
+}
+
+QComboBox:disabled
+{
+	background-color: rgba(20, 20, 20, 75);
+	border-color: rgba(0, 174, 239, 75);
+	font: 10pt &quot;Futura-Normal&quot;;
+	color: rgba(255, 255, 255, 75);
 }</string>
    </property>
    <property name="sizeAdjustPolicy">

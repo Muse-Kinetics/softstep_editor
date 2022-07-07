@@ -270,7 +270,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
      <pointsize>8</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -305,7 +304,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Futura</family>
      <pointsize>10</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -396,7 +394,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -409,7 +406,13 @@ QToolTip
     <string>Sets the init mode.&lt;p&gt;&lt;b&gt;None&lt;/b&gt;: Off. No init value will be sent.&lt;p&gt;&lt;b&gt;Once&lt;/b&gt;: Outputs the set init value the first time this preset is selected/loaded.&lt;p&gt;&lt;b&gt;Always&lt;/b&gt;: Outputs the set init value every time this preset is selected/loaded.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QComboBox:disabled
+{
+	background-color: rgba(20, 20, 20, 75);
+	border-color: rgba(0, 174, 239, 75);
+	font: 10pt &quot;Futura-Normal&quot;;
+	color: rgba(255, 255, 255, 75);
+}</string>
    </property>
    <property name="sizeAdjustPolicy">
     <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -444,7 +447,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>7</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -510,7 +512,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -574,7 +575,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -595,7 +595,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -616,7 +615,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -658,7 +656,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -700,7 +697,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -724,7 +720,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -788,7 +783,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>7</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -887,7 +881,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -929,7 +922,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -971,7 +963,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -1013,7 +1004,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -1077,7 +1067,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -1175,7 +1164,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -1508,7 +1496,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -1607,7 +1594,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -1701,7 +1687,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -2191,7 +2176,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -2227,7 +2211,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -2263,7 +2246,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -2330,7 +2312,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -2388,7 +2369,6 @@ QComboBox QAbstractItemView::item
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>

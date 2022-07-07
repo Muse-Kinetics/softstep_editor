@@ -67,7 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     applicationVersion[0] = 2;
     applicationVersion[1] = 1;
     applicationVersion[2] = 0;
-    betaVersion = "F"; // leave blank for release
+    betaVersion = "G"; // leave blank for release
 
     appStillLoading = true;
 
@@ -801,7 +801,8 @@ void MainWindow::slotConnectInterfaces()
 
 #ifdef MIDI_ENABLED
         //Alphanumeric midi out
-        connect(&key[k]->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddAlphaPacket(QString,QList<MIDIPacket>)),Qt::DirectConnection);
+        //connect(&key[k]->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddAlphaPacket(QString,QList<MIDIPacket>)),Qt::DirectConnection);
+        connect(&key[k]->alphaNumManager, SIGNAL(signalSendPacket(uchar, uchar, uchar)), SoftStep, SLOT(slotSendMIDI(uchar, uchar, uchar)), Qt::DirectConnection);
 
         //Led and Display midi out
         connect(&key[k]->ledManager, SIGNAL(signalSendLEDControl(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddLEDPacket(QString,QList<MIDIPacket>)),Qt::DirectConnection);
@@ -869,6 +870,7 @@ void MainWindow::slotConnectInterfaces()
 
     //Alphanumeric MIDI Out
     connect(&navKey->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddAlphaPacket(QString,QList<MIDIPacket>)), Qt::DirectConnection);
+    connect(&navKey->alphaNumManager, SIGNAL(signalSendPacket(uchar, uchar, uchar)), SoftStep, SLOT(slotSendMIDI(uchar, uchar, uchar)), Qt::DirectConnection);
 
     connect(&navKey->dataCooker, SIGNAL(signalThisKeyPressed(int)), &navKey->alphaNumManager, SLOT(slotDisplayKeyName(int)));
 

@@ -258,7 +258,7 @@ void Modline::slotConnectElements()
     //connect(this, SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
 
     //Init and test (manual value changing)
-    connect(modlineForm->initvalue, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
+    connect(modlineForm->initvalue, SIGNAL(editingFinished()), this, SLOT(slotTestValues()));
 }
 
 void Modline::slotDisconnectElements()
@@ -363,7 +363,7 @@ void Modline::slotDisconnectElements()
     //disconnect(this, SIGNAL(hosted_signalSendModlineOutput(int,int)), &ledManager, SLOT(slotReceiveModlineOutput(int,int)));
 
     //Init and test (manual value changing)
-    disconnect(modlineForm->initvalue, SIGNAL(valueChanged(int)), this, SLOT(slotTestValues(int)));
+    disconnect(modlineForm->initvalue, SIGNAL(editingFinished()), this, SLOT(slotTestValues()));
 }
 
 void Modline::slotValueChanged()
@@ -377,7 +377,7 @@ void Modline::slotValueChanged()
         QString senderName = sender->objectName();
         //QString objectType = sender->metaObject()->className();
 
-        //qDebug() << "slotValueChanged - sender: " << sender->objectName();
+        qDebug() << "slotValueChanged - sender: " << sender->objectName();
 
         // handle destination menu objects
         if (senderName.contains("dest_"))
@@ -405,6 +405,7 @@ void Modline::slotValueChanged()
                 switch (modDest.index)
                 {
                 case DEST_NOTE_LIVE:
+                case DEST_NOTE_SET:
                     jsonName = "velocity";
                     break;
                 case DEST_CC:
@@ -988,9 +989,15 @@ void Modline::slotRecallDestinationMenu()
     }
 }
 
-void Modline::slotTestValues(int value)
+void Modline::slotTestValues()
 {
-    slotTransformSource(value, modlineInstance, "Init");
+
+    QObject *sender = QObject::sender();
+    int initValue = modlineForm->initvalue->value();
+
+    qDebug() << "slotTestValues called - value: " << value << " sender: " << sender->objectName() << " initValue: " << initValue;
+
+    slotTransformSource(initValue, modlineInstance, "Init");
 }
 
 void Modline::slotSetMode(QString m)

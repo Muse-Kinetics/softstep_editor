@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     applicationVersion[0] = 2;
     applicationVersion[1] = 1;
     applicationVersion[2] = 0;
-    betaVersion = "F"; // leave blank for release
+    betaVersion = "G"; // leave blank for release
 
     // store the SoftStep device firmware version
     thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_softstep), sizeof(_fw_ver_softstep));

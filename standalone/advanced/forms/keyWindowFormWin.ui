@@ -262,7 +262,6 @@ QCheckBox::indicator:checked:pressed:focus
    </property>
    <property name="font">
     <font>
-     <family>Futura-Bold</family>
      <pointsize>10</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -409,7 +408,107 @@ QCheckBox::indicator:checked:pressed:focus
     <string>Sets the SoftStep display behavior.&lt;p&gt;&lt;b&gt;None&lt;/b&gt;: Pressing this key will have no effect on the display.&lt;p&gt;&lt;b&gt;Always&lt;/b&gt;: Key name will be displayed every time this key is pressed.&lt;p&gt;&lt;b&gt;Once&lt;/b&gt;: Key name will be displayed once when the key is pressed, then show the prefix + parameter value (Hosted mode only).&lt;p&gt;&lt;b&gt;Initial/Return&lt;/b&gt;: Prefix + parameter value will be displayed when this key is active, then display the key name when inactive (Hosted mode only).&lt;p&gt;&lt;b&gt;Immed Param&lt;/b&gt;: (Immediate Parameter) Displays the prefix and parameter value when this key is activated.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 11px &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 3px 1px 4px;
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: transparent;
+	font: 11px &quot;Tahoma&quot;;
+	padding-left: 0px;
+	padding-right: 0px;
+	min-width: 175px;
+}
+
+QComboBox QAbstractItemView::item
+{
+	min-height: 14px;
+     min-width: 175px;
+	text-align: left;
+	padding-left: 0px;
+	padding-right: 0px;
+
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/modline_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 11px;
+    height: 10px;
+}
+
+
+QScrollBar:vertical {
+background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+}
+
+/* Sets up the color and height of handle */
+QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -612,7 +711,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>7</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -633,7 +731,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>7</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -702,7 +799,6 @@ QSpinBox:disabled
    </property>
    <property name="font">
     <font>
-     <family>Tahoma</family>
      <pointsize>7</pointsize>
      <italic>false</italic>
      <bold>false</bold>
