@@ -2913,6 +2913,8 @@ void MainWindow::slotProcessInputToHostedMode(uchar chan, uchar cc, uchar val)
 {
     Q_UNUSED(chan);
 
+    if (mode != "hosted") return; // only process input if we are in hosted mode
+
     //qDebug() << "slotProcessInputToHostedMode called, cc: " << cc << " val: " << val;
     emit signalUpdateSensor(cc, val);
 }
@@ -2929,6 +2931,9 @@ void MainWindow::slotProcessInputToHostedMode(uchar chan, uchar cc, uchar val)
 void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packetArray, uchar status, uchar d1, uchar d2, uchar chan)
 {
 #ifdef MIDI_ENABLED
+
+    if (mode != "hosted") return; // only process input if we are in hosted mode
+
     bool sendArray = (packetArray == "empty") ? false : true;
 
     qDebug() << "hosted_slotSendPacket called - sendArray: " << sendArray << " portName: " << portName << " status: " << status << " d1: " << d1 << " d2: " << d2 << " chan: " << chan;
@@ -3024,6 +3029,9 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
 void MainWindow::hosted_slotSendPacketArray(QString portName, QByteArray packetArray)
 {
 #ifdef MIDI_ENABLED
+
+    if (mode != "hosted") return; // only process input if we are in hosted mode
+
     qDebug() << "hosted_slotSendPacketArray called";
     hosted_slotSendPacketOrArray(portName, packetArray, 0, 0, 0, 0);
 #endif // MIDI_ENABLED
@@ -3032,6 +3040,8 @@ void MainWindow::hosted_slotSendPacketArray(QString portName, QByteArray packetA
 void MainWindow::hosted_slotSendPacket(QString portName, uchar status, uchar d1, uchar d2, uchar chan)
 {
 #ifdef MIDI_ENABLED
+    if (mode != "hosted") return; // only process input if we are in hosted mode
+
     qDebug() << "hosted_slotSendPacket called";
     // call the method and signal to not use the array method
     QByteArray thisArray = "empty";
@@ -3043,6 +3053,8 @@ void MainWindow::hosted_slotSendPacket(QString portName, uchar status, uchar d1,
 void MainWindow::hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar chan)
 {
     Q_UNUSED(d2) // program changes don't use the second data byte
+
+    if (mode != "hosted") return; // only process input if we are in hosted mode
 
     qDebug() << "hosted_slotReceiveMIDI called - status: " << status << " d1: " << d1 << " d2: " << d2 << " chan: " << chan;
 
