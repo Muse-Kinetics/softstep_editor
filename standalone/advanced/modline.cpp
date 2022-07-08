@@ -426,6 +426,7 @@ void Modline::slotValueChanged()
                 // set jsonName based on destination/index
                 switch (modDest.index)
                 {
+                case DEST_NOTE_SET:
                 case DEST_NOTE_LIVE:
                 case DEST_CC:
                 case DEST_BANK:
@@ -677,6 +678,11 @@ void Modline::slotValueChanged()
         {
             jsonName = "displaylinked";
             value = modlineForm->modlinedisplayenable->isChecked();
+        }
+
+        if (jsonName == "" || value == "")
+        {
+            qDebug() << "******* ERROR *** jsonName: " << jsonName << " -- value: " << value;
         }
 
         emit signalStoreValue(QString("key%1_modline%2_%3").arg(keyInstance+1).arg(modlineInstance+1).arg(jsonName), value, -1);

@@ -239,6 +239,7 @@ void NavModline::slotValueChanged()
                 switch (modDest.index)
                 {
                 case DEST_NOTE_LIVE:
+                case DEST_NOTE_SET:
                     jsonName = "velocity";
                     break;
                 case DEST_CC:
@@ -259,6 +260,7 @@ void NavModline::slotValueChanged()
                 // set jsonName based on destination/index
                 switch (modDest.index)
                 {
+                case DEST_NOTE_SET:
                 case DEST_NOTE_LIVE:
                 case DEST_CC:
                 case DEST_BANK:
