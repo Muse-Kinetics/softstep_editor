@@ -3,7 +3,7 @@
 :: ##############################################################################################
 
 set app_name=SoftStep Editors
-set app_version=2.1.0F
+set app_version=2.1.0H
 
 set build_dir_1=..\standalone\build-SoftStepAdvanced-Desktop_Qt_6_2_4_MSVC2019_64bit-Release\release
 set build_dir_2=..\standalone\build-softstepezpz-Desktop_Qt_6_2_4_MSVC2019_64bit-Release\release
