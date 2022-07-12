@@ -7,7 +7,7 @@
 this_year=2022
 app_name="SoftStep"
 app_name_fp=SoftStep
-version=2.1.0G
+version=2.1.0H
 
 bundle_name=SoftStepEditors
 bundle_id="com.keithmcmillen.$bundle_name"
@@ -220,8 +220,22 @@ codesign -s "Developer ID Application: Kesumo, LLC (***REMOVED***)" --options ru
 echo ""
 echo "### - Notorizing..."
 echo
-# submit to notarize
-xcrun altool --notarize-app -f "$final_dmg_name" -t osx -u ***REMOVED*** -p ***REMOVED*** -primary-bundle-id $bundle_id
 
+# submit and notarize
+
+# note - to use the new notarytool you must install a profile/keychain using the following steps in terminal:
+# (see https://scriptingosx.com/2021/07/notarize-a-command-line-tool-with-notarytool/)
+
+# 1) Find the profile name by entering: security find-identity -p basic -v
+# 2) The profile name is the digits in parenthesis at the end of: "Developer ID Application: Kesumo, LLC (***REMOVED***)"
+# 3) Store the credentials by entering: xcrun notarytool store-credentials --apple-id "***REMOVED***" --team-id "***REMOVED***"
+# 4) Enter the profile name when prompted
+# 5) Enter the app specific password (signing / notarization) for the apple id
+# 6) Use the profile id from step #4 in the command below
+
+xcrun notarytool submit "$final_dmg_name" --keychain-profile "Andrej" --wait
+
+# deprecated command
+#xcrun altool --notarize-app -f "$final_dmg_name" -t osx -u ***REMOVED*** -p ***REMOVED*** -primary-bundle-id $bundle_id
 
 

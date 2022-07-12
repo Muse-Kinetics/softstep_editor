@@ -1,5 +1,12 @@
 #### SoftStep Editor and Firmware Changelog
 
+### Editor 2.1.0H, Firmware 1.0.4 (2022-07-08)
+- Bug Fixes:
+	- Fixed note_set bug that didn't set velocity or channel correctly
+	- Fixed combobox and UI issues
+	- Fixed missing preset file errors
+	- Fixed a bug where certain standalone presets would trigger hosted mode messaging
+
 ### Editor 2.1.0E, Firmware 1.0.3 (2022-05-16)
 - New Features/Changes:
 	- MacOS now supports Apple Silicon (M1) and legacy Intel devices, MacOS versions 10.11 to 12.3.1
