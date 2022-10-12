@@ -37,8 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // pre bootloader app version was 2.04, revving to 2.1.0 for bootloader trojan
     applicationVersion[0] = 2;
     applicationVersion[1] = 1;
-    applicationVersion[2] = 0;
-    betaVersion = "H"; // leave blank for release
+    applicationVersion[2] = 1;
+    betaVersion = ""; // leave blank for release
 
     // store the SoftStep device firmware version
     thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_softstep), sizeof(_fw_ver_softstep));

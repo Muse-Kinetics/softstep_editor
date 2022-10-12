@@ -298,7 +298,19 @@ void PresetInterface::slotRecallPreset(int i)
 
 void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum)
 {
-    qDebug() << "slotStoreValue - name" << name << "value" << value << "preset" << presetNum;
+    QString dSender;
+
+    if(QObject::sender())
+    {
+        QObject *sender = QObject::sender();
+        dSender = sender->objectName();
+    }
+    else
+    {
+        dSender = "No sender";
+    }
+
+    qDebug() << "slotStoreValue - name" << name << "value" << value << "preset" << presetNum << " SENDER: " << dSender;
 
     if(presetNum == -1)
     {
@@ -324,7 +336,7 @@ void PresetInterface::slotCheckSaveState()
         if(jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap().value(keyList.at(i)) !=
                 jsonMasterMap.value(slotGetPresetStringFromInt(currentPresetNum)).toMap().value(keyList.at(i)))
         {
-            qDebug() << "Preset dirty - param: " << keyList.at(i) << " NewVal: " << jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i)) << " OldVal: " << jsonMasterMap.value(QString("Preset_00%1").arg(currentPresetNum)).toMap().value(keyList.at(i));
+            qDebug() << "Preset dirty - param: " << keyList.at(i) << " NewVal: " << jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap().value(keyList.at(i)) << " OldVal: " << jsonMasterMap.value(slotGetPresetStringFromInt(currentPresetNum)).toMap().value(keyList.at(i));
             dirty = true;
         }
     }

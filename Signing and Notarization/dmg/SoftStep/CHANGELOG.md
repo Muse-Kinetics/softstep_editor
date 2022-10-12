@@ -1,5 +1,8 @@
 #### SoftStep Editor and Firmware Changelog
 
+### Editor 2.1.1, Firmware 1.0.4 (2022-10-12)
+- Public release
+
 ### Editor 2.1.0H, Firmware 1.0.4 (2022-07-08)
 - Bug Fixes:
 	- Fixed note_set bug that didn't set velocity or channel correctly

@@ -66,8 +66,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // pre bootloader app version was 2.04, revving to 2.1.0 for bootloader trojan
     applicationVersion[0] = 2;
     applicationVersion[1] = 1;
-    applicationVersion[2] = 0;
-    betaVersion = "H"; // leave blank for release
+    applicationVersion[2] = 1;
+    betaVersion = ""; // leave blank for release
 
     appStillLoading = true;
 
@@ -754,7 +754,7 @@ void MainWindow::slotConnectInterfaces()
     for(int k = 0; k < 10; k++)
     {
         //Midi Parsing to each Key's data cooker
-        connect(this, SIGNAL(signalUpdateSensor(uchar,uchar)), key[k]->dataCooker, SLOT(slotUpdateVals(uchar,uchar)), Qt::DirectConnection);
+        connect(this, SIGNAL(signalUpdateSensor(uchar,uchar)), key[k]->dataCooker, SLOT(slotUpdateVals(uchar,uchar)));//, Qt::DirectConnection);
 
         connect(key[k], SIGNAL(signalFixDropDownWidth(QComboBox*)), this, SLOT(slotFixDropDownWidth(QComboBox*)));
         slotFixDropDownWidth(key[k]->keyWindowForm->leddisplaymode);
@@ -802,10 +802,10 @@ void MainWindow::slotConnectInterfaces()
 #ifdef MIDI_ENABLED
         //Alphanumeric midi out
         //connect(&key[k]->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddAlphaPacket(QString,QList<MIDIPacket>)),Qt::DirectConnection);
-        connect(&key[k]->alphaNumManager, SIGNAL(signalSendPacket(uchar, uchar, uchar)), SoftStep, SLOT(slotSendMIDI(uchar, uchar, uchar)), Qt::DirectConnection);
+        connect(&key[k]->alphaNumManager, SIGNAL(signalSendPacket(uchar, uchar, uchar)), SoftStep, SLOT(slotSendMIDI(uchar, uchar, uchar))); // , Qt::DirectConnection);
 
         //Led and Display midi out
-        connect(&key[k]->ledManager, SIGNAL(signalSendLEDControl(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddLEDPacket(QString,QList<MIDIPacket>)),Qt::DirectConnection);
+        connect(&key[k]->ledManager, SIGNAL(signalSendLEDControl(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddLEDPacket(QString,QList<MIDIPacket>))); // ,Qt::DirectConnection);
 
         for(int l = 0; l < 10; l++)
         {
@@ -828,7 +828,7 @@ void MainWindow::slotConnectInterfaces()
     connect(&navKey->dataCooker, SIGNAL(signalThisKeyOff(int)), &navKey->alphaNumManager, SLOT(slotKeyOff(int)));
 
     //nav pad
-    connect(this, SIGNAL(signalUpdateSensor(uchar, uchar)), &navKey->dataCooker, SLOT(slotUpdateVals(uchar, uchar)), Qt::DirectConnection);
+    connect(this, SIGNAL(signalUpdateSensor(uchar, uchar)), &navKey->dataCooker, SLOT(slotUpdateVals(uchar, uchar))); // , Qt::DirectConnection);
     for(int n = 0; n < 6; n++)
     {
         //output signals listed in navModline.h, slots in midiformat.h
@@ -870,12 +870,12 @@ void MainWindow::slotConnectInterfaces()
 
     //Alphanumeric MIDI Out
     connect(&navKey->alphaNumManager, SIGNAL(signalSendDisplayVals(QString,QList<MIDIPacket>)), &displaySink, SLOT(slotAddAlphaPacket(QString,QList<MIDIPacket>)), Qt::DirectConnection);
-    connect(&navKey->alphaNumManager, SIGNAL(signalSendPacket(uchar, uchar, uchar)), SoftStep, SLOT(slotSendMIDI(uchar, uchar, uchar)), Qt::DirectConnection);
+    connect(&navKey->alphaNumManager, SIGNAL(signalSendPacket(uchar, uchar, uchar)), SoftStep, SLOT(slotSendMIDI(uchar, uchar, uchar))); //, Qt::DirectConnection);
 
     connect(&navKey->dataCooker, SIGNAL(signalThisKeyPressed(int)), &navKey->alphaNumManager, SLOT(slotDisplayKeyName(int)));
 
     // EB DONE - reconnected this, using direct method for now rather than midiFormatOutput
-    connect(&displaySink, SIGNAL(signalSendPacket(uchar, uchar, uchar)), SoftStep, SLOT(slotSendMIDI(uchar, uchar, uchar)), Qt::DirectConnection);
+    connect(&displaySink, SIGNAL(signalSendPacket(uchar, uchar, uchar)), SoftStep, SLOT(slotSendMIDI(uchar, uchar, uchar))); // , Qt::DirectConnection);
 
 
     //Hosted Key Pressed Source Routing, Nav Y sources
@@ -3042,7 +3042,7 @@ void MainWindow::hosted_slotSendPacket(QString portName, uchar status, uchar d1,
 #ifdef MIDI_ENABLED
     if (mode != "hosted") return; // only process input if we are in hosted mode
 
-    qDebug() << "hosted_slotSendPacket called";
+    //qDebug() << "hosted_slotSendPacket called";
     // call the method and signal to not use the array method
     QByteArray thisArray = "empty";
     hosted_slotSendPacketOrArray(portName, thisArray, status, d1, d2, chan);
@@ -3056,7 +3056,7 @@ void MainWindow::hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar 
 
     if (mode != "hosted") return; // only process input if we are in hosted mode
 
-    qDebug() << "hosted_slotReceiveMIDI called - status: " << status << " d1: " << d1 << " d2: " << d2 << " chan: " << chan;
+    //qDebug() << "hosted_slotReceiveMIDI called - status: " << status << " d1: " << d1 << " d2: " << d2 << " chan: " << chan;
 
     shareElapsedTimer->restart(); // set timer window to test for feedback loop
     long thisLongMessage = (status << 24) + (d1 << 16) + (d2 << 8) + chan; // combine for easy comparison

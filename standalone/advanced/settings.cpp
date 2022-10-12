@@ -187,6 +187,10 @@ void Settings::slotSetMode(QString m)
 
     if(mode == "hosted")
     {
+        // sensitivity
+        settingsForm->global_gain_slider_hosted->show();
+        settingsForm->global_gain_slider->hide();
+
         //Scene change button
         settingsForm->scenechange_enable->setEnabled(false);
         settingsForm->midiinputframe->setEnabled(true);
@@ -200,6 +204,10 @@ void Settings::slotSetMode(QString m)
     }
     else
     {
+        // sensitivity
+        settingsForm->global_gain_slider_hosted->hide();
+        settingsForm->global_gain_slider->show();
+
         settingsForm->scenechange_enable->setEnabled(true);
         settingsForm->midiinputframe->setEnabled(false);
         settingsForm->displaymode_checkbox->setEnabled(true);
@@ -499,6 +507,12 @@ void Settings::slotValueChanged()
                 double gain = slider->value() * 0.01;
                 value = gain;
             }
+            if(slider->objectName() == "global_gain_slider_hosted")
+            {
+                jsonName = "global_gain_hosted";
+                double gain = slider->value() * 0.01;
+                value = gain;
+            }
         }
         //checkboxes
         else if(senderClass == "QCheckBox")
@@ -592,6 +606,11 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
                 int gain = preset.value("global_gain").toDouble() * 100;
                 slider->setValue(gain);
             }
+            if(objectName == "global_gain_slider_hosted")
+            {
+                int gain = preset.value("global_gain_hosted").toDouble() * 100;
+                slider->setValue(gain);
+            }
         }
         else if(widget->metaObject()->className() == QString("QCheckBox"))
         {
@@ -668,7 +687,14 @@ void Settings::slotViewSelector()
 
 void Settings::slotResetGlobalGain()
 {
-    settingsForm->global_gain_slider->setValue(100);
+    if (mode == "standalone")
+    {
+        settingsForm->global_gain_slider->setValue(100);
+    }
+    else
+    {
+        settingsForm->global_gain_slider_hosted->setValue(100);
+    }
 }
 
 void Settings::slotPopulateInputMenus(QMap<QString, int> midiSources)
@@ -839,6 +865,7 @@ void Settings::slotConstructSettingsDefaultMap()
     defaultGlobalMap["displaymode_checkbox"] = 0;
 
     defaultGlobalMap["global_gain"] = 1.00;
+    defaultGlobalMap["global_gain_hosted"] = 1.00;
     defaultGlobalMap["backlighting_enable"] = 1;
 
     //-------------------- Key Page --------------------//
@@ -1096,7 +1123,14 @@ void Settings::slotEmitAllSettings()
 
     //----------------------------------------------------------------------- Globals
 
-    emit signalSetGlobalGain((double)(settingsForm->global_gain_slider->value()) * 0.01);
+    if (mode == "standalone")
+    {
+        emit signalSetGlobalGain((double)(settingsForm->global_gain_slider->value()) * 0.01);
+    }
+    else
+    {
+        emit signalSetGlobalGain((double)(settingsForm->global_gain_slider_hosted->value()) * 0.01);
+    }
 
     //---------------- Key Safety
     int lockoutMode = 0;

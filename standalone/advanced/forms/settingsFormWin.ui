@@ -255,7 +255,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -470,7 +469,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
@@ -692,7 +691,6 @@ QRadioButton::indicator:checked:pressed
       </property>
       <property name="font">
        <font>
-        <family>Corbel</family>
         <pointsize>10</pointsize>
         <italic>false</italic>
         <bold>true</bold>
@@ -720,7 +718,6 @@ Safety</string>
       </property>
       <property name="font">
        <font>
-        <family>Corbel</family>
         <pointsize>8</pointsize>
         <italic>false</italic>
         <bold>false</bold>
@@ -792,7 +789,6 @@ QFrame
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
        <pointsize>10</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -819,7 +815,6 @@ QFrame
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -846,7 +841,6 @@ QFrame
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1254,6 +1248,43 @@ QCheckBox::indicator:checked:disabled
      </property>
      <property name="checked">
       <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QSlider" name="global_gain_slider_hosted">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>267</y>
+       <width>240</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::DefaultContextMenu</enum>
+     </property>
+     <property name="toolTip">
+      <string>Adjusts the sensitivity of the SoftStep. &lt;br&gt;Moving the slider to the right (toward the “+” symbol) increases sensitivity — moving the slider to the left (toward the “-” symbol) decreases sensitvity.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="minimum">
+      <number>0</number>
+     </property>
+     <property name="maximum">
+      <number>500</number>
+     </property>
+     <property name="value">
+      <number>250</number>
+     </property>
+     <property name="tracking">
+      <bool>false</bool>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="tickPosition">
+      <enum>QSlider::TicksAbove</enum>
      </property>
     </widget>
    </widget>
@@ -6374,7 +6405,6 @@ QFrame
        </property>
        <property name="font">
         <font>
-         <family>Corbel</family>
          <pointsize>-1</pointsize>
          <italic>false</italic>
          <bold>true</bold>

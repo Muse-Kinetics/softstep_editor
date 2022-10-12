@@ -71,7 +71,7 @@ void AlphaNumManager::slotDisplayParam(int modlineNum, int val)
 void AlphaNumManager::slotFormatAndOutputString(QString displayString)
 {
 
-    qDebug() << "displayString" << displayString;// << "sender name" << QObject::sender()->objectName();
+    //qDebug() << "displayString" << displayString;// << "sender name" << QObject::sender()->objectName();
 
     //Make all messages of length 4
     if(displayString.size() < 4)
@@ -102,7 +102,7 @@ void AlphaNumManager::slotFormatAndOutputString(QString displayString)
 
 //        packetList.append(packet);
 
-        qDebug() << "display send packet: " << displayString.at(i).unicode();
+        //qDebug() << "display send packet: " << displayString.at(i).unicode();
         emit signalSendPacket(176, 50 + i, displayString.at(i).unicode());
     }
 
@@ -119,7 +119,7 @@ void AlphaNumManager::slotDisplayKeyName(int keyNum)
     {
         keyOnOff = true;
 
-        qDebug() << "display key name" << keyName << keyNum << instanceNum << " displayMode: " << displayMode;
+        //qDebug() << "display key name" << keyName << keyNum << instanceNum << " displayMode: " << displayMode;
 
         //None
         if(displayMode.contains("None"))

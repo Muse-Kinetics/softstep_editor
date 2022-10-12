@@ -19,8 +19,8 @@ Softstep_Firmware_v0.9.8.syx
 Firmware verion 0.9.8 uses the old "SSCOM" port names, and is compatible with older editors. This is useful if you're using an older version of MacOS and cannot run the 2.1.0 editor, which requires the new port names.
 
 ##########################################
-Softstep_Firmware_v1.0.3.syx
+Softstep_Firmware_v1.0.x.syx
 ##########################################
-Firmware version 1.0.3 uses the new "SoftStep Control Surface" and "SoftStep Expander" port names, and is required in order to use editor version 2.1.0 or later. 
+Firmware version 1.0.x uses the new "SoftStep Control Surface" and "SoftStep Expander" port names, and is required in order to use editor version 2.1.0 or later. 
 
 Note: Windows does not properly display USB MIDI portname descriptors, and some applications will report "SoftStep" for the control surface, and "MIDIIN2 (SoftStep)" for the expander.

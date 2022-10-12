@@ -33,10 +33,10 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
   //hosted_modlineForm(new Ui::modlineForm_hosted)
 
 {
-    qDebug() << "init modline - key: " << keyInstanceNum << " modline: " << modlineInstanceNum;
+    //qDebug() << "init modline - key: " << keyInstanceNum << " modline: " << modlineInstanceNum;
 
-    QElapsedTimer eTimer;
-    eTimer.start();
+    //QElapsedTimer eTimer;
+    //eTimer.start();
 
     keyInstance = keyInstanceNum;
     modlineInstance = modlineInstanceNum;
@@ -50,48 +50,48 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     lastNote = -1;
     toggleOnMMC = false;
 
-    eTimer.restart();
+    //eTimer.restart();
 
     this->setObjectName(QString("%1_Key_%2_Modline").arg(keyInstance+1).arg(modlineInstance+1));
 
     //---------------------------------------- Set Up Ui
-    eTimer.restart();
+    //eTimer.restart();
 
     formWidget = new QWidget(this);
 
-    eTimer.restart();
+    //eTimer.restart();
 
     modlineForm = new Ui::modlineForm;
 
-    eTimer.restart();
+    //eTimer.restart();
 
     modlineForm->setupUi(formWidget);
 
-    qDebug() << "geometry - elapsed: " << eTimer.elapsed();
-    eTimer.restart();
+    //qDebug() << "geometry - elapsed: " << eTimer.elapsed();
+    //eTimer.restart();
 
     this->setFixedSize(MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
     this->setGeometry(MODLINE_STARTING_X_POS, MODLINE_STARTING_Y_POS + ((modlineInstance)*(MODLINE_WINDOW_HEIGHT + MODLINE_SPACING)), MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
 
-    eTimer.restart();
+    //eTimer.restart();
 
     modlineForm->instanceLabel->setText(QString("%1").arg((modlineInstance + 1)%10));
-    eTimer.restart();
+    //eTimer.restart();
 
     //modlineForm->deviceViews->setCurrentIndex(0);
 
-    eTimer.restart();
+    //eTimer.restart();
 
     //modlineForm->deviceViewLabels->setCurrentIndex(0);
 
-    eTimer.restart();
+    //eTimer.restart();
 
     modlineForm->raw->setValue(0);
     modlineForm->enable->setStyleSheet(stylesheets.modlineEnableStyleSheet.at(modlineInstanceNum));
 
     displayLinkButton = modlineForm->modlinedisplayenable;
 
-    eTimer.restart();
+    //eTimer.restart();
 
     raw = 0;
     result = 0;
@@ -234,7 +234,7 @@ void Modline::slotConnectElements()
     connect(modlineForm->dest_b1, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(modlineForm->dest_b2, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(modlineForm->dest_b3, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-    connect(modlineForm->dest_device, SIGNAL(textActivated(QString)), this, SLOT(slotValueChanged()));
+    connect(modlineForm->dest_device, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
     connect(modlineForm->dest_mmcfunction, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
     connect(modlineForm->dest_oscroute, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
 
@@ -339,7 +339,7 @@ void Modline::slotDisconnectElements()
     disconnect(modlineForm->dest_b1, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(modlineForm->dest_b2, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(modlineForm->dest_b3, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-    disconnect(modlineForm->dest_device, SIGNAL(textActivated(QString)), this, SLOT(slotValueChanged()));
+    disconnect(modlineForm->dest_device, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(modlineForm->dest_mmcfunction, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(modlineForm->dest_oscroute, SIGNAL(textEdited(QString)), this, SLOT(slotValueChanged()));
 
@@ -461,8 +461,12 @@ void Modline::slotValueChanged()
         //enable checkbox
         else if(sender == modlineForm->enable)
         {
+            bool enableStatus = modlineForm->enable->isChecked();
+
+            qDebug() << "slotValueChanged enable - key: " << keyInstance << " modlineInstance: " << modlineInstance << " checked:" << modlineForm->enable->isChecked();
             jsonName = "enable";
-            value = modlineForm->enable->isChecked();
+            value = (enableStatus) ? 1 : 0; // fixes error message
+            enabled = enableStatus;
         }
         //initMode
         else if(sender == modlineForm->initmode)
@@ -704,7 +708,7 @@ void Modline::slotValueChanged()
 
 void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
-
+    //qDebug() << "slotRecallPreset - key: " << keyInstance << " modline: " << modlineInstance;
     slotDisconnectElements();
 
     //basic modline parameters
@@ -831,6 +835,7 @@ void Modline::slotDisableModline(QString parameterName)
 {
     if(parameterName == QString("key%1_modline%2_enable").arg(keyInstance+1).arg(modlineInstance+1))
     {
+        enabled = false;
         modlineForm->enable->setChecked(false);
         emit signalStoreValue(QString("key%1_modline%2_").arg(keyInstance+1).arg(modlineInstance+1) + "enable", false, -1);
         emit signalCheckSavedState();
@@ -1128,7 +1133,7 @@ void Modline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevices)
 void Modline::slotStreamSourceData()
 {
 
-    //qDebug() << modlineForm->source->currentText() << mode;
+    //qDebug() << "slotStreamSourceData called - source: " << modlineForm->source->currentText() << " mode: " << mode;
     //--------------------------- Hosted
     if(mode == "hosted")
     {
@@ -1161,11 +1166,21 @@ void Modline::slotSetTransformValues()
     //qDebug() << "modline: " << modlineInstance << gain << offset << table << min << max << smooth << delay;
 }
 
+
+// slotTransformSource is called by key->datacooker, which means any incoming data from any modline is sent to all modlines to be transformed.
 //------------------------------------------------------------------------------------------- Gain / Offset
 void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
-    //qDebug() << "Modline::slotTransformSource called - key: " << keyInstance << " modLineNum: " << modlineNum << " source: " << source;
+    // filter out chatter
+    if (modlineForm->enable->isChecked() == false || enabled == false || lastVal == val
+            || modlineNum != modlineInstance) // this is important
+    {
+        return;
+    }
 
+    qDebug() << "Modline::slotTransformSource called - key: " << keyInstance << " val: " << val << " modLineNum: " << modlineNum << " source: " << source << " enabled: " << enabled << " checked:" << modlineForm->enable->isChecked();
+
+    // this doesn't really work
 //    if(QObject::sender())
 //    {
 //        qDebug() << "slotTransformSource - sender: " << QObject::sender()->objectName();
@@ -1239,7 +1254,7 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
 //------------------------------------------------------------------------------------------- Table / Counter
 void Modline::slotTable(int input)
 {
-    //qDebug() << "Modline::slotTable called";
+    qDebug() << "Modline::slotTable called";
     //Clip table input
     if(input > 127)
     {
@@ -1343,7 +1358,7 @@ void Modline::slotTable(int input)
 
 void Modline::slotCounterReturn(int val)
 {
-    //qDebug() << "Modline::slotCounterReturn called";
+    qDebug() << "Modline::slotCounterReturn called";
     if(modlineForm->table->currentText().contains("Counter"))
     {
         if(modlineForm->table->currentText().contains("Set"))
@@ -1367,7 +1382,7 @@ void Modline::slotCounterReturn(int val)
 //------------------------------------------------------------------------------------------- Min / Max
 void Modline::slotMinMax(int input)
 {
-    //qDebug() << "Modline::slotMinMax called";
+    qDebug() << "Modline::slotMinMax called";
     //If min max are flipped... Don't know... return input for now
     if(min > max)
     {
@@ -1393,7 +1408,7 @@ void Modline::slotMinMax(int input)
 //------------------------------------------------------------------------------------------- Smooth
 void Modline::slotSmooth(int input)
 {
-    //qDebug() << "Modline::slotSmooth called";
+    qDebug() << "Modline::slotSmooth called";
     if(smooth)
     {
         //do something with slewer here and retun in slotSmoothReturn
@@ -1409,7 +1424,7 @@ void Modline::slotSmooth(int input)
 
 void Modline::slotSmoothReturn(int input)
 {
-    //qDebug() << "slew return" << input;
+    qDebug() << "slew return" << input;
 
     slotDelay(input);
 }
@@ -1417,7 +1432,7 @@ void Modline::slotSmoothReturn(int input)
 //------------------------------------------------------------------------------------------- Delay
 void Modline::slotDelay(int input)
 {
-    //qDebug() << "Modline::slotDelay called";
+    qDebug() << "Modline::slotDelay called";
 
     if(delay)
     {
@@ -1433,14 +1448,14 @@ void Modline::slotDelay(int input)
 
 void Modline::slotDelayReturn(int input)
 {
-    //qDebug() << "delayed signal" << input;
+    qDebug() << "delayed signal" << input;
     slotOutputRoutine(input);
 }
 
 //------------------------------------------------------------------------------------------- Output
 void Modline::slotOutputRoutine(int input)
 {
-    //qDebug() << "Modline::slotOutputRoutine called";
+    qDebug() << "Modline::slotOutputRoutine called";
 
     //Prepares message type to be formatted by midiformat, and then output via mididevicemanager
     hosted_slotOutputMidi(input);
@@ -1458,7 +1473,7 @@ void Modline::slotOutputRoutine(int input)
         emit hosted_signalSendParamDisplayOutput(modlineInstance, input);
     }
 
-    //Update graphics onl3y after outupt
+    //Update graphics only after outupt
     slotDisplayVars();
 }
 
@@ -1545,6 +1560,12 @@ void Modline::hosted_slotOutputMidi(int outputVal)
 
 void Modline::slotDisplayVars()
 {
+    if(QObject::sender())
+    {
+        QObject *sender = QObject::sender();
+        QString senderName = sender->objectName();
+        qDebug() << "slotDisplayVars called - sender: " << senderName;
+    }
     modlineForm->outputvalue->setValue(value);
 }
 

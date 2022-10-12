@@ -184,9 +184,14 @@ void DataCooker::slotSetSource(QString source, int modlineInstance)
 
 void DataCooker::slotUpdateVals(uchar cc, uchar val)
 {
-    //qDebug() << "slotUpdateVals called - cc:" << cc << " val:" << val;
+    //qDebug() << "slotUpdateVals called - cc:" << cc << " val:" << val << " globalGain: " << globalGain;
 
-    val *= globalGain;
+    // EB - need to fix bad values here
+    int limitedVal = val;
+    limitedVal *= globalGain;
+    if (limitedVal > 127) limitedVal = 127;
+
+    val = limitedVal;
 
     if(cc >= keySensorBaseCcMap[keyNum] && cc <= keySensorBaseCcMap[keyNum] + 3)
     {
