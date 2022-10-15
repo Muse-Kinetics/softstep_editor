@@ -68,6 +68,8 @@ Settings::Settings(QWidget *parent) :
         }
     }
 
+    qDebug() << "settingsFileDestPath: " << settingsFileDestPath;
+
     // Save location of settings file
     jsonPath = settingsFileDestPath;
 
@@ -233,6 +235,11 @@ void Settings::slotOpenSettings()
 
 void Settings::slotConnectElements()
 {
+
+    if (settingsForm->global_gain_slider_hosted->value() < 20)
+    {
+        slotResetGlobalGain(); // safety for first time running hosted mode (default was 0 which would disable the softstep)
+    }
 
     connect(settingsForm->global_gain_resetbutton, SIGNAL(clicked()), this, SLOT(slotResetGlobalGain()));
 
@@ -501,6 +508,7 @@ void Settings::slotValueChanged()
         else if(senderClass == "QSlider")
         {
             QSlider *slider = reinterpret_cast<QSlider*>(QObject::sender());
+            qDebug() << "slider " << slider->objectName() << " value: " << slider->value();
             if(slider->objectName() == "global_gain_slider")
             {
                 jsonName = "global_gain";
