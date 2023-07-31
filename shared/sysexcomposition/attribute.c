@@ -591,7 +591,9 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     {
         float fval = 0;
 
-        //float oval = fval = argv[2].a_w.w_float;
+        //float oval =
+
+        fval = argv[2].a_w.w_float;
 
         float_fix(&x->current_modline->offset,fval);
 

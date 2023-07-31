@@ -10,15 +10,15 @@ Copyright 2014 Evan Bogunia_____evanbeta@keithmcmillen.com
 loadAPI(1);
 
 //Define/set our controller properties [ company, device, version, uuid ]
-host.defineController("Keith McMillen Instruments", "SoftStep", "1.0", "FC5AB010-4FEE-11E4-916C-0800200C9A66");
+host.defineController("Keith McMillen Instruments", "SoftStep", "1.1", "FC5AB010-4FEE-11E4-916C-0800200C9A66");
 host.defineMidiPorts(1, 1);
 
 //Define/set input/output port names (both i/o are the same)
-var portNames 	= 	["SSCOM Port 1"];
+var portNames 	= 	["SoftStep Control Surface"];
 host.addDeviceNameBasedDiscoveryPair(portNames, portNames);
 if(host.platformIsLinux())
 {
-host.addDeviceNameBasedDiscoveryPair(["SSCOM MIDI 1"],["SSCOM MIDI 1"])
+host.addDeviceNameBasedDiscoveryPair(["SoftStep Control Surface"],["SoftStep Control Surface"])
 
 }
 
@@ -53,7 +53,7 @@ function init()
 	host.getMidiInPort(0).setMidiCallback(onMidi)
 	
 	//-------- Note Inputs (see REF below for argument details
-	noteIn = host.getMidiInPort(0).createNoteInput("SSCOM Port 1", "80????", "90????");
+	noteIn = host.getMidiInPort(0).createNoteInput("SoftStep Control Surface", "80????", "90????");
 	
 	noteIn.setShouldConsumeEvents(true);
 
