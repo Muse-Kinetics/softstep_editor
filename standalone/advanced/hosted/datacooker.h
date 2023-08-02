@@ -25,7 +25,9 @@ class DataCooker : public QWidget
 public:
     explicit DataCooker(int instanceNum, QWidget *parent = 0);
 
-    bool isSS2;
+    enum {SS_UNDEFINED, SS_1, SS_2, SS_3};
+
+    int SS_HW_VER;
 
     enum {SINGLE_KEY, ADJACENT_KEYS, ALL_KEYS};
 

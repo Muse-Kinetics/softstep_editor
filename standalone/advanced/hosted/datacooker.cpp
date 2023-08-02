@@ -168,7 +168,7 @@ DataCooker::DataCooker(int instanceNum, QWidget *parent) :
 
     globalGain = 1.0;
 
-    isSS2 = false;
+    SS_HW_VER = SS_UNDEFINED;
 
 }
 
@@ -199,7 +199,7 @@ void DataCooker::slotUpdateVals(uchar cc, uchar val)
         //Always keep values updated, even if key action is now allowed
         if(cc == keySensorBaseCcMap[keyNum])
         {
-            if(isSS2)
+            if(SS_HW_VER > SS_1)
             {
                 sensorVals[N] = val;
             }
@@ -211,7 +211,7 @@ void DataCooker::slotUpdateVals(uchar cc, uchar val)
         }
         else if(cc == keySensorBaseCcMap[keyNum] + 1)
         {
-            if(isSS2)
+            if(SS_HW_VER > SS_1)
             {
                 sensorVals[E] = val;
             }
@@ -223,7 +223,7 @@ void DataCooker::slotUpdateVals(uchar cc, uchar val)
         }
         else if(cc == keySensorBaseCcMap[keyNum] + 2)
         {
-            if(isSS2)
+            if(SS_HW_VER > SS_1)
             {
                 sensorVals[W] = val;
             }
@@ -235,7 +235,7 @@ void DataCooker::slotUpdateVals(uchar cc, uchar val)
         }
         else if(cc == keySensorBaseCcMap[keyNum] + 3)
         {
-            if(isSS2)
+            if(SS_HW_VER > SS_1)
             {
                 sensorVals[S] = val;
             }
@@ -691,7 +691,7 @@ int DataCooker::xLive()
     int eastMass;
     int westMass;
 
-    if(isSS2)
+    if(SS_HW_VER > SS_1)
     {
         eastMass = sensorVals[E];
         westMass = sensorVals[W];
@@ -729,7 +729,7 @@ int DataCooker::yLive()
     int northMass;
     int southMass;
 
-    if(isSS2)
+    if(SS_HW_VER > SS_1)
     {
         northMass = sensorVals[N];
         southMass = sensorVals[S];

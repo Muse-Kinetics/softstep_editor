@@ -148,7 +148,52 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
 
 void Key::slotOpenWindow()
 {
-    //qDebug() << QString("Open Key %1 Button clicked! Open the window!").arg(keyInstance+1);
+    // Get the primary screen (active screen) and its size
+    const QPoint& newPos = keyWindowWidget->pos();
+
+    QScreen* primaryScreen = QGuiApplication::screenAt(newPos);
+    QSize screenSize = primaryScreen->size();
+
+    // Get the position and dimensions of the window
+    int windowX = newPos.x();
+    int windowY = newPos.y();
+    int windowWidth = width();
+    int windowHeight = height();
+    bool offWindow = false;
+
+    // Check if the window is outside the active monitor's width
+    if (windowX + windowWidth > screenSize.width() || windowX < 0)
+    {
+        // Calculate the new X position to center the window horizontally
+        windowX = (screenSize.width() - windowWidth) / 2;
+        offWindow = true;
+    }
+
+    // Check if the window is outside the active monitor's height
+    if (windowY + windowHeight > screenSize.height() || windowY < 0)
+    {
+        // Calculate the new Y position to center the window vertically
+        windowY = (screenSize.height() - windowHeight) / 2;
+        offWindow = true;
+    }
+
+    // Move the window to the new position if it's outside the monitor's boundaries
+    if (offWindow)
+    {
+        move(windowX, windowY);
+
+        qDebug() << "Window moved to Monitor:" << primaryScreen->name();
+    }
+    else
+    {
+        qDebug() << "Window located on Monitor:" << primaryScreen->name();
+    }
+     qDebug() << "Active Monitor Width:" << screenSize.width()
+     << "Active Monitor Height:" << screenSize.height()
+     << "Window Position:" << windowX << "," << windowY
+     << "Window Dimensions:" << windowWidth << "x" << windowHeight;
+
+
     keyWindowWidget->show();
     keyWindowWidget->raise();
     emit signalKeySelected(-1); // clear

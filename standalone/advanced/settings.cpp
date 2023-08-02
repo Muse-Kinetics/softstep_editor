@@ -174,12 +174,6 @@ Settings::Settings(QWidget *parent) :
     int posX = settingsWidget->pos().x();
     int posY = settingsWidget->pos().y();
 
-    //qDebug() << "thisPosition - x: " << posX << " y: " << posY;
-    if (posY < 0)
-    {
-        posY = 0;
-    }
-
     settingsWidget->move(posX, posY);
 }
 
@@ -229,6 +223,51 @@ void Settings::slotSetMode(QString m)
 
 void Settings::slotOpenSettings()
 {
+    // Get the primary screen (active screen) and its size
+    const QPoint& newPos = settingsWidget->pos();
+
+    QScreen* primaryScreen = QGuiApplication::screenAt(newPos);
+    QSize screenSize = primaryScreen->size();
+
+    // Get the position and dimensions of the window
+    int windowX = newPos.x();
+    int windowY = newPos.y();
+    int windowWidth = width();
+    int windowHeight = height();
+    bool offWindow = false;
+
+    // Check if the window is outside the active monitor's width
+    if (windowX + windowWidth > screenSize.width() || windowX < 0)
+    {
+        // Calculate the new X position to center the window horizontally
+        windowX = (screenSize.width() - windowWidth) / 2;
+        offWindow = true;
+    }
+
+    // Check if the window is outside the active monitor's height
+    if (windowY + windowHeight > screenSize.height() || windowY < 0)
+    {
+        // Calculate the new Y position to center the window vertically
+        windowY = (screenSize.height() - windowHeight) / 2;
+        offWindow = true;
+    }
+
+    // Move the window to the new position if it's outside the monitor's boundaries
+    if (offWindow)
+    {
+        move(windowX, windowY);
+
+        qDebug() << "Window moved to Monitor:" << primaryScreen->name();
+    }
+    else
+    {
+        qDebug() << "Window located on Monitor:" << primaryScreen->name();
+    }
+     qDebug() << "Active Monitor Width:" << screenSize.width()
+     << "Active Monitor Height:" << screenSize.height()
+     << "Window Position:" << windowX << "," << windowY
+     << "Window Dimensions:" << windowWidth << "x" << windowHeight;
+
     settingsWidget->show();
     settingsWidget->raise();
 }
@@ -1263,10 +1302,12 @@ void Settings::slotSaveSettingsTimeout()
 
 
 //----------------------------------------------- Calibration -----------------------------------------------//
-void Settings::slotStartCalibration()
+void Settings::slotStartCalibration() // 1st, called when startcalibration buton is pressed
 {
     if(mode == "standalone")
     {
+        // if calibrating in standalone then set up the hardware first, skip the eles code below which will be run
+        // when sysexcomposer calls slotStartCalibrationStandAlone()
         emit signalTetherOnOffInStandalone(true);
     }
     else
@@ -1282,9 +1323,10 @@ void Settings::slotStartCalibration()
         settingsForm->calibrationcomplete->hide();
         emit signalStartCalibration();
     }
+
 }
 
-void Settings::slotStartCalibrationStandAlone()
+void Settings::slotStartCalibrationStandAlone() // called from SysExComposer
 {
     calibrating = true;
     pedalValueListGraph.clear();
@@ -1368,38 +1410,13 @@ void Settings::slotSetLiveValue(int val)
     }
 }
 
-void Settings::slotStopCalibration()
+void Settings::slotStopCalibration() // 1st
 {
     if(mode == "standalone")
     {
         //Turn tether off
         emit signalTetherOnOffInStandalone(false);
     }
-    else
-    {
-        //qDebug() << calibrationTime;
-        calibrationTime++;
-        calibrationBlinkTime++;
-
-        //------------------- Here's where calibration is stopped
-        //qDebug() << "stop calibration";
-        //calibrationTicker->stop();
-        settingsForm->rockyourpedal->hide();
-        settingsForm->pedal_arrow->hide();
-        settingsForm->calibrationcomplete->show();
-
-        emit signalStopCalibration();
-
-        calibrating = false;
-
-        QTimer::singleShot(5000, this, SLOT(slotHideComplete()));
-    }
-}
-
-void Settings::slotStopCalibrationStandAlone()
-{
-    //Basically a duplicate function, but trigered by external signal
-
     //qDebug() << calibrationTime;
     calibrationTime++;
     calibrationBlinkTime++;
@@ -1416,7 +1433,10 @@ void Settings::slotStopCalibrationStandAlone()
     calibrating = false;
 
     QTimer::singleShot(5000, this, SLOT(slotHideComplete()));
+    slotSendSettingsMIDI();
+
 }
+
 
 void Settings::slotLoadTableOnStartup()
 {

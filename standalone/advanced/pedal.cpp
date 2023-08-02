@@ -3,6 +3,8 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "pedal.h"
 
+// pedal.cpp - instantiated in every key[x] object, but only key[0].datacooker.pedal is ever used. Mostly for calibration.
+
 Pedal::Pedal(QWidget *parent, int keyInstance) :
     QWidget(parent),
     parentKeyInstance(keyInstance)
@@ -122,7 +124,7 @@ void Pedal::slotSetLeverPointer(QLabel *lever)
 
 void Pedal::slotSetLivePedalValue(int val)
 {
-    //qDebug() << "live value" << val;
+    qDebug() << "live value" << val;
     //testValueSlider->setValue(val);
     emit signalLivePedalVal(val);
 }
@@ -159,7 +161,7 @@ void Pedal::slotCalibrate(int pedalInput)
 }
 
 //Stop
-void Pedal::slotStopCalibrate()
+void Pedal::slotStopCalibrate() // 2nd
 {
     int count = pedalValueList.count();
 

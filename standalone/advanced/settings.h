@@ -35,7 +35,7 @@ class Settings : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Settings(QWidget *parent = 0);
+    explicit Settings(QWidget *parent = nullptr);
 
     QTimer *saveSettingsTimeout;
     int     saveSettiingsTimeoutTime;
@@ -166,7 +166,7 @@ public slots:
     void slotSetLiveValue(int val);
     void slotHideComplete();
     void slotStartCalibrationStandAlone();
-    void slotStopCalibrationStandAlone();
+    //void slotStopCalibrationStandAlone();
 
     //----- MIDI Aux Inputs
     void slotUserChangedMIDIaux();

@@ -740,7 +740,7 @@ void SysExComposer::slotBackLightOnOff(bool onOff)
 
 }
 
-void SysExComposer::slotTetherOnOffInStandalone(bool onOff)
+void SysExComposer::slotTetherOnOffInStandalone(bool onOff) // 2nd
 {
     qDebug() << "slotTetherOnOffInStandalone called";
     //---- !!!! This function only used for pedal calibration !!! ----//

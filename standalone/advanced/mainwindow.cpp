@@ -440,6 +440,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(key[0]->dataCooker->pedal, SIGNAL(signalDrawTable(UCharList)), settingsWindow->pedalLiveTableInterface, SLOT(slotDrawTable(UCharList)), Qt::QueuedConnection);
 
     qDebug() << "------------ [LOAD TABLE] ---------------------------------------------------";
+    key[0]->dataCooker->pedal->slotResetCalibrate();
     settingsWindow->slotLoadTableOnStartup();
     apploadForm.progressBar->setValue(90);
 
@@ -477,6 +478,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connected = false;
     appStillLoading = false;
     forceFirmwareUpdate = false;
+
+
 }
 
 MainWindow::~MainWindow()
@@ -1085,12 +1088,15 @@ void MainWindow::slotConnectInterfaces()
         connect(settingsWindow, SIGNAL(signalSetKeyYAccel(int,int)), key[i]->dataCooker, SLOT(slotSetYAccel(int,int)));
         connect(settingsWindow, SIGNAL(signalSetKeyYDeadZone(int,int)), key[i]->dataCooker, SLOT(slotSetYDeadZone(int,int)));
 
-        connect(settingsWindow, SIGNAL(signalStartCalibration()), key[i]->dataCooker->pedal, SLOT(slotStartCalibrate()));
-        connect(settingsWindow, SIGNAL(signalResetCalibration()), key[i]->dataCooker->pedal, SLOT(slotResetCalibrate()));
 
-        //Pedal Calibration file read/write
-        connect(settingsWindow, SIGNAL(signalInitPedalTable(QByteArray)), key[i]->dataCooker->pedal, SLOT(slotInitPedalTable(QByteArray)));
     }
+
+    // this was inside of the Keys for loop, but only key[0] deals with an expression pedal object
+    connect(settingsWindow, SIGNAL(signalStartCalibration()), key[0]->dataCooker->pedal, SLOT(slotStartCalibrate()));
+    connect(settingsWindow, SIGNAL(signalResetCalibration()), key[0]->dataCooker->pedal, SLOT(slotResetCalibrate()));
+
+    //Pedal Calibration file read/write
+    connect(settingsWindow, SIGNAL(signalInitPedalTable(QByteArray)), key[0]->dataCooker->pedal, SLOT(slotInitPedalTable(QByteArray)));
 
     //----- Pedal Nav Pad
     //connect(settingsWindow, SIGNAL(signalStartCalibration()), &navKey->dataCooker->pedal, SLOT(slotStartCalibrate()));
@@ -1515,14 +1521,25 @@ void MainWindow::slotConnected(bool connection)
 
 #ifdef MIDI_ENABLED
         // here we detect which version of SoftStep we are connected to
-        bool isSS2 = (SoftStep->PID_MIDI == PID_SOFTSTEP1) ? false : true;
-        int ssHardware = SoftStep->PID_MIDI == PID_SOFTSTEP1 ? 1 : 2;
-        qDebug() << "SoftStep Hardware Revision: " << ssHardware << " PID: " << SoftStep->PID_MIDI << " isSS2: " << isSS2;
+        int ssHardware;
+        switch (SoftStep->PID_MIDI)
+        {
+            case PID_SOFTSTEP1:
+                ssHardware = 1;
+            break;
+            case PID_SOFTSTEP2:
+                ssHardware = 2;
+            break;
+            case PID_SOFTSTEP3:
+                ssHardware = 3;
+            break;
+        }
+        qDebug() << "SoftStep Hardware Revision: " << ssHardware << " PID: " << SoftStep->PID_MIDI;
 
 #ifdef KEYS_ENABLED
         for(int i = 0; i < 10; i++)
         {
-            key[i]->dataCooker->isSS2 = isSS2;
+            key[i]->dataCooker->SS_HW_VER = ssHardware;
         }
 #endif // KEYS_ENABLED
 #endif // MIDI_ENABLED
@@ -2913,9 +2930,9 @@ void MainWindow::slotProcessInputToHostedMode(uchar chan, uchar cc, uchar val)
 {
     Q_UNUSED(chan);
 
-    if (mode != "hosted") return; // only process input if we are in hosted mode
+    if (mode != "hosted" && key[0]->dataCooker->pedal->calibrating == false) return; // only process input if we are in hosted mode, or calibrating a pedal
 
-    //qDebug() << "slotProcessInputToHostedMode called, cc: " << cc << " val: " << val;
+    qDebug() << "slotProcessInputToHostedMode called, cc: " << cc << " val: " << val;
     emit signalUpdateSensor(cc, val);
 }
 
