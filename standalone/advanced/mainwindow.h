@@ -17,6 +17,7 @@
 #include "presetinterface.h"
 //#include "mididevicemanager.h"
 #include "sysexcomposer.h"
+#include "sysExDecomposer.h"
 #include "copypastehandler.h"
 #include "scrolleventfilter.h"
 #include "importoldpresethandler.h"
@@ -143,6 +144,7 @@ public:
     QSettings *sessionSettings;
 
     SysExComposer* sysExComposer;
+    SysExDeComposer* sysExDeComposer;
     PresetInterface* presetInterface;
     MidiDeviceManager* midiDeviceManager;
     CopyPasteHandler* copyPasteHandler;

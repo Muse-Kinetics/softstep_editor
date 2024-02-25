@@ -1171,7 +1171,7 @@ void Modline::slotSetTransformValues()
 //------------------------------------------------------------------------------------------- Gain / Offset
 void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
-    // filter out chatter
+    // filter out chatter - this is preventing duplicate program change messages
     if (modlineForm->enable->isChecked() == false || enabled == false || lastVal == val
             || modlineNum != modlineInstance) // this is important
     {
@@ -1221,7 +1221,7 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
             //If source value is different from last or there is a change in value...
             if(lastVal != val || lastSource != source || source.contains("Trig") || source.contains("Key"))
             {
-                //Filter out repititions
+                //Filter out repetitions
                 lastVal = val;
                 lastSource = source;
 

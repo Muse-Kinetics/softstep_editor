@@ -22,19 +22,7 @@ Setlist::Setlist(QWidget *parent) :
 
     // If setlist JSON files do not exist in AppDataLocation, copy the defaults from the application bundle dir.
 
-    // Get platform dependant path to read only setlists directory inside the app bundle/package
-    QString appPackageDirPath = QCoreApplication::applicationDirPath();
-
-#if defined(Q_OS_MAC)
-    //Remove "MacOS" from path string
-    appPackageDirPath.remove(appPackageDirPath.length() - 5, appPackageDirPath.length());
-
-    QString setlistsDirSrcPath = appPackageDirPath + "Resources/presets";
-#else
-    QString setlistsDirSrcPath = QString("./presets");
-#endif
-
-    // Get path to writeable app data directory
+    // Get platform dependant path to writeable app data directory
     QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 
     if (appDataDirPath.isEmpty()) {
@@ -50,25 +38,41 @@ Setlist::Setlist(QWidget *parent) :
 
     // If either setlist file doesn't exist at the destination, copy it there
     QString setlistFileDestPath = setlistsDirDestPath + "/hosted_setlist.json";
-    QString setlistFileSrcPath = setlistsDirSrcPath + "/hosted_setlist.json";
+    QString setlistFileSrcPath = ":/presets/hosted_setlist.json";
 
     if (!QFile::exists(setlistFileDestPath))
     {
-        if (QFile::copy(setlistFileSrcPath, setlistFileDestPath) == false) {
+        if (QFile::copy(setlistFileSrcPath, setlistFileDestPath) == false)
+        {
             qFatal("Cannot copy default setlist file to application data path!");
         }
     }
+
+    // Check and set permissions independently of file existence
+    if (!QFile::setPermissions(setlistFileDestPath, QFileDevice::ReadOwner | QFileDevice::WriteOwner))
+    {
+        qDebug("Could not set permissions to read/write for the setlist file.");
+    }
+
 
     // Non-hosted setlists file
     setlistFileDestPath = setlistsDirDestPath + "/setlist.json";
-    setlistFileSrcPath = setlistsDirSrcPath + "/setlist.json";
+    setlistFileSrcPath = ":/presets/setlist.json";
 
     if (!QFile::exists(setlistFileDestPath))
     {
-        if (QFile::copy(setlistFileSrcPath, setlistFileDestPath) == false) {
+        if (QFile::copy(setlistFileSrcPath, setlistFileDestPath) == false)
+        {
             qFatal("Cannot copy default setlist file to application data path!");
         }
     }
+
+    // Check and set permissions independently of file existence
+    if (!QFile::setPermissions(setlistFileDestPath, QFileDevice::ReadOwner | QFileDevice::WriteOwner))
+    {
+        qDebug("Could not set permissions to read/write for the setlist file.");
+    }
+
 
     // fix windows that are not on the screen
     int posX = setlistWidget->pos().x();
@@ -350,7 +354,7 @@ void Setlist::slotReadSetlist()
     }
     else
     {
-        //qDebug() << "Setlist Not Found";
+        qDebug() << "ERROR: Setlist JSON Not Found - " << jsonPath;
     }
 
     jsonFile->close();
@@ -373,7 +377,7 @@ void Setlist::slotWriteSetlist()
     }
     else
     {
-        //qDebug() << "Setlist not found on write";
+        qDebug() << "ERROR: Setlist JSON Not Found - " << jsonPath;
     }
 
     jsonFile->close();

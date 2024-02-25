@@ -379,6 +379,14 @@ void Key::slotValueChanged()
     emit signalCheckSavedState();
 }
 
+void Key::slotResetModlinesLastVal()
+{
+    for (int i = 0; i < NUM_MODLINES_PER_KEY; i++)
+    {
+        modline[i]->lastVal = -1;
+    }
+}
+
 void Key::slotRecallPreset(QVariantMap preset, QVariantMap)
 {
     //qDebug() << "Key State Recall" << keyInstance;

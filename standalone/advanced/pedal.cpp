@@ -80,13 +80,13 @@ int Pedal::slotTableInput(int pedalInput)
     //qDebug() << "tabling pedal input" << pedalInput;
 
     //Scale: [min + 4 to max - 4] --> [0 to 127]
-    int inLow = pedalValueListMin + 4;
-    int inHigh = pedalValueListMax - 4;
+    int inLow = pedalValueList.length() ? pedalValueListMin + 4 : 0;
+    int inHigh = pedalValueList.length() ? pedalValueListMax - 4 : 127;
 
     int outLow = 0;
     int outHigh = 127;
 
-    int output = (pedalInput - inLow) * (outHigh - outLow) / (inHigh - inLow) + outLow;
+    int output = (pedalInput - inLow) * (outHigh - outLow) / (inHigh - inLow) + outLow; // scaling based on calibration...
 
     if(output < outLow)
     {

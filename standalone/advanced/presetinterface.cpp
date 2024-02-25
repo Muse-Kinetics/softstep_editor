@@ -12,19 +12,7 @@ PresetInterface::PresetInterface(QWidget *parent) :
     qDebug() << "------------ [PRESETS SETUP] ---------------------------------------------------";
     // If preset JSON files do not exist in AppDataLocation, copy the defaults from the application bundle dir.
 
-    // Get platform dependant path to read only presets directory inside the app bundle/package
-    QString appPackageDirPath = QCoreApplication::applicationDirPath();
-
-#if defined(Q_OS_MAC)
-    //Remove "MacOS" from path string
-    appPackageDirPath.remove(appPackageDirPath.length() - 5, appPackageDirPath.length());
-
-    QString presetsDirSrcPath = appPackageDirPath + "Resources/presets";
-#else
-    QString presetsDirSrcPath = QString("./presets");
-#endif
-
-    // Get path to writeable app data directory
+    // Get platform dependant path to writeable app data directory
     QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 
     if (appDataDirPath.isEmpty()) {
@@ -40,9 +28,8 @@ PresetInterface::PresetInterface(QWidget *parent) :
 
     // If either preset file doesn't exist at the destination, copy it there
     QString presetFileDestPath = presetsDirDestPath + "/hosted_presets.json";
-    QString presetFileSrcPath = presetsDirSrcPath + "/hosted_softstepadvanced.json";
+    QString presetFileSrcPath = ":/presets/hosted_softstepadvanced.json";
 
-     qDebug() << "Hosted presetsDirSrcPath: " << presetsDirSrcPath;
      qDebug() << "Hosted presetFileDestPath: " << presetFileDestPath;
 
      if (!QFile(presetFileSrcPath).exists())
@@ -51,25 +38,43 @@ PresetInterface::PresetInterface(QWidget *parent) :
      }
 
      if (!QFile::exists(presetFileDestPath))
-    {
-        if (QFile::copy(presetFileSrcPath, presetFileDestPath) == false) {
-            qFatal("Cannot copy default preset file to application data path!");
-        }
-    }
+     {
+         if (QFile::copy(presetFileSrcPath, presetFileDestPath) == false)
+         {
+             qFatal("Cannot copy default preset file to application data path!");
+         }
+     }
+
+     // Check permissions and adjust if necessary
+     QFileDevice::Permissions permissions = QFile::permissions(presetFileDestPath);
+     if (!(permissions & QFileDevice::ReadOwner) || !(permissions & QFileDevice::WriteOwner))
+     {
+         if (!QFile::setPermissions(presetFileDestPath, permissions | QFileDevice::ReadOwner|QFileDevice::WriteOwner))
+         {
+             qDebug("Could not set permissions to read/write for the preset file.");
+         }
+     }
 
     // Non-hosted presets file
     presetFileDestPath = presetsDirDestPath + "/presets.json";
-    presetFileSrcPath = presetsDirSrcPath + "/softstepadvanced.json";
+    presetFileSrcPath = ":/presets/softstepadvanced.json";
 
-    qDebug() << "presetsDirSrcPath: " << presetsDirSrcPath;
     qDebug() << "presetFileDestPath: " << presetFileDestPath;
 
     if (!QFile::exists(presetFileDestPath))
     {
-        if (QFile::copy(presetFileSrcPath, presetFileDestPath) == false) {
+        if (QFile::copy(presetFileSrcPath, presetFileDestPath) == false)
+        {
             qFatal("Cannot copy default preset file to application data path!");
         }
     }
+
+    // Check and set permissions independently of file existence
+    if (!QFile::setPermissions(presetFileDestPath, QFileDevice::ReadOwner|QFileDevice::WriteOwner))
+    {
+        qDebug("Could not set permissions to read/write for the preset file.");
+    }
+
 
     // For generating default preset file from app
     //writeDefualtJSON();
@@ -200,7 +205,7 @@ void PresetInterface::slotReadJSON()
     }
     else
     {
-        qDebug() << "WARNNG: SoftStep Advanced Editor JSON Not Found";
+        qDebug() << "WARNING: SoftStep Advanced Editor JSON Not Found - " << jsonPath;
     }
 
     jsonFile->close();
@@ -224,7 +229,7 @@ void PresetInterface::slotWriteJSON(QVariantMap jsonMap)
     }
     else
     {
-        qDebug() << "SoftStep Advanced Editor JSON Not Found";
+        qDebug() << "WARNING: SoftStep Advanced Editor JSON Not Found - " << jsonPath;
     }
 
     jsonFile->close();
@@ -232,20 +237,28 @@ void PresetInterface::slotWriteJSON(QVariantMap jsonMap)
 
 void PresetInterface::writeDefualtJSON()
 {
+    QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
+     if (mode == "hosted") {
+        jsonPath.append("/hosted_presets.json");
+    } else {
+        jsonPath.append("/presets.json");
+    }
 
     for(int i = 0; i < 2; i++)
     {
         if(i == 0)
         {
             slotConstructDefaultStandaloneMap();
-
-            jsonPath = QString("./presets/softstepadvanced.json");
+            jsonPath = appDataDirPath;
+            jsonPath.append("/softstepadvanced.json");
         }
         else if(i == 1)
         {
             slotConstructDefaultHostedMap();
 
-            jsonPath = QString("./presets/hosted_softstepadvanced.json");
+            jsonPath = appDataDirPath;
+            jsonPath.append("/hosted_softstepadvanced.json");
         }
 
         //generate fresh default json needed
@@ -269,7 +282,7 @@ void PresetInterface::writeDefualtJSON()
         }
         else
         {
-            qDebug() << QString("SoftStep Advanced Editor JSON Not Found: %1").arg(jsonPath);
+            qDebug() << QString("ERROR: SoftStep Advanced Editor JSON Not Found - %1").arg(jsonPath);
         }
 
         jsonFile->close();

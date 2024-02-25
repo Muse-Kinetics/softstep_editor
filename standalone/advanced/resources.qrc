@@ -167,5 +167,11 @@
         <file>resources/modline_enable6_toggle_on.svg</file>
         <file>resources/menuBarWin.qss</file>
         <file>Blank.softsteppreset</file>
+        <file>presets/hosted_setlist.json</file>
+        <file>presets/hosted_softstepadvanced.json</file>
+        <file>presets/setlist.json</file>
+        <file>presets/settings.json</file>
+        <file>presets/softstepadvanced.json</file>
+        <file>presets/pedalTable.txt</file>
     </qresource>
 </RCC>

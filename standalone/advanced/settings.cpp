@@ -31,19 +31,8 @@ Settings::Settings(QWidget *parent) :
     settingsWidget->setWindowTitle(QString("Settings"));
 
     // If Settings JSON file does not exist in AppDataLocation, copy the default from the application bundle dir.
-    // Get platform dependant path to read only presets directory inside the app bundle/package
-    QString appPackageDirPath = QCoreApplication::applicationDirPath();
 
-#if defined(Q_OS_MAC)
-    //Remove "MacOS" from path string
-    appPackageDirPath.remove(appPackageDirPath.length() - 5, appPackageDirPath.length());
-
-    QString settingsDirSrcPath = appPackageDirPath + "Resources/presets";
-#else
-    QString settingsDirSrcPath = QString("./presets");
-#endif
-
-    // Get path to writeable app data directory
+    // Get platform dependant path to writeable app data directory
     QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 
     if (appDataDirPath.isEmpty()) {
@@ -59,42 +48,47 @@ Settings::Settings(QWidget *parent) :
 
     // If either preset file doesn't exist at the destination, copy it there
     QString settingsFileDestPath = settingsDirDestPath + "/settings.json";
-    QString settingsFileSrcPath = settingsDirSrcPath + "/settings.json";
+    QString settingsFileSrcPath = ":/presets/settings.json";
 
     if (!QFile::exists(settingsFileDestPath))
     {
-        if (QFile::copy(settingsFileSrcPath, settingsFileDestPath) == false) {
+        if (QFile::copy(settingsFileSrcPath, settingsFileDestPath) == false)
+        {
             qFatal("Cannot copy default settings file to application data path!");
         }
     }
+
+    // Check and set permissions independently of file existence
+    if (!QFile::setPermissions(settingsFileDestPath, QFileDevice::ReadOwner | QFileDevice::WriteOwner))
+    {
+        qDebug("Could not set permissions to read/write for the settings file.");
+    }
+
 
     qDebug() << "settingsFileDestPath: " << settingsFileDestPath;
 
     // Save location of settings file
     jsonPath = settingsFileDestPath;
 
-
     // Now handle the Pedal Table file.
-    appPackageDirPath = QCoreApplication::applicationDirPath();
-
-#if defined(Q_OS_MAC)
-    //Remove "MacOS" from path string
-    appPackageDirPath.remove(appPackageDirPath.length() - 5, appPackageDirPath.length());
-
-    settingsDirSrcPath = appPackageDirPath + "Resources";
-#else
-    settingsDirSrcPath = QString("./resources");
-#endif
-
     QString pedalTableFileDestPath = settingsDirDestPath + "/pedalTable.txt";
-    QString pedalTableFileSrcPath = settingsDirSrcPath + "/pedalTable.txt";
+    QString pedalTableFileSrcPath = ":/presets/pedalTable.txt";
 
     if (!QFile::exists(pedalTableFileDestPath))
     {
-        if (QFile::copy(pedalTableFileSrcPath, pedalTableFileDestPath) == false) {
-            qFatal("Cannot copy default pedal table file to application data path!");
+        if (QFile::copy(pedalTableFileSrcPath, pedalTableFileDestPath) == false)
+        {
+            qFatal("Cannot copy default pedal table file to the application data path!");
         }
     }
+
+    // Check and set permissions independently of file existence
+    if (!QFile::setPermissions(pedalTableFileDestPath, QFileDevice::ReadOwner | QFileDevice::WriteOwner))
+    {
+        qDebug("Could not set permissions to read/write for the pedal table file.");
+    }
+
+
 #ifdef TABLE_ENABLED
     // Create table interface
     pedalLiveTableInterface = new TableInerface(settingsForm->pedalLiveWidget);
@@ -866,7 +860,7 @@ void Settings::slotReadSettings()
     }
     else
     {
-        qDebug() << "WARNING: Settings JSON not found";
+        qDebug() << "ERROR: Settings JSON not found - " << jsonPath;
     }
 
     jsonFile->close();
@@ -888,7 +882,7 @@ void Settings::slotWriteSettings()
     }
     else
     {
-        qDebug() << "Settings not found on write";
+        qDebug() << "ERROR: Settings JSON not found - " << jsonPath;
     }
 
     jsonFile->close();

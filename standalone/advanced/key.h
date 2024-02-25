@@ -81,6 +81,7 @@ public slots:
     void slotConnectElements();
     void slotDisconnectElements();
     void slotValueChanged();
+    void slotResetModlinesLastVal();
     void slotRecallPreset(QVariantMap, QVariantMap);
 
     void slotSetMode(QString m);

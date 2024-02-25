@@ -73,7 +73,7 @@ typedef union FIXED_PT {
 	struct { unsigned short upper; unsigned short lower;} PACK_INLINE u;
 } PACK_INLINE FIXED_PT;
 #endif
-typedef struct {unsigned char heal,toe;short mpx;} PACK_INLINE PEDAL_CALIBRATION;
+typedef struct {unsigned char heel,toe;unsigned short mpx;} PACK_INLINE PEDAL_CALIBRATION;
 typedef struct {unsigned char hysteresis,length;} PACK_INLINE PEDAL_FILTER;
 typedef struct {unsigned char standalone,tether;} PACK_INLINE CONNECT_MODE;
 

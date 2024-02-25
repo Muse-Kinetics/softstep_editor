@@ -362,9 +362,9 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"pedalEdges",A_LONG,0l,A_LONG,0l,-1))
     {
         //post_par_list(argc,argv,"pedal");
-        x->settings.pedal_calibration.heal = (unsigned char)argv[3].a_w.w_long+3;
+        x->settings.pedal_calibration.heel = (unsigned char)argv[3].a_w.w_long+3;
         x->settings.pedal_calibration.toe = (unsigned char)argv[2].a_w.w_long-3;
-        x->settings.pedal_calibration.mpx = LE_short((128 * 256) / (x->settings.pedal_calibration.toe - x->settings.pedal_calibration.heal));
+        x->settings.pedal_calibration.mpx = LE_short((128 * 256) / (x->settings.pedal_calibration.toe - x->settings.pedal_calibration.heel));
         //post("mpx[%x]",x->settings.pedal_calibration.mpx);
         return;
     }

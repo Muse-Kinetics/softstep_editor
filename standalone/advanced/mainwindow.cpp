@@ -66,8 +66,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // pre bootloader app version was 2.04, revving to 2.1.0 for bootloader trojan
     applicationVersion[0] = 2;
     applicationVersion[1] = 1;
-    applicationVersion[2] = 1;
-    betaVersion = ""; // leave blank for release
+    applicationVersion[2] = 2;
+    betaVersion = "A"; // leave blank for release
 
     appStillLoading = true;
 
@@ -209,6 +209,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // ******************************
 
     sysExComposer = new SysExComposer(this);
+    sysExDeComposer = new SysExDeComposer(SoftStep, this);
+
     presetInterface = new PresetInterface(this);
     qDebug() << "------------ [Copy/Paste SETUP] ---------------------------------------------------";
     copyPasteHandler = new CopyPasteHandler(presetInterface,this);
@@ -644,6 +646,9 @@ void MainWindow::slotConnectInterfaces()
     connect(midi_thru_dropdown, SIGNAL(activated(int)), this, SLOT(slotUpdateMIDIThru()));
     connect(SoftStep, SIGNAL(signalConnected(bool)), this, SLOT(slotUpdateMIDIThru()));
 
+    // connect softStep sysex handlers, the assumption here is that we can do this when the app loads and not worry about it. QuNexus does more complex handling of this signal.
+    connect(SoftStep, SIGNAL(signalRxSysExBA(QByteArray)), sysExDeComposer, SLOT(slotProcessSysEx(QByteArray)));
+
     // remember last selected MIDI aux port
     MIDI_THRU_KEY = "midi_thru_port";
 
@@ -687,7 +692,7 @@ void MainWindow::slotConnectInterfaces()
     connect(SoftStep, SIGNAL(signalFirmwareUpdateComplete(bool)), fwUpdateWindow, SLOT(slotFwUpdateComplete(bool)));            // Update Complete
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), SoftStep, SLOT(slotFirmwareUpdateReset()));                        // stop timeout timers
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccessCloseDialog(bool)), this, SLOT(slotFwUpdateSuccessCloseDialog(bool)));  // close fw dialog and connect
-    //connect(SoftStep, SIGNAL(signalRequestGlobals()), this, SLOT(slotSendGlobalsRequest()));                                  // request globals
+    //connect(SoftStep, SIGNAL(signalRequestGlobals()), sysExComposer, SLOT(slotRequestPedalCalibration()));                      // request globals (pedal calibration)
 
     // connect fwUpdate console messages to connection troubleshooter
     connect(SoftStep, SIGNAL(signalFwConsoleMessage(QString)), troubleshootWindow, SLOT(slotAppendToStatusLog(QString)));
@@ -817,6 +822,9 @@ void MainWindow::slotConnectInterfaces()
             //connect(&key[k]->dataCooker, SIGNAL(signalXIncClockStart(int)), key[k]->dataCooker, SLOT(slotXIncClockStart(int)));
             //connect(&key[k]->dataCooker, SIGNAL(signalXIncClockStop()), key[k]->dataCooker, SLOT(slotXIncClockStop()));
         }
+
+        qDebug() << "Connect slotResetModlinesLastVal";
+        connect(key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), key[k], SLOT(slotResetModlinesLastVal()));
 
         //Reset nav "once" display mode
         connect(key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), &navKey->alphaNumManager, SLOT(slotCloseParamDisplay()));
@@ -1518,6 +1526,8 @@ void MainWindow::slotConnected(bool connection)
 
         //updatefw->setEnabled(true);
         sysExComposer->connected = true;
+
+        sysExComposer->slotRequestPedalCalibration(); // grab the pedal calibration
 
 #ifdef MIDI_ENABLED
         // here we detect which version of SoftStep we are connected to
@@ -2598,13 +2608,6 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
                                           "background: rgb(50, 0, 0);"
                                           "padding: 0px 0px 0px 3px;");
 #endif
-
-        // setup sysex connections to receive globals data
-        SoftStep->disconnect(SIGNAL(signalRxSysExBA(QByteArray))); // disconnect to be safe
-
-        // EB TODO - connect this to softStep sysex handlers
-        //connect(SoftStep, SIGNAL(signalRxSysExBA(QByteArray)), sysExEncDecode, SLOT(slotProcessSysEx(QByteArray)));
-
         fwUpdateWindow->slotClearText();
         fwUpdateWindow->slotAppendTextToConsole(deviceBootloaderVersionString());
         fwUpdateWindow->slotAppendTextToConsole(deviceFirmwareVersionString() + "\n\n");
@@ -2932,7 +2935,7 @@ void MainWindow::slotProcessInputToHostedMode(uchar chan, uchar cc, uchar val)
 
     if (mode != "hosted" && key[0]->dataCooker->pedal->calibrating == false) return; // only process input if we are in hosted mode, or calibrating a pedal
 
-    qDebug() << "slotProcessInputToHostedMode called, cc: " << cc << " val: " << val;
+    //qDebug() << "slotProcessInputToHostedMode called, cc: " << cc << " val: " << val;
     emit signalUpdateSensor(cc, val);
 }
 

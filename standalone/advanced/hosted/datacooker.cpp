@@ -1397,36 +1397,37 @@ void DataCooker::slotReceiveKeyPressed(int keyPressed)
     //For each modline
     for(int i = 0; i < 6; i++)
     {
+        QString thisSource = modlineSources.value(i);
         //------- Key Sources
-        if(modlineSources.value(i) == "Any Key Value")
+        if(thisSource == "Any Key Value")
         {
             emit signalTransformSource(keyPressed, i, "Any Key Value");
         }
-        else if(modlineSources.value(i) == "This Key Value")
+        else if(thisSource == "This Key Value")
         {
             if(keyPressed == (keyNum + 1)%10)
             {
                 emit signalTransformSource(keyPressed, i, "This Key Value");
             }
         }
-        else if(modlineSources.value(i) == "Prev Key Value")
+        else if(thisSource == "Prev Key Value")
         {
             if(previousKeyPressed[1] != -1)
             {
                 emit signalTransformSource(previousKeyPressed[1], i, "Prev Key Value");
             }
         }
-        else if(modlineSources.value(i).contains("Key") && modlineSources.value(i).contains("Pressed") && !modlineSources.value(i).contains("Other"))
+        else if(thisSource.contains("Key") && thisSource.contains("Pressed") && !thisSource.contains("Other"))
         {
             emit signalTransformSource(0, i, QString("Key %1 Pressed").arg(keyPressed));
             emit signalTransformSource(127, i, QString("Key %1 Pressed").arg(keyPressed));
         }
-        else if((modlineSources.value(i) == "Other Key Pressed") && (keyPressed != (keyNum + 1)%10))
+        else if((thisSource == "Other Key Pressed") && (keyPressed != (keyNum + 1)%10))
         {
             emit signalTransformSource(0, i, "Other Key Pressed");
             emit signalTransformSource(127, i, "Other Key Pressed");
         }
-        else if(modlineSources.value(i) == "Nav Yx10 & Key")
+        else if(thisSource == "Nav Yx10 & Key")
         {
             if(keyPressed == (keyNum + 1)%10)
             {

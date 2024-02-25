@@ -776,3 +776,11 @@ void SysExComposer::slotTetherOnOffInStandalone(bool onOff) // 2nd
     }
 }
 
+void SysExComposer::slotRequestPedalCalibration()
+{
+    qDebug() << "slotRequestPedalCalibration called - connected: " << connected;
+
+    if (!connected) return; // don't send when not connected
+
+    emit signalSendSysEx(_request_pedal_cal, sizeof(_request_pedal_cal));
+}

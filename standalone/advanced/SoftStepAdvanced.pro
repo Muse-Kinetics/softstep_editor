@@ -75,6 +75,7 @@ SOURCES +=      main.cpp\
                 ../../shared/sysexcomposition/download.c \
                 ../../shared/sysexcomposition/attribute.c \
                 ../../shared/sysexcomposition/mainsysex.c \
+    sysExDecomposer.cpp \
                 sysexcomposer.cpp \
                 settings.cpp \
 #                mididevicemanager.cpp \
@@ -116,6 +117,7 @@ HEADERS  +=     mainwindow.h \
                 modline.h \
                 key.h \
                 presetinterface.h \
+    sysExDecomposer.h \
                 sysexcomposer.h \
                 ../../shared/sysexcomposition/utils.h \
                 ../../shared/sysexcomposition/syxtx.h \
@@ -329,23 +331,23 @@ ICON = resources/appicon.icns
 
 #--------------- contents/resources --------
 
-macx{
-    softStepPTable.files = $$PWD/resources/pedalTable.txt
-    softStepPTable.path = Contents/Resources
-    QMAKE_BUNDLE_DATA += softStepPTable
+#macx{
+#    softStepPTable.files = $$PWD/resources/pedalTable.txt
+#    softStepPTable.path = Contents/Resources
+#    QMAKE_BUNDLE_DATA += softStepPTable
 
-    softStepPresets.files = $$PWD/presets
-    softStepPresets.path = Contents/Resources
-    QMAKE_BUNDLE_DATA += softStepPresets
-}
+#    softStepPresets.files = $$PWD/presets
+#    softStepPresets.path = Contents/Resources
+#    QMAKE_BUNDLE_DATA += softStepPresets
+#}
 
-win32{
+#win32{
 
-    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/release/presets\")
-    export(presets.commands)
+#    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/release/presets\")
+#    export(presets.commands)
 
-    first.depends += $(first) presets
-    export(first.depends)
+#    first.depends += $(first) presets
+#    export(first.depends)
 
-    QMAKE_EXTRA_TARGETS += first presets
-}
+#    QMAKE_EXTRA_TARGETS += first presets
+#}

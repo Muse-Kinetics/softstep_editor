@@ -53,9 +53,11 @@ public slots:
     void    slotSettingsSent();
     void    slotPresetsSent();
     void    slotHostedOnOff(bool onOff);
+    void    slotTetherOnOffInStandalone(bool onOff);
 
     //--------------------------- Pedal Calibration
-    void    slotTetherOnOffInStandalone(bool onOff);
+    void    slotRequestPedalCalibration();
+
 
     //--------------------------- One-off sysex messages
     void    slotSceneChangeOnOff(bool onOff);

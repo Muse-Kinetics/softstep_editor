@@ -59,10 +59,21 @@ typedef struct {unsigned char status;
 
 #define	MIDI_SYSTEM			0xF0
 
-#define	MANUFACTURER_MOOG	4
-#define	MODEL_MP			47
-#define	SUB_MODEL			0
-#define	UNIT_ID				0
+#define kmi_id_1 				0x00
+#define kmi_id_2 				0x01
+#define kmi_id_3				0x5F
+
+
+#define chuck_magic_number		0x7A // might not have been Chuck but this is our mysterious fourth sysex manufacturer ID number
+
+#define kmi_family_lsb			0x00
+#define kmi_family_msb			0x00
+
+#define PID_MSB                 0x00
+#define PID_MIDI_SS1			0x0A // old school softstep MIDI PID is 10
+#define PID_MIDI_SS2			0x0B // softstep2 MIDI PID is 11
+                            //  0x0C // this is the usb PID for post SSCOM softstep2
+#define PID_MIDI_SS3            0x0D // softstep3
 
 //#define	MAX_DEST	2
 
