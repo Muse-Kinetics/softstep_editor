@@ -62,7 +62,7 @@
 #include <fwupdate.h>
 #include <troubleshoot.h>
 #include "kmi_updates.h"
-#include "midi.h"
+#include "midi_ss.h"
 // end midi overhaul
 
 namespace Ui {
@@ -201,6 +201,7 @@ public:
     QAction* pasteKeyAct;
     QAction* toolTipsEnable;
     QAction* importOldPreset;
+    QAction* openAppDataDir;
 
     //Ui Elements
     Key *key[10];
@@ -286,6 +287,7 @@ public slots:
     void slotInitMenuBar();
     void slotOpenDoc();
     void slotOpenTroubleshooting();
+    void slotOpenPresetDirectory();
     void slotEnableDisableToolTips();
 
     void slotUpdatePasteAvailability();

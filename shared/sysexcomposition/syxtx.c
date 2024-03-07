@@ -3,7 +3,7 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 #include "syxformats.h"
-#include "midi.h"
+#include "midi_ss.h"
 #include "utils.h"
 #include "attribute.h"
 

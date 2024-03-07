@@ -7,7 +7,7 @@
 #include "softstep.h"
 #include "syxformats.h"
 #include "syxtx.h"
-#include "midi.h"
+#include "midi_ss.h"
 #include "maxapi.h"
 #include "attribute.h"
 #include "utils.h"

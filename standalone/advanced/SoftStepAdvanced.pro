@@ -57,6 +57,7 @@ INCLUDEPATH +=  forms \
                 ../../shared/rtmidi
 
 SOURCES +=      main.cpp\
+    ../../shared/KMI_MDM/KMI_SysexMessages.c \
     ../../shared/KMI_MDM/KMI_mdm.cpp \
     ../../shared/KMI_MDM/fwupdate/fwupdate.cpp \
     ../../shared/KMI_MDM/troubleshoot/troubleshoot.cpp \
@@ -114,6 +115,7 @@ HEADERS  +=     mainwindow.h \
     ../../shared/KMI_Ports/kmi_ports.h \
     ../../shared/KMI_Updates/kmi_updates.h \
     ../../shared/rtmidi/RtMidi.h \
+    ../../shared/sysexcomposition/midi_ss.h \
                 modline.h \
                 key.h \
                 presetinterface.h \
@@ -125,7 +127,6 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexcomposition/syxformats.h \
                 ../../shared/sysexcomposition/softstep.h \
                 ../../shared/sysexcomposition/query.h \
-                ../../shared/sysexcomposition/midi.h \
                 ../../shared/sysexcomposition/maxapi.h \
                 ../../shared/sysexcomposition/download.h \
                 ../../shared/sysexcomposition/attribute.h \

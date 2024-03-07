@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>690</width>
+    <width>860</width>
     <height>279</height>
    </rect>
   </property>
@@ -699,7 +699,6 @@ QLineEdit:focus
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
        <pointsize>20</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -760,7 +759,6 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Futura-Normal</family>
        <pointsize>20</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -821,7 +819,6 @@ QPushButton:pressed
      </property>
      <property name="font">
       <font>
-       <family>Futura PT</family>
        <pointsize>30</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -958,6 +955,1129 @@ the Connection Troubleshooter.</string>
     <property name="text">
      <string>SOFTSTEP NOT CONNECTED</string>
     </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>693</x>
+      <y>24</y>
+      <width>151</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border:none;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="presetlabel_11">
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>166</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  10pt &quot;Futura-Normal&quot;;
+	border:				none;
+
+
+}
+</string>
+     </property>
+     <property name="text">
+      <string>USB Mode</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cv2_ch">
+     <property name="geometry">
+      <rect>
+       <x>69</x>
+       <y>191</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>The preset currently being edited</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 12px &quot;Corbel&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(40, 40, 40);
+	color: white;
+	padding: 1px 3px 1px 4px;
+
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: 1px solid rgb(0,174,239);
+	font: 12px &quot;Corbel&quot;;
+	color: white;
+   padding-left: 0px;
+    padding-right: 0px;
+    min-width: 80px;
+    height: 200px;
+	icon-size:0px;
+
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 14px;
+    height: 14px;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+	border: none;
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Ch. 1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 2</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="presetlabel_10">
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>141</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  10pt &quot;Futura-Normal&quot;;
+	border:				none;
+
+
+}
+</string>
+     </property>
+     <property name="text">
+      <string>Modline Notes</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cv1_ch">
+     <property name="geometry">
+      <rect>
+       <x>69</x>
+       <y>76</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>The preset currently being edited</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 12px &quot;Corbel&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(40, 40, 40);
+	color: white;
+	padding: 1px 3px 1px 4px;
+
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: 1px solid rgb(0,174,239);
+	font: 12px &quot;Corbel&quot;;
+	color: white;
+   padding-left: 0px;
+    padding-right: 0px;
+    min-width: 80px;
+    height: 200px;
+	icon-size:0px;
+
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 14px;
+    height: 14px;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+	border: none;
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Ch. 1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 2</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="presetlabel_4">
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>26</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  10pt &quot;Futura-Normal&quot;;
+	border:				none;
+
+
+}
+</string>
+     </property>
+     <property name="text">
+      <string>Modline Notes</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="presetlabel_5">
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>51</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  10pt &quot;Futura-Normal&quot;;
+	border:				none;
+
+
+}
+</string>
+     </property>
+     <property name="text">
+      <string>USB Mode</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cv2_usb">
+     <property name="geometry">
+      <rect>
+       <x>69</x>
+       <y>166</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>The preset currently being edited</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 12px &quot;Corbel&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(40, 40, 40);
+	color: white;
+	padding: 1px 3px 1px 4px;
+
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: 1px solid rgb(0,174,239);
+	font: 12px &quot;Corbel&quot;;
+	color: white;
+   padding-left: 0px;
+    padding-right: 0px;
+    min-width: 80px;
+    height: 200px;
+	icon-size:0px;
+
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 14px;
+    height: 14px;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+	border: none;
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Gate</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Pitch</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Velocity</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Bend/Mod</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="presetlabel_7">
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>3</y>
+       <width>145</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  18pt &quot;Futura-Normal&quot;;
+	border:				none;
+
+
+}
+</string>
+     </property>
+     <property name="text">
+      <string>CV Out 1</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="presetlabel_9">
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>191</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  10pt &quot;Futura-Normal&quot;;
+	border:				none;
+
+
+}
+</string>
+     </property>
+     <property name="text">
+      <string>USB Channel</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cv1_modline">
+     <property name="geometry">
+      <rect>
+       <x>69</x>
+       <y>26</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>The preset currently being edited</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 12px &quot;Corbel&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(40, 40, 40);
+	color: white;
+	padding: 1px 3px 1px 4px;
+
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: 1px solid rgb(0,174,239);
+	font: 12px &quot;Corbel&quot;;
+	color: white;
+   padding-left: 0px;
+    padding-right: 0px;
+    min-width: 80px;
+    height: 200px;
+	icon-size:0px;
+
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 14px;
+    height: 14px;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+	border: none;
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Gate</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Pitch</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Velocity</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="cv1_usb">
+     <property name="geometry">
+      <rect>
+       <x>69</x>
+       <y>51</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>The preset currently being edited</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 12px &quot;Corbel&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(40, 40, 40);
+	color: white;
+	padding: 1px 3px 1px 4px;
+
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: 1px solid rgb(0,174,239);
+	font: 12px &quot;Corbel&quot;;
+	color: white;
+   padding-left: 0px;
+    padding-right: 0px;
+    min-width: 80px;
+    height: 200px;
+	icon-size:0px;
+
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 14px;
+    height: 14px;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+	border: none;
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Gate</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Pitch</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Velocity</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Bend/Mod</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="presetlabel_6">
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>76</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  10pt &quot;Futura-Normal&quot;;
+	border:				none;
+
+
+}
+</string>
+     </property>
+     <property name="text">
+      <string>USB Channel</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cv2_modline">
+     <property name="geometry">
+      <rect>
+       <x>69</x>
+       <y>141</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>The preset currently being edited</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 12px &quot;Corbel&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(40, 40, 40);
+	color: white;
+	padding: 1px 3px 1px 4px;
+
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: 1px solid rgb(0,174,239);
+	font: 12px &quot;Corbel&quot;;
+	color: white;
+   padding-left: 0px;
+    padding-right: 0px;
+    min-width: 80px;
+    height: 200px;
+	icon-size:0px;
+
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 14px;
+    height: 14px;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+	border: none;
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Gate</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Pitch</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Velocity</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="presetlabel_8">
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>118</y>
+       <width>145</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  18pt &quot;Futura-Normal&quot;;
+	border:				none;
+
+
+}
+</string>
+     </property>
+     <property name="text">
+      <string>CV Out 2</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

@@ -17,7 +17,7 @@ class PresetInterface : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PresetInterface(QWidget *parent = 0);
+    explicit PresetInterface(QWidget *parent = 0, const std::vector<QComboBox*>& boxPointers = {});
 
     QString mode;
 
@@ -42,6 +42,14 @@ public:
 
     int     currentPresetNum;
     QVariantMap currentPresetMap;
+
+    QComboBox *cv1_modline;
+    QComboBox *cv1_usb;
+    QComboBox *cv1_ch;
+    QComboBox *cv2_modline;
+    QComboBox *cv2_usb;
+    QComboBox *cv2_ch;
+
 
     void closeEvent(QCloseEvent *);
 
@@ -69,8 +77,11 @@ public slots:
 
     void slotConstructDefaultStandaloneMap();
     void slotConstructDefaultHostedMap();
-    void slotRecallPreset(int i);
 
+    void slotConnectCVBoxes();
+    void slotCVBoxChanged();
+
+    void slotRecallPreset(int i);
     void slotSavePreset();
     void slotSavePresetAs(QString presetName);
     void slotDeletePreset();
@@ -88,6 +99,9 @@ public slots:
     int slotGetNumPresetsInJson();
 
     void slotSetMode(QString);
+
+private:
+    std::vector<QComboBox*> comboBoxes;
 };
 
 #endif // PRESETINTERFACE_H

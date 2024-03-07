@@ -73,7 +73,13 @@ typedef union FIXED_PT {
 	struct { unsigned short upper; unsigned short lower;} PACK_INLINE u;
 } PACK_INLINE FIXED_PT;
 #endif
-typedef struct {unsigned char heel,toe;unsigned short mpx;} PACK_INLINE PEDAL_CALIBRATION;
+
+typedef struct
+{
+    unsigned char heel, toe;
+    unsigned char table, reserved1;
+} PEDAL_CALIBRATION;
+
 typedef struct {unsigned char hysteresis,length;} PACK_INLINE PEDAL_FILTER;
 typedef struct {unsigned char standalone,tether;} PACK_INLINE CONNECT_MODE;
 
@@ -85,17 +91,52 @@ typedef union MIDI_SHARED {
 	struct {unsigned char function,track;} PACK_INLINE hui;
     unsigned char bank_msb;  // xxxnew
 } PACK_INLINE MIDI_SHARED;
+
 typedef struct KEY {unsigned char modline_count,display_mode : 4,nav_y_mode : 4;short key_name_index,prefix_index;} PACK_INLINE KEY;
 typedef struct MODLINE {unsigned char source,table,dest,led_green,led_red,max,min;short slew;FIXED_PT gain,offset; unsigned char channel;MIDI_SHARED ms;unsigned char port : 4,display_linked : 4;} PACK_INLINE MODLINE;
-typedef struct NM {unsigned char format,reserved1[2];short name_index,other_key_index,pedal_index,string_index,end_index,reserved2[4];KEY key[NUM_KEYS];} PACK_INLINE NM;
-typedef struct PRESET_IMAGE {NM nm;MODLINE modlines[NUM_KEYS][NUM_MODLINES_PER_KEY];} PACK_INLINE PRESET_IMAGE;
+
+typedef	struct NM
+{
+    unsigned char format;
+    unsigned char reserved1, reserved2;
+    int name_index, other_key_index, pedal_index, string_index, end_index, reserved3;
+    unsigned char cv1ModeModline, cv1ModeUSB, cv1USBChannel;
+    unsigned char cv2ModeModline, cv2ModeUSB, cv2USBChannel;
+    KEY key[NUM_KEYS];
+} NM;	 // nm = not modline
+
+typedef struct PRESET_IMAGE
+{
+    NM nm;
+    MODLINE modlines[NUM_KEYS][NUM_MODLINES_PER_KEY];
+} PACK_INLINE PRESET_IMAGE;
+
 typedef struct STRINGS {int size; char data[500];} STRINGS;
 struct PRESET_LIST;
 
 typedef struct PRESET_LIST {struct PRESET_LIST *next;PRESET_IMAGE preset_image;STRINGS strings;unsigned char enables[NUM_KEYS][NUM_MODLINES_PER_KEY];} PRESET_LIST;
 
-typedef	struct KEY_SETTINGS {unsigned char Rot_Slew,dead_x,accel_x,dead_y,accel_y;unsigned char on_sense,off_sense,delta;} PACK_INLINE KEY_SETTINGS;
-typedef	struct SETTINGS		{FIXED_PT Global_Gain;unsigned char north_on_thresh,north_off_thresh,east_on_thresh,east_off_thresh,south_on_thresh,south_off_thresh,west_on_thresh,west_off_thresh,key_mode,key_response,el_offon:1,prog_change_display_offset:1,reserved:6,programChangeInput;PEDAL_CALIBRATION pedal_calibration;PEDAL_FILTER pedal_filter;CONNECT_MODE connect_mode;KEY_SETTINGS key[NUM_KEYS];} PACK_INLINE SETTINGS;
+typedef	struct KEY_SETTINGS
+{
+    unsigned char Rot_Slew,dead_x,accel_x,dead_y,accel_y; // rot_slew is unused
+    unsigned char on_sense,off_sense,delta; // delta is unused, on/off are per key
+} KEY_SETTINGS;
+
+typedef	struct SETTINGS
+{
+    FIXED_PT Global_Gain;
+    unsigned char   north_on_thresh,north_off_thresh,
+                    east_on_thresh,east_off_thresh,
+                    south_on_thresh,south_off_thresh,
+                    west_on_thresh,west_off_thresh,     // all of the above are global to all sensors
+                    key_mode,key_response,
+                    el_offon:1,prog_change_display_offset:1,reserved:6;
+    char progchg_rx_channel; // this is already set up for program change rx channel, so use this
+    PEDAL_CALIBRATION pedal_calibration; // this was unused prior to SS3
+    unsigned char keyL_brightness, reserved1; // was PEDAL_FILTER pedal_filter;
+    CONNECT_MODE connect_mode;
+    KEY_SETTINGS key[NUM_KEYS]; // 8 bytes * 11 keys
+} SETTINGS;
 
 enum {SX_TYPE_NORMAL,SX_TYPE_FWUPDATE,SX_TYPE_DOWNLOAD};
 enum {TYPE_NONE,TYPE_DEVICE,TYPE_MIDIINFO,TYPE_MIDIOUT,TYPE_MIDIIN,TYPE_CTL,TYPE_END_OF_LIST};

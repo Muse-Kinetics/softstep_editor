@@ -514,14 +514,14 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
      <property name="geometry">
       <rect>
        <x>29</x>
-       <y>165</y>
+       <y>115</y>
        <width>243</width>
        <height>81</height>
       </rect>
@@ -542,7 +542,7 @@ QRadioButton::indicator:checked:pressed  {
       <property name="geometry">
        <rect>
         <x>119</x>
-        <y>2</y>
+        <y>10</y>
         <width>123</width>
         <height>21</height>
        </rect>
@@ -597,7 +597,7 @@ QRadioButton::indicator:checked:pressed
       <property name="geometry">
        <rect>
         <x>119</x>
-        <y>27</y>
+        <y>35</y>
         <width>123</width>
         <height>21</height>
        </rect>
@@ -662,7 +662,7 @@ QRadioButton::indicator:checked:disabled
       <property name="geometry">
        <rect>
         <x>119</x>
-        <y>52</y>
+        <y>60</y>
         <width>123</width>
         <height>21</height>
        </rect>
@@ -720,7 +720,7 @@ QRadioButton::indicator:checked:pressed
       <property name="geometry">
        <rect>
         <x>-2</x>
-        <y>19</y>
+        <y>27</y>
         <width>61</width>
         <height>34</height>
        </rect>
@@ -750,7 +750,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>69</x>
-        <y>5</y>
+        <y>13</y>
         <width>39</width>
         <height>66</height>
        </rect>
@@ -781,7 +781,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>267</y>
+       <y>333</y>
        <width>240</width>
        <height>20</height>
       </rect>
@@ -818,7 +818,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>247</y>
+       <y>313</y>
        <width>56</width>
        <height>20</height>
       </rect>
@@ -844,7 +844,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>268</y>
+       <y>334</y>
        <width>17</width>
        <height>20</height>
       </rect>
@@ -896,7 +896,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>294</y>
+       <y>360</y>
        <width>240</width>
        <height>27</height>
       </rect>
@@ -932,7 +932,7 @@ QToolButton:pressed
      <property name="geometry">
       <rect>
        <x>29</x>
-       <y>49</y>
+       <y>10</y>
        <width>243</width>
        <height>28</height>
       </rect>
@@ -1025,7 +1025,7 @@ QCheckBox::indicator:checked:disabled
      <property name="geometry">
       <rect>
        <x>29</x>
-       <y>15</y>
+       <y>280</y>
        <width>243</width>
        <height>28</height>
       </rect>
@@ -1114,7 +1114,7 @@ QCheckBox::indicator:checked:pressed:focus
      <property name="geometry">
       <rect>
        <x>29</x>
-       <y>84</y>
+       <y>45</y>
        <width>243</width>
        <height>28</height>
       </rect>
@@ -1197,7 +1197,7 @@ QCheckBox::indicator:checked:pressed:focus
      <property name="geometry">
       <rect>
        <x>29</x>
-       <y>119</y>
+       <y>80</y>
        <width>243</width>
        <height>28</height>
       </rect>
@@ -1290,7 +1290,7 @@ QCheckBox::indicator:checked:disabled
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>267</y>
+       <y>333</y>
        <width>240</width>
        <height>20</height>
       </rect>
@@ -1327,7 +1327,7 @@ QCheckBox::indicator:checked:disabled
      <property name="geometry">
       <rect>
        <x>14</x>
-       <y>267</y>
+       <y>333</y>
        <width>17</width>
        <height>20</height>
       </rect>
@@ -1347,6 +1347,477 @@ QCheckBox::indicator:checked:disabled
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QFrame" name="brightness_frame">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>254</y>
+       <width>271</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background:		rgb(60, 60, 60);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="label_141">
+      <property name="geometry">
+       <rect>
+        <x>259</x>
+        <y>30</y>
+        <width>17</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>-1</pointsize>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 14px;</string>
+      </property>
+      <property name="text">
+       <string>+</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QSlider" name="backlight_slider">
+      <property name="geometry">
+       <rect>
+        <x>19</x>
+        <y>29</y>
+        <width>240</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="toolTip">
+       <string>Adjusts the sensitivity of the SoftStep. &lt;br&gt;Moving the slider to the right (toward the “+” symbol) increases sensitivity — moving the slider to the left (toward the “-” symbol) decreases sensitvity.</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>48</number>
+      </property>
+      <property name="value">
+       <number>48</number>
+      </property>
+      <property name="tracking">
+       <bool>false</bool>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::TicksAbove</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_142">
+      <property name="geometry">
+       <rect>
+        <x>3</x>
+        <y>29</y>
+        <width>17</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>-1</pointsize>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 14px;</string>
+      </property>
+      <property name="text">
+       <string>-</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_70">
+      <property name="geometry">
+       <rect>
+        <x>19</x>
+        <y>9</y>
+        <width>211</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>-1</pointsize>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 10px;</string>
+      </property>
+      <property name="text">
+       <string>Backlight Brightness</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QComboBox" name="progChgCh">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>230</y>
+       <width>240</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Sets the MIDI device to receive data from</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+    font: 11px &quot;Tahoma&quot;;
+    border: 1px solid rgb(0,174,239);
+    background: rgb(18, 18, 18);
+    color: white;
+    padding: 1px 3px 1px 4px;
+    combobox-popup: 0;
+ }
+
+/* dropdown box*/
+QComboBox QListView
+{
+    border: 1px solid rgb(0,174,239);
+	color: white;
+    font: 11px &quot;Tahoma&quot;;
+    padding-left: 0px;
+    padding-right: 0px;
+    min-width: 175px;
+    height: 200px;
+}
+
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
+{
+    background-color: rgb(40, 40, 40);
+  selection-color: white;
+  selection-background-color: rgb(0,174,239);
+}
+
+/* down arrow image */
+QComboBox::down-arrow
+{
+    border: none;
+    background: none;
+    image: url(:/resources/modline_combobox_menu_arrows.svg);
+    padding-right: 12px;
+    width: 12px;
+    height: 12px;
+}
+
+/* required for down-arrow or it's blank*/
+QComboBox::drop-down
+{
+    width: 1px;
+    height: 1px;
+    subcontrol-origin: margin;
+    subcontrol-position: right center;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+}
+
+
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+	border: none;
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}
+
+/* -------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------*/
+
+/* ---------- QWidget ------------*/
+
+QWidget#modlineForm
+{
+/*	background: rgb(0,0,0); */
+	background:		rgb(80, 80, 80);	
+	/*border: 3px rgb(25, 25, 25);*/
+}
+
+/* ---------- QLabels ------------*/
+QLabel
+{
+	background:		none;
+	color: 				white;
+	font: 				9pt &quot;Tahoma&quot;;
+	border:				none;
+}
+
+QLabel:hover
+{
+	border:				none;
+}  
+
+/* ---------- QSpinBox ------------*/
+QSpinBox
+{
+	font: 11px &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 1px 1px 1px;
+}
+
+QSpinBox:focus
+{
+	border: 1px solid white;
+	outline: none;
+}
+
+QDoubleSpinBox
+{
+	font: 11px &quot;Tahoma&quot;;
+	border: 1px solid rgb(0,174,239);
+	background-color: rgb(18, 18, 18);
+	color: white;
+	padding: 1px 1px 1px 1px;
+}
+
+QDoubleSpinBox::focus
+{
+	border: 1px solid white;
+	outline: none;
+}
+
+/* ---------- QCheckBox ------------*/
+QCheckBox
+{
+	font: 11px &quot;Tahoma&quot;;
+	background: none;
+	color: white;
+	padding:0, 3, 0, 0;
+	border: none;
+	border-radius: 0px;
+}
+
+QCheckBox:focus
+{
+	background: none;
+}
+
+/*-------QRadioButton-------*/
+QRadioButton
+{
+	background: none;
+	width: 10px;
+	height: 10px;
+}
+
+QRadioButton::indicator:unchecked
+{
+	border-image: url(:/resources/modline_display_enable_off.svg) 0 0 0 0 stretch stretch;
+	width: 17px;
+	height: 17px;
+}
+
+QRadioButton::indicator:unchecked:pressed
+{
+	border-image: url(:/resources/modline_display_enable_on.svg) 0 0 0 0 stretch stretch;
+	width: 17px;
+	height: 17px;
+}
+
+QRadioButton::indicator:checked
+{
+	border-image: url(:/resources/modline_display_enable_on.svg) 0 0 0 0 stretch stretch;
+	width: 17px;
+	height: 17px;
+}
+
+QRadioButton::indicator:checked:pressed
+{
+	border-image: url(:/resources/modline_display_enable_off.svg) 0 0 0 0 stretch stretch;
+	width: 17px;
+	height: 17px;
+}
+
+/*-------QToolTip-------*/
+QToolTip
+{
+	font: 10px &quot;Futura-Normal&quot;;
+	color: rgb(255, 255, 255);
+	background: rgba(40, 40, 40, 140);
+	border: 1px solid rgb(120, 120, 120);
+	padding: 2px;
+	width: 22px;
+}</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>Channel 1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 10</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 11</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 12</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 13</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 14</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 15</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Channel 16</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_71">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>210</y>
+       <width>231</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>-1</pointsize>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: bold 10px;</string>
+     </property>
+     <property name="text">
+      <string>Program Change Preset Control</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
     </widget>
    </widget>

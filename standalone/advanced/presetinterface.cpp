@@ -5,8 +5,8 @@
 
 #include "presetinterface.h"
 
-PresetInterface::PresetInterface(QWidget *parent) :
-    QWidget(parent)
+PresetInterface::PresetInterface(QWidget *parent, const std::vector<QComboBox*>& boxPointers)
+    : QWidget(parent), comboBoxes(boxPointers)
 {
 
     qDebug() << "------------ [PRESETS SETUP] ---------------------------------------------------";
@@ -76,8 +76,19 @@ PresetInterface::PresetInterface(QWidget *parent) :
     }
 
 
+    cv1_modline = comboBoxes[0];
+    cv1_usb = comboBoxes[1];
+    cv1_ch = comboBoxes[2];
+    cv2_modline = comboBoxes[3];
+    cv2_usb = comboBoxes[4];
+    cv2_ch = comboBoxes[5];
+
+    slotConnectCVBoxes();
+
     // For generating default preset file from app
     //writeDefualtJSON();
+
+
 }
 
 QVariantMap PresetInterface::getPresetMap(int presetNum)
@@ -291,6 +302,42 @@ void PresetInterface::writeDefualtJSON()
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CVs
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void PresetInterface::slotConnectCVBoxes()
+{
+
+
+    connect(cv1_modline, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
+    connect(cv1_usb, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
+    connect(cv1_ch, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
+    connect(cv2_modline, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
+    connect(cv2_usb, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
+    connect(cv2_ch, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
+}
+
+void PresetInterface::slotCVBoxChanged()
+{
+    if(QObject::sender() && QObject::sender()->objectName().size())
+    {
+        QObject *sender = QObject::sender();
+        QString senderClass = sender->metaObject()->className();
+
+        if(senderClass == "QComboBox")
+        {
+            QComboBox *combobox = reinterpret_cast<QComboBox*>(QObject::sender());
+            QString jsonName = combobox->objectName();
+            QVariant value = combobox->currentText();
+
+            slotStoreValue(jsonName, value, currentPresetNum);
+            slotCheckSaveState();
+        }
+    }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////   Storage / Recall  ////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -303,7 +350,16 @@ void PresetInterface::slotRecallPreset(int i)
 
     currentPresetNum = i;
 
-    emit signalRecallPreset(jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap(), jsonMasterMapCopy);
+    QVariantMap thisPreset = jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap();
+    emit signalRecallPreset(thisPreset, jsonMasterMapCopy);
+
+    // CV comboboxes
+    cv1_modline->setCurrentIndex(cv1_modline->findText(thisPreset.value("cv1_modline").toString()));
+    cv1_usb->setCurrentIndex(cv1_usb->findText(thisPreset.value("cv1_usb").toString()));
+    cv1_ch->setCurrentIndex(cv1_ch->findText(thisPreset.value("cv1_ch").toString()));
+    cv2_modline->setCurrentIndex(cv2_modline->findText(thisPreset.value("cv2_modline").toString()));
+    cv2_usb->setCurrentIndex(cv2_usb->findText(thisPreset.value("cv2_usb").toString()));
+    cv2_ch->setCurrentIndex(cv2_ch->findText(thisPreset.value("cv2_ch").toString()));
 
     slotCheckSaveState();
 

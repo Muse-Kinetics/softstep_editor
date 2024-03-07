@@ -4,7 +4,7 @@
 #ifndef SYSEXMESSAGES_H
 #define SYSEXMESSAGES_H
 
-#include "midi.h"
+#include "midi_ss.h"
 //-------------------------------------- Queries ----------------------------------------------//
 unsigned char _fw_query_syx_softstep[] =
 {

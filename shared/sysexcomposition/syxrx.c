@@ -9,7 +9,7 @@
 
 #include "softstep.h"
 #include "syxformats.h"
-#include "midi.h"
+#include "midi_ss.h"
 #include "utils.h"
 #include "syxrx.h"
 #include "attribute.h"

@@ -136,7 +136,6 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         x->current_image = &(*list)->preset_image;
         x->current_list = *list;
         memset(x->current_image,0,sizeof(PRESET_IMAGE));
-        x->settings.programChangeInput = 16;
         return;
 
     }
@@ -152,6 +151,44 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         post("--- %s key[%d] modline[%d]",x->current_list->strings.data + LE_short(x->current_image->nm.name_index),x->key_num,x->mod_num_current);
         return;
     }
+
+    // CV Output Settings
+
+//    if (par_match(argc,argv,A_SYM,"set",A_SYM,"cv1_modline",A_LONG,0l,-1))
+//    {
+//        x->current_image->nm.cv1ModeModline = (int)argv[2].a_w.w_long;
+//        return;
+//    }
+
+//    if (par_match(argc,argv,A_SYM,"set",A_SYM,"cv1_usb",A_LONG,0l,-1))
+//    {
+//        x->current_image->nm.cv1ModeUSB = (int)argv[2].a_w.w_long;
+//        return;
+//    }
+
+//    if (par_match(argc,argv,A_SYM,"set",A_SYM,"cv1_ch",A_LONG,0l,-1))
+//    {
+//        x->current_image->nm.cv1USBChannel = (int)argv[2].a_w.w_long;
+//        return;
+//    }
+
+//    if (par_match(argc,argv,A_SYM,"set",A_SYM,"cv2_modline",A_LONG,0l,-1))
+//    {
+//        x->current_image->nm.cv2ModeModline = (int)argv[2].a_w.w_long;
+//        return;
+//    }
+
+//    if (par_match(argc,argv,A_SYM,"set",A_SYM,"cv2_usb",A_LONG,0l,-1))
+//    {
+//        x->current_image->nm.cv2ModeUSB = (int)argv[2].a_w.w_long;
+//        return;
+//    }
+
+//    if (par_match(argc,argv,A_SYM,"set",A_SYM,"cv2_ch",A_LONG,0l,-1))
+//    {
+//        x->current_image->nm.cv2USBChannel = (int)argv[2].a_w.w_long;
+//        return;
+//    }
 
 
     if (par_match(argc,argv,A_SYM,"key",A_SYM,"nav",-1))
@@ -348,42 +385,29 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         return;
     }
 
+    if ( par_match(argc,argv,A_SYM,"set",A_SYM,"keyL_brightness",A_LONG,0l,-1))
+    {
+        x->settings.keyL_brightness = (unsigned char)argv[2].a_w.w_long;
+        return;
+    }
+
+
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"prog_change_display_offset",A_LONG,0l,-1))
     {
         x->settings.prog_change_display_offset = (unsigned char)argv[2].a_w.w_long;
         return;
     }
 
-    if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Pedal_Table",A_GIMME,-1))
+    if (argc >= 5)
     {
-        return;
-    }
-
-    if ( par_match(argc,argv,A_SYM,"set",A_SYM,"pedalEdges",A_LONG,0l,A_LONG,0l,-1))
-    {
-        //post_par_list(argc,argv,"pedal");
-        x->settings.pedal_calibration.heel = (unsigned char)argv[3].a_w.w_long+3;
-        x->settings.pedal_calibration.toe = (unsigned char)argv[2].a_w.w_long-3;
-        x->settings.pedal_calibration.mpx = LE_short((128 * 256) / (x->settings.pedal_calibration.toe - x->settings.pedal_calibration.heel));
-        //post("mpx[%x]",x->settings.pedal_calibration.mpx);
-        return;
-    }
-
-    if ( par_match(argc,argv,A_SYM,"set",A_SYM,"pedalHysteresis",A_LONG,0l,-1))
-    {
-        x->settings.pedal_filter.hysteresis = (unsigned char)argv[2].a_w.w_long;
-        //post("setting hysteresis[%d]",x->settings.pedal_filter.hysteresis);
-        return;
-    }
-
-    if ( par_match(argc,argv,A_SYM,"set",A_SYM,"pedalFilterLength",A_LONG,0l,-1))
-    {
-        //int length = (int) argv[2].a_w.w_long;
-//        if (length>=0x100)
-//            length = LE_short(length);
-        x->settings.pedal_filter.length = argv[2].a_w.w_long > 5 ? 5 : (unsigned char)argv[2].a_w.w_long;
-        //		post("setting length[%d]",x->settings.pedal_filter.length);
-        return;
+        if ( par_match(argc,argv,A_SYM,"set",A_SYM,"pedalCalibration",A_LONG,0l,A_LONG,0l,A_LONG,0l,-1))
+        {
+            //post_par_list(argc,argv,"pedal");
+            x->settings.pedal_calibration.heel = (unsigned char)argv[2].a_w.w_long;
+            x->settings.pedal_calibration.toe = (unsigned char)argv[3].a_w.w_long;
+            x->settings.pedal_calibration.table = (unsigned char)argv[4].a_w.w_long;
+            return;
+        }
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Rot_Slew",A_LONG,0l,-1))
@@ -399,17 +423,9 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         return;
     }
 
-    if ( par_match(argc,argv,A_SYM,"set",A_SYM,"ProgramChangeInput",A_LONG,0l,-1))
+    if ( par_match(argc,argv,A_SYM,"set",A_SYM,"progchg_rx_channel",A_LONG, 0l, -1))
     {
-        x->settings.programChangeInput = (int)argv[2].a_w.w_long;
-        //post("*************** here is ProgramChangeInput channel[%d]",(int)argv[2].a_w.w_long);
-        return;
-    }
-
-    if ( par_match(argc,argv,A_SYM,"set",A_SYM,"ProgramChangeChannelDIN",A_LONG,0l,-1))
-    {
-        x->settings.programChangeInput = (unsigned char)argv[2].a_w.w_long;
-        //post("*************** here is ProgramChangeChannelDIN[%d]",(int) argv[2].a_w.w_long);
+        x->settings.progchg_rx_channel = (char)argv[2].a_w.w_long;
         return;
     }
 
@@ -635,6 +651,9 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         //		post("new index[%d]",x->current_list->strings.size);
         return;
     }
+
+
+
 
     //par_error(x,argc,argv,"attribute");
 

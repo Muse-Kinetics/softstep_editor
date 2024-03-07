@@ -31,6 +31,7 @@ typedef struct {unsigned char status;
 } MIDI_MESSAGE;
 #endif
 
+
 #define	MIDI_NOTE_OFF			0x80
 #define	MIDI_NOTE_ON			0x90
 #define	MIDI_NOTE_AFTERTOUCH	0xA0

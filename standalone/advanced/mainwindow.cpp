@@ -13,6 +13,7 @@
 #include <kmi_updates.h>
 
 #define MAINWINDOW_WIDTH 690
+#define MAINWINDOW_WIDTH_SS3 860
 #ifdef Q_OS_MAC
 #define MAINWINDOW_HEIGHT 279
 #else
@@ -206,38 +207,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qDebug() << "Default file save location - post: " << sessionSettings->value(DEFAULT_DIR_KEY).toString();
 
-    // ******************************
-
-    sysExComposer = new SysExComposer(this);
-    sysExDeComposer = new SysExDeComposer(SoftStep, this);
-
-    presetInterface = new PresetInterface(this);
-    qDebug() << "------------ [Copy/Paste SETUP] ---------------------------------------------------";
-    copyPasteHandler = new CopyPasteHandler(presetInterface,this);
-    qDebug() << "------------ [midiParse SETUP] ---------------------------------------------------";
-
-    midiParse = new MidiParse();
-    disableWidget = new QWidget(this);
-    qDebug() << "------------ [Legacy Preset Import SETUP] ---------------------------------------------------";
-    importOldPresetHandler = new ImportOldPresetHandler(presetInterface,0);
-#ifdef OSC_ENABLED
-    qDebug() << "------------ [OSC SETUP] ---------------------------------------------------";
-
-    oscInterface = new OscInterface(0);
-#endif
-
     qDebug() << "------------ [MainWindow UI SETUP] ---------------------------------------------------";
     //Mainwindow Ui
     ui->setupUi(this);
     this->setWindowTitle("SoftStep Advanced Editor");
-    this->setFixedSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
+    this->setFixedSize(MAINWINDOW_WIDTH_SS3, MAINWINDOW_HEIGHT);
 //    QRect screenGeometry = QApplication::desktop()->availableGeometry();
 
 
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect  screenGeometry = screen->geometry();
 
-    this->setGeometry(screenGeometry.width() / 4, 50, MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
+    this->setGeometry(screenGeometry.width() / 4, 50, MAINWINDOW_WIDTH_SS3, MAINWINDOW_HEIGHT);
 
     // ---- FONTS --------------------------
     qDebug() << "------------ [FONTS SETUP] ---------------------------------------------------";
@@ -304,12 +285,46 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->connectedLabel->setStyleSheet("font:7pt \"Futura\";color: rgba(200,200,200,255); background: rgba(40, 40, 40, 255); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;");
 #endif
 
+
+    // ******************************
+
+    sysExComposer = new SysExComposer(this);
+    sysExDeComposer = new SysExDeComposer(SoftStep, this);
+
+    const std::vector<QComboBox*>& boxPointers =
+    {
+        ui->cv1_modline,
+        ui->cv1_usb,
+        ui->cv1_ch,
+        ui->cv2_modline,
+        ui->cv2_usb,
+        ui->cv2_ch
+    };
+
+    presetInterface = new PresetInterface(this, boxPointers);
+
+    qDebug() << "------------ [Copy/Paste SETUP] ---------------------------------------------------";
+    copyPasteHandler = new CopyPasteHandler(presetInterface,this);
+    qDebug() << "------------ [midiParse SETUP] ---------------------------------------------------";
+
+    midiParse = new MidiParse();
+    disableWidget = new QWidget(this);
+    qDebug() << "------------ [Legacy Preset Import SETUP] ---------------------------------------------------";
+    importOldPresetHandler = new ImportOldPresetHandler(presetInterface,0);
+#ifdef OSC_ENABLED
+    qDebug() << "------------ [OSC SETUP] ---------------------------------------------------";
+
+    oscInterface = new OscInterface(0);
+#endif
+
+
     disableWidget->hide();
-    disableWidget->setGeometry(0,0,MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
+    disableWidget->setGeometry(0,0,MAINWINDOW_WIDTH_SS3, MAINWINDOW_HEIGHT);
     disableWidget->setStyleSheet("background: rgba(0,0,0,200);");
 
     //Populates source and dest lists for modes
     slotPopulateSourceDestLists();
+
 
     qDebug() << "------------ [KEYS SETUP] ---------------------------------------------------";
 #ifdef KEYS_ENABLED
@@ -1280,6 +1295,11 @@ void MainWindow::slotInitMenuBar()
     connect(importOldPreset, SIGNAL(triggered()), importOldPresetHandler, SLOT(slotImportOldPreset()));
     file->addAction(importOldPreset);
 
+    openAppDataDir = new QAction("Open Editor Preset Directory", file);
+    openAppDataDir->setObjectName("openAppDataDir");
+    connect(openAppDataDir, SIGNAL(triggered()), this, SLOT(slotOpenPresetDirectory()));
+    file->addAction(openAppDataDir);
+
     menubar->addMenu(file);
 
 
@@ -1400,6 +1420,12 @@ void MainWindow::slotInitMenuBar()
     menubar->addMenu(help);
 
     menubar->show();
+}
+
+void MainWindow::slotOpenPresetDirectory()
+{
+    QString presetDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDesktopServices::openUrl(QUrl::fromLocalFile(presetDir));
 }
 
 void MainWindow::slotEnableDisableToolTips()

@@ -4,6 +4,7 @@
 #include "settings.h"
 
 #include <QDebug>
+#include "midi.h"
 
 #define TABLE_ENABLED
 
@@ -162,7 +163,7 @@ Settings::Settings(QWidget *parent) :
     settingsWidget->setFixedWidth(settingsWidget->width());
 
     //Inits settings window height on global
-    settingsWidget->setFixedHeight(415);
+    settingsWidget->setFixedHeight(492);
 
     // fix windows that are not on the screen
     int posX = settingsWidget->pos().x();
@@ -377,6 +378,8 @@ void Settings::slotConnectElements()
 
     // live settings to send whenever updated
     connect(settingsForm->backlighting_enable, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
+    connect(settingsForm->backlight_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSendSettingsMIDI()));
+    connect(settingsForm->progChgCh, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSendSettingsMIDI()));
     connect(settingsForm->scenechange_enable, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
     connect(settingsForm->sensorresponse_checkbox, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
     connect(settingsForm->displaymode_checkbox, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
@@ -554,6 +557,11 @@ void Settings::slotValueChanged()
                 double gain = slider->value() * 0.01;
                 value = gain;
             }
+            if(slider->objectName() == "backlight_slider")
+            {
+                jsonName = "backlight_slider";
+                value = slider->value();
+            }
         }
         //checkboxes
         else if(senderClass == "QCheckBox")
@@ -576,7 +584,13 @@ void Settings::slotValueChanged()
             jsonName = combobox->objectName();
             value = combobox->currentText();
 
-            //qDebug() << "_________ ComboBox: settings slot value changed" << jsonName;
+            qDebug() << "_________ ComboBox: settings slot value changed" << jsonName;
+
+            if(combobox->objectName().contains("progChgCh"))
+            {
+                value = combobox->currentIndex();
+                value = value == 16 ? -1 : value; // disabled = -1
+            }
 
             if(combobox->objectName().contains("_settings_device"))
             {
@@ -614,7 +628,7 @@ void Settings::slotStoreSettings(QString name, QVariant value)
     globalMap.insert(name,value);
     settings.insert(QString("Global"), globalMap);
 
-    //qDebug() << "update the settings preset" << name << value << value.toLongLong();
+    qDebug() << "update the settings preset" << name << value << value.toLongLong();
 
 }
 
@@ -651,6 +665,11 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
             {
                 int gain = preset.value("global_gain_hosted").toDouble() * 100;
                 slider->setValue(gain);
+            }
+            if(objectName == "backlight_slider")
+            {
+                int brightness = preset.value("backlight_slider").toInt();
+                slider->setValue(brightness);
             }
         }
         else if(widget->metaObject()->className() == QString("QCheckBox"))
@@ -705,7 +724,7 @@ void Settings::slotViewSelector()
             //set stackedwidget tab view
             settingsForm->settingsViews->setCurrentIndex(0);
             //resize settings window
-            settingsWidget->setFixedSize(320, 425);
+            settingsWidget->setFixedSize(320, 492);
         }
         else if(sender == settingsForm->settingskeybutton)
         {
@@ -907,7 +926,9 @@ void Settings::slotConstructSettingsDefaultMap()
 
     defaultGlobalMap["global_gain"] = 1.00;
     defaultGlobalMap["global_gain_hosted"] = 1.00;
-    defaultGlobalMap["backlighting_enable"] = 1;
+    defaultGlobalMap["global_gain"] = 1.00;
+    defaultGlobalMap["backlight_slider"] = 48;
+    defaultGlobalMap["progChgCh"] = MIDI_CH_10;
 
     //-------------------- Key Page --------------------//
     defaultGlobalMap["key1_settings_xdead"] = 0;

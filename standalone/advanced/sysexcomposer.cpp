@@ -18,6 +18,7 @@ extern "C"
 #include "query.h"
 #include "attribute.h"
 }
+#include "midi.h"
 
 SysExComposer::SysExComposer(QWidget *parent) :
     QWidget(parent)
@@ -35,6 +36,7 @@ SysExComposer::SysExComposer(QWidget *parent) :
 
 void SysExComposer::slotComposeSettings(QVariantMap settingsMapGlobal, QList<int> pedalTable)
 {
+    Q_UNUSED(pedalTable);
     //qDebug() << "slotComposeSettings called";
 
     if (composeSettingsTimeout->elapsed() < 500) // limit update to twice a second
@@ -79,32 +81,19 @@ void SysExComposer::slotComposeSettings(QVariantMap settingsMapGlobal, QList<int
         attribute(x,3,A_SYM,"set",A_SYM,"Key_Mode",A_LONG,1l);
     }
 
-    //---- Pedal
-    int max = 0;
-    int min = 127;
-    for(int i = 0; i < pedalTable.size(); i++)
-    {
-        //qDebug() << "pedal table " << pedalTable;
-        //Min
-        if(pedalTable.at(i) < min)
-        {
-            min = pedalTable.at(i);
-        }
 
-        //Max
-        if(pedalTable.at(i) > max)
-        {
-            max = pedalTable.at(i);
-        }
-    }
+    // PEDAL CALIBRATION - EB TODO: Update
+    unsigned char min = settingsMap.value("pedalCal_min").toInt();
+    unsigned char max = settingsMap.value("pedalCAl_max").toInt();
+    unsigned char table = settingsMap.value("pedalCAl_table").toInt();
 
+    //attribute(x,5,A_SYM,"set",A_SYM,"pedalCalibration",A_LONG,min, A_LONG,max, A_LONG,table);
 
-    //attribute(x,0,A_SYM,"set",A_SYM,"Pedal_Table",A_GIMME,-1);
-    attribute(x,4,A_SYM,"set",A_SYM,"pedalEdges",A_LONG,max, A_LONG,min);
-    //attribute(x,3,A_SYM,"set",A_SYM,"pedalHysteresis",A_LONG,7);
-    attribute(x,3,A_SYM,"set",A_SYM,"pedalFilterLength",A_LONG,3);
+    // backlight
+    unsigned char brightness = settingsMap.value("backlight_slider").toInt();
+    attribute(x,3,A_SYM,"set",A_SYM,"keyL_brightness",A_LONG,brightness);
 
-    //---- EL
+    //---- EL - for SS1 only
     attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!settingsMap.value("backlighting_enable").toLongLong());
 
     //---- Display offset 0-127, 1-128
@@ -114,7 +103,8 @@ void SysExComposer::slotComposeSettings(QVariantMap settingsMapGlobal, QList<int
     //qDebug() << " ---------------- el" << settingsMap.value("backlighting_enable").toLongLong();
 
     //---- Program Change Input Channel
-    attribute(x,3,A_SYM,"set",A_SYM,"ProgramChangeInput",A_LONG,16);
+    int channel = settingsMap.value("progChgCh").toInt();
+    attribute(x,3,A_SYM,"set",A_SYM,"progchg_rx_channel",A_LONG, channel);
 
     //--------------------------------------  Keys  ------------------------------------//
     for (long k=1;k<11;k++)
@@ -158,10 +148,14 @@ void SysExComposer::slotComposeSettings(QVariantMap settingsMapGlobal, QList<int
     //free(settings);
 
 }
-
+// Compose all of the attributes for each preset in the setlist, and then transmit it to the device
 void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setlist, QVariantMap settingsMapGlobal, QList<int> pedalTable)
 {
+    Q_UNUSED(pedalTable);
     qDebug() << "slotComposeAttributeListFromSetlist";
+
+    int p_size = sizeof(PRESET_IMAGE);
+    int nm_size = sizeof(NM);
 
     //For some reason there's an extra layer to get to the actual settings, the "Global" map within the settings json contains them
     //I think "Global" refers to the fact that it's for both modes, Standalone and Hosted
@@ -198,32 +192,18 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         attribute(x,3,A_SYM,"set",A_SYM,"Key_Mode",A_LONG,1l);
     }
 
-    //---- Pedal
-    int max = 0;
-    int min = 127;
-    for(int i = 0; i < pedalTable.size(); i++)
-    {
-        //qDebug() << "pedal table " << pedalTable;
-        //Min
-        if(pedalTable.at(i) < min)
-        {
-            min = pedalTable.at(i);
-        }
+    // PEDAL CALIBRATION - EB TODO: Update
+    unsigned char min = settingsMap.value("pedalCal_min").toInt();
+    unsigned char max = settingsMap.value("pedalCAl_max").toInt();
+    unsigned char table = settingsMap.value("pedalCAl_table").toInt();
 
-        //Max
-        if(pedalTable.at(i) > max)
-        {
-            max = pedalTable.at(i);
-        }
-    }
+    //attribute(x,5,A_SYM,"set",A_SYM,"pedalCalibration",A_LONG,min, A_LONG,max, A_LONG,table);
 
+    // backlight
+    unsigned char brightness = settingsMap.value("backlight_slider").toInt();
+    attribute(x,4,A_SYM,"set",A_SYM,"keyL_brightness",A_LONG,brightness);
 
-    //attribute(x,0,A_SYM,"set",A_SYM,"Pedal_Table",A_GIMME,-1);
-    attribute(x,4,A_SYM,"set",A_SYM,"pedalEdges",A_LONG,max, A_LONG,min);
-    //attribute(x,3,A_SYM,"set",A_SYM,"pedalHysteresis",A_LONG,7);
-    attribute(x,3,A_SYM,"set",A_SYM,"pedalFilterLength",A_LONG,3);
-
-    //---- EL
+    //---- EL - for SS1 only
     attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!settingsMap.value("backlighting_enable").toLongLong());
 
     //---- Display offset 0-127, 1-128
@@ -233,7 +213,10 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     //qDebug() << " ---------------- el" << settingsMap.value("backlighting_enable").toLongLong();
 
     //---- Program Change Input Channel
-    attribute(x,3,A_SYM,"set",A_SYM,"ProgramChangeInput",A_LONG,16);
+
+
+    int channel = settingsMap.value("progChgCh").toInt();
+    attribute(x,3,A_SYM,"set",A_SYM,"progchg_rx_channel",A_LONG, channel);
 
     //--------------------------------------  Keys  ------------------------------------//
     for (long k=1;k<11;k++)
@@ -278,6 +261,41 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
 
         attribute(x,2,A_SYM,"preset",A_LONG,p);
         attribute(x,3,A_SYM, "set",A_SYM,"Scene_Name",A_SYM,preset.value("preset_displayname").toString().toUtf8().constData());
+
+        //----------------------------------------------------------------------------------------//
+        //----------------------------------------- CVs  -----------------------------------------//
+        //----------------------------------------------------------------------------------------//
+
+        QMap<QString, unsigned char> cvUSBMap;
+
+        cvUSBMap["Gate"] = 0;
+        cvUSBMap["Pitch"] = 1;
+        cvUSBMap["Velocity"] = 2;
+        cvUSBMap["Bend / Mod"] = 3;
+        cvUSBMap["Disabled"] = 3;
+        cvUSBMap["Ch. 1"] = 0;
+        cvUSBMap["Ch. 2"] = 1;
+
+        unsigned char cv1_modline = cvUSBMap.value(preset.value("cv1_modline", "Gate").toString());
+        unsigned char cv1_usb = cvUSBMap.value(preset.value("cv1_usb", "Pitch").toString());
+        unsigned char cv1_ch = cvUSBMap.value(preset.value("cv1_ch", "Ch. 1").toString());
+        unsigned char cv2_modline = cvUSBMap.value(preset.value("cv2_modline", "Pitch").toString());
+        unsigned char cv2_usb = cvUSBMap.value(preset.value("cv2_usb", "Pitch").toString());
+        unsigned char cv2_ch = cvUSBMap.value(preset.value("cv2_ch", "Ch. 1").toString());
+
+        x->current_image->nm.cv1ModeModline = cv1_modline;
+        x->current_image->nm.cv1ModeUSB = cv1_usb;
+        x->current_image->nm.cv1USBChannel = cv1_ch;
+        x->current_image->nm.cv2ModeModline = cv2_modline;
+        x->current_image->nm.cv2ModeUSB = cv2_usb;
+        x->current_image->nm.cv2USBChannel = cv2_ch;
+
+//        attribute(x, 3, A_SYM, "set", A_SYM, "cv1_modline", A_LONG, cv1_modline);
+//        attribute(x, 3, A_SYM, "set", A_SYM, "cv1_usb", A_LONG, cv1_usb);
+//        attribute(x, 3, A_SYM, "set", A_SYM, "cv1_ch", A_LONG, cv1_ch);
+//        attribute(x, 3, A_SYM, "set", A_SYM, "cv2_modline", A_LONG, cv2_modline);
+//        attribute(x, 3, A_SYM, "set", A_SYM, "cv2_usb", A_LONG, cv2_usb);
+//        attribute(x, 3, A_SYM, "set", A_SYM, "cv2_ch", A_LONG, cv2_ch);
 
         //----------------------------------------------------------------------------------------//
         //----------------------------------------- Keys -----------------------------------------//
@@ -632,12 +650,13 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
             attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("nav_modline%1_displaylinked").arg(m)).toLongLong());
 
         }
+
     }
 
     //=========================================================================================================//
     //================================================= Download ==============================================//
     //=========================================================================================================//
-    attribute(x,1,A_SYM,"download");
+    attribute(x,1,A_SYM,"download"); // this command sends the image
 
     //qDebug() << "image" << image << "imageLength" << imageLength;
     //qDebug() << "settings" << settings << "settingsLength" << settingsLength;
@@ -782,5 +801,5 @@ void SysExComposer::slotRequestPedalCalibration()
 
     if (!connected) return; // don't send when not connected
 
-    emit signalSendSysEx(_request_pedal_cal, sizeof(_request_pedal_cal));
+    //emit signalSendSysEx(_request_pedal_cal, sizeof(_request_pedal_cal));
 }
