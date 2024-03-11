@@ -10,6 +10,8 @@
 #include <QtGui>
 #include <QComboBox>
 
+#include "hosted/datacooker.h"
+
 //#include "qjson/src/parser.h"
 //#include "qjson/src/serializer.h"
 
@@ -20,6 +22,7 @@ public:
     explicit PresetInterface(QWidget *parent = 0, const std::vector<QComboBox*>& boxPointers = {});
 
     QString mode;
+    int ssHardware;
 
     QVariantMap jsonMasterMap;
     QList<QVariantMap> presetListMaster;
@@ -43,12 +46,14 @@ public:
     int     currentPresetNum;
     QVariantMap currentPresetMap;
 
-    QComboBox *cv1_modline;
-    QComboBox *cv1_usb;
+    QComboBox *cv1_sources;
+    QComboBox *cv1_control;
     QComboBox *cv1_ch;
-    QComboBox *cv2_modline;
-    QComboBox *cv2_usb;
+    QComboBox *cv1_notes;
+    QComboBox *cv2_sources;
+    QComboBox *cv2_control;
     QComboBox *cv2_ch;
+    QComboBox *cv2_notes;
 
 
     void closeEvent(QCloseEvent *);

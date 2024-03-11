@@ -5,7 +5,7 @@
 #ifndef SoftstepSyxDemo_download_h
 #define SoftstepSyxDemo_download_h
 
-#include "softstep.h"
+#include "device_includes.h"
 
 int firmware_compatable(int build_num);
 

@@ -13,7 +13,7 @@
 #include <stdarg.h>
 #include <ctype.h>
 #include <string.h>
-#include "softstep.h"
+#include "device_includes.h"
 #include "maxapi.h"
 #include "syxformats.h"
 #include "attribute.h"

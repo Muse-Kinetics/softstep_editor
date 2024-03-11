@@ -78,6 +78,8 @@ public:
     QWidget* formWidget;
     //QWidget* hosted_formWidget;
 
+    int ssHardware;
+
     int keyInstance;
     int modlineInstance;
 

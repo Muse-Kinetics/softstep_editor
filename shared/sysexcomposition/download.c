@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "softstep.h"
+#include "device_includes.h"
 #include "syxformats.h"
 #include "syxtx.h"
 #include "midi_ss.h"

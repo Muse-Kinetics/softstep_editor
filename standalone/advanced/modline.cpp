@@ -35,8 +35,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
 {
     //qDebug() << "init modline - key: " << keyInstanceNum << " modline: " << modlineInstanceNum;
 
-    //QElapsedTimer eTimer;
-    //eTimer.start();
+
 
     keyInstance = keyInstanceNum;
     modlineInstance = modlineInstanceNum;
@@ -50,56 +49,31 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
     lastNote = -1;
     toggleOnMMC = false;
 
-    //eTimer.restart();
-
     this->setObjectName(QString("%1_Key_%2_Modline").arg(keyInstance+1).arg(modlineInstance+1));
 
     //---------------------------------------- Set Up Ui
-    //eTimer.restart();
 
     formWidget = new QWidget(this);
 
-    //eTimer.restart();
-
     modlineForm = new Ui::modlineForm;
 
-    //eTimer.restart();
-
     modlineForm->setupUi(formWidget);
-
-    //qDebug() << "geometry - elapsed: " << eTimer.elapsed();
-    //eTimer.restart();
 
     this->setFixedSize(MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
     this->setGeometry(MODLINE_STARTING_X_POS, MODLINE_STARTING_Y_POS + ((modlineInstance)*(MODLINE_WINDOW_HEIGHT + MODLINE_SPACING)), MODLINE_WINDOW_WIDTH, MODLINE_WINDOW_HEIGHT);
 
-    //eTimer.restart();
-
     modlineForm->instanceLabel->setText(QString("%1").arg((modlineInstance + 1)%10));
-    //eTimer.restart();
 
-    //modlineForm->deviceViews->setCurrentIndex(0);
-
-    //eTimer.restart();
-
-    //modlineForm->deviceViewLabels->setCurrentIndex(0);
-
-    //eTimer.restart();
 
     modlineForm->raw->setValue(0);
     modlineForm->enable->setStyleSheet(stylesheets.modlineEnableStyleSheet.at(modlineInstanceNum));
 
     displayLinkButton = modlineForm->modlinedisplayenable;
 
-    //eTimer.restart();
 
     raw = 0;
     result = 0;
     value = 0;
-
-    //QTimer *updateGraphicsClock = new QTimer(this);
-    //connect(updateGraphicsClock, SIGNAL(timeout()), this, SLOT(slotDisplayVars()));
-    //updateGraphicsClock->start(10);
 
     toggleTable = false;
     tableToggleGate = true;
@@ -732,9 +706,25 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modlineForm->ledgreen->setCurrentIndex(modlineForm->ledgreen->findText(preset.value(QString("key%1_modline%2_ledgreen").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
     modlineForm->ledred->setCurrentIndex(modlineForm->ledred->findText(preset.value(QString("key%1_modline%2_ledred").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
 
-    //destination parameters
+    // string and then the index of the combobox, whose items are updated by mainWindow
+    QMap<QString, unsigned char> portMap;
+
+    // USB
+    portMap["SSCOM Port 1"] = 0;
+    portMap["SoftStep USB MIDI"] = 0;
+    portMap["SoftStep Control Surface"] = 0;
+
+    // MIDI
+    portMap["SSCOM Port 2"] = 1;
+    portMap["SoftStep Expander"] = 1;
+    portMap["SoftStep TRS MIDI Out"] = 1;
+
+    // CV
+    portMap["SoftStep CV Out"] = 2;
 
     QString presetDevice = preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString();
+    unsigned char destIndex = portMap.value(presetDevice, 1); // default to USB port name index
+
 
     // fix old port names
     if (presetDevice.contains("SSCOM"))
@@ -749,8 +739,10 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
         }
     }
 
+    // destination parameters
     //storing these in a struct for later recall when we change the destination type/index
-    modDest.outPortName = presetDevice;
+    //modDest.outPortName = presetDevice;
+
     // modDest.index = modlineForm->destination->currentIndex(); // happens in slotRecallDestinationMenu()
     modDest.channel = preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
     modDest.note = preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
@@ -761,10 +753,8 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modDest.mmcFunction = preset.value(QString("key%1_modline%2_mmcfunction").arg(keyInstance+1).arg(modlineInstance+1)).toString();
     modDest.oscRoute = preset.value(QString("key%1_modline%2_oscroute").arg(keyInstance+1).arg(modlineInstance+1)).toString();
 
-    // update the values in the for
-
-    // midi port dropdown
-    modlineForm->dest_device->setCurrentText(modDest.outPortName);
+    // midi port dropdown - update this after we change the destination parameters above
+    modlineForm->dest_device->setCurrentIndex(destIndex);
 
     // mmc function dropdown
     modlineForm->dest_mmcfunction->setCurrentText(modDest.mmcFunction);
@@ -1089,11 +1079,25 @@ void Modline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevices)
 
     modlineForm->dest_device->clear();
 
+
     //-------------------------------- Populate all menus
-    QMap<QString, int>::iterator i;
-    for (i = externalDevices.begin(); i != externalDevices.end(); ++i)
+
+    // Step 1: Load the QMap into a QList, inverting the key and value for sorting
+    QList<QPair<int, QString>> sortedList;
+    for (auto it = externalDevices.begin(); it != externalDevices.end(); ++it) {
+        sortedList.append(qMakePair(it.value(), it.key()));
+    }
+
+    // Step 2: Sort the QList by the values, which are now the first element of the pair
+    std::sort(sortedList.begin(), sortedList.end(), [](const QPair<int, QString> &a, const QPair<int, QString> &b) {
+        return a.first < b.first;
+    });
+
+    // Step 3: Iterate through the sorted QList and add items to the combobox
+    for (const auto &item : sortedList)
     {
-        modlineForm->dest_device->addItem(i.key().left(25));
+        modlineForm->dest_device->addItem(item.second.left(25));
+
 //        //Note Set
 //        modlineForm->notedevice->addItem(i.key().left(25));
 

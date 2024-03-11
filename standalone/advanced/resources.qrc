@@ -174,4 +174,5 @@
         <file>presets/softstepadvanced.json</file>
         <file>presets/pedalTable.txt</file>
     </qresource>
+    <qresource prefix="/inc"/>
 </RCC>

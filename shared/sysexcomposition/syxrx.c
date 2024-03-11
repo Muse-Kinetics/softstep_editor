@@ -7,7 +7,7 @@
 
 #include <qglobal.h>
 
-#include "softstep.h"
+#include "device_includes.h"
 #include "syxformats.h"
 #include "midi_ss.h"
 #include "utils.h"

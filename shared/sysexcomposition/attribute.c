@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "maxapi.h"
-#include "softstep.h"
+#include "device_includes.h"
 #include "utils.h"
 #include "download.h"
 #include "syxformats.h"
@@ -25,10 +25,10 @@
 char *garageband_function_list[] = {"None","Rewind_to_Start","Rewind","Play","Fast_Forward","Loop","Record"};
 char *mmc_function_list[] = {"None","Stop","Play","Deferred_Play","Fast_Forward","Rewind","Punch_In","Punch_Out","Pause"};
 char *hui_function_list[] = {"Play","Stop","Rewind","Fast_Forward","Rec_Enable","Solo","Mute","Next_Bank","Prev_Bank"};
-char *destination_list[] = {"SoftStep_USB_MIDI","SoftStep_Expander"};
+char *destination_list[] = {"SoftStep_Expander","SoftStep_USB_MIDI","SoftStep_CV_Out"};
 char *dest_list[] = {"None","Note_Set","Note_Live","CC","Bank","Program","Pitch_Bend","MMC","GarageBand","HUI",0};
 char *table_list[] = {"0_Off","1_Lin","2_Sin","3_Cos","4_Exponential","5_Logarithmic","Toggle","Toggle_127",0};
-char *table_list2[] = {"Off","Lin","Sin","Cos","Exponential","Logarithmic","Toggle",0};
+//char *table_list2[] = {"Off","Lin","Sin","Cos","Exponential","Logarithmic","Toggle",0};
 char *led_list[] = {"None","True","False","Flash True","Flash False","Flash_Fast_True","Flash_Fast_False","Blink_True","Blink_False","Off",0};
 
 
@@ -41,7 +41,7 @@ char *source_list[] = {
     "Key 0 Pressed","Key 1 Pressed","Key 2 Pressed","Key 3 Pressed","Key 4 Pressed","Key 5 Pressed",
     "Key 6 Pressed","Key 7 Pressed","Key 8 Pressed","Key 9 Pressed",SRC_OTHER_KEY_PRESSED,
     MODLINE_1_OUTPUT,"Modline 2 Output","Modline 3 Output","Modline 4 Output","Modline 5 Output",MODLINE_6_OUTPUT,
-    "Init",
+    "Random", "Init",
     0};
 
 

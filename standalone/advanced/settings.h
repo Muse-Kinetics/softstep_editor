@@ -8,6 +8,7 @@
 #include <QtGui>
 #include <QDebug>
 #include <QVariant>
+#include "hosted/datacooker.h"
 
 #ifdef Q_OS_MAC
 //#include <CoreMIDI/CoreMIDI.h>
@@ -37,6 +38,7 @@ class Settings : public QWidget
 public:
     explicit Settings(QWidget *parent = nullptr);
 
+    int ssHardware;
     QTimer *saveSettingsTimeout;
     int     saveSettiingsTimeoutTime;
 
@@ -75,7 +77,7 @@ public:
 signals:
     void signalUpdateSettings();
     void signalStoreValue(QString name, QVariant value);
-    void signalRecallSettings(QVariantMap preset, QVariantMap settings);
+    void signalRecallSettings(QVariantMap preset);
 
     //---- Globals
     void signalSetGlobalGain(float gain);
@@ -109,6 +111,8 @@ signals:
 
     void signalSetNavYIncAccel(int accel);
 
+    void signalUpdateNRPNChannel(int);
+
     //---- Pedal Calibration
     void signalStartCalibration();
     void signalResetCalibration();
@@ -136,7 +140,7 @@ public slots:
     void slotConnectElements();
     void slotDisconnectElements();
     void slotValueChanged();
-    void slotRecallPreset(QVariantMap, QVariantMap);
+    void slotRecallPreset(QVariantMap);
     void slotRecallSettings();
     void slotViewSelector();
     void slotResetGlobalGain();

@@ -6,7 +6,7 @@
 #define SoftstepSyxDemo_utils_h
 
 
-#include "softstep.h"
+#include "device_includes.h"
 #include "maxapi.h"
 
 

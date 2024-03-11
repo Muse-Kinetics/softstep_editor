@@ -13,6 +13,8 @@ QT       += core gui \
 
 TARGET = "SoftStep Advanced Editor"
 TEMPLATE = app
+VERSION = 3.0.0
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 macx {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder
@@ -52,6 +54,10 @@ INCLUDEPATH +=  forms \
                 ../../shared/KMI_MDM \
                 ../../shared/KMI_MDM/fwupdate \
                 ../../shared/KMI_MDM/troubleshoot \
+                ../../shared/KMI_MDM/cvCal \
+                ../../shared/KMI_MDM/pedalCal \
+                ../../shared/KMI_MDM/kmiSysEx \
+                ../../shared/KMI_MDM/qt_ui \
                 ../../shared/KMI_Ports \
                 ../../shared/KMI_Updates \
                 ../../shared/rtmidi
@@ -59,7 +65,11 @@ INCLUDEPATH +=  forms \
 SOURCES +=      main.cpp\
     ../../shared/KMI_MDM/KMI_SysexMessages.c \
     ../../shared/KMI_MDM/KMI_mdm.cpp \
+    ../../shared/KMI_MDM/cvCal/cvCal.cpp \
     ../../shared/KMI_MDM/fwupdate/fwupdate.cpp \
+    ../../shared/KMI_MDM/kmiSysEx/kmiSysEx.cpp \
+    ../../shared/KMI_MDM/pedalCal/pedalcal.cpp \
+    ../../shared/KMI_MDM/qt_ui/kmiSpinBoxUpDown.cpp \
     ../../shared/KMI_MDM/troubleshoot/troubleshoot.cpp \
     ../../shared/KMI_Ports/kmi_ports.cpp \
     ../../shared/KMI_Updates/kmi_updates.cpp \
@@ -76,7 +86,6 @@ SOURCES +=      main.cpp\
                 ../../shared/sysexcomposition/download.c \
                 ../../shared/sysexcomposition/attribute.c \
                 ../../shared/sysexcomposition/mainsysex.c \
-    sysExDecomposer.cpp \
                 sysexcomposer.cpp \
                 settings.cpp \
 #                mididevicemanager.cpp \
@@ -110,22 +119,27 @@ HEADERS  +=     mainwindow.h \
     ../../shared/KMI_MDM/KMI_FwVersions.h \
     ../../shared/KMI_MDM/KMI_SysexMessages.h \
     ../../shared/KMI_MDM/KMI_mdm.h \
+    ../../shared/KMI_MDM/cvCal/cvCal.h \
+    ../../shared/KMI_MDM/cvCal/cvCalData.h \
     ../../shared/KMI_MDM/fwupdate/fwupdate.h \
+    ../../shared/KMI_MDM/kmiSysEx/kmiSysEx.h \
+    ../../shared/KMI_MDM/pedalCal/pedalcal.h \
+    ../../shared/KMI_MDM/pedalCal/readOnlySlider.h \
+    ../../shared/KMI_MDM/qt_ui/kmiSpinBoxUpDown.h \
     ../../shared/KMI_MDM/troubleshoot/troubleshoot.h \
     ../../shared/KMI_Ports/kmi_ports.h \
     ../../shared/KMI_Updates/kmi_updates.h \
     ../../shared/rtmidi/RtMidi.h \
+    ../../shared/sysexcomposition/device_includes.h \
     ../../shared/sysexcomposition/midi_ss.h \
                 modline.h \
                 key.h \
                 presetinterface.h \
-    sysExDecomposer.h \
                 sysexcomposer.h \
                 ../../shared/sysexcomposition/utils.h \
                 ../../shared/sysexcomposition/syxtx.h \
                 ../../shared/sysexcomposition/syxrx.h \
                 ../../shared/sysexcomposition/syxformats.h \
-                ../../shared/sysexcomposition/softstep.h \
                 ../../shared/sysexcomposition/query.h \
                 ../../shared/sysexcomposition/maxapi.h \
                 ../../shared/sysexcomposition/download.h \
@@ -160,7 +174,9 @@ HEADERS  +=     mainwindow.h \
     WindowsMidiTypes.h
 
 FORMS    +=     forms/mainwindow.ui \
+    ../../shared/KMI_MDM/cvCal/cvCal.ui \
                 ../../shared/KMI_MDM/fwupdate/fwupdate.ui \
+    ../../shared/KMI_MDM/pedalCal/pedalcal.ui \
     ../../shared/KMI_MDM/troubleshoot/troubleshoot.ui \
     forms/aboutform.ui \
     forms/apploadform.ui \
@@ -187,7 +203,6 @@ FORMS    +=     forms/mainwindow.ui \
     forms/keyWindowFormWin.ui \
     forms/keyBoxFormWin.ui \
     forms/modlineFormWin.ui \
-    forms/updatefwformWin.ui \
     forms/settingsFormWin.ui \
     forms/setlistFormWin.ui \
     forms/saveAsFormWin.ui \
@@ -231,7 +246,7 @@ static{
 
 
 RESOURCES += \
-    ../../shared/KMI_MDM/fwupdate/fw_stylesheets.qrc \
+    ../../shared/KMI_MDM/KMI_mdm.qrc \
     ../../shared/firmware/firmware.qrc \
     resources.qrc \
     resources/fonts/fonts.qrc
@@ -352,3 +367,6 @@ ICON = resources/appicon.icns
 
 #    QMAKE_EXTRA_TARGETS += first presets
 #}
+
+DISTFILES += \
+    ../../shared/KMI_MDM/cvCal/cvCalStyleWin.qss

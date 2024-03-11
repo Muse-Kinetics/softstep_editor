@@ -10,7 +10,7 @@
 #ifndef SoftstepSyxDemo_attribute_h
 #define SoftstepSyxDemo_attribute_h
 
-#include "softstep.h"
+#include "device_includes.h"
 //#include "maxapi.h"
 
 #define	MODLINE_1_OUTPUT	"Modline 1 Output"

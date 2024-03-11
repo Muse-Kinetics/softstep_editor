@@ -19,13 +19,15 @@ class MainWindow;
 enum {NW, NE, SW, SE};
 enum {N, E, W, S};
 
+enum {SS_UNDEFINED, SS_1, SS_2, SS_3};
+
 class DataCooker : public QWidget
 {
     Q_OBJECT
 public:
     explicit DataCooker(int instanceNum, QWidget *parent = 0);
 
-    enum {SS_UNDEFINED, SS_1, SS_2, SS_3};
+
 
     int SS_HW_VER;
 
@@ -80,6 +82,7 @@ public:
     int     pressureRaw();
 
     int     pressureLive();
+    int     random();
     int     xLive();
     int     yLive();
 

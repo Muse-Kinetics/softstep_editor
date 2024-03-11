@@ -14,7 +14,7 @@
 
 extern "C"
 {
-#include "softstep.h"
+#include "device_includes.h"
 }
 
 class SysExComposer : public QWidget

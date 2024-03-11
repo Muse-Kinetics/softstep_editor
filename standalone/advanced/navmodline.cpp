@@ -550,8 +550,24 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
 //    navModlineForm->aftertouchchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
 //    navModlineForm->polychannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
 
+    // string and then the index of the combobox, whose items are updated by mainWindow
+    QMap<QString, unsigned char> portMap;
+
+    // USB
+    portMap["SSCOM Port 1"] = 0;
+    portMap["SoftStep USB MIDI"] = 0;
+    portMap["SoftStep Control Surface"] = 0;
+
+    // MIDI
+    portMap["SSCOM Port 2"] = 1;
+    portMap["SoftStep Expander"] = 1;
+    portMap["SoftStep TRS MIDI Out"] = 1;
+
+    // CV
+    portMap["SoftStep CV Out"] = 2;
 
     QString presetDevice = preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString();
+    unsigned char destIndex = portMap.value(presetDevice, 1); // default to USB port name index
 
     // fix old port names
     if (presetDevice.contains("SSCOM"))
@@ -567,7 +583,8 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
     }
 
     //storing these in a struct for later recall when we change the destination type/index
-    modDest.outPortName = presetDevice;
+    //modDest.outPortName = presetDevice;
+
     // modDest.index = modlineForm->destination->currentIndex(); // happens in slotRecallDestinationMenu()
     modDest.channel = preset.value(QString("nav_modline%2_channel").arg(navInstance+1)).toInt();
     modDest.note = preset.value(QString("nav_modline%2_note").arg(navInstance+1)).toInt();
@@ -578,10 +595,9 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modDest.mmcFunction = preset.value(QString("nav_modline%2_mmcfunction").arg(navInstance+1)).toString();
     modDest.oscRoute = preset.value(QString("nav_modline%2_oscroute").arg(navInstance+1)).toString();
 
-    // update the values in the for
 
-    // midi port dropdown
-    navModlineForm->dest_device->setCurrentText(modDest.outPortName);
+    // midi port dropdown - update this after we change the destination parameters above
+    navModlineForm->dest_device->setCurrentIndex(destIndex);
 
     // mmc function dropdown
     navModlineForm->dest_mmcfunction->setCurrentText(modDest.mmcFunction);
@@ -877,11 +893,22 @@ void NavModline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevice
 
     navModlineForm->dest_device->clear();
 
-    //-------------------------------- Populate all menus
-    QMap<QString, int>::iterator i;
-    for (i = externalDevices.begin(); i != externalDevices.end(); ++i)
+    //-------------------------------- Populate all menus        
+    // Step 1: Load the QMap into a QList, inverting the key and value for sorting
+    QList<QPair<int, QString>> sortedList;
+    for (auto it = externalDevices.begin(); it != externalDevices.end(); ++it) {
+        sortedList.append(qMakePair(it.value(), it.key()));
+    }
+
+    // Step 2: Sort the QList by the values, which are now the first element of the pair
+    std::sort(sortedList.begin(), sortedList.end(), [](const QPair<int, QString> &a, const QPair<int, QString> &b) {
+        return a.first < b.first;
+    });
+
+    // Step 3: Iterate through the sorted QList and add items to the combobox
+    for (const auto &item : sortedList)
     {
-        navModlineForm->dest_device->addItem(i.key().left(25));
+        navModlineForm->dest_device->addItem(item.second.left(25));
 
 //        //Note Set
 //        navModlineForm->notedevice->addItem(i.key());

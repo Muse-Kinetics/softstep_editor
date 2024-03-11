@@ -5,6 +5,7 @@
 #include "key.h"
 #include "mainwindow.h"
 #include <QDebug>
+#include <QRandomGenerator>
 
 #define PEDAL_CC 86
 
@@ -526,6 +527,10 @@ void DataCooker::cookSources()
     for(int i = 0; i < 6; i++)
     {
         //-------- Live
+        if(modlineSources.value(i) == "Random")
+        {
+            emit signalTransformSource(random(), i, "Random");
+        }
         if(modlineSources.value(i) == "Pressure Live")
         {
             emit signalTransformSource(pressureLive(), i, "Pressure Live");
@@ -674,6 +679,25 @@ int DataCooker::pressureLive()
         if((int)((float)(pressureRaw() - onThresh) / (float)(127 - onThresh) * 127.00) > 0)
         {
             return (int)((float)(pressureRaw() - onThresh) / (float)(127 - onThresh) * 127.00);
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int DataCooker::random()
+{
+    if(footOnOff)
+    {
+        if((int)((float)(pressureRaw() - onThresh) / (float)(127 - onThresh) * 127.00) > 0)
+        {
+            return QRandomGenerator::global()->bounded(128);
         }
         else
         {
@@ -837,6 +861,7 @@ void DataCooker::slotYLatchReturn(int val, int modlineNum)
         emit signalTransformSource(val, i, "Y Latch");
     }
 }
+
 
 //-------------------------------------------------------------------- x,y Inc/Dec
 void DataCooker::xIncrement()

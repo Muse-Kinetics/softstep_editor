@@ -13,7 +13,7 @@
 #include <kmi_updates.h>
 
 #define MAINWINDOW_WIDTH 690
-#define MAINWINDOW_WIDTH_SS3 860
+#define MAINWINDOW_WIDTH_SS3 880
 #ifdef Q_OS_MAC
 #define MAINWINDOW_HEIGHT 279
 #else
@@ -33,11 +33,13 @@ MainWindow::MainWindow(QWidget *parent) :
     saveAsDialogWidget(new QWidget(this)),
     deleteDialogWidget(new QWidget(this)),
     aboutFormWidget(new QWidget(this)),
-    //appLoadWidget(new QWidget(this)),
 
     importOldDialogWidget(new QWidget(this)),
     importOldNotFoundDialogWidget(new QWidget(this)),
     modlineWarningDialogWidget(new QWidget(this)),
+
+    pedalCalWidget(new QWidget(this)),
+    cvCalWidget(new QWidget(this)),
 
     ui(new Ui::MainWindow),
 
@@ -46,7 +48,9 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutForm(new Ui::AboutForm),
     importOldDialog(new Ui::ImportOldPresetsForm),
     importOldNotFoundDialog(new Ui::ImportOldNotFoundForm),
-    modlineWarningDialog(new Ui::ModlineWarningForm)
+    modlineWarningDialog(new Ui::ModlineWarningForm),
+    pedalCalForm(new Ui::pedalCal),
+    cvCalForm(new Ui::cvCal)
 
 {
 
@@ -57,18 +61,32 @@ MainWindow::MainWindow(QWidget *parent) :
 
     sessionSettings = new QSettings(this);
 
+    ssHardware = sessionSettings->value("LAST_SS_REV_CONNECTED", SS_3).toUInt();
+
     // ---- FW update overhaul ----------------------------
 
     qDebug() << "System Locale: " << QLocale::system().name();
 
     // application version
-    applicationVersion.resize(3);
+    QString versionString = QString(APP_VERSION);
 
-    // pre bootloader app version was 2.04, revving to 2.1.0 for bootloader trojan
-    applicationVersion[0] = 2;
-    applicationVersion[1] = 1;
-    applicationVersion[2] = 2;
-    betaVersion = "A"; // leave blank for release
+    // Split the version string by dots and assign values directly
+    QStringList parts = versionString.split('.');
+
+    for (int i = 0; i < 3 && i < parts.size(); ++i)
+    {
+        applicationVersion.append(static_cast<char>(parts[i].toInt()));
+        //imageFormatter.applicationVersion.append(static_cast<char>(parts[i].toInt())); // update this, used for generating 8051 compatible factory presets C file
+    }
+
+    if (parts.size() > 3)
+    {
+        betaVersion = parts[3]; // assume this is a letter
+    }
+    else
+    {
+        betaVersion = "";
+    }
 
     appStillLoading = true;
 
@@ -113,6 +131,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // ******************************
 
     SoftStep = new MidiDeviceManager(this, PID_SOFTSTEP2, "SoftStep", kmiPorts);
+    kmiDecode = new KMI_Decode();
+    kmiEncode = new KMI_Encode(PID_SOFTSTEP3); // EB TODO: update this when we connect/detect a new PID
 
     // setup bootloader/firmware images
     qDebug() << "\n------------ [FIRMWARE SETUP] ---------------------------------------------------";
@@ -188,8 +208,13 @@ MainWindow::MainWindow(QWidget *parent) :
     // ******************************
     // check for updates and set default save locations
     // ******************************
-//    QString jsonVersionCheckURL = "https://files.keithmcmillen.com/products/softstep/editor/softwareVersionCheck.json";
-//    checkUpdates = new KMI_Updates(this, "SoftStep", sessionSettings, applicationVersion, jsonVersionCheckURL);
+    QString jsonVersionCheckURL = "https://files.keithmcmillen.com/products/softstep/editor/softwareVersionCheck.json";
+    checkUpdates = new KMI_Updates(this, "SoftStep", sessionSettings, applicationVersion, jsonVersionCheckURL);
+
+    //-------------------- Pedal Calibration window
+    qDebug() << "------------ [EXPRESSION PEDAL AND CV CALIBRATION] ---------------------------------------------------";
+    pedalCalWindow = new pedalCal(this);
+    cvCalWindow = new cvCal(this);
 
     // default file location
     const QString DEFAULT_DIR_KEY("default_dir");
@@ -212,6 +237,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("SoftStep Advanced Editor");
     this->setFixedSize(MAINWINDOW_WIDTH_SS3, MAINWINDOW_HEIGHT);
+    ui->statusBar->hide();
+
 //    QRect screenGeometry = QApplication::desktop()->availableGeometry();
 
 
@@ -289,16 +316,18 @@ MainWindow::MainWindow(QWidget *parent) :
     // ******************************
 
     sysExComposer = new SysExComposer(this);
-    sysExDeComposer = new SysExDeComposer(SoftStep, this);
+//    sysExDeComposer = new SysExDeComposer(SoftStep, this);
 
     const std::vector<QComboBox*>& boxPointers =
     {
-        ui->cv1_modline,
-        ui->cv1_usb,
+        ui->cv1_sources,
+        ui->cv1_control,
         ui->cv1_ch,
-        ui->cv2_modline,
-        ui->cv2_usb,
-        ui->cv2_ch
+        ui->cv1_notes,
+        ui->cv2_sources,
+        ui->cv2_control,
+        ui->cv2_ch,
+        ui->cv2_notes
     };
 
     presetInterface = new PresetInterface(this, boxPointers);
@@ -662,7 +691,7 @@ void MainWindow::slotConnectInterfaces()
     connect(SoftStep, SIGNAL(signalConnected(bool)), this, SLOT(slotUpdateMIDIThru()));
 
     // connect softStep sysex handlers, the assumption here is that we can do this when the app loads and not worry about it. QuNexus does more complex handling of this signal.
-    connect(SoftStep, SIGNAL(signalRxSysExBA(QByteArray)), sysExDeComposer, SLOT(slotProcessSysEx(QByteArray)));
+    //connect(SoftStep, SIGNAL(signalRxSysExBA(QByteArray)), sysExDeComposer, SLOT(slotProcessSysEx(QByteArray)));
 
     // remember last selected MIDI aux port
     MIDI_THRU_KEY = "midi_thru_port";
@@ -717,9 +746,16 @@ void MainWindow::slotConnectInterfaces()
     // handle device unexpectedly in bootloader mode
     connect(SoftStep, SIGNAL(signalBootloaderMode(bool)), this, SLOT(slotBootloaderMode(bool)));
 
-    // reset portlist after sending bootloader commands, catch changes to port names
-//    connect(SoftStep, SIGNAL(signalBeginBlTimer()), this, SLOT(slotRefreshConnection()));
-//    connect(SoftStep, SIGNAL(signalBeginFwTimer()), this, SLOT(slotRefreshConnection()));
+    // NRPNs for pedalCal tether and cvCal
+    connect(SoftStep, SIGNAL(signalRxMidi_NRPN(uchar,int,int)), this, SLOT(slotProcessNRPN(uchar,int,int)));
+    connect(cvCalWindow, SIGNAL(signalSendNRPN(int,int,unsigned char)), SoftStep, SLOT(slotSendMIDI_NRPN(int,int,uchar)));
+    connect(cvCalWindow, SIGNAL(signalSendStepSXPacket(uint8_t,uint8_t,uint8_t*,uint16_t)), kmiEncode, SLOT(slotEncodePacket(uint8_t,uint8_t,uint8_t*,uint16_t)));
+
+    // sysex enc/decoding
+    connect(SoftStep, SIGNAL(signalRxSysExBA(QByteArray)), kmiDecode, SLOT(slotDecodePacket(QByteArray)));
+    connect(kmiDecode, SIGNAL(signalRxKMIPacket(uint8_t,uint8_t,uint8_t,uint8_t*,uint16_t)), this, SLOT(slotProcessKMIPacket(uint8_t,uint8_t,uint8_t,uint8_t*,uint16_t)));
+
+    connect(kmiEncode, SIGNAL(signalSendSysEx(unsigned char*,int)), SoftStep, SLOT(slotSendSysEx(unsigned char*,int)));
 
     // ---- end midi and fw update overhaul --------------------
 
@@ -926,6 +962,8 @@ void MainWindow::slotConnectInterfaces()
     connect(copyPasteHandler, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
     connect(importOldPresetHandler, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
 
+    //---------- Pedal Calibration
+    connect(settingsWindow, SIGNAL(signalRecallSettings(QVariantMap)), pedalCalWindow, SLOT(slotLoadJSONCalibrationValues(QVariantMap)));
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1114,12 +1152,12 @@ void MainWindow::slotConnectInterfaces()
 
     }
 
-    // this was inside of the Keys for loop, but only key[0] deals with an expression pedal object
-    connect(settingsWindow, SIGNAL(signalStartCalibration()), key[0]->dataCooker->pedal, SLOT(slotStartCalibrate()));
-    connect(settingsWindow, SIGNAL(signalResetCalibration()), key[0]->dataCooker->pedal, SLOT(slotResetCalibrate()));
+//    // this was inside of the Keys for loop, but only key[0] deals with an expression pedal object
+//    connect(settingsWindow, SIGNAL(signalStartCalibration()), key[0]->dataCooker->pedal, SLOT(slotStartCalibrate()));
+//    connect(settingsWindow, SIGNAL(signalResetCalibration()), key[0]->dataCooker->pedal, SLOT(slotResetCalibrate()));
 
-    //Pedal Calibration file read/write
-    connect(settingsWindow, SIGNAL(signalInitPedalTable(QByteArray)), key[0]->dataCooker->pedal, SLOT(slotInitPedalTable(QByteArray)));
+//    //Pedal Calibration file read/write
+//    connect(settingsWindow, SIGNAL(signalInitPedalTable(QByteArray)), key[0]->dataCooker->pedal, SLOT(slotInitPedalTable(QByteArray)));
 
     //----- Pedal Nav Pad
     //connect(settingsWindow, SIGNAL(signalStartCalibration()), &navKey->dataCooker->pedal, SLOT(slotStartCalibrate()));
@@ -1130,11 +1168,11 @@ void MainWindow::slotConnectInterfaces()
     connect(settingsWindow, SIGNAL(signalInitPedalTable(QByteArray)), &navKey->dataCooker->pedal, SLOT(slotInitPedalTable(QByteArray)));
 #endif // PEDAL_ENABLED
     //Pedal -- only connect key 0, we only need one data stream, while there are multiple instances of the Pedal class
-    connect(key[0]->dataCooker->pedal, SIGNAL(signalLivePedalVal(int)), settingsWindow, SLOT(slotSetLiveValue(int)), Qt::QueuedConnection);
-    connect(settingsWindow, SIGNAL(signalStopCalibration()), key[0]->dataCooker->pedal, SLOT(slotStopCalibrate()));
-    connect(key[0]->dataCooker->pedal, SIGNAL(signalWriteTableToDisk(QByteArray)), settingsWindow, SLOT(slotWritePedalTableToDisk(QByteArray)));
+    //connect(key[0]->dataCooker->pedal, SIGNAL(signalLivePedalVal(int)), settingsWindow, SLOT(slotSetLiveValue(int)), Qt::QueuedConnection);
+    //connect(settingsWindow, SIGNAL(signalStopCalibration()), key[0]->dataCooker->pedal, SLOT(slotStopCalibrate()));
+    //connect(key[0]->dataCooker->pedal, SIGNAL(signalWriteTableToDisk(QByteArray)), settingsWindow, SLOT(slotWritePedalTableToDisk(QByteArray)));
 
-    connect(key[0]->dataCooker->pedal, SIGNAL(signalResetOnZeroInput()), settingsWindow, SLOT(slotResetCalibration()), Qt::QueuedConnection);
+    //connect(key[0]->dataCooker->pedal, SIGNAL(signalResetOnZeroInput()), settingsWindow, SLOT(slotResetCalibration()), Qt::QueuedConnection);
 
 #endif // end KEYS_ENABLED
 
@@ -1212,6 +1250,12 @@ void MainWindow::slotConnectInterfaces()
 #endif // end KEYS_ENABLED
 #endif // end OSC_ENABLED
 
+    //---------- Pedal Calibration
+    connect(pedalCalWindow, SIGNAL(signalStoreValue(QString,QVariant)), settingsWindow, SLOT(slotStoreSettings(QString,QVariant)));
+    connect(pedalCalWindow, SIGNAL(signalSendCalibration()), this, SLOT(slotUpdateSettings()));
+    connect(pedalCalWindow, SIGNAL(signalSaveCalibration()), settingsWindow, SLOT(slotWriteSettings()));
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////// Dialogs /////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1252,7 +1296,9 @@ void MainWindow::slotConnectInterfaces()
 
 void MainWindow::slotInitMenuBar()
 {
+    qDebug() << "slotInitMenuBar called";
     menubar = new QMenuBar(this);
+
 #ifndef Q_OS_MAC
     QFile menuStyleFile = QFile(":/resources/menuBarWin.qss");
     QString menuStyleString;
@@ -1269,14 +1315,12 @@ void MainWindow::slotInitMenuBar()
         qDebug() << "ERROR - Could not find menubar stylesheet: " << menuStyleString;
     }
 
-
     menubar->setGeometry(0,0, this->width(), 25);
 #endif
 
 
     //-------------------------------------------------------------------------- File
     QMenu* file = new QMenu("File");
-    //qDebug() << file;
     file->setObjectName("FileMenu");
 
     //----------------- Import / Export ------------------//
@@ -1354,6 +1398,40 @@ void MainWindow::slotInitMenuBar()
     //-------------------------------------------------------------------------- Hardware
     QMenu* hardware = new QMenu("Hardware");
     hardware->setObjectName("HardwareMenu");
+
+    //pedal calibration
+    openPedalCalibration = new QAction("Calibrate Expression Pedal", hardware);
+    actionList.append(openPedalCalibration);
+    hardware->addAction(openPedalCalibration);
+
+    //openPedalCalibration->setDisabled(true);
+
+    //cv calibration
+    openCVCalibration = new QAction("Calibrate CV Outs", hardware);
+    actionList.append(openCVCalibration);
+    hardware->addAction(openCVCalibration);
+#ifndef ENABLE_SS3_HARDWARE_OPTIONS
+    //openCVCalibration->setDisabled(true);
+#endif
+    openCVCalibration->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_O));
+
+    connect(openPedalCalibration,  SIGNAL(triggered()), pedalCalWidget, SLOT(raise()));
+    connect(openPedalCalibration,  SIGNAL(triggered()), pedalCalWidget, SLOT(show()));
+    connect(openPedalCalibration, SIGNAL(triggered()), pedalCalWindow, SLOT(show()));
+    connect(pedalCalWindow,  SIGNAL(signalWindowClosed()), pedalCalWidget, SLOT(hide()));
+
+    connect(openPedalCalibration, SIGNAL(triggered()), this, SLOT(slotEnableTether()));
+    connect(pedalCalWindow,  SIGNAL(signalWindowClosed()), this, SLOT(slotDisableTether()));
+
+    connect(openCVCalibration,  SIGNAL(triggered()), cvCalWidget, SLOT(raise()));
+    connect(openCVCalibration,  SIGNAL(triggered()), cvCalWidget, SLOT(show()));
+    connect(openCVCalibration, SIGNAL(triggered()), cvCalWindow, SLOT(show()));
+    connect(openCVCalibration, SIGNAL(triggered()), cvCalWindow, SLOT(slotGetDeviceCVCalibration()));
+
+    connect(cvCalWindow,  SIGNAL(signalWindowClosed()), cvCalWidget, SLOT(hide()));
+
+    // this is a pointer in settings, it needs to be set up before this is connected
+    connect(settingsWindow, SIGNAL(signalUpdateNRPNChannel(int)), cvCalWindow, SLOT(slotUpdateNRPNChannel(int)));
 
     //Reload Firmware
     updatefw = new QAction("Force Firmware Update...", hardware);
@@ -1535,6 +1613,57 @@ void MainWindow::slotUpdateAboutWindow()
 
 }
 
+void MainWindow::slotUpdateSSHardwareRevStrings()
+{
+    qDebug() << "SoftStep Hardware Revision: " << ssHardware << " PID: " << SoftStep->PID_MIDI;
+    presetInterface->ssHardware = ssHardware;
+
+    // update modline destinations
+    for (int k = 0; k < 10; k++)
+    {
+        key[k]->dataCooker->SS_HW_VER = ssHardware;
+        for (int m = 0; m < NUM_MODLINES_PER_KEY; m++)
+        {
+            key[k]->modline[m]->ssHardware = ssHardware;
+        }
+    }
+
+    sessionSettings->setValue("LAST_SS_REV_CONNECTED", ssHardware);
+
+    // update SS3 specific UI
+    if (ssHardware == SS_3)
+    {
+        ui->cv1_notes->setDisabled(false);
+        ui->cv1_control->setDisabled(false);
+        ui->cv1_ch->setDisabled(false);
+        ui->cv1_sources->setDisabled(false);
+
+        ui->cv2_notes->setDisabled(false);
+        ui->cv2_control->setDisabled(false);
+        ui->cv2_ch->setDisabled(false);
+        ui->cv2_sources->setDisabled(false);
+
+        openCVCalibration->setDisabled(false);
+
+        //this->setFixedSize(MAINWINDOW_WIDTH_SS3, MAINWINDOW_HEIGHT);
+    }
+    else
+    {
+        openCVCalibration->setDisabled(true);
+        ui->cv1_notes->setDisabled(true);
+        ui->cv1_control->setDisabled(true);
+        ui->cv1_ch->setDisabled(true);
+        ui->cv1_sources->setDisabled(true);
+
+        ui->cv2_notes->setDisabled(true);
+        ui->cv2_control->setDisabled(true);
+        ui->cv2_ch->setDisabled(true);
+        ui->cv2_sources->setDisabled(true);
+
+        //this->setFixedSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
+    }
+}
+
 void MainWindow::slotConnected(bool connection)
 {
     //qDebug() << "slot connected: " << connection;
@@ -1553,24 +1682,25 @@ void MainWindow::slotConnected(bool connection)
         //updatefw->setEnabled(true);
         sysExComposer->connected = true;
 
-        sysExComposer->slotRequestPedalCalibration(); // grab the pedal calibration
+        //sysExComposer->slotRequestPedalCalibration(); // grab the pedal calibration
+        slotUpdateSettings(); // send the current settings on connect
 
 #ifdef MIDI_ENABLED
         // here we detect which version of SoftStep we are connected to
-        int ssHardware;
         switch (SoftStep->PID_MIDI)
         {
             case PID_SOFTSTEP1:
-                ssHardware = 1;
+                ssHardware = SS_1;
             break;
             case PID_SOFTSTEP2:
-                ssHardware = 2;
+                ssHardware = SS_2;
             break;
             case PID_SOFTSTEP3:
-                ssHardware = 3;
+                ssHardware = SS_3;
             break;
         }
-        qDebug() << "SoftStep Hardware Revision: " << ssHardware << " PID: " << SoftStep->PID_MIDI;
+
+        slotUpdateSSHardwareRevStrings();
 
 #ifdef KEYS_ENABLED
         for(int i = 0; i < 10; i++)
@@ -1680,8 +1810,7 @@ void MainWindow::slotSetMode()
 {
     //Check mode
     if(mode == "standalone")
-    {
-
+    {   
         // create virtual ports
 #ifndef Q_OS_WIN
         SoftStepShare->slotCreateVirtualIn(SS_SHARE_PORT);
@@ -1708,12 +1837,22 @@ void MainWindow::slotSetMode()
             SoftStepShare->slotUpdatePortOut(thisOutPort);
 #endif
             mode = "hosted";
+            ui->cv1label_sources->hide();
+            ui->cv2label_sources->hide();
+            ui->cv1_sources->hide();
+            ui->cv2_sources->hide();
+
             ui->mode->setText("Hosted");
         }
     }
     else
     {
         mode = "standalone";
+
+        ui->cv1label_sources->show();
+        ui->cv2label_sources->show();
+        ui->cv1_sources->show();
+        ui->cv2_sources->show();
 
         ui->mode->setText("Standalone");
 
@@ -1806,6 +1945,7 @@ void MainWindow::slotSetMode()
     }
     navKey->slotConnectElements();
 #endif // end TURNED OFF
+
     slotSetModeMIDI(mode); //repopulation of device menus should happen here
 
     presetInterface->slotSetMode(mode);
@@ -1892,7 +2032,17 @@ void MainWindow::slotPopulateDeviceMenus(QMap<QString, int> externalDevices)
 
     QMap<QString, int> standaloneDevices;
     standaloneDevices.insert("SoftStep USB MIDI", 0);
-    standaloneDevices.insert("SoftStep Expander", 0);
+    if (ssHardware == SS_3)
+    {
+        standaloneDevices.insert("SoftStep TRS MIDI Out", 1);
+        standaloneDevices.insert("SoftStep CV Out", 2);
+    }
+    else
+    {
+        standaloneDevices.insert("SoftStep Expander", 1);
+    }
+
+
 #ifdef KEYS_ENABLED
     for(int i = 0; i < 10; i++)
     {
@@ -1985,6 +2135,7 @@ void MainWindow::slotPopulateSourceDestLists()
 
     standaloneSources.append("Foot On");
     standaloneSources.append("Foot Off");
+    standaloneSources.append("Random");
     standaloneSources.append("Dbl Trig");
     standaloneSources.append("Long Trig");
 
@@ -2040,6 +2191,8 @@ void MainWindow::slotPopulateSourceDestLists()
 
     hostedSources.append("Foot On");
     hostedSources.append("Foot Off");
+
+    hostedSources.append("Random");
 
     hostedSources.append("Top");
     hostedSources.append("Bottom");
@@ -2146,6 +2299,18 @@ void MainWindow::slotPopulateSourceDestLists()
 
     standaloneTables.append("Toggle");
     //standaloneTables.append("Toggle 127");
+
+    standaloneTables.append("Random");
+
+    // Appending scale names
+    standaloneTables.append("Major");
+    standaloneTables.append("Natural Minor");
+    standaloneTables.append("Harmonic Minor");
+    standaloneTables.append("Dorian");
+    standaloneTables.append("Phrygian");
+    standaloneTables.append("Lydian");
+    standaloneTables.append("Mixolydian");
+    standaloneTables.append("Locrian");
 
     //Hosted
     hostedTables.append("Linear");
@@ -2281,22 +2446,11 @@ void MainWindow::slotConnectUpdate()
 
 void MainWindow::slotSetModeMIDI(QString m)
 {
-    //EB TODO - repopulation of device menus should happen here
 
     qDebug() << "slot set mode: " << m;
 
     if(m == "hosted")
     {
-        // EB TODO - redo this with RtMidi
-        //Virtual Source Creation "SoftStep Share"
-//        MIDISourceCreate(appClientRef, CFSTR("SoftStep Share"), &appVirtualSourceRef);
-
-        //hosted_slotRepopulateMidiSourceDests called here because new port is created
-
-        //Create entirely new port for external midi inputs
-//        MIDIInputPortCreate(appClientRef, CFSTR("SoftStep External MIDI In Port"), midiInputIncomingMidi, this, &midiInputPort);
-        //hosted_slotConnectExternalMidiInputSources();
-
         sysExComposer->slotHostedOnOff(true);
     }
     else
@@ -2567,6 +2721,21 @@ void MainWindow::slotBootloaderMode(bool fwUpdateRequested)
             slotForceFirmwareUpdate();
         }
     }
+}
+
+void MainWindow::relaunchApplication() {
+    // Get the application's executable path and arguments
+    QString appPath = QCoreApplication::applicationFilePath();
+    QStringList args = QCoreApplication::arguments();
+
+    // Remove the first argument, which is the path to the executable
+    args.removeFirst();
+
+    // Start a new instance of the application
+    QProcess::startDetached(appPath, args);
+
+    // Exit the current application instance
+    QCoreApplication::quit();
 }
 
 void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
@@ -2950,6 +3119,70 @@ void MainWindow::slotClearMIDIThruDropdown()
     midi_thru_dropdown->addItem("None");
 }
 
+#define NO_SAVE 0
+void MainWindow::slotTether(bool state)
+{
+    qDebug() << "slotTether called - state: " << state;
+    uint8_t tether_mode = state ? TETHER_LIVE : TETHER_OFF;
+    uint8_t tether_command[] = {0, SA_TYPE_TETHER_ONOFF, tether_mode, NO_SAVE}; // an int followed by two uchars
+    uint8_t nav_command[] = {0, SA_TYPE_NAVSTANDALONE_ONOFF, !state, NO_SAVE};
+    uint8_t standalone_command[] = {0, SA_TYPE_STANDALONE_ONOFF, !state, NO_SAVE};
+    uint8_t scene_command[] = {0, SA_TYPE_SCENECHANGE_ONOFF, !state, NO_SAVE};
+
+
+    kmiEncode->slotEncodePacket(MSG_CAT_LEGACY, STANDALONE_CLOSE, standalone_command, sizeof(standalone_command));
+    kmiEncode->slotEncodePacket(MSG_CAT_LEGACY, STANDALONE_CLOSE, tether_command, sizeof(tether_command));
+    kmiEncode->slotEncodePacket(MSG_CAT_LEGACY, STANDALONE_CLOSE, nav_command, sizeof(nav_command));
+    kmiEncode->slotEncodePacket(MSG_CAT_LEGACY, STANDALONE_CLOSE, scene_command, sizeof(scene_command));
+}
+
+void MainWindow::slotEnableTether()
+{
+   slotTether(true);
+}
+
+void MainWindow::slotDisableTether()
+{
+   slotTether(false);
+}
+
+// parse legacy KMI packets here
+void MainWindow::slotProcessKMIPacket(uint8_t PID, uint8_t category, uint8_t type, uint8_t* ptr, uint16_t length)
+{
+    Q_UNUSED(ptr);
+    qDebug() << "slotProcessKMIPacket called - PID: " << PID  << " category: " <<  category << "type: " << type  << "payloadLength: " << length;
+    switch (category)
+    {
+    case MSG_CAT_CALIBRATION:
+
+        switch (type)
+        {
+        case PEDAL_CAL_PAYLOAD:
+            break;
+        case KEYS_CAL_PAYLOAD:
+            break;
+        case CV_CAL_PAYLOAD:
+            if (cvCalWindow != nullptr)
+            {
+                cvCalWindow->slotParseDeviceCVCalibration(ptr, length);
+            }
+            break;
+        }
+
+        break;
+    }
+}
+
+void MainWindow::slotProcessNRPN(uchar chan, int nrpn, int val)
+{
+    Q_UNUSED(chan);
+
+    if (nrpn == 86) // 86 == 12 Step expression pedal
+    {
+        pedalCalWindow->slotProcessInput(val);
+    }
+}
+
 
 // --------------------------------------------------------------------------------------
 // ------ end midi overhaul -------------------------------------------------------------
@@ -3114,21 +3347,27 @@ void MainWindow::hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar 
     }
 
 
-    if (status == MIDI_PROG_CHANGE && chan == 15) // program change channel 16 selectes presets
+    if (status == MIDI_PROG_CHANGE) //
     {
-        qDebug() << "SoftStep Share Program Change channel 16 received - PC: " << d1;
-        int progChange = d1; // offset to match setlist numbering
-
-        if (progChange < setlist->getSetlistMap().size()) //
+        int progChan = cvCalWindow->nrpnChannel;
+        qDebug() << "SoftStep Share Program Change received - PC: " << d1 << " RX channel: " << progChan;
+        if (chan == progChan)
         {
-            QString thisPreset = setlist->getSetlistMap().at(progChange);
-            if (thisPreset != "[EMPTY]")
+            int progChange = d1; // offset to match setlist numbering
+
+            if (progChange < setlist->getSetlistMap().size()) //
             {
-                ui->presetmenu->setCurrentText(thisPreset);
+                QString thisPreset = setlist->getSetlistMap().at(progChange);
+                if (thisPreset != "[EMPTY]")
+                {
+                    ui->presetmenu->setCurrentText(thisPreset);
+                }
             }
         }
     }
 }
+
+
 
 void MainWindow::slotFixDropDownWidth(QComboBox* thisDropDown)
 {

@@ -82,10 +82,14 @@ void SysExComposer::slotComposeSettings(QVariantMap settingsMapGlobal, QList<int
     }
 
 
-    // PEDAL CALIBRATION - EB TODO: Update
-    unsigned char min = settingsMap.value("pedalCal_min").toInt();
-    unsigned char max = settingsMap.value("pedalCAl_max").toInt();
-    unsigned char table = settingsMap.value("pedalCAl_table").toInt();
+    // PEDAL CALIBRATION
+    unsigned char min = settingsMap.value("pedal_calibration_min").toInt();
+    unsigned char max = settingsMap.value("pedal_calibration_max").toInt();
+    unsigned char table = settingsMap.value("pedal_calibration_table").toInt();
+
+    x->settings.pedal_calibration.heel = min;
+    x->settings.pedal_calibration.toe = max;
+    x->settings.pedal_calibration.table = table;
 
     //attribute(x,5,A_SYM,"set",A_SYM,"pedalCalibration",A_LONG,min, A_LONG,max, A_LONG,table);
 
@@ -192,12 +196,14 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         attribute(x,3,A_SYM,"set",A_SYM,"Key_Mode",A_LONG,1l);
     }
 
-    // PEDAL CALIBRATION - EB TODO: Update
-    unsigned char min = settingsMap.value("pedalCal_min").toInt();
-    unsigned char max = settingsMap.value("pedalCAl_max").toInt();
-    unsigned char table = settingsMap.value("pedalCAl_table").toInt();
+    // PEDAL CALIBRATION
+    unsigned char min = settingsMap.value("pedal_calibration_min").toInt();
+    unsigned char max = settingsMap.value("pedal_calibration_max").toInt();
+    unsigned char table = settingsMap.value("pedal_calibration_table").toInt();
 
-    //attribute(x,5,A_SYM,"set",A_SYM,"pedalCalibration",A_LONG,min, A_LONG,max, A_LONG,table);
+    x->settings.pedal_calibration.heel = min;
+    x->settings.pedal_calibration.toe = max;
+    x->settings.pedal_calibration.table = table;
 
     // backlight
     unsigned char brightness = settingsMap.value("backlight_slider").toInt();
@@ -271,24 +277,53 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         cvUSBMap["Gate"] = 0;
         cvUSBMap["Pitch"] = 1;
         cvUSBMap["Velocity"] = 2;
-        cvUSBMap["Bend / Mod"] = 3;
-        cvUSBMap["Disabled"] = 3;
+
+        cvUSBMap["Pitch Bend"] = 0;
+        cvUSBMap["Mod Wheel"] = 1;
+        cvUSBMap["Aftertouch"] = 2;
+
+        cvUSBMap["Keys/USB"] = 0;
+        cvUSBMap["Keys"] = 1;
+        cvUSBMap["USB"] = 2;
+
+        cvUSBMap["Disabled"] = 4;
+
         cvUSBMap["Ch. 1"] = 0;
         cvUSBMap["Ch. 2"] = 1;
+        cvUSBMap["Ch. 3"] = 3;
+        cvUSBMap["Ch. 4"] = 4;
+        cvUSBMap["Ch. 5"] = 5;
+        cvUSBMap["Ch. 6"] = 6;
+        cvUSBMap["Ch. 7"] = 7;
+        cvUSBMap["Ch. 8"] = 8;
+        cvUSBMap["Ch. 9"] = 9;
+        cvUSBMap["Ch. 10"] = 10;
+        cvUSBMap["Ch. 11"] = 11;
+        cvUSBMap["Ch. 12"] = 12;
+        cvUSBMap["Ch. 13"] = 13;
+        cvUSBMap["Ch. 14"] = 14;
+        cvUSBMap["Ch. 15"] = 15;
+        cvUSBMap["Ch. 16"] = 16;
 
-        unsigned char cv1_modline = cvUSBMap.value(preset.value("cv1_modline", "Gate").toString());
-        unsigned char cv1_usb = cvUSBMap.value(preset.value("cv1_usb", "Pitch").toString());
+        unsigned char cv1_sources = cvUSBMap.value(preset.value("cv1_sources", "Keys/USB").toString());
+        unsigned char cv2_sources = cvUSBMap.value(preset.value("cv2_sources", "Keys/USB").toString());
+
+        unsigned char cv1_control = cvUSBMap.value(preset.value("cv1_control", "Pitch Bend").toString());
         unsigned char cv1_ch = cvUSBMap.value(preset.value("cv1_ch", "Ch. 1").toString());
-        unsigned char cv2_modline = cvUSBMap.value(preset.value("cv2_modline", "Pitch").toString());
-        unsigned char cv2_usb = cvUSBMap.value(preset.value("cv2_usb", "Pitch").toString());
-        unsigned char cv2_ch = cvUSBMap.value(preset.value("cv2_ch", "Ch. 1").toString());
+        unsigned char cv1_notes = cvUSBMap.value(preset.value("cv1_notes", "Gate").toString());
 
-        x->current_image->nm.cv1ModeModline = cv1_modline;
-        x->current_image->nm.cv1ModeUSB = cv1_usb;
-        x->current_image->nm.cv1USBChannel = cv1_ch;
-        x->current_image->nm.cv2ModeModline = cv2_modline;
-        x->current_image->nm.cv2ModeUSB = cv2_usb;
-        x->current_image->nm.cv2USBChannel = cv2_ch;
+        unsigned char cv2_control = cvUSBMap.value(preset.value("cv2_control", "Mod Wheel").toString());
+        unsigned char cv2_ch = cvUSBMap.value(preset.value("cv2_ch", "Ch. 1").toString());
+        unsigned char cv2_notes = cvUSBMap.value(preset.value("cv2_notes", "Pitch").toString());
+
+        x->current_image->nm.cv1Sources = cv1_sources;
+        x->current_image->nm.cv1Notes = cv1_notes;
+        x->current_image->nm.cv1Control = cv1_control;
+        x->current_image->nm.cv1Channel = cv1_ch;
+        x->current_image->nm.cv2Sources = cv2_sources;
+        x->current_image->nm.cv2Notes = cv2_notes;
+        x->current_image->nm.cv2Control = cv2_control;
+        x->current_image->nm.cv2Channel = cv2_ch;
 
 //        attribute(x, 3, A_SYM, "set", A_SYM, "cv1_modline", A_LONG, cv1_modline);
 //        attribute(x, 3, A_SYM, "set", A_SYM, "cv1_usb", A_LONG, cv1_usb);
@@ -345,39 +380,65 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                 attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("key%1_modline%2_gain").arg(k).arg(m)).toFloat());
                 attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("key%1_modline%2_offset").arg(k).arg(m)).toFloat());
 
-                QString keyTable = preset.value(QString("key%1_modline%2_table").arg(k).arg(m)).toString();
+                //QString keyTable = preset.value(QString("key%1_modline%2_table").arg(k).arg(m)).toString();
                 //qDebug() << "key tbale" << keyTable;
 
-                //Toggle 127 table formatting
-                if(keyTable.contains("Toggle"))
-                {
-                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "Toggle_127");
-                }
-                else if(keyTable.contains("Linear"))
-                {
-                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "1_Lin");
-                    //qDebug() << "------------ linear";
-                }
-                else if(keyTable.contains("Sine"))
-                {
-                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "2_Sin");
-                    //qDebug() << "------------ key tbale sine";
-                }
-                else if(keyTable.contains("Cosine"))
-                {
-                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "3_Cos");
-                    //qDebug() << "------------ key tbale cosine";
-                }
-                else if(keyTable.contains("Exponential"))
-                {
-                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "4_Exponential");
-                    //qDebug() << "------------ key tbale exponential";
-                }
-                else if(keyTable.contains("Logarithmic"))
-                {
-                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "5_Logarithmic");
-                    //qDebug() << "------------ key tbale log";
-                }
+                QMap<QString, int> tableMap;
+
+                // Standard tables
+                tableMap["Off"] = 0; // holdover from someone not realizing that none = linear
+                tableMap["Linear"] = 1;
+                tableMap["Sine"] = 2;
+                tableMap["Cosine"] = 3;
+                tableMap["Exponential"] = 4;
+                tableMap["Logarithmic"] = 5;
+                tableMap["Toggle1"] = 6; // not used
+                tableMap["Toggle"] = 7; // toggle_127
+                tableMap["Random"] = 8;
+
+                // scales
+                tableMap["Major"] = 9;
+                tableMap["Natural Minor"] = 10;
+                tableMap["Harmonic Minor"] = 11;
+                tableMap["Dorian"] = 12;
+                tableMap["Phrygian"] = 13;
+                tableMap["Lydian"] = 14;
+                tableMap["Mixolydian"] = 15;
+                tableMap["Locrian"] = 16;
+
+                int keyTableIndex = tableMap.value(preset.value(QString("key%1_modline%2_table").arg(k).arg(m)).toString(), 1);
+                x->current_modline->table = keyTableIndex;
+
+//                //Toggle 127 table formatting
+//                if(keyTable.contains("Toggle"))
+//                {
+//                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "Toggle_127");
+//                }
+//                else if(keyTable.contains("Linear"))
+//                {
+//                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "1_Lin");
+//                    //qDebug() << "------------ linear";
+//                }
+//                else if(keyTable.contains("Sine"))
+//                {
+//                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "2_Sin");
+//                    //qDebug() << "------------ key tbale sine";
+//                }
+//                else if(keyTable.contains("Cosine"))
+//                {
+//                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "3_Cos");
+//                    //qDebug() << "------------ key tbale cosine";
+//                }
+//                else if(keyTable.contains("Exponential"))
+//                {
+//                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "4_Exponential");
+//                    //qDebug() << "------------ key tbale exponential";
+//                }
+//                else if(keyTable.contains("Logarithmic"))
+//                {
+//                    attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "5_Logarithmic");
+//                    //qDebug() << "------------ key tbale log";
+//                }
 
 
 
@@ -460,7 +521,26 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                     attribute(x,3,A_SYM,"set",A_SYM,"MMC_Function",A_SYM,preset.value(QString("key%1_modline%2_mmcfunction").arg(k).arg(m)).toString().toUtf8().constData());
                 }
 
-                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString().toUtf8().constData());
+                // string and then the index of the combobox, whose items are updated by mainWindow
+                QMap<QString, QString> portMap;
+
+                // USB
+                portMap["SSCOM Port 1"] = "SoftStep USB MIDI";
+                portMap["SoftStep USB MIDI"] = "SoftStep USB MIDI";
+                portMap["SoftStep Control Surface"] = "SoftStep USB MIDI";
+
+                // MIDI
+                portMap["SSCOM Port 2"] = "SoftStep Expander";
+                portMap["SoftStep Expander"] = "SoftStep Expander";
+                portMap["SoftStep TRS MIDI Out"] = "SoftStep Expander";
+
+                // CV
+                portMap["SoftStep CV Out"] = "SoftStep CV Out";
+
+                QString thisDest = preset.value(QString("key%1_modline%2_device").arg(k).arg(m)).toString();
+                thisDest = portMap.value(thisDest);
+
+                attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM, thisDest.toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,preset.value(QString("key%1_modline%2_ledred").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,preset.value(QString("key%1_modline%2_ledgreen").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("key%1_modline%2_displaylinked").arg(k).arg(m)).toLongLong());
@@ -539,33 +619,60 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
             attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("nav_modline%1_gain").arg(m)).toFloat());
             attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("nav_modline%1_offset").arg(m)).toFloat());
 
-            //Toggle 127 table formatting
-            QString navTable = preset.value(QString("nav_modline%1_table").arg(m)).toString();
 
-            if(navTable.contains("Toggle"))
-            {
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "Toggle_127");
-            }
-            else if(navTable.contains("Linear"))
-            {
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "1_Lin");
-            }
-            else if(navTable.contains("Sine"))
-            {
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "2_Sin");
-            }
-            else if(navTable.contains("Cosine"))
-            {
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "3_Cos");
-            }
-            else if(navTable.contains("Exponential"))
-            {
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "4_Exponential");
-            }
-            else if(navTable.contains("Logarithmic"))
-            {
-                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "5_Logarithmic");
-            }
+            QMap<QString, int> tableMap;
+
+            // Standard tables
+            tableMap["Off"] = 0; // holdover from someone not realizing that none = linear
+            tableMap["Linear"] = 1;
+            tableMap["Sine"] = 2;
+            tableMap["Cosine"] = 3;
+            tableMap["Exponential"] = 4;
+            tableMap["Logarithmic"] = 5;
+            tableMap["Toggle1"] = 6; // not used
+            tableMap["Toggle"] = 7; // toggle_127
+            tableMap["Random"] = 8;
+
+            // scales
+            tableMap["Major"] = 9;
+            tableMap["Natural Minor"] = 10;
+            tableMap["Harmonic Minor"] = 11;
+            tableMap["Dorian"] = 12;
+            tableMap["Phrygian"] = 13;
+            tableMap["Lydian"] = 14;
+            tableMap["Mixolydian"] = 15;
+            tableMap["Locrian"] = 16;
+
+            int keyTableIndex = tableMap.value(preset.value(QString("nav_modline%1_table").arg(m)).toString(), 1);
+            x->current_modline->table = keyTableIndex;
+
+            //Toggle 127 table formatting
+            //QString navTable = preset.value(QString("nav_modline%1_table").arg(m)).toString();
+
+//            if(navTable.contains("Toggle"))
+//            {
+//                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "Toggle_127");
+//            }
+//            else if(navTable.contains("Linear"))
+//            {
+//                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "1_Lin");
+//            }
+//            else if(navTable.contains("Sine"))
+//            {
+//                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "2_Sin");
+//            }
+//            else if(navTable.contains("Cosine"))
+//            {
+//                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "3_Cos");
+//            }
+//            else if(navTable.contains("Exponential"))
+//            {
+//                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "4_Exponential");
+//            }
+//            else if(navTable.contains("Logarithmic"))
+//            {
+//                attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM, "5_Logarithmic");
+//            }
 
             //attribute(x,3,A_SYM,"set",A_SYM,"Table",A_SYM,preset.value(QString("nav_modline%1_table").arg(m)).toString().toUtf8().constData());
 

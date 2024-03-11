@@ -9,6 +9,8 @@ PresetInterface::PresetInterface(QWidget *parent, const std::vector<QComboBox*>&
     : QWidget(parent), comboBoxes(boxPointers)
 {
 
+    ssHardware = SS_3;
+
     qDebug() << "------------ [PRESETS SETUP] ---------------------------------------------------";
     // If preset JSON files do not exist in AppDataLocation, copy the defaults from the application bundle dir.
 
@@ -76,12 +78,14 @@ PresetInterface::PresetInterface(QWidget *parent, const std::vector<QComboBox*>&
     }
 
 
-    cv1_modline = comboBoxes[0];
-    cv1_usb = comboBoxes[1];
+    cv1_sources = comboBoxes[0];
+    cv1_control = comboBoxes[1];
     cv1_ch = comboBoxes[2];
-    cv2_modline = comboBoxes[3];
-    cv2_usb = comboBoxes[4];
-    cv2_ch = comboBoxes[5];
+    cv1_notes = comboBoxes[3];
+    cv2_sources = comboBoxes[4];
+    cv2_control = comboBoxes[5];
+    cv2_ch = comboBoxes[6];
+    cv2_notes = comboBoxes[7];
 
     slotConnectCVBoxes();
 
@@ -307,14 +311,14 @@ void PresetInterface::writeDefualtJSON()
 
 void PresetInterface::slotConnectCVBoxes()
 {
-
-
-    connect(cv1_modline, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
-    connect(cv1_usb, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
+    connect(cv1_sources, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
+    connect(cv1_control, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
     connect(cv1_ch, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
-    connect(cv2_modline, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
-    connect(cv2_usb, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
+    connect(cv1_notes, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
+    connect(cv2_sources, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
+    connect(cv2_control, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
     connect(cv2_ch, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
+    connect(cv2_notes, SIGNAL(currentIndexChanged(int)), this, SLOT(slotCVBoxChanged()));
 }
 
 void PresetInterface::slotCVBoxChanged()
@@ -354,12 +358,14 @@ void PresetInterface::slotRecallPreset(int i)
     emit signalRecallPreset(thisPreset, jsonMasterMapCopy);
 
     // CV comboboxes
-    cv1_modline->setCurrentIndex(cv1_modline->findText(thisPreset.value("cv1_modline").toString()));
-    cv1_usb->setCurrentIndex(cv1_usb->findText(thisPreset.value("cv1_usb").toString()));
-    cv1_ch->setCurrentIndex(cv1_ch->findText(thisPreset.value("cv1_ch").toString()));
-    cv2_modline->setCurrentIndex(cv2_modline->findText(thisPreset.value("cv2_modline").toString()));
-    cv2_usb->setCurrentIndex(cv2_usb->findText(thisPreset.value("cv2_usb").toString()));
-    cv2_ch->setCurrentIndex(cv2_ch->findText(thisPreset.value("cv2_ch").toString()));
+    cv1_sources->setCurrentIndex(cv1_sources->findText(thisPreset.value("cv1_sources", "Keys/USB").toString()));
+    cv1_control->setCurrentIndex(cv1_control->findText(thisPreset.value("cv1_control", "Mod Wheel").toString()));
+    cv1_ch->setCurrentIndex(cv1_ch->findText(thisPreset.value("cv1_ch", "Ch. 1").toString()));
+    cv1_notes->setCurrentIndex(cv1_notes->findText(thisPreset.value("cv1_notes", "Gate").toString()));
+    cv2_sources->setCurrentIndex(cv2_sources->findText(thisPreset.value("cv2_sources", "Keys/USB").toString()));
+    cv2_control->setCurrentIndex(cv2_control->findText(thisPreset.value("cv2_control", "Pitch Bend").toString()));
+    cv2_ch->setCurrentIndex(cv2_ch->findText(thisPreset.value("cv2_ch", "Ch. 1").toString()));
+    cv2_notes->setCurrentIndex(cv2_notes->findText(thisPreset.value("cv2_notes", "Pitch").toString()));
 
     slotCheckSaveState();
 
@@ -824,6 +830,8 @@ void PresetInterface::closeEvent(QCloseEvent *)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void PresetInterface::slotConstructDefaultHostedMap()
 {
+    QString MIDIOutPort = (ssHardware == SS_3) ? "SoftStep TRS MIDI Out" : "SoftStep Expander";
+
     defaultPresetMap["preset_name"] = "Default Preset";
     defaultPresetMap["preset_displayname"] = "DFLT";
 
@@ -2503,7 +2511,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["nav_modline1_mmcid"] = 0;
     defaultPresetMap["nav_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["nav_modline1_channel"] = 1;
-    defaultPresetMap["nav_modline1_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline1_device"] = MIDIOutPort;
     defaultPresetMap["nav_modline1_oscroute"] = "";
     defaultPresetMap["nav_modline1_displaylinked"] = 0;
 
@@ -2527,7 +2535,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["nav_modline2_mmcid"] = 0;
     defaultPresetMap["nav_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["nav_modline2_channel"] = 1;
-    defaultPresetMap["nav_modline2_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline2_device"] = MIDIOutPort;
     defaultPresetMap["nav_modline2_oscroute"] = "";
     defaultPresetMap["nav_modline2_displaylinked"] = 0;
 
@@ -2551,7 +2559,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["nav_modline3_mmcid"] = 0;
     defaultPresetMap["nav_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["nav_modline3_channel"] = 1;
-    defaultPresetMap["nav_modline3_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline3_device"] = MIDIOutPort;
     defaultPresetMap["nav_modline3_oscroute"] = "";
     defaultPresetMap["nav_modline3_displaylinked"] = 0;
 
@@ -2575,7 +2583,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["nav_modline4_mmcid"] = 0;
     defaultPresetMap["nav_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["nav_modline4_channel"] = 1;
-    defaultPresetMap["nav_modline4_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline4_device"] = MIDIOutPort;
     defaultPresetMap["nav_modline4_oscroute"] = "";
     defaultPresetMap["nav_modline4_displaylinked"] = 0;
 
@@ -2599,7 +2607,7 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["nav_modline5_mmcid"] = 0;
     defaultPresetMap["nav_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["nav_modline5_channel"] = 1;
-    defaultPresetMap["nav_modline5_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline5_device"] = MIDIOutPort;
     defaultPresetMap["nav_modline5_oscroute"] = "";
     defaultPresetMap["nav_modline5_displaylinked"] = 0;
 
@@ -2623,13 +2631,15 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["nav_modline6_mmcid"] = 0;
     defaultPresetMap["nav_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["nav_modline6_channel"] = 1;
-    defaultPresetMap["nav_modline6_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline6_device"] = MIDIOutPort;
     defaultPresetMap["nav_modline6_oscroute"] = "";
     defaultPresetMap["nav_modline6_displaylinked"] = 0;
 }
 
 void PresetInterface::slotConstructDefaultStandaloneMap()
 {
+    QString MIDIOutPort = (ssHardware == SS_3) ? "SoftStep TRS MIDI Out" : "SoftStep Expander";
+
     defaultPresetMap["preset_name"] = "Default Preset";
     defaultPresetMap["preset_displayname"] = "DFLT";
 
@@ -4309,7 +4319,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["nav_modline1_mmcid"] = 0;
     defaultPresetMap["nav_modline1_mmcfunction"] = "Stop";
     defaultPresetMap["nav_modline1_channel"] = 1;
-    defaultPresetMap["nav_modline1_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline1_device"] = MIDIOutPort;
     defaultPresetMap["nav_modline1_oscroute"] = "";
     defaultPresetMap["nav_modline1_displaylinked"] = 0;
 
@@ -4333,7 +4343,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["nav_modline2_mmcid"] = 0;
     defaultPresetMap["nav_modline2_mmcfunction"] = "Stop";
     defaultPresetMap["nav_modline2_channel"] = 1;
-    defaultPresetMap["nav_modline2_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline2_device"] = MIDIOutPort;
     defaultPresetMap["nav_modline2_oscroute"] = "";
     defaultPresetMap["nav_modline2_displaylinked"] = 0;
 
@@ -4357,7 +4367,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["nav_modline3_mmcid"] = 0;
     defaultPresetMap["nav_modline3_mmcfunction"] = "Stop";
     defaultPresetMap["nav_modline3_channel"] = 1;
-    defaultPresetMap["nav_modline3_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline3_device"] = MIDIOutPort;
     defaultPresetMap["nav_modline3_oscroute"] = "";
     defaultPresetMap["nav_modline3_displaylinked"] = 0;
 
@@ -4381,7 +4391,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["nav_modline4_mmcid"] = 0;
     defaultPresetMap["nav_modline4_mmcfunction"] = "Stop";
     defaultPresetMap["nav_modline4_channel"] = 1;
-    defaultPresetMap["nav_modline4_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline4_device"] = MIDIOutPort;
     defaultPresetMap["nav_modline4_oscroute"] = "";
     defaultPresetMap["nav_modline4_displaylinked"] = 0;
 
@@ -4405,7 +4415,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["nav_modline5_mmcid"] = 0;
     defaultPresetMap["nav_modline5_mmcfunction"] = "Stop";
     defaultPresetMap["nav_modline5_channel"] = 1;
-    defaultPresetMap["nav_modline5_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline5_device"] = MIDIOutPort;
     defaultPresetMap["nav_modline5_oscroute"] = "";
     defaultPresetMap["nav_modline5_displaylinked"] = 0;
 
@@ -4429,7 +4439,7 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
     defaultPresetMap["nav_modline6_mmcid"] = 0;
     defaultPresetMap["nav_modline6_mmcfunction"] = "Stop";
     defaultPresetMap["nav_modline6_channel"] = 1;
-    defaultPresetMap["nav_modline6_device"] = "SoftStep Expander";
+    defaultPresetMap["nav_modline6_device"] = MIDIOutPort;
     defaultPresetMap["nav_modline6_oscroute"] = "";
     defaultPresetMap["nav_modline6_displaylinked"] = 0;
 }

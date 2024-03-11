@@ -7,14 +7,14 @@
 this_year=2022
 app_name="SoftStep"
 app_name_fp=SoftStep
-version=2.1.1
+version=3.0.0A
 
 bundle_name=SoftStepEditors
 bundle_id="com.keithmcmillen.$bundle_name"
 app1="SoftStep Advanced Editor"
 app2="SoftStep Basic Editor"
-app1_source="../standalone/build-SoftStepAdvanced-Qt_6_3_1_for_macOS-Release/$app1.app"
-app2_source="../standalone/build-softstepezpz-Qt_6_3_1_for_macOS-Release/$app2.app"
+app1_source="../standalone/build-SoftStepAdvanced-Qt_6_3_2_for_macOS-Release/$app1.app"
+app2_source="../standalone/build-softstepezpz-Qt_6_3_2_for_macOS-Release/$app2.app"
 app1_qml_dir="../standalone/advanced/"
 app2_qml_dir="../standalone/ezpz/"
 dmg_path=./dmg
@@ -25,7 +25,7 @@ changelog_source="../CHANGELOG.md"
 changelog_dest="$subfolder_path/CHANGELOG.md"
 app1_path="$subfolder_path/$app1.app"
 app2_path="$subfolder_path/$app2.app"
-path_to_dqt=~/Qt/6.3.1/macos/bin/macdeployqt
+path_to_dqt=~/Qt/6.3.2/macos/bin/macdeployqt
 developer_id="Developer ID Application: Kesumo, LLC (***REMOVED***)"
 final_dmg_name="./$app_name Mac v$version.dmg"
 

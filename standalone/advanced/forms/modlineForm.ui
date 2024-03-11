@@ -1167,6 +1167,11 @@ QComboBox QListView
    </item>
    <item>
     <property name="text">
+     <string>Random</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
      <string>Top</string>
     </property>
    </item>

@@ -9,18 +9,21 @@
 #include <QDebug>
 #include <QVariant>
 #include <QElapsedTimer>
+#include <QPointer>
 
 #include "key.h"
 #include "navkey.h"
 #include "settings.h"
 #include "setlist.h"
 #include "presetinterface.h"
-//#include "mididevicemanager.h"
-#include "sysexcomposer.h"
-#include "sysExDecomposer.h"
 #include "copypastehandler.h"
 #include "scrolleventfilter.h"
 #include "importoldpresethandler.h"
+#include "pedal.h"
+
+#include "sysexcomposer.h"
+//#include "sysExDecomposer.h"
+
 
 #ifdef Q_OS_MAC
 //#include "ui_fwoodform.h"
@@ -50,6 +53,9 @@
 #include "ui_modlineWarningFormWin.h"
 #endif
 
+#include "ui_pedalcal.h"
+#include "ui_cvCal.h"
+
 #include "hosted/midiparse.h"
 #include "hosted/displaysink.h"
 #include "hosted/oscinterface.h"
@@ -59,22 +65,29 @@
 #include "KMI_mdm.h"
 #include "RtMidi.h"
 #include "KMI_DevData.h"
+
 #include <fwupdate.h>
 #include <troubleshoot.h>
 #include "kmi_updates.h"
 #include "midi_ss.h"
+#include "kmiSysEx.h"
+#include "cvCal.h"
+#include <pedalcal.h>
+
 // end midi overhaul
+
 
 namespace Ui {
 class MainWindow;
 }
+
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
     
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
     bool connected;
@@ -82,13 +95,19 @@ public:
 
     bool appStillLoading;
 
+    int ssHardware;
+
     // ------- fw update overhaul
     QByteArray applicationVersion, thisFw;
     QString betaVersion;
     KMI_Updates * checkUpdates;
-    fwUpdate* fwUpdateWindow;
-    troubleshoot* troubleshootWindow;
 
+    QPointer<fwUpdate> fwUpdateWindow;
+    QPointer<troubleshoot> troubleshootWindow;
+    QPointer<pedalCal> pedalCalWindow;
+    QPointer<cvCal> cvCalWindow;
+
+    //----------------------------------- Stylesheets
     // FWUpdate Styles
     QFile*              fwUpdateStylesFile;
     QString             fwUpdateStylesString;
@@ -106,6 +125,9 @@ public:
 
     // create KMI devices
     MidiDeviceManager* SoftStep;
+
+    KMI_Decode *kmiDecode; // for decoding packets
+    KMI_Encode *kmiEncode; // for encoding...
 
     // MIDI Thru port for standalone, workaround for Windows device limitations
     MidiDeviceManager* MIDIThru;
@@ -144,7 +166,7 @@ public:
     QSettings *sessionSettings;
 
     SysExComposer* sysExComposer;
-    SysExDeComposer* sysExDeComposer;
+    //SysExDeComposer* sysExDeComposer;
     PresetInterface* presetInterface;
     MidiDeviceManager* midiDeviceManager;
     CopyPasteHandler* copyPasteHandler;
@@ -176,15 +198,13 @@ public:
     //Dialogs
     QWidget     *saveAsDialogWidget;
     QWidget     *deleteDialogWidget;
-    //QWidget     *appLoadWidget;
-//    QWidget     *fwoodDialogWidget;
-//    QWidget     *fwProgressDialogWidget;
-//    QWidget     *fwUpdateCompleteDialogWidget;
-//    QWidget     *fwUpdateDialogWidget;
     QWidget     *aboutFormWidget;
     QWidget     *importOldDialogWidget;
     QWidget     *importOldNotFoundDialogWidget;
     QWidget     *modlineWarningDialogWidget;
+
+    QWidget     *pedalCalWidget;
+    QWidget     *cvCalWidget;
 
     //Menubar
     QMenuBar *menubar;
@@ -202,6 +222,9 @@ public:
     QAction* toolTipsEnable;
     QAction* importOldPreset;
     QAction* openAppDataDir;
+
+    QAction* openPedalCalibration;
+    QAction* openCVCalibration;
 
     //Ui Elements
     Key *key[10];
@@ -247,6 +270,7 @@ public slots:
     void slotMIDIPortChange(QString, uchar, uchar, int); // handles changes to MIDI i/o
     void slotRefreshConnection();
     void slotBootloaderMode(bool fwUpdateRequested);
+    void relaunchApplication();
     void slotFwUpdateSuccessCloseDialog(bool);
     void slotForceFirmwareUpdate();
     void slotFirmwareDetected(MidiDeviceManager *thisMDM, bool);
@@ -272,6 +296,10 @@ public slots:
     void slotUpdateMIDIAuxInputPorts(QString auxInput, QString port);
     void slotRecallMIDIThru();
     void slotClearMIDIThruDropdown();
+    void slotTether(bool state);
+    void slotEnableTether();
+    void slotDisableTether();
+    void slotProcessNRPN(uchar, int, int);
 
     // ------ end midi overhaul --------------------------------------------------------
 
@@ -297,6 +325,7 @@ public slots:
     void slotRecallPreset(QVariantMap, QVariantMap);
 
     void slotUpdateAboutWindow();
+    void slotUpdateSSHardwareRevStrings();
     void slotConnected(bool);
 
     void slotSaveAs();
@@ -331,6 +360,8 @@ public slots:
     void hosted_slotSendPacketArray(QString, QByteArray);
     void hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar chan);
 
+    void slotProcessKMIPacket(uint8_t PID, uint8_t category, uint8_t type, uint8_t* ptr, uint16_t length);
+
     void slotFixDropDownWidth(QComboBox* thisDropDown);
 
 #ifdef Q_OS_WIN
@@ -344,16 +375,13 @@ private:
     //Dialogs
     Ui::saveAsDialogForm        *saveAsDialogForm;
     Ui::deleteDialogForm        *deleteDialogForm;
-    //Ui::AppLoadForm             *apploadForm;
 
-    //Ui::FwoodDialog             *fwoodDialogForm;
-    //Ui::FwProgressForm          *fwProgressDialog;
-    //Ui::FwUpdateCompleteForm    *fwUpdateCompleteDialog;
-    //Ui::UpdateFirmwareForm      *fwUpdateDialog;
     Ui::AboutForm               *aboutForm;
     Ui::ImportOldPresetsForm    *importOldDialog;
     Ui::ImportOldNotFoundForm   *importOldNotFoundDialog;
     Ui::ModlineWarningForm      *modlineWarningDialog;
+    Ui::pedalCal                *pedalCalForm;
+    Ui::cvCal                   *cvCalForm;
 
 
 

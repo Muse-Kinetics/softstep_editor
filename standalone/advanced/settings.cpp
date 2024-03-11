@@ -92,7 +92,7 @@ Settings::Settings(QWidget *parent) :
 
 #ifdef TABLE_ENABLED
     // Create table interface
-    pedalLiveTableInterface = new TableInerface(settingsForm->pedalLiveWidget);
+    //pedalLiveTableInterface = new TableInerface(settingsForm->pedalLiveWidget);
 #endif // TABLE_ENABLED
     for(int i = 0; i < NUM_MIDI_INPUTS; i++)
     {
@@ -139,7 +139,7 @@ Settings::Settings(QWidget *parent) :
     connect(settingsForm->settingsglobalbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
     connect(settingsForm->settingskeybutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
     connect(settingsForm->settingsinputbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
-    connect(settingsForm->settingspedalbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
+    //connect(settingsForm->settingspedalbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
 
     //slotWriteDefaultSettings();
     slotRecallSettings();
@@ -152,9 +152,9 @@ Settings::Settings(QWidget *parent) :
     //---------------------------------------------------------------------------------------------------------//
 
     //---- Hide calibration messages initially
-    settingsForm->rockyourpedal->hide();
-    settingsForm->pedal_arrow->hide();
-    settingsForm->calibrationcomplete->hide();
+//    settingsForm->rockyourpedal->hide();
+//    settingsForm->pedal_arrow->hide();
+//    settingsForm->calibrationcomplete->hide();
 
     //Load Calibration tables into pedal instances
     //slotLoadTableOnStartup();
@@ -214,6 +214,19 @@ void Settings::slotSetMode(QString m)
 
         settingsForm->midithruframe->show();
     }
+
+    // handle backlight controls, SS1 EL Wire cannot pwm dim so it's on/off
+    if (ssHardware == SS_1)
+    {
+        settingsForm->backlight_slider->hide();
+        settingsForm->backlighting_enable->show();
+    }
+    else
+    {
+        settingsForm->backlight_slider->show();
+        settingsForm->backlighting_enable->hide();
+    }
+
 }
 
 void Settings::slotOpenSettings()
@@ -310,6 +323,11 @@ void Settings::slotConnectElements()
         {
             QComboBox* combobox = qobject_cast<QComboBox *>(widget);
 
+            if(combobox->objectName() == "progChgCh")
+            {
+                connect(combobox, SIGNAL(currentIndexChanged(int)), this, SIGNAL(signalUpdateNRPNChannel(int)));
+            }
+
             if(combobox->objectName().contains("_settings_device"))
             {
                 midiInputDeviceMenus.append(combobox);
@@ -369,12 +387,12 @@ void Settings::slotConnectElements()
         }
     }
 
-    connect(this, SIGNAL(signalRecallSettings(QVariantMap,QVariantMap)),this,SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
+    connect(this, SIGNAL(signalRecallSettings(QVariantMap)),this,SLOT(slotRecallPreset(QVariantMap)));
     connect(this, SIGNAL(signalStoreValue(QString,QVariant)), this, SLOT(slotStoreSettings(QString,QVariant)));
 
     //Pedal Cal.
-    connect(settingsForm->startcalibration_button, SIGNAL(clicked()), this, SLOT(slotStartCalibration()));
-    connect(settingsForm->resetcalibration_button, SIGNAL(clicked()), this, SLOT(slotResetCalibration()));
+    //connect(settingsForm->startcalibration_button, SIGNAL(clicked()), this, SLOT(slotStartCalibration()));
+    //connect(settingsForm->resetcalibration_button, SIGNAL(clicked()), this, SLOT(slotResetCalibration()));
 
     // live settings to send whenever updated
     connect(settingsForm->backlighting_enable, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
@@ -424,6 +442,11 @@ void Settings::slotDisconnectElements()
         else if(widget->metaObject()->className() == QString("QComboBox"))
         {
             QComboBox* combobox = qobject_cast<QComboBox *>(widget);
+
+            if(combobox->objectName() == "progChgCh")
+            {
+                disconnect(combobox, SIGNAL(currentIndexChanged(int)), this, SIGNAL(signalUpdateNRPNChannel(int)));
+            }
 
             if(combobox->objectName().contains("_settings_device"))
             {
@@ -483,12 +506,12 @@ void Settings::slotDisconnectElements()
         }
     }
 
-    disconnect(this, SIGNAL(signalRecallSettings(QVariantMap,QVariantMap)),this,SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
+    disconnect(this, SIGNAL(signalRecallSettings(QVariantMap)),this,SLOT(slotRecallPreset(QVariantMap)));
     disconnect(this, SIGNAL(signalStoreValue(QString,QVariant)), this, SLOT(slotStoreSettings(QString,QVariant)));
 
     //Pedal Cal.
-    disconnect(settingsForm->startcalibration_button, SIGNAL(clicked()), this, SLOT(slotStartCalibration()));
-    disconnect(settingsForm->resetcalibration_button, SIGNAL(clicked()), this, SLOT(slotResetCalibration()));
+    //disconnect(settingsForm->startcalibration_button, SIGNAL(clicked()), this, SLOT(slotStartCalibration()));
+    //disconnect(settingsForm->resetcalibration_button, SIGNAL(clicked()), this, SLOT(slotResetCalibration()));
 }
 
 void Settings::slotUserChangedMIDIaux()
@@ -550,6 +573,7 @@ void Settings::slotValueChanged()
                 jsonName = "global_gain";
                 double gain = slider->value() * 0.01;
                 value = gain;
+                settingsForm->label_sensitivity->setText(QString("Sensitivity Gain x%1").arg(gain));
             }
             if(slider->objectName() == "global_gain_slider_hosted")
             {
@@ -574,7 +598,14 @@ void Settings::slotValueChanged()
 
             if(jsonName == "backlighting_enable")
             {
-                emit signalSetBacklight(value.toBool());
+                if (ssHardware == SS_1)
+                {
+                    emit signalSetBacklight(value.toBool());
+                }
+                else
+                {
+                    return;
+                }
             }
         }
         //comboboxes
@@ -585,12 +616,6 @@ void Settings::slotValueChanged()
             value = combobox->currentText();
 
             qDebug() << "_________ ComboBox: settings slot value changed" << jsonName;
-
-            if(combobox->objectName().contains("progChgCh"))
-            {
-                value = combobox->currentIndex();
-                value = value == 16 ? -1 : value; // disabled = -1
-            }
 
             if(combobox->objectName().contains("_settings_device"))
             {
@@ -632,7 +657,7 @@ void Settings::slotStoreSettings(QString name, QVariant value)
 
 }
 
-void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
+void Settings::slotRecallPreset(QVariantMap preset)
 {
     qDebug() << "slotRecallPreset called";
     slotDisconnectElements();
@@ -658,8 +683,10 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
             QString objectName = widget->objectName();
             if(objectName == "global_gain_slider")
             {
-                int gain = preset.value("global_gain").toDouble() * 100;
+                double gainRaw = preset.value("global_gain").toDouble();
+                int gain = gainRaw * 100;
                 slider->setValue(gain);
+                settingsForm->label_sensitivity->setText(QString("Sensitivity Gain x%1").arg(gainRaw));
             }
             if(objectName == "global_gain_slider_hosted")
             {
@@ -707,7 +734,7 @@ void Settings::slotRecallSettings()
 {
     //Called in constructor
 
-    emit signalRecallSettings(settings.value(QString("Global")).toMap(),settings);
+    emit signalRecallSettings(settings.value(QString("Global")).toMap());
 }
 
 void Settings::slotViewSelector()
@@ -736,11 +763,11 @@ void Settings::slotViewSelector()
             settingsForm->settingsViews->setCurrentIndex(2);
             settingsWidget->setFixedSize(320, 495);
         }
-        else if(sender == settingsForm->settingspedalbutton)
-        {
-            settingsForm->settingsViews->setCurrentIndex(3);
-            settingsWidget->setFixedSize(320, 465);
-        }
+//        else if(sender == settingsForm->settingspedalbutton)
+//        {
+//            settingsForm->settingsViews->setCurrentIndex(3);
+//            settingsWidget->setFixedSize(320, 465);
+//        }
         //qDebug() << "settingsViews->currentIndex: " << settingsForm->settingsViews->currentIndex();
     }
 }
@@ -1319,40 +1346,40 @@ void Settings::slotSaveSettingsTimeout()
 //----------------------------------------------- Calibration -----------------------------------------------//
 void Settings::slotStartCalibration() // 1st, called when startcalibration buton is pressed
 {
-    if(mode == "standalone")
-    {
-        // if calibrating in standalone then set up the hardware first, skip the eles code below which will be run
-        // when sysexcomposer calls slotStartCalibrationStandAlone()
-        emit signalTetherOnOffInStandalone(true);
-    }
-    else
-    {
-        calibrating = true;
-        pedalValueListGraph.clear();
-        QTimer::singleShot(5000, this, SLOT(slotStopCalibration()));
-        //calibrationTicker->start(100);
-        calibrationTime = 0;
-        calibrationBlinkTime = 0;
-        settingsForm->rockyourpedal->show();
-        settingsForm->pedal_arrow->show();
-        settingsForm->calibrationcomplete->hide();
-        emit signalStartCalibration();
-    }
+//    if(mode == "standalone")
+//    {
+//        // if calibrating in standalone then set up the hardware first, skip the eles code below which will be run
+//        // when sysexcomposer calls slotStartCalibrationStandAlone()
+//        emit signalTetherOnOffInStandalone(true);
+//    }
+//    else
+//    {
+//        calibrating = true;
+//        pedalValueListGraph.clear();
+//        QTimer::singleShot(5000, this, SLOT(slotStopCalibration()));
+//        //calibrationTicker->start(100);
+//        calibrationTime = 0;
+//        calibrationBlinkTime = 0;
+//        settingsForm->rockyourpedal->show();
+//        settingsForm->pedal_arrow->show();
+//        settingsForm->calibrationcomplete->hide();
+//        emit signalStartCalibration();
+//    }
 
 }
 
 void Settings::slotStartCalibrationStandAlone() // called from SysExComposer
 {
-    calibrating = true;
-    pedalValueListGraph.clear();
-    QTimer::singleShot(5000, this, SLOT(slotStopCalibration()));
-    //calibrationTicker->start(100);
-    calibrationTime = 0;
-    calibrationBlinkTime = 0;
-    settingsForm->rockyourpedal->show();
-    settingsForm->pedal_arrow->show();
-    settingsForm->calibrationcomplete->hide();
-    emit signalStartCalibration();
+//    calibrating = true;
+//    pedalValueListGraph.clear();
+//    QTimer::singleShot(5000, this, SLOT(slotStopCalibration()));
+//    //calibrationTicker->start(100);
+//    calibrationTime = 0;
+//    calibrationBlinkTime = 0;
+//    settingsForm->rockyourpedal->show();
+//    settingsForm->pedal_arrow->show();
+//    settingsForm->calibrationcomplete->hide();
+//    emit signalStartCalibration();
 }
 
 void Settings::slotResetCalibration()
@@ -1376,170 +1403,171 @@ void Settings::slotResetCalibration()
 
 void Settings::slotSetLiveValue(int val)
 {
-    //-------------- This function only used in graphics
-    settingsForm->livepedalvalue->setValue(val);
+    Q_UNUSED(val);
+//    //-------------- This function only used in graphics
+//    settingsForm->livepedalvalue->setValue(val);
 
-    if(calibrating)
-    {
-        QApplication::processEvents();
+//    if(calibrating)
+//    {
+//        QApplication::processEvents();
 
-        //If this is a new value being reported
-        if(!pedalValueListGraph.contains(val))
-        {
-            //Append value to our list
-            pedalValueListGraph.append(val);
+//        //If this is a new value being reported
+//        if(!pedalValueListGraph.contains(val))
+//        {
+//            //Append value to our list
+//            pedalValueListGraph.append(val);
 
-            int count = pedalValueListGraph.count();
+//            int count = pedalValueListGraph.count();
 
-            //Order our list
-            for(int i = 1; i < count; i++)
-            {
-                int j = i;
-                int t;
+//            //Order our list
+//            for(int i = 1; i < count; i++)
+//            {
+//                int j = i;
+//                int t;
 
-                while(j > 0 && pedalValueListGraph.at(j) < pedalValueListGraph.at(j - 1))
-                {
-                    t = pedalValueListGraph.at(j);
+//                while(j > 0 && pedalValueListGraph.at(j) < pedalValueListGraph.at(j - 1))
+//                {
+//                    t = pedalValueListGraph.at(j);
 
-                    pedalValueListGraph.replace(j, pedalValueListGraph.at(j - 1));
+//                    pedalValueListGraph.replace(j, pedalValueListGraph.at(j - 1));
 
-                    pedalValueListGraph.replace(j - 1, t);
+//                    pedalValueListGraph.replace(j - 1, t);
 
-                    j--;
-                }
-            }
+//                    j--;
+//                }
+//            }
 
-            //remoqDebug() << "pedal table value" << val << pedalValueListGraph.indexOf(val);
+//            //remoqDebug() << "pedal table value" << val << pedalValueListGraph.indexOf(val);
 
-            int width = 109/count;
+//            int width = 109/count;
 
-#ifdef TABLE_ENABLED
-            pedalLiveTableInterface->slotClearTable();
-            for(int i = 1; i < count; i++)
-            {
-                //Draw our list new value-- should only be drawing one value at a time
-                pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueListGraph.at(i))/127.0f, width);
-            }
-#endif //TABLE_ENABLED
-        }
-    }
+//#ifdef TABLE_ENABLED
+//            pedalLiveTableInterface->slotClearTable();
+//            for(int i = 1; i < count; i++)
+//            {
+//                //Draw our list new value-- should only be drawing one value at a time
+//                pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueListGraph.at(i))/127.0f, width);
+//            }
+//#endif //TABLE_ENABLED
+//        }
+//    }
 }
 
 void Settings::slotStopCalibration() // 1st
 {
-    if(mode == "standalone")
-    {
-        //Turn tether off
-        emit signalTetherOnOffInStandalone(false);
-    }
-    //qDebug() << calibrationTime;
-    calibrationTime++;
-    calibrationBlinkTime++;
+//    if(mode == "standalone")
+//    {
+//        //Turn tether off
+//        emit signalTetherOnOffInStandalone(false);
+//    }
+//    //qDebug() << calibrationTime;
+//    calibrationTime++;
+//    calibrationBlinkTime++;
 
-    //------------------- Here's where calibration is stopped
-    //qDebug() << "stop calibration";
-    //calibrationTicker->stop();
-    settingsForm->rockyourpedal->hide();
-    settingsForm->pedal_arrow->hide();
-    settingsForm->calibrationcomplete->show();
+//    //------------------- Here's where calibration is stopped
+//    //qDebug() << "stop calibration";
+//    //calibrationTicker->stop();
+//    settingsForm->rockyourpedal->hide();
+//    settingsForm->pedal_arrow->hide();
+//    settingsForm->calibrationcomplete->show();
 
-    emit signalStopCalibration();
+//    emit signalStopCalibration();
 
-    calibrating = false;
+//    calibrating = false;
 
-    QTimer::singleShot(5000, this, SLOT(slotHideComplete()));
-    slotSendSettingsMIDI();
+//    QTimer::singleShot(5000, this, SLOT(slotHideComplete()));
+//    slotSendSettingsMIDI();
 
 }
 
 
 void Settings::slotLoadTableOnStartup()
 {
-    // Load pedal table file
-    QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    QFile *pedalTableFile = new QFile(appDataPath + "/pedalTable.txt");
+//    // Load pedal table file
+//    QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+//    QFile *pedalTableFile = new QFile(appDataPath + "/pedalTable.txt");
 
-    // Open pedal table
-    if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
-    {
-        qDebug("Pedal Table Found");
+//    // Open pedal table
+//    if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
+//    {
+//        qDebug("Pedal Table Found");
 
-        QByteArray pedalTableByteArray = pedalTableFile->readAll();
+//        QByteArray pedalTableByteArray = pedalTableFile->readAll();
 
-        for(int i = 0; i< pedalTableByteArray.size(); i++)
-        {
-            pedalValueListGraph.append((unsigned char)pedalTableByteArray.at(i));
-        }
+//        for(int i = 0; i< pedalTableByteArray.size(); i++)
+//        {
+//            pedalValueListGraph.append((unsigned char)pedalTableByteArray.at(i));
+//        }
 
-        //Send table to pedal instances
-        emit signalInitPedalTable(pedalTableByteArray);
-    }
-    else
-    {
-        qDebug() << "!!!!!!!!!!!!!!!!!!!! Pedal Table File Not Found -- ON READ. !!!!!!!!!!!!!!!!!!!!";
-    }
+//        //Send table to pedal instances
+//        emit signalInitPedalTable(pedalTableByteArray);
+//    }
+//    else
+//    {
+//        qDebug() << "!!!!!!!!!!!!!!!!!!!! Pedal Table File Not Found -- ON READ. !!!!!!!!!!!!!!!!!!!!";
+//    }
 
-    pedalTableFile->close();
+//    pedalTableFile->close();
 
-    float count = pedalValueListGraph.count();
-    float width = 109.0f/count;
+//    float count = pedalValueListGraph.count();
+//    float width = 109.0f/count;
 
-    //qDebug() << "--------- draw pedal cal table on load" << width << count;
+//    //qDebug() << "--------- draw pedal cal table on load" << width << count;
 
-#ifdef TABLE_ENABLED
-    pedalLiveTableInterface->slotClearTable();
-    for(int i = 1; i < count; i++)
-    {
-        //Draw our list new value-- should only be drawing one value at a time
-        pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueListGraph.at(i))/127.0f,  width);
-    }
-#endif // TABLE_ENABLED
+//#ifdef TABLE_ENABLED
+//    pedalLiveTableInterface->slotClearTable();
+//    for(int i = 1; i < count; i++)
+//    {
+//        //Draw our list new value-- should only be drawing one value at a time
+//        pedalLiveTableInterface->slotDrawTable((float)(i)/(float)count, ((float)pedalValueListGraph.at(i))/127.0f,  width);
+//    }
+//#endif // TABLE_ENABLED
 }
 
 void Settings::slotWritePedalTableToDisk(QByteArray tableByteArray)
 {
+    Q_UNUSED(tableByteArray);
+//    qDebug() << "write pedal table to disk" << tableByteArray.size();
 
-    qDebug() << "write pedal table to disk" << tableByteArray.size();
+//    //Load pedal table file
+//    QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+//    QFile *pedalTableFile = new QFile(appDataPath + "/pedalTable.txt");
 
-    //Load pedal table file
-    QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    QFile *pedalTableFile = new QFile(appDataPath + "/pedalTable.txt");
+//    //Open Pedal File
+//    if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
+//    {
+//        //Clear file
+//        pedalTableFile->resize(0);
 
-    //Open Pedal File
-    if(pedalTableFile->open(QIODevice::ReadWrite | QIODevice::Text))
-    {
-        //Clear file
-        pedalTableFile->resize(0);
+//        //New byte array to store values and write to file
+//        //QByteArray byteArray;
 
-        //New byte array to store values and write to file
-        //QByteArray byteArray;
+//        //If empty store linear
+//        if(tableByteArray.isEmpty())
+//        {
+//            //Iterate through current table list
+//            for(int i = 0; i < 128; i++)
+//            {
+//                //Add table list values to byte array
+//                tableByteArray.append((unsigned char)i);
+//            }
+//        }
 
-        //If empty store linear
-        if(tableByteArray.isEmpty())
-        {
-            //Iterate through current table list
-            for(int i = 0; i < 128; i++)
-            {
-                //Add table list values to byte array
-                tableByteArray.append((unsigned char)i);
-            }
-        }
+//        //Write byte array to file
+//        pedalTableFile->write(tableByteArray);
+//    }
+//    else
+//    {
+//        qDebug() << "!!!!!!!!!!!!!!!!!!!! Pedal Table File Not Found -- ON WRITE. !!!!!!!!!!!!!!!!!!!!";
+//    }
 
-        //Write byte array to file
-        pedalTableFile->write(tableByteArray);
-    }
-    else
-    {
-        qDebug() << "!!!!!!!!!!!!!!!!!!!! Pedal Table File Not Found -- ON WRITE. !!!!!!!!!!!!!!!!!!!!";
-    }
-
-    pedalTableFile->close();
+//    pedalTableFile->close();
 
 }
 
 void Settings::slotHideComplete()
 {
-    settingsForm->calibrationcomplete->hide();
+    //settingsForm->calibrationcomplete->hide();
 }
 
 //--------------------------------------------- Live Inputs (OSC)

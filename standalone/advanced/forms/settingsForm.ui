@@ -814,12 +814,12 @@ p, li { white-space: pre-wrap; }
       <enum>QSlider::TicksAbove</enum>
      </property>
     </widget>
-    <widget class="QLabel" name="label_69">
+    <widget class="QLabel" name="label_sensitivity">
      <property name="geometry">
       <rect>
        <x>30</x>
        <y>313</y>
-       <width>56</width>
+       <width>241</width>
        <height>20</height>
       </rect>
      </property>
@@ -1406,7 +1406,7 @@ QCheckBox::indicator:checked:disabled
        <enum>Qt::DefaultContextMenu</enum>
       </property>
       <property name="toolTip">
-       <string>Adjusts the sensitivity of the SoftStep. &lt;br&gt;Moving the slider to the right (toward the “+” symbol) increases sensitivity — moving the slider to the left (toward the “-” symbol) decreases sensitvity.</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts the brightness of the SoftStep key backlight LEDs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="styleSheet">
        <string notr="true"/>
@@ -1421,7 +1421,7 @@ QCheckBox::indicator:checked:disabled
        <number>48</number>
       </property>
       <property name="tracking">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -1456,12 +1456,12 @@ QCheckBox::indicator:checked:disabled
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QLabel" name="label_70">
+     <widget class="QLabel" name="label_brightness">
       <property name="geometry">
        <rect>
         <x>19</x>
         <y>9</y>
-        <width>211</width>
+        <width>241</width>
         <height>20</height>
        </rect>
       </property>
@@ -1493,7 +1493,7 @@ QCheckBox::indicator:checked:disabled
       </rect>
      </property>
      <property name="toolTip">
-      <string>Sets the MIDI device to receive data from</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;The MIDI channel to use when sending Program Changes to the SoftStep to change presets. Also used for CC/LED and NRPN/CV messages.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">/*----------- QComboBox ------------*/
@@ -7146,328 +7146,13 @@ QToolTip
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="settingspedalpage">
-    <widget class="QFrame" name="pedal_frame">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>85</y>
-       <width>281</width>
-       <height>145</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QFrame
-{
-	background: rgb(100,100,100);
-}</string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QFrame" name="pedal_frame_2">
-      <property name="geometry">
-       <rect>
-        <x>143</x>
-        <y>20</y>
-        <width>145</width>
-        <height>115</height>
-       </rect>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <widget class="QLabel" name="pedal_top">
-       <property name="geometry">
-        <rect>
-         <x>15</x>
-         <y>52</y>
-         <width>109</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(:/resources/pedal_top.svg);
-background: none;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="pedal_arrow">
-       <property name="geometry">
-        <rect>
-         <x>114</x>
-         <y>37</y>
-         <width>21</width>
-         <height>37</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(:/resources/pedal_arrow.svg);
-background: none;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="calibrationcomplete">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>87</y>
-         <width>96</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>-1</pointsize>
-         <italic>false</italic>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 12px;</string>
-       </property>
-       <property name="text">
-        <string>COMPLETE</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-      <widget class="QLabel" name="pedal_base">
-       <property name="geometry">
-        <rect>
-         <x>15</x>
-         <y>63</y>
-         <width>109</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(:/resources/pedal_base.svg);
-background: none;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="rockyourpedal">
-       <property name="geometry">
-        <rect>
-         <x>18</x>
-         <y>0</y>
-         <width>101</width>
-         <height>51</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background: transparent;</string>
-       </property>
-       <property name="text">
-        <string>ROCK YOUR PEDAL FROM HEEL TO TOE FOR 5 SECONDS</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QSlider" name="livepedalvalue">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>133</x>
-        <y>15</y>
-        <width>10</width>
-        <height>115</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>Live display of incoming pedal values</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="maximum">
-       <number>127</number>
-      </property>
-      <property name="value">
-       <number>1</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-     <widget class="QWidget" name="pedalLiveWidget" native="true">
-      <property name="geometry">
-       <rect>
-        <x>9</x>
-        <y>15</y>
-        <width>115</width>
-        <height>115</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background: rgba(0,0,0,0);</string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QLabel" name="pedalsmoothing_label">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>237</y>
-       <width>55</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string>Ranged 1-10, this sets the amount of smoothing applied to the pedal data.&lt;p&gt;Higher values = more smoothing&lt;br&gt;Lower values = less smoothing</string>
-     </property>
-     <property name="text">
-      <string>Smoothing</string>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="startcalibration_button">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>281</width>
-       <height>45</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string>Begin the expression pedal &lt;br&gt;calibration process.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*----------- QPushButton ------------*/
-QToolButton
-{
-	background: rgb(40, 40, 40);
-	color: white;
-	border: 2px solid rgb(230,0,134);
-	font: 16pt &quot;Futura-Normal&quot;;
-	padding: 0,1,0,0;
-}
-
-QToolButton:pressed
-{
-	background: rgb(230, 0, 134);
-	color: white;
-	border: none;
-	font: 16pt &quot;Futura-Normal&quot;;
-	padding: 0, 1, 0, 0;
-}</string>
-     </property>
-     <property name="text">
-      <string>START CALIBRATION</string>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="resetcalibration_button">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>295</y>
-       <width>281</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string>Reset the pedal calibration &lt;br&gt;settings to default values.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">/*----------- QToolButton ------------*/
-QToolButton
-{
-	background: rgb(40, 40, 40);
-	color: white;
-	border: 2px solid rgb(230,0,134);
-	font: 12px &quot;Futura-Normal&quot;;
-	padding: 1,1,0,0;
-}
-
-QToolButton:pressed
-{
-	background: rgb(230, 0, 134);
-	color: white;
-	border: none;
-	font: 12px &quot;Futura-Normal&quot;;
-	padding: 0, 1, 0, 0;
-}</string>
-     </property>
-     <property name="text">
-      <string>RESET CALIBRATION</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_65">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>284</y>
-       <width>281</width>
-       <height>6</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-top: 2px solid white;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QSlider" name="pedalsmoothing">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>255</y>
-       <width>281</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="toolTip">
-      <string>Adjust the amount of smoothing placed on expression pedal data.</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="minimum">
-      <number>1</number>
-     </property>
-     <property name="maximum">
-      <number>100</number>
-     </property>
-     <property name="value">
-      <number>10</number>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="tickPosition">
-      <enum>QSlider::TicksAbove</enum>
-     </property>
-    </widget>
-   </widget>
   </widget>
   <widget class="QFrame" name="tabsframe">
    <property name="geometry">
     <rect>
-     <x>18</x>
+     <x>12</x>
      <y>40</y>
-     <width>285</width>
+     <width>296</width>
      <height>35</height>
     </rect>
    </property>
@@ -7488,7 +7173,7 @@ QToolButton:pressed
    <widget class="QRadioButton" name="settingsglobalbutton">
     <property name="geometry">
      <rect>
-      <x>8</x>
+      <x>45</x>
       <y>4</y>
       <width>66</width>
       <height>25</height>
@@ -7544,7 +7229,7 @@ QRadioButton::indicator:checked:pressed
    <widget class="QRadioButton" name="settingskeybutton">
     <property name="geometry">
      <rect>
-      <x>76</x>
+      <x>115</x>
       <y>4</y>
       <width>66</width>
       <height>25</height>
@@ -7597,7 +7282,7 @@ QRadioButton::indicator:checked:pressed
    <widget class="QRadioButton" name="settingsinputbutton">
     <property name="geometry">
      <rect>
-      <x>144</x>
+      <x>185</x>
       <y>4</y>
       <width>66</width>
       <height>25</height>
@@ -7647,66 +7332,12 @@ QRadioButton::indicator:checked:pressed
      <string/>
     </property>
    </widget>
-   <widget class="QRadioButton" name="settingspedalbutton">
-    <property name="geometry">
-     <rect>
-      <x>212</x>
-      <y>4</y>
-      <width>66</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Click to display expression pedal calibration.</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QRadioButton
-{
-	border: none;
-	background: none;
-}
-
-QRadioButton::indicator::unchecked
-{
-	image: url(:/resources/settingsWindow_tab_pedal_disabled.svg);
-}
-
-QRadioButton::indicator:unchecked:hover
-{
-	image: url(:/resources/settingsWindow_tab_pedal_disabled.svg);
-}
-
-QRadioButton::indicator:unchecked:pressed
-{
-	image: url(:/resources/settingsWindow_tab_pedal_disabled.svg);
-}
-
-QRadioButton::indicator::checked
-{
-	image: url(:/resources/settingsWindow_tab_pedal_enabled.svg);
-}
-
-QRadioButton::indicator:checked:hover
-{
-	image: url(:/resources/settingsWindow_tab_pedal_enabled.svg);
-}
-
-QRadioButton::indicator:checked:pressed
-{
-	image: url(:/resources/settingsWindow_tab_pedal_enabled.svg);
-}</string>
-    </property>
-    <property name="text">
-     <string>RadioButton</string>
-    </property>
-   </widget>
   </widget>
  </widget>
  <tabstops>
   <tabstop>settingsglobalbutton</tabstop>
   <tabstop>settingskeybutton</tabstop>
   <tabstop>settingsinputbutton</tabstop>
-  <tabstop>settingspedalbutton</tabstop>
   <tabstop>backlighting_enable</tabstop>
   <tabstop>scenechange_enable</tabstop>
   <tabstop>sensorresponse_checkbox</tabstop>
@@ -7842,10 +7473,6 @@ QRadioButton::indicator:checked:pressed
   <tabstop>osc_ip_4</tabstop>
   <tabstop>osc_out_port</tabstop>
   <tabstop>osc_in_port</tabstop>
-  <tabstop>startcalibration_button</tabstop>
-  <tabstop>livepedalvalue</tabstop>
-  <tabstop>pedalsmoothing</tabstop>
-  <tabstop>resetcalibration_button</tabstop>
   <tabstop>displaymode_checkbox</tabstop>
  </tabstops>
  <resources/>
