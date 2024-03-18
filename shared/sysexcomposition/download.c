@@ -29,6 +29,8 @@ STANDALONE_INFO standalone_info;
 PAD_INFO pad_info;
 PEDAL_INFO pedal_info;
 
+int numTabs = 0;
+
 char *source_list_d[] = {
     "None","Knob","Pressure_Latch","X_Latch","Y_Latch","Pressure_Live","X_Live","Y_Live","X_Increment",SRC_Y_INCREMENT,
     "Foot_On","Foot_Off","Preset","Pedal","Wait_Trig","Fast_Trig","Dbl_Trig",SRC_LONG_TRIG,"Off_Trig",
@@ -184,7 +186,8 @@ void send_standalone_settings(t_softstep *x)
 	
 	midi_sx_packet_data_close(sizeof(x->settings));
 	
-	write_c("standalone_settings",&x->settings,sizeof(x->settings),x);
+    write_settings_to_file(&x->settings, x->fd_c);
+    //write_c("standalone_settings",&x->settings,sizeof(x->settings),x);
 	write_c_close(x);
 	
 	midi_sx_packet_data(&x->settings,sizeof(x->settings));
@@ -218,6 +221,7 @@ void send_standalone_image(t_softstep *x)
 	
 	midi_sx_packet_preamble(SX_PACKET_STANDALONE,sizeof(standalone_info));
 	
+    fprintf(x->fd_c, "#include \"scenes.h\"\n\n");
 	write_c("standalone_info",&standalone_info.u.preset_info,sizeof(standalone_info.u.preset_info),x);
 	
 	midi_sx_packet_data(&standalone_info,sizeof(standalone_info));
@@ -228,7 +232,18 @@ void send_standalone_image(t_softstep *x)
 	
 	write_c_title("scenes",x);
 	
+    int preset_index = 0;
+
+
+
 	while(list) {
+
+        numTabs = 1;
+        char *display_name = &list->strings.data[1];
+        fprintf(x->fd_c, "\n// ********************************************************************");
+        fprintf(x->fd_c, "\n// \tPRESET %d: %s\n", preset_index++, display_name);
+        fprintf(x->fd_c, "\n// ********************************************************************");
+
 		//	if (list) { // limit to the first preset only
 		
 		int key,m,num_modlines = 0,num_modlines_exceeded = 0,other_key_count=0,pedal_count=0;
@@ -344,12 +359,19 @@ void send_standalone_image(t_softstep *x)
 			
 			midi_sx_packet_data_close(end_index);
 			
-			write_c_data(&list->preset_image.nm,sizeof(NM),x);
+            numTabs = 2;
+            fprintf(x->fd_c, "\n// \t\tNOT MODLINE:\n");
+
+            write_nm_to_file(&list->preset_image.nm, x);
+            //write_c_data(&list->preset_image.nm,sizeof(NM),x);
 			
 			midi_sx_packet_data(&list->preset_image.nm,sizeof(NM));
 			midi_sx_data_addr = 0;
 			
 			for (key=0;key<NUM_KEYS;key++){
+                numTabs = 3;
+                fprintf(x->fd_c, "\n// \t\t\tKEY: %d\n", key);
+
 				for (m=0;m<NUM_MODLINES_PER_KEY;m++)
 				{
                     //printf("key[%d][%d] source[%d]\n",key,m,list->preset_image.modlines[key][m].source);
@@ -359,7 +381,11 @@ void send_standalone_image(t_softstep *x)
                     //post("enabled\n");
 						if (num_modlines)
 						{
-							write_c_data(&list->preset_image.modlines[key][m],sizeof(MODLINE),x);
+                            numTabs = 4;
+                            fprintf(x->fd_c, "\n// \t\t\t\tMODLINE: %d\n", m);
+
+                            write_modline_to_file(&list->preset_image.modlines[key][m], x);
+                            //write_c_data(&list->preset_image.modlines[key][m],sizeof(MODLINE),x);
 							midi_sx_data_crc(&list->preset_image.modlines[key][m],sizeof(MODLINE));
 							num_modlines--;
 						}
@@ -367,13 +393,23 @@ void send_standalone_image(t_softstep *x)
 				}
 			}
             //					post("other_key_info");
+            numTabs = 2;
+            fprintf(x->fd_c, "\n// \t\tOTHER KEY INFO (triggers, key/modline_index pairs) - other_key_count: %d\n", other_key_count);
+
 			write_c_data(&other_key_info,other_key_count * sizeof(struct OTHER_KEY_INFO),x);
 			midi_sx_data_crc(&other_key_info,other_key_count * sizeof(struct OTHER_KEY_INFO));
             //					post("pedal_info");
+
+            fprintf(x->fd_c, "\n// \t\tPEDAL INFO (expression pedal modlines, key/modline_index pairs) - pedal_count: %d\n", pedal_count);
+
 			write_c_data(&pedal_info,pedal_count * sizeof(struct OTHER_KEY_INFO),x);
 			midi_sx_data_crc(&pedal_info,pedal_count * sizeof(struct OTHER_KEY_INFO));
             //					post("strings");
-			write_c_data(list->strings.data,list->strings.size,x);
+
+            fprintf(x->fd_c, "\n// \t\tSTRINGS:\n");
+
+            write_strings_to_file(list->strings.data, list->strings.size, x);
+            //write_c_data(list->strings.data,list->strings.size,x);
 			midi_sx_data_crc(list->strings.data,list->strings.size);
 		}
 #endif

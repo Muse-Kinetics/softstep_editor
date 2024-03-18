@@ -11,7 +11,7 @@
 #define SoftstepSyxDemo_attribute_h
 
 #include "device_includes.h"
-//#include "maxapi.h"
+#include "maxapi.h"
 
 #define	MODLINE_1_OUTPUT	"Modline 1 Output"
 #define	MODLINE_6_OUTPUT	"Modline 6 Output"
@@ -35,6 +35,10 @@ void write_c_close(t_softstep *x);
 void write_c(char *title,void *data,int length,t_softstep *x);
 void write_c_title(char *title,t_softstep *x);
 void write_c_data(void *data,int length,t_softstep *x);
+void write_nm_to_file(NM *nm, t_softstep *x);
+void write_modline_to_file(MODLINE *modline, t_softstep *x);
+void write_strings_to_file(char *data, int size, t_softstep *x);
+void write_settings_to_file(const SETTINGS *settings, FILE *fd);
 void write_c_end(t_softstep *x);
 void attribute(t_softstep *x,int count,...);
 void write_c_close(t_softstep *x);

@@ -835,6 +835,14 @@ void PresetInterface::slotConstructDefaultHostedMap()
     defaultPresetMap["preset_name"] = "Default Preset";
     defaultPresetMap["preset_displayname"] = "DFLT";
 
+    //------------------------ CV ------------------------//
+    defaultPresetMap["cv1_control"] = "Mod Wheel";
+    defaultPresetMap["cv1_ch"] = "Ch. 1";
+    defaultPresetMap["cv1_notes"] = "Gate";
+    defaultPresetMap["cv2_control"] = "Pitch Bend";
+    defaultPresetMap["cv2_ch"] = "Ch. 1";
+    defaultPresetMap["cv2_notes"] = "Pitch";
+
     //------------------------ Key 1 ------------------------//
     defaultPresetMap["1_key_name"] = "1KEY";
     defaultPresetMap["1_key_displaymode"] = "None";
@@ -2642,6 +2650,16 @@ void PresetInterface::slotConstructDefaultStandaloneMap()
 
     defaultPresetMap["preset_name"] = "Default Preset";
     defaultPresetMap["preset_displayname"] = "DFLT";
+
+    //------------------------ CV ------------------------//
+    defaultPresetMap["cv1_sources"] = "Keys/USB";
+    defaultPresetMap["cv1_control"] = "Mod Wheel";
+    defaultPresetMap["cv1_ch"] = "Ch. 1";
+    defaultPresetMap["cv1_notes"] = "Gate";
+    defaultPresetMap["cv2_sources"] = "Keys/USB";
+    defaultPresetMap["cv2_control"] = "Pitch Bend";
+    defaultPresetMap["cv2_ch"] = "Ch. 1";
+    defaultPresetMap["cv2_notes"] = "Pitch";
 
     //------------------------ Key 1 ------------------------//
     defaultPresetMap["1_key_name"] = "1KEY";

@@ -15,6 +15,8 @@ public:
 
     QMap<QString, unsigned char *> tableMap;
 
+    unsigned char quantizeNoteToScale(unsigned char midiNote, unsigned char scaleType);
+
     signals:
     
 public slots:

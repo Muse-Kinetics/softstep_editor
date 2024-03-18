@@ -166,6 +166,7 @@ typedef struct {unsigned char standalone,tether;} PACK_INLINE CONNECT_MODE;
 
 typedef union MIDI_SHARED {
 	struct {unsigned char velocity,number;} PACK_INLINE note;
+    struct {unsigned char velocity; char transpose;} PACK_INLINE noteLive;
 	unsigned char controller;
 	unsigned char garageband_function;
 	struct {unsigned char function,device_id;} PACK_INLINE mmc;

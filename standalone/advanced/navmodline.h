@@ -28,6 +28,7 @@
 #include "hosted/slewer.h"
 #include "hosted/ledmanager.h"
 #include "hosted/delay.h"
+#include "hosted/datacooker.h" // for hardware rev
 
 
 
@@ -75,6 +76,8 @@ public:
     QString mode;
 
     QWidget* formWidget;
+
+    int ssHardware;
 
     int navInstance;
 

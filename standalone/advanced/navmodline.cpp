@@ -226,6 +226,9 @@ void NavModline::slotValueChanged()
                 case DEST_NOTE_SET:
                     jsonName = "note";
                     break;
+                case DEST_NOTE_LIVE:
+                    jsonName = "transpose";
+                    break;
                 case DEST_MMC:
                     jsonName = "mmcid";
                     break;
@@ -550,40 +553,6 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
 //    navModlineForm->aftertouchchannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
 //    navModlineForm->polychannel->setValue(preset.value(QString("nav_modline%1_channel").arg(navInstance+1)).toInt());
 
-    // string and then the index of the combobox, whose items are updated by mainWindow
-    QMap<QString, unsigned char> portMap;
-
-    // USB
-    portMap["SSCOM Port 1"] = 0;
-    portMap["SoftStep USB MIDI"] = 0;
-    portMap["SoftStep Control Surface"] = 0;
-
-    // MIDI
-    portMap["SSCOM Port 2"] = 1;
-    portMap["SoftStep Expander"] = 1;
-    portMap["SoftStep TRS MIDI Out"] = 1;
-
-    // CV
-    portMap["SoftStep CV Out"] = 2;
-
-    QString presetDevice = preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString();
-    unsigned char destIndex = portMap.value(presetDevice, 1); // default to USB port name index
-
-    // fix old port names
-    if (presetDevice.contains("SSCOM"))
-    {
-        if (mode == "standalone")
-        {
-            presetDevice = "SoftStep USB MIDI";
-        }
-        else if (mode == "hosted")
-        {
-            presetDevice = "SoftStep Share";
-        }
-    }
-
-    //storing these in a struct for later recall when we change the destination type/index
-    //modDest.outPortName = presetDevice;
 
     // modDest.index = modlineForm->destination->currentIndex(); // happens in slotRecallDestinationMenu()
     modDest.channel = preset.value(QString("nav_modline%2_channel").arg(navInstance+1)).toInt();
@@ -595,9 +564,60 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modDest.mmcFunction = preset.value(QString("nav_modline%2_mmcfunction").arg(navInstance+1)).toString();
     modDest.oscRoute = preset.value(QString("nav_modline%2_oscroute").arg(navInstance+1)).toString();
 
+    // MODLINE OUTPUT PORT
+
+    // string and then the index of the combobox, whose items are updated by mainWindow
+
+    // get the port name from the preset JSON
+    QString presetDevice = preset.value(QString("nav_modline%1_device").arg(navInstance+1)).toString();
+    unsigned char destIndex = 0;
+
+    if (mode == "standalone")
+    {
+        QMap<QString, unsigned char> portMap;
+
+        // USB
+        portMap["SSCOM Port 1"] = 0;
+        portMap["SoftStep USB MIDI"] = 0;
+        portMap["SoftStep Control Surface"] = 0;
+
+        // MIDI
+        portMap["SSCOM Port 2"] = 1;
+        portMap["SoftStep Expander"] = 1;
+        portMap["SoftStep TRS MIDI Out"] = 1;
+
+        // CV
+        portMap["SoftStep CV Out"] = 2;
+
+        destIndex = portMap.value(presetDevice, 1); // default to USB port name index
+        navModlineForm->dest_device->setCurrentIndex(destIndex);
+    }
+    else // hosted mode
+    {
+        // fix old port names
+        if (presetDevice.contains("SSCOM"))
+        {
+            presetDevice = "SoftStep Share";
+        }
+
+        QMap<QString, QString> portMap;
+
+        if (ssHardware == SS_3 && presetDevice == "SoftStep Expander")
+        {
+            presetDevice = "SoftStep TRS MIDI Out";
+        }
+        else if (ssHardware == SS_2 && presetDevice == "SoftStep TRS MIDI Out")
+        {
+            presetDevice = "SoftStep Expander";
+        }
+        navModlineForm->dest_device->setCurrentText(presetDevice);
+    }
+
+    //storing these in a struct for later recall when we change the destination type/index
+    //modDest.outPortName = presetDevice;
 
     // midi port dropdown - update this after we change the destination parameters above
-    navModlineForm->dest_device->setCurrentIndex(destIndex);
+
 
     // mmc function dropdown
     navModlineForm->dest_mmcfunction->setCurrentText(modDest.mmcFunction);
@@ -689,6 +709,10 @@ void NavModline::slotRecallDestinationMenu()
     navModlineForm->dest_mmcfunction->hide();
     navModlineForm->dest_oscroute->hide();
 
+    // limits
+    navModlineForm->dest_b1->setMinimum(0);
+    navModlineForm->dest_b1->setMaximum(127);
+
     // labels
     navModlineForm->dest_label_b1->hide();
     navModlineForm->dest_label_b2->hide();
@@ -707,6 +731,14 @@ void NavModline::slotRecallDestinationMenu()
 
         navModlineForm->dest_b1->setValue(modDest.note);
     case DEST_NOTE_LIVE:
+        navModlineForm->dest_b1->show();
+        navModlineForm->dest_b1->setMinimum(-48);
+        navModlineForm->dest_b1->setMaximum(48);
+
+        navModlineForm->dest_label_b1->setText("Tranpose");
+        navModlineForm->dest_label_b1->show();
+        navModlineForm->dest_b1->setToolTip("Shift the live note by this much");
+
         navModlineForm->dest_b2->show();
         navModlineForm->dest_label_b2->setText("Vel");
         navModlineForm->dest_label_b2->show();
@@ -1211,6 +1243,7 @@ void NavModline::slotOutputRoutine(int input)
     slotDisplayVars();
 }
 
+
 void NavModline::hosted_slotOutputMidi(int outputVal)
 {
     // EB TODO - update to use a single set of dropdowns
@@ -1227,7 +1260,14 @@ void NavModline::hosted_slotOutputMidi(int outputVal)
         }
     }
     else if(outputType == "Note Live")
-    {
+    {     
+        char thisTranspose = navModlineForm->dest_b1->value();
+        if (thisTranspose)
+        {
+            int thisVal = (thisTranspose + outputVal);
+            outputVal = std::min(std::max(thisVal, 0), 127);
+        }
+
         emit hosted_signalNoteLive(navModlineForm->dest_device->currentText(), navModlineForm->dest_b3->value(), lastNote, outputVal, navModlineForm->dest_b2->value());
 
         lastNote = outputVal;

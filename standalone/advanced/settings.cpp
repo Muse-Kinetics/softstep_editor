@@ -141,8 +141,8 @@ Settings::Settings(QWidget *parent) :
     connect(settingsForm->settingsinputbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
     //connect(settingsForm->settingspedalbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
 
-    //slotWriteDefaultSettings();
-    slotRecallSettings();
+    slotWriteDefaultSettings();
+    //slotRecallSettings(); // wait for the app to do this
 
     //----------------------------------------- Disable all OSC for now -----------------------------------------//
 
@@ -182,6 +182,9 @@ void Settings::slotSetMode(QString m)
         settingsForm->global_gain_slider_hosted->show();
         settingsForm->global_gain_slider->hide();
 
+        double gain = settingsForm->global_gain_slider_hosted->value() * 0.01;
+        settingsForm->label_sensitivity->setText(QString("Sensitivity Gain x%1").arg(gain));
+
         //Scene change button
         settingsForm->scenechange_enable->setEnabled(false);
         settingsForm->midiinputframe->setEnabled(true);
@@ -198,6 +201,9 @@ void Settings::slotSetMode(QString m)
         // sensitivity
         settingsForm->global_gain_slider_hosted->hide();
         settingsForm->global_gain_slider->show();
+
+        double gain = settingsForm->global_gain_slider->value() * 0.01;
+        settingsForm->label_sensitivity->setText(QString("Sensitivity Gain x%1").arg(gain));
 
         settingsForm->scenechange_enable->setEnabled(true);
         settingsForm->midiinputframe->setEnabled(false);
@@ -216,16 +222,16 @@ void Settings::slotSetMode(QString m)
     }
 
     // handle backlight controls, SS1 EL Wire cannot pwm dim so it's on/off
-    if (ssHardware == SS_1)
-    {
-        settingsForm->backlight_slider->hide();
-        settingsForm->backlighting_enable->show();
-    }
-    else
-    {
-        settingsForm->backlight_slider->show();
-        settingsForm->backlighting_enable->hide();
-    }
+//    if (ssHardware == SS_1)
+//    {
+//        settingsForm->backlight_slider->hide();
+//        settingsForm->backlighting_enable->show();
+//    }
+//    else
+//    {
+//        settingsForm->backlight_slider->show();
+//        settingsForm->backlighting_enable->hide();
+//    }
 
 }
 
@@ -395,7 +401,7 @@ void Settings::slotConnectElements()
     //connect(settingsForm->resetcalibration_button, SIGNAL(clicked()), this, SLOT(slotResetCalibration()));
 
     // live settings to send whenever updated
-    connect(settingsForm->backlighting_enable, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
+    //connect(settingsForm->backlighting_enable, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
     connect(settingsForm->backlight_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSendSettingsMIDI()));
     connect(settingsForm->progChgCh, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSendSettingsMIDI()));
     connect(settingsForm->scenechange_enable, SIGNAL(clicked()), this, SLOT(slotSendSettingsMIDI()));
@@ -573,13 +579,20 @@ void Settings::slotValueChanged()
                 jsonName = "global_gain";
                 double gain = slider->value() * 0.01;
                 value = gain;
-                settingsForm->label_sensitivity->setText(QString("Sensitivity Gain x%1").arg(gain));
+                if (mode == "standalone")
+                {
+                    settingsForm->label_sensitivity->setText(QString("Sensitivity Gain x%1").arg(gain));
+                }
             }
             if(slider->objectName() == "global_gain_slider_hosted")
             {
                 jsonName = "global_gain_hosted";
                 double gain = slider->value() * 0.01;
                 value = gain;
+                if (mode == "hosted")
+                {
+                    settingsForm->label_sensitivity->setText(QString("Sensitivity Gain x%1").arg(gain));
+                }
             }
             if(slider->objectName() == "backlight_slider")
             {
@@ -596,17 +609,17 @@ void Settings::slotValueChanged()
 
             //qDebug() << "qcheckbox json name" << jsonName;
 
-            if(jsonName == "backlighting_enable")
-            {
-                if (ssHardware == SS_1)
-                {
-                    emit signalSetBacklight(value.toBool());
-                }
-                else
-                {
-                    return;
-                }
-            }
+//            if(jsonName == "backlighting_enable")
+//            {
+//                if (ssHardware == SS_1)
+//                {
+//                    emit signalSetBacklight(value.toBool());
+//                }
+//                else
+//                {
+//                    return;
+//                }
+//            }
         }
         //comboboxes
         else if(senderClass == "QComboBox")
@@ -617,6 +630,11 @@ void Settings::slotValueChanged()
 
             qDebug() << "_________ ComboBox: settings slot value changed" << jsonName;
 
+            if (combobox->objectName() == "progChgCh")
+            {
+                value = combobox->currentIndex();
+                value = (value == 16) ? -1 : value; // convert disabled to value
+            }
             if(combobox->objectName().contains("_settings_device"))
             {
                 emit signalUpdateMIDIAuxDropdowns(jsonName, combobox->currentText());
@@ -709,7 +727,14 @@ void Settings::slotRecallPreset(QVariantMap preset)
         {
             QComboBox* combobox = qobject_cast<QComboBox *>(widget);
             QString objectName = widget->objectName();
-            combobox->setCurrentIndex(combobox->findText(preset.value(objectName).toString()));
+            int value = combobox->findText(preset.value(objectName).toString());
+
+            if (objectName == "progChgCh")
+            {
+                value = preset.value(objectName).toInt();
+                value = (value == -1) ? 16 : value; // convert "Disabled" value
+            }
+            combobox->setCurrentIndex(value);
         }
         else if(widget->metaObject()->className() == QString("QLineEdit"))
         {
@@ -958,73 +983,73 @@ void Settings::slotConstructSettingsDefaultMap()
     defaultGlobalMap["progChgCh"] = MIDI_CH_10;
 
     //-------------------- Key Page --------------------//
-    defaultGlobalMap["key1_settings_xdead"] = 0;
-    defaultGlobalMap["key1_settings_ydead"] = 0;
+    defaultGlobalMap["key1_settings_xdead"] = 6;
+    defaultGlobalMap["key1_settings_ydead"] = 6;
     defaultGlobalMap["key1_settings_xaccel"] = 0;
-    defaultGlobalMap["key1_settings_ydead"] = 0;
+    defaultGlobalMap["key1_settings_ydead"] = 6;
     defaultGlobalMap["key1_settings_onthresh"] = 10;
     defaultGlobalMap["key1_settings_offthresh"] = 5;
 
-    defaultGlobalMap["key2_settings_xdead"] = 0;
-    defaultGlobalMap["key2_settings_ydead"] = 0;
+    defaultGlobalMap["key2_settings_xdead"] = 6;
+    defaultGlobalMap["key2_settings_ydead"] = 6;
     defaultGlobalMap["key2_settings_xaccel"] = 0;
-    defaultGlobalMap["key2_settings_ydead"] = 0;
+    defaultGlobalMap["key2_settings_ydead"] = 6;
     defaultGlobalMap["key2_settings_onthresh"] = 10;
     defaultGlobalMap["key2_settings_offthresh"] = 5;
 
-    defaultGlobalMap["key3_settings_xdead"] = 0;
-    defaultGlobalMap["key3_settings_ydead"] = 0;
+    defaultGlobalMap["key3_settings_xdead"] = 6;
+    defaultGlobalMap["key3_settings_ydead"] = 6;
     defaultGlobalMap["key3_settings_xaccel"] = 0;
-    defaultGlobalMap["key3_settings_ydead"] = 0;
+    defaultGlobalMap["key3_settings_ydead"] = 6;
     defaultGlobalMap["key3_settings_onthresh"] = 10;
     defaultGlobalMap["key3_settings_offthresh"] = 5;
 
-    defaultGlobalMap["key4_settings_xdead"] = 0;
-    defaultGlobalMap["key4_settings_ydead"] = 0;
+    defaultGlobalMap["key4_settings_xdead"] = 6;
+    defaultGlobalMap["key4_settings_ydead"] = 6;
     defaultGlobalMap["key4_settings_xaccel"] = 0;
-    defaultGlobalMap["key4_settings_ydead"] = 0;
+    defaultGlobalMap["key4_settings_ydead"] = 6;
     defaultGlobalMap["key4_settings_onthresh"] = 10;
     defaultGlobalMap["key4_settings_offthresh"] = 5;
 
-    defaultGlobalMap["key5_settings_xdead"] = 0;
-    defaultGlobalMap["key5_settings_ydead"] = 0;
+    defaultGlobalMap["key5_settings_xdead"] = 6;
+    defaultGlobalMap["key5_settings_ydead"] = 6;
     defaultGlobalMap["key5_settings_xaccel"] = 0;
-    defaultGlobalMap["key5_settings_ydead"] = 0;
+    defaultGlobalMap["key5_settings_ydead"] = 6;
     defaultGlobalMap["key5_settings_onthresh"] = 10;
     defaultGlobalMap["key5_settings_offthresh"] = 5;
 
-    defaultGlobalMap["key6_settings_xdead"] = 0;
-    defaultGlobalMap["key6_settings_ydead"] = 0;
+    defaultGlobalMap["key6_settings_xdead"] = 6;
+    defaultGlobalMap["key6_settings_ydead"] = 6;
     defaultGlobalMap["key6_settings_xaccel"] = 0;
-    defaultGlobalMap["key6_settings_ydead"] = 0;
+    defaultGlobalMap["key6_settings_ydead"] = 6;
     defaultGlobalMap["key6_settings_onthresh"] = 10;
     defaultGlobalMap["key6_settings_offthresh"] = 5;
 
-    defaultGlobalMap["key7_settings_xdead"] = 0;
-    defaultGlobalMap["key7_settings_ydead"] = 0;
+    defaultGlobalMap["key7_settings_xdead"] = 6;
+    defaultGlobalMap["key7_settings_ydead"] = 6;
     defaultGlobalMap["key7_settings_xaccel"] = 0;
-    defaultGlobalMap["key7_settings_ydead"] = 0;
+    defaultGlobalMap["key7_settings_ydead"] = 6;
     defaultGlobalMap["key7_settings_onthresh"] = 10;
     defaultGlobalMap["key7_settings_offthresh"] = 5;
 
-    defaultGlobalMap["key8_settings_xdead"] = 0;
-    defaultGlobalMap["key8_settings_ydead"] = 0;
+    defaultGlobalMap["key8_settings_xdead"] = 6;
+    defaultGlobalMap["key8_settings_ydead"] = 6;
     defaultGlobalMap["key8_settings_xaccel"] = 0;
-    defaultGlobalMap["key8_settings_ydead"] = 0;
+    defaultGlobalMap["key8_settings_ydead"] = 6;
     defaultGlobalMap["key8_settings_onthresh"] = 10;
     defaultGlobalMap["key8_settings_offthresh"] = 5;
 
-    defaultGlobalMap["key9_settings_xdead"] = 0;
-    defaultGlobalMap["key9_settings_ydead"] = 0;
+    defaultGlobalMap["key9_settings_xdead"] = 6;
+    defaultGlobalMap["key9_settings_ydead"] = 6;
     defaultGlobalMap["key9_settings_xaccel"] = 0;
-    defaultGlobalMap["key9_settings_ydead"] = 0;
+    defaultGlobalMap["key9_settings_ydead"] = 6;
     defaultGlobalMap["key9_settings_onthresh"] = 10;
     defaultGlobalMap["key9_settings_offthresh"] = 5;
 
-    defaultGlobalMap["key10_settings_xdead"] = 0;
-    defaultGlobalMap["key10_settings_ydead"] = 0;
+    defaultGlobalMap["key10_settings_xdead"] = 6;
+    defaultGlobalMap["key10_settings_ydead"] = 6;
     defaultGlobalMap["key10_settings_xaccel"] = 0;
-    defaultGlobalMap["key10_settings_ydead"] = 0;
+    defaultGlobalMap["key10_settings_ydead"] = 6;
     defaultGlobalMap["key10_settings_onthresh"] = 10;
     defaultGlobalMap["key10_settings_offthresh"] = 5;
 
@@ -1110,6 +1135,11 @@ void Settings::slotConstructSettingsDefaultMap()
     defaultGlobalMap["osc_ip_4"] = 0;
     defaultGlobalMap["osc_out_port"] = 0;
     defaultGlobalMap["osc_in_port"] = 0;
+
+    // pedal calibration
+    defaultGlobalMap["pedal_calibration_min"] = 30;
+    defaultGlobalMap["pedal_calibration_max"] = 220;
+    defaultGlobalMap["pedal_calibration_table"] = 0;
 }
 
 void Settings::slotEmitAllSettings()

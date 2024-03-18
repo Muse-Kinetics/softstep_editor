@@ -89,6 +89,7 @@ public:
     int    footOn();
     int    footOff();
     bool   footOnOff;
+    bool   footJustActivated;
 
     int    modlineOutput(int modlineNum);
 

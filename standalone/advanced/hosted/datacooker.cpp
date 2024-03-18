@@ -469,15 +469,21 @@ void DataCooker::cookRaw()
     {
         //Flip on
         footOnOff = true;
+        footJustActivated = true;
         qDebug() << "emit key presed: " << keyNum;
         emit signalThisKeyPressed(keyNum);
     }
-
+    // key still on?
+    else if (pressureRaw() > offThresh && footOnOff && footJustActivated)
+    {
+        footJustActivated = false;
+    }
     //If pressure is below off-thresh and foot is currently on
     else if(pressureRaw() < offThresh && footOnOff)
     {
         //Flip off
         footOnOff = false;
+        footJustActivated = false;
         qDebug() << "signalThisKeyOff: " << keyNum;
         emit signalThisKeyOff(keyNum);
     }
@@ -529,7 +535,21 @@ void DataCooker::cookSources()
         //-------- Live
         if(modlineSources.value(i) == "Random")
         {
-            emit signalTransformSource(random(), i, "Random");
+            if (footOnOff)
+            {
+                emit signalTransformSource(random(), i, "Random");
+            }
+        }
+        if(modlineSources.value(i) == "Random Single")
+        {
+            if (footJustActivated)
+            {
+                emit signalTransformSource(random(), i, "Random Single");
+            }
+            else if (!footOnOff)
+            {
+                emit signalTransformSource(-5, i, "Random Single");
+            }
         }
         if(modlineSources.value(i) == "Pressure Live")
         {

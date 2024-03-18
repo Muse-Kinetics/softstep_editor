@@ -94,6 +94,7 @@ public:
     bool forceFirmwareUpdate;
 
     bool appStillLoading;
+    bool populatingPresetMenus;
 
     int ssHardware;
 
@@ -313,6 +314,7 @@ public slots:
 
     //------------- Menu Bar
     void slotInitMenuBar();
+    void slotPortOptionSelected(QString selectedOption);
     void slotOpenDoc();
     void slotOpenTroubleshooting();
     void slotOpenPresetDirectory();
@@ -325,11 +327,14 @@ public slots:
     void slotRecallPreset(QVariantMap, QVariantMap);
 
     void slotUpdateAboutWindow();
+    unsigned char slotSSHardwareToDisplay();
     void slotUpdateSSHardwareRevStrings();
     void slotConnected(bool);
 
     void slotSaveAs();
     void slotPopulatePresetMenu();
+    void slotRecallLastSelectedPreset();
+    void slotStoreLastSelectedPreset(int presetNum);
     void slotSetPresetMenu(int presetNum);
     void slotDisplaySaveState(bool);
 

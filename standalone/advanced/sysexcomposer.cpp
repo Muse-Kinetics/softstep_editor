@@ -95,10 +95,15 @@ void SysExComposer::slotComposeSettings(QVariantMap settingsMapGlobal, QList<int
 
     // backlight
     unsigned char brightness = settingsMap.value("backlight_slider").toInt();
-    attribute(x,3,A_SYM,"set",A_SYM,"keyL_brightness",A_LONG,brightness);
+    x->settings.keyL_brightness = brightness;
 
-    //---- EL - for SS1 only
-    attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!settingsMap.value("backlighting_enable").toLongLong());
+
+
+    //attribute(x,3,A_SYM,"set",A_SYM,"keyL_brightness",A_LONG,brightness);
+
+    //---- EL - technically only for SS1 but also helpful for older SS2 firmware
+    x->settings.el_offon = (brightness < 24) ? true : false; // confusing label, but these values need to be inverted
+    //attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!settingsMap.value("backlighting_enable").toLongLong());
 
     //---- Display offset 0-127, 1-128
     attribute(x,3,A_SYM,"set",A_SYM,"prog_change_display_offset",A_LONG,settingsMap.value("displaymode_checkbox").toLongLong());
@@ -158,8 +163,8 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     Q_UNUSED(pedalTable);
     qDebug() << "slotComposeAttributeListFromSetlist";
 
-    int p_size = sizeof(PRESET_IMAGE);
-    int nm_size = sizeof(NM);
+//    int p_size = sizeof(PRESET_IMAGE);
+//    int nm_size = sizeof(NM);
 
     //For some reason there's an extra layer to get to the actual settings, the "Global" map within the settings json contains them
     //I think "Global" refers to the fact that it's for both modes, Standalone and Hosted
@@ -207,10 +212,12 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
 
     // backlight
     unsigned char brightness = settingsMap.value("backlight_slider").toInt();
-    attribute(x,4,A_SYM,"set",A_SYM,"keyL_brightness",A_LONG,brightness);
+    x->settings.keyL_brightness = brightness;
+    //attribute(x,4,A_SYM,"set",A_SYM,"keyL_brightness",A_LONG,brightness);
 
     //---- EL - for SS1 only
-    attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!settingsMap.value("backlighting_enable").toLongLong());
+    x->settings.el_offon = (brightness < 24) ? true : false;
+    //attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!settingsMap.value("backlighting_enable").toLongLong());
 
     //---- Display offset 0-127, 1-128
     attribute(x,3,A_SYM,"set",A_SYM,"prog_change_display_offset",A_LONG,settingsMap.value("displaymode_checkbox").toLongLong());
@@ -261,12 +268,13 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     //=========================================================================================================//
 
     //Scroll setlist, enumerating presets
-    for (long p=0; p<setlist.size(); p++)
+    for (long p=0; p < setlist.size(); p++)
     {
         QVariantMap preset = setlist.at(p);
+        QString presetDisplayName = preset.value("preset_displayname").toString();
 
         attribute(x,2,A_SYM,"preset",A_LONG,p);
-        attribute(x,3,A_SYM, "set",A_SYM,"Scene_Name",A_SYM,preset.value("preset_displayname").toString().toUtf8().constData());
+        attribute(x,3,A_SYM, "set", A_SYM, "Scene_Name", A_SYM, presetDisplayName.toUtf8().constData());
 
         //----------------------------------------------------------------------------------------//
         //----------------------------------------- CVs  -----------------------------------------//
@@ -453,7 +461,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                 QString destination = preset.value(QString("key%1_modline%2_destination").arg(k).arg(m)).toString();
 
                 //------------- Note Set
-                if(destination == "Note Set" || destination == "Note Live")
+                if(destination == "Note Set")
                 {
                     //Note
                     attribute(x,3,A_SYM,"set",A_SYM,"Note_Number",A_LONG,preset.value(QString("key%1_modline%2_note").arg(k).arg(m)).toLongLong());
@@ -466,17 +474,18 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                 }
 
                 //------------- Note Live
-                /*else if(destination == "Note Live")
+                else if(destination == "Note Live")
                 {
-                    //Note
-                    attribute(x,3,A_SYM,"set",A_SYM,"Note_Number",A_LONG,preset.value(QString("key%1_modline%2_note").arg(k)).toLongLong());
+                    //Transpose
+                    char thisTranspose = preset.value(QString("key%1_modline%2_transpose").arg(k).arg(m)).toInt();
+                    x->current_modline->ms.noteLive.transpose = thisTranspose;
 
                     //Velocity
-                    attribute(x,3,A_SYM,"set",A_SYM,"Note_Velocity",A_LONG,preset.value(QString("key%1_modline%2_velocity").arg(k)).toLongLong());
+                    attribute(x,3,A_SYM,"set",A_SYM,"Note_Velocity",A_LONG,preset.value(QString("key%1_modline%2_velocity").arg(k).arg(m)).toLongLong());
 
                     //Channel
                     attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
-                }*/
+                }
 
                 //------------- CC
                 else if(destination == "CC")
@@ -685,7 +694,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
             QString destination = preset.value(QString("nav_modline%1_destination").arg(m)).toString();
 
             //------------- Note Set / Note Live
-            if(destination == "Note Set" || destination == "Note Live")
+            if(destination == "Note Set")
             {
                 //Note
                 attribute(x,3,A_SYM,"set",A_SYM,"Note_Number",A_LONG,preset.value(QString("nav_modline%1_note").arg(m)).toLongLong());
@@ -698,17 +707,18 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
             }
 
             //------------- Note Live
-            /*else if(destination == "Note Live")
+            else if(destination == "Note Live")
             {
-                //Note
-                attribute(x,3,A_SYM,"set",A_SYM,"Note_Number",A_LONG,preset.value(QString("key%1_modline%2_note").arg(k)).toLongLong());
+                //Transpose
+                char thisTranspose = preset.value(QString("nav_modline%1_transpose").arg(m)).toInt();
+                x->current_modline->ms.noteLive.transpose = thisTranspose;
 
                 //Velocity
-                attribute(x,3,A_SYM,"set",A_SYM,"Note_Velocity",A_LONG,preset.value(QString("key%1_modline%2_velocity").arg(k)).toLongLong());
+                attribute(x,3,A_SYM,"set",A_SYM,"Note_Velocity",A_LONG,preset.value(QString("nav_modline%1_velocity").arg(m)).toLongLong());
 
                 //Channel
-                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("key%1_modline%2_channel").arg(k).arg(m)).toLongLong());
-            }*/
+                attribute(x,3,A_SYM,"set",A_SYM,"Channel",A_LONG,preset.value(QString("nav_modline%1_channel").arg(m)).toLongLong());
+            }
 
             //------------- CC
             else if(destination == "CC")

@@ -63,6 +63,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ssHardware = sessionSettings->value("LAST_SS_REV_CONNECTED", SS_3).toUInt();
 
+
     // ---- FW update overhaul ----------------------------
 
     qDebug() << "System Locale: " << QLocale::system().name();
@@ -476,14 +477,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //presetInterface->slotPopulatePresetMenu(ui->presetmenu);
     //presetInterface->slotRecallGlobal();
     qDebug() << "------------ [LOAD PRESET] ---------------------------------------------------";
-    slotSetPresetMenu(0);
-    apploadForm.progressBar->setValue(75)
-            ;
-    //typedef QList<unsigned char> UCharList;
-    //qRegisterMetaType<UCharList>("UCharList");
-
-    // EB TODO - reconnect this?
-    //connect(key[0]->dataCooker->pedal, SIGNAL(signalDrawTable(UCharList)), settingsWindow->pedalLiveTableInterface, SLOT(slotDrawTable(UCharList)), Qt::QueuedConnection);
+    slotRecallLastSelectedPreset();
+    apploadForm.progressBar->setValue(75);
 
     qDebug() << "------------ [LOAD TABLE] ---------------------------------------------------";
     key[0]->dataCooker->pedal->slotResetCalibrate();
@@ -615,6 +610,41 @@ void MainWindow::closeEvent(QCloseEvent *)
 #endif
     qDebug() << "closing...";
     //presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
+}
+
+void MainWindow::slotRecallLastSelectedPreset()
+{
+    int presetToLoad = 0;
+    if (mode == "hosted")
+    {
+        presetToLoad = sessionSettings->value("LAST_HOSTED_PRESET_SELECTED", 0).toUInt();
+    }
+    else
+    {
+        presetToLoad = sessionSettings->value("LAST_STANDALONE_PRESET_SELECTED", 0).toUInt();
+    }
+    if (populatingPresetMenus || presetToLoad < 0 || presetToLoad > ui->presetmenu->count())
+    {
+        return;
+    }
+    slotSetPresetMenu(presetToLoad);
+}
+
+void MainWindow::slotStoreLastSelectedPreset(int presetNum)
+{
+    if (populatingPresetMenus || presetNum < 0 || presetNum > ui->presetmenu->count())
+    {
+        return;
+    }
+
+    if (mode == "hosted")
+    {
+        sessionSettings->setValue("LAST_HOSTED_PRESET_SELECTED", presetNum);
+    }
+    else
+    {
+        sessionSettings->setValue("LAST_STANDALONE_PRESET_SELECTED", presetNum);
+    }
 }
 
 void MainWindow::slotSetPresetMenu(int presetNum)
@@ -958,6 +988,7 @@ void MainWindow::slotConnectInterfaces()
 #endif // end KEYS_ENABLED
 
     //connect the preset interface to the preset menu
+    connect(ui->presetmenu, SIGNAL(currentIndexChanged(int)), this, SLOT(slotStoreLastSelectedPreset(int)));
     connect(presetInterface, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
     connect(copyPasteHandler, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
     connect(importOldPresetHandler, SIGNAL(signalPresetMenu(int)), this, SLOT(slotSetPresetMenu(int)));
@@ -1443,6 +1474,75 @@ void MainWindow::slotInitMenuBar()
     hardware->addAction(updatefw);
     menubar->addMenu(hardware);
 
+    // Submenu for selecting options
+    QMenu* selectOptionMenu = new QMenu("Display Hardware Revision", hardware);
+    QActionGroup* optionGroup = new QActionGroup(selectOptionMenu);
+    optionGroup->setExclusive(true);
+
+    // Helper lambda to create a checkable action and set its data
+    auto createAction = [&](const QString &text, const QVariant &data) {
+        QAction* action = new QAction(text, selectOptionMenu);
+        action->setCheckable(true);
+        action->setData(data);
+        selectOptionMenu->addAction(action);
+        optionGroup->addAction(action);
+        return action;
+    };
+
+    // Create actions with identifiers
+    createAction("SoftStep 1/2", "SoftStep 1/2");
+    createAction("SoftStep 3", "SoftStep 3");
+    createAction("Auto Detect", "Auto Detect");
+
+    // Connect all actions to a single slot
+    connect(optionGroup, &QActionGroup::triggered, this, [this](QAction *action) {
+        QString selectedOption = action->data().toString();
+        this->slotPortOptionSelected(selectedOption);
+    });
+
+    // Add the submenu to the hardware menu
+    hardware->addMenu(selectOptionMenu);
+
+    // Setting the initial selected option based on previous settings
+    QString selectedOption = sessionSettings->value("HW_PORT_DISPLAY", "Auto Detect").toString();
+    foreach(QAction *action, optionGroup->actions()) {
+        if(action->data().toString() == selectedOption) {
+            action->setChecked(true);
+            break;
+        }
+    }
+
+    // Add the submenu to the hardware menu
+    hardware->addMenu(selectOptionMenu);
+
+    // advanced
+    // Assuming 'hardware' is already created and is a QMenu*
+    QMenu *advancedMenu = hardware->addMenu(tr("Advanced"));
+
+    // Create a checkable menu action for "Ignore FW Version Checks"
+    QAction *ignoreFWCheckAction = new QAction(tr("Ignore Firmware Version Checks"), this);
+    ignoreFWCheckAction->setCheckable(true);
+
+    // Retrieve the current setting and set the checkbox state
+    bool isIgnored = sessionSettings->value("IGNORE_FW_CHECKS", false).toBool();
+    ignoreFWCheckAction->setChecked(isIgnored);
+
+    // Add the action to the "Advanced" submenu
+    advancedMenu->addAction(ignoreFWCheckAction);
+
+    connect(ignoreFWCheckAction, &QAction::triggered, this, [this, ignoreFWCheckAction]()
+    {
+        bool checked = ignoreFWCheckAction->isChecked();
+        sessionSettings->setValue("IGNORE_FW_CHECKS", checked);
+
+        if (checked) {
+            slotCreateDialog(QString("WARNING: This feature is experimental and\nmay produce unexpected results!"));
+        }
+    });
+
+    // Adding the hardware menu to the menubar
+    menubar->addMenu(hardware);
+
     //-------------------------------------------------------------------------- Help
     QMenu* help = new QMenu("Help");
     help->setObjectName("HelpMenu");
@@ -1498,6 +1598,13 @@ void MainWindow::slotInitMenuBar()
     menubar->addMenu(help);
 
     menubar->show();
+}
+
+void MainWindow::slotPortOptionSelected(QString selectedOption)
+{
+    sessionSettings->setValue("HW_PORT_DISPLAY", selectedOption);
+    slotUpdateSSHardwareRevStrings();
+    slotPopulateDeviceMenus(externalDests); // update menus
 }
 
 void MainWindow::slotOpenPresetDirectory()
@@ -1613,54 +1720,60 @@ void MainWindow::slotUpdateAboutWindow()
 
 }
 
+unsigned char MainWindow::slotSSHardwareToDisplay()
+{
+    QString selectedOption = sessionSettings->value("HW_PORT_DISPLAY", "Auto Detect").toString();
+
+    unsigned char thisSSHardware = SS_3;
+    if (selectedOption == "SoftStep 1/2")
+    {
+        thisSSHardware = SS_2;
+    }
+    else if (selectedOption == "SoftStep 3")
+    {
+        thisSSHardware = SS_3;
+    }
+    else if (selectedOption == "Auto Detect")
+    {
+        thisSSHardware = ssHardware;
+    }
+    return thisSSHardware;
+}
+
 void MainWindow::slotUpdateSSHardwareRevStrings()
 {
     qDebug() << "SoftStep Hardware Revision: " << ssHardware << " PID: " << SoftStep->PID_MIDI;
-    presetInterface->ssHardware = ssHardware;
+
+    unsigned char thisSSHardware = slotSSHardwareToDisplay();
+    presetInterface->ssHardware = thisSSHardware;
 
     // update modline destinations
     for (int k = 0; k < 10; k++)
     {
-        key[k]->dataCooker->SS_HW_VER = ssHardware;
+        key[k]->dataCooker->SS_HW_VER = thisSSHardware;
         for (int m = 0; m < NUM_MODLINES_PER_KEY; m++)
         {
-            key[k]->modline[m]->ssHardware = ssHardware;
+            key[k]->modline[m]->ssHardware = thisSSHardware;
         }
     }
 
-    sessionSettings->setValue("LAST_SS_REV_CONNECTED", ssHardware);
+    for (int m = 0; m < NUM_MODLINES_PER_KEY; m++)
+    {
+        navKey->navModline[m]->ssHardware = thisSSHardware;
+    }
 
     // update SS3 specific UI
-    if (ssHardware == SS_3)
+    if (thisSSHardware == SS_3)
     {
-        ui->cv1_notes->setDisabled(false);
-        ui->cv1_control->setDisabled(false);
-        ui->cv1_ch->setDisabled(false);
-        ui->cv1_sources->setDisabled(false);
-
-        ui->cv2_notes->setDisabled(false);
-        ui->cv2_control->setDisabled(false);
-        ui->cv2_ch->setDisabled(false);
-        ui->cv2_sources->setDisabled(false);
-
         openCVCalibration->setDisabled(false);
 
-        //this->setFixedSize(MAINWINDOW_WIDTH_SS3, MAINWINDOW_HEIGHT);
+        this->setFixedSize(MAINWINDOW_WIDTH_SS3, MAINWINDOW_HEIGHT);
     }
     else
     {
         openCVCalibration->setDisabled(true);
-        ui->cv1_notes->setDisabled(true);
-        ui->cv1_control->setDisabled(true);
-        ui->cv1_ch->setDisabled(true);
-        ui->cv1_sources->setDisabled(true);
 
-        ui->cv2_notes->setDisabled(true);
-        ui->cv2_control->setDisabled(true);
-        ui->cv2_ch->setDisabled(true);
-        ui->cv2_sources->setDisabled(true);
-
-        //this->setFixedSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
+        this->setFixedSize(MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
     }
 }
 
@@ -1700,20 +1813,14 @@ void MainWindow::slotConnected(bool connection)
             break;
         }
 
+        sessionSettings->setValue("LAST_SS_REV_CONNECTED", ssHardware);
         slotUpdateSSHardwareRevStrings();
 
-#ifdef KEYS_ENABLED
-        for(int i = 0; i < 10; i++)
-        {
-            key[i]->dataCooker->SS_HW_VER = ssHardware;
-        }
-#endif // KEYS_ENABLED
+
 #endif // MIDI_ENABLED
 
         sysExComposer->slotHostedOnOff(mode == "hosted" ? true : false);
 
-        // attempt to recall midi thru port when device connects - EB TODO - Fix this
-        //slotRecallMIDIThru();
         slotRestoreAllAuxDropdowns();
         troubleshootWindow->slotConnected(true);
     }
@@ -1780,7 +1887,8 @@ void MainWindow::slotRecallPresetFromSetlist(QString presetName)
 {
     //Just uses menu change to initiate preset recall from setlist
     //qDebug() << "recall this preset from the setlist" << presetName;
-    ui->presetmenu->setCurrentIndex(ui->presetmenu->findText(presetName));
+    int index = ui->presetmenu->findText(presetName);
+    ui->presetmenu->setCurrentIndex(index);
 }
 
 void MainWindow::slotDisplaySaveState(bool dirty)
@@ -1946,7 +2054,7 @@ void MainWindow::slotSetMode()
     navKey->slotConnectElements();
 #endif // end TURNED OFF
 
-    slotSetModeMIDI(mode); //repopulation of device menus should happen here
+    slotSetModeMIDI(mode); //repopulation of device menus should happen here, also reloads preset
 
     presetInterface->slotSetMode(mode);
     setlist->slotSetMode(mode);
@@ -1963,10 +2071,13 @@ void MainWindow::slotSetMode()
     setlist->slotReadSetlist();
 
     //Populate preset menu and setlist menu
+    populatingPresetMenus = true; // flag to pause storing the last preset selected
     presetInterface->slotPopulatePresetMenu(ui->presetmenu); //Also calls setlist->slotPopulateSetlistMenus()
 
     //Set each setlist menu to correct item
     setlist->slotRefreshSetlistMenus(ui->presetmenu);
+
+    populatingPresetMenus = false;
 
     //Enable/Disable the update button
     if(mode == "hosted")
@@ -1978,8 +2089,6 @@ void MainWindow::slotSetMode()
         ui->update->setEnabled(true);
     }
 
-    //Recall Preset 1 in new mode
-    //presetInterface->slotRecallPreset(0);
 
     //!!!!!!!!!!!!!!!!!! Preset recalled after port creation and device menu population in slotPopulateDeviceMenus
 
@@ -2005,14 +2114,14 @@ void MainWindow::slotSetMode()
     //Import Old Preset text change
     if(mode == "hosted")
     {
-        importOldPreset->setText("Import Hosted Presets from V1.21");
+        importOldPreset->setText("Import Hosted Presets from V1.21"); 
     }
     else
     {
-        importOldPreset->setText("Import Standalone Presets from V1.21");
+        importOldPreset->setText("Import Standalone Presets from V1.21"); 
     }
 
-    presetInterface->slotRecallPreset(0);
+    //slotRecallLastSelectedPreset();
 
     settingsWindow->slotEmitAllSettings();
 
@@ -2032,7 +2141,8 @@ void MainWindow::slotPopulateDeviceMenus(QMap<QString, int> externalDevices)
 
     QMap<QString, int> standaloneDevices;
     standaloneDevices.insert("SoftStep USB MIDI", 0);
-    if (ssHardware == SS_3)
+    unsigned char thisSSHardware = slotSSHardwareToDisplay();
+    if (thisSSHardware == SS_3)
     {
         standaloneDevices.insert("SoftStep TRS MIDI Out", 1);
         standaloneDevices.insert("SoftStep CV Out", 2);
@@ -2085,7 +2195,7 @@ void MainWindow::slotPopulateDeviceMenus(QMap<QString, int> externalDevices)
         navKey->navModline[n]->slotConnectElements();
     }
 #endif // end KEYS_ENABLED
-    presetInterface->slotRecallPreset(ui->presetmenu->currentIndex());
+    slotRecallLastSelectedPreset();
 }
 
 void MainWindow::slotPopulateSourceDestLists()
@@ -2136,6 +2246,7 @@ void MainWindow::slotPopulateSourceDestLists()
     standaloneSources.append("Foot On");
     standaloneSources.append("Foot Off");
     standaloneSources.append("Random");
+    standaloneSources.append("Random Single");
     standaloneSources.append("Dbl Trig");
     standaloneSources.append("Long Trig");
 
@@ -2193,6 +2304,7 @@ void MainWindow::slotPopulateSourceDestLists()
     hostedSources.append("Foot Off");
 
     hostedSources.append("Random");
+    hostedSources.append("Random Single");
 
     hostedSources.append("Top");
     hostedSources.append("Bottom");
@@ -2325,6 +2437,19 @@ void MainWindow::slotPopulateSourceDestLists()
     hostedTables.append("Counter Inc");
     hostedTables.append("Counter Dec");
     hostedTables.append("Counter Set");
+
+    hostedTables.append("Random");
+    hostedTables.append("Random Single");
+
+    // Appending scale names
+    hostedTables.append("Major");
+    hostedTables.append("Natural Minor");
+    hostedTables.append("Harmonic Minor");
+    hostedTables.append("Dorian");
+    hostedTables.append("Phrygian");
+    hostedTables.append("Lydian");
+    hostedTables.append("Mixolydian");
+    hostedTables.append("Locrian");
 
     //Hosted Nav Pad
     hostedNavTables.append("Linear");
@@ -3360,7 +3485,9 @@ void MainWindow::hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar 
                 QString thisPreset = setlist->getSetlistMap().at(progChange);
                 if (thisPreset != "[EMPTY]")
                 {
-                    ui->presetmenu->setCurrentText(thisPreset);
+                    int thisIndex = ui->presetmenu->findText(thisPreset);
+                    thisIndex = (thisIndex == -1) ? 0 : thisIndex;
+                    slotSetPresetMenu(thisIndex);
                 }
             }
         }

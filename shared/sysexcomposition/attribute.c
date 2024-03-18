@@ -1,7 +1,7 @@
 // Copyright (c) 2025 KMI Music, Inc.
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-//#define DEVELOPMENT
+#define DEVELOPMENT
 
 
 #include <stdlib.h>
@@ -41,7 +41,7 @@ char *source_list[] = {
     "Key 0 Pressed","Key 1 Pressed","Key 2 Pressed","Key 3 Pressed","Key 4 Pressed","Key 5 Pressed",
     "Key 6 Pressed","Key 7 Pressed","Key 8 Pressed","Key 9 Pressed",SRC_OTHER_KEY_PRESSED,
     MODLINE_1_OUTPUT,"Modline 2 Output","Modline 3 Output","Modline 4 Output","Modline 5 Output",MODLINE_6_OUTPUT,
-    "Random", "Init",
+    "Random", "Random Single", "Init",
     0};
 
 
@@ -890,37 +890,230 @@ void write_c_title(char *title,t_softstep *x)
     if (!x->fd_c)
         return;
 
-    fprintf(x->fd_c,"\ncode const unsigned char %s[]={",title);
+    fprintf(x->fd_c,"\ncode const unsigned char %s[] = \n{\n",title);
     first = 1;
     data_index = 0;
 }
+
+extern int numTabs;
 void write_c_data(void *data,int length,t_softstep *x)
 {
-    int i;
+    int i,t;
 
     if (!x->fd_c)
         return;
 
     for (i=0;i<length;i++)
     {
-        if (i || !first)
-            fputc(',',x->fd_c);
+//        if (i || !first)
+//            fputc(',',x->fd_c);
 
         first = 0;
         if (!(i%16)) {
             fprintf(x->fd_c,"\n/*%04x*/\t",data_index);
+            for (t = 0; t < numTabs; t++)
+            {
+                fprintf(x->fd_c,"\t");
+            }
         }
-        fprintf(x->fd_c,"0x%02x",((unsigned char *) data)[i]);
+        fprintf(x->fd_c,"0x%02x,",((unsigned char *) data)[i]);
         data_index++;
     }
 }
+
+void write_nm_to_file(NM *nm, t_softstep *x)
+{
+    if (!x->fd_c)
+        return;
+
+    fprintf(x->fd_c, "/*%04x*/\t0x%02x, // format \n", data_index++, nm->format);
+
+    // Rserved
+    fprintf(x->fd_c, "/*%04x*/\t0x%02x, 0x%02x, // reserved1[0], reserved1[1]\n", data_index, nm->reserved1[0], nm->reserved1[1]);
+    data_index += 2;
+
+    // Combining two bytes of short into one line for each short type member
+    fprintf(x->fd_c, "/*%04x*/\t0x%02x, 0x%02x, // name_index\n", data_index, nm->name_index & 0xFF, (nm->name_index >> 8) & 0xFF);
+    data_index += 2;
+    fprintf(x->fd_c, "/*%04x*/\t0x%02x, 0x%02x, // other_key_index\n", data_index, nm->other_key_index & 0xFF, (nm->other_key_index >> 8) & 0xFF);
+    data_index += 2;
+    fprintf(x->fd_c, "/*%04x*/\t0x%02x, 0x%02x, // pedal_index\n", data_index, nm->pedal_index & 0xFF, (nm->pedal_index >> 8) & 0xFF);
+    data_index += 2;
+    fprintf(x->fd_c, "/*%04x*/\t0x%02x, 0x%02x, // string_index\n", data_index, nm->string_index & 0xFF, (nm->string_index >> 8) & 0xFF);
+    data_index += 2;
+    fprintf(x->fd_c, "/*%04x*/\t0x%02x, 0x%02x, // end_index\n", data_index, nm->end_index & 0xFF, (nm->end_index >> 8) & 0xFF);
+    data_index += 2;
+
+    // Serialize all the single byte members
+    fprintf(x->fd_c, "/*%04x*/\t0x%02x, 0x%02x, 0x%02x, 0x%02x, // cv1Sources, cv1Notes, cv1Control, cv1Channel\n",
+            data_index, nm->cv1Sources, nm->cv1Notes, nm->cv1Control, nm->cv1Channel);
+    data_index += 4;
+
+    fprintf(x->fd_c, "/*%04x*/\t0x%02x, 0x%02x, 0x%02x, 0x%02x, // cv2Sources, cv2Notes, cv2Control, cv2Channel\n",
+            data_index, nm->cv2Sources, nm->cv2Notes, nm->cv2Control, nm->cv2Channel);
+    data_index += 4;
+
+    // Serialize KEY
+    for (int i = 0; i < NUM_KEYS; i++) {
+        fprintf(x->fd_c, "/*%04x*/\t// Key %d\n", data_index, i);
+        fprintf(x->fd_c, "/*%04x*/\t\t0x%02x, 0x%02x, // modline_count, display_mode | nav_y_mode\n", data_index,
+                nm->key[i].modline_count, ((nm->key[i].display_mode << 4) | nm->key[i].nav_y_mode));
+        data_index += 2;
+
+        fprintf(x->fd_c, "/*%04x*/\t\t0x%02x, 0x%02x, // key_name_index\n", data_index,
+                nm->key[i].key_name_index & 0xFF, (nm->key[i].key_name_index >> 8) & 0xFF);
+        fprintf(x->fd_c, "/*%04x*/\t\t0x%02x, 0x%02x, // prefix_index\n", data_index,
+                nm->key[i].prefix_index & 0xFF, (nm->key[i].prefix_index >> 8) & 0xFF);
+        data_index += 4;
+    }
+}
+
+void write_modline_to_file(MODLINE *modline, t_softstep *x)
+{
+    if (!x->fd_c) {
+        return;
+    }
+
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, // source\n", data_index++, modline->source);
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, // table\n", data_index++, modline->table);
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, // dest\n", data_index++, modline->dest);
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, // led_green\n", data_index++, modline->led_green);
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, // led_red\n", data_index++, modline->led_red);
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, // max\n", data_index++, modline->max);
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, // min\n", data_index++, modline->min);
+
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, 0x%02x, // slew\n", data_index, modline->slew & 0xFF, (modline->slew >> 8) & 0xFF);
+    data_index += 2;
+
+    // Serialize FIXED_PT for gain
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, 0x%02x, 0x%02x, 0x%02x, // gain (upper high byte, upper low byte, lower high byte, lower low byte)\n",
+            data_index,
+            (modline->gain.u.upper >> 8) & 0xFF, // Upper high byte
+            modline->gain.u.upper & 0xFF,        // Upper low byte
+            (modline->gain.u.lower >> 8) & 0xFF, // Lower high byte
+            modline->gain.u.lower & 0xFF);       // Lower low byte
+    data_index += 4;
+
+    // Serialize FIXED_PT for offset
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, 0x%02x, 0x%02x, 0x%02x, // offset (upper high byte, upper low byte, lower high byte, lower low byte)\n",
+            data_index,
+            (modline->offset.u.upper >> 8) & 0xFF, // Upper high byte
+            modline->offset.u.upper & 0xFF,        // Upper low byte
+            (modline->offset.u.lower >> 8) & 0xFF, // Lower high byte
+            modline->offset.u.lower & 0xFF);       // Lower low byte
+    data_index += 4;
+
+
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, // channel\n", data_index++, modline->channel);
+
+
+    // MIDI_SHARED consists of two bytes, serialized directly
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, 0x%02x, // MIDI_SHARED bytes\n", data_index, *((unsigned char *)&modline->ms), *(((unsigned char *)&modline->ms) + 1));
+    data_index += 2;
+
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, // port || display_linked\n", data_index++, ((modline->port << 4) | modline->display_linked));
+}
+
+void write_strings_to_file(char *data, int size, t_softstep *x) {
+    if (!x->fd_c) {
+        return;
+    }
+
+    char ascii_buffer[256]; // Buffer to accumulate ASCII characters for comments.
+    int ascii_index = 0;    // Index for the ASCII buffer.
+
+    for (int i = 0; i < size; i++) {
+        if (ascii_index == 0) {  // Starting a new line
+            fprintf(x->fd_c, "/*%04x*/\t\t", data_index + i);
+        }
+
+        unsigned char byte = data[i];
+        fprintf(x->fd_c, "0x%02x,", byte);
+
+        // Add the byte to the ASCII buffer if it's printable; otherwise, add a dot.
+        if (byte >= 32 && byte <= 126) {
+            ascii_buffer[ascii_index++] = byte;
+        } else {
+            ascii_buffer[ascii_index++] = '.';
+        }
+        ascii_buffer[ascii_index] = '\0'; // Null-terminate the ASCII string.
+
+        if (byte == 0x00 || i == size - 1) {  // Null terminator or end of data
+            fprintf(x->fd_c, "\t// %s\n", ascii_buffer);
+            ascii_index = 0;  // Reset for the next string
+        }
+    }
+}
+
+void write_settings_to_file(const SETTINGS *settings, FILE *fd) {
+    if (!fd) {
+        return;
+    }
+
+    fprintf(fd, "\ncode const unsigned char standalone_settings[] = \n{\n");
+
+    // Global_Gain (FIXED_PT: 4 bytes, long)
+    fprintf(fd, "    // Global_Gain (FIXED_PT: 4 bytes, long)\n");
+    fprintf(fd, "    0x%02X, 0x%02X, 0x%02X, 0x%02X,\n\n",
+        (settings->Global_Gain.u.upper >> 8) & 0xFF,
+        settings->Global_Gain.u.upper & 0xFF,
+        (settings->Global_Gain.u.lower >> 8) & 0xFF,
+        settings->Global_Gain.u.lower & 0xFF);
+
+    // Nav Key Thresholds (8 bytes)
+    fprintf(fd, "    // Nav Key Thresholds (8 bytes)\n");
+    fprintf(fd, "    0x%02X, 0x%02X, // was 0x0A, 0x05\n", settings->north_on_thresh, settings->north_off_thresh);
+    fprintf(fd, "    0x%02X, 0x%02X, \n", settings->east_on_thresh, settings->east_off_thresh);
+    fprintf(fd, "    0x%02X, 0x%02X,  \n", settings->south_on_thresh, settings->south_off_thresh);
+    fprintf(fd, "    0x%02X, 0x%02X, \n\n", settings->west_on_thresh, settings->west_off_thresh);
+
+    // key_mode, key_response (2 bytes)
+    fprintf(fd, "    // key_mode, key_response (2 bytes)\n");
+    fprintf(fd, "    0x%02X, 0x%02X,\n\n", settings->key_mode, settings->key_response);
+
+    // Display and input settings (2 bytes)
+    fprintf(fd, "    // Display and input settings (2 bytes)\n");
+    fprintf(fd, "    0x%02X, // bit field - bit 2-7: reserved. Bit 0: el_offon, bit1: prog_change_display_offset\n",
+        (settings->el_offon << 7) | (settings->prog_change_display_offset << 6) | (settings->reserved & 0x3F));
+    fprintf(fd, "    0x%02X, // progchg_rx_channel, default to channel 10\n\n", settings->progchg_rx_channel);
+
+    // Pedal Calibration (4 bytes)
+    fprintf(fd, "    // Pedal Calibration (4 bytes)\n");
+    fprintf(fd, "    %d, %d, // heel / toe\n", settings->pedal_calibration.heel, settings->pedal_calibration.toe);
+    fprintf(fd, "    0x%02X, 0x%02X, // table, reserved\n\n",
+        settings->pedal_calibration.table, settings->pedal_calibration.reserved1);
+
+    // Additional settings
+    fprintf(fd, "    // \n");
+    fprintf(fd, "    0x%02X,   // keyL_brightness\n", settings->keyL_brightness);
+    fprintf(fd, "    0x%02X,  // reserved\n\n", settings->reserved1);
+
+    // Connect Mode (2 bytes)
+    fprintf(fd, "    // Connect Mode (2 bytes)\n");
+    fprintf(fd, "    0x%02X, 0x%02X,\n\n", settings->connect_mode.standalone, settings->connect_mode.tether);
+
+    // Key settings array (KEY_SETTINGS) for NUM_KEYS keys (NUM_KEYS * 8 bytes)
+    fprintf(fd, "// Key settings array (KEY_SETTINGS) for %d keys (%d * 8 bytes)\n", NUM_KEYS, NUM_KEYS);
+    fprintf(fd, "//  Rot_Slew,   dead_x,     accel_x,    dead_y,     accel_y,    on_sense,   off_sense,  delta  \n");
+    for (int i = 0; i < NUM_KEYS; i++) {
+        fprintf(fd, "    0x%02X,       0x%02X,        0x%02X,       0x%02X,        0x%02X,       0x%02X,       0x%02X,       0x%02X, // Key %d\n",
+            settings->key[i].Rot_Slew, settings->key[i].dead_x, settings->key[i].accel_x,
+            settings->key[i].dead_y, settings->key[i].accel_y,
+            settings->key[i].on_sense, settings->key[i].off_sense, settings->key[i].delta,
+            i + 1);
+    }
+
+    fprintf(fd, "};\n");
+}
+
 void write_c_end(t_softstep *x)
 {
     if (!x->fd_c)
         return;
 
-    fprintf(x->fd_c,"\n\t};");
+    fprintf(x->fd_c,"\n};\n");
 }
+
 void write_c_close(t_softstep *x)
 {
     if (!x->fd_c)

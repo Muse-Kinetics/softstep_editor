@@ -2199,9 +2199,9 @@ image: url(:/resources/modline_led_display_arrow.svg);</string>
   <widget class="QLabel" name="dest_label_b1">
    <property name="geometry">
     <rect>
-     <x>691</x>
+     <x>688</x>
      <y>2</y>
-     <width>30</width>
+     <width>36</width>
      <height>16</height>
     </rect>
    </property>
@@ -2288,9 +2288,9 @@ QComboBox QAbstractItemView::item
   <widget class="QLabel" name="dest_label_func">
    <property name="geometry">
     <rect>
-     <x>724</x>
+     <x>688</x>
      <y>2</y>
-     <width>64</width>
+     <width>36</width>
      <height>16</height>
     </rect>
    </property>

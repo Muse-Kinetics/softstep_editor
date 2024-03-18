@@ -65,6 +65,8 @@ void MidiFormatOutput::slotNoteLive(QString port, int channel, int oldNote, int 
 
         emit signalSendMidiPacketList(port, 128, oldNote, 0, channel - 1);
     }
+    if (newNote == -1)
+        return; // we've turned off the last note, now return
 
     //New Note
 //    packet.data[0] = 143 + channel;

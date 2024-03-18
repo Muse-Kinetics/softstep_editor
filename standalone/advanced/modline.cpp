@@ -17,6 +17,8 @@
 #endif
 
 #include <QElapsedTimer>
+#include "hosted/datacooker.h" // for SS revs
+#include <QRandomGenerator>
 
 //Constants for various modline arrangement parameters
 #define MODLINE_WINDOW_WIDTH 1132
@@ -35,7 +37,7 @@ Modline::Modline(QWidget *parent, int keyInstanceNum, int modlineInstanceNum) :
 {
     //qDebug() << "init modline - key: " << keyInstanceNum << " modline: " << modlineInstanceNum;
 
-
+    ssHardware = SS_3;
 
     keyInstance = keyInstanceNum;
     modlineInstance = modlineInstanceNum;
@@ -366,6 +368,9 @@ void Modline::slotValueChanged()
                 case DEST_NOTE_SET:
                     jsonName = "note";
                     break;
+                case DEST_NOTE_LIVE:
+                    jsonName = "transpose";
+                    break;
                 case DEST_MMC:
                     jsonName = "mmcid";
                     break;
@@ -511,134 +516,7 @@ void Modline::slotValueChanged()
             jsonName = "destination";
             value = modlineForm->destination->currentText();
         }
-//        //destination parameters
-//        else if(sender == modlineForm->dest_b1)
-//        {
-//            jsonName = "note";
-//            value = modlineForm->dest_b1->value();
-//        }
-//        else if(sender == modlineForm->dest_b2)
-//        {
-//            jsonName = "velocity";
-//            value = modlineForm->dest_b2->value();
-//        }
-//        else if(sender == modlineForm->cc)
-//        {
-//            jsonName = "cc";
-//            value = modlineForm->cc->value();
-//        }
-//        else if(sender == modlineForm->bankmsb)
-//        {
-//            jsonName = "bankmsb";
-//            value = modlineForm->bankmsb->value();
-//        }
-//        else if(sender == modlineForm->polynote)
-//        {
-//            jsonName = "note";
-//            value = modlineForm->polynote->value();
-//        }
-//        //channels
-//        else if(sender == modlineForm->notechannel)
-//        {
-//            jsonName = "channel";
-//            value = modlineForm->notechannel->value();
-//        }
-//        else if(sender == modlineForm->notelivechannel)
-//        {
-//            jsonName = "channel";
-//            value = modlineForm->notelivechannel->value();
-//        }
-//        else if(sender == modlineForm->controlchannel)
-//        {
-//            jsonName = "channel";
-//            value = modlineForm->controlchannel->value();
-//        }
-//        else if(sender == modlineForm->bankchannel)
-//        {
-//            jsonName = "channel";
-//            value = modlineForm->bankchannel->value();
-//        }
-//        else if(sender == modlineForm->programchannel)
-//        {
-//            jsonName = "channel";
-//            value = modlineForm->programchannel->value();
-//        }
-//        else if(sender == modlineForm->bendchannel)
-//        {
-//            jsonName = "channel";
-//            value = modlineForm->bendchannel->value();
-//        }
-//        else if(sender == modlineForm->aftertouchchannel)
-//        {
-//            jsonName = "channel";
-//            value = modlineForm->aftertouchchannel->value();
-//        }
-//        else if(sender == modlineForm->polychannel)
-//        {
-//            jsonName = "channel";
-//            value = modlineForm->polychannel->value();
-//        }
-//        //devices
-//        else if(sender == modlineForm->notedevice)
-//        {
-//            jsonName = "device";
-//            value = modlineForm->notedevice->currentText();
-//        }
-//        else if(sender == modlineForm->notelivedevice)
-//        {
-//            jsonName = "device";
-//            value = modlineForm->notelivedevice->currentText();
-//        }
-//        else if(sender == modlineForm->controldevice)
-//        {
-//            jsonName = "device";
-//            value = modlineForm->controldevice->currentText();
-//        }
-//        else if(sender == modlineForm->bankdevice)
-//        {
-//            jsonName = "device";
-//            value = modlineForm->bankdevice->currentText();
-//        }
-//        else if(sender == modlineForm->programdevice)
-//        {
-//            jsonName = "device";
-//            value = modlineForm->programdevice->currentText();
-//        }
-//        else if(sender == modlineForm->benddevice)
-//        {
-//            jsonName = "device";
-//            value = modlineForm->benddevice->currentText();
-//        }
-//        else if(sender == modlineForm->aftertouchdevice)
-//        {
-//            jsonName = "device";
-//            value = modlineForm->aftertouchdevice->currentText();
-//        }
-//        else if(sender == modlineForm->polydevice)
-//        {
-//            jsonName = "device";
-//            value = modlineForm->polydevice->currentText();
-//        }
-//        else if(sender == modlineForm->mmcdeviceid)
-//        {
-//            jsonName = "mmcid";
-//            value = modlineForm->mmcdeviceid->value();
-//        }
-//        else if(sender == modlineForm->mmcfunction)
-//        {
-//            jsonName = "mmcfunction";
-//            value = modlineForm->mmcfunction->currentText();
-//        }
-//        else if(sender == modlineForm->mmcdevice)
-//        {
-//            jsonName = "device";
-//            value = modlineForm->mmcdevice->currentText();
-//        }
-//        else if(sender == modlineForm->oscroute)
-//        {
-//            jsonName = "oscroute";
-//            value = modlineForm->oscroute->text();
-//        }
+
         //Green LED
         else if(sender == modlineForm->ledgreen)
         {
@@ -706,42 +584,7 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modlineForm->ledgreen->setCurrentIndex(modlineForm->ledgreen->findText(preset.value(QString("key%1_modline%2_ledgreen").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
     modlineForm->ledred->setCurrentIndex(modlineForm->ledred->findText(preset.value(QString("key%1_modline%2_ledred").arg(keyInstance+1).arg(modlineInstance+1)).toString()));
 
-    // string and then the index of the combobox, whose items are updated by mainWindow
-    QMap<QString, unsigned char> portMap;
-
-    // USB
-    portMap["SSCOM Port 1"] = 0;
-    portMap["SoftStep USB MIDI"] = 0;
-    portMap["SoftStep Control Surface"] = 0;
-
-    // MIDI
-    portMap["SSCOM Port 2"] = 1;
-    portMap["SoftStep Expander"] = 1;
-    portMap["SoftStep TRS MIDI Out"] = 1;
-
-    // CV
-    portMap["SoftStep CV Out"] = 2;
-
-    QString presetDevice = preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString();
-    unsigned char destIndex = portMap.value(presetDevice, 1); // default to USB port name index
-
-
-    // fix old port names
-    if (presetDevice.contains("SSCOM"))
-    {
-        if (mode == "standalone")
-        {
-            presetDevice = "SoftStep USB MIDI";
-        }
-        else if (mode == "hosted")
-        {
-            presetDevice = "SoftStep Share";
-        }
-    }
-
     // destination parameters
-    //storing these in a struct for later recall when we change the destination type/index
-    //modDest.outPortName = presetDevice;
 
     // modDest.index = modlineForm->destination->currentIndex(); // happens in slotRecallDestinationMenu()
     modDest.channel = preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
@@ -753,8 +596,57 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modDest.mmcFunction = preset.value(QString("key%1_modline%2_mmcfunction").arg(keyInstance+1).arg(modlineInstance+1)).toString();
     modDest.oscRoute = preset.value(QString("key%1_modline%2_oscroute").arg(keyInstance+1).arg(modlineInstance+1)).toString();
 
-    // midi port dropdown - update this after we change the destination parameters above
-    modlineForm->dest_device->setCurrentIndex(destIndex);
+    // MODLINE OUTPUT PORT
+
+    // string and then the index of the combobox, whose items are updated by mainWindow
+
+    // get the port name from the preset JSON
+    QString presetDevice = preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString();
+    unsigned char destIndex = 0;
+
+    if (mode == "standalone")
+    {
+        QMap<QString, unsigned char> portMap;
+
+        // USB
+        portMap["SSCOM Port 1"] = 0;
+        portMap["SoftStep USB MIDI"] = 0;
+        portMap["SoftStep Control Surface"] = 0;
+
+        // MIDI
+        portMap["SSCOM Port 2"] = 1;
+        portMap["SoftStep Expander"] = 1;
+        portMap["SoftStep TRS MIDI Out"] = 1;
+
+        // CV
+        portMap["SoftStep CV Out"] = 2;
+
+        destIndex = portMap.value(presetDevice, 1); // default to USB port name index
+        modlineForm->dest_device->setCurrentIndex(destIndex);
+    }
+    else // hosted mode
+    {
+        // fix old port names
+        if (presetDevice.contains("SSCOM"))
+        {
+            presetDevice = "SoftStep Share";
+        }
+
+        QMap<QString, QString> portMap;
+
+        if (ssHardware == SS_3 && presetDevice == "SoftStep Expander")
+        {
+            presetDevice = "SoftStep TRS MIDI Out";
+        }
+        else if (ssHardware == SS_2 && presetDevice == "SoftStep TRS MIDI Out")
+        {
+            presetDevice = "SoftStep Expander";
+        }
+
+
+
+        modlineForm->dest_device->setCurrentText(presetDevice);
+    }
 
     // mmc function dropdown
     modlineForm->dest_mmcfunction->setCurrentText(modDest.mmcFunction);
@@ -863,6 +755,10 @@ void Modline::slotRecallDestinationMenu()
     modlineForm->dest_mmcfunction->hide();
     modlineForm->dest_oscroute->hide();
 
+    // limits
+    modlineForm->dest_b1->setMinimum(0);
+    modlineForm->dest_b1->setMaximum(127);
+
     // labels
     modlineForm->dest_label_b1->hide();
     modlineForm->dest_label_b2->hide();
@@ -881,6 +777,14 @@ void Modline::slotRecallDestinationMenu()
 
         modlineForm->dest_b1->setValue(modDest.note);
     case DEST_NOTE_LIVE:
+        modlineForm->dest_b1->show();
+        modlineForm->dest_b1->setMinimum(-48);
+        modlineForm->dest_b1->setMaximum(48);
+
+        modlineForm->dest_label_b1->setText("Tranpose");
+        modlineForm->dest_label_b1->show();
+        modlineForm->dest_b1->setToolTip("Shift the live note by this much");
+
         modlineForm->dest_b2->show();
         modlineForm->dest_label_b2->setText("Vel");
         modlineForm->dest_label_b2->show();
@@ -1079,7 +983,10 @@ void Modline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevices)
 
     modlineForm->dest_device->clear();
 
-
+    if (mode == "hosted")
+    {
+        modlineForm->dest_device->addItem("SoftStep Share"); // hard code this as first port
+    }
     //-------------------------------- Populate all menus
 
     // Step 1: Load the QMap into a QList, inverting the key and value for sorting
@@ -1096,37 +1003,11 @@ void Modline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevices)
     // Step 3: Iterate through the sorted QList and add items to the combobox
     for (const auto &item : sortedList)
     {
-        modlineForm->dest_device->addItem(item.second.left(25));
-
-//        //Note Set
-//        modlineForm->notedevice->addItem(i.key().left(25));
-
-//        //Note Live
-//        modlineForm->notelivedevice->addItem(i.key().left(25));
-
-//        //CC
-//        modlineForm->controldevice->addItem(i.key().left(25));
-
-//        //Bank
-//        modlineForm->bankdevice->addItem(i.key().left(25));
-
-//        //Program
-//        modlineForm->programdevice->addItem(i.key().left(25));
-
-//        //Pitch Bend
-//        modlineForm->benddevice->addItem(i.key().left(25));
-
-//        //MMC
-//        modlineForm->mmcdevice->addItem(i.key().left(25));
-
-//        //Aftertouch
-//        modlineForm->aftertouchdevice->addItem(i.key().left(25));
-
-//        //Poly Aftertouch
-//        modlineForm->polydevice->addItem(i.key().left(25));
+        if (item.second != "SoftStep Share")
+        {
+            modlineForm->dest_device->addItem(item.second.left(25));
+        }
     }
-
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1175,9 +1056,18 @@ void Modline::slotSetTransformValues()
 //------------------------------------------------------------------------------------------- Gain / Offset
 void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
+    static int debugCounter = 0;
+    // using -5 as a special case to capture foot off for random single
+    if (val == -5 && modlineNum == modlineInstance)
+    {
+        debugCounter++;
+    }
+
     // filter out chatter - this is preventing duplicate program change messages
-    if (modlineForm->enable->isChecked() == false || enabled == false || lastVal == val
-            || modlineNum != modlineInstance) // this is important
+    if (modlineForm->enable->isChecked() == false ||
+            enabled == false ||
+            lastVal == val ||
+            modlineNum != modlineInstance) // this is important
     {
         return;
     }
@@ -1233,21 +1123,33 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
                 raw = val;
 
                 //Display Raw
-                modlineForm->raw->setValue(val);
+                if (val != -5)
+                {
+                    modlineForm->raw->setValue(val);
 
-                //Apply gain and offset
-                val = val*gain + offset;
+                    //Apply gain and offset
+                    val = val*gain + offset;
 
-                //Set result display vaule
-                result = val;
+                    //Set result display vaule
+                    result = val;
 
-                //Display Result
-                modlineForm->result->setValue(result);
+                    //Display Result
+
+                    modlineForm->result->setValue(result);
+                }
 
                 if(enabled)
                 {
-                    //Go to slotTable, signal continues from there
-                    slotTable(val);
+                    if (val == -5) // off message for note_live
+                    {
+                        val = -1;
+                        hosted_slotOutputMidi(-1);
+                    }
+                    else
+                    {
+                        //Go to slotTable, signal continues from there
+                        slotTable(val);
+                    }
                 }
             }
         }
@@ -1259,6 +1161,8 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
 void Modline::slotTable(int input)
 {
     qDebug() << "Modline::slotTable called";
+
+
     //Clip table input
     if(input > 127)
     {
@@ -1270,7 +1174,21 @@ void Modline::slotTable(int input)
         input = 0;
     }
 
-    if(table == "Counter Inc")
+    QMap <QString, unsigned char> tablesMap;
+    tablesMap["Major"] = 0;
+    tablesMap["Natural Minor"] = 1;
+    tablesMap["Harmonic Minor"] = 2;
+    tablesMap["Dorian"] = 3;
+    tablesMap["Phrygian"] = 4;
+    tablesMap["Lydian"] = 5;
+    tablesMap["Mixolydian"] = 6;
+    tablesMap["Locrian"] = 7;
+
+    if (tablesMap.contains(table))
+    {
+        input = tablesClass.quantizeNoteToScale(input, tablesMap.value(table));
+    }
+    else if(table == "Counter Inc")
     {
         //qDebug() << "last val: " << lastVal << "input: " << input;
 
@@ -1351,6 +1269,14 @@ void Modline::slotTable(int input)
         {
             return;
         }
+    }
+    else if (table == "Random")
+    {
+        input = ((input + 1) * QRandomGenerator::global()->bounded(128)) & 0x7F;
+    }
+    else if (table == "")
+    {
+        // don't apply table, safety
     }
     else
     {
@@ -1483,8 +1409,24 @@ void Modline::slotOutputRoutine(int input)
 
 void Modline::hosted_slotOutputMidi(int outputVal)
 {
-    // EB TODO - update to use a single set of dropdowns
     //qDebug() << "Modline::hosted_slotOutputMidi called";
+    if(outputType == "Note Live")
+    {
+        char thisTranspose = modlineForm->dest_b1->value();
+        if (thisTranspose && outputVal != -1)
+        {
+            int thisVal = (thisTranspose + outputVal);
+            outputVal = std::min(std::max(thisVal, 0), 127);
+        }
+        emit hosted_signalNoteLive(modlineForm->dest_device->currentText(), modlineForm->dest_b3->value(), lastNote, outputVal, modlineForm->dest_b2->value());
+
+        lastNote = outputVal;
+    }
+    if (outputVal == -1)
+    {
+        return; // safety for now until -1 is implemented in other outputTypes
+    }
+
     if(outputType == "Note Set")
     {
         if(outputVal)
@@ -1495,12 +1437,6 @@ void Modline::hosted_slotOutputMidi(int outputVal)
         {
             emit hosted_signalNoteSet(modlineForm->dest_device->currentText(), modlineForm->dest_b3->value(), modlineForm->dest_b1->value(), 0);
         }
-    }
-    else if(outputType == "Note Live")
-    {
-        emit hosted_signalNoteLive(modlineForm->dest_device->currentText(), modlineForm->dest_b3->value(), lastNote, outputVal, modlineForm->dest_b2->value());
-
-        lastNote = outputVal;
     }
     else if(outputType == "CC")
     {
