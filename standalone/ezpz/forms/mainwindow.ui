@@ -83,6 +83,13 @@ QLabel:hover
 	border:				none;
 }  
 
+QLabel:disabled
+{
+	font: 	12px&quot;Futura&quot;;
+	color: rgba(128, 128, 128, 255);
+	background: rgba(0, 0, 0, 0);
+}
+
 /* ---------- QSpinBox ------------*/
 QSpinBox
 {
@@ -91,6 +98,14 @@ QSpinBox
 	background-color: rgba(0, 0, 0, 0);
 	color: white;
 	padding:0, 1, 0, 0;
+}
+
+QSpinBox:disabled
+{
+	font: 14px &quot;Futura&quot;;
+	color: rgba(0, 0, 0, 0);
+	border: 1px solid rgba(100, 100, 100, 255);
+	background: rgba(0, 0, 0, 0);
 }
 
 QAbstractSpinBox:focus
@@ -106,6 +121,14 @@ QDoubleSpinBox
 	background-color: rgba(0, 0, 0, 0);
 	color: white;
 	padding:0, 1, 0, 0;
+}
+
+QDoubleSpinBox:disabled
+{
+	font: 14px &quot;Futura&quot;;
+	color: rgba(0, 0, 0, 0);
+	border: 1px solid rgba(100, 100, 100, 255);
+	background: rgba(0, 0, 0, 0);
 }
 
 /* ---------- QLineEdit ------------*/
@@ -126,11 +149,27 @@ QLineEdit:focus
 	outline: none;
 }
 
+QLineEdit:disabled
+{
+	font: 14px &quot;Futura&quot;;
+	color: rgba(0, 0, 0, 0);
+	border: 1px solid rgba(100, 100, 100, 255);
+	background: rgba(0, 0, 0, 0);
+}
+
 /* ---------- QCheckBox ------------*/
 QCheckBox
 {
 color: rgba(255,255,255,0);
 	font: 10pt &quot;Futura&quot;;
+}
+
+QCheckBox:disabled
+{
+	font: 10pt &quot;Futura&quot;;
+	color: rgba(0, 0, 0, 0);
+	border: 1px solid rgba(100, 100, 100, 255);
+	background: rgba(0, 0, 0, 0);
 }
 
 QCheckBox::indicator {
@@ -251,10 +290,10 @@ QComboBox::down-arrow
 
 QComboBox:disabled
 {
-	font: 8pt &quot;Futura-Normal&quot;;
-	color: (175, 175, 175, 50);
-	border: 1px solid rgba(0,174,239, 75);
-	background: rgba(18, 18, 18, 75);
+	font: 13px &quot;Futura-Normal&quot;;
+	color: rgba(0, 0, 0, 0);
+	border: 1px solid rgba(100, 100, 100, 255);
+	background: rgba(0, 0, 0, 0);
 	padding: 1px 3px 1px 4px;
 	text-align:right;
 	padding-left: 0px;
@@ -306,9 +345,9 @@ QToolTip
     <property name="geometry">
      <rect>
       <x>1086</x>
-      <y>320</y>
+      <y>328</y>
       <width>182</width>
-      <height>66</height>
+      <height>58</height>
      </rect>
     </property>
     <property name="font">
@@ -388,7 +427,7 @@ QPushButton:pressed
      <string>REVERT</string>
     </property>
    </widget>
-   <widget class="QLabel" name="midiChannelLabel_2">
+   <widget class="QLabel" name="midiThruLabel">
     <property name="geometry">
      <rect>
       <x>1084</x>
@@ -437,7 +476,7 @@ QPushButton:pressed
       <x>1062</x>
       <y>113</y>
       <width>206</width>
-      <height>201</height>
+      <height>218</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout" columnstretch="0,0">
@@ -612,7 +651,7 @@ QCheckBox::indicator {
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="QLabel" name="gainLabel_3">
+      <widget class="QLabel" name="navPadLabel">
        <property name="styleSheet">
         <string notr="true"/>
        </property>
@@ -653,7 +692,7 @@ QCheckBox::indicator {
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QLabel" name="gainLabel_4">
+      <widget class="QLabel" name="pedalCCLabel">
        <property name="styleSheet">
         <string notr="true"/>
        </property>
@@ -694,7 +733,7 @@ QCheckBox::indicator {
       </widget>
      </item>
      <item row="5" column="0">
-      <widget class="QLabel" name="sceneNameLabel">
+      <widget class="QLabel" name="displayNameLabel">
        <property name="styleSheet">
         <string notr="true"/>
        </property>
@@ -758,31 +797,72 @@ QCheckBox::indicator {
       </widget>
      </item>
      <item row="6" column="1">
-      <widget class="QSpinBox" name="currentPreset">
-       <property name="focusPolicy">
-        <enum>Qt::WheelFocus</enum>
-       </property>
-       <property name="contextMenuPolicy">
-        <enum>Qt::NoContextMenu</enum>
-       </property>
+      <widget class="QComboBox" name="currentPreset">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700;&quot;&gt;Select which of the 10 SoftStep preset slots to edit/send.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:700;&quot;&gt;Route incomming MIDI messages from the SoftStep to this MIDI destination&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <property name="styleSheet">
+        <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 70px;
+    min-height: 60;
+	color:white;
+	padding-left: -10px;
+	text-align:right;
+	border:none;
+	icon-size:0px;
+}</string>
        </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
-       </property>
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>10</number>
-       </property>
-       <property name="value">
-        <number>1</number>
-       </property>
+       <item>
+        <property name="text">
+         <string>Slot 1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Slot 2</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Slot 3</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Slot 4</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Slot 5</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Slot 6</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Slot 7</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Slot 8</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Slot 9</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Slot 10</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
@@ -850,7 +930,7 @@ QPushButton:pressed
    <zorder>softstepLabel</zorder>
    <zorder>update</zorder>
    <zorder>revert</zorder>
-   <zorder>midiChannelLabel_2</zorder>
+   <zorder>midiThruLabel</zorder>
    <zorder>midi_thru</zorder>
    <zorder>connectedLabel</zorder>
   </widget>
@@ -863,7 +943,6 @@ QPushButton:pressed
   <tabstop>pedalCC</tabstop>
   <tabstop>backlight</tabstop>
   <tabstop>displayName</tabstop>
-  <tabstop>currentPreset</tabstop>
   <tabstop>update</tabstop>
  </tabstops>
  <resources/>

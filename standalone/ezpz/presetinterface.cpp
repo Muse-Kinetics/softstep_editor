@@ -219,7 +219,6 @@ void PresetInterface::slotRevertPreset()
         jsonMasterMapCopy.insert("backlight", jsonMasterMap.value("backlight").toBool());
         jsonMasterMapCopy.insert("sensitivity", jsonMasterMap.value("sensitivity").toDouble());
         qDebug() << "preset" << currentPresetNum << "should revert now";
-        //slotRecallPreset(currentPresetNum);
         emit signalRecallPreset(jsonMasterMapCopy.value(QString("Preset_00%1").arg(currentPresetNum)).toMap(), jsonMasterMapCopy);
         slotCheckSaveState();
     }
@@ -310,7 +309,7 @@ void PresetInterface::slotImportPreset()
 
         //------------- Set Imported Preset to current and update ------------
         jsonMasterMapCopy.insert(QString("Preset_00%1").arg(currentPresetNum), importedPresetMap);
-        slotRecallPreset(currentPresetNum+1);
+        slotRecallPreset(currentPresetNum); // was +1, slotRecallPreset now adds 1 to the preset val to modify zero indexing
         slotCheckSaveState();
     }
 }
@@ -723,9 +722,9 @@ void PresetInterface::slotConstructDefaultMap()
 
 void PresetInterface::slotRecallPreset(int i)
 {
-    settings->setValue("lastPreset", i);
+    settings->setValue("lastPreset", i-1);
 
-    i -= 1;
+    //i -= 1;
     qDebug() << "recall preset" << i;
     currentPresetNum = i;
 

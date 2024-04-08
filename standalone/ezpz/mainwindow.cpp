@@ -34,12 +34,26 @@ MainWindow::MainWindow(QWidget *parent) :
     // application version
     applicationVersion.resize(3);
 
-    // pre bootloader app version was 2.04, revving to 2.1.0 for bootloader trojan
-    applicationVersion[0] = 2;
-    applicationVersion[1] = 1;
-    applicationVersion[2] = 1;
-    betaVersion = ""; // leave blank for release
+    // application version
+    QString versionString = QString(APP_VERSION);
 
+    // Split the version string by dots and assign values directly
+    QStringList parts = versionString.split('.');
+
+    for (int i = 0; i < 3 && i < parts.size(); ++i)
+    {
+        applicationVersion.append(static_cast<char>(parts[i].toInt()));
+        //imageFormatter.applicationVersion.append(static_cast<char>(parts[i].toInt())); // update this, used for generating 8051 compatible factory presets C file
+    }
+
+    if (parts.size() > 3)
+    {
+        betaVersion = parts[3]; // assume this is a letter
+    }
+    else
+    {
+        betaVersion = "";
+    }
     // store the SoftStep device firmware version
     thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_softstep), sizeof(_fw_ver_softstep));
 
@@ -173,12 +187,17 @@ MainWindow::MainWindow(QWidget *parent) :
     //Coverup for factory presets
     factoryPresetCoverWidget1 = new QWidget(ui->centralWidget);
     factoryPresetCoverWidget1->hide();
-    factoryPresetCoverWidget1->resize(this->size());
+
+    QSize thisSize = key[5]->size();
+    thisSize.setWidth(thisSize.width() * 5 + 70);
+    thisSize.setHeight(thisSize.height() * 2 + 40);
+
+    factoryPresetCoverWidget1->resize(thisSize);
     factoryPresetCoverWidget1->setStyleSheet("QWidget{ background: rgba(0,0,0,200); }");
 
     factoryPresetNameLabel = new QLabel(ui->centralWidget);
     factoryPresetNameLabel->hide();
-    factoryPresetNameLabel->resize(this->size());
+    factoryPresetNameLabel->resize(thisSize);
     factoryPresetNameLabel->setAlignment(Qt::AlignCenter);
 #ifdef Q_OS_MAC
     factoryPresetNameLabel->setStyleSheet("font: 36pt \"Futura\"; color: white");
@@ -275,7 +294,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     //Load preset from last app session
-    presetInterface->slotRecallPreset(1);
+    presetInterface->slotRecallPreset(0); // was 1, slotRecallPreset now adds 1 to incoming value
     //ui->currentPreset->setValue(settings->value("lastPreset").toInt());
     //ui->currentPreset->setFocus();
 
@@ -472,7 +491,7 @@ void MainWindow::slotConnectInterfaces()
     connect(aboutForm->ok, SIGNAL(clicked()), this, SLOT(slotEnableDisableMenu()));
 
     //Preset Recall
-    connect(ui->currentPreset, SIGNAL(valueChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
+    connect(ui->currentPreset, SIGNAL(currentIndexChanged(int)), presetInterface, SLOT(slotRecallPreset(int)));
     connect(presetInterface, SIGNAL(signalRecallPreset(QVariantMap,QVariantMap)), this, SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
 
     for(int i = 1; i < 11; i++)
@@ -549,20 +568,28 @@ void MainWindow::slotRecallPreset(QVariantMap preset, QVariantMap master)
         ui->connectedLabel->raise();
         ui->revert->raise();
 
-        ui->midiChannel->setFocusPolicy(Qt::NoFocus);
-        ui->navPadCC->setFocusPolicy(Qt::NoFocus);
-        ui->pedalCC->setFocusPolicy(Qt::NoFocus);
-        ui->displayName->setFocusPolicy(Qt::NoFocus);
+        ui->midiChannelLabel->setDisabled(true);
+        ui->midiChannel->setDisabled(true);
+        ui->navPadLabel->setDisabled(true);
+        ui->navPadCC->setDisabled(true);
+        ui->pedalCCLabel->setDisabled(true);
+        ui->pedalCC->setDisabled(true);
+        ui->displayNameLabel->setDisabled(true);
+        ui->displayName->setDisabled(true);
 
         ui->currentPreset->setFocus();
         slotEnableDisableUseCustomPreset(true);
     }
     else
     {
-        ui->midiChannel->setFocusPolicy(Qt::StrongFocus);
-        ui->navPadCC->setFocusPolicy(Qt::StrongFocus);
-        ui->pedalCC->setFocusPolicy(Qt::StrongFocus);
-        ui->displayName->setFocusPolicy(Qt::StrongFocus);
+        ui->midiChannelLabel->setDisabled(false);
+        ui->midiChannel->setDisabled(false);
+        ui->navPadLabel->setDisabled(false);
+        ui->navPadCC->setDisabled(false);
+        ui->pedalCCLabel->setDisabled(false);
+        ui->pedalCC->setDisabled(false);
+        ui->displayNameLabel->setDisabled(false);
+        ui->displayName->setDisabled(false);
 
         factoryPresetCoverWidget1->hide();
         factoryPresetNameLabel->hide();

@@ -30,7 +30,7 @@ PresetInterface::PresetInterface(QWidget *parent, const std::vector<QComboBox*>&
 
     // If either preset file doesn't exist at the destination, copy it there
     QString presetFileDestPath = presetsDirDestPath + "/hosted_presets.json";
-    QString presetFileSrcPath = ":/presets/hosted_softstepadvanced.json";
+    QString presetFileSrcPath = ":/presets/hosted_presets.json";
 
      qDebug() << "Hosted presetFileDestPath: " << presetFileDestPath;
 
@@ -59,7 +59,7 @@ PresetInterface::PresetInterface(QWidget *parent, const std::vector<QComboBox*>&
 
     // Non-hosted presets file
     presetFileDestPath = presetsDirDestPath + "/presets.json";
-    presetFileSrcPath = ":/presets/softstepadvanced.json";
+    presetFileSrcPath = ":/presets/presets.json";
 
     qDebug() << "presetFileDestPath: " << presetFileDestPath;
 

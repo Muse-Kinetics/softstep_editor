@@ -61,6 +61,7 @@ public:
         int channel;
         int note;
         int velocity;
+        int transpose;
         int cc;
         int bankMSB;
         int mmcID;

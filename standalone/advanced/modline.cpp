@@ -590,6 +590,7 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modDest.channel = preset.value(QString("key%1_modline%2_channel").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
     modDest.note = preset.value(QString("key%1_modline%2_note").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
     modDest.velocity = preset.value(QString("key%1_modline%2_velocity").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
+    modDest.transpose = preset.value(QString("key%1_modline%2_transpose").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
     modDest.cc = preset.value(QString("key%1_modline%2_cc").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
     modDest.bankMSB = preset.value(QString("key%1_modline%2_bankmsb").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
     modDest.mmcID = preset.value(QString("key%1_modline%2_mmcid").arg(keyInstance+1).arg(modlineInstance+1)).toInt();
@@ -776,15 +777,20 @@ void Modline::slotRecallDestinationMenu()
         modlineForm->dest_b1->setToolTip("The note # to send");
 
         modlineForm->dest_b1->setValue(modDest.note);
+        // fall through
     case DEST_NOTE_LIVE:
-        modlineForm->dest_b1->show();
-        modlineForm->dest_b1->setMinimum(-48);
-        modlineForm->dest_b1->setMaximum(48);
+        if (modDest.index == DEST_NOTE_LIVE)
+        {
+            modlineForm->dest_b1->show();
+            modlineForm->dest_b1->setMinimum(-48);
+            modlineForm->dest_b1->setMaximum(48);
+            modlineForm->dest_b1->setValue(modDest.transpose);
+            modlineForm->dest_label_b1->setText("Tranpose");
+            modlineForm->dest_label_b1->show();
+            modlineForm->dest_b1->setToolTip("Shift the live note by this much");
+        }
 
-        modlineForm->dest_label_b1->setText("Tranpose");
-        modlineForm->dest_label_b1->show();
-        modlineForm->dest_b1->setToolTip("Shift the live note by this much");
-
+        // common to both cases
         modlineForm->dest_b2->show();
         modlineForm->dest_label_b2->setText("Vel");
         modlineForm->dest_label_b2->show();

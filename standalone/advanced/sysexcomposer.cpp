@@ -383,7 +383,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                 attribute(x,3,A_SYM,"set",A_SYM,"On",A_LONG,preset.value(QString("key%1_modline%2_enable").arg(k).arg(m)).toLongLong());
                 attribute(x,3,A_SYM,"set",A_SYM,"Source",A_SYM,preset.value(QString("key%1_modline%2_source").arg(k).arg(m)).toString().toUtf8().constData());
 
-                qDebug() << "key : " << k << "modline : " << m << preset.value(QString("key%1_modline%2_source").arg(k).arg(m)).toString();
+                //qDebug() << "key : " << k << "modline : " << m << preset.value(QString("key%1_modline%2_source").arg(k).arg(m)).toString();
 
                 attribute(x,3,A_SYM,"set",A_SYM,"Gain",A_FLOAT,preset.value(QString("key%1_modline%2_gain").arg(k).arg(m)).toFloat());
                 attribute(x,3,A_SYM,"set",A_SYM,"Offset",A_FLOAT,preset.value(QString("key%1_modline%2_offset").arg(k).arg(m)).toFloat());
@@ -530,6 +530,8 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                     attribute(x,3,A_SYM,"set",A_SYM,"MMC_Function",A_SYM,preset.value(QString("key%1_modline%2_mmcfunction").arg(k).arg(m)).toString().toUtf8().constData());
                 }
 
+                //------------- MODLINE DEST PORTS
+
                 // string and then the index of the combobox, whose items are updated by mainWindow
                 QMap<QString, QString> portMap;
 
@@ -550,6 +552,9 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
                 thisDest = portMap.value(thisDest);
 
                 attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM, thisDest.toUtf8().constData());
+
+                //------------- END MODLINE PORTS
+
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Red",A_SYM,preset.value(QString("key%1_modline%2_ledred").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"LED_Menu_Green",A_SYM,preset.value(QString("key%1_modline%2_ledgreen").arg(k).arg(m)).toString().toUtf8().constData());
                 attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("key%1_modline%2_displaylinked").arg(k).arg(m)).toLongLong());
@@ -568,7 +573,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
         //Modline or Program change mode
         attribute(x,3,A_SYM,"set",A_SYM,"Nav_Modline_Mode",A_LONG,1 - preset.value(QString("nav_modlinemode")).toLongLong());
 
-        qDebug() << "nav modline mode" << preset.value(QString("nav_modlinemode")).toLongLong();
+        //qDebug() << "nav modline mode" << preset.value(QString("nav_modlinemode")).toLongLong();
 
         //Name
         attribute(x,3,A_SYM,"set",A_SYM,"Key_Name",A_SYM,preset.value("nav_name").toString().toUtf8().constData());
@@ -760,8 +765,31 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
 
             }
 
+            //------------- NAV MODLINE DEST PORTS
+
+            // string and then the index of the combobox, whose items are updated by mainWindow
+            QMap<QString, QString> portMap;
+
+            // USB
+            portMap["SSCOM Port 1"] = "SoftStep USB MIDI";
+            portMap["SoftStep USB MIDI"] = "SoftStep USB MIDI";
+            portMap["SoftStep Control Surface"] = "SoftStep USB MIDI";
+
+            // MIDI
+            portMap["SSCOM Port 2"] = "SoftStep Expander";
+            portMap["SoftStep Expander"] = "SoftStep Expander";
+            portMap["SoftStep TRS MIDI Out"] = "SoftStep Expander";
+
+            // CV
+            portMap["SoftStep CV Out"] = "SoftStep CV Out";
+
+            QString thisDest = preset.value(QString("nav_modline%1_device").arg(m)).toString();
+            thisDest = portMap.value(thisDest);
+
             //Device
-            attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM,preset.value(QString("nav_modline%1_device").arg(m)).toString().toUtf8().constData());
+            attribute(x,3,A_SYM,"set",A_SYM,"Device",A_SYM, thisDest.toUtf8().constData());
+
+            //------------- END NAV MODLINE PORTS
 
             //Display Linkage
             attribute(x,3,A_SYM,"set",A_SYM,"Display_Linked",A_LONG,preset.value(QString("nav_modline%1_displaylinked").arg(m)).toLongLong());
@@ -818,20 +846,22 @@ void SysExComposer::slotHostedOnOff(bool onOff)
         //mode = "standalone";
 
         emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
+
         emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
-        //emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist));
+
+        emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist));
         emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
-        emit signalSendSysEx(_fw_nav_standalone_on, sizeof(_fw_nav_standalone_on));
     }
     else
     {
         //mode = "hosted";
 
+        emit signalSendSysEx(_fw_standalone_off, sizeof(_fw_standalone_off));
+
         emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist));
         emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
+
         emit signalSendSysEx(_fw_tether_on, sizeof(_fw_tether_on));
-        emit signalSendSysEx(_fw_standalone_off, sizeof(_fw_standalone_off));
-        emit signalSendSysEx(_fw_nav_standalone_off, sizeof(_fw_nav_standalone_off));
     }
 }
 
@@ -843,19 +873,19 @@ void SysExComposer::slotSceneChangeOnOff(bool onOff)
 
     if(onOff)
     {
-        emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
-        emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
+//        emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
+//        emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
         emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist));
-        emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
-        emit signalSendSysEx(_fw_nav_standalone_on, sizeof(_fw_nav_standalone_on));
+//        emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
+//        emit signalSendSysEx(_fw_nav_standalone_on, sizeof(_fw_nav_standalone_on));
     }
     else
     {
-        emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
-        emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
+//        emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
+//        emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
         emit signalSendSysEx(_fw_scenechange_off_persist, sizeof(_fw_scenechange_off_persist));
-        emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
-        emit signalSendSysEx(_fw_nav_standalone_on, sizeof(_fw_nav_standalone_on));
+//        emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
+//        emit signalSendSysEx(_fw_nav_standalone_on, sizeof(_fw_nav_standalone_on));
     }
 }
 

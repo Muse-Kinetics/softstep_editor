@@ -1792,7 +1792,7 @@ void MainWindow::slotConnected(bool connection)
         connected = true;
         slotUpdateAboutWindow();
 
-        //updatefw->setEnabled(true);
+        updatefw->setEnabled(true);
         sysExComposer->connected = true;
 
         //sysExComposer->slotRequestPedalCalibration(); // grab the pedal calibration
@@ -1836,7 +1836,7 @@ void MainWindow::slotConnected(bool connection)
         //ui->connectedLabel->move(529, 100);
         ui->connectedLabel->setStyleSheet("font:8pt \"Futura\";color: rgba(200,200,200,255); background: rgba(40, 40, 40, 255); padding-top: 2px; padding-bottom: 2px;");
 #endif
-        //updatefw->setEnabled(false); // disable firmware update menu
+        updatefw->setEnabled(false); // disable firmware update menu
         sysExComposer->connected = false; // stop sysExComposer from sending data
         troubleshootWindow->slotConnected(false);
     }
@@ -3402,6 +3402,7 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
             {
                 midiAuxIn[i]->slotSendMIDI(status, d1, d2, chan); //
             }
+            midiAuxIn[i]->slotEmptyMIDIBuffer();
             return;
         }
     }
@@ -3423,7 +3424,9 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
         else
         {
             hostedOut->slotSendMIDI(status, d1, d2, chan);
+
         }
+        hostedOut->slotEmptyMIDIBuffer();
     }
     hostedOut->slotCloseMidiOut();
 

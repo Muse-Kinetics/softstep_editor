@@ -558,6 +558,7 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
     modDest.channel = preset.value(QString("nav_modline%2_channel").arg(navInstance+1)).toInt();
     modDest.note = preset.value(QString("nav_modline%2_note").arg(navInstance+1)).toInt();
     modDest.velocity = preset.value(QString("nav_modline%2_velocity").arg(navInstance+1)).toInt();
+    modDest.transpose = preset.value(QString("nav_modline%2_transpose").arg(navInstance+1)).toInt();
     modDest.cc = preset.value(QString("nav_modline%2_cc").arg(navInstance+1)).toInt();
     modDest.bankMSB = preset.value(QString("nav_modline%2_bankmsb").arg(navInstance+1)).toInt();
     modDest.mmcID = preset.value(QString("nav_modline%2_mmcid").arg(navInstance+1)).toInt();
@@ -731,14 +732,18 @@ void NavModline::slotRecallDestinationMenu()
 
         navModlineForm->dest_b1->setValue(modDest.note);
     case DEST_NOTE_LIVE:
-        navModlineForm->dest_b1->show();
-        navModlineForm->dest_b1->setMinimum(-48);
-        navModlineForm->dest_b1->setMaximum(48);
+        if (modDest.index == DEST_NOTE_LIVE)
+        {
+            navModlineForm->dest_b1->show();
+            navModlineForm->dest_b1->setMinimum(-48);
+            navModlineForm->dest_b1->setMaximum(48);
+            navModlineForm->dest_b1->setValue(modDest.transpose);
+            navModlineForm->dest_label_b1->setText("Tranpose");
+            navModlineForm->dest_label_b1->show();
+            navModlineForm->dest_b1->setToolTip("Shift the live note by this much");
+        }
 
-        navModlineForm->dest_label_b1->setText("Tranpose");
-        navModlineForm->dest_label_b1->show();
-        navModlineForm->dest_b1->setToolTip("Shift the live note by this much");
-
+        // common to both cases
         navModlineForm->dest_b2->show();
         navModlineForm->dest_label_b2->setText("Vel");
         navModlineForm->dest_label_b2->show();

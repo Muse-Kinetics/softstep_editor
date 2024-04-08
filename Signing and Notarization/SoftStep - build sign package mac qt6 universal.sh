@@ -7,7 +7,7 @@
 this_year=2022
 app_name="SoftStep"
 app_name_fp=SoftStep
-version=3.0.0B
+version=3.0.0C
 
 bundle_name=SoftStepEditors
 bundle_id="com.keithmcmillen.$bundle_name"
@@ -82,9 +82,9 @@ then
 	echo ""
 	echo "### - Updating info.plist"
 	echo ""
-	echo "Press any key to continue"
-	echo
-	read -n 1 -s -r -p ""
+	# echo "Press any key to continue"
+	# echo
+	# read -n 1 -s -r -p ""
 
 	# update info.plist
 	plutil -insert "App Category" -string "Music" "$app1_path/Contents/Info.plist"

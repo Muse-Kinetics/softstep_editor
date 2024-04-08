@@ -71,29 +71,6 @@ Settings::Settings(QWidget *parent) :
     // Save location of settings file
     jsonPath = settingsFileDestPath;
 
-    // Now handle the Pedal Table file.
-    QString pedalTableFileDestPath = settingsDirDestPath + "/pedalTable.txt";
-    QString pedalTableFileSrcPath = ":/presets/pedalTable.txt";
-
-    if (!QFile::exists(pedalTableFileDestPath))
-    {
-        if (QFile::copy(pedalTableFileSrcPath, pedalTableFileDestPath) == false)
-        {
-            qFatal("Cannot copy default pedal table file to the application data path!");
-        }
-    }
-
-    // Check and set permissions independently of file existence
-    if (!QFile::setPermissions(pedalTableFileDestPath, QFileDevice::ReadOwner | QFileDevice::WriteOwner))
-    {
-        qDebug("Could not set permissions to read/write for the pedal table file.");
-    }
-
-
-#ifdef TABLE_ENABLED
-    // Create table interface
-    //pedalLiveTableInterface = new TableInerface(settingsForm->pedalLiveWidget);
-#endif // TABLE_ENABLED
     for(int i = 0; i < NUM_MIDI_INPUTS; i++)
     {
         midiInputLine[i].hide();
@@ -141,7 +118,7 @@ Settings::Settings(QWidget *parent) :
     connect(settingsForm->settingsinputbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
     //connect(settingsForm->settingspedalbutton, SIGNAL(clicked()), this, SLOT(slotViewSelector()));
 
-    slotWriteDefaultSettings();
+    //slotWriteDefaultSettings();
     //slotRecallSettings(); // wait for the app to do this
 
     //----------------------------------------- Disable all OSC for now -----------------------------------------//
@@ -656,13 +633,9 @@ void Settings::slotValueChanged()
         }
 
         emit signalStoreValue(jsonName,value);
-
-
-
     }
 
     //qDebug() << "value changed" << QObject::sender()->objectName();
-
 }
 
 void Settings::slotStoreSettings(QString name, QVariant value)
@@ -675,7 +648,7 @@ void Settings::slotStoreSettings(QString name, QVariant value)
 
 }
 
-void Settings::slotRecallPreset(QVariantMap preset)
+void Settings::slotRecallPreset(QVariantMap preset) // this recalls the settings as loaded by the preset interface (ie from settings.json)
 {
     qDebug() << "slotRecallPreset called";
     slotDisconnectElements();
@@ -721,7 +694,13 @@ void Settings::slotRecallPreset(QVariantMap preset)
         {
             QCheckBox* checkbox = qobject_cast<QCheckBox *>(widget);
             QString objectName = widget->objectName();
-            checkbox->setChecked(preset.value(objectName).toBool());
+            bool thisVal = preset.value(objectName).toBool();
+            static int debugCounter;
+            if (objectName == "scenechange_enable")
+            {
+                debugCounter++;
+            }
+            checkbox->setChecked(thisVal);
         }
         else if(widget->metaObject()->className() == QString("QComboBox"))
         {
@@ -1278,11 +1257,9 @@ void Settings::slotEmitAllSettings()
         emit signalSetSceneChanging(settingsForm->scenechange_enable->isChecked());
     }
 
-    //------------ Backlight handled - handled in slot value changed
-
-    if(mode == "hosted")
+    else if(mode == "hosted")
     {
-        //emit signalSetBacklight(settingsForm->backlighting_enable->isChecked());
+        emit signalSetSceneChanging(0); // scene changing should be off in hosted mode, since it's cooked in the editor
     }
 
 
@@ -1351,8 +1328,8 @@ void Settings::slotSaveSettingsTimeout()
 
     //qDebug() << "settings timeout callback" << saveSettiingsTimeoutTime;
 
-    //If 0.5s have elapsed since last value was changed
-    if(saveSettiingsTimeoutTime > 500)
+    //If 0.1s have elapsed since last value was changed
+    if(saveSettiingsTimeoutTime > 100)
     {
         //qDebug() << "settings timeout";
 

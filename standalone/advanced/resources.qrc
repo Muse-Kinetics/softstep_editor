@@ -168,11 +168,10 @@
         <file>resources/menuBarWin.qss</file>
         <file>Blank.softsteppreset</file>
         <file>presets/hosted_setlist.json</file>
-        <file>presets/hosted_softstepadvanced.json</file>
         <file>presets/setlist.json</file>
         <file>presets/settings.json</file>
-        <file>presets/softstepadvanced.json</file>
-        <file>presets/pedalTable.txt</file>
+        <file>presets/hosted_presets.json</file>
+        <file>presets/presets.json</file>
     </qresource>
     <qresource prefix="/inc"/>
 </RCC>

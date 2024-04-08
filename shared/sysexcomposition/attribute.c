@@ -956,8 +956,8 @@ void write_nm_to_file(NM *nm, t_softstep *x)
     // Serialize KEY
     for (int i = 0; i < NUM_KEYS; i++) {
         fprintf(x->fd_c, "/*%04x*/\t// Key %d\n", data_index, i);
-        fprintf(x->fd_c, "/*%04x*/\t\t0x%02x, 0x%02x, // modline_count, display_mode | nav_y_mode\n", data_index,
-                nm->key[i].modline_count, ((nm->key[i].display_mode << 4) | nm->key[i].nav_y_mode));
+        fprintf(x->fd_c, "/*%04x*/\t\t0x%02x, 0x%02x, // modline_count, nav_y_mode | display_mode \n", data_index,
+                nm->key[i].modline_count, ((nm->key[i].nav_y_mode << 4) | nm->key[i].display_mode));
         data_index += 2;
 
         fprintf(x->fd_c, "/*%04x*/\t\t0x%02x, 0x%02x, // key_name_index\n", data_index,
@@ -987,20 +987,20 @@ void write_modline_to_file(MODLINE *modline, t_softstep *x)
 
     // Serialize FIXED_PT for gain
     fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, 0x%02x, 0x%02x, 0x%02x, // gain (upper high byte, upper low byte, lower high byte, lower low byte)\n",
-            data_index,
-            (modline->gain.u.upper >> 8) & 0xFF, // Upper high byte
+            data_index,      
             modline->gain.u.upper & 0xFF,        // Upper low byte
-            (modline->gain.u.lower >> 8) & 0xFF, // Lower high byte
-            modline->gain.u.lower & 0xFF);       // Lower low byte
+            (modline->gain.u.upper >> 8) & 0xFF, // Upper high byte
+            modline->gain.u.lower & 0xFF,       // Lower low byte
+            (modline->gain.u.lower >> 8) & 0xFF); // Lower high byte
     data_index += 4;
 
     // Serialize FIXED_PT for offset
     fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, 0x%02x, 0x%02x, 0x%02x, // offset (upper high byte, upper low byte, lower high byte, lower low byte)\n",
             data_index,
-            (modline->offset.u.upper >> 8) & 0xFF, // Upper high byte
             modline->offset.u.upper & 0xFF,        // Upper low byte
-            (modline->offset.u.lower >> 8) & 0xFF, // Lower high byte
-            modline->offset.u.lower & 0xFF);       // Lower low byte
+            (modline->offset.u.upper >> 8) & 0xFF, // Upper high byte
+            modline->offset.u.lower & 0xFF,       // Lower low byte
+            (modline->offset.u.lower >> 8) & 0xFF); // Lower high byte
     data_index += 4;
 
 
@@ -1011,7 +1011,7 @@ void write_modline_to_file(MODLINE *modline, t_softstep *x)
     fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, 0x%02x, // MIDI_SHARED bytes\n", data_index, *((unsigned char *)&modline->ms), *(((unsigned char *)&modline->ms) + 1));
     data_index += 2;
 
-    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, // port || display_linked\n", data_index++, ((modline->port << 4) | modline->display_linked));
+    fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, // display_linked || port\n", data_index++, ((modline->display_linked << 4) | modline->port));
 }
 
 void write_strings_to_file(char *data, int size, t_softstep *x) {
@@ -1055,10 +1055,11 @@ void write_settings_to_file(const SETTINGS *settings, FILE *fd) {
     // Global_Gain (FIXED_PT: 4 bytes, long)
     fprintf(fd, "    // Global_Gain (FIXED_PT: 4 bytes, long)\n");
     fprintf(fd, "    0x%02X, 0x%02X, 0x%02X, 0x%02X,\n\n",
-        (settings->Global_Gain.u.upper >> 8) & 0xFF,
+
         settings->Global_Gain.u.upper & 0xFF,
-        (settings->Global_Gain.u.lower >> 8) & 0xFF,
-        settings->Global_Gain.u.lower & 0xFF);
+        (settings->Global_Gain.u.upper >> 8) & 0xFF,
+        settings->Global_Gain.u.lower & 0xFF,
+        (settings->Global_Gain.u.lower >> 8) & 0xFF);
 
     // Nav Key Thresholds (8 bytes)
     fprintf(fd, "    // Nav Key Thresholds (8 bytes)\n");
@@ -1073,8 +1074,8 @@ void write_settings_to_file(const SETTINGS *settings, FILE *fd) {
 
     // Display and input settings (2 bytes)
     fprintf(fd, "    // Display and input settings (2 bytes)\n");
-    fprintf(fd, "    0x%02X, // bit field - bit 2-7: reserved. Bit 0: el_offon, bit1: prog_change_display_offset\n",
-        (settings->el_offon << 7) | (settings->prog_change_display_offset << 6) | (settings->reserved & 0x3F));
+    fprintf(fd, "    0x%02X, // bit field - bit 2-7: reserved. Bit 0: el_offon, bit 1: prog_change_display_offset\n",
+            (settings->el_offon) | (settings->prog_change_display_offset << 1) | ((settings->reserved & 0x3F) << 2));
     fprintf(fd, "    0x%02X, // progchg_rx_channel, default to channel 10\n\n", settings->progchg_rx_channel);
 
     // Pedal Calibration (4 bytes)

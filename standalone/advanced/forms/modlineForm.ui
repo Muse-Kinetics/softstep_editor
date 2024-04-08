@@ -2288,9 +2288,9 @@ QComboBox QAbstractItemView::item
   <widget class="QLabel" name="dest_label_func">
    <property name="geometry">
     <rect>
-     <x>688</x>
+     <x>724</x>
      <y>2</y>
-     <width>36</width>
+     <width>64</width>
      <height>16</height>
     </rect>
    </property>

@@ -11,6 +11,8 @@ QT +=           core gui \
 
 TARGET =        "SoftStep Basic Editor"
 TEMPLATE =      app
+VERSION = 3.0.0.E
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 macx{
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.13
@@ -55,6 +57,7 @@ INCLUDEPATH +=  forms \
                 ../../shared/rtmidi
 
 SOURCES +=      main.cpp\
+    ../../shared/KMI_MDM/KMI_SysexMessages.c \
     ../../shared/KMI_MDM/KMI_mdm.cpp \
     ../../shared/KMI_MDM/fwupdate/fwupdate.cpp \
     ../../shared/KMI_MDM/troubleshoot/troubleshoot.cpp \
@@ -85,10 +88,13 @@ HEADERS  +=     mainwindow.h \
     ../../shared/KMI_MDM/KMI_SysexMessages.h \
     ../../shared/KMI_MDM/KMI_mdm.h \
     ../../shared/KMI_MDM/fwupdate/fwupdate.h \
+    ../../shared/KMI_MDM/midi.h \
     ../../shared/KMI_MDM/troubleshoot/troubleshoot.h \
     ../../shared/KMI_Ports/kmi_ports.h \
     ../../shared/KMI_Updates/kmi_updates.h \
     ../../shared/rtmidi/RtMidi.h \
+    ../../shared/sysexcomposition/device_includes.h \
+    ../../shared/sysexcomposition/midi_ss.h \
                 key.h \
                 presetinterface.h \
                 sysexcomposer.h \
@@ -96,9 +102,9 @@ HEADERS  +=     mainwindow.h \
                 ../../shared/sysexcomposition/syxtx.h \
                 ../../shared/sysexcomposition/syxrx.h \
                 ../../shared/sysexcomposition/syxformats.h \
-                ../../shared/sysexcomposition/softstep.h \
+                ../../shared/sysexcomposition/device_includes.h \
                 ../../shared/sysexcomposition/query.h \
-                ../../shared/sysexcomposition/midi.h \
+                ../../shared/sysexcomposition/midi_ss.h \
                 ../../shared/sysexcomposition/maxapi.h \
                 ../../shared/sysexcomposition/download.h \
                 ../../shared/sysexcomposition/attribute.h \
@@ -131,7 +137,7 @@ OTHER_FILES +=  ../../shared/stylesheets/keyRadioButtonStylesheet.qss \
     resources/corbel.ttf
 
 RESOURCES =    Resources.qrc \
-    ../../shared/KMI_MDM/fwupdate/fw_stylesheets.qrc \
+    ../../shared/KMI_MDM/KMI_mdm.qrc \
     ../../shared/firmware/firmware.qrc \
     resources/fonts/fonts.qrc
 

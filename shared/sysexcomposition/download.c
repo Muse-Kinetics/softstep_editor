@@ -67,7 +67,7 @@ void download_start(t_softstep *x)
 {
 	if (!firmware_compatable(x->build_num))
 	{
-		post("not compatable with build num %d\n",x->build_num);
+        //post("not compatable with build num %d\n",x->build_num);
 		return;
 	}
 	
