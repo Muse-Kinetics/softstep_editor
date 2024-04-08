@@ -272,6 +272,10 @@ public slots:
     void slotRefreshConnection();
     void slotBootloaderMode(bool fwUpdateRequested);
     void relaunchApplication();
+
+    void slotFirmwareDebugBricked();
+    void slotFirmwareDebugBricked2();
+
     void slotFwUpdateSuccessCloseDialog(bool);
     void slotForceFirmwareUpdate();
     void slotFirmwareDetected(MidiDeviceManager *thisMDM, bool);

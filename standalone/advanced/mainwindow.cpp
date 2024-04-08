@@ -765,6 +765,7 @@ void MainWindow::slotConnectInterfaces()
     connect(SoftStep, SIGNAL(signalFwProgress(int)), fwUpdateWindow, SLOT(slotUpdateProgressBar(int)));                         // console
     connect(SoftStep, SIGNAL(signalFirmwareUpdateComplete(bool)), fwUpdateWindow, SLOT(slotFwUpdateComplete(bool)));            // Update Complete
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), SoftStep, SLOT(slotFirmwareUpdateReset()));                        // stop timeout timers
+    connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), this, SLOT(slotFirmwareDebugBricked()));                        // stop timeout timers
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccessCloseDialog(bool)), this, SLOT(slotFwUpdateSuccessCloseDialog(bool)));  // close fw dialog and connect
     //connect(SoftStep, SIGNAL(signalRequestGlobals()), sysExComposer, SLOT(slotRequestPedalCalibration()));                      // request globals (pedal calibration)
 
@@ -2863,16 +2864,90 @@ void MainWindow::relaunchApplication() {
     QCoreApplication::quit();
 }
 
+void MainWindow::slotFirmwareDebugBricked() // called by fwUpdateWindow->signalFwUpdateSuccess()
+{
+    static bool swapFw;
+
+    swapFw = !swapFw;
+    QString thisFwFile;
+
+    if (swapFw)
+    {
+        thisFwFile = QString(":/firmware/Softstep_Firmware_v1.0.4.syx");
+    }
+    else
+    {
+        thisFwFile = QString(":/firmware/Softstep_Firmware_v2.0.2.syx");
+    }
+
+    qDebug() << "thisFwFile: " << thisFwFile;
+
+    if (!SoftStep->slotOpenFirmwareFile(thisFwFile))
+    {
+       slotCreateDialog("Error: Firmware file not found!\n\nPlease re-install the SoftStep editor.");
+    }
+
+    // Create a one-shot timer
+    QTimer *timerDone = new QTimer(this); // `this` assumes you're inside a QObject-derived class
+    timerDone->setSingleShot(true);
+
+    // Connect the timeout signal to a lambda function that triggers the update action
+    connect(timerDone, &QTimer::timeout, this, [this]() {
+        fwUpdateWindow->slotPressButtDone();
+    });
+
+    // Start the timer with a 5-second timeout
+    timerDone->start(4000); // Time in milliseconds
+}
+
+void MainWindow::slotFirmwareDebugBricked2() // called by slotFwUpdateSuccessCloseDialog
+{
+    if (SoftStep->firmwareUpdateState == FWUD_STATE_IDLE || SoftStep->firmwareUpdateState >= FWUD_STATE_SUCCESS)
+    {
+        slotUpdatePresets();
+        updatefw->trigger();
+
+
+        // Create a one-shot timer
+        QTimer *timerRetrig = new QTimer(this); // `this` assumes you're inside a QObject-derived class
+        timerRetrig->setSingleShot(true);
+
+        // Connect the timeout signal to a lambda function that triggers the update action
+        connect(timerRetrig, &QTimer::timeout, this, [this]() {
+            slotFirmwareDebugBricked2();
+        });
+    }
+}
+
 void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
 {
 #ifdef MIDI_ENABLED
     qDebug() << "slotFwUpdateSuccessCloseDialog called - success: " << success;
 
+    static int fwSuccessCounter = 0;
+
     if (success)
     {
+        fwSuccessCounter++;
+        qDebug() << "---------- fwSuccessCounter: " << fwSuccessCounter << "----------------------------------";
+
         //SoftStep->fwUpdateRequested = false;
         slotUpdateMIDIThru();
         slotConnected(true);
+
+        // debug ss brick loop
+        // Create a one-shot timer
+        QTimer *timerRetrig = new QTimer(this); // `this` assumes you're inside a QObject-derived class
+        timerRetrig->setSingleShot(true);
+
+        // Connect the timeout signal to a lambda function that triggers the update action
+        connect(timerRetrig, &QTimer::timeout, this, [this]() {
+            slotFirmwareDebugBricked2();
+        });
+
+
+        timerRetrig->start(4000); // Time in milliseconds
+
     }
     else
     {
@@ -2933,6 +3008,7 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
         fwUpdateWindow->slotAppendTextToConsole(deviceFirmwareVersionString() + "\n\n");
 
         fwUpdateWindow->show();
+        fwUpdateWindow->slotPressButtOk();
     }
 #endif // MIDI_ENABLED
 }
