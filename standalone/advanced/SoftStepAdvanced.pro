@@ -13,7 +13,7 @@ QT       += core gui \
 
 TARGET = "SoftStep Advanced Editor"
 TEMPLATE = app
-VERSION = 3.0.0.Y
+VERSION = 3.0.1
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 macx {

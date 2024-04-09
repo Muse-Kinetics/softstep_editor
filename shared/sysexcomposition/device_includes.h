@@ -112,7 +112,7 @@ enum
 
 #define	NUM_KEYS	11
 #define	NUM_MODLINES_PER_KEY	6
-#define	NUM_TOTAL_MODLINES	(NUM_KEYS*NUM_MODLINES_PER_KEY)
+#define	NUM_TOTAL_MODLINES	(NUM_KEYS * NUM_MODLINES_PER_KEY)
 #define	NUM_MODLINES_LIMIT		50
 
 #define	SEND_SX_DIRECT		// send directly to device instead of outlet

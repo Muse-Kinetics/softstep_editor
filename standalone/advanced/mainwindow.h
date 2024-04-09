@@ -76,6 +76,8 @@
 
 // end midi overhaul
 
+// uncomment this to force firmware updates in a loop
+//#define DEBUG_FW_BRICKED
 
 namespace Ui {
 class MainWindow;
@@ -273,8 +275,11 @@ public slots:
     void slotBootloaderMode(bool fwUpdateRequested);
     void relaunchApplication();
 
+#ifdef DEBUG_FW_BRICKED
     void slotFirmwareDebugBricked();
     void slotFirmwareDebugBricked2();
+    void slotFirmwareDebugBricked3();
+#endif
 
     void slotFwUpdateSuccessCloseDialog(bool);
     void slotForceFirmwareUpdate();

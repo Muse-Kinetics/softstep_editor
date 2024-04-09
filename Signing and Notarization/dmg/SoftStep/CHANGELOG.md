@@ -1,5 +1,47 @@
 #### SoftStep Editor and Firmware Changelog
 
+### Editor 3.0.1, Firmware 2.0.2 (2024-04-09)
+- New Features/Changes
+	- Complete overhaul of USB MIDI driver. SoftStep now uses the same driver as KMI's latest products.
+		- SoftStep3 uses new USB MIDI port names: "Softstep Control Surface", "SoftStep TRS MIDI Out", "SoftStep CV Out"
+		- Legacy hardware (SoftStep1/2) uses port names "SoftStep Control Surface" and "SoftStep Expander"
+	- Improved key scanning, gain (sensitivity adjustments), and sensor calibration. 
+	- Added per device serial numbers which will the OS to differentiate between multiple SoftSteps
+	- Faster device boot time
+	- Improvements to firmware update process:
+		- Bootloader flash memory is now LOCKED
+		- Firmware updates have been slowed down to accomodate older systems
+	- Presets are now stored in the OS Application Data Directory rathern than the application directory/package. 
+	- Basic Editor:
+		- Fixes to the UI, ie you can now browse different presets when a factory preset is selected
+	- Advanced Editor:
+		- SoftStep 3 UI additions:
+			- Added CV Out routing controls to main window
+			- Added Backlight Brightness control to Settings
+		- Added Expression Pedal Calibration to the Editor Hardware menu
+			- User can define min/max values to scale expression pedal input to output
+			- Added table assignment (linear, exponential, log, etc). This is a global setting that will always be applied to the expression pedal before preset modlines.
+		- Added CV Calibration to the Editor Hardware Menu
+			- User can calibrate Octaves (6 values per CV out for 0/1/2/3/4/5V), or Notes (calibrate every note individually)
+		- Added RANDOM as a modline source and table (user feature request)
+		- Added diatonic scales/modes to tables
+		- Note Live now has a transpose option, useful when using quantized scale tables
+		- Added Program Change Preset Control dropdown to Settings tab (user feature request)
+			- This is a global setting for all presets that determines which MIDI channel SoftStep listens to for Program Chance, CC, and NRPN commands. 
+		- Added an experimental/advanced feature where the editor can talk to devices with older firmware. 
+		- Key LED backlights can now be dimmed rather than just set to on/off (user feature request)
+		- Modline LEDs can now set both red and green to ON, making amber
+		- Updated factory presets
+		- The editor now remembers and loads the last preset that was being edited in both hosted and standalone mode (user feature request)
+- Bug Fixes:
+	- Fixed a bug where adding expression pedal modlines to the Nav Pad could corrupt key states, causing erratic behavior
+	- Fixed a bug in key slewing (delay) that could temporarily crash the device
+	- Fixed a bug where sending presets to the device would sometimes cause it to hang
+	- Lots of memory optimizations and code cleanup
+	- Lots of UI fixes, tweaks, and improvements
+
+
+
 ### Editor 2.1.1, Firmware 1.0.4 (2022-10-12)
 - Public release
 

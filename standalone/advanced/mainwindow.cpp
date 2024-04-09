@@ -25,7 +25,6 @@
 #define OSC_ENABLED
 #define MIDI_AUX_ENABLED
 #define MIDI_ENABLED
-#define EB_DEBUGGING
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -765,9 +764,11 @@ void MainWindow::slotConnectInterfaces()
     connect(SoftStep, SIGNAL(signalFwProgress(int)), fwUpdateWindow, SLOT(slotUpdateProgressBar(int)));                         // console
     connect(SoftStep, SIGNAL(signalFirmwareUpdateComplete(bool)), fwUpdateWindow, SLOT(slotFwUpdateComplete(bool)));            // Update Complete
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), SoftStep, SLOT(slotFirmwareUpdateReset()));                        // stop timeout timers
+
+#ifdef DEBUG_FW_BRICKED
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), this, SLOT(slotFirmwareDebugBricked()));                        // stop timeout timers
+#endif
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccessCloseDialog(bool)), this, SLOT(slotFwUpdateSuccessCloseDialog(bool)));  // close fw dialog and connect
-    //connect(SoftStep, SIGNAL(signalRequestGlobals()), sysExComposer, SLOT(slotRequestPedalCalibration()));                      // request globals (pedal calibration)
 
     // connect fwUpdate console messages to connection troubleshooter
     connect(SoftStep, SIGNAL(signalFwConsoleMessage(QString)), troubleshootWindow, SLOT(slotAppendToStatusLog(QString)));
@@ -1026,7 +1027,6 @@ void MainWindow::slotConnectInterfaces()
             connect(key[k], SIGNAL(signalDeleteModline(int,bool)), key[k]->modline[m], SLOT(slotDeleteModline(int,bool)));
         }
     }
-#ifdef EB_DEBUGGING
     for(int i = 0; i < 6; i++)
     {
         connect(navKey, SIGNAL(signalDeleteModline(int,bool)), navKey->navModline[i], SLOT(slotDeleteModline(int,bool)));
@@ -1110,7 +1110,6 @@ void MainWindow::slotConnectInterfaces()
         //connect(this, SIGNAL(signalSelectedKeyOutline(int,bool)), key[i], SLOT(slotSelectedKeyOutline(int,bool)));
     }
     connect(copyPasteHandler, SIGNAL(signalSetSelectedKey(int)), this, SLOT(slotSelectedKey(int)));
-#endif // EB_DEBUGGING
 #endif // KEYS_ENABLED
 
     qDebug() << "------------ [CONNECT SAVE/DELETE/ETC] ---------------------------------------------------";
@@ -1217,7 +1216,6 @@ void MainWindow::slotConnectInterfaces()
     connect(settingsWindow, SIGNAL(signalTetherOnOffInStandalone(bool)), sysExComposer, SLOT(slotTetherOnOffInStandalone(bool)));
 #ifdef KEYS_ENABLED
     //------------------------------- Nav
-#ifdef EB_DEBUGGING
     connect(settingsWindow, SIGNAL(signalSetGlobalGain(float)), &navKey->dataCooker, SLOT(slotSetGlobalGain(float)));
 
     //N
@@ -1238,7 +1236,6 @@ void MainWindow::slotConnectInterfaces()
 
     //Y-Accel
     connect(settingsWindow, SIGNAL(signalSetNavYIncAccel(int)), &navKey->dataCooker, SLOT(slotSetYAccel(int)));
-#endif // EB_DEBUGGING
 #endif // end KEYS_ENABLED
 
     //------------- Scene Change on/off sysex command
@@ -2864,8 +2861,10 @@ void MainWindow::relaunchApplication() {
     QCoreApplication::quit();
 }
 
+#ifdef DEBUG_FW_BRICKED
 void MainWindow::slotFirmwareDebugBricked() // called by fwUpdateWindow->signalFwUpdateSuccess()
 {
+    qDebug() << "Swapping FW files";
     static bool swapFw;
 
     swapFw = !swapFw;
@@ -2888,6 +2887,21 @@ void MainWindow::slotFirmwareDebugBricked() // called by fwUpdateWindow->signalF
     }
 
     // Create a one-shot timer
+    QTimer *timerFwFile = new QTimer(this); // `this` assumes you're inside a QObject-derived class
+    timerFwFile->setSingleShot(true);
+
+    // Connect the timeout signal to a lambda function that triggers the update action
+    connect(timerFwFile, &QTimer::timeout, this, [this]() {
+        slotFirmwareDebugBricked2();
+    });
+
+    timerFwFile->start(1000); // Time in milliseconds
+}
+
+void MainWindow::slotFirmwareDebugBricked2() // called by fwUpdateWindow->signalFwUpdateSuccess()
+{
+    qDebug() << "Start timer to press DONE";
+    // Create a one-shot timer
     QTimer *timerDone = new QTimer(this); // `this` assumes you're inside a QObject-derived class
     timerDone->setSingleShot(true);
 
@@ -2900,8 +2914,9 @@ void MainWindow::slotFirmwareDebugBricked() // called by fwUpdateWindow->signalF
     timerDone->start(4000); // Time in milliseconds
 }
 
-void MainWindow::slotFirmwareDebugBricked2() // called by slotFwUpdateSuccessCloseDialog
+void MainWindow::slotFirmwareDebugBricked3() // called by slotFwUpdateSuccessCloseDialog
 {
+    qDebug() << "Test and if idle, trigger another FW update...";
     if (SoftStep->firmwareUpdateState == FWUD_STATE_IDLE || SoftStep->firmwareUpdateState >= FWUD_STATE_SUCCESS)
     {
         slotUpdatePresets();
@@ -2914,39 +2929,43 @@ void MainWindow::slotFirmwareDebugBricked2() // called by slotFwUpdateSuccessClo
 
         // Connect the timeout signal to a lambda function that triggers the update action
         connect(timerRetrig, &QTimer::timeout, this, [this]() {
-            slotFirmwareDebugBricked2();
+            slotFirmwareDebugBricked3();
         });
     }
 }
+#endif // DEBUG_FW_BRICKED
 
 void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
 {
-#ifdef MIDI_ENABLED
     qDebug() << "slotFwUpdateSuccessCloseDialog called - success: " << success;
 
+#ifdef DEBUG_FW_BRICKED
     static int fwSuccessCounter = 0;
+#endif
 
     if (success)
     {
+#ifdef DEBUG_FW_BRICKED
         fwSuccessCounter++;
         qDebug() << "---------- fwSuccessCounter: " << fwSuccessCounter << "----------------------------------";
+#endif
 
-        //SoftStep->fwUpdateRequested = false;
         slotUpdateMIDIThru();
         slotConnected(true);
 
-        // debug ss brick loop
+#ifdef DEBUG_FW_BRICKED
         // Create a one-shot timer
         QTimer *timerRetrig = new QTimer(this); // `this` assumes you're inside a QObject-derived class
         timerRetrig->setSingleShot(true);
 
         // Connect the timeout signal to a lambda function that triggers the update action
         connect(timerRetrig, &QTimer::timeout, this, [this]() {
-            slotFirmwareDebugBricked2();
+            slotFirmwareDebugBricked3();
         });
 
 
         timerRetrig->start(4000); // Time in milliseconds
+#endif // DEBUG_FW_BRICKED
 
     }
     else
@@ -2955,8 +2974,6 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
         slotConnected(false);
     }
     disableWidget->hide();
-    //slotEnableDisableMenu();
-#endif // MIDI_ENABLED
 }
 
 void MainWindow::slotForceFirmwareUpdate()
@@ -3008,7 +3025,9 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
         fwUpdateWindow->slotAppendTextToConsole(deviceFirmwareVersionString() + "\n\n");
 
         fwUpdateWindow->show();
+#ifdef DEBUG_FW_BRICKED
         fwUpdateWindow->slotPressButtOk();
+#endif
     }
 #endif // MIDI_ENABLED
 }

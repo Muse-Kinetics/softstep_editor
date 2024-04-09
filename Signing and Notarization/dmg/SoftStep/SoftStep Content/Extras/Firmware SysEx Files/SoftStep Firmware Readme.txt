@@ -23,4 +23,10 @@ Softstep_Firmware_v1.0.x.syx
 ##########################################
 Firmware version 1.0.x uses the new "SoftStep Control Surface" and "SoftStep Expander" port names, and is required in order to use editor version 2.1.0 or later. 
 
+##########################################
+Softstep_Firmware_v2.0.x.syx
+##########################################
+Firmware version 2.0.x was released with SoftStep3, and includes bug fixes and new features for all SoftStep users.
+
+
 Note: Windows does not properly display USB MIDI portname descriptors, and some applications will report "SoftStep" for the control surface, and "MIDIIN2 (SoftStep)" for the expander.
