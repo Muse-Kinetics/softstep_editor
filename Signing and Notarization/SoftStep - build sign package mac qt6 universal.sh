@@ -23,6 +23,8 @@ dmg_icon="./$app_name.icns"
 subfolder_path="./dmg/$app_name"
 changelog_source="../CHANGELOG.md"
 changelog_dest="$subfolder_path/CHANGELOG.md"
+content_source="../Content"
+content_dest="$subfolder_path/Content"
 app1_path="$subfolder_path/$app1.app"
 app2_path="$subfolder_path/$app2.app"
 path_to_dqt=~/Qt/6.3.2/macos/bin/macdeployqt
@@ -70,6 +72,14 @@ then
 		echo ""
 	fi
 
+	if [ -f "$content_dest" ] 
+	then
+	  rm -rf "$content_dest"
+	  echo ""
+	  echo "Cleaning out old changelog..."
+	  echo ""
+	fi
+
 	# echo "Press any key to continue"
 	# echo
 	# read -n 1 -s -r -p ""
@@ -78,6 +88,7 @@ then
 	\cp -R "$app1_source" "$subfolder_path/"
 	\cp -R "$app2_source" "$subfolder_path/"
 	\cp -R "$changelog_source" "$subfolder_path/"
+	\cp -R "$content_source" "$subfolder_path/"
 
 	echo ""
 	echo "### - Updating info.plist"
