@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>699</width>
+    <width>876</width>
     <height>345</height>
    </rect>
   </property>
@@ -958,6 +958,896 @@ the Connection Troubleshooter.</string>
     <property name="text">
      <string>SOFTSTEP NOT CONNECTED</string>
     </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>30</y>
+      <width>191</width>
+      <height>300</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  11px &quot;Open Sans&quot;;
+	border:				none;
+}
+
+
+QFrame
+{
+     border:none;
+}
+
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 11px &quot;Open Sans&quot;;
+	border: 1px solid rgb(0,174,239);
+	background: rgb(40, 40, 40);
+	color: white;
+	padding: 1px 3px 1px 4px;
+
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(40, 40, 40);
+	border: 1px solid rgb(0,174,239);
+	font: 11px &quot;Open Sans&quot;;
+	color: white;
+   padding-left: 3px;
+	padding-right: 3px;
+	min-width: 70px;
+}
+
+QComboBox QAbstractItemView
+{
+    min-width: 80px;
+    icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/resources/setlist_combobox_menu_arrows.svg);
+	padding-right: 12px;
+    width: 14px;
+    height: 14px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+
+QComboBox::disabled
+{
+	font: 11px &quot;Open Sans&quot;;
+	border: 2px solid rgb(100, 100, 100);
+	background: rgba(20, 20, 20, 100);
+	color: rgb(100, 100, 100);
+	padding: 1px 3px 1px 4px;
+}
+
+
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(0,174,239);
+	border: none;
+}
+
+/* This remvoes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="cv1label_sources">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>90</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Sources</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cv2_sources">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>238</y>
+       <width>84</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The CV can respond to messages from the SoftStep keys/modlines, from the &amp;quot;SoftStep CV&amp;quot; USB MIDI port, or both.&lt;/p&gt;&lt;p&gt;Note: in hosted mode, keys/modlines can only control the CV outs by sending messages to the &amp;quot;SoftStep CV&amp;quot; USB MIDI port.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 84px;
+    icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Keys/USB</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Keys</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>USB</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="cv1_ch">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>75</y>
+       <width>84</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The CV responds to key modline and/or USB messages sent on this channel&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 84px;
+    icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Ch. 1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 10</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 11</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 12</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 13</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 14</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 15</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 16</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="cv1label_control">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Control Msg</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="cv1label_notes">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>25</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Note Mode</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="cv2label_ch">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>213</y>
+       <width>81</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>MIDI Channel</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cv1_notes">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>25</y>
+       <width>84</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How the CV responds to NOTE messages&lt;/p&gt;&lt;p&gt;Gate = 5V for Note On, 0V when all notes are released&lt;/p&gt;&lt;p&gt;Pitch = 0-5V scaled to 1V/Oct&lt;/p&gt;&lt;p&gt;Velocity = 0-5V representing the velocity value of the note&lt;/p&gt;&lt;p&gt;Disabled - all Note On/Off messages are ignored&lt;/p&gt;&lt;p&gt;All notes off (CC#123) and transport STOP messages will turn all gates off&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 84px;
+    icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Gate</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Pitch</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Velocity</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="cv1_control">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>50</y>
+       <width>84</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Direclty control the CV out with MIDI messages.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Pitch Bend - values from key modlines are scaled up from 0-127 to the 12bit CV DAC. USB messages are scaled down from 14bits.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Mod Wheel - CC#1 vales are scaled up from 0-127 to the 12bit CV DAC&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Aftertouch - channel pressure is scaled up from 0-127 to the 12bit CV DAC&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Disabled - all of the above messages are ignored&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 90px;
+    icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Pitch Bend</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Mod Wheel</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Aftertouch</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="cv2label_sources">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>238</y>
+       <width>81</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Sources</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="cvlabelB">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>138</y>
+       <width>165</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background:		none;
+	color: 				rgb(230,0,134);
+	font:  20pt &quot;Futura-Normal&quot;;
+	border:				none;
+
+
+}
+</string>
+     </property>
+     <property name="text">
+      <string>MIDI to CV Out 2</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cv2_notes">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>163</y>
+       <width>84</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How the CV responds to NOTE messages&lt;/p&gt;&lt;p&gt;Gate = 5V for Note On, 0V when all notes are released&lt;/p&gt;&lt;p&gt;Pitch = 0-5V scaled to 1V/Oct&lt;/p&gt;&lt;p&gt;Velocity = 0-5V representing the velocity value of the note&lt;/p&gt;&lt;p&gt;Disabled - all Note On/Off messages are ignored&lt;/p&gt;&lt;p&gt;All notes off (CC#123) and transport STOP messages will turn all gates off&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 84px;
+    icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Gate</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Pitch</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Velocity</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="cv2label_control">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>188</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Control Msg</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="cvlabelA">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>165</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background:		none;
+	color: 				rgb(230,0,134);
+	font:  20pt &quot;Futura-Normal&quot;;
+	border:				none;
+
+
+}
+</string>
+     </property>
+     <property name="text">
+      <string>MIDI to CV Out 1</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cv1_sources">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>100</y>
+       <width>84</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The CV can respond to messages from the SoftStep keys/modlines, from the &amp;quot;SoftStep CV&amp;quot; USB MIDI port, or both.&lt;/p&gt;&lt;p&gt;Note: in hosted mode, keys/modlines can only control the CV outs by sending messages to the &amp;quot;SoftStep CV&amp;quot; USB MIDI port.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 84px;
+    icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Keys/USB</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Keys</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>USB</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="cv2_ch">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>213</y>
+       <width>84</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The CV responds to key modline and/or USB messages sent on this channel&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 84px;
+    icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Ch. 1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 10</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 11</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 12</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 13</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 14</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 15</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Ch. 16</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="cv2_control">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>188</y>
+       <width>84</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Direclty control the CV out with MIDI messages.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Pitch Bend - values from key modlines are scaled up from 0-127 to the 12bit CV DAC. USB messages are scaled down from 14bits.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Mod Wheel - CC#1 vales are scaled up from 0-127 to the 12bit CV DAC&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Aftertouch - channel pressure is scaled up from 0-127 to the 12bit CV DAC&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Disabled - all of the above messages are ignored&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox QAbstractItemView
+{
+    min-width: 90px;
+    icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
+}</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>Pitch Bend</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Mod Wheel</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Aftertouch</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Disabled</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="cv1label_ch">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>75</y>
+       <width>90</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>MIDI Channel</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="cv2label_notes">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>163</y>
+       <width>81</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Note Mode</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

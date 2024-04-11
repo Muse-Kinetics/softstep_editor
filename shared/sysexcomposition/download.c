@@ -209,6 +209,10 @@ void send_standalone_image(t_softstep *x)
 		list = list->next;
 	}
 	
+    if (count == 0)
+    {
+        return; // no presets to send
+    }
 	
     //post("modline length is %ld bytes\n",sizeof(MODLINE));
 	//	post("send_sa_image: found %d presets",count);
@@ -220,10 +224,12 @@ void send_standalone_image(t_softstep *x)
 	standalone_info.u.preset_info.num_presets = count;
 	
 	midi_sx_packet_preamble(SX_PACKET_STANDALONE,sizeof(standalone_info));
-	
+
+#ifdef DEVELOPMENT
     fprintf(x->fd_c, "#include \"scenes.h\"\n\n");
 	write_c("standalone_info",&standalone_info.u.preset_info,sizeof(standalone_info.u.preset_info),x);
-	
+#endif
+
 	midi_sx_packet_data(&standalone_info,sizeof(standalone_info));
 	
 	list = x->first;
@@ -231,18 +237,21 @@ void send_standalone_image(t_softstep *x)
 	//	post("found image = %d",list!=0);
 	
 	write_c_title("scenes",x);
-	
-    int preset_index = 0;
 
 
 
 	while(list) {
 
         numTabs = 1;
+
+#ifdef DEVELOPMENT
+        int preset_index = 0;
         char *display_name = &list->strings.data[1];
+
         fprintf(x->fd_c, "\n// ********************************************************************");
         fprintf(x->fd_c, "\n// \tPRESET %d: %s\n", preset_index++, display_name);
         fprintf(x->fd_c, "\n// ********************************************************************");
+#endif
 
 		//	if (list) { // limit to the first preset only
 		
@@ -339,12 +348,12 @@ void send_standalone_image(t_softstep *x)
 		midi_sx_packet_data(fake_data,sizeof(fake_data));
 #else
 		{
-			int preset_size = sizeof(NM) + num_modlines * sizeof(MODLINE);
+            int preset_size = (short)sizeof(NM) + num_modlines * (short)sizeof(MODLINE);
 			
 			short other_key_index,pedal_index,string_index,end_index;
 			other_key_index = preset_size;
-			pedal_index = other_key_index + other_key_count * sizeof(struct OTHER_KEY_INFO);
-			string_index = pedal_index + pedal_count * sizeof(struct OTHER_KEY_INFO);
+            pedal_index = other_key_index + other_key_count * (short)sizeof(struct OTHER_KEY_INFO);
+            string_index = pedal_index + pedal_count * (short)sizeof(struct OTHER_KEY_INFO);
 			end_index = string_index + list->strings.size;
 			
             //			post("preset_size[%d]",preset_size);
@@ -360,17 +369,21 @@ void send_standalone_image(t_softstep *x)
 			midi_sx_packet_data_close(end_index);
 			
             numTabs = 2;
+#ifdef DEVELOPMENT
             fprintf(x->fd_c, "\n// \t\tNOT MODLINE:\n");
+#endif
 
             write_nm_to_file(&list->preset_image.nm, x);
             //write_c_data(&list->preset_image.nm,sizeof(NM),x);
 			
-			midi_sx_packet_data(&list->preset_image.nm,sizeof(NM));
+            midi_sx_packet_data(&list->preset_image.nm, (short)sizeof(NM));
 			midi_sx_data_addr = 0;
 			
 			for (key=0;key<NUM_KEYS;key++){
                 numTabs = 3;
+#ifdef DEVELOPMENT
                 fprintf(x->fd_c, "\n// \t\t\tKEY: %d\n", key);
+#endif
 
 				for (m=0;m<NUM_MODLINES_PER_KEY;m++)
 				{
@@ -382,11 +395,12 @@ void send_standalone_image(t_softstep *x)
 						if (num_modlines)
 						{
                             numTabs = 4;
+#ifdef DEVELOPMENT
                             fprintf(x->fd_c, "\n// \t\t\t\tMODLINE: %d\n", m);
-
+#endif
                             write_modline_to_file(&list->preset_image.modlines[key][m], x);
                             //write_c_data(&list->preset_image.modlines[key][m],sizeof(MODLINE),x);
-							midi_sx_data_crc(&list->preset_image.modlines[key][m],sizeof(MODLINE));
+                            midi_sx_data_crc(&list->preset_image.modlines[key][m], (short)sizeof(MODLINE));
 							num_modlines--;
 						}
 					}
@@ -394,20 +408,23 @@ void send_standalone_image(t_softstep *x)
 			}
             //					post("other_key_info");
             numTabs = 2;
+#ifdef DEVELOPMENT
             fprintf(x->fd_c, "\n// \t\tOTHER KEY INFO (triggers, key/modline_index pairs) - other_key_count: %d\n", other_key_count);
+#endif
 
-			write_c_data(&other_key_info,other_key_count * sizeof(struct OTHER_KEY_INFO),x);
-			midi_sx_data_crc(&other_key_info,other_key_count * sizeof(struct OTHER_KEY_INFO));
+            write_c_data(&other_key_info,other_key_count * (short)sizeof(struct OTHER_KEY_INFO),x);
+            midi_sx_data_crc(&other_key_info,other_key_count * (short)sizeof(struct OTHER_KEY_INFO));
             //					post("pedal_info");
 
+#ifdef DEVELOPMENT
             fprintf(x->fd_c, "\n// \t\tPEDAL INFO (expression pedal modlines, key/modline_index pairs) - pedal_count: %d\n", pedal_count);
-
-			write_c_data(&pedal_info,pedal_count * sizeof(struct OTHER_KEY_INFO),x);
-			midi_sx_data_crc(&pedal_info,pedal_count * sizeof(struct OTHER_KEY_INFO));
+#endif
+            write_c_data(&pedal_info,pedal_count * (short)sizeof(struct OTHER_KEY_INFO),x);
+            midi_sx_data_crc(&pedal_info,pedal_count * (short)sizeof(struct OTHER_KEY_INFO));
             //					post("strings");
-
+#ifdef DEVELOPMENT
             fprintf(x->fd_c, "\n// \t\tSTRINGS:\n");
-
+#endif
             write_strings_to_file(list->strings.data, list->strings.size, x);
             //write_c_data(list->strings.data,list->strings.size,x);
 			midi_sx_data_crc(list->strings.data,list->strings.size);

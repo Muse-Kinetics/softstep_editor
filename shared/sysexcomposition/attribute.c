@@ -1,11 +1,16 @@
 // Copyright (c) 2025 KMI Music, Inc.
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-#define DEVELOPMENT
+//#define DEVELOPMENT
 
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <ctype.h>
+
 #include "maxapi.h"
 #include "device_includes.h"
 #include "utils.h"
@@ -13,10 +18,7 @@
 #include "syxformats.h"
 #include "attribute.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <ctype.h>
+
 #include "syxtx.h"
 
 #include <qglobal.h>
@@ -124,7 +126,12 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
                 *list = (PRESET_LIST *) malloc(sizeof(PRESET_LIST));
                 if (*list)
                 {
+//                    errno_t memsetResult = memset_s(*list, sizeof(PRESET_LIST), 0, sizeof(PRESET_LIST));
+//                    if (memsetResult != 0) {
+//                        // Handle error
+//                    }
                     memset(*list,0,sizeof(PRESET_LIST));
+
                     //post("create preset_list size[%d] at[%p]\n",sizeof(PRESET_LIST),*list);
                     (*list)->strings.size = 1; // so a zero pointer points to null string
                     //post("create preset_image size[%d] at[%p]\n",sizeof(PRESET_IMAGE),(*list)->preset_image);
@@ -135,6 +142,11 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         }
         x->current_image = &(*list)->preset_image;
         x->current_list = *list;
+
+//        errno_t memsetResult = memset_s(x->current_image, sizeof(PRESET_IMAGE), 0, sizeof(PRESET_IMAGE));
+//        if (memsetResult != 0) {
+//            // Handle error
+//        }
         memset(x->current_image,0,sizeof(PRESET_IMAGE));
         return;
 
@@ -887,8 +899,13 @@ int first,data_index;
 
 void write_c_title(char *title,t_softstep *x)
 {
+#ifdef DEVELOPMENT
+    return;
+#endif
+
     if (!x->fd_c)
         return;
+
 
     fprintf(x->fd_c,"\ncode const unsigned char %s[] = \n{\n",title);
     first = 1;
@@ -898,6 +915,9 @@ void write_c_title(char *title,t_softstep *x)
 extern int numTabs;
 void write_c_data(void *data,int length,t_softstep *x)
 {
+#ifdef DEVELOPMENT
+    return;
+#endif
     int i,t;
 
     if (!x->fd_c)
@@ -923,6 +943,9 @@ void write_c_data(void *data,int length,t_softstep *x)
 
 void write_nm_to_file(NM *nm, t_softstep *x)
 {
+#ifdef DEVELOPMENT
+    return;
+#endif
     if (!x->fd_c)
         return;
 
@@ -970,6 +993,9 @@ void write_nm_to_file(NM *nm, t_softstep *x)
 
 void write_modline_to_file(MODLINE *modline, t_softstep *x)
 {
+#ifdef DEVELOPMENT
+    return;
+#endif
     if (!x->fd_c) {
         return;
     }
@@ -1014,7 +1040,11 @@ void write_modline_to_file(MODLINE *modline, t_softstep *x)
     fprintf(x->fd_c, "/*%04x*/\t\t\t0x%02x, // display_linked || port\n", data_index++, ((modline->display_linked << 4) | modline->port));
 }
 
-void write_strings_to_file(char *data, int size, t_softstep *x) {
+void write_strings_to_file(char *data, int size, t_softstep *x)
+{
+#ifdef DEVELOPMENT
+    return;
+#endif
     if (!x->fd_c) {
         return;
     }
@@ -1045,7 +1075,11 @@ void write_strings_to_file(char *data, int size, t_softstep *x) {
     }
 }
 
-void write_settings_to_file(const SETTINGS *settings, FILE *fd) {
+void write_settings_to_file(const SETTINGS *settings, FILE *fd)
+{
+#ifdef DEVELOPMENT
+    return;
+#endif
     if (!fd) {
         return;
     }
@@ -1109,6 +1143,9 @@ void write_settings_to_file(const SETTINGS *settings, FILE *fd) {
 
 void write_c_end(t_softstep *x)
 {
+#ifdef DEVELOPMENT
+    return;
+#endif
     if (!x->fd_c)
         return;
 
@@ -1117,6 +1154,9 @@ void write_c_end(t_softstep *x)
 
 void write_c_close(t_softstep *x)
 {
+#ifdef DEVELOPMENT
+    return;
+#endif
     if (!x->fd_c)
         return;
 
@@ -1126,6 +1166,9 @@ void write_c_close(t_softstep *x)
 }
 void write_c(char *title,void *data,int length,t_softstep *x)
 {
+#ifdef DEVELOPMENT
+    return;
+#endif
     if (!x->fd_c)
         return;
 
@@ -1283,6 +1326,11 @@ void sendSysex(unsigned char *src,int len, int type)
 t_softstep *softstep_init(void)
 {
     t_softstep *x = (t_softstep *) malloc(sizeof(t_softstep));
+
+//    errno_t memsetResult = memset_s(x, sizeof(t_softstep), 0, sizeof(t_softstep));
+//    if (memsetResult != 0) {
+//        // Handle error
+//    }
     memset(x,0,sizeof(t_softstep));
 
     x->device_softstep = true;

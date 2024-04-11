@@ -1263,6 +1263,22 @@ void MainWindow::slotBootloaderMode(bool fwUpdateRequested)
     }
 }
 
+void MainWindow::relaunchApplication() {
+    // Get the application's executable path and arguments
+    QString appPath = QCoreApplication::applicationFilePath();
+    QStringList args = QCoreApplication::arguments();
+
+    // Remove the first argument, which is the path to the executable
+    args.removeFirst();
+
+    // Start a new instance of the application
+    QProcess::startDetached(appPath, args);
+
+    // Exit the current application instance
+    QCoreApplication::quit();
+}
+
+
 void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
 {
     qDebug() << "slotFwUpdateSuccessCloseDialog called - success: " << success;
@@ -1272,6 +1288,9 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
         //SoftStep->fwUpdateRequested = false;
         slotUpdateMIDIThru();
         slotConnected(true);
+#ifdef Q_OS_WINDOWS
+        relaunchApplication();
+#endif
     }
     else
     {

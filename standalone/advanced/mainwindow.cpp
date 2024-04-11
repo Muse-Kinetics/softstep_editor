@@ -2967,6 +2967,9 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
         timerRetrig->start(4000); // Time in milliseconds
 #endif // DEBUG_FW_BRICKED
 
+#ifdef Q_OS_WINDOWS
+        relaunchApplication();
+#endif
     }
     else
     {

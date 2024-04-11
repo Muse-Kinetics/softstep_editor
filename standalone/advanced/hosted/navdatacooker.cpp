@@ -22,11 +22,11 @@ NavDataCooker::NavDataCooker(QWidget *parent) :
     offThreshW = 5;
 
     //Set temporarily here until settings are hooked up
-    globalGain = 1.00;
-    navNGain = 1.1;
-    navSGain = 1.1;
-    navEGain = 1.0;
-    navWGain = 1.0;
+    globalGain = (float)1.00;
+    navNGain = (float)1.1;
+    navSGain = (float)1.1;
+    navEGain = (float)1.0;
+    navWGain = (float)1.0;
 
     yAccel = 10;
 
