@@ -14,6 +14,9 @@ TEMPLATE =      app
 VERSION = 3.0.2
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
+# this is to clear warnings from the OG softstep c files
+DEFINES += _CRT_SECURE_NO_WARNINGS
+
 macx{
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.13
 }

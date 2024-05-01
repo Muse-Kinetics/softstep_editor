@@ -2,7 +2,7 @@
 <Installer>
     	<Name>SoftStep Editors Installer</Name>
     	<Version>1.0</Version>
-    	<Title>12 Step Editor Installer</Title>
+    	<Title>SoftStep Editor Installer</Title>
     	<Publisher>Keith McMillen Instruments</Publisher>
     	<StartMenuDir>Keith McMillen Instruments</StartMenuDir>
 		<TargetDir>@HomeDir@/KMI/SoftStep Editors</TargetDir>

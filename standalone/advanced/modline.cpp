@@ -901,9 +901,9 @@ void Modline::slotRecallDestinationMenu()
 }
 
 void Modline::slotTestValues()
-{
-
+{  
     QObject *sender = QObject::sender();
+    Q_UNUSED(sender);
     int initValue = modlineForm->initvalue->value();
 
     //qDebug() << "slotTestValues called - value: " << value << " sender: " << sender->objectName() << " initValue: " << initValue;
