@@ -17,10 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connected = false;
 
-
     //StyleSheets
     styleSheets = new StyleSheets();
-
 
     //Settings
     QCoreApplication::setApplicationName("SoftStep Basic Editor");
@@ -28,11 +26,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QCoreApplication::setOrganizationDomain("keithmcmillen.com");
 
     // ---- FW update overhaul ----------------------------
-
-    qDebug() << "System Locale: " << QLocale::system().name();
-
-    // application version
-    applicationVersion.resize(3);
 
     // application version
     QString versionString = QString(APP_VERSION);
@@ -56,6 +49,13 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     // store the SoftStep device firmware version
     thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_softstep), sizeof(_fw_ver_softstep));
+
+    QDateTime current = QDateTime::currentDateTime();
+    QString timestamp = current.toString("yyyy::MM::dd::hh:mm:ss");
+    qDebug() << "SoftStep Basic Editor - Application Version: " << applicationVersion << " Firmware Version: " << thisFw;
+    qDebug() << "System Locale: " << QLocale::system().name() << " Time: " << timestamp;
+
+
 
     // ---- end FW update overhaul ----------------------------
 
@@ -657,16 +657,19 @@ void MainWindow::slotDisplaySaveState(bool dirty)
 
 void MainWindow::slotUpdateAboutWindow()
 {
-    qDebug() << "slotUpdateAboutWindow called";
-    aboutForm->aboutTitle->setText(QString("SoftStep Basic Editor v%1.%2.%3")
-                               .arg(uchar(applicationVersion.at(0)))
-                               .arg(uchar(applicationVersion.at(1)))
-                               .arg(uchar(applicationVersion.at(2))));
+
+    QString versionText = QString("SoftStep Basic Editor v%1.%2.%3")
+                                .arg(uchar(applicationVersion.at(0)))
+                                .arg(uchar(applicationVersion.at(1)))
+                                .arg(uchar(applicationVersion.at(2)));
 
     if (betaVersion != "")
     {
-        aboutForm->aboutTitle->setText(aboutForm->aboutTitle->text().append(betaVersion));
+        versionText.append(betaVersion);
     }
+
+    qDebug() << "slotUpdateAboutWindow called - " << versionText;
+    aboutForm->aboutTitle->setText(versionText);
 
     QString thisLabelString;
     if (connected)
@@ -1026,11 +1029,7 @@ void MainWindow::slotOpenTroubleshooting()
 
 void MainWindow::slotOpenDocumentation()
 {
-    //QFile *file = new QFile(":doc.txt");
-    //file->open(QFile::ReadOnly);
-    QDesktopServices::openUrl(QUrl("http://files.keithmcmillen.com/downloads/softstep/SoftStep_Manual_v2.01.pdf"));
-    //qDebug() << (QLatin1String)file->readLine(0);
-    //file->close();
+    QDesktopServices::openUrl(QUrl("http://files.keithmcmillen.com/products/softstep/Manuals/SoftStep_Manual_v3.0.pdf"));
 }
 
 void MainWindow::slotDisconnectUpdate()
@@ -1091,6 +1090,19 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
                                               "background: rgba(0,0,0,0);"
                                               "border: 0px solid rgba(0,174,239,0);");
 #endif
+
+            if (SoftStep->installingBootloader == BL_INSTALL_PENDING && portName != SS_BL_PORT)
+            {
+                return; // don't try to connect to the bootloader installer v99
+            }
+
+#ifdef Q_OS_WIN
+            if (SoftStep->firmwareUpdateState == FWUD_STATE_FW_SENT_WAIT && portName == SS_IN_P1)
+            {
+                SoftStep->firmwareUpdateState = FWUD_STATE_SUCCESS;
+            }
+#endif
+
 
             if (!SoftStep->slotUpdatePortIn(portNum))
             {
@@ -1188,6 +1200,11 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         break;
     case PORT_CHANGED:
         //qDebug() << " PORT CHANGED - name: " << portName << portName << " inOrOut: " << kmiPorts->inOut[inOrOut] << " messageType: " << kmiPorts->mType[messageType] << " portNum: " << portNum << "\n";
+
+        if (SoftStep->installingBootloader == BL_INSTALL_PENDING && portName != SS_BL_PORT)
+        {
+            return; // don't try to connect to the bootloader installer v99
+        }
 
         // **** SoftStep renumber ****************************************
         if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)

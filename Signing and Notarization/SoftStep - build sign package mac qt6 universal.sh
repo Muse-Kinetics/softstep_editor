@@ -7,7 +7,7 @@
 this_year=2022
 app_name="SoftStep"
 app_name_fp=SoftStep
-version=3.0.1
+version=3.0.2
 
 bundle_name=SoftStepEditors
 bundle_id="com.keithmcmillen.$bundle_name"
@@ -30,6 +30,12 @@ app2_path="$subfolder_path/$app2.app"
 path_to_dqt=~/Qt/6.3.2/macos/bin/macdeployqt
 developer_id="Developer ID Application: Kesumo, LLC (***REMOVED***)"
 final_dmg_name="./$app_name Mac v$version.dmg"
+
+app1_debug_path="$app1.app/Contents/MacOS/$app1"
+app2_debug_path="$app2.app/Contents/MacOS/$app2"
+
+app1_debug_sl="$app1 (debug console)"
+app2_debug_sl="$app2 (debug console)"
 
 
 # set current directory to where the script was called from
@@ -64,6 +70,16 @@ then
 		echo ""
 	fi
 
+	if [ -L "$subfolder_path/$app1_debug_sl" ] 
+	then
+		rm -rf "$subfolder_path/$app1_debug_sl"
+	fi
+
+	if [ -L "$subfolder_path/$app2_debug_sl" ] 
+	then
+		rm -rf "$subfolder_path/$app2_debug_sl"
+	fi
+
 	if [ -f "$changelog_dest" ] 
 	then
 		rm -rf "$changelog_dest"
@@ -89,6 +105,22 @@ then
 	\cp -R "$app2_source" "$subfolder_path/"
 	\cp -R "$changelog_source" "$subfolder_path/"
 	\cp -R "$content_source" "$subfolder_path/"
+
+	echo "Making debug symlinks"
+
+	# echo $app1_debug_sl
+	# echo $app2_debug_sl
+
+	# echo "Press any key to continue"
+	# echo
+	# read -n 1 -s -r -p ""
+
+	cd "$subfolder_path"
+
+	ln -s "$app1_debug_path" "$app1_debug_sl"
+	ln -s "$app2_debug_path" "$app2_debug_sl"
+
+	cd "$DIR"
 
 	echo ""
 	echo "### - Updating info.plist"

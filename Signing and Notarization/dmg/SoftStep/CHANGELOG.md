@@ -1,6 +1,6 @@
 #### SoftStep Editor and Firmware Changelog
 
-### Editor 3.0.1, Firmware 2.0.2 (2024-04-09)
+### Editor 3.0.2, Firmware 2.0.3 (2024-04-26)
 - New Features/Changes
 	- Complete overhaul of USB MIDI driver. SoftStep now uses the same driver as KMI's latest products.
 		- SoftStep3 uses new USB MIDI port names: "Softstep Control Surface", "SoftStep TRS MIDI Out", "SoftStep CV Out"

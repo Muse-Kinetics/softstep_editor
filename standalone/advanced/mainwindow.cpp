@@ -62,10 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ssHardware = sessionSettings->value("LAST_SS_REV_CONNECTED", SS_3).toUInt();
 
-
     // ---- FW update overhaul ----------------------------
-
-    qDebug() << "System Locale: " << QLocale::system().name();
 
     // application version
     QString versionString = QString(APP_VERSION);
@@ -88,6 +85,14 @@ MainWindow::MainWindow(QWidget *parent) :
         betaVersion = "";
     }
 
+    // store the SoftStep device firmware version
+    thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_softstep), sizeof(_fw_ver_softstep));
+
+    QDateTime current = QDateTime::currentDateTime();
+    QString timestamp = current.toString("yyyy::MM::dd::hh:mm:ss");
+    qDebug() << "SoftStep Advanced Editor - Application Version: " << applicationVersion << " Firmware Version: " << thisFw;
+    qDebug() << "System Locale: " << QLocale::system().name() << " Time: " << timestamp;
+
     appStillLoading = true;
 
     // app load progress window
@@ -106,8 +111,6 @@ MainWindow::MainWindow(QWidget *parent) :
     appLoadWidget.setWindowFlags(Qt::FramelessWindowHint);
     appLoadWidget.show();
 
-    // store the SoftStep device firmware version
-    thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_softstep), sizeof(_fw_ver_softstep));
 
     // ---- end FW update overhaul ----------------------------
 
@@ -906,7 +909,7 @@ void MainWindow::slotConnectInterfaces()
             //connect(&key[k]->dataCooker, SIGNAL(signalXIncClockStop()), key[k]->dataCooker, SLOT(slotXIncClockStop()));
         }
 
-        qDebug() << "Connect slotResetModlinesLastVal";
+        //qDebug() << "Connect slotResetModlinesLastVal";
         connect(key[k]->dataCooker, SIGNAL(signalThisKeyOff(int)), key[k], SLOT(slotResetModlinesLastVal()));
 
         //Reset nav "once" display mode
@@ -1631,11 +1634,7 @@ void MainWindow::slotEnableDisableToolTips()
 
 void MainWindow::slotOpenDoc()
 {
-    //QFile *file = new QFile(":doc.txt");
-    //file->open(QFile::ReadOnly);
-    QDesktopServices::openUrl(QUrl("http://files.keithmcmillen.com/downloads/softstep/SoftStep_Manual_v2.01.pdf"));
-    //qDebug() << (QLatin1String)file->readLine(0);
-    //file->close();
+    QDesktopServices::openUrl(QUrl("http://files.keithmcmillen.com/products/softstep/Manuals/SoftStep_Manual_v3.0.pdf"));
 }
 
 void MainWindow::slotOpenTroubleshooting()
@@ -1792,6 +1791,18 @@ void MainWindow::slotConnected(bool connection)
 
         updatefw->setEnabled(true);
         sysExComposer->connected = true;
+
+#ifdef Q_OS_WIN
+        if (SoftStep->firmwareUpdateState != FWUD_STATE_SUCCESS) // on windows reboot app after fw update, don't send any sysex during this process
+        {
+#endif
+            if (cvCalWindow != nullptr)
+            {
+                cvCalWindow->slotGetDeviceCVCalibration(); // update when connected
+            }
+#ifdef Q_OS_WIN
+        }
+#endif
 
         //sysExComposer->slotRequestPedalCalibration(); // grab the pedal calibration
         slotUpdateSettings(); // send the current settings on connect
@@ -2437,7 +2448,7 @@ void MainWindow::slotPopulateSourceDestLists()
     hostedTables.append("Counter Set");
 
     hostedTables.append("Random");
-    hostedTables.append("Random Single");
+    //hostedTables.append("Random Single");
 
     // Appending scale names
     hostedTables.append("Major");
@@ -2633,7 +2644,17 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
                                               "padding: 0px 0px 0px 3px;");
 #endif
 
+            if (SoftStep->installingBootloader == BL_INSTALL_PENDING && portName != SS_BL_PORT)
+            {
+                return; // don't try to connect to the bootloader installer v99
+            }
 
+#ifdef Q_OS_WIN
+            if (SoftStep->firmwareUpdateState == FWUD_STATE_FW_SENT_WAIT && portName == SS_IN_P1)
+            {
+                SoftStep->firmwareUpdateState = FWUD_STATE_SUCCESS;
+            }
+#endif
 
             if (!SoftStep->slotUpdatePortIn(portNum))
             {
@@ -2754,6 +2775,11 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         break;
     case PORT_CHANGED:
         //qDebug() << " PORT CHANGED - name: " << portName << portName << " inOrOut: " << kmiPorts->inOut[inOrOut] << " messageType: " << kmiPorts->mType[messageType] << " portNum: " << portNum << "\n";
+
+        if (SoftStep->installingBootloader == BL_INSTALL_PENDING && portName != SS_BL_PORT)
+        {
+            return; // don't try to connect to the bootloader installer v99
+        }
 
         // **** SoftStep renumber ****************************************
         if ((portName == SS_IN_P1 || portName == SS_OLD_IN_P1 || portName == SS_BL_PORT) && inOrOut == PORT_IN)
@@ -3438,7 +3464,7 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
 
     bool sendArray = (packetArray == "empty") ? false : true;
 
-    qDebug() << "hosted_slotSendPacket called - sendArray: " << sendArray << " portName: " << portName << " status: " << status << " d1: " << d1 << " d2: " << d2 << " chan: " << chan;
+    //qDebug() << "hosted_slotSendPacket called - sendArray: " << sendArray << " portName: " << portName << " status: " << status << " d1: " << d1 << " d2: " << d2 << " chan: " << chan;
 
     int destPort = kmiPorts->getOutPortNumber(portName);
 
@@ -3446,7 +3472,7 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
 
     if (portName == SoftStep->portName_out)
     {
-        qDebug() << "send with SoftStep";
+        //qDebug() << "send with SoftStep";
         if (sendArray)
         {
             SoftStep->slotSendSysExBA(packetArray);
@@ -3459,7 +3485,7 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
     }
     else if (portName == SoftStepShare->portName_out)
     {
-        qDebug() << "send with SoftStepShare";
+        //qDebug() << "send with SoftStepShare";
         shareElapsedTimer->restart(); // set timer window to test for feedback loop
 
         if (sendArray)
@@ -3475,7 +3501,7 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
     }
     else if (portName == MIDIThru->portName_out)
     {
-        qDebug() << "send with MIDIThru";
+        //qDebug() << "send with MIDIThru";
         if (sendArray)
         {
             MIDIThru->slotSendSysExBA(packetArray);
@@ -3491,7 +3517,7 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
     {
         if (portName == midiAuxIn[i]->portName_out) // aux ins automatically open the corresponding output port when the input is opened
         {
-            qDebug() << "send with midiAuxIn[" << i << "]";
+            //qDebug() << "send with midiAuxIn[" << i << "]";
             if (sendArray)
             {
                 midiAuxIn[i]->slotSendSysExBA(packetArray);
@@ -3505,7 +3531,7 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
         }
     }
 
-    qDebug() << "send with hostedOut";
+    //qDebug() << "send with hostedOut";
     // no other KMDMs are talking to this driver, so we use hostedOut
 
     if (!hostedOut->slotUpdatePortOut(destPort)) // try to open this port
@@ -3537,7 +3563,7 @@ void MainWindow::hosted_slotSendPacketArray(QString portName, QByteArray packetA
 
     if (mode != "hosted") return; // only process input if we are in hosted mode
 
-    qDebug() << "hosted_slotSendPacketArray called";
+    //qDebug() << "hosted_slotSendPacketArray called";
     hosted_slotSendPacketOrArray(portName, packetArray, 0, 0, 0, 0);
 #endif // MIDI_ENABLED
 }

@@ -21,7 +21,7 @@ void MidiFormatOutput::slotPreparePacket()
 //------------------------------------- Formatting
 void MidiFormatOutput::slotNoteSet(QString port, int channel, int note, int velocity)
 {
-    qDebug() << "slotNoteSet";
+    //qDebug() << "slotNoteSet";
     unsigned char status;
 
     if(velocity)

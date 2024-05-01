@@ -385,7 +385,7 @@ void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum
         dSender = "No sender";
     }
 
-    qDebug() << "slotStoreValue - name" << name << "value" << value << "preset" << presetNum << " SENDER: " << dSender;
+    //qDebug() << "slotStoreValue - name" << name << "value" << value << "preset" << presetNum << " SENDER: " << dSender;
 
     if(presetNum == -1)
     {

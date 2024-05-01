@@ -906,7 +906,7 @@ void Modline::slotTestValues()
     QObject *sender = QObject::sender();
     int initValue = modlineForm->initvalue->value();
 
-    qDebug() << "slotTestValues called - value: " << value << " sender: " << sender->objectName() << " initValue: " << initValue;
+    //qDebug() << "slotTestValues called - value: " << value << " sender: " << sender->objectName() << " initValue: " << initValue;
 
     slotTransformSource(initValue, modlineInstance, "Init");
 }
@@ -1078,7 +1078,7 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
         return;
     }
 
-    qDebug() << "Modline::slotTransformSource called - key: " << keyInstance << " val: " << val << " modLineNum: " << modlineNum << " source: " << source << " enabled: " << enabled << " checked:" << modlineForm->enable->isChecked();
+    //qDebug() << "Modline::slotTransformSource called - key: " << keyInstance << " val: " << val << " modLineNum: " << modlineNum << " source: " << source << " enabled: " << enabled << " checked:" << modlineForm->enable->isChecked();
 
     // this doesn't really work
 //    if(QObject::sender())
@@ -1166,7 +1166,7 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
 //------------------------------------------------------------------------------------------- Table / Counter
 void Modline::slotTable(int input)
 {
-    qDebug() << "Modline::slotTable called";
+    //qDebug() << "Modline::slotTable called";
 
 
     //Clip table input
@@ -1294,7 +1294,7 @@ void Modline::slotTable(int input)
 
 void Modline::slotCounterReturn(int val)
 {
-    qDebug() << "Modline::slotCounterReturn called";
+    //qDebug() << "Modline::slotCounterReturn called";
     if(modlineForm->table->currentText().contains("Counter"))
     {
         if(modlineForm->table->currentText().contains("Set"))
@@ -1318,7 +1318,7 @@ void Modline::slotCounterReturn(int val)
 //------------------------------------------------------------------------------------------- Min / Max
 void Modline::slotMinMax(int input)
 {
-    qDebug() << "Modline::slotMinMax called";
+    //qDebug() << "Modline::slotMinMax called";
     //If min max are flipped... Don't know... return input for now
     if(min > max)
     {
@@ -1344,7 +1344,7 @@ void Modline::slotMinMax(int input)
 //------------------------------------------------------------------------------------------- Smooth
 void Modline::slotSmooth(int input)
 {
-    qDebug() << "Modline::slotSmooth called";
+    //qDebug() << "Modline::slotSmooth called";
     if(smooth)
     {
         //do something with slewer here and retun in slotSmoothReturn
@@ -1360,7 +1360,7 @@ void Modline::slotSmooth(int input)
 
 void Modline::slotSmoothReturn(int input)
 {
-    qDebug() << "slew return" << input;
+    //qDebug() << "slew return" << input;
 
     slotDelay(input);
 }
@@ -1368,7 +1368,7 @@ void Modline::slotSmoothReturn(int input)
 //------------------------------------------------------------------------------------------- Delay
 void Modline::slotDelay(int input)
 {
-    qDebug() << "Modline::slotDelay called";
+    //qDebug() << "Modline::slotDelay called";
 
     if(delay)
     {
@@ -1384,14 +1384,14 @@ void Modline::slotDelay(int input)
 
 void Modline::slotDelayReturn(int input)
 {
-    qDebug() << "delayed signal" << input;
+    //qDebug() << "delayed signal" << input;
     slotOutputRoutine(input);
 }
 
 //------------------------------------------------------------------------------------------- Output
 void Modline::slotOutputRoutine(int input)
 {
-    qDebug() << "Modline::slotOutputRoutine called";
+    //qDebug() << "Modline::slotOutputRoutine called";
 
     //Prepares message type to be formatted by midiformat, and then output via mididevicemanager
     hosted_slotOutputMidi(input);
@@ -1510,7 +1510,7 @@ void Modline::slotDisplayVars()
     {
         QObject *sender = QObject::sender();
         QString senderName = sender->objectName();
-        qDebug() << "slotDisplayVars called - sender: " << senderName;
+        //qDebug() << "slotDisplayVars called - sender: " << senderName;
     }
     modlineForm->outputvalue->setValue(value);
 }
