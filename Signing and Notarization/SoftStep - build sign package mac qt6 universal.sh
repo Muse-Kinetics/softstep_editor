@@ -7,7 +7,7 @@
 this_year=2022
 app_name="SoftStep"
 app_name_fp=SoftStep
-version=3.0.2
+version=3.0.3
 
 bundle_name=SoftStepEditors
 bundle_id="com.keithmcmillen.$bundle_name"

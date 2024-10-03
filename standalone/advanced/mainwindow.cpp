@@ -611,6 +611,9 @@ void MainWindow::closeEvent(QCloseEvent *)
 #endif // MIDI_ENABLED
 #endif
     qDebug() << "closing...";
+
+    mode = "hosted";
+    slotSetMode();
     //presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
 }
 
@@ -1431,6 +1434,12 @@ void MainWindow::slotInitMenuBar()
     QMenu* hardware = new QMenu("Hardware");
     hardware->setObjectName("HardwareMenu");
 
+    //reset settings
+    resetSettings = new QAction("Reset Settings to Default", hardware);
+    actionList.append(resetSettings);
+    connect(resetSettings, SIGNAL(triggered()), this, SLOT(slotResetSettings()));
+    hardware->addAction(resetSettings);
+
     //pedal calibration
     openPedalCalibration = new QAction("Calibrate Expression Pedal", hardware);
     actionList.append(openPedalCalibration);
@@ -1630,6 +1639,24 @@ void MainWindow::slotEnableDisableToolTips()
         sessionSettings->setValue("toolTipsEnabled", true);
         scrollEventFilter.toolTipsOn = true;
     }
+}
+
+void MainWindow::slotResetSettings()
+{
+    qDebug() << "slotResetSettings called";
+
+    kmiEncode->slotEncodePacket(MSG_CAT_LEGACY, RESET_SETTINGS, 0, 0); // this will reset the settings and globals
+
+    settingsWindow->slotCloseSettings();
+
+    // exit hosted mode, this method reminds me how frankensteined this code has become...
+    mode = "hosted";
+    slotSetMode();
+    slotTether(false, SA_SAVE_YES); // this re-sends the settings to correctly put us in standalone mode, and saves those to the globals library on the softstep
+
+    settingsWindow->slotWriteDefaultSettings();
+    settingsWindow->slotRecallSettings();
+    settingsWindow->slotOpenSettings();
 }
 
 void MainWindow::slotOpenDoc()
@@ -3368,15 +3395,15 @@ void MainWindow::slotClearMIDIThruDropdown()
     midi_thru_dropdown->addItem("None");
 }
 
-#define NO_SAVE 0
-void MainWindow::slotTether(bool state)
+
+void MainWindow::slotTether(bool state, bool save = SA_SAVE_NO)
 {
     qDebug() << "slotTether called - state: " << state;
     uint8_t tether_mode = state ? TETHER_LIVE : TETHER_OFF;
-    uint8_t tether_command[] = {0, SA_TYPE_TETHER_ONOFF, tether_mode, NO_SAVE}; // an int followed by two uchars
-    uint8_t nav_command[] = {0, SA_TYPE_NAVSTANDALONE_ONOFF, !state, NO_SAVE};
-    uint8_t standalone_command[] = {0, SA_TYPE_STANDALONE_ONOFF, !state, NO_SAVE};
-    uint8_t scene_command[] = {0, SA_TYPE_SCENECHANGE_ONOFF, !state, NO_SAVE};
+    uint8_t tether_command[] = {0, SA_TYPE_TETHER_ONOFF, tether_mode, save}; // an int followed by two uchars
+    uint8_t nav_command[] = {0, SA_TYPE_NAVSTANDALONE_ONOFF, !state, save};
+    uint8_t standalone_command[] = {0, SA_TYPE_STANDALONE_ONOFF, !state, save};
+    uint8_t scene_command[] = {0, SA_TYPE_SCENECHANGE_ONOFF, !state, save};
 
 
     kmiEncode->slotEncodePacket(MSG_CAT_LEGACY, STANDALONE_CLOSE, standalone_command, sizeof(standalone_command));

@@ -1062,12 +1062,12 @@ void Modline::slotSetTransformValues()
 //------------------------------------------------------------------------------------------- Gain / Offset
 void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
-    static int debugCounter = 0;
+    //static int debugCounter = 0;
     // using -5 as a special case to capture foot off for random single
-    if (val == -5 && modlineNum == modlineInstance)
-    {
-        debugCounter++;
-    }
+//    if (val == -5 && modlineNum == modlineInstance)
+//    {
+//        debugCounter++;
+//    }
 
     // filter out chatter - this is preventing duplicate program change messages
     if (modlineForm->enable->isChecked() == false ||

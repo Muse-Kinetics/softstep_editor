@@ -40,7 +40,6 @@ public:
 
     int ssHardware;
     QTimer *saveSettingsTimeout;
-    int     saveSettiingsTimeoutTime;
 
     QTimer *calibrationTicker;
     int calibrationTime;
@@ -135,6 +134,7 @@ signals:
 public slots:
     void slotSetMode(QString m);
 
+    void slotCloseSettings();
     void slotOpenSettings();
     //void slotInitComponents();
     void slotConnectElements();
@@ -144,6 +144,7 @@ public slots:
     void slotRecallSettings();
     void slotViewSelector();
     void slotResetGlobalGain();
+    void slotResetKeySeettings();
 
     //void slotSetMode(QString m);
     void slotPopulateInputMenus(QMap<QString, int> midiSources);

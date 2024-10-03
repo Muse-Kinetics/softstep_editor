@@ -13,12 +13,12 @@ QT       += core gui \
 
 TARGET = "SoftStep Advanced Editor"
 TEMPLATE = app
-VERSION = 3.0.2
+VERSION = 3.0.3
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # this is to clear warnings from the OG softstep c files
 DEFINES += _CRT_SECURE_NO_WARNINGS
-
+CONFIG+=sdk_no_version_check
 
 macx {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder

@@ -63,6 +63,8 @@ enum LEGACY_SYX_MSG_TYPES
     SEGMENT_PACKET_CLOSE,	// A - segment
     PEDAL_PACKET_CLOSE,		// B - pedal
     ERASE_SERIAL,           // C - new but still legacy category
+    LOAD_FACTORY_PRESETS,   // D - same
+    RESET_SETTINGS,         // E - same
     NUM_LEGACY_SYX_MSG_TYPES
 
 };
@@ -101,6 +103,8 @@ enum
     SA_TYPE_NAVSTANDALONE_ONOFF     // 9
 };
 
+#define SA_SAVE_NO false
+#define SA_SAVE_YES true
 
 //--------------------------------------------
 

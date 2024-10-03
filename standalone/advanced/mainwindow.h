@@ -226,6 +226,7 @@ public:
     QAction* importOldPreset;
     QAction* openAppDataDir;
 
+    QAction* resetSettings;
     QAction* openPedalCalibration;
     QAction* openCVCalibration;
 
@@ -306,7 +307,7 @@ public slots:
     void slotUpdateMIDIAuxInputPorts(QString auxInput, QString port);
     void slotRecallMIDIThru();
     void slotClearMIDIThruDropdown();
-    void slotTether(bool state);
+    void slotTether(bool state, bool);
     void slotEnableTether();
     void slotDisableTether();
     void slotProcessNRPN(uchar, int, int);
@@ -328,6 +329,7 @@ public slots:
     void slotOpenTroubleshooting();
     void slotOpenPresetDirectory();
     void slotEnableDisableToolTips();
+    void slotResetSettings();
 
     void slotUpdatePasteAvailability();
     void slotSelectedKey(int selectedKey);

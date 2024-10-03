@@ -13,8 +13,8 @@ Settings::Settings(QWidget *parent) :
     settingsForm(new Ui::settingsForm)
 {
     saveSettingsTimeout = new QTimer(this);
+    saveSettingsTimeout->setInterval(1000);
     connect(saveSettingsTimeout, SIGNAL(timeout()), this, SLOT(slotSaveSettingsTimeout()));
-    saveSettiingsTimeoutTime = 0;
 
     //Calibration
     //calibrationTicker = new QTimer(this);
@@ -212,6 +212,12 @@ void Settings::slotSetMode(QString m)
 
 }
 
+void Settings::slotCloseSettings()
+{
+    settingsWidget->hide();
+    settingsWidget->lower();
+}
+
 void Settings::slotOpenSettings()
 {
     // Get the primary screen (active screen) and its size
@@ -272,6 +278,7 @@ void Settings::slotConnectElements()
     }
 
     connect(settingsForm->global_gain_resetbutton, SIGNAL(clicked()), this, SLOT(slotResetGlobalGain()));
+    connect(settingsForm->resetToDefaults, SIGNAL(clicked()), this, SLOT(slotResetKeySeettings()));
 
     //---------------------- General Settings Widgets
     foreach(QWidget* widget, settingsWidget->findChildren<QWidget *>())
@@ -512,15 +519,11 @@ void Settings::slotValueChanged()
 {
 
     //If timer is inactive, start it
-    if(!saveSettingsTimeout->isActive())
+    if(QObject::sender()->objectName() != "livepedalvalue")
     {
-        if(QObject::sender()->objectName() != "livepedalvalue")
-        {
-            saveSettingsTimeout->start(1);
-        }
+        saveSettingsTimeout->stop(); // restarts the timer
+        saveSettingsTimeout->start();
     }
-
-    saveSettiingsTimeoutTime = 0;
 
     //emit values to the preset file here
     if(QObject::sender() && !QObject::sender()->objectName().startsWith("qt_") && QObject::sender()->objectName().size())
@@ -537,7 +540,7 @@ void Settings::slotValueChanged()
             jsonName = spinbox->objectName();
             value = spinbox->value();
 
-            //qDebug() << "_________ SpinBox: settings slot vlaue changed" << jsonName;
+            qDebug() << "_________ SpinBox: settings slot vlaue changed" << jsonName;
         }
         //doublespinboxes
         else if(senderClass == "QDoubleSpinBox")
@@ -695,10 +698,9 @@ void Settings::slotRecallPreset(QVariantMap preset) // this recalls the settings
             QCheckBox* checkbox = qobject_cast<QCheckBox *>(widget);
             QString objectName = widget->objectName();
             bool thisVal = preset.value(objectName).toBool();
-            static int debugCounter;
-            if (objectName == "scenechange_enable")
+            if (objectName == "scenechange_enable" && mode == "hosted")
             {
-                debugCounter++;
+                continue; // skip
             }
             checkbox->setChecked(thisVal);
         }
@@ -785,6 +787,32 @@ void Settings::slotResetGlobalGain()
     else
     {
         settingsForm->global_gain_slider_hosted->setValue(100);
+    }
+}
+
+void Settings::slotResetKeySeettings()
+{
+    qDebug() << "slotResetKeySeettings called";
+
+    foreach(QWidget* widget, settingsWidget->findChildren<QWidget *>())
+    {
+        //Check object type here
+        if(widget->metaObject()->className() == QString("QSpinBox"))
+        {
+            QSpinBox* spinbox = qobject_cast<QSpinBox *>(widget);
+            if(QString(spinbox->objectName()).contains("onthresh"))
+            {
+                spinbox->setValue(50);
+            }
+            else if(QString(spinbox->objectName()).contains("offthresh"))
+            {
+                spinbox->setValue(45);
+            }
+            else
+            {
+                spinbox->setValue(0);
+            }
+        }
     }
 }
 
@@ -944,16 +972,18 @@ void Settings::slotWriteDefaultSettings()
     settings.insert(QString("Global"),defaultGlobalMap);
 
     slotWriteSettings();
+    slotSendSettingsMIDI();
 }
 
 void Settings::slotConstructSettingsDefaultMap()
 {
     //------------------ Global Page -------------------//
-    defaultGlobalMap["sensorresponse_checkbox"] = 1;
+    defaultGlobalMap["sensorresponse_checkbox"] = 0;
     defaultGlobalMap["adjacentkeymode"] = 0;
-    defaultGlobalMap["keylockoutmode"] = 0;
-    defaultGlobalMap["multiplekeymode"] = 1;
+    defaultGlobalMap["keylockoutmode"] = 1;
+    defaultGlobalMap["multiplekeymode"] = 0;
     defaultGlobalMap["displaymode_checkbox"] = 0;
+    defaultGlobalMap["scenechange_enable"] = 1;
 
     defaultGlobalMap["global_gain"] = 1.00;
     defaultGlobalMap["global_gain_hosted"] = 1.00;
@@ -966,80 +996,80 @@ void Settings::slotConstructSettingsDefaultMap()
     defaultGlobalMap["key1_settings_ydead"] = 6;
     defaultGlobalMap["key1_settings_xaccel"] = 0;
     defaultGlobalMap["key1_settings_ydead"] = 6;
-    defaultGlobalMap["key1_settings_onthresh"] = 10;
-    defaultGlobalMap["key1_settings_offthresh"] = 5;
+    defaultGlobalMap["key1_settings_onthresh"] = 50;
+    defaultGlobalMap["key1_settings_offthresh"] = 45;
 
     defaultGlobalMap["key2_settings_xdead"] = 6;
     defaultGlobalMap["key2_settings_ydead"] = 6;
     defaultGlobalMap["key2_settings_xaccel"] = 0;
     defaultGlobalMap["key2_settings_ydead"] = 6;
-    defaultGlobalMap["key2_settings_onthresh"] = 10;
-    defaultGlobalMap["key2_settings_offthresh"] = 5;
+    defaultGlobalMap["key2_settings_onthresh"] = 50;
+    defaultGlobalMap["key2_settings_offthresh"] = 45;
 
     defaultGlobalMap["key3_settings_xdead"] = 6;
     defaultGlobalMap["key3_settings_ydead"] = 6;
     defaultGlobalMap["key3_settings_xaccel"] = 0;
     defaultGlobalMap["key3_settings_ydead"] = 6;
-    defaultGlobalMap["key3_settings_onthresh"] = 10;
-    defaultGlobalMap["key3_settings_offthresh"] = 5;
+    defaultGlobalMap["key3_settings_onthresh"] = 50;
+    defaultGlobalMap["key3_settings_offthresh"] = 45;
 
     defaultGlobalMap["key4_settings_xdead"] = 6;
     defaultGlobalMap["key4_settings_ydead"] = 6;
     defaultGlobalMap["key4_settings_xaccel"] = 0;
     defaultGlobalMap["key4_settings_ydead"] = 6;
-    defaultGlobalMap["key4_settings_onthresh"] = 10;
-    defaultGlobalMap["key4_settings_offthresh"] = 5;
+    defaultGlobalMap["key4_settings_onthresh"] = 50;
+    defaultGlobalMap["key4_settings_offthresh"] = 45;
 
     defaultGlobalMap["key5_settings_xdead"] = 6;
     defaultGlobalMap["key5_settings_ydead"] = 6;
     defaultGlobalMap["key5_settings_xaccel"] = 0;
     defaultGlobalMap["key5_settings_ydead"] = 6;
-    defaultGlobalMap["key5_settings_onthresh"] = 10;
-    defaultGlobalMap["key5_settings_offthresh"] = 5;
+    defaultGlobalMap["key5_settings_onthresh"] = 50;
+    defaultGlobalMap["key5_settings_offthresh"] = 45;
 
     defaultGlobalMap["key6_settings_xdead"] = 6;
     defaultGlobalMap["key6_settings_ydead"] = 6;
     defaultGlobalMap["key6_settings_xaccel"] = 0;
     defaultGlobalMap["key6_settings_ydead"] = 6;
-    defaultGlobalMap["key6_settings_onthresh"] = 10;
-    defaultGlobalMap["key6_settings_offthresh"] = 5;
+    defaultGlobalMap["key6_settings_onthresh"] = 50;
+    defaultGlobalMap["key6_settings_offthresh"] = 45;
 
     defaultGlobalMap["key7_settings_xdead"] = 6;
     defaultGlobalMap["key7_settings_ydead"] = 6;
     defaultGlobalMap["key7_settings_xaccel"] = 0;
     defaultGlobalMap["key7_settings_ydead"] = 6;
-    defaultGlobalMap["key7_settings_onthresh"] = 10;
-    defaultGlobalMap["key7_settings_offthresh"] = 5;
+    defaultGlobalMap["key7_settings_onthresh"] = 50;
+    defaultGlobalMap["key7_settings_offthresh"] = 45;
 
     defaultGlobalMap["key8_settings_xdead"] = 6;
     defaultGlobalMap["key8_settings_ydead"] = 6;
     defaultGlobalMap["key8_settings_xaccel"] = 0;
     defaultGlobalMap["key8_settings_ydead"] = 6;
-    defaultGlobalMap["key8_settings_onthresh"] = 10;
-    defaultGlobalMap["key8_settings_offthresh"] = 5;
+    defaultGlobalMap["key8_settings_onthresh"] = 50;
+    defaultGlobalMap["key8_settings_offthresh"] = 45;
 
     defaultGlobalMap["key9_settings_xdead"] = 6;
     defaultGlobalMap["key9_settings_ydead"] = 6;
     defaultGlobalMap["key9_settings_xaccel"] = 0;
     defaultGlobalMap["key9_settings_ydead"] = 6;
-    defaultGlobalMap["key9_settings_onthresh"] = 10;
-    defaultGlobalMap["key9_settings_offthresh"] = 5;
+    defaultGlobalMap["key9_settings_onthresh"] = 50;
+    defaultGlobalMap["key9_settings_offthresh"] = 45;
 
     defaultGlobalMap["key10_settings_xdead"] = 6;
     defaultGlobalMap["key10_settings_ydead"] = 6;
     defaultGlobalMap["key10_settings_xaccel"] = 0;
     defaultGlobalMap["key10_settings_ydead"] = 6;
-    defaultGlobalMap["key10_settings_onthresh"] = 10;
-    defaultGlobalMap["key10_settings_offthresh"] = 5;
+    defaultGlobalMap["key10_settings_onthresh"] = 50;
+    defaultGlobalMap["key10_settings_offthresh"] = 45;
 
-    defaultGlobalMap["nav_north_settings_onthresh"] = 10;
-    defaultGlobalMap["nav_north_settings_offthresh"] = 5;
-    defaultGlobalMap["nav_south_settings_onthresh"] = 10;
-    defaultGlobalMap["nav_south_settings_offthresh"] = 5;
-    defaultGlobalMap["nav_east_settings_onthresh"] = 10;
-    defaultGlobalMap["nav_east_settings_offthresh"] = 5;
-    defaultGlobalMap["nav_west_settings_onthresh"] = 10;
-    defaultGlobalMap["nav_west_settings_offthresh"] = 5;
+    defaultGlobalMap["nav_north_settings_onthresh"] = 50;
+    defaultGlobalMap["nav_north_settings_offthresh"] = 45;
+    defaultGlobalMap["nav_south_settings_onthresh"] = 50;
+    defaultGlobalMap["nav_south_settings_offthresh"] = 45;
+    defaultGlobalMap["nav_east_settings_onthresh"] = 50;
+    defaultGlobalMap["nav_east_settings_offthresh"] = 45;
+    defaultGlobalMap["nav_west_settings_onthresh"] = 50;
+    defaultGlobalMap["nav_west_settings_offthresh"] = 45;
     defaultGlobalMap["nav_settings_yaccel"] = 0;
 
     //---------------------- Input Page ---------------------//
@@ -1324,29 +1354,25 @@ void Settings::slotEmitAllSettings()
 
 void Settings::slotSaveSettingsTimeout()
 {
-    saveSettiingsTimeoutTime++;
-
     //qDebug() << "settings timeout callback" << saveSettiingsTimeoutTime;
+    //qDebug() << "settings timeout";
 
-    //If 0.1s have elapsed since last value was changed
-    if(saveSettiingsTimeoutTime > 100)
-    {
-        //qDebug() << "settings timeout";
+    //Stop timer
+    saveSettingsTimeout->stop();
 
-        //Save settings
-        slotWriteSettings();
+    //Save settings
+    slotWriteSettings();
 
-        //Emit Settings
-        slotEmitAllSettings();
+    //Emit Settings
+    slotEmitAllSettings();
 
-        //Update Midi Input
-        slotSetMidiInputLineParams();
+    //Update Midi Input
+    slotSetMidiInputLineParams();
 
-        //Update OSC in future
+    //Update OSC in future
 
-        //Stop timer
-        saveSettingsTimeout->stop();
-    }
+    //Send settings
+    slotSendSettingsMIDI();
 }
 
 

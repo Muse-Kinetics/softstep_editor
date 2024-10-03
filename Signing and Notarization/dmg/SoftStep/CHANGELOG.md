@@ -1,5 +1,13 @@
 #### SoftStep Editor and Firmware Changelog
 
+### Editor 3.0.3, Firmware 2.0.4 (2024-10-01)
+- New Features/Changes - Advanced Editor Only
+	- Added "Reset Settings to Default" to hardware menu, also updates settings.json and settings tab ui
+	- Added "Reset to Default" to settings Keys tab
+	- Updated Settings defaults to less sensitive values
+	- Fixed settings SysEx update timer to a single update per second
+	- Misc. bug fixes and improvements
+
 ### Editor 3.0.2, Firmware 2.0.3 (2024-04-26)
 - New Features/Changes
 	- Complete overhaul of USB MIDI driver. SoftStep now uses the same driver as KMI's latest products.

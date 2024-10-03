@@ -255,7 +255,6 @@ QToolTip
    </property>
    <property name="font">
     <font>
-     <family>Futura-Normal</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -470,7 +469,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
@@ -692,7 +691,6 @@ QRadioButton::indicator:checked:pressed
       </property>
       <property name="font">
        <font>
-        <family>Corbel</family>
         <pointsize>10</pointsize>
         <italic>false</italic>
         <bold>true</bold>
@@ -720,7 +718,6 @@ Safety</string>
       </property>
       <property name="font">
        <font>
-        <family>Corbel</family>
         <pointsize>8</pointsize>
         <italic>false</italic>
         <bold>false</bold>
@@ -1024,7 +1021,6 @@ QCheckBox::indicator:checked:disabled
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1051,7 +1047,6 @@ QCheckBox::indicator:checked:disabled
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1078,7 +1073,6 @@ QCheckBox::indicator:checked:disabled
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1489,7 +1483,6 @@ QToolTip
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1516,7 +1509,6 @@ QToolTip
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1543,7 +1535,6 @@ QToolTip
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1570,7 +1561,6 @@ QToolTip
      </property>
      <property name="font">
       <font>
-       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1668,7 +1658,7 @@ QToolTip
        <x>8</x>
        <y>5</y>
        <width>281</width>
-       <height>271</height>
+       <height>261</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1698,9 +1688,9 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-1</y>
+        <y>0</y>
         <width>281</width>
-        <height>30</height>
+        <height>20</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -1717,7 +1707,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>16</x>
-        <y>240</y>
+        <y>229</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -1733,7 +1723,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>103</x>
-        <y>140</y>
+        <y>129</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -1755,7 +1745,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>60</y>
+        <y>49</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -1777,7 +1767,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>218</x>
-        <y>120</y>
+        <y>109</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -1796,7 +1786,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>161</x>
-        <y>200</y>
+        <y>189</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -1818,7 +1808,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>-70</x>
-        <y>140</y>
+        <y>129</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -1840,7 +1830,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>154</x>
-        <y>30</y>
+        <y>19</y>
         <width>50</width>
         <height>40</height>
        </rect>
@@ -1859,7 +1849,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>16</x>
-        <y>140</y>
+        <y>129</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -1875,7 +1865,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>16</x>
-        <y>100</y>
+        <y>89</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -1891,7 +1881,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>218</x>
-        <y>140</y>
+        <y>129</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -1910,7 +1900,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>161</x>
-        <y>80</y>
+        <y>69</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -1929,7 +1919,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>103</x>
-        <y>80</y>
+        <y>69</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -1948,7 +1938,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>218</x>
-        <y>220</y>
+        <y>209</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -1967,7 +1957,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>-70</x>
-        <y>30</y>
+        <y>19</y>
         <width>31</width>
         <height>26</height>
        </rect>
@@ -1986,7 +1976,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>46</x>
-        <y>60</y>
+        <y>49</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2005,7 +1995,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>103</x>
-        <y>60</y>
+        <y>49</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2024,7 +2014,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>46</x>
-        <y>160</y>
+        <y>149</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2043,7 +2033,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>218</x>
-        <y>80</y>
+        <y>69</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2062,7 +2052,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>161</x>
-        <y>220</y>
+        <y>209</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2081,7 +2071,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>161</x>
-        <y>180</y>
+        <y>169</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2100,7 +2090,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>161</x>
-        <y>240</y>
+        <y>229</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2119,7 +2109,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>103</x>
-        <y>160</y>
+        <y>149</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2138,7 +2128,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>46</x>
-        <y>180</y>
+        <y>169</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2157,7 +2147,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>16</x>
-        <y>160</y>
+        <y>149</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -2173,7 +2163,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>46</x>
-        <y>240</y>
+        <y>229</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2192,7 +2182,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>46</x>
-        <y>200</y>
+        <y>189</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2214,7 +2204,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>-70</x>
-        <y>120</y>
+        <y>109</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2239,7 +2229,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>-70</x>
-        <y>80</y>
+        <y>69</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2264,7 +2254,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>-70</x>
-        <y>180</y>
+        <y>169</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2289,7 +2279,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>160</y>
+        <y>149</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2311,7 +2301,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>211</x>
-        <y>30</y>
+        <y>19</y>
         <width>50</width>
         <height>40</height>
        </rect>
@@ -2330,7 +2320,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>218</x>
-        <y>60</y>
+        <y>49</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2349,7 +2339,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>103</x>
-        <y>180</y>
+        <y>169</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2368,7 +2358,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>46</x>
-        <y>220</y>
+        <y>209</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2390,7 +2380,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>-70</x>
-        <y>160</y>
+        <y>149</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2415,7 +2405,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>-70</x>
-        <y>240</y>
+        <y>229</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2437,7 +2427,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>46</x>
-        <y>100</y>
+        <y>89</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2456,7 +2446,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>103</x>
-        <y>200</y>
+        <y>189</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2475,7 +2465,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>16</x>
-        <y>120</y>
+        <y>109</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -2491,7 +2481,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>218</x>
-        <y>100</y>
+        <y>89</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2510,7 +2500,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>218</x>
-        <y>180</y>
+        <y>169</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2532,7 +2522,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>-70</x>
-        <y>220</y>
+        <y>209</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2557,7 +2547,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>120</y>
+        <y>109</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2582,7 +2572,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>200</y>
+        <y>189</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2607,7 +2597,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>140</y>
+        <y>129</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2629,7 +2619,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>103</x>
-        <y>100</y>
+        <y>89</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2651,7 +2641,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>80</y>
+        <y>69</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2676,7 +2666,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>-70</x>
-        <y>60</y>
+        <y>49</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2698,7 +2688,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>161</x>
-        <y>160</y>
+        <y>149</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2720,7 +2710,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>240</y>
+        <y>229</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2742,7 +2732,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>218</x>
-        <y>200</y>
+        <y>189</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2761,7 +2751,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>161</x>
-        <y>140</y>
+        <y>129</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2780,7 +2770,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>103</x>
-        <y>120</y>
+        <y>109</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2799,7 +2789,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>161</x>
-        <y>100</y>
+        <y>89</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2818,7 +2808,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>16</x>
-        <y>180</y>
+        <y>169</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -2834,7 +2824,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>16</x>
-        <y>200</y>
+        <y>189</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -2853,7 +2843,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>100</y>
+        <y>89</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2875,7 +2865,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>218</x>
-        <y>160</y>
+        <y>149</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2894,7 +2884,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>39</x>
-        <y>30</y>
+        <y>19</y>
         <width>50</width>
         <height>40</height>
        </rect>
@@ -2913,7 +2903,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>96</x>
-        <y>30</y>
+        <y>19</y>
         <width>50</width>
         <height>40</height>
        </rect>
@@ -2932,7 +2922,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>103</x>
-        <y>220</y>
+        <y>209</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -2951,7 +2941,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>30</y>
+        <y>19</y>
         <width>31</width>
         <height>26</height>
        </rect>
@@ -2973,7 +2963,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>220</y>
+        <y>209</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -2995,7 +2985,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>16</x>
-        <y>220</y>
+        <y>209</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -3011,7 +3001,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>218</x>
-        <y>240</y>
+        <y>229</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -3033,7 +3023,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>180</y>
+        <y>169</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3055,7 +3045,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>16</x>
-        <y>80</y>
+        <y>69</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -3071,7 +3061,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>46</x>
-        <y>80</y>
+        <y>69</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -3093,7 +3083,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>-70</x>
-        <y>100</y>
+        <y>89</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3118,7 +3108,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>-70</x>
-        <y>200</y>
+        <y>189</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3140,7 +3130,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>46</x>
-        <y>120</y>
+        <y>109</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -3159,7 +3149,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>161</x>
-        <y>120</y>
+        <y>109</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -3178,7 +3168,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>16</x>
-        <y>60</y>
+        <y>49</y>
         <width>16</width>
         <height>18</height>
        </rect>
@@ -3194,7 +3184,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>103</x>
-        <y>240</y>
+        <y>229</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -3213,7 +3203,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>46</x>
-        <y>140</y>
+        <y>129</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -3232,7 +3222,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>161</x>
-        <y>60</y>
+        <y>49</y>
         <width>35</width>
         <height>18</height>
        </rect>
@@ -3251,7 +3241,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>154</x>
-        <y>16</y>
+        <y>5</y>
         <width>50</width>
         <height>40</height>
        </rect>
@@ -3270,7 +3260,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>211</x>
-        <y>16</y>
+        <y>5</y>
         <width>50</width>
         <height>40</height>
        </rect>
@@ -3289,7 +3279,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>39</x>
-        <y>16</y>
+        <y>5</y>
         <width>50</width>
         <height>40</height>
        </rect>
@@ -3308,7 +3298,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>96</x>
-        <y>16</y>
+        <y>5</y>
         <width>50</width>
         <height>40</height>
        </rect>
@@ -3328,9 +3318,9 @@ QSpinBox
      <property name="geometry">
       <rect>
        <x>8</x>
-       <y>286</y>
+       <y>275</y>
        <width>281</width>
-       <height>100</height>
+       <height>101</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -3360,7 +3350,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>189</x>
-        <y>52</y>
+        <y>42</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3379,7 +3369,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>189</x>
-        <y>72</y>
+        <y>62</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3398,7 +3388,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>149</x>
-        <y>72</y>
+        <y>62</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3417,7 +3407,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>231</x>
-        <y>62</y>
+        <y>52</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3436,7 +3426,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>14</x>
-        <y>72</y>
+        <y>62</y>
         <width>68</width>
         <height>18</height>
        </rect>
@@ -3455,7 +3445,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>109</x>
-        <y>72</y>
+        <y>62</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3474,7 +3464,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>189</x>
-        <y>32</y>
+        <y>22</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3493,7 +3483,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>69</x>
-        <y>32</y>
+        <y>22</y>
         <width>31</width>
         <height>18</height>
        </rect>
@@ -3512,7 +3502,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>109</x>
-        <y>52</y>
+        <y>42</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3531,7 +3521,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>149</x>
-        <y>32</y>
+        <y>22</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3552,7 +3542,7 @@ QSpinBox
         <x>1</x>
         <y>1</y>
         <width>281</width>
-        <height>30</height>
+        <height>20</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -3569,7 +3559,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>149</x>
-        <y>52</y>
+        <y>42</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3588,7 +3578,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>15</x>
-        <y>52</y>
+        <y>42</y>
         <width>60</width>
         <height>18</height>
        </rect>
@@ -3607,7 +3597,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>69</x>
-        <y>52</y>
+        <y>42</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3626,7 +3616,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>109</x>
-        <y>32</y>
+        <y>22</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3645,7 +3635,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>69</x>
-        <y>72</y>
+        <y>62</y>
         <width>30</width>
         <height>18</height>
        </rect>
@@ -3664,7 +3654,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>221</x>
-        <y>32</y>
+        <y>22</y>
         <width>50</width>
         <height>40</height>
        </rect>
@@ -3683,7 +3673,7 @@ QSpinBox
       <property name="geometry">
        <rect>
         <x>221</x>
-        <y>18</y>
+        <y>8</y>
         <width>50</width>
         <height>40</height>
        </rect>
@@ -3698,6 +3688,42 @@ QSpinBox
        <bool>true</bool>
       </property>
      </widget>
+    </widget>
+    <widget class="QToolButton" name="resetToDefaults">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>380</y>
+       <width>281</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Save any changes to the &lt;br&gt;current preset.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgba(0,174,239,255);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0,0,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(230, 0, 134);
+	color: white;
+	border: 2px solid rgba(0,174,239,255);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0, 0, 0, 0;
+}</string>
+     </property>
+     <property name="text">
+      <string>RESET TO DEFAULTS</string>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="settingsinputpage">
@@ -6778,7 +6804,6 @@ QFrame
        </property>
        <property name="font">
         <font>
-         <family>Corbel</family>
          <pointsize>-1</pointsize>
          <italic>false</italic>
          <bold>true</bold>
