@@ -747,8 +747,6 @@ void PresetInterface::slotStoreGlobal()
 
     QString senderName = QObject::sender()->objectName();
 
-    //qDebug() << senderName;
-
     if(senderName == "midiChannel")
     {
         value = reinterpret_cast<QSpinBox *>(QObject::sender())->value();
@@ -773,6 +771,8 @@ void PresetInterface::slotStoreGlobal()
     {
         value = reinterpret_cast<QLineEdit *>(QObject::sender())->text();
     }
+
+    qDebug() << "slotStoreGlobal - " << senderName << " val: " << value;
 
     if(senderName.contains("sensitivity") || senderName.contains("backlight"))
     {

@@ -255,6 +255,7 @@ QToolTip
    </property>
    <property name="font">
     <font>
+     <family>Futura-Normal</family>
      <pointsize>-1</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -469,7 +470,7 @@ QRadioButton::indicator:checked:pressed  {
 }</string>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="settingsglobalpage">
     <widget class="QFrame" name="frame_2">
@@ -691,6 +692,7 @@ QRadioButton::indicator:checked:pressed
       </property>
       <property name="font">
        <font>
+        <family>Corbel</family>
         <pointsize>10</pointsize>
         <italic>false</italic>
         <bold>true</bold>
@@ -718,6 +720,7 @@ Safety</string>
       </property>
       <property name="font">
        <font>
+        <family>Corbel</family>
         <pointsize>8</pointsize>
         <italic>false</italic>
         <bold>false</bold>
@@ -1021,6 +1024,7 @@ QCheckBox::indicator:checked:disabled
      </property>
      <property name="font">
       <font>
+       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1047,6 +1051,7 @@ QCheckBox::indicator:checked:disabled
      </property>
      <property name="font">
       <font>
+       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1073,6 +1078,7 @@ QCheckBox::indicator:checked:disabled
      </property>
      <property name="font">
       <font>
+       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1483,6 +1489,7 @@ QToolTip
      </property>
      <property name="font">
       <font>
+       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1509,6 +1516,7 @@ QToolTip
      </property>
      <property name="font">
       <font>
+       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1535,6 +1543,7 @@ QToolTip
      </property>
      <property name="font">
       <font>
+       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -1561,6 +1570,7 @@ QToolTip
      </property>
      <property name="font">
       <font>
+       <family>Corbel</family>
        <pointsize>-1</pointsize>
        <italic>false</italic>
        <bold>true</bold>
@@ -6804,6 +6814,7 @@ QFrame
        </property>
        <property name="font">
         <font>
+         <family>Corbel</family>
          <pointsize>-1</pointsize>
          <italic>false</italic>
          <bold>true</bold>

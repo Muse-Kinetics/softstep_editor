@@ -4,10 +4,10 @@
 # - You must use the entitlements included in this directory.
 
 # app_name is the name of the dmg volume
-this_year=2022
+this_year=2024
 app_name="SoftStep"
 app_name_fp=SoftStep
-version=3.0.3
+version=3.0.4
 
 bundle_name=SoftStepEditors
 bundle_id="com.keithmcmillen.$bundle_name"

@@ -58,7 +58,20 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
     attribute(x,4,A_SYM,"set",A_SYM,"pedalEdges",A_LONG,127l, A_LONG,0l);
     attribute(x,3,A_SYM,"set",A_SYM,"pedalHysteresis",A_LONG,7);
     attribute(x,3,A_SYM,"set",A_SYM,"pedalFilterLength",A_LONG,5);
+
+    //master.value("backlight").to
+
+    //..unsigned char brightness = settingsMap.value("backlight_slider").toInt();
+    x->settings.keyL_brightness = (master.value("backlight").toInt() == 0) ? 0 : 48;
+
+    //attribute(x,3,A_SYM,"set",A_SYM,"keyL_brightness",A_LONG,brightness);
+
+    //---- EL - technically only for SS1 but also helpful for older SS2 firmware
+    //x->settings.el_offon = (brightness < 24) ? true : false; // confusing label, but these values need to be inverted
+
     attribute(x,3,A_SYM,"set",A_SYM,"EL_Mode",A_LONG,!master.value("backlight").toInt());     //-----
+
+
     attribute(x,3,A_SYM,"set",A_SYM,"ProgramChangeInput",A_LONG,12);
 
 
