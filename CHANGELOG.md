@@ -1,5 +1,10 @@
 #### SoftStep Editor and Firmware Changelog
 
+### Editor 3.0.4, Firmware 2.0.4 (2024-12-13)
+- Bug Fixes:
+	- Basic editor now updates to the correct firmware 2.0.4 instead of 2.0.3
+	- Basic editor backlight checkbox now works
+
 ### Editor 3.0.3, Firmware 2.0.4 (2024-10-01)
 - New Features/Changes - Advanced Editor Only
 	- Added "Reset Settings to Default" to hardware menu, also updates settings.json and settings tab ui
