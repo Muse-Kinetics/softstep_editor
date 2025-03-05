@@ -43,7 +43,7 @@ char *source_list[] = {
     "Key 0 Pressed","Key 1 Pressed","Key 2 Pressed","Key 3 Pressed","Key 4 Pressed","Key 5 Pressed",
     "Key 6 Pressed","Key 7 Pressed","Key 8 Pressed","Key 9 Pressed",SRC_OTHER_KEY_PRESSED,
     MODLINE_1_OUTPUT,"Modline 2 Output","Modline 3 Output","Modline 4 Output","Modline 5 Output",MODLINE_6_OUTPUT,
-    "Random", "Random Single", "Init",
+    "Random", "Random Single", "Init", "Foot On (Single)", "Foot Off (Single)",
     0};
 
 

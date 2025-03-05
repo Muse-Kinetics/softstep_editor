@@ -76,10 +76,15 @@
 
 // end midi overhaul
 
-// uncomment this to force firmware updates in a loop
-//#define DEBUG_FW_BRICKED
+enum SS_MODE
+{
+    MODE_STANDALONE,
+    MODE_HOSTED
+};
+
 
 namespace Ui {
+
 class MainWindow;
 }
 
@@ -180,7 +185,7 @@ public:
     OscInterface *oscInterface;
 
     //--------------------------------- Mode Switching
-    QString mode;
+    SS_MODE mode;
 
     QStringList standaloneDestinations;
     QStringList standaloneSources;
@@ -257,7 +262,6 @@ public:
 
 signals:
     void signalSaveAs(QString presetName);
-    void signalSetMode(QString mode);
     void signalStoreValue(QString name, QVariant value, int presetNum);
     void signalCheckSavedState();
     void signalSelectedKeyOutline(int selectedKey, bool outlined);
@@ -276,17 +280,11 @@ public slots:
     void slotBootloaderMode(bool fwUpdateRequested);
     void relaunchApplication();
 
-#ifdef DEBUG_FW_BRICKED
-    void slotFirmwareDebugBricked();
-    void slotFirmwareDebugBricked2();
-    void slotFirmwareDebugBricked3();
-#endif
-
     void slotFwUpdateSuccessCloseDialog(bool);
     void slotForceFirmwareUpdate();
     void slotFirmwareDetected(MidiDeviceManager *thisMDM, bool);
     void slotUpdateMIDIThru();
-    void slotCreateDialog(QString dialogText);
+    bool slotCreateDialog(QString dialogText, bool twoButtons);
 
     // ext midi sources
     void slotParseMidiAuxIn_A(uchar status, uchar d1, uchar d2, uchar chan);
@@ -323,6 +321,7 @@ public slots:
     void slotDisconnectElements();
 
     //------------- Menu Bar
+    void slotConfirmResetPresets();
     void slotInitMenuBar();
     void slotPortOptionSelected(QString selectedOption);
     void slotOpenDoc();
@@ -351,7 +350,7 @@ public slots:
 
     void slotModlineWarning(QString modlineWarningMessage);
 
-    void slotSetMode();
+    void slotSetMode(SS_MODE newMode);
     void slotPopulateSourceDestLists();
     void slotPopulateDeviceMenus(QMap<QString, int> externalDevices);
 

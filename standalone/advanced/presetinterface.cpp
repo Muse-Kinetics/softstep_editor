@@ -12,70 +12,7 @@ PresetInterface::PresetInterface(QWidget *parent, const std::vector<QComboBox*>&
     ssHardware = SS_3;
 
     qDebug() << "------------ [PRESETS SETUP] ---------------------------------------------------";
-    // If preset JSON files do not exist in AppDataLocation, copy the defaults from the application bundle dir.
-
-    // Get platform dependant path to writeable app data directory
-    QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-
-    if (appDataDirPath.isEmpty()) {
-        qFatal("Cannot determine preset storage location");
-    }
-
-    // Create destination presets subdirectory if it doesn't exist
-    QString presetsDirDestPath = appDataDirPath;
-
-    if (!QDir(presetsDirDestPath).exists()) {
-        QDir().mkpath(presetsDirDestPath);
-    }
-
-    // If either preset file doesn't exist at the destination, copy it there
-    QString presetFileDestPath = presetsDirDestPath + "/hosted_presets.json";
-    QString presetFileSrcPath = ":/presets/hosted_presets.json";
-
-     qDebug() << "Hosted presetFileDestPath: " << presetFileDestPath;
-
-     if (!QFile(presetFileSrcPath).exists())
-     {
-         qDebug() << "ERROR: Cannot find preset source file: " << presetFileSrcPath;
-     }
-
-     if (!QFile::exists(presetFileDestPath))
-     {
-         if (QFile::copy(presetFileSrcPath, presetFileDestPath) == false)
-         {
-             qFatal("Cannot copy default preset file to application data path!");
-         }
-     }
-
-     // Check permissions and adjust if necessary
-     QFileDevice::Permissions permissions = QFile::permissions(presetFileDestPath);
-     if (!(permissions & QFileDevice::ReadOwner) || !(permissions & QFileDevice::WriteOwner))
-     {
-         if (!QFile::setPermissions(presetFileDestPath, permissions | QFileDevice::ReadOwner|QFileDevice::WriteOwner))
-         {
-             qDebug("Could not set permissions to read/write for the preset file.");
-         }
-     }
-
-    // Non-hosted presets file
-    presetFileDestPath = presetsDirDestPath + "/presets.json";
-    presetFileSrcPath = ":/presets/presets.json";
-
-    qDebug() << "presetFileDestPath: " << presetFileDestPath;
-
-    if (!QFile::exists(presetFileDestPath))
-    {
-        if (QFile::copy(presetFileSrcPath, presetFileDestPath) == false)
-        {
-            qFatal("Cannot copy default preset file to application data path!");
-        }
-    }
-
-    // Check and set permissions independently of file existence
-    if (!QFile::setPermissions(presetFileDestPath, QFileDevice::ReadOwner|QFileDevice::WriteOwner))
-    {
-        qDebug("Could not set permissions to read/write for the preset file.");
-    }
+    slotCheckAndLoadPresets(DONT_LOAD_DEFAULTS);
 
 
     cv1_sources = comboBoxes[0];
@@ -93,6 +30,88 @@ PresetInterface::PresetInterface(QWidget *parent, const std::vector<QComboBox*>&
     //writeDefualtJSON();
 
 
+}
+
+void PresetInterface::slotCheckAndLoadPresets(DEFAULTS_BOOL loadDefaults)
+{
+    // If preset JSON files do not exist in AppDataLocation, copy the defaults from resources.
+
+    // Get platform dependant path to writeable app data directory
+    QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
+    if (appDataDirPath.isEmpty()) {
+        qFatal("Cannot determine preset storage location");
+    }
+
+    // Create destination presets subdirectory if it doesn't exist
+    QString presetsDirDestPath = appDataDirPath;
+
+    if (!QDir(presetsDirDestPath).exists()) {
+        if (!QDir().mkpath(presetsDirDestPath))
+        {
+            QString errorMessage = QString("Cannot create preset storage directory: %1").arg(presetsDirDestPath);
+            qFatal("%s", errorMessage.toUtf8().constData());
+        }
+    }
+
+    // If either preset file doesn't exist at the destination, copy it there
+    QString presetFileDestPath[2];
+    QString presetFileSrcPath[2];
+
+    // hostedpresets file
+    presetFileDestPath[0] = presetsDirDestPath + "/hosted_presets.json";
+    presetFileSrcPath[0] = ":/presets/hosted_presets.json";
+
+    // Non-hosted presets file
+    presetFileDestPath[1] = presetsDirDestPath + "/presets.json";
+    presetFileSrcPath[1] = ":/presets/presets.json";
+
+    qDebug() << "hosted presetFileDestPath: " << presetFileDestPath[0];
+    qDebug() << "standalone presetFileDestPath: " << presetFileDestPath[1];
+
+    for (size_t i = 0; i < 2; i++)
+    {
+        if (loadDefaults)
+        {
+            if (QFile::exists(presetFileDestPath[i]))
+            {
+                if (QFile::remove(presetFileDestPath[i]))
+                {
+                    qDebug() << "Hosted file deleted.";
+                }
+                else
+                {
+                    qDebug() << "Failed to delete hosted file.";
+                }
+            }
+        }
+
+        if (!QFile::exists(presetFileDestPath[i]) || loadDefaults)
+        {
+            if (!loadDefaults)
+                qDebug() << "presets json not found! - " << presetFileDestPath[i];;
+
+            qDebug() << "Writing default presets to disk - presetFileSrcPath: " << presetFileSrcPath[i] << " presetFileDestPath: " << presetFileDestPath[i];
+            if (QFile::copy(presetFileSrcPath[i], presetFileDestPath[i]) == false) {
+                QString errorMessage = QString("Cannot copy default preset file to application data path!: %1").arg(presetFileDestPath[i]);
+                qFatal("%s", errorMessage.toUtf8().constData());
+            }
+        }
+        else
+        {
+            qDebug() << "Presets located at: " << presetFileDestPath[i];
+        }
+
+        // Check permissions and adjust if necessary
+        QFileDevice::Permissions permissions = QFile::permissions(presetFileDestPath[i]);
+        if (!(permissions & QFileDevice::ReadOwner) || !(permissions & QFileDevice::WriteOwner))
+        {
+            if (!QFile::setPermissions(presetFileDestPath[i], permissions | QFileDevice::ReadOwner|QFileDevice::WriteOwner))
+            {
+                qDebug() << "Could not set permissions to read/write for the preset file at: " << presetFileDestPath[i];
+            }
+        }
+    }
 }
 
 QVariantMap PresetInterface::getPresetMap(int presetNum)

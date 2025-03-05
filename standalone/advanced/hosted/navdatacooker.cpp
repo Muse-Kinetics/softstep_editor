@@ -237,6 +237,11 @@ void NavDataCooker::cookSources()
                 {
                     navYIncDec();
                 }
+
+                 // *********************************************************
+                // FOOTS
+                 // *********************************************************
+
                 else if(modlineSources.value(i) == "Nav N Foot On")
                 {
                     emit signalTransformSource(navNFootOn(), i, "Nav N Foot On");
@@ -253,6 +258,32 @@ void NavDataCooker::cookSources()
                 {
                     emit signalTransformSource(navSFootOff(), i, "Nav S Foot Off");
                 }
+
+                // *********************************************************
+
+                else if(modlineSources.value(i) == "Nav N Foot On (Single)")
+                {
+                    if (footOnOffN)
+                        emit signalTransformSource(127, i, "Nav N Foot On (Single)");
+                }
+                else if(modlineSources.value(i) == "Nav S Foot On (Single)")
+                {
+                    if (footOnOffS)
+                        emit signalTransformSource(127, i, "Nav S Foot On (Single)");
+                }
+                else if(modlineSources.value(i) == "Nav N Foot Off (Single)")
+                {
+                    if (!footOnOffN)
+                        emit signalTransformSource(127, i, "Nav N Foot Off (Single)");
+                }
+                else if(modlineSources.value(i) == "Nav S Foot Off (Single)")
+                {
+                    if (!footOnOffS)
+                        emit signalTransformSource(127, i, "Nav S Foot Off (Single)");
+                }
+
+                // *********************************************************
+
                 else if(modlineSources.value(i) == "Nav N Trig")
                 {
                     navNTrig();

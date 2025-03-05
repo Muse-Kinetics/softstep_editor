@@ -10,26 +10,16 @@ PresetInterface::PresetInterface(QWidget *parent) :
     settings = new QSettings(this);
 
 
-    // If preset JSON files do not exist in AppDataLocation, copy the defaults from the application bundle dir.
+    slotCheckAndLoadPresets(DONT_LOAD_DEFAULTS);
+}
 
-    // Get platform dependant path to read only presets directory inside the app bundle/package
-    QString appPackageDirPath = QCoreApplication::applicationDirPath();
+void PresetInterface::slotCheckAndLoadPresets(DEFAULTS_BOOL loadDefaults)
+{
+    qDebug() << "slotCheckAndLoadPresets called";
+    // If preset JSON files do not exist in AppDataLocation, copy the defaults from resources.
 
-#if defined(Q_OS_MAC)
-    //Remove "MacOS" from path string
-    appPackageDirPath.remove(appPackageDirPath.length() - 5, appPackageDirPath.length());
-
-    QString presetsDirSrcPath = appPackageDirPath + "Resources/presets";
-#else
-    qDebug() << "appPackageDirPath: " << appPackageDirPath;
-    QString presetsDirSrcPath = QString("./presets");
-#endif
-
-    qDebug() << "presetsDirSrcPath: " << presetsDirSrcPath;
-
-    // Get path to writeable app data directory
+    // Get platform dependant path to writeable app data directory
     QString appDataDirPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    qDebug() << "appDataDirPath: " << appDataDirPath;
 
     if (appDataDirPath.isEmpty()) {
         qFatal("Cannot determine preset storage location");
@@ -46,12 +36,45 @@ PresetInterface::PresetInterface(QWidget *parent) :
 
     // If either preset file doesn't exist at the destination, copy it there
     QString presetFileDestPath = presetsDirDestPath + "/presets.json";
-    QString presetFileSrcPath = presetsDirSrcPath + "/softstepezpz.json";
+    QString presetFileSrcPath = ":/presets/softstepezpz.json";
 
-    if (!QFile::exists(presetFileDestPath))
+    if (loadDefaults)
     {
+        if (QFile::exists(presetFileDestPath))
+        {
+            if (QFile::remove(presetFileDestPath))
+            {
+                qDebug() << "File deleted.";
+            }
+            else
+            {
+                qDebug() << "Failed to delete file.";
+            }
+        }
+    }
+
+    if (!QFile::exists(presetFileDestPath) || loadDefaults)
+    {
+        if (!loadDefaults)
+            qDebug() << "presets.json not found!";
+
+        qDebug() << "Writing default presets to disk - presetFileSrcPath: " << presetFileSrcPath << " presetFileDestPath: " << presetFileDestPath;
         if (QFile::copy(presetFileSrcPath, presetFileDestPath) == false) {
             qFatal("Cannot copy default preset file to application data path!");
+        }
+    }
+    else
+    {
+        qDebug() << "Presets located at: " << presetFileDestPath;
+    }
+
+    // Check permissions and adjust if necessary
+    QFileDevice::Permissions permissions = QFile::permissions(presetFileDestPath);
+    if (!(permissions & QFileDevice::ReadOwner) || !(permissions & QFileDevice::WriteOwner))
+    {
+        if (!QFile::setPermissions(presetFileDestPath, permissions | QFileDevice::ReadOwner|QFileDevice::WriteOwner))
+        {
+            qDebug("Could not set permissions to read/write for the preset file.");
         }
     }
 
@@ -61,9 +84,6 @@ PresetInterface::PresetInterface(QWidget *parent) :
     qDebug("Load Presets");
     // Read presets
     slotReadJSON();
-
-    // For generating default preset file from app
-    //writeDefualtJSON();
 }
 
 void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum)
@@ -126,7 +146,7 @@ void PresetInterface::slotReadJSON()
     //Load json into QFile
     QFile *jsonFile = new QFile(jsonPath);
 
-    if(jsonFile->open(QIODevice::ReadWrite | QIODevice::Text))
+    if(jsonFile->open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qDebug("SoftStep Easy Editor JSON Found");
 
@@ -163,7 +183,7 @@ void PresetInterface::slotReadJSON()
     }
     else
     {
-        qDebug() << "SoftStep Easy Editor JSON Not Found";
+        qDebug() << "slotReadJSON - SoftStep Easy Editor JSON Not Found at: " << jsonPath;
     }
     jsonFile->close();
 }
@@ -186,13 +206,13 @@ void PresetInterface::slotWriteJSON(QVariantMap jsonMap)
     }
     else
     {
-        qDebug() << "SoftStep Easy Editor JSON Not Found";
+        qDebug() << "slotWriteJSON - SoftStep Easy Editor JSON Not Found at: " << jsonPath;
     }
 
     jsonFile->close();
 }
 
-void PresetInterface::writeDefualtJSON()
+void PresetInterface::writeDefaultJSON()
 {
     slotConstructDefaultMap();
 

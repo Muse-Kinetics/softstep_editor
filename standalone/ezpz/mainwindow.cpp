@@ -383,14 +383,12 @@ void MainWindow::slotEnableDisableToolTips()
 #define DIALOG_TEXT_W (DIALOG_WIDTH - (DIALOG_TEXT_PADDING * 2))
 #define DIALOG_TEXT_H (DIALOG_HEIGHT - DIALOG_BUTT_H - (DIALOG_TEXT_PADDING * 2))
 
-void MainWindow::slotCreateDialog(QString dialogText)
+bool MainWindow::slotCreateDialog(QString dialogText, bool twoButtons)
 {
     QDialog *msgBox = new QDialog(this);
     msgBox->setModal(true);
     msgBox->setWindowFlags(Qt::FramelessWindowHint);
     msgBox->setStyleSheet(dialogStylesString);
-
-
     msgBox->setMinimumSize(DIALOG_WIDTH, DIALOG_HEIGHT);
     msgBox->setFixedSize(DIALOG_WIDTH, DIALOG_HEIGHT);
 
@@ -400,8 +398,6 @@ void MainWindow::slotCreateDialog(QString dialogText)
     int dialogX = ((x / 2) - (DIALOG_WIDTH / 2));
     int dialogY = ((y / 2) - (DIALOG_HEIGHT / 2));
 
-    qDebug() << "parent x: " << x << " y: " << y << " dialogX: " << dialogX << "dialogY: " << dialogY;
-
     msgBox->move(dialogX, dialogY);
 
     QLabel* text = new QLabel(dialogText, msgBox, Qt::WindowFlags());
@@ -410,13 +406,35 @@ void MainWindow::slotCreateDialog(QString dialogText)
     text->setFixedSize(DIALOG_TEXT_W, DIALOG_TEXT_H);
     text->move(DIALOG_TEXT_PADDING, DIALOG_TEXT_PADDING);
 
-    QPushButton* okButton = new QPushButton(msgBox);
+    QPushButton* okButton = new QPushButton("Ok", msgBox);
     okButton->setStyleSheet(grayStyleString);
-    okButton->setText("Ok");
-    okButton->setGeometry(QRect(DIALOG_BUTT_X, DIALOG_BUTT_Y, DIALOG_BUTT_W,DIALOG_BUTT_H));
-    connect(okButton, SIGNAL(clicked()), msgBox, SLOT(close()));
 
-    msgBox->exec();
+    QPushButton* cancelButton;
+    if (twoButtons)
+    {
+        okButton->setGeometry(QRect(DIALOG_BUTT_X + ((DIALOG_BUTT_W / 2) + 5), DIALOG_BUTT_Y, DIALOG_BUTT_W, DIALOG_BUTT_H));
+
+        cancelButton = new QPushButton("Cancel", msgBox);
+        cancelButton->setStyleSheet(grayStyleString);
+        cancelButton->setGeometry(QRect(DIALOG_BUTT_X - ((DIALOG_BUTT_W / 2) + 5), DIALOG_BUTT_Y, DIALOG_BUTT_W, DIALOG_BUTT_H));
+        connect(cancelButton, SIGNAL(clicked()), msgBox, SLOT(reject()));
+
+    }
+    else // only one
+    {
+        okButton->setGeometry(QRect(DIALOG_BUTT_X, DIALOG_BUTT_Y, DIALOG_BUTT_W, DIALOG_BUTT_H));
+    }
+
+    connect(okButton, SIGNAL(clicked()), msgBox, SLOT(accept()));
+
+    if (msgBox->exec() == QDialog::Accepted)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *keyEvent)
@@ -759,6 +777,15 @@ void MainWindow::slotConnected(bool connection)
 
 }
 
+void MainWindow::slotConfirmResetPresets()
+{
+    if (slotCreateDialog("Reset all presets to default, are you sure? This cannot be undone!", true))
+    {
+        qDebug() << "Reseting presets!";
+        presetInterface->slotCheckAndLoadPresets(LOAD_DEFAULTS);
+        presetInterface->slotRecallPreset(0);
+    }
+}
 
 void MainWindow::slotInitMenuBar()
 {
@@ -797,6 +824,16 @@ void MainWindow::slotInitMenuBar()
     importPreset->setObjectName("importPreset");
     connect(importPreset, SIGNAL(triggered()), presetInterface, SLOT(slotImportPreset()));
     file->addAction(importPreset);
+
+    QAction * loadPresetDefaults = new QAction("Reset Presets to Default", file);
+    loadPresetDefaults->setObjectName("loadPresetDefaults");
+    connect(loadPresetDefaults, SIGNAL(triggered()), this, SLOT(slotConfirmResetPresets()));
+    file->addAction(loadPresetDefaults);
+
+    QAction * openAppDataDir = new QAction("Open Editor Preset Directory", file);
+    openAppDataDir->setObjectName("openAppDataDir");
+    connect(openAppDataDir, SIGNAL(triggered()), this, SLOT(slotOpenPresetDirectory()));
+    file->addAction(openAppDataDir);
 
     menubar->addMenu(file);
 
@@ -928,6 +965,12 @@ void MainWindow::slotInitMenuBar()
     help->addAction(toolTipsEnable);
 
     menubar->addMenu(help);
+}
+
+void MainWindow::slotOpenPresetDirectory()
+{
+    QString presetDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDesktopServices::openUrl(QUrl::fromLocalFile(presetDir));
 }
 
 void MainWindow::slotEnableDisableUseCustomPreset(bool enable)

@@ -11,7 +11,7 @@ QT +=           core gui \
 
 TARGET =        "SoftStep Basic Editor"
 TEMPLATE =      app
-VERSION = 3.0.4
+VERSION = 3.0.5
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # this is to clear warnings from the OG softstep c files
@@ -25,7 +25,7 @@ macx{
 #BUILD_CONSOLE = 1
 
 # Uncomment this line if you want to deploy the app (codesign, xxxDeployqt, copy content, and create installer/dmg etc
-DEPLOY = 1
+#DEPLOY = 1
 
 # still holding onto support for High Sierra here, separate build
 message("Building with Qt $${QT_VERSION}")

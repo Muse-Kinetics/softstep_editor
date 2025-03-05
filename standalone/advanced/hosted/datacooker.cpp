@@ -588,6 +588,17 @@ void DataCooker::cookSources()
             emit signalTransformSource(footOff(), i, "Foot Off");
         }
 
+        else if(modlineSources.value(i) == "Foot On (Single)")
+        {
+            if(footOnOff)
+                emit signalTransformSource(127, i, "Foot On (Single)");
+        }
+        else if(modlineSources.value(i) == "Foot Off (Single)")
+        {
+            if(!footOnOff)
+                emit signalTransformSource(127, i, "Foot Off (Single)");
+        }
+
         //-------- X/Y Increment
         else if(modlineSources.value(i) == "X Increment")
         {

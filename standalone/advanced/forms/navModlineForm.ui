@@ -1023,7 +1023,7 @@ QComboBox QListView
     font: 11px &quot;Tahoma&quot;;
     padding-left: 0px;
     padding-right: 0px;
-    min-width: 120px;
+    min-width: 160px;
     height: 200px;
 }</string>
    </property>

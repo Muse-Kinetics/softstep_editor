@@ -17,26 +17,32 @@ Slewer::Slewer(QWidget *parent):
 
 }
 
-void Slewer::slotSlew(double target, double time)
+void Slewer::slotSlew(double target, double time) // Using int for target
 {
-    if(target != destination)   //If new destination update velocity
+    if(target < 0) target = 0; // Ensure target is within bounds
+    else if(target > 127) target = 127;
+
+    if(target != destination) // If new destination, update velocity
     {
         destination = target;
 
-        velocity = (destination - position)/time;
+        // Check if time is non-zero to avoid division by zero
+        if (time > 0)
+            velocity = (destination - position) / time;
+        else
+            velocity = destination - position; // Instant jump if time is 0
 
         if(!timer->isActive())
-        {
             timer->start(1);
-        }
     }
 }
 
 void Slewer::slotUpdate()
 {
-    if((int)position < (int)destination || (int)position > (int)destination) //Not using != here because of rounding/casting. Could cause erroneuous jump @ high velocities.
+    if((int)position != (int)destination)
     {
         position += velocity;
+        position = qBound(0.0, position, 127.0); // Ensure position does not exceed MIDI bounds
     }
     else
     {
@@ -45,10 +51,8 @@ void Slewer::slotUpdate()
 
     if(lastOutput != (int)position)
     {
-        emit signalOutput(position);
-        lastOutput = position;
+        emit signalOutput((int)position); // Ensure output is cast to int
+        lastOutput = (int)position;
     }
-
-
 }
 

@@ -133,6 +133,6 @@
         "pedal_calibration_table": 0,
         "progChgCh": 9,
         "scenechange_enable": 1,
-        "sensorresponse_checkbox": 0
+        "sensorresponse_checkbox": true
     }
 }

@@ -1062,12 +1062,6 @@ void Modline::slotSetTransformValues()
 //------------------------------------------------------------------------------------------- Gain / Offset
 void Modline::slotTransformSource(int val, int modlineNum, QString source)
 {
-    //static int debugCounter = 0;
-    // using -5 as a special case to capture foot off for random single
-//    if (val == -5 && modlineNum == modlineInstance)
-//    {
-//        debugCounter++;
-//    }
 
     // filter out chatter - this is preventing duplicate program change messages
     if (modlineForm->enable->isChecked() == false ||
@@ -1077,14 +1071,6 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
     {
         return;
     }
-
-    //qDebug() << "Modline::slotTransformSource called - key: " << keyInstance << " val: " << val << " modLineNum: " << modlineNum << " source: " << source << " enabled: " << enabled << " checked:" << modlineForm->enable->isChecked();
-
-    // this doesn't really work
-//    if(QObject::sender())
-//    {
-//        qDebug() << "slotTransformSource - sender: " << QObject::sender()->objectName();
-//    }
 
     if(source == "Init")
     {
@@ -1119,7 +1105,7 @@ void Modline::slotTransformSource(int val, int modlineNum, QString source)
         if((modlineNum == modlineInstance && source == thisModlineSource) || source == "Init")
         {
             //If source value is different from last or there is a change in value...
-            if(lastVal != val || lastSource != source || source.contains("Trig") || source.contains("Key"))
+            if(lastVal != val || lastSource != source || source.contains("Trig") || source.contains("Key") || source.contains("(Once)"))
             {
                 //Filter out repetitions
                 lastVal = val;

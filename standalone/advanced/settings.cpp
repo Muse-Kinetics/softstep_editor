@@ -197,19 +197,6 @@ void Settings::slotSetMode(QString m)
 
         settingsForm->midithruframe->show();
     }
-
-    // handle backlight controls, SS1 EL Wire cannot pwm dim so it's on/off
-//    if (ssHardware == SS_1)
-//    {
-//        settingsForm->backlight_slider->hide();
-//        settingsForm->backlighting_enable->show();
-//    }
-//    else
-//    {
-//        settingsForm->backlight_slider->show();
-//        settingsForm->backlighting_enable->hide();
-//    }
-
 }
 
 void Settings::slotCloseSettings()

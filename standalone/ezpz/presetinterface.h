@@ -20,6 +20,12 @@
 
 #define NUM_PRESETS 10
 
+enum DEFAULTS_BOOL
+{
+    DONT_LOAD_DEFAULTS,
+    LOAD_DEFAULTS
+};
+
 class PresetInterface : public QWidget
 {
     Q_OBJECT
@@ -45,7 +51,7 @@ public:
     bool connected; //is softstep connected? used to prevent download if not connected.
     void closeEvent(QCloseEvent *);
 
-    void writeDefualtJSON();
+    void writeDefaultJSON();
     
 signals:
     void signalRecallPreset(QVariantMap,QVariantMap);
@@ -56,6 +62,7 @@ signals:
     void signalSetPresetToFactory(int, QString);
     
 public slots:
+    void slotCheckAndLoadPresets(DEFAULTS_BOOL loadDefaults);
     void slotStoreValue(QString name, QVariant value, int presetNum);
     void slotCheckSaveState();
     void slotStoreGlobal();

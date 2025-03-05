@@ -145,7 +145,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     if (!SoftStep->slotOpenBootloaderFile(thisBlFile))
     {
-       slotCreateDialog("Error: Bootloader file not found!\n\nPlease re-install the SoftStep editor.");
+       slotCreateDialog("Error: Bootloader file not found!\n\nPlease re-install the SoftStep editor.", false);
     }
 
 
@@ -158,7 +158,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     if (!SoftStep->slotOpenFirmwareFile(thisFwFile))
     {
-       slotCreateDialog("Error: Firmware file not found!\n\nPlease re-install the SoftStep editor.");
+       slotCreateDialog("Error: Firmware file not found!\n\nPlease re-install the SoftStep editor.", false);
     }
 
     // connect firmware signals
@@ -467,13 +467,13 @@ MainWindow::MainWindow(QWidget *parent) :
     // check/initialize session mode
     if(!sessionSettings->contains("previousMode"))
     {
-        sessionSettings->setValue("previousMode", "Hosted");
+        sessionSettings->setValue("previousMode", "hosted");
     }
 
-    mode = sessionSettings->value("previousMode").toString() == "hosted" ? "standalone" : "hosted";
+    mode = sessionSettings->value("previousMode").toString() == "hosted" ? MODE_HOSTED : MODE_STANDALONE;
 
     qDebug() << "------------ [SET MODE] ---------------------------------------------------";
-    slotSetMode();
+    slotSetMode(mode);
     apploadForm.progressBar->setValue(50);
 
     //presetInterface->slotPopulatePresetMenu(ui->presetmenu);
@@ -541,14 +541,12 @@ MainWindow::~MainWindow()
 #define DIALOG_TEXT_W (DIALOG_WIDTH - (DIALOG_TEXT_PADDING * 2))
 #define DIALOG_TEXT_H (DIALOG_HEIGHT - DIALOG_BUTT_H - (DIALOG_TEXT_PADDING * 2))
 
-void MainWindow::slotCreateDialog(QString dialogText)
+bool MainWindow::slotCreateDialog(QString dialogText, bool twoButtons)
 {
     QDialog *msgBox = new QDialog(this);
     msgBox->setModal(true);
     msgBox->setWindowFlags(Qt::FramelessWindowHint);
     msgBox->setStyleSheet(dialogStylesString);
-
-
     msgBox->setMinimumSize(DIALOG_WIDTH, DIALOG_HEIGHT);
     msgBox->setFixedSize(DIALOG_WIDTH, DIALOG_HEIGHT);
 
@@ -558,8 +556,6 @@ void MainWindow::slotCreateDialog(QString dialogText)
     int dialogX = ((x / 2) - (DIALOG_WIDTH / 2));
     int dialogY = ((y / 2) - (DIALOG_HEIGHT / 2));
 
-    qDebug() << "parent x: " << x << " y: " << y << " dialogX: " << dialogX << "dialogY: " << dialogY;
-
     msgBox->move(dialogX, dialogY);
 
     QLabel* text = new QLabel(dialogText, msgBox, Qt::WindowFlags());
@@ -568,13 +564,35 @@ void MainWindow::slotCreateDialog(QString dialogText)
     text->setFixedSize(DIALOG_TEXT_W, DIALOG_TEXT_H);
     text->move(DIALOG_TEXT_PADDING, DIALOG_TEXT_PADDING);
 
-    QPushButton* okButton = new QPushButton(msgBox);
+    QPushButton* okButton = new QPushButton("Ok", msgBox);
     okButton->setStyleSheet(grayStyleString);
-    okButton->setText("Ok");
-    okButton->setGeometry(QRect(DIALOG_BUTT_X, DIALOG_BUTT_Y, DIALOG_BUTT_W,DIALOG_BUTT_H));
-    connect(okButton, SIGNAL(clicked()), msgBox, SLOT(close()));
 
-    msgBox->exec();
+    QPushButton* cancelButton;
+    if (twoButtons)
+    {
+        okButton->setGeometry(QRect(DIALOG_BUTT_X + ((DIALOG_BUTT_W / 2) + 5), DIALOG_BUTT_Y, DIALOG_BUTT_W, DIALOG_BUTT_H));
+
+        cancelButton = new QPushButton("Cancel", msgBox);
+        cancelButton->setStyleSheet(grayStyleString);
+        cancelButton->setGeometry(QRect(DIALOG_BUTT_X - ((DIALOG_BUTT_W / 2) + 5), DIALOG_BUTT_Y, DIALOG_BUTT_W, DIALOG_BUTT_H));
+        connect(cancelButton, SIGNAL(clicked()), msgBox, SLOT(reject()));
+
+    }
+    else // only one
+    {
+        okButton->setGeometry(QRect(DIALOG_BUTT_X, DIALOG_BUTT_Y, DIALOG_BUTT_W, DIALOG_BUTT_H));
+    }
+
+    connect(okButton, SIGNAL(clicked()), msgBox, SLOT(accept()));
+
+    if (msgBox->exec() == QDialog::Accepted)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 bool MainWindow::event( QEvent* ev )
@@ -612,15 +630,15 @@ void MainWindow::closeEvent(QCloseEvent *)
 #endif
     qDebug() << "closing...";
 
-    mode = "hosted";
-    slotSetMode();
-    //presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
+    QString hackeyModeString = (mode == MODE_HOSTED) ? "hosted" : "standalone";
+    slotSetMode(MODE_STANDALONE);
+    sessionSettings->setValue("previousMode", hackeyModeString);
 }
 
 void MainWindow::slotRecallLastSelectedPreset()
 {
     int presetToLoad = 0;
-    if (mode == "hosted")
+    if (mode == MODE_HOSTED)
     {
         presetToLoad = sessionSettings->value("LAST_HOSTED_PRESET_SELECTED", 0).toUInt();
     }
@@ -642,7 +660,7 @@ void MainWindow::slotStoreLastSelectedPreset(int presetNum)
         return;
     }
 
-    if (mode == "hosted")
+    if (mode == MODE_HOSTED)
     {
         sessionSettings->setValue("LAST_HOSTED_PRESET_SELECTED", presetNum);
     }
@@ -696,7 +714,7 @@ void MainWindow::slotValueChanged()
             emit signalStoreValue(QString("preset_displayname"), ui->displayName->text(), -1);
             emit signalSetPresetNameInKeys(ui->displayName->text());
 #ifdef KEYS_ENABLED
-            if(mode == "hosted")
+            if(mode == MODE_HOSTED)
             {
                 navKey->alphaNumManager.slotPresetChangeDisplayPresetName();
             }
@@ -771,9 +789,6 @@ void MainWindow::slotConnectInterfaces()
     connect(SoftStep, SIGNAL(signalFirmwareUpdateComplete(bool)), fwUpdateWindow, SLOT(slotFwUpdateComplete(bool)));            // Update Complete
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), SoftStep, SLOT(slotFirmwareUpdateReset()));                        // stop timeout timers
 
-#ifdef DEBUG_FW_BRICKED
-    connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), this, SLOT(slotFirmwareDebugBricked()));                        // stop timeout timers
-#endif
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccessCloseDialog(bool)), this, SLOT(slotFwUpdateSuccessCloseDialog(bool)));  // close fw dialog and connect
 
     // connect fwUpdate console messages to connection troubleshooter
@@ -806,7 +821,17 @@ void MainWindow::slotConnectInterfaces()
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //-------------------------------------- Mode Switching - children handled in slotSetMode
-    connect(ui->mode, SIGNAL(clicked()), this, SLOT(slotSetMode()));
+    connect(ui->mode, &QPushButton::clicked, [this]() {
+        if (mode == MODE_HOSTED)
+        {
+            qDebug() << "click set standalone";
+            this->slotSetMode(MODE_STANDALONE);
+        } else
+        {
+            qDebug() << "click set hosted";
+            this->slotSetMode(MODE_HOSTED);
+        }
+    });
 
 //    //-------------------------------------- Hosted MIDI
     connect(SoftStep, SIGNAL(signalRxMidi_controlChange(uchar, uchar, uchar)), this, SLOT(slotProcessInputToHostedMode(uchar, uchar, uchar)));
@@ -1329,6 +1354,23 @@ void MainWindow::slotConnectInterfaces()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+void MainWindow::slotConfirmResetPresets()
+{
+    if (slotCreateDialog("Reset all presets to default, are you sure? This cannot be undone!", true))
+    {
+        qDebug() << "Reseting presets!";
+        presetInterface->slotCheckAndLoadPresets(LOAD_DEFAULTS);
+        presetInterface->slotReadJSON();
+        slotStoreLastSelectedPreset(0);
+        ui->presetmenu->clear();
+        slotPopulatePresetMenu();
+        setlist->slotPopulateSetlistMenus(ui->presetmenu); // updates setlist dropdowns
+        setlist->slotCompileSetlist(); // clears setlist and saves it
+        presetInterface->slotRecallPreset(0);
+        //relaunchApplication(); // the cowards way out
+    }
+}
+
 void MainWindow::slotInitMenuBar()
 {
     qDebug() << "slotInitMenuBar called";
@@ -1373,6 +1415,11 @@ void MainWindow::slotInitMenuBar()
     importOldPreset->setObjectName("importOldPresets");
     connect(importOldPreset, SIGNAL(triggered()), importOldPresetHandler, SLOT(slotImportOldPreset()));
     file->addAction(importOldPreset);
+
+    QAction * loadPresetDefaults = new QAction("Reset Presets to Default", file);
+    loadPresetDefaults->setObjectName("loadPresetDefaults");
+    connect(loadPresetDefaults, SIGNAL(triggered()), this, SLOT(slotConfirmResetPresets()));
+    file->addAction(loadPresetDefaults);
 
     openAppDataDir = new QAction("Open Editor Preset Directory", file);
     openAppDataDir->setObjectName("openAppDataDir");
@@ -1546,7 +1593,7 @@ void MainWindow::slotInitMenuBar()
         sessionSettings->setValue("IGNORE_FW_CHECKS", checked);
 
         if (checked) {
-            slotCreateDialog(QString("WARNING: This feature is experimental and\nmay produce unexpected results!"));
+            slotCreateDialog(QString("WARNING: This feature is experimental and\nmay produce unexpected results!"), false);
         }
     });
 
@@ -1649,9 +1696,7 @@ void MainWindow::slotResetSettings()
 
     settingsWindow->slotCloseSettings();
 
-    // exit hosted mode, this method reminds me how frankensteined this code has become...
-    mode = "hosted";
-    slotSetMode();
+    slotSetMode(MODE_STANDALONE);
     slotTether(false, SA_SAVE_YES); // this re-sends the settings to correctly put us in standalone mode, and saves those to the globals library on the softstep
 
     settingsWindow->slotWriteDefaultSettings();
@@ -1855,7 +1900,7 @@ void MainWindow::slotConnected(bool connection)
 
 #endif // MIDI_ENABLED
 
-        sysExComposer->slotHostedOnOff(mode == "hosted" ? true : false);
+        sysExComposer->slotHostedOnOff(mode == MODE_HOSTED ? true : false);
 
         slotRestoreAllAuxDropdowns();
         troubleshootWindow->slotConnected(true);
@@ -1950,10 +1995,12 @@ void MainWindow::slotDisplaySaveState(bool dirty)
     }
 }
 
-void MainWindow::slotSetMode()
+void MainWindow::slotSetMode(SS_MODE newMode)
 {
+    qDebug() << "slotSetMode newMode: " << newMode;
+    QString hackeyModeString;
     //Check mode
-    if(mode == "standalone")
+    if(newMode == MODE_HOSTED)
     {   
         // create virtual ports
 #ifndef Q_OS_WIN
@@ -1965,7 +2012,7 @@ void MainWindow::slotSetMode()
         int thisOutPort = kmiPorts->getOutPortNumber(SS_SHARE_PORT);
         qDebug() << "Connect SoftStep Share - port in: " << thisInPort << " port out: " << thisOutPort;
 
-        if (thisOutPort == -1)
+        if (thisOutPort == -1) // not connected
         {
 #ifdef Q_OS_WIN
             if (!appStillLoading)
@@ -1980,7 +2027,9 @@ void MainWindow::slotSetMode()
             SoftStepShare->slotUpdatePortIn(thisInPort);
             SoftStepShare->slotUpdatePortOut(thisOutPort);
 #endif
-            mode = "hosted";
+            mode = MODE_HOSTED;
+            hackeyModeString = "hosted";
+
             ui->cv1label_sources->hide();
             ui->cv2label_sources->hide();
             ui->cv1_sources->hide();
@@ -1991,7 +2040,8 @@ void MainWindow::slotSetMode()
     }
     else
     {
-        mode = "standalone";
+        mode = MODE_STANDALONE;
+        hackeyModeString = "standalone";
 
         ui->cv1label_sources->show();
         ui->cv2label_sources->show();
@@ -2011,17 +2061,17 @@ void MainWindow::slotSetMode()
     //----------------- Set child modes
 
     //Settings
-    settingsWindow->slotSetMode(mode);
+    settingsWindow->slotSetMode(hackeyModeString); // still hackey but not time for perfection
 #ifdef KEYS_ENABLED
     //Keys and Modlines
     for(int i = 0; i < 10; i++)
     {
         //Key Mode
-        key[i]->slotSetMode(mode);
+        key[i]->slotSetMode(hackeyModeString);
 
         //populate display menus in key windows
         key[i]->slotDisconnectElements();
-        if(mode == "hosted")
+        if(mode == MODE_HOSTED)
         {
             key[i]->slotPopulateMenus(hostedDisplayModes);
         }
@@ -2034,13 +2084,13 @@ void MainWindow::slotSetMode()
         for(int j = 0; j < 6; j++)
         {
             //Modline Mode
-            key[i]->modline[j]->slotSetMode(mode);
+            key[i]->modline[j]->slotSetMode(hackeyModeString);
 
             //Disconnect from slotValueChanged
             key[i]->modline[j]->slotDisconnectElements();
 
             //Populate modline menus according to mode-- doing this here to avoid having to embed source,dest, and table lists in modlines
-            if(mode == "hosted")
+            if(mode == MODE_HOSTED)
             {
                 key[i]->modline[j]->slotPopulateMenus(hostedSources, hostedDestinations, hostedTables);
             }
@@ -2055,17 +2105,17 @@ void MainWindow::slotSetMode()
     }
 
     //Nav Pad and Nav Modlines
-    navKey->slotSetMode(mode);
+    navKey->slotSetMode(hackeyModeString);
     for(int i = 0; i < 6; i++)
     {
         //nav modlines
-        navKey->navModline[i]->slotSetMode(mode);
+        navKey->navModline[i]->slotSetMode(hackeyModeString);
 
         //disconnect from slotValueChanged
         navKey->navModline[i]->slotDisconnectElements();
 
         //populate modline menus according to mode
-        if(mode == "hosted")
+        if(mode == MODE_HOSTED)
         {
             navKey->navModline[i]->slotPopulateMenus(hostedNavSources, hostedDestinations, hostedNavTables);
         }
@@ -2079,7 +2129,7 @@ void MainWindow::slotSetMode()
     }
     //populate display mode menus in nav key window
     navKey->slotDisconnectElements();
-    if(mode == "hosted")
+    if(mode == MODE_HOSTED)
     {
         navKey->slotPopulateMenus(hostedDisplayModes);
     }
@@ -2090,12 +2140,12 @@ void MainWindow::slotSetMode()
     navKey->slotConnectElements();
 #endif // end TURNED OFF
 
-    slotSetModeMIDI(mode); //repopulation of device menus should happen here, also reloads preset
+    slotSetModeMIDI(hackeyModeString); //repopulation of device menus should happen here, also reloads preset
 
-    presetInterface->slotSetMode(mode);
-    setlist->slotSetMode(mode);
-    copyPasteHandler->slotSetMode(mode);
-    importOldPresetHandler->slotSetMode(mode);
+    presetInterface->slotSetMode(hackeyModeString);
+    setlist->slotSetMode(hackeyModeString);
+    copyPasteHandler->slotSetMode(hackeyModeString);
+    importOldPresetHandler->slotSetMode(hackeyModeString);
     pasteKeyAct->setDisabled(true);
 
     //Update paths to respective mode files
@@ -2116,7 +2166,7 @@ void MainWindow::slotSetMode()
     populatingPresetMenus = false;
 
     //Enable/Disable the update button
-    if(mode == "hosted")
+    if(mode == MODE_HOSTED)
     {
         ui->update->setEnabled(false);
     }
@@ -2128,7 +2178,7 @@ void MainWindow::slotSetMode()
 
     //!!!!!!!!!!!!!!!!!! Preset recalled after port creation and device menu population in slotPopulateDeviceMenus
 
-    if(mode == "hosted")
+    if(mode == MODE_HOSTED)
     {
         QList<QString> presetNames;
 
@@ -2148,7 +2198,7 @@ void MainWindow::slotSetMode()
     }
 
     //Import Old Preset text change
-    if(mode == "hosted")
+    if(mode == MODE_HOSTED)
     {
         importOldPreset->setText("Import Hosted Presets from V1.21"); 
     }
@@ -2162,7 +2212,7 @@ void MainWindow::slotSetMode()
     settingsWindow->slotEmitAllSettings();
 
     //----------------- repopulate midi aux inputs
-    if (mode == "hosted")
+    if (mode == MODE_HOSTED)
     {
         slotRestoreAllAuxDropdowns();
     }
@@ -2198,7 +2248,7 @@ void MainWindow::slotPopulateDeviceMenus(QMap<QString, int> externalDevices)
             key[i]->modline[j]->slotDisconnectElements();
 
             //Populate modline menus according to mode-- doing this here to avoid having to embed source,dest, and table lists in modlines
-            if(mode == "hosted")
+            if(mode == MODE_HOSTED)
             {
                 key[i]->modline[j]->hosted_slotPopulateDeviceMenu(externalDevices);
             }
@@ -2218,7 +2268,7 @@ void MainWindow::slotPopulateDeviceMenus(QMap<QString, int> externalDevices)
         navKey->navModline[n]->slotDisconnectElements();
 
         //populate modline menus according to mode-- doing this here to avoid having to embed source, dest, and table lists in modlines
-        if(mode == "hosted")
+        if(mode == MODE_HOSTED)
         {
             navKey->navModline[n]->hosted_slotPopulateDeviceMenu(externalDevices);
         }
@@ -2281,6 +2331,8 @@ void MainWindow::slotPopulateSourceDestLists()
 
     standaloneSources.append("Foot On");
     standaloneSources.append("Foot Off");
+    standaloneSources.append("Foot On (Single)");
+    standaloneSources.append("Foot Off (Single)");
     standaloneSources.append("Random");
     standaloneSources.append("Random Single");
     standaloneSources.append("Dbl Trig");
@@ -2338,6 +2390,9 @@ void MainWindow::slotPopulateSourceDestLists()
 
     hostedSources.append("Foot On");
     hostedSources.append("Foot Off");
+
+    hostedSources.append("Foot On (Single)");
+    hostedSources.append("Foot Off (Single)");
 
     hostedSources.append("Random");
     hostedSources.append("Random Single");
@@ -2685,7 +2740,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
 
             if (!SoftStep->slotUpdatePortIn(portNum))
             {
-                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
+                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
             }
             else
             {
@@ -2696,7 +2751,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         {
             if (!SoftStep->slotUpdatePortOut(portNum))
             {
-                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
             }
             else
             {
@@ -2813,14 +2868,14 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         {
             if (!SoftStep->slotUpdatePortIn(portNum))
             {
-                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
+                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
             }
         }
         else if ((portName == SS_OUT_P1  || portName == SS_OLD_OUT_P1 || portName == SS_BL_PORT) && inOrOut == PORT_OUT)
         {
             if (!SoftStep->slotUpdatePortOut(portNum))
             {
-                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
             }
         }
         // Hosted mode
@@ -2914,111 +2969,15 @@ void MainWindow::relaunchApplication() {
     QCoreApplication::quit();
 }
 
-#ifdef DEBUG_FW_BRICKED
-void MainWindow::slotFirmwareDebugBricked() // called by fwUpdateWindow->signalFwUpdateSuccess()
-{
-    qDebug() << "Swapping FW files";
-    static bool swapFw;
-
-    swapFw = !swapFw;
-    QString thisFwFile;
-
-    if (swapFw)
-    {
-        thisFwFile = QString(":/firmware/Softstep_Firmware_v1.0.4.syx");
-    }
-    else
-    {
-        thisFwFile = QString(":/firmware/Softstep_Firmware_v2.0.2.syx");
-    }
-
-    qDebug() << "thisFwFile: " << thisFwFile;
-
-    if (!SoftStep->slotOpenFirmwareFile(thisFwFile))
-    {
-       slotCreateDialog("Error: Firmware file not found!\n\nPlease re-install the SoftStep editor.");
-    }
-
-    // Create a one-shot timer
-    QTimer *timerFwFile = new QTimer(this); // `this` assumes you're inside a QObject-derived class
-    timerFwFile->setSingleShot(true);
-
-    // Connect the timeout signal to a lambda function that triggers the update action
-    connect(timerFwFile, &QTimer::timeout, this, [this]() {
-        slotFirmwareDebugBricked2();
-    });
-
-    timerFwFile->start(1000); // Time in milliseconds
-}
-
-void MainWindow::slotFirmwareDebugBricked2() // called by fwUpdateWindow->signalFwUpdateSuccess()
-{
-    qDebug() << "Start timer to press DONE";
-    // Create a one-shot timer
-    QTimer *timerDone = new QTimer(this); // `this` assumes you're inside a QObject-derived class
-    timerDone->setSingleShot(true);
-
-    // Connect the timeout signal to a lambda function that triggers the update action
-    connect(timerDone, &QTimer::timeout, this, [this]() {
-        fwUpdateWindow->slotPressButtDone();
-    });
-
-    // Start the timer with a 5-second timeout
-    timerDone->start(4000); // Time in milliseconds
-}
-
-void MainWindow::slotFirmwareDebugBricked3() // called by slotFwUpdateSuccessCloseDialog
-{
-    qDebug() << "Test and if idle, trigger another FW update...";
-    if (SoftStep->firmwareUpdateState == FWUD_STATE_IDLE || SoftStep->firmwareUpdateState >= FWUD_STATE_SUCCESS)
-    {
-        slotUpdatePresets();
-        updatefw->trigger();
-
-
-        // Create a one-shot timer
-        QTimer *timerRetrig = new QTimer(this); // `this` assumes you're inside a QObject-derived class
-        timerRetrig->setSingleShot(true);
-
-        // Connect the timeout signal to a lambda function that triggers the update action
-        connect(timerRetrig, &QTimer::timeout, this, [this]() {
-            slotFirmwareDebugBricked3();
-        });
-    }
-}
-#endif // DEBUG_FW_BRICKED
 
 void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
 {
     qDebug() << "slotFwUpdateSuccessCloseDialog called - success: " << success;
 
-#ifdef DEBUG_FW_BRICKED
-    static int fwSuccessCounter = 0;
-#endif
-
     if (success)
     {
-#ifdef DEBUG_FW_BRICKED
-        fwSuccessCounter++;
-        qDebug() << "---------- fwSuccessCounter: " << fwSuccessCounter << "----------------------------------";
-#endif
-
         slotUpdateMIDIThru();
         slotConnected(true);
-
-#ifdef DEBUG_FW_BRICKED
-        // Create a one-shot timer
-        QTimer *timerRetrig = new QTimer(this); // `this` assumes you're inside a QObject-derived class
-        timerRetrig->setSingleShot(true);
-
-        // Connect the timeout signal to a lambda function that triggers the update action
-        connect(timerRetrig, &QTimer::timeout, this, [this]() {
-            slotFirmwareDebugBricked3();
-        });
-
-
-        timerRetrig->start(4000); // Time in milliseconds
-#endif // DEBUG_FW_BRICKED
 
 #ifdef Q_OS_WINDOWS
         relaunchApplication();
@@ -3081,9 +3040,6 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
         fwUpdateWindow->slotAppendTextToConsole(deviceFirmwareVersionString() + "\n\n");
 
         fwUpdateWindow->show();
-#ifdef DEBUG_FW_BRICKED
-        fwUpdateWindow->slotPressButtOk();
-#endif
     }
 #endif // MIDI_ENABLED
 }
@@ -3120,14 +3076,14 @@ void MainWindow::slotUpdateMIDIThru()
         int thisOutPort = kmiPorts->getOutPortNumber(currentPortName);
         if (!MIDIThru->slotUpdatePortOut(thisOutPort)) // also opens the port
         {
-            slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(currentPortName));
+            slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(currentPortName), false);
             failure = true;
         }
         else
         {
             if (!MIDIThru->slotUpdatePortIn(equivalentInPort)) // also opens the port
             {
-                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(currentPortName));
+                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(currentPortName), false);
                 failure = true;
             }
             else
@@ -3319,13 +3275,13 @@ void MainWindow::slotUpdateMIDIAuxInputPorts(QString auxInput, QString portName)
                     {
                         // couldn't open in port
                         settingsWindow->midiInputDeviceMenus.at(i)->setCurrentText("None");
-                        slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
+                        slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
                     }
                     if (!midiAuxIn[i]->slotUpdatePortOut(oldEquivalentOutPort)) // open the corresponding out port
                     {
                         // couldn't open correspondig out port
                         settingsWindow->midiInputDeviceMenus.at(i)->setCurrentText("None");
-                        slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+                        slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
                     }
                     reassigned = true;
                     settingsWindow->midiInputDeviceMenus.at(i)->blockSignals(false);
@@ -3349,13 +3305,13 @@ void MainWindow::slotUpdateMIDIAuxInputPorts(QString auxInput, QString portName)
         {
             // couldn't open input
             settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->setCurrentText("None");
-            slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
+            slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
         }
         if (!midiAuxIn[settingsInputIndex]->slotUpdatePortOut(newEquivalentOutPort)) // open the corresponding out port
         {
             // couldn't open output
             settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->setCurrentText("None");
-            slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+            slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
         }
         settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->blockSignals(false);
     }
@@ -3370,7 +3326,7 @@ void MainWindow::slotRecallMIDIThru()
 
     qDebug() << "slotRecallMIDIThru called, connected: " << SoftStep->connected << " recallMidiThruPortName: " << thisPortName;
 
-    if (mode == "standalone")
+    if (mode == MODE_STANDALONE)
     {
         midi_thru_dropdown->blockSignals(true);
         midi_thru_dropdown->setCurrentText(thisPortName);
@@ -3398,7 +3354,7 @@ void MainWindow::slotClearMIDIThruDropdown()
 
 void MainWindow::slotTether(bool state, bool save = SA_SAVE_NO)
 {
-    qDebug() << "slotTether called - state: " << state;
+    qDebug() << "slotTether called - mode: " << mode << " new state: " << state << " save: " << save;
     uint8_t tether_mode = state ? TETHER_LIVE : TETHER_OFF;
     uint8_t tether_command[] = {0, SA_TYPE_TETHER_ONOFF, tether_mode, save}; // an int followed by two uchars
     uint8_t nav_command[] = {0, SA_TYPE_NAVSTANDALONE_ONOFF, !state, save};
@@ -3406,10 +3362,17 @@ void MainWindow::slotTether(bool state, bool save = SA_SAVE_NO)
     uint8_t scene_command[] = {0, SA_TYPE_SCENECHANGE_ONOFF, !state, save};
 
 
+
     kmiEncode->slotEncodePacket(MSG_CAT_LEGACY, STANDALONE_CLOSE, standalone_command, sizeof(standalone_command));
     kmiEncode->slotEncodePacket(MSG_CAT_LEGACY, STANDALONE_CLOSE, tether_command, sizeof(tether_command));
     kmiEncode->slotEncodePacket(MSG_CAT_LEGACY, STANDALONE_CLOSE, nav_command, sizeof(nav_command));
     kmiEncode->slotEncodePacket(MSG_CAT_LEGACY, STANDALONE_CLOSE, scene_command, sizeof(scene_command));
+
+    if (mode == MODE_HOSTED) // we need to toggle to get back to hosted
+    {
+        slotSetMode(MODE_STANDALONE);
+        slotSetMode(MODE_HOSTED);
+    }
 }
 
 void MainWindow::slotEnableTether()
@@ -3417,9 +3380,10 @@ void MainWindow::slotEnableTether()
    slotTether(true);
 }
 
+// called when we exit pedal calibration
 void MainWindow::slotDisableTether()
 {
-   slotTether(false);
+    slotTether(true);
 }
 
 // parse legacy KMI packets here
@@ -3468,7 +3432,7 @@ void MainWindow::slotProcessInputToHostedMode(uchar chan, uchar cc, uchar val)
 {
     Q_UNUSED(chan);
 
-    if (mode != "hosted" && key[0]->dataCooker->pedal->calibrating == false) return; // only process input if we are in hosted mode, or calibrating a pedal
+    if (mode != MODE_HOSTED && key[0]->dataCooker->pedal->calibrating == false) return; // only process input if we are in hosted mode, or calibrating a pedal
 
     //qDebug() << "slotProcessInputToHostedMode called, cc: " << cc << " val: " << val;
     emit signalUpdateSensor(cc, val);
@@ -3487,7 +3451,7 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
 {
 #ifdef MIDI_ENABLED
 
-    if (mode != "hosted") return; // only process input if we are in hosted mode
+    if (mode != MODE_HOSTED) return; // only process input if we are in hosted mode
 
     bool sendArray = (packetArray == "empty") ? false : true;
 
@@ -3564,7 +3528,7 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
     if (!hostedOut->slotUpdatePortOut(destPort)) // try to open this port
     {
         // couldn't open input
-        slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
+        slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
     }
     else
     {
@@ -3588,7 +3552,7 @@ void MainWindow::hosted_slotSendPacketArray(QString portName, QByteArray packetA
 {
 #ifdef MIDI_ENABLED
 
-    if (mode != "hosted") return; // only process input if we are in hosted mode
+    if (mode != MODE_HOSTED) return; // only process input if we are in hosted mode
 
     //qDebug() << "hosted_slotSendPacketArray called";
     hosted_slotSendPacketOrArray(portName, packetArray, 0, 0, 0, 0);
@@ -3598,7 +3562,7 @@ void MainWindow::hosted_slotSendPacketArray(QString portName, QByteArray packetA
 void MainWindow::hosted_slotSendPacket(QString portName, uchar status, uchar d1, uchar d2, uchar chan)
 {
 #ifdef MIDI_ENABLED
-    if (mode != "hosted") return; // only process input if we are in hosted mode
+    if (mode != MODE_HOSTED) return; // only process input if we are in hosted mode
 
     //qDebug() << "hosted_slotSendPacket called";
     // call the method and signal to not use the array method
@@ -3612,7 +3576,7 @@ void MainWindow::hosted_slotReceiveMIDI(uchar status, uchar d1, uchar d2, uchar 
 {
     Q_UNUSED(d2) // program changes don't use the second data byte
 
-    if (mode != "hosted") return; // only process input if we are in hosted mode
+    if (mode != MODE_HOSTED) return; // only process input if we are in hosted mode
 
     //qDebug() << "hosted_slotReceiveMIDI called - status: " << status << " d1: " << d1 << " d2: " << d2 << " chan: " << chan;
 

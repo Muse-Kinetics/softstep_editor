@@ -12,8 +12,11 @@
 
 #include "hosted/datacooker.h"
 
-//#include "qjson/src/parser.h"
-//#include "qjson/src/serializer.h"
+enum DEFAULTS_BOOL
+{
+    DONT_LOAD_DEFAULTS,
+    LOAD_DEFAULTS
+};
 
 class PresetInterface : public QWidget
 {
@@ -72,6 +75,7 @@ signals:
     void signalModlineWarning(QString modlineWarningMessage);
     
 public slots:
+    void slotCheckAndLoadPresets(DEFAULTS_BOOL loadDefaults);
     void slotStoreValue(QString name, QVariant value, int presetNum);
     void slotCheckSaveState();
     void slotModlineWarning(QString parameterName);

@@ -192,7 +192,7 @@ public slots:
     void slotForceFirmwareUpdate();
     void slotFirmwareDetected(MidiDeviceManager *thisMDM, bool);
     void slotUpdateMIDIThru();
-    void slotCreateDialog(QString dialogText);
+    bool slotCreateDialog(QString dialogText, bool twoButtons = false);
     void slotRecallMIDIThru();
     void slotClearMIDIThruDropdown();
     // ------ end midi overhaul --------------------------------------------------------
@@ -207,12 +207,14 @@ public slots:
 #ifdef SERIOUS_PRUNING
 
     void slotInitMenuBar();
+    void slotConfirmResetPresets();
     void slotUpdatePasteAvailability();
     void slotOpenDocumentation();   
     void slotOpenTroubleshooting();
     void slotDisconnectUpdate();
     void slotConnectUpdate();
     void slotDisplaySaveState(bool);
+    void slotOpenPresetDirectory();
     void slotEnableDisableUseCustomPreset(bool);
 
     void slotEnableDisableMenu();
