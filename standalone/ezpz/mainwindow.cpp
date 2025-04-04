@@ -931,6 +931,16 @@ void MainWindow::slotInitMenuBar()
     connect(ui->connectedLabel, SIGNAL(pressed()), this, SLOT(slotOpenTroubleshooting()));
     help->addAction(troubleShooting);
 
+    //Tutorials
+    QAction* tutorials = new QAction("Tutorials...", help);
+    actionList.append(tutorials);
+
+    // Connect the QAction's triggered signal to a lambda function that opens a URL
+    connect(tutorials, &QAction::triggered, []() {
+        QDesktopServices::openUrl(QUrl("https://www.musekinetics.com/tutorials"));
+    });
+    help->addAction(tutorials);
+
     //Doc
     QAction* doc = new QAction("Documentation...", help);
     actionList.append(doc);

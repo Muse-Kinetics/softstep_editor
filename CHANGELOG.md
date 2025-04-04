@@ -1,5 +1,34 @@
 #### SoftStep Editor and Firmware Changelog
 
+### Editor 3.0.5, Firmware 2.0.5 (2025-03-05)
+- New Features:
+	- Hardware
+		- New "Foot On (Single)" and "Foot Off (Single)" modlined sources (see advanced editor)
+		- When loading a preset > 9, the 1 LED now flashes
+		- Standalone preset name now displays on SoftStep hardware when exiting hosted mode
+	- Advanced editor: 
+		- Added "Foot On (Single)" and "Foot Off (Single)" modlined sources to standalone and hosted. Not available for Nav Pad
+			- "Foot On" and "Foot Off" have always been a boolean representing the state of the key
+			- The "(Single)" variations now only trigger once (value 127), either when the key turns on or when it turns off. 
+		- Added File->Reset Presets to Default
+		- Added "Banks" default hosted and standalone presets to demonstrate how to send Bank MSB/LSB messages
+		- Added "Tutorials..." to help menu
+	- Basic Editor: 
+		- Added File->Open Editor Preset Directory
+		- Added File->Reset Presets to Default
+- Bug Fixes:
+	- Hardware:
+		- Fixed an overindexing bug that caused the nav pad to crash when presets 15 or 16 were loaded 
+		- Added better bounds check when presets load, fixes edge cases where presets would seem to dissapear
+		- Both Bank MSB and LSB messages are now properly sent
+	- Advanced Editor: 
+		- FixedHosted/Standalone mode correctly retained when app closes/reopens
+		- Exiting pedal calibration during hosted mode no longer puts hardware in standalone (out of sync with editor)
+		- Fixed Hosted Mode Smoothing bug that would cause bad data to get caught in a loop
+	- Basic Editor: 
+		- Fixed a bug where the app would crash (not open) if the presets json file wasn't found.
+		- Added "Tutorials..." to help menu
+
 ### Editor 3.0.4, Firmware 2.0.4 (2024-12-13)
 - Bug Fixes:
 	- Basic editor now updates to the correct firmware 2.0.4 instead of 2.0.3
