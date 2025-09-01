@@ -28,7 +28,7 @@ macx {
 #BUILD_CONSOLE = 1
 
 # Uncomment this line if you want to deploy the app (codesign, xxxDeployqt, copy content, and create installer/dmg etc
-DEPLOY = 1
+#DEPLOY = 1
 
 
 # still holding onto support for High Sierra here, separate build
@@ -364,8 +364,8 @@ isEmpty(DEPLOY) {
 
 
     win32 {
-        package_dir = $$shell_path($$absolute_path("..\\..\\win-build\\packages\\com.keithmcmillen.softstepeditors.advanced\\data\\$${TARGET}", $$PWD))
-        content_dir = $$shell_path($$absolute_path("..\\..\\win-build\\packages\\com.keithmcmillen.softstepeditors.content\\data\\Content", $$PWD))
+        package_dir = $$shell_path($$absolute_path("..\\..\\win-deploy\\packages\\com.keithmcmillen.softstepeditors.advanced\\data\\$${TARGET}", $$PWD))
+        content_dir = $$shell_path($$absolute_path("..\\..\\win-deploy\\packages\\com.keithmcmillen.softstepeditors.content\\data\\Content", $$PWD))
         repo_root_dir = $$shell_path($$absolute_path("..", $$PWD))
 
         changelog_src = "$${repo_root_dir}\\..\\CHANGELOG.md"
@@ -379,7 +379,7 @@ isEmpty(DEPLOY) {
 
         path_to_bincreate = C:\\Qt6\\QtIFW-4.6.0\\bin\\binarycreator.exe
         path_to_installerbase = C:\\Qt6\\QtIFW-4.6.0\\bin\\installerbase.exe
-        path_to_install = $$shell_path($$absolute_path("..\\..\\win-build", $$PWD))
+        path_to_install = $$shell_path($$absolute_path("..\\..\\win-deploy", $$PWD))
 
         # Corrected variable assignments without escaped quotes
         app_name = $${TARGET}

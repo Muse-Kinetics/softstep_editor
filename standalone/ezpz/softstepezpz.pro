@@ -25,7 +25,7 @@ macx{
 #BUILD_CONSOLE = 1
 
 # Uncomment this line if you want to deploy the app (codesign, xxxDeployqt, copy content, and create installer/dmg etc
-DEPLOY = 1
+#DEPLOY = 1
 
 # still holding onto support for High Sierra here, separate build
 message("Building with Qt $${QT_VERSION}")
@@ -271,7 +271,7 @@ isEmpty(DEPLOY) {
 
 
     win32 {
-        package_dir = $$shell_path($$absolute_path("..\\..\\win-build\\packages\\com.keithmcmillen.softstepeditors.basic\\data\\$${TARGET}", $$PWD))
+        package_dir = $$shell_path($$absolute_path("..\\..\\win-deploy\\packages\\com.keithmcmillen.softstepeditors.basic\\data\\$${TARGET}", $$PWD))
         repo_root_dir = $$shell_path($$absolute_path("..", $$PWD))
 
         LIBCRYPTO_SRC = $$shell_path($$absolute_path("..\\..\\shared\\KMI_Updates\\ssl\\libcrypto-1_1-x64.dll", $$PWD))
