@@ -39,10 +39,19 @@ lessThan(QT_MAJOR_VERSION, 6){
 }
 
 # build with Qt 6.2.1 to support Mojave and later
-versionAtLeast(QT_VERSION, 6.2.1){
+versionAtLeast(QT_VERSION, 6.2.1):!versionAtLeast(QT_VERSION, 6.9.0){
     macx{
-        message("Building Apple M1/Intel Universal Binary")
+        message("Building Apple M1/Intel Universal Binary for macOS 10.14+")
         QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.14
+        QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
+    }
+}
+
+# build with Qt 6.9+ to support macOS 10.15+ (required for std::filesystem)
+versionAtLeast(QT_VERSION, 6.9.0){
+    macx{
+        message("Building Apple M1/Intel Universal Binary for macOS 10.15+")
+        QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.15
         QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
     }
 }

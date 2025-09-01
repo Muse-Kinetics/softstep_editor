@@ -58,3 +58,4 @@ compile_commands.json
 *.exe
 /win-build/*.zip
 *.rej
+standalone/advanced/build
