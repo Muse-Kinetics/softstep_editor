@@ -1,7 +1,19 @@
 #!/bin/bash
 
-# This script packages the K-Mix mac application and handles the Apple signing/notarization process.
+# This script packages the SoftStep mac application and handles the Apple signing/notarization process.
 # - You must use the entitlements included in this directory.
+# - Requires environment variables: APPLE_ID, APPLE_APP_PASSWORD, APPLE_TEAM_ID, DEVELOPER_ID
+
+# Load environment variables (run source ~/.env or your credentials script first)
+if [[ -z "$DEVELOPER_ID" || -z "$APPLE_KEYCHAIN_PROFILE" ]]; then
+    echo "Error: Required environment variables not set"
+    echo "Please run: source ~/.env or your credentials script"
+    echo "Required: DEVELOPER_ID, APPLE_KEYCHAIN_PROFILE"
+    exit 1
+fi
+
+# Set to true to enable "press any key to continue" prompts (false = run automatically)
+INTERACTIVE_MODE=true
 
 # app_name is the name of the dmg volume
 this_year=2024
@@ -13,8 +25,8 @@ bundle_name=SoftStepEditors
 bundle_id="com.keithmcmillen.$bundle_name"
 app1="SoftStep Advanced Editor"
 app2="SoftStep Basic Editor"
-app1_source="../standalone/build-SoftStepAdvanced-Qt_6_3_2_for_macOS-Release/$app1.app"
-app2_source="../standalone/build-softstepezpz-Qt_6_3_2_for_macOS-Release/$app2.app"
+app1_source="../standalone/build-SoftStepAdvanced-Qt_6_9_2_for_macOS-Release/$app1.app"
+app2_source="../standalone/build-softstepezpz-Qt_6_9_2_for_macOS-Release/$app2.app"
 app1_qml_dir="../standalone/advanced/"
 app2_qml_dir="../standalone/ezpz/"
 dmg_path=./dmg
@@ -27,8 +39,8 @@ content_source="../Content"
 content_dest="$subfolder_path/Content"
 app1_path="$subfolder_path/$app1.app"
 app2_path="$subfolder_path/$app2.app"
-path_to_dqt=~/Qt/6.3.2/macos/bin/macdeployqt
-developer_id="Developer ID Application: Kesumo, LLC (***REMOVED***)"
+path_to_dqt=~/Qt/6.9.2/macos/bin/macdeployqt
+developer_id="$DEVELOPER_ID"
 final_dmg_name="./$app_name Mac v$version.dmg"
 
 app1_debug_path="$app1.app/Contents/MacOS/$app1"
@@ -96,9 +108,11 @@ then
 	  echo ""
 	fi
 
-	# echo "Press any key to continue"
-	# echo
-	# read -n 1 -s -r -p ""
+	if [ "$INTERACTIVE_MODE" = true ]; then
+		echo "Press any key to continue"
+		echo
+		read -n 1 -s -r -p ""
+	fi
 
 	# copy the .app and resources
 	\cp -R "$app1_source" "$subfolder_path/"
@@ -111,9 +125,11 @@ then
 	# echo $app1_debug_sl
 	# echo $app2_debug_sl
 
-	# echo "Press any key to continue"
-	# echo
-	# read -n 1 -s -r -p ""
+	if [ "$INTERACTIVE_MODE" = true ]; then
+		echo "Press any key to continue"
+		echo
+		read -n 1 -s -r -p ""
+	fi
 
 	cd "$subfolder_path"
 
@@ -125,9 +141,11 @@ then
 	echo ""
 	echo "### - Updating info.plist"
 	echo ""
-	# echo "Press any key to continue"
-	# echo
-	# read -n 1 -s -r -p ""
+	if [ "$INTERACTIVE_MODE" = true ]; then
+		echo "Press any key to continue"
+		echo
+		read -n 1 -s -r -p ""
+	fi
 
 	# update info.plist
 	plutil -insert "App Category" -string "Music" "$app1_path/Contents/Info.plist"
@@ -147,9 +165,11 @@ then
 	echo ""
 	echo "### - Cleaning DMG directory attributes"
 	echo ""
-	# echo "Press any key to continue"
-	# echo
-	# read -n 1 -s -r -p ""
+	if [ "$INTERACTIVE_MODE" = true ]; then
+		echo "Press any key to continue"
+		echo
+		read -n 1 -s -r -p ""
+	fi
 
 	# clean dmg attributes
 	xattr -cr "$dmg_path/"
@@ -157,9 +177,11 @@ then
 	echo ""
 	echo "### - Running macdeployqt - app 1"
 	echo ""
-	# echo "Press any key to continue"
-	# echo
-	# read -n 1 -s -r -p ""
+	if [ "$INTERACTIVE_MODE" = true ]; then
+		echo "Press any key to continue"
+		echo
+		read -n 1 -s -r -p ""
+	fi
 
 	#run macdeployqt
 	$path_to_dqt "$app1_path" -verbose=2 -codesign="$developer_id" -qmldir="$app1_qml_dir" -executable="$app1_path/Contents/MacOS/$app1"
@@ -167,36 +189,22 @@ then
 	echo ""
 	echo "### - Running macdeployqt - app 2"
 	echo ""
-	# echo "Press any key to continue"
-	# echo
-	# read -n 1 -s -r -p ""
+	if [ "$INTERACTIVE_MODE" = true ]; then
+		echo "Press any key to continue"
+		echo
+		read -n 1 -s -r -p ""
+	fi
 
 	$path_to_dqt "$app2_path" -verbose=2 -codesign="$developer_id" -qmldir="$app2_qml_dir" -executable="$app2_path/Contents/MacOS/$app2"
 
 	echo ""
-	echo "### - Signing QT frameworks"
-	echo ""
-	# echo "Press any key to continue"
-	# echo
-	# read -n 1 -s -r -p ""
-
-	#fix parts of deployqt that don't sign correctly
-	# codesign -s "$developer_id" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f "$app1_path/Contents/Frameworks/QtQuickWidgets.framework/Versions/Current/Resources/QtQuickWidgets.prl"
-	# codesign -s "$developer_id" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f "$app2_path/Contents/Frameworks/QtGui.framework/Versions/Current/Resources/QtGui.prl"
-
-	# codesign -s "$developer_id" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f "$app1_path/Contents/Frameworks/QtPrintSupport.framework/Versions/5/Resources/QtPrintSupport.prl"
-	# codesign -s "$developer_id" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f "$app1_path/Contents/Frameworks/QtQuickWidgets.framework/Versions/5/Resources/QtQuickWidgets.prl"
-
-	# codesign -s "$developer_id" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f "$app2_path/Contents/Frameworks/QtPrintSupport.framework/Versions/5/Resources/QtPrintSupport.prl"
-	# #codesign -s "$developer_id" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f "$app2_path/Contents/Frameworks/QtQuickWidgets.framework/Versions/5/Resources/QtQuickWidgets.prl"
-
-
-	echo ""
 	echo "### - Signing application"
 	echo ""
-	# echo "Press any key to continue"
-	# echo
-	# read -n 1 -s -r -p ""
+	if [ "$INTERACTIVE_MODE" = true ]; then
+		echo "Press any key to continue"
+		echo
+		read -n 1 -s -r -p ""
+	fi
 
 	# sign the code
 	codesign -s "$developer_id" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f "$app1_path"
@@ -207,9 +215,11 @@ else
 	echo ""
 	echo "### - Setting subfolder icon - fileicon set $subfolder_path/ $dmg_icon"
 	echo ""
-	# echo "Press any key to continue"
-	# echo
-	# read -n 1 -s -r -p ""
+	if [ "$INTERACTIVE_MODE" = true ]; then
+		echo "Press any key to continue"
+		echo
+		read -n 1 -s -r -p ""
+	fi
 
 	fileicon set "$subfolder_path/" "$dmg_icon"
 
@@ -217,18 +227,22 @@ else
 	echo ""
 	echo "### - DMG mode - creating DMG and then notarizing..."
 	echo ""
-	echo "Press any key to continue"
-	echo
-	read -n 1 -s -r -p ""
+	if [ "$INTERACTIVE_MODE" = true ]; then
+		echo "Press any key to continue"
+		echo
+		read -n 1 -s -r -p ""
+	fi
 
 fi
 
 echo ""
 echo "### - Creating dmg..."
 echo ""
-# echo "Press any key to continue"
-# echo
-# read -n 1 -s -r -p ""
+if [ "$INTERACTIVE_MODE" = true ]; then
+		echo "Press any key to continue"
+		echo
+		read -n 1 -s -r -p ""
+	fi
 
 # delete dmg if it already exists
 test -f "$final_dmg_name" && rm "$final_dmg_name"
@@ -253,19 +267,17 @@ create-dmg \
 # sleep 4 # wait for image to mount
 # open "/Volumes/$app_name"
 
-# echo ""
-# echo "### - Inspect volume, eject and press any key to continue"
-# echo
-# read -n 1 -s -r -p ""
 
 rm "$dmg_path/SoftStem/Icon^M"
 
 echo ""
 echo "### - Clean dmg attributes..."
 echo ""
-# echo "Press any key to continue"
-# echo
-# read -n 1 -s -r -p ""
+if [ "$INTERACTIVE_MODE" = true ]; then
+		echo "Press any key to continue"
+		echo
+		read -n 1 -s -r -p ""
+fi
 
 # clean dmg attributes
 xattr -cr "$final_dmg_name"
@@ -275,7 +287,7 @@ echo "### - Signing dmg...."
 echo
 
 # sign the dmg
-codesign -s "Developer ID Application: Kesumo, LLC (***REMOVED***)" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f  "$final_dmg_name"
+codesign -s "$developer_id" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f  "$final_dmg_name"
 
 echo ""
 echo "### - Notorizing..."
@@ -287,15 +299,11 @@ echo
 # (see https://scriptingosx.com/2021/07/notarize-a-command-line-tool-with-notarytool/)
 
 # 1) Find the profile name by entering: security find-identity -p basic -v
-# 2) The profile name is the digits in parenthesis at the end of: "Developer ID Application: Kesumo, LLC (***REMOVED***)"
-# 3) Store the credentials by entering: xcrun notarytool store-credentials --apple-id "***REMOVED***" --team-id "***REMOVED***"
+# 2) The profile name is the digits in parenthesis at the end of your Developer ID
+# 3) Store the credentials by entering: xcrun notarytool store-credentials --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID"
 # 4) Enter the profile name when prompted
 # 5) Enter the app specific password (signing / notarization) for the apple id
 # 6) Use the profile id from step #4 in the command below
 
-xcrun notarytool submit "$final_dmg_name" --keychain-profile "Andrej" --wait
-
-# deprecated command
-#xcrun altool --notarize-app -f "$final_dmg_name" -t osx -u ***REMOVED*** -p ***REMOVED*** -primary-bundle-id $bundle_id
-
+xcrun notarytool submit "$final_dmg_name" --keychain-profile "$APPLE_KEYCHAIN_PROFILE" --wait
 
