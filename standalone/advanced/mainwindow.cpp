@@ -10,7 +10,7 @@
 #include <QAction>
 
 #include <KMI_FwVersions.h>
-#include <kmi_updates.h>
+#include <KMI_updates.h>
 
 #define MAINWINDOW_WIDTH 690
 #define MAINWINDOW_WIDTH_SS3 880

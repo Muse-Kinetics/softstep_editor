@@ -16,9 +16,10 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # this is to clear warnings from the OG softstep c files
 DEFINES += _CRT_SECURE_NO_WARNINGS
+CONFIG+=sdk_no_version_check
 
 macx{
-    QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.13
+    QMAKE_MACOSX_DEPLOYMENT_TARGET = 12
 }
 
 #uncomment this to build a console version of the app. Do this once before deploying the app.
@@ -47,12 +48,13 @@ versionAtLeast(QT_VERSION, 6.2.1):!versionAtLeast(QT_VERSION, 6.9.0){
     }
 }
 
-# build with Qt 6.9+ to support macOS 10.15+ (required for std::filesystem)
+# build with Qt 6.9+ for macOS 12.0+ (Qt 6.9.2 requires macOS 12.0)
 versionAtLeast(QT_VERSION, 6.9.0){
     macx{
-        message("Building Apple M1/Intel Universal Binary for macOS 10.15+")
-        QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.15
+        message("Building Apple M1/Intel Universal Binary for macOS 12.0+")
+        QMAKE_MACOSX_DEPLOYMENT_TARGET = 12.0
         QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
+        QMAKE_LFLAGS += -Wl,-w  # suppress harmless alignment warnings in Universal builds
     }
 }
 
@@ -69,8 +71,6 @@ INCLUDEPATH +=  forms \
                 ../../shared/KMI_MDM \
                 ../../shared/KMI_MDM/fwupdate \
                 ../../shared/KMI_MDM/troubleshoot \
-                ../../shared/KMI_Ports \
-                ../../shared/KMI_Updates \
                 ../../shared/rtmidi
 
 SOURCES +=      main.cpp\
@@ -78,8 +78,8 @@ SOURCES +=      main.cpp\
     ../../shared/KMI_MDM/KMI_mdm.cpp \
     ../../shared/KMI_MDM/fwupdate/fwupdate.cpp \
     ../../shared/KMI_MDM/troubleshoot/troubleshoot.cpp \
-    ../../shared/KMI_Ports/kmi_ports.cpp \
-    ../../shared/KMI_Updates/kmi_updates.cpp \
+    ../../shared/KMI_MDM/KMI_ports.cpp \
+    ../../shared/KMI_MDM/KMI_updates.cpp \
     ../../shared/rtmidi/RtMidi.cpp \
                 mainwindow.cpp \
                 key.cpp \
@@ -107,8 +107,8 @@ HEADERS  +=     mainwindow.h \
     ../../shared/KMI_MDM/fwupdate/fwupdate.h \
     ../../shared/KMI_MDM/midi.h \
     ../../shared/KMI_MDM/troubleshoot/troubleshoot.h \
-    ../../shared/KMI_Ports/kmi_ports.h \
-    ../../shared/KMI_Updates/kmi_updates.h \
+    ../../shared/KMI_MDM/KMI_ports.h \
+    ../../shared/KMI_MDM/KMI_updates.h \
     ../../shared/rtmidi/RtMidi.h \
     ../../shared/sysexcomposition/device_includes.h \
     ../../shared/sysexcomposition/midi_ss.h \
@@ -274,8 +274,8 @@ isEmpty(DEPLOY) {
         package_dir = $$shell_path($$absolute_path("..\\..\\win-deploy\\packages\\com.keithmcmillen.softstepeditors.basic\\data\\$${TARGET}", $$PWD))
         repo_root_dir = $$shell_path($$absolute_path("..", $$PWD))
 
-        LIBCRYPTO_SRC = $$shell_path($$absolute_path("..\\..\\shared\\KMI_Updates\\ssl\\libcrypto-1_1-x64.dll", $$PWD))
-        LIBSSL_SRC = $$shell_path($$absolute_path("..\\..\\shared\\KMI_Updates\\ssl\\libssl-1_1-x64.dll", $$PWD))
+        LIBCRYPTO_SRC = $$shell_path($$absolute_path("..\\..\\shared\\KMI_MDM\\ssl\\libcrypto-1_1-x64.dll", $$PWD))
+        LIBSSL_SRC = $$shell_path($$absolute_path("..\\..\\shared\\KMI_MDM\\ssl\\libssl-1_1-x64.dll", $$PWD))
 
         path_to_signtool = C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.22000.0\\x64\\signtool.exe
         path_to_qtwindeploy = $$[QT_INSTALL_BINS]\\windeployqt.exe

@@ -4,7 +4,7 @@
 #include "mainwindow.h"
 
 #include <KMI_FwVersions.h>
-#include <kmi_updates.h>
+#include <KMI_updates.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
