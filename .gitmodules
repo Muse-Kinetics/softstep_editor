@@ -1,6 +1,6 @@
 [submodule "shared/KMI_MDM"]
 	path = shared/KMI_MDM
-url=ssh://git@github.com:Muse-Kinetics/kmi_midi_device_manager.git
+	url = git@github.com:Muse-Kinetics/kmi_midi_device_manager.git
 [submodule "shared/rtmidi"]
 	path = shared/rtmidi
 	url = git@github.com:Muse-Kinetics/rtmidi.git
