@@ -1,0 +1,140 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Configure SoftStep Basic Editor",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\ezpz\\softstepezpz.pro",
+        "configure"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug"
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Build SoftStep Basic Editor",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\ezpz\\softstepezpz.pro",
+        "build"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug",
+        "dedicatedTasks": {
+          "label": "$(rocket) Build Basic Editor",
+          "detail": "Build the SoftStep Basic Editor",
+          "groups": [
+            [
+              "SoftStep",
+              "Basic"
+            ],
+            "Build"
+          ],
+          "order": 1
+        }
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "Clean SoftStep Basic Editor",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\ezpz\\softstepezpz.pro",
+        "clean"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug"
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Configure SoftStep Advanced Editor",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\advanced\\SoftStepAdvanced.pro",
+        "configure"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug"
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Build SoftStep Advanced Editor",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\advanced\\SoftStepAdvanced.pro",
+        "build"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug",
+        "dedicatedTasks": {
+          "label": "$(rocket) Build Advanced Editor",
+          "detail": "Build the SoftStep Advanced Editor",
+          "groups": [
+            [
+              "SoftStep",
+              "Advanced"
+            ],
+            "Build"
+          ],
+          "order": 1
+        }
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "Clean SoftStep Advanced Editor",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\advanced\\SoftStepAdvanced.pro",
+        "clean"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug"
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Build SoftStep Editors",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Build SoftStep Basic Editor",
+        "Build SoftStep Advanced Editor"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

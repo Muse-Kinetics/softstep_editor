@@ -1,0 +1,85 @@
+{
+  "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Choose And Launch SoftStep Editor",
+      "configurations": [],
+      "preLaunchTask": "Build SoftStep Editors",
+      "stopAll": true
+    }
+  ],
+  "configurations": [
+    {
+      "name": "Launch SoftStep Basic Editor",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "& \"${workspaceFolder}\\.vscode\\launch-on-console.cmd\" \"${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug\\release\\SoftStep Basic Editor.exe\" \"${workspaceFolder}\"",
+      "preLaunchTask": "Build SoftStep Basic Editor"
+    },
+    {
+      "name": "Launch SoftStep Advanced Editor",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "& \"${workspaceFolder}\\.vscode\\launch-on-console.cmd\" \"${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug\\release\\SoftStep Advanced Editor.exe\" \"${workspaceFolder}\"",
+      "preLaunchTask": "Build SoftStep Advanced Editor"
+    },
+    {
+      "name": "Debug SoftStep Basic Editor (SSH Session)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug\\release\\SoftStep Basic Editor.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [
+        {
+          "name": "PATH",
+          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\bin;C:\\qt6\\Tools\\OpenSSL\\Win_x64\\bin;${env:PATH}"
+        },
+        {
+          "name": "QT_PLUGIN_PATH",
+          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\plugins"
+        },
+        {
+          "name": "QML2_IMPORT_PATH",
+          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\qml"
+        },
+        {
+          "name": "QML_IMPORT_PATH",
+          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\qml"
+        }
+      ],
+      "console": "integratedTerminal",
+      "preLaunchTask": "Build SoftStep Basic Editor"
+    },
+    {
+      "name": "Debug SoftStep Advanced Editor (SSH Session)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug\\release\\SoftStep Advanced Editor.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [
+        {
+          "name": "PATH",
+          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\bin;C:\\qt6\\Tools\\OpenSSL\\Win_x64\\bin;${env:PATH}"
+        },
+        {
+          "name": "QT_PLUGIN_PATH",
+          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\plugins"
+        },
+        {
+          "name": "QML2_IMPORT_PATH",
+          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\qml"
+        },
+        {
+          "name": "QML_IMPORT_PATH",
+          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\qml"
+        }
+      ],
+      "console": "integratedTerminal",
+      "preLaunchTask": "Build SoftStep Advanced Editor"
+    }
+  ]
+}
