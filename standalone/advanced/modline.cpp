@@ -20,6 +20,79 @@
 #include "hosted/datacooker.h" // for SS revs
 #include <QRandomGenerator>
 
+namespace
+{
+QString slotResolveHostedSoftStepPortAlias(QComboBox *comboBox, const QString &presetDevice)
+{
+    const QString normalizedDevice = presetDevice.trimmed();
+    if (normalizedDevice.isEmpty() || comboBox == nullptr)
+    {
+        return normalizedDevice;
+    }
+
+    if (comboBox->findText(normalizedDevice) != -1)
+    {
+        return normalizedDevice;
+    }
+
+    const bool isPrimaryPortAlias =
+        normalizedDevice == "SoftStep Share" ||
+        normalizedDevice == "SoftStep Control Surface" ||
+        normalizedDevice == "SoftStep USB MIDI" ||
+        normalizedDevice == "SSCOM Port 1" ||
+        normalizedDevice == "SoftStep Hosted Virtual Port";
+
+    const bool isSecondaryPortAlias =
+        normalizedDevice == "SoftStep Expander" ||
+        normalizedDevice == "SoftStep TRS MIDI Out" ||
+        normalizedDevice == "SSCOM Port 2";
+
+    auto findFirstAvailableAlias = [comboBox](const QStringList &aliases) -> QString
+    {
+        for (const QString &alias : aliases)
+        {
+            if (comboBox->findText(alias) != -1)
+            {
+                return alias;
+            }
+        }
+
+        return QString();
+    };
+
+    if (isPrimaryPortAlias)
+    {
+        const QString resolvedAlias = findFirstAvailableAlias(
+            {"SoftStep Share", "SoftStep Control Surface", "SoftStep USB MIDI", "SSCOM Port 1"});
+        if (!resolvedAlias.isEmpty())
+        {
+            return resolvedAlias;
+        }
+    }
+
+    if (isSecondaryPortAlias)
+    {
+        const QString resolvedAlias = findFirstAvailableAlias(
+            {"SoftStep TRS MIDI Out", "SoftStep Expander", "SSCOM Port 2"});
+        if (!resolvedAlias.isEmpty())
+        {
+            return resolvedAlias;
+        }
+    }
+
+    if (normalizedDevice == "SoftStep CV Out")
+    {
+        const QString resolvedAlias = findFirstAvailableAlias({"SoftStep CV Out"});
+        if (!resolvedAlias.isEmpty())
+        {
+            return resolvedAlias;
+        }
+    }
+
+    return normalizedDevice;
+}
+}
+
 //Constants for various modline arrangement parameters
 #define MODLINE_WINDOW_WIDTH 1132
 #define MODLINE_WINDOW_HEIGHT 42
@@ -536,9 +609,10 @@ void Modline::slotValueChanged()
             value = modlineForm->modlinedisplayenable->isChecked();
         }
 
-        if (jsonName == "" || value == "")
+        if (jsonName.isEmpty() || !value.isValid())
         {
-            qDebug() << "******* ERROR *** jsonName: " << jsonName << " -- value: " << value;
+            qDebug() << "******* ERROR *** jsonName:" << jsonName << "-- value:" << value << "sender:" << senderName;
+            return;
         }
 
         emit signalStoreValue(QString("key%1_modline%2_%3").arg(keyInstance+1).arg(modlineInstance+1).arg(jsonName), value, -1);
@@ -627,24 +701,23 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
     }
     else // hosted mode
     {
-        // fix old port names
-        if (presetDevice.contains("SSCOM"))
+        if (presetDevice == "Microsoft GS Wavetable Synth")
         {
-            presetDevice = "SoftStep Share";
+            qDebug() << "Sanitizing invalid hosted modline output device:" << presetDevice << "key:" << keyInstance << "modline:" << modlineInstance;
+            presetDevice = "None";
+            emit signalStoreValue(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1), presetDevice, -1);
+            emit signalCheckSavedState();
         }
-
-        QMap<QString, QString> portMap;
-
-        if (ssHardware == SS_3 && presetDevice == "SoftStep Expander")
+        else
         {
-            presetDevice = "SoftStep TRS MIDI Out";
+            const QString resolvedDevice = slotResolveHostedSoftStepPortAlias(modlineForm->dest_device, presetDevice);
+            if (resolvedDevice != presetDevice)
+            {
+                qDebug() << "Resolved hosted modline output alias:" << presetDevice << "->" << resolvedDevice
+                         << "key:" << keyInstance << "modline:" << modlineInstance;
+                presetDevice = resolvedDevice;
+            }
         }
-        else if (ssHardware == SS_2 && presetDevice == "SoftStep TRS MIDI Out")
-        {
-            presetDevice = "SoftStep Expander";
-        }
-
-
 
         modlineForm->dest_device->setCurrentText(presetDevice);
     }
@@ -988,6 +1061,7 @@ void Modline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevices)
 //    modlineForm->polydevice->clear();
 
     modlineForm->dest_device->clear();
+    modlineForm->dest_device->addItem("None");
 
     if (mode == "hosted")
     {
@@ -1009,9 +1083,9 @@ void Modline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevices)
     // Step 3: Iterate through the sorted QList and add items to the combobox
     for (const auto &item : sortedList)
     {
-        if (item.second != "SoftStep Share")
+        if (item.second != "SoftStep Share" && item.second != "Microsoft GS Wavetable Synth")
         {
-            modlineForm->dest_device->addItem(item.second.left(25));
+            modlineForm->dest_device->addItem(item.second);
         }
     }
 }

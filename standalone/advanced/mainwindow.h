@@ -378,6 +378,8 @@ public slots:
     void slotProcessKMIPacket(uint8_t PID, uint8_t category, uint8_t type, uint8_t* ptr, uint16_t length);
 
     void slotFixDropDownWidth(QComboBox* thisDropDown);
+    bool slotIsBlockedHostedOutputPort(const QString &portName) const;
+    bool slotIsValidHostedOutputPort(const QString &portName) const;
 
 #ifdef Q_OS_WIN
     void slotNoSharePortDialog();

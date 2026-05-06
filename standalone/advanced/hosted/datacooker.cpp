@@ -347,9 +347,24 @@ void DataCooker::slotUpdateVals(uchar cc, uchar val)
     //Pedal can always be streamed through a key, regardless of lockouts
     else if(cc == PEDAL_CC)
     {
-        //qDebug() << "get pedal input" << val;
-        //Run input through our pedal class (per key)
-        pedalVal = pedal->slotWindowInput(val);
+        bool hasPedalSource = false;
+        for(int i = 0; i < 6; i++)
+        {
+            if(modlineSources.value(i) == "Pedal")
+            {
+                hasPedalSource = true;
+                break;
+            }
+        }
+
+        // Skip pedal processing/logging for keys that don't consume pedal data.
+        if(!hasPedalSource)
+        {
+            return;
+        }
+
+        // Hosted mode values already arrive calibrated from the device.
+        pedalVal = pedal->slotWindowInputRaw(val);
 
         //If windowing returns a valid value
         if(pedalVal != -1)

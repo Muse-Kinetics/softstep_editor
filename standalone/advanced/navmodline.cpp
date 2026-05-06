@@ -4,6 +4,79 @@
 #include "navmodline.h"
 #include <QAbstractItemView>
 
+namespace
+{
+QString slotResolveHostedSoftStepPortAlias(QComboBox *comboBox, const QString &presetDevice)
+{
+    const QString normalizedDevice = presetDevice.trimmed();
+    if (normalizedDevice.isEmpty() || comboBox == nullptr)
+    {
+        return normalizedDevice;
+    }
+
+    if (comboBox->findText(normalizedDevice) != -1)
+    {
+        return normalizedDevice;
+    }
+
+    const bool isPrimaryPortAlias =
+        normalizedDevice == "SoftStep Share" ||
+        normalizedDevice == "SoftStep Control Surface" ||
+        normalizedDevice == "SoftStep USB MIDI" ||
+        normalizedDevice == "SSCOM Port 1" ||
+        normalizedDevice == "SoftStep Hosted Virtual Port";
+
+    const bool isSecondaryPortAlias =
+        normalizedDevice == "SoftStep Expander" ||
+        normalizedDevice == "SoftStep TRS MIDI Out" ||
+        normalizedDevice == "SSCOM Port 2";
+
+    auto findFirstAvailableAlias = [comboBox](const QStringList &aliases) -> QString
+    {
+        for (const QString &alias : aliases)
+        {
+            if (comboBox->findText(alias) != -1)
+            {
+                return alias;
+            }
+        }
+
+        return QString();
+    };
+
+    if (isPrimaryPortAlias)
+    {
+        const QString resolvedAlias = findFirstAvailableAlias(
+            {"SoftStep Share", "SoftStep Control Surface", "SoftStep USB MIDI", "SSCOM Port 1"});
+        if (!resolvedAlias.isEmpty())
+        {
+            return resolvedAlias;
+        }
+    }
+
+    if (isSecondaryPortAlias)
+    {
+        const QString resolvedAlias = findFirstAvailableAlias(
+            {"SoftStep TRS MIDI Out", "SoftStep Expander", "SSCOM Port 2"});
+        if (!resolvedAlias.isEmpty())
+        {
+            return resolvedAlias;
+        }
+    }
+
+    if (normalizedDevice == "SoftStep CV Out")
+    {
+        const QString resolvedAlias = findFirstAvailableAlias({"SoftStep CV Out"});
+        if (!resolvedAlias.isEmpty())
+        {
+            return resolvedAlias;
+        }
+    }
+
+    return normalizedDevice;
+}
+}
+
 //constants for various modline arrangement parameters
 #define MODLINE_WINDOW_WIDTH 967
 #define MODLINE_WINDOW_HEIGHT 42
@@ -66,7 +139,7 @@ void NavModline::slotConnectElements()
             }
             else if((!spinName.contains("raw")) &&
                     (!spinName.contains("result")) &&
-                    (!spinName.contains("outputValue")) &&
+                    (!spinName.contains("outputvalue")) &&
                     (!spinName.contains("notelivenumber")) &&
                     (!spinName.contains("notelivevelocity"))) //these parameters should not be saved in presets
             {
@@ -150,7 +223,7 @@ void NavModline::slotDisconnectElements()
             }
             else if((!spinName.contains("raw")) &&
                     (!spinName.contains("result")) &&
-                    (!spinName.contains("outputValue")) &&
+                    (!spinName.contains("outputvalue")) &&
                     (!spinName.contains("notelivenumber")) &&
                     (!spinName.contains("notelivevelocity"))) //these parameters should not be saved in presets
             {
@@ -502,6 +575,13 @@ void NavModline::slotValueChanged()
             jsonName = "displaylinked";
             value = navModlineForm->modlinedisplayenable->isChecked();
         }
+
+        if (jsonName.isEmpty() || !value.isValid())
+        {
+            qDebug() << "******* ERROR *** nav jsonName:" << jsonName << "-- value:" << value << "sender:" << senderName;
+            return;
+        }
+
         emit signalStoreValue(QString("nav_modline%1_").arg(navInstance+1) + jsonName, value, -1);
 
         //----------- disable modline if necessary
@@ -595,22 +675,24 @@ void NavModline::slotRecallPreset(QVariantMap preset, QVariantMap)
     }
     else // hosted mode
     {
-        // fix old port names
-        if (presetDevice.contains("SSCOM"))
+        if (presetDevice == "Microsoft GS Wavetable Synth")
         {
-            presetDevice = "SoftStep Share";
+            qDebug() << "Sanitizing invalid hosted nav output device:" << presetDevice << "nav modline:" << navInstance;
+            presetDevice = "None";
+            emit signalStoreValue(QString("nav_modline%1_device").arg(navInstance+1), presetDevice, -1);
+            emit signalCheckSavedState();
+        }
+        else
+        {
+            const QString resolvedDevice = slotResolveHostedSoftStepPortAlias(navModlineForm->dest_device, presetDevice);
+            if (resolvedDevice != presetDevice)
+            {
+                qDebug() << "Resolved hosted nav output alias:" << presetDevice << "->" << resolvedDevice
+                         << "nav modline:" << navInstance;
+                presetDevice = resolvedDevice;
+            }
         }
 
-        QMap<QString, QString> portMap;
-
-        if (ssHardware == SS_3 && presetDevice == "SoftStep Expander")
-        {
-            presetDevice = "SoftStep TRS MIDI Out";
-        }
-        else if (ssHardware == SS_2 && presetDevice == "SoftStep TRS MIDI Out")
-        {
-            presetDevice = "SoftStep Expander";
-        }
         navModlineForm->dest_device->setCurrentText(presetDevice);
     }
 
@@ -929,6 +1011,11 @@ void NavModline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevice
 //    navModlineForm->polydevice->clear();
 
     navModlineForm->dest_device->clear();
+    navModlineForm->dest_device->addItem("None");
+    if (mode == "hosted")
+    {
+        navModlineForm->dest_device->addItem("SoftStep Share");
+    }
 
     //-------------------------------- Populate all menus        
     // Step 1: Load the QMap into a QList, inverting the key and value for sorting
@@ -945,7 +1032,10 @@ void NavModline::hosted_slotPopulateDeviceMenu(QMap<QString, int> externalDevice
     // Step 3: Iterate through the sorted QList and add items to the combobox
     for (const auto &item : sortedList)
     {
-        navModlineForm->dest_device->addItem(item.second.left(25));
+        if (item.second != "SoftStep Share" && item.second != "Microsoft GS Wavetable Synth")
+        {
+            navModlineForm->dest_device->addItem(item.second);
+        }
 
 //        //Note Set
 //        navModlineForm->notedevice->addItem(i.key());

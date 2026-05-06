@@ -8,6 +8,7 @@
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
+#include <QOperatingSystemVersion>
 
 #include <KMI_FwVersions.h>
 #include <KMI_updates.h>
@@ -90,6 +91,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QDateTime current = QDateTime::currentDateTime();
     QString timestamp = current.toString("yyyy::MM::dd::hh:mm:ss");
+
+#ifdef Q_OS_WIN
+    qDebug().noquote() << MidiDeviceManager::windowsVersionString();
+#endif
+
     qDebug() << "SoftStep Advanced Editor - Application Version: " << applicationVersion << " Firmware Version: " << thisFw;
     qDebug() << "System Locale: " << QLocale::system().name() << " Time: " << timestamp;
 
@@ -485,6 +491,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "------------ [LOAD TABLE] ---------------------------------------------------";
     key[0]->dataCooker->pedal->slotResetCalibrate();
     settingsWindow->slotLoadTableOnStartup();
+
     apploadForm.progressBar->setValue(90);
 
     qDebug() << "------------ [DISABLE CONTEXT MENUS] ---------------------------------------------------";
@@ -1077,6 +1084,7 @@ void MainWindow::slotConnectInterfaces()
     connect(&navKey->dataCooker, SIGNAL(signalPresetChange(bool)), setlist, SLOT(slotChangePreset(bool)));
     connect(setlist, SIGNAL(signalRecallPresetFromSetlist(QString)), this, SLOT(slotRecallPresetFromSetlist(QString)));
     connect(setlist, SIGNAL(signalFixDropDownWidth(QComboBox*)), this, SLOT(slotFixDropDownWidth(QComboBox*)));
+    connect(setlist, SIGNAL(signalSetlistChanged(bool)), ui->update, SLOT(setDisabled(bool)));
 
     //--------------------------------------- Parameter Storage
 
@@ -1315,6 +1323,16 @@ void MainWindow::slotConnectInterfaces()
     connect(pedalCalWindow, SIGNAL(signalSendCalibration()), this, SLOT(slotUpdateSettings()));
     connect(pedalCalWindow, SIGNAL(signalSaveCalibration()), settingsWindow, SLOT(slotWriteSettings()));
 
+    // Update Pedal instance min/max when user saves calibration
+    connect(pedalCalWindow, &pedalCal::signalSaveCalibration, this, [this]() {
+        QVariantMap globalSettings = settingsWindow->settings.value("Global").toMap();
+        int calMin = globalSettings.value("pedal_calibration_min", 30).toInt();
+        int calMax = globalSettings.value("pedal_calibration_max", 220).toInt();
+        key[0]->dataCooker->pedal->pedalValueListMin = calMin;
+        key[0]->dataCooker->pedal->pedalValueListMax = calMax;
+        qDebug() << "Pedal calibration updated from pedalCal - min:" << calMin << "max:" << calMax;
+    });
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////// Dialogs /////////////////////////////////////////////////////////////////////
@@ -1491,6 +1509,7 @@ void MainWindow::slotInitMenuBar()
     openPedalCalibration = new QAction("Calibrate Expression Pedal", hardware);
     actionList.append(openPedalCalibration);
     hardware->addAction(openPedalCalibration);
+    openPedalCalibration->setDisabled(mode == MODE_HOSTED);
 
     //openPedalCalibration->setDisabled(true);
 
@@ -1672,6 +1691,26 @@ void MainWindow::slotPortOptionSelected(QString selectedOption)
     sessionSettings->setValue("HW_PORT_DISPLAY", selectedOption);
     slotUpdateSSHardwareRevStrings();
     slotPopulateDeviceMenus(externalDests); // update menus
+}
+
+bool MainWindow::slotIsBlockedHostedOutputPort(const QString &portName) const
+{
+    return portName.isEmpty() || portName == "Microsoft GS Wavetable Synth";
+}
+
+bool MainWindow::slotIsValidHostedOutputPort(const QString &portName) const
+{
+    if (portName == "None")
+    {
+        return true;
+    }
+
+    if (slotIsBlockedHostedOutputPort(portName))
+    {
+        return false;
+    }
+
+    return kmiPorts->getOutPortNumber(portName) != -1;
 }
 
 void MainWindow::slotOpenPresetDirectory()
@@ -1887,10 +1926,13 @@ void MainWindow::slotConnected(bool connection)
 #endif
 
         //sysExComposer->slotRequestPedalCalibration(); // grab the pedal calibration
-        slotUpdateSettings(); // send the current settings on connect
+        QTimer::singleShot(500, this, [this]() {
+            slotUpdateSettings(); // send the current settings on connect (delayed to let MIDI port stabilize)
+        });
 
 #ifdef MIDI_ENABLED
         // here we detect which version of SoftStep we are connected to
+    const unsigned char previousHardware = ssHardware;
         switch (SoftStep->PID_MIDI)
         {
             case PID_SOFTSTEP1:
@@ -1906,6 +1948,11 @@ void MainWindow::slotConnected(bool connection)
 
         sessionSettings->setValue("LAST_SS_REV_CONNECTED", ssHardware);
         slotUpdateSSHardwareRevStrings();
+
+        if (previousHardware != ssHardware)
+        {
+            kmiPorts->slotRefreshPortMaps();
+        }
 
 
 #endif // MIDI_ENABLED
@@ -1929,6 +1976,7 @@ void MainWindow::slotConnected(bool connection)
 #endif
         updatefw->setEnabled(false); // disable firmware update menu
         sysExComposer->connected = false; // stop sysExComposer from sending data
+        connected = false;
         troubleshootWindow->slotConnected(false);
     }
     slotUpdateAboutWindow();
@@ -1972,6 +2020,11 @@ void MainWindow::slotPopulatePresetMenu()
     //qDebug() << "add preset";
     presetInterface->slotPopulatePresetMenu(ui->presetmenu);
     setlist->slotRefreshSetlistMenus(ui->presetmenu);
+
+    if(mode != MODE_HOSTED)
+    {
+        ui->update->setEnabled(!setlist->getSetlistMap().isEmpty());
+    }
 }
 
 void MainWindow::slotRecallPresetFromSetlist(QString presetName)
@@ -2039,6 +2092,10 @@ void MainWindow::slotSetMode(SS_MODE newMode)
 #endif
             mode = MODE_HOSTED;
             hackeyModeString = "hosted";
+            if(openPedalCalibration)
+            {
+                openPedalCalibration->setDisabled(true);
+            }
 
             ui->cv1label_sources->hide();
             ui->cv2label_sources->hide();
@@ -2046,12 +2103,25 @@ void MainWindow::slotSetMode(SS_MODE newMode)
             ui->cv2_sources->hide();
 
             ui->mode->setText("Hosted");
+
+            // Hosted mode should never run MIDI Thru routing.
+            midi_thru_dropdown->blockSignals(true);
+            midi_thru_dropdown->setCurrentText("None");
+            midi_thru_dropdown->setEnabled(false);
+            midi_thru_dropdown->blockSignals(false);
+            SoftStep->disconnect(SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)));
+            MIDIThru->slotCloseMidiIn();
+            MIDIThru->slotCloseMidiOut();
         }
     }
     else
     {
         mode = MODE_STANDALONE;
         hackeyModeString = "standalone";
+        if(openPedalCalibration)
+        {
+            openPedalCalibration->setDisabled(false);
+        }
 
         ui->cv1label_sources->show();
         ui->cv2label_sources->show();
@@ -2059,6 +2129,8 @@ void MainWindow::slotSetMode(SS_MODE newMode)
         ui->cv2_sources->show();
 
         ui->mode->setText("Standalone");
+
+        midi_thru_dropdown->setEnabled(true);
 
         // close virtual ports
         if (SoftStepShare->port_in_open) SoftStepShare->slotCloseMidiIn(SIGNAL_NONE);
@@ -2182,7 +2254,7 @@ void MainWindow::slotSetMode(SS_MODE newMode)
     }
     else
     {
-        ui->update->setEnabled(true);
+        ui->update->setEnabled(!setlist->getSetlistMap().isEmpty());
     }
 
 
@@ -2595,6 +2667,13 @@ void MainWindow::slotUpdatePresets()
         }
     }
 
+    if (setlistMapList.isEmpty())
+    {
+        QMessageBox::warning(this, "Empty Setlist",
+            "Cannot send an empty setlist to SoftStep. Please add at least one preset.");
+        return;
+    }
+
     //Send list of preset maps to be "sysex-composed" and sent to board
     sysExComposer->slotComposeAttributeListFromSetlist(setlistMapList, settingsWindow->settings, settingsWindow->pedalValueListGraph); //Temporarily send empty settings map
 }
@@ -2704,7 +2783,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
     case PORT_CONNECT:
 
         // update dropdown
-        if (inOrOut == PORT_OUT && portName != SS_OUT_P1) // don't create feedback loop
+        if (inOrOut == PORT_OUT && portName != SS_OUT_P1 && !slotIsBlockedHostedOutputPort(portName)) // don't create feedback loop
         {
             midi_thru_dropdown->addItem(portName); // update dropdown
             slotFixDropDownWidth(midi_thru_dropdown);
@@ -2784,12 +2863,12 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             }
         }
         // hosted mode
-        else if (inOrOut == PORT_IN && !portName.contains("SoftStep Hosted Virtual Port"))
+        else if (inOrOut == PORT_IN && !portName.contains("SoftStep Hosted Virtual Port") && portName != "Microsoft GS Wavetable Synth")
         {
             midiInputSources.insert(portName, portNum); // store inputs
             settingsWindow->slotPopulateInputMenus(midiInputSources); // update settings dropdown menus
         }
-        else if (inOrOut == PORT_OUT)
+        else if (inOrOut == PORT_OUT && !slotIsBlockedHostedOutputPort(portName))
         {
             externalDests.insert(portName, portNum); // store destination
             slotPopulateDeviceMenus(externalDests); // update menus
@@ -2798,7 +2877,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         break;
     case PORT_DISCONNECT:
 
-        if (inOrOut == PORT_OUT)
+        if (inOrOut == PORT_OUT && !slotIsBlockedHostedOutputPort(portName))
         {
             // update dropdown
             if (midi_thru_dropdown->currentText() == portName)
@@ -2858,7 +2937,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
 //            midiInputSources.remove(portName); // delete portname from map
 //            settingsWindow->slotPopulateInputMenus(midiInputSources); // update settings dropdown menus
 //        }
-        else if (inOrOut == PORT_OUT)
+        else if (inOrOut == PORT_OUT && !slotIsBlockedHostedOutputPort(portName))
         {
             externalDests.remove(portName); // store destination
             slotPopulateDeviceMenus(externalDests); // update menus
@@ -2897,7 +2976,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
 
 //            settingsWindow->slotPopulateInputMenus(midiInputSources); // update settings dropdown menus
 //        }
-        else if (inOrOut == PORT_OUT)
+        else if (inOrOut == PORT_OUT && !slotIsBlockedHostedOutputPort(portName))
         {
             externalDests.remove(portName); // store destination
             externalDests.insert(portName, portNum); // store destination
@@ -2908,7 +2987,11 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
     default:
         break;
     }
-    slotRestoreAllAuxDropdowns();
+    // Avoid reassign churn: restoring aux dropdowns on every port event can repeatedly reopen ports.
+    if (mode == MODE_HOSTED && appStillLoading == false)
+    {
+        slotRestoreAllAuxDropdowns();
+    }
 #endif // MIDI_ENABLED
 }
 
@@ -3058,6 +3141,20 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
 void MainWindow::slotUpdateMIDIThru()
 {
 #ifdef MIDI_ENABLED
+    if (mode == MODE_HOSTED)
+    {
+        midi_thru_dropdown->blockSignals(true);
+        midi_thru_dropdown->setCurrentText("None");
+        midi_thru_dropdown->setEnabled(false);
+        midi_thru_dropdown->blockSignals(false);
+        sessionSettings->setValue(MIDI_THRU_KEY, "None");
+        SoftStep->disconnect(SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)));
+        MIDIThru->slotCloseMidiIn();
+        MIDIThru->slotCloseMidiOut();
+        return;
+    }
+
+    midi_thru_dropdown->setEnabled(true);
     SoftStep->disconnect(SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)));
 
     QString currentPortName = midi_thru_dropdown->currentText();
@@ -3079,6 +3176,11 @@ void MainWindow::slotUpdateMIDIThru()
     bool failure = false;
 
     int equivalentInPort = kmiPorts->getInPortNumber(currentPortName);
+
+    if (currentPortName != "None" && (!slotIsValidHostedOutputPort(currentPortName) || equivalentInPort == -1))
+    {
+        failure = true;
+    }
 
     if (currentPortName != "None")
     {
@@ -3113,6 +3215,7 @@ void MainWindow::slotUpdateMIDIThru()
         midi_thru_dropdown->blockSignals(true);
         midi_thru_dropdown->setCurrentText("None");
         midi_thru_dropdown->blockSignals(false);
+        sessionSettings->setValue(MIDI_THRU_KEY, "None");
         MIDIThru->slotCloseMidiIn();
         MIDIThru->slotCloseMidiOut();
     }
@@ -3247,6 +3350,18 @@ void MainWindow::slotUpdateMIDIAuxInputPorts(QString auxInput, QString portName)
     int oldEquivalentOutPort = kmiPorts->getOutPortNumber(oldPortName);
     int newEquivalentOutPort = kmiPorts->getOutPortNumber(portName);
 
+    // Defensive: block known output-only endpoint and any port that is not a valid MIDI input.
+    // This prevents reconnect loops and misleading "in use" errors in hosted mode.
+    if (portName.contains("Microsoft GS Wavetable") || (portName != "None" && portName != "" && (thisMidiInPortNumber == -1 || newEquivalentOutPort == -1)))
+    {
+        qDebug() << "Blocking invalid MIDI aux input selection:" << portName << "resolved inPort:" << thisMidiInPortNumber;
+        settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->blockSignals(true);
+        settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->setCurrentText("None");
+        settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->blockSignals(false);
+        sessionSettings->setValue(MIDI_AUX_KEY[settingsInputIndex], "None");
+        return;
+    }
+
 
     //bool thisMidiAuxInputIsActive = (oldPortNumber == -1) ? false : true;
 
@@ -3285,12 +3400,14 @@ void MainWindow::slotUpdateMIDIAuxInputPorts(QString auxInput, QString portName)
                     {
                         // couldn't open in port
                         settingsWindow->midiInputDeviceMenus.at(i)->setCurrentText("None");
+                        sessionSettings->setValue(MIDI_AUX_KEY[i], "None");
                         slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
                     }
                     if (!midiAuxIn[i]->slotUpdatePortOut(oldEquivalentOutPort)) // open the corresponding out port
                     {
                         // couldn't open correspondig out port
                         settingsWindow->midiInputDeviceMenus.at(i)->setCurrentText("None");
+                        sessionSettings->setValue(MIDI_AUX_KEY[i], "None");
                         slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
                     }
                     reassigned = true;
@@ -3315,12 +3432,14 @@ void MainWindow::slotUpdateMIDIAuxInputPorts(QString auxInput, QString portName)
         {
             // couldn't open input
             settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->setCurrentText("None");
+            sessionSettings->setValue(MIDI_AUX_KEY[settingsInputIndex], "None");
             slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
         }
         if (!midiAuxIn[settingsInputIndex]->slotUpdatePortOut(newEquivalentOutPort)) // open the corresponding out port
         {
             // couldn't open output
             settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->setCurrentText("None");
+            sessionSettings->setValue(MIDI_AUX_KEY[settingsInputIndex], "None");
             slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
         }
         settingsWindow->midiInputDeviceMenus.at(settingsInputIndex)->blockSignals(false);
@@ -3357,8 +3476,13 @@ void MainWindow::slotRecallMIDIThru()
 
 void MainWindow::slotClearMIDIThruDropdown()
 {
+    externalDests.clear();
+    midiInputSources.clear();
     midi_thru_dropdown->clear();
     midi_thru_dropdown->addItem("None");
+
+    slotPopulateDeviceMenus(externalDests);
+    settingsWindow->slotPopulateInputMenus(midiInputSources);
 }
 
 
@@ -3465,6 +3589,11 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
 
     bool sendArray = (packetArray == "empty") ? false : true;
 
+    if (portName == "None")
+    {
+        return;
+    }
+
     //qDebug() << "hosted_slotSendPacket called - sendArray: " << sendArray << " portName: " << portName << " status: " << status << " d1: " << d1 << " d2: " << d2 << " chan: " << chan;
 
     int destPort = kmiPorts->getOutPortNumber(portName);
@@ -3533,27 +3662,48 @@ void MainWindow::hosted_slotSendPacketOrArray(QString portName, QByteArray packe
     }
 
     //qDebug() << "send with hostedOut";
-    // no other KMDMs are talking to this driver, so we use hostedOut
+    // no other KMDMs are talking to this driver, so we use hostedOut.
+    // Keep the hosted output port open across packets to avoid open/close churn.
 
-    if (!hostedOut->slotUpdatePortOut(destPort)) // try to open this port
+    if (!slotIsValidHostedOutputPort(portName))
     {
-        // couldn't open input
-        slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
+        qDebug() << "Hosted output blocked - invalid or unavailable portName:" << portName;
+        return;
+    }
+
+    if (destPort < 0)
+    {
+        qDebug() << "Hosted output open failed - portName:" << portName << "destPort:" << destPort;
+        slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nwas not found.").arg(portName), false);
+        return;
+    }
+
+    // If the destination changes, close the old port first.
+    if (hostedOut->port_out_open && hostedOut->port_out != destPort)
+    {
+        hostedOut->slotCloseMidiOut(SIGNAL_NONE);
+    }
+
+    if (!hostedOut->port_out_open || hostedOut->port_out != destPort)
+    {
+        if (!hostedOut->slotUpdatePortOut(destPort)) // try to open this port
+        {
+            // couldn't open output
+            qDebug() << "Hosted output open failed - portName:" << portName << "destPort:" << destPort;
+            slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName), false);
+            return;
+        }
+    }
+
+    if (sendArray)
+    {
+        hostedOut->slotSendSysExBA(packetArray);
     }
     else
     {
-        if (sendArray)
-        {
-            hostedOut->slotSendSysExBA(packetArray);
-        }
-        else
-        {
-            hostedOut->slotSendMIDI(status, d1, d2, chan);
-
-        }
-        hostedOut->slotEmptyMIDIBuffer();
+        hostedOut->slotSendMIDI(status, d1, d2, chan);
     }
-    hostedOut->slotCloseMidiOut();
+    hostedOut->slotEmptyMIDIBuffer();
 
 #endif // MIDI_ENABLED
 }

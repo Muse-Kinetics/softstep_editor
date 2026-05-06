@@ -11,7 +11,7 @@ QT +=           core gui \
 
 TARGET =        "SoftStep Basic Editor"
 TEMPLATE =      app
-VERSION = 3.0.5
+VERSION = 3.0.6.B
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # this is to clear warnings from the OG softstep c files
@@ -22,11 +22,10 @@ macx{
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 12
 }
 
-#uncomment this to build a console version of the app. Do this once before deploying the app.
+# Uncomment this to build a console version of the app.
 #BUILD_CONSOLE = 1
 
-# Uncomment this line if you want to deploy the app (codesign, xxxDeployqt, copy content, and create installer/dmg etc
-#DEPLOY = 1
+# Packaging is handled by the VS Code installer tasks and .vscode/make-installer.ps1.
 
 # still holding onto support for High Sierra here, separate build
 message("Building with Qt $${QT_VERSION}")
@@ -259,70 +258,3 @@ win32{
 #DISTFILES +=
 
 
-# ********************************************************************************************************
-# NOTE for the deployment process to work you MUST add an additional "make" build step, arguments: deploy
-# ********************************************************************************************************
-
-isEmpty(DEPLOY) {
-    # Define a dummy deploy target that does nothing
-    QMAKE_EXTRA_TARGETS += deploy
-    deploy.commands = @echo "Deploy is disabled"
-} else {
-
-
-    win32 {
-        package_dir = $$shell_path($$absolute_path("..\\..\\win-deploy\\packages\\com.keithmcmillen.softstepeditors.basic\\data\\$${TARGET}", $$PWD))
-        repo_root_dir = $$shell_path($$absolute_path("..", $$PWD))
-
-        LIBCRYPTO_SRC = $$shell_path($$absolute_path("..\\..\\shared\\KMI_MDM\\ssl\\libcrypto-1_1-x64.dll", $$PWD))
-        LIBSSL_SRC = $$shell_path($$absolute_path("..\\..\\shared\\KMI_MDM\\ssl\\libssl-1_1-x64.dll", $$PWD))
-
-        path_to_signtool = C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.22000.0\\x64\\signtool.exe
-        path_to_qtwindeploy = $$[QT_INSTALL_BINS]\\windeployqt.exe
-
-
-        # Corrected variable assignments without escaped quotes
-        app_name = $${TARGET}
-
-        build_subdir = release  # Default to release
-        CONFIG(debug, debug|release): build_subdir = debug
-
-        temp_out_pwd = $$replace(OUT_PWD, "/", "\\")
-        binary_src = "$${temp_out_pwd}\\$${build_subdir}\\$${TARGET}.exe"
-        binary_dest = "$${package_dir}\\$${TARGET}.exe"
-
-        debug_src = "$${temp_out_pwd}\\$${build_subdir}\\$${TARGET} (debug console).exe"
-        debug_dest = "$${package_dir}\\$${TARGET} (debug console).exe"
-
-
-        deploy_opts = "--compiler-runtime"
-        !isEmpty(INCLUDE_QML) {
-            deploy_opts += " --qmldir \"$$PWD\""
-        }
-
-
-        # Define custom deployment commands after all variables have been defined
-        DEPLOY_COMMANDS = \
-            echo Deploying for Windows && \
-            echo Copying executable to package_dir && \
-            copy /y \"$$binary_src\" \"$$binary_dest\" && \
-            copy /y \"$$debug_src\" \"$$debug_dest\" && \
-            \
-            echo Signing App Executable && \
-            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.digicert.com /td SHA256 /fd certHash \"$$binary_dest\" && \
-            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.digicert.com /td SHA256 /fd certHash \"$$debug_dest\" && \
-            \
-            echo Running qtwindeploy: \"$$package_dir\" && \
-            \"$$path_to_qtwindeploy\" $$deploy_opts --dir \"$$package_dir\" \"$$binary_dest\" && \
-            \
-            echo Copying SSL dlls to package_dir && \
-            copy /y \"$$LIBCRYPTO_SRC\" \"$$package_dir\" && \
-            copy /y \"$$LIBSSL_SRC\" \"$$package_dir\"
-
-        # Define a phony target for deployment
-            QMAKE_EXTRA_TARGETS += deploy
-            deploy.commands = $$DEPLOY_COMMANDS
-            deploy.depends = first  # ensures this runs after the first build
-
-    }
-}

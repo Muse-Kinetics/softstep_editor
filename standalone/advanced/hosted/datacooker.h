@@ -12,14 +12,13 @@
 #include "hosted/slewer.h"
 
 #include "pedal.h"
+#include "KMI_DevData.h"
 
 class Key;
 class MainWindow;
 
 enum {NW, NE, SW, SE};
 enum {N, E, W, S};
-
-enum {SS_UNDEFINED, SS_1, SS_2, SS_3};
 
 class DataCooker : public QWidget
 {

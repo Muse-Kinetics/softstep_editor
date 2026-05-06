@@ -17,11 +17,25 @@
       "preLaunchTask": "Build SoftStep Basic Editor"
     },
     {
+      "name": "Launch SoftStep Basic Editor (Remote Desktop + Log)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "& \"${workspaceFolder}\\.vscode\\launch-on-console-log.cmd\" \"${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console\\release\\SoftStep Basic Editor.exe\" \"${workspaceFolder}\" \"${workspaceFolder}\\.vscode\\logs\\softstep-basic-console.log\"",
+      "preLaunchTask": "Build SoftStep Basic Editor (Console)"
+    },
+    {
       "name": "Launch SoftStep Advanced Editor",
       "type": "node-terminal",
       "request": "launch",
       "command": "& \"${workspaceFolder}\\.vscode\\launch-on-console.cmd\" \"${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug\\release\\SoftStep Advanced Editor.exe\" \"${workspaceFolder}\"",
       "preLaunchTask": "Build SoftStep Advanced Editor"
+    },
+    {
+      "name": "Launch SoftStep Advanced Editor (Remote Desktop + Log)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "& \"${workspaceFolder}\\.vscode\\launch-on-console-log.cmd\" \"${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console\\release\\SoftStep Advanced Editor.exe\" \"${workspaceFolder}\" \"${workspaceFolder}\\.vscode\\logs\\softstep-advanced-console.log\"",
+      "preLaunchTask": "Build SoftStep Advanced Editor (Console)"
     },
     {
       "name": "Debug SoftStep Basic Editor (SSH Session)",

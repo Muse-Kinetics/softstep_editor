@@ -2,22 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Configure SoftStep Basic Editor",
-      "type": "process",
-      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
-      "args": [
-        "..\\ezpz\\softstepezpz.pro",
-        "configure"
-      ],
-      "options": {
-        "cwd": "${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug"
-      },
-      "problemMatcher": [
-        "$msCompile"
-      ]
-    },
-    {
-      "label": "Build SoftStep Basic Editor",
+      "label": "Build SoftStep Basic Editor Debug",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -27,14 +12,14 @@
       "options": {
         "cwd": "${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug",
         "dedicatedTasks": {
-          "label": "$(rocket) Build Basic Editor",
-          "detail": "Build the SoftStep Basic Editor",
+          "label": "$(rocket) Build Basic Editor Debug",
+          "detail": "Build the SoftStep Basic Editor debug binary",
           "groups": [
             [
               "SoftStep",
               "Basic"
             ],
-            "Build"
+            "Debug"
           ],
           "order": 1
         }
@@ -48,7 +33,35 @@
       }
     },
     {
-      "label": "Clean SoftStep Basic Editor",
+      "label": "Build SoftStep Basic Editor Release",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\ezpz\\softstepezpz.pro",
+        "build",
+        "${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Release"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "dedicatedTasks": {
+          "label": "$(package) Build Basic Editor Release",
+          "detail": "Build the SoftStep Basic Editor release binary",
+          "groups": [
+            [
+              "SoftStep",
+              "Basic"
+            ],
+            "Release"
+          ],
+          "order": 1
+        }
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Clean SoftStep Basic Editor Debug",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -63,22 +76,153 @@
       ]
     },
     {
-      "label": "Configure SoftStep Advanced Editor",
+      "label": "Build SoftStep Basic Editor Release (Console)",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
-        "..\\advanced\\SoftStepAdvanced.pro",
-        "configure"
+        "..\\ezpz\\softstepezpz.pro",
+        "build",
+        "console",
+        "${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Release-Console"
       ],
       "options": {
-        "cwd": "${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug"
+        "cwd": "${workspaceFolder}",
+        "dedicatedTasks": {
+          "label": "$(package) Build Basic Editor Release Console",
+          "detail": "Build the SoftStep Basic Editor release console binary",
+          "groups": [
+            [
+              "SoftStep",
+              "Basic"
+            ],
+            "Release Console"
+          ],
+          "order": 2
+        }
       },
       "problemMatcher": [
         "$msCompile"
       ]
     },
     {
-      "label": "Build SoftStep Advanced Editor",
+      "label": "Build SoftStep Basic Editor Debug (Console)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\ezpz\\softstepezpz.pro",
+        "build",
+        "console",
+        "${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "dedicatedTasks": {
+          "label": "$(rocket) Build Basic Editor Debug Console",
+          "detail": "Build the SoftStep Basic Editor debug console binary",
+          "groups": [
+            [
+              "SoftStep",
+              "Basic"
+            ],
+            "Debug Console"
+          ],
+          "order": 2
+        }
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Tail SoftStep Basic Editor Log",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\.vscode\\tail-log.ps1",
+        "${workspaceFolder}\\.vscode\\logs\\softstep-basic-console.log"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Build SoftStep Advanced Editor Debug (Console)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\advanced\\SoftStepAdvanced.pro",
+        "build",
+        "console",
+        "${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "dedicatedTasks": {
+          "label": "$(rocket) Build Advanced Editor Debug Console",
+          "detail": "Build the SoftStep Advanced Editor debug console binary",
+          "groups": [
+            [
+              "SoftStep",
+              "Advanced"
+            ],
+            "Debug Console"
+          ],
+          "order": 2
+        }
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Build SoftStep Advanced Editor Release (Console)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\advanced\\SoftStepAdvanced.pro",
+        "build",
+        "console",
+        "${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Release-Console"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "dedicatedTasks": {
+          "label": "$(package) Build Advanced Editor Release Console",
+          "detail": "Build the SoftStep Advanced Editor release console binary",
+          "groups": [
+            [
+              "SoftStep",
+              "Advanced"
+            ],
+            "Release Console"
+          ],
+          "order": 2
+        }
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Tail SoftStep Advanced Editor Log",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\.vscode\\tail-log.ps1",
+        "${workspaceFolder}\\.vscode\\logs\\softstep-advanced-console.log"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Build SoftStep Advanced Editor Debug",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -88,14 +232,14 @@
       "options": {
         "cwd": "${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug",
         "dedicatedTasks": {
-          "label": "$(rocket) Build Advanced Editor",
-          "detail": "Build the SoftStep Advanced Editor",
+          "label": "$(rocket) Build Advanced Editor Debug",
+          "detail": "Build the SoftStep Advanced Editor debug binary",
           "groups": [
             [
               "SoftStep",
               "Advanced"
             ],
-            "Build"
+            "Debug"
           ],
           "order": 1
         }
@@ -109,7 +253,35 @@
       }
     },
     {
-      "label": "Clean SoftStep Advanced Editor",
+      "label": "Build SoftStep Advanced Editor Release",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\advanced\\SoftStepAdvanced.pro",
+        "build",
+        "${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Release"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "dedicatedTasks": {
+          "label": "$(package) Build Advanced Editor Release",
+          "detail": "Build the SoftStep Advanced Editor release binary",
+          "groups": [
+            [
+              "SoftStep",
+              "Advanced"
+            ],
+            "Release"
+          ],
+          "order": 1
+        }
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Clean SoftStep Advanced Editor Debug",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -124,17 +296,74 @@
       ]
     },
     {
-      "label": "Build SoftStep Editors",
+      "label": "Build SoftStep Editors Debug",
       "dependsOrder": "sequence",
       "dependsOn": [
-        "Build SoftStep Basic Editor",
-        "Build SoftStep Advanced Editor"
+        "Build SoftStep Basic Editor Debug",
+        "Build SoftStep Advanced Editor Debug"
       ],
       "problemMatcher": [],
       "group": {
         "kind": "build",
         "isDefault": true
       }
+    },
+    {
+      "label": "Make SoftStep Windows Installer",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\.vscode\\make-installer.ps1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Make SoftStep Windows Installer (No Signing)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\.vscode\\make-installer.ps1",
+        "-DisableSigning"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Deploy SoftStep Windows Installer",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Build SoftStep Basic Editor Release (Console)",
+        "Build SoftStep Basic Editor Release",
+        "Build SoftStep Advanced Editor Release (Console)",
+        "Build SoftStep Advanced Editor Release",
+        "Make SoftStep Windows Installer"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Deploy SoftStep Windows Installer (No Signing)",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Build SoftStep Basic Editor Release (Console)",
+        "Build SoftStep Basic Editor Release",
+        "Build SoftStep Advanced Editor Release (Console)",
+        "Build SoftStep Advanced Editor Release",
+        "Make SoftStep Windows Installer (No Signing)"
+      ],
+      "problemMatcher": []
     }
   ]
 }

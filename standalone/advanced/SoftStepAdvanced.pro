@@ -13,7 +13,7 @@ QT       += core gui \
 
 TARGET = "SoftStep Advanced Editor"
 TEMPLATE = app
-VERSION = 3.0.5
+VERSION = 3.0.6.B
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # this is to clear warnings from the OG softstep c files
@@ -24,11 +24,10 @@ macx {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder
 }
 
-#uncomment this to build a console version of the app. Do this once before deploying the app.
+# Uncomment this to build a console version of the app.
 #BUILD_CONSOLE = 1
 
-# Uncomment this line if you want to deploy the app (codesign, xxxDeployqt, copy content, and create installer/dmg etc
-#DEPLOY = 1
+# Packaging is handled by the VS Code installer tasks and .vscode/make-installer.ps1.
 
 
 # still holding onto support for High Sierra here, separate build
@@ -321,7 +320,8 @@ linux{
 
 win32{
     DEFINES += __WINDOWS_MM__=1
-        LIBS += -lwinmm
+    LIBS += -lwinmm
+    LIBS += -lole32
 }
 # end rtmidi defines
 
@@ -351,101 +351,4 @@ DISTFILES += \
 
 
 
-# ********************************************************************************************************
-# NOTE for the deployment process to work you MUST add an additional "make" build step, arguments: deploy
-# ********************************************************************************************************
-
-isEmpty(DEPLOY) {
-    # Define a dummy deploy target that does nothing
-    QMAKE_EXTRA_TARGETS += deploy
-    deploy.commands = @echo "Deploy is disabled"
-} else {
-
-
-    win32 {
-        package_dir = $$shell_path($$absolute_path("..\\..\\win-deploy\\packages\\com.keithmcmillen.softstepeditors.advanced\\data\\$${TARGET}", $$PWD))
-        content_dir = $$shell_path($$absolute_path("..\\..\\win-deploy\\packages\\com.keithmcmillen.softstepeditors.content\\data\\Content", $$PWD))
-        repo_root_dir = $$shell_path($$absolute_path("..", $$PWD))
-
-        changelog_src = "$${repo_root_dir}\\..\\CHANGELOG.md"
-        content_src = "$${repo_root_dir}\\..\\Content"
-
-        LIBCRYPTO_SRC = $$shell_path($$absolute_path("..\\..\\shared\\KMI_MDM\\ssl\\libcrypto-1_1-x64.dll", $$PWD))
-        LIBSSL_SRC = $$shell_path($$absolute_path("..\\..\\shared\\KMI_MDM\\ssl\\libssl-1_1-x64.dll", $$PWD))
-
-        path_to_signtool = C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.22000.0\\x64\\signtool.exe
-        path_to_qtwindeploy = $$[QT_INSTALL_BINS]\\windeployqt.exe
-
-        path_to_bincreate = C:\\Qt6\\QtIFW-4.6.0\\bin\\binarycreator.exe
-        path_to_installerbase = C:\\Qt6\\QtIFW-4.6.0\\bin\\installerbase.exe
-        path_to_install = $$shell_path($$absolute_path("..\\..\\win-deploy", $$PWD))
-
-        # Corrected variable assignments without escaped quotes
-        app_name = $${TARGET}
-        installer_name = \"SoftStep Editors v$$VERSION Windows Installer\"
-        installer_file = \"SoftStep Editors v$$VERSION Windows Installer.exe\"
-
-        message("path_to_bincreate is: " $$quote($$path_to_bincreate))
-        message("installer_file is: " $$quote($$installer_file))
-
-        build_subdir = release  # Default to release
-        CONFIG(debug, debug|release): build_subdir = debug
-
-        temp_out_pwd = $$replace(OUT_PWD, "/", "\\")
-        binary_src = "$${temp_out_pwd}\\$${build_subdir}\\$${TARGET}.exe"
-        binary_dest = "$${package_dir}\\$${TARGET}.exe"
-
-        debug_src = "$${temp_out_pwd}\\$${build_subdir}\\$${TARGET} (debug console).exe"
-        debug_dest = "$${package_dir}\\$${TARGET} (debug console).exe"
-
-
-        deploy_opts = "--compiler-runtime"
-        !isEmpty(INCLUDE_QML) {
-            deploy_opts += " --qmldir \"$$PWD\""
-        }
-
-
-        # Define custom deployment commands after all variables have been defined
-        DEPLOY_COMMANDS = \
-            echo Deploying for Windows && \
-            echo Copying executable to package_dir && \
-            copy /y \"$$binary_src\" \"$$binary_dest\" && \
-            copy /y \"$$debug_src\" \"$$debug_dest\" && \
-            \
-            echo Signing App Executable && \
-            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.digicert.com /td SHA256 /fd certHash \"$$binary_dest\" && \
-            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.digicert.com /td SHA256 /fd certHash \"$$debug_dest\" && \
-            \
-            echo Running qtwindeploy: \"$$package_dir\" && \
-            \"$$path_to_qtwindeploy\" $$deploy_opts --dir \"$$package_dir\" \"$$binary_dest\" && \
-            \
-            echo Copying SSL dlls to package_dir && \
-            copy /y \"$$LIBCRYPTO_SRC\" \"$$package_dir\" && \
-            copy /y \"$$LIBSSL_SRC\" \"$$package_dir\" && \
-            \
-            echo Clearing content && \
-            (if exist \"$$content_dir\" rmdir /s /q \"$$content_dir\" || echo Directory not found, skipping deletion) && \
-            mkdir \"$$content_dir\" && \
-            \
-            echo Copying content && \
-            Robocopy \"$$content_src\" \"$$content_dir\" /MIR && \
-            echo Robocopy Exit Code: %ERRORLEVEL% & \
-            \
-            echo Copying changelog && \
-            copy /y \"$$changelog_src\" \"$$content_dir\" && \
-            \
-            echo Creating Installer && \
-            cd \"$$path_to_install\" && \
-            \"$$path_to_bincreate\" --verbose --offline-only -c config/config.xml -p packages $$installer_name && \
-            \
-            echo Signing Installer && \
-            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash $$installer_file
-
-        # Define a phony target for deployment
-            QMAKE_EXTRA_TARGETS += deploy
-            deploy.commands = $$DEPLOY_COMMANDS
-            deploy.depends = first  # ensures this runs after the first build
-
-    }
-}
 

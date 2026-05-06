@@ -4,6 +4,7 @@
 #include "sysexcomposer.h"
 #include "QDebug"
 #include "QApplication"
+#include <QTimer>
 #include "sysexmessages.h"
 
 extern "C"
@@ -599,11 +600,12 @@ void SysExComposer::slotComposeFactoryPreset(long p, QString factoryPresetName, 
 void SysExComposer::slotStandaloneOn()
 {
     qDebug() << "slotStandaloneOn called";
-    emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off));
-    emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on));
-    emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist));
-    emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist));
-    emit signalSendSysEx(_fw_nav_standalone_on, sizeof(_fw_nav_standalone_on));
+    // Space out messages so WMS doesn't choke on rapid sysex sends
+    QTimer::singleShot(0,   this, [this]() { emit signalSendSysEx(_fw_tether_off, sizeof(_fw_tether_off)); });
+    QTimer::singleShot(200, this, [this]() { emit signalSendSysEx(_fw_standalone_on, sizeof(_fw_standalone_on)); });
+    QTimer::singleShot(400, this, [this]() { emit signalSendSysEx(_fw_scenechange_on_persist, sizeof(_fw_scenechange_on_persist)); });
+    QTimer::singleShot(600, this, [this]() { emit signalSendSysEx(_fw_nav_standalone_on_persist, sizeof(_fw_nav_standalone_on_persist)); });
+    QTimer::singleShot(800, this, [this]() { emit signalSendSysEx(_fw_nav_standalone_on, sizeof(_fw_nav_standalone_on)); });
 
 }
 

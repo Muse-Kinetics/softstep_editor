@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "..\\..\\00_Firmware\\SoftStep"
+    }
+  ],
+  "settings": {
+    "powershell.cwd": "SoftStep"
+  }
+}

@@ -123,6 +123,7 @@ public slots:
     void slotSetSource(QString source, int modlineInstance);
 
     void slotSetCounterParams(int min, int max, bool wrap);
+    void slotRefreshProgramChangeState();
 
     //------------------------ IncDec clock slots
     void slotTickYIncrementClock();

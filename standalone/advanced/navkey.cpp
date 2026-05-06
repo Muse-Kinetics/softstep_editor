@@ -652,4 +652,6 @@ void NavKey::slotUpdateModlineMode()
         navModline[i]->lower();
     }
 
+    dataCooker.slotRefreshProgramChangeState();
+
 }

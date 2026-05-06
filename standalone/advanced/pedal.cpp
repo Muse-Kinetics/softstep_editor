@@ -3,6 +3,42 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "pedal.h"
 
+namespace {
+int processWindowedPedalInput(Pedal *pedal, int pedalInput, bool applyTable)
+{
+    if(!pedal->calibrating)
+    {
+        pedal->pedalBucket.prepend(pedalInput);
+        pedal->pedalBucket.removeLast();
+
+        pedal->pedalSampleCount++;
+
+        if(pedal->pedalSampleCount == 3)
+        {
+            pedal->pedalSampleCount = 0;
+            pedal->pedalAverage = (pedal->pedalBucket.at(0) + pedal->pedalBucket.at(1) + pedal->pedalBucket.at(2))/3;
+        }
+
+        if((pedalInput > (pedal->pedalAverage + 2)) || (pedalInput < (pedal->pedalAverage - 2)))
+        {
+            if(applyTable)
+            {
+                return pedal->slotTableInput(pedalInput);
+            }
+
+            pedal->slotSetLivePedalValue(pedalInput);
+            return pedalInput;
+        }
+
+        return -1;
+    }
+
+    pedal->slotCalibrate(pedalInput);
+    pedal->slotSetLivePedalValue(pedalInput);
+    return -1;
+}
+}
+
 // pedal.cpp - instantiated in every key[x] object, but only key[0].datacooker.pedal is ever used. Mostly for calibration.
 
 Pedal::Pedal(QWidget *parent, int keyInstance) :
@@ -26,53 +62,12 @@ Pedal::Pedal(QWidget *parent, int keyInstance) :
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int Pedal::slotWindowInput(int pedalInput)
 {
-    //If not currently calibrating, go through windowing routine
-    if(!calibrating)
-    {
-        pedalBucket.prepend(pedalInput);
-        pedalBucket.removeLast();
+    return processWindowedPedalInput(this, pedalInput, true);
+}
 
-        //Inc sample count
-        pedalSampleCount++;
-
-        //If third sample in cycles of three
-        if(pedalSampleCount == 3)
-        {
-           // qDebug() << "----------------------- take new average";
-
-            //Reset sample count
-            pedalSampleCount = 0;
-
-            //Take new average
-            pedalAverage = (pedalBucket.at(0) + pedalBucket.at(1) + pedalBucket.at(2))/3;
-        }
-
-        //qDebug() << "pedal bucket" << pedalBucket << pedalAverage;
-
-        //If incoming value differs from running average by 3 or more, either negatively or positively
-        if( (pedalInput > (pedalAverage + 2)) || (pedalInput < (pedalAverage - 2)) )
-        {
-            //Return value
-            return slotTableInput(pedalInput);
-        }
-
-        //If pedal does not exceed window
-        else
-        {
-            //Return invalid
-            return -1;
-        }
-    }
-
-    //If calibrating
-    else
-    {
-        slotCalibrate(pedalInput);
-        slotSetLivePedalValue(pedalInput);
-
-        //Return invalid
-        return -1;
-    }
+int Pedal::slotWindowInputRaw(int pedalInput)
+{
+    return processWindowedPedalInput(this, pedalInput, false);
 }
 
 int Pedal::slotTableInput(int pedalInput)
@@ -97,9 +92,6 @@ int Pedal::slotTableInput(int pedalInput)
     {
         output = outHigh;
     }
-
-    //Invert table
-    output = 127 - output;
 
     //qDebug() << "pedal output" << output << pedalInput;
     slotSetLivePedalValue(output);

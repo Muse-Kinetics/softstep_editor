@@ -549,7 +549,7 @@ void MainWindow::slotConnectInterfaces()
     connect(presetInterface, SIGNAL(signalUpdateStarted()), this, SLOT(slotDisconnectUpdate()));
     connect(presetInterface, SIGNAL(signalAttributeFormatPreset(QVariantMap,QVariantMap, qlonglong)), sysExComposer, SLOT(slotComposeAttributeListFromPreset(QVariantMap,QVariantMap, qlonglong)));
 
-    connect(sysExComposer, SIGNAL(signalUpdateComplete()), this, SLOT(slotConnectUpdate()));
+    connect(SoftStep, SIGNAL(signalAllChunksSent()), this, SLOT(slotConnectUpdate()));
 
     connect(ui->revert, SIGNAL(clicked()), presetInterface, SLOT(slotRevertPreset()));
     //set initial update button text
@@ -719,7 +719,9 @@ void MainWindow::slotConnected(bool connection)
     if(connection)
     {
 //
-        sysExComposer->slotStandaloneOn();
+        QTimer::singleShot(500, this, [this]() {
+            sysExComposer->slotStandaloneOn(); // delayed to let MIDI port stabilize
+        });
 //
         ui->connectedLabel->setText("CONNECTED");
 #ifdef Q_OS_MAC
@@ -1089,12 +1091,38 @@ void MainWindow::slotDisconnectUpdate()
 {
     qDebug("download preset started");
     disconnect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
+    ui->update->setEnabled(false);
+    ui->connectedLabel->setText("SENDING...");
+#ifdef Q_OS_MAC
+    ui->connectedLabel->setStyleSheet("font: 12pt \"Futura-Normal\";"
+                                      "background: rgba(0,0,0,0);"
+                                      "color: rgba(255,165,0,255);"
+                                      "border: 0px solid rgba(0,174,239,0);");
+#else
+    ui->connectedLabel->setStyleSheet("font: 8pt \"Futura-Normal\";"
+                                      "background: rgba(0,0,0,0);"
+                                      "color: rgba(255,165,0,255);"
+                                      "border: 0px solid rgba(0,174,239,0);");
+#endif
 }
 
 void MainWindow::slotConnectUpdate()
 {
     qDebug("download preset ended");
     connect(ui->update, SIGNAL(clicked()), presetInterface, SLOT(slotUpdateClicked()));
+    ui->update->setEnabled(true);
+    ui->connectedLabel->setText("CONNECTED");
+#ifdef Q_OS_MAC
+    ui->connectedLabel->setStyleSheet("font: 12pt \"Futura-Normal\";"
+                                      "background: rgba(0,0,0,0);"
+                                      "color: rgba(0,200,0,255);"
+                                      "border: 0px solid rgba(0,174,239,0);");
+#else
+    ui->connectedLabel->setStyleSheet("font: 8pt \"Futura-Normal\";"
+                                      "background: rgba(0,0,0,0);"
+                                      "color: rgba(0,200,0,255);"
+                                      "border: 0px solid rgba(0,174,239,0);");
+#endif
 }
 
 

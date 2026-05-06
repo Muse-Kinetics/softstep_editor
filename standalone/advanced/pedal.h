@@ -52,6 +52,7 @@ public slots:
 
     //--------------------------------------- Midi Input Processing
     int slotWindowInput(int pedalInput); //Windowing takes place here
+    int slotWindowInputRaw(int pedalInput);
     int slotTableInput(int pedalInput);
     
     //--------------------------------------- Calibration

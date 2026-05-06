@@ -33,6 +33,8 @@ NavDataCooker::NavDataCooker(QWidget *parent) :
     //Init counters
     yIncClock = new QTimer(this);
     yIncCount = 0;
+    navYCount = 0;
+    navYGate = true;
 
     lastYCount = -1;
 
@@ -114,8 +116,8 @@ void NavDataCooker::slotUpdateVals(uchar cc, uchar val)
     }
     else if(cc == PEDAL_CC)
     {
-        //Run input through our pedal class (per key)
-        pedalVal = pedal->slotWindowInput(val);
+        // Hosted mode values already arrive calibrated from the device.
+        pedalVal = pedal->slotWindowInputRaw(val);
 
         //If windowing returns a valid value
         if(pedalVal != -1)
@@ -139,6 +141,25 @@ void NavDataCooker::slotSetCounterParams(int min, int max, bool wrap)
     counterMin = min;
     counterMax = max;
     counterWrap = wrap;
+}
+
+void NavDataCooker::slotRefreshProgramChangeState()
+{
+    if (navYCount < counterMin)
+    {
+        navYCount = counterMin;
+    }
+    else if (navYCount > counterMax)
+    {
+        navYCount = counterMax;
+    }
+
+    emit signalNavDecade(navYDecade());
+
+    if (navPadMode == "program")
+    {
+        emit signalDisplayProgramChangeDecade(navY());
+    }
 }
 
 void NavDataCooker::cookRaw()

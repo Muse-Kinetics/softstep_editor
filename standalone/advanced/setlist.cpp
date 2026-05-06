@@ -256,6 +256,7 @@ void Setlist::slotCompileSetlist()
     }
 
     slotWriteSetlist();
+    emit signalSetlistChanged(setlistEmpty);
 }
 
 void Setlist::slotPopulateSetlistMenus(QComboBox* presetMenu)

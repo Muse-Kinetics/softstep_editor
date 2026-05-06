@@ -11,6 +11,47 @@ This repository contains the released SoftStep desktop editors for Keith McMille
 
 Both apps are mature, shipping products and share a substantial amount of device, MIDI, firmware, and SysEx infrastructure.
 
+## Quick Start: Console Build and Run (Windows)
+
+Use this first when an AI/LLM needs live terminal logs (`qDebug`, `DM_OUT`, warnings, errors).
+
+### 1) Build console target from VS Code tasks
+
+- Advanced: `Configure SoftStep Advanced Editor (Console)` then `Build SoftStep Advanced Editor (Console)`
+- Basic: `Configure SoftStep Basic Editor (Console)` then `Build SoftStep Basic Editor (Console)`
+
+### 2) Run from terminal with Qt in PATH
+
+PowerShell example for Advanced:
+
+```powershell
+$env:PATH = "C:\qt6\6.3.2\msvc2019_64\bin;C:\qt6\Tools\OpenSSL\Win_x64\bin;$env:PATH"
+& "c:\Users\eric\KMI Dropbox\Eric Bateman\00_Editors\SoftStep\standalone\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console\release\SoftStep Advanced Editor.exe"
+```
+
+PowerShell example for Basic:
+
+```powershell
+$env:PATH = "C:\qt6\6.3.2\msvc2019_64\bin;C:\qt6\Tools\OpenSSL\Win_x64\bin;$env:PATH"
+& "c:\Users\eric\KMI Dropbox\Eric Bateman\00_Editors\SoftStep\standalone\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console\release\SoftStep Basic Editor.exe"
+```
+
+### 2a) Preferred VS Code launch path for live logs on the remote desktop
+
+If the goal is to watch console output while running the GUI on the visible Windows desktop, use the log-backed launch flow instead of starting the `.exe` manually.
+
+- Launch config: `Launch SoftStep Advanced Editor (Remote Desktop + Log)` or `Launch SoftStep Basic Editor (Remote Desktop + Log)`
+- Companion tail task: `Tail SoftStep Advanced Editor Log` or `Tail SoftStep Basic Editor Log`
+
+This uses `.vscode/launch-on-console-log.cmd` to start the console build in the interactive desktop session and write stdout/stderr to `.vscode/logs/*.log`, which can then be tailed from VS Code.
+
+### 3) What to watch in terminal output
+
+- Port open/close and enumeration behavior
+- Hosted-mode connection and access failures
+- Expression pedal calibration and pedal-value mapping logs in Hosted mode
+- Retry/circuit-breaker logs in MIDI send paths
+
 ## What Is Active Product Code
 
 The main active source areas are:
@@ -245,9 +286,22 @@ The current validated VS Code setup is primarily captured in:
 - `.vscode/launch.json`
 - `.vscode/run-msvc-qmake-task.cmd`
 - `.vscode/launch-on-console.cmd`
+- `.vscode/launch-on-console-log.cmd`
+- `.vscode/tail-log.ps1`
 - `.vscode/dedicated-tasks.json`
 
 If similar functionality needs to be added to another Qt project, these files are the best starting reference in this repository.
+
+## Related Firmware Workspace
+
+This multi-root workspace also includes the legacy firmware repository at `00_Firmware/SoftStep`. That repository is separate from the desktop editors, but it is part of the current development workflow when Hosted-mode behavior has to be verified end-to-end.
+
+Current firmware VS Code tasks there include:
+
+- `Build Bootloader`
+- `Build SoftStep2 EFM8`
+
+The firmware tasks call `.vscode/build-keil.ps1`, which locates `UV4.exe`, builds the requested `.uvproj`, and prints the generated uVision build log back into the VS Code task terminal. Treat that firmware workspace as the source of truth for bootloader and SoftStep2 build steps rather than trying to build firmware from the editor repository.
 
 ## Shared Modules That Matter
 
@@ -275,6 +329,10 @@ These shared modules are core to both editors:
 - `shared/tables.h`
 
 If a change affects SoftStep communication, firmware update flow, MIDI port handling, or preset transmission, expect it to cross app boundaries through `shared/`.
+
+## Temporary Test Fixtures for MIDI Backend Investigation
+
+There are temporary investigation fixtures under `shared/test_winmm/` used to isolate backend behavior (WinMM, UWP, and libremidi backend experiments). These fixtures are useful for targeted repro/validation, but they are not product binaries and should not be treated as release deliverables.
 
 ## UI Structure
 
@@ -337,7 +395,12 @@ The `.pro` files contain explicit platform logic.
 
 Windows:
 
-- Uses WinMM for MIDI.
+- MIDI backend is selected per-project in the `.pro` file via RtMidi preprocessor defines:
+  - Basic Editor (`softstepezpz.pro`): `__WINDOWS_MM__=1` — uses WinMM (stable)
+  - Advanced Editor (`SoftStepAdvanced.pro`): `__WINDOWS_MM__=1` — uses WinMM (changed from UWP April 2026)
+  - The UWP backend (`__WINDOWS_UWP__=1`) was previously used by the Advanced Editor but caused unrecoverable port failures when the device rebooted (the UWP MIDI port object is destroyed on first error, making retries useless)
+  - Switching backends requires changing both `DEFINES` and `LIBS` in the `win32{}` block near the `# end rtmidi defines` comment
+  - After changing the backend define, a **clean rebuild is required** — stale `.obj` files will cause linker errors for the old backend's symbols
 - Links OpenSSL libraries from Qt tool directories.
 - Contains deploy commands using `windeployqt`.
 - Contains signing commands using `signtool.exe`.
@@ -380,6 +443,33 @@ macOS deployment assets live under `Signing and Notarization/` and include:
 - entitlement plist
 - DMG staging assets
 - notarization/signing script
+
+## Running the Console Build for Debugging
+
+Both editors have console build configurations (`/SUBSYSTEM:CONSOLE`) that write `qDebug()` and `DM_OUT` output to stdout. This is the primary way to observe MIDI traffic, retry behavior, and state machine transitions at the terminal level.
+
+### Build the Console Version
+
+In VS Code, run the task **"Build SoftStep Advanced Editor (Console)"** (or the Basic equivalent). If you changed the `.pro` file (e.g. switched MIDI backend), run **"Configure SoftStep Advanced Editor (Console)"** first, then delete stale `.obj` files from the build directory before rebuilding.
+
+Build output location:
+- Advanced: `standalone/build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console/release/SoftStep Advanced Editor.exe`
+- Basic: `standalone/build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console/release/SoftStep Basic Editor.exe`
+
+### Launch from Terminal
+
+Qt DLLs must be in `PATH` before running the exe:
+
+```powershell
+$env:PATH = "C:\qt6\6.3.2\msvc2019_64\bin;$env:PATH"
+& "c:\Users\eric\KMI Dropbox\Eric Bateman\00_Editors\SoftStep\standalone\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console\release\SoftStep Advanced Editor.exe"
+```
+
+All `qDebug()`, `DM_OUT`, `qWarning()`, and `std::cerr` output appears directly in the terminal. Look for:
+- `[DIAG ...]` lines — diagnostic logging for port open/close and SysEx send events
+- `"will retry N / M in Xms"` — the retry-with-backoff system reacting to send failures
+- `"exhausted N retries, escalating"` — retries failed, circuit breaker tripping
+- `"RECOVERED after N retries"` — retry succeeded, normal operation resumed
 
 ## Known High-Risk Areas
 
