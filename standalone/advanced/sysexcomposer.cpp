@@ -170,8 +170,15 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     //I think "Global" refers to the fact that it's for both modes, Standalone and Hosted
 
     QVariantMap settingsMap = settingsMapGlobal.value("Global").toMap();
+    qDebug() << "slotComposeAttributeListFromSetlist - preset count:" << setlist.size()
+             << "settings key count:" << settingsMap.size();
 
     t_softstep *x = softstep_init();
+    if (!x)
+    {
+        qCritical() << "slotComposeAttributeListFromSetlist - softstep_init returned null";
+        return;
+    }
 
     //=========================================================================================================//
     //================================================= Settings ==============================================//
@@ -230,6 +237,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
 
     int channel = settingsMap.value("progChgCh").toInt();
     attribute(x,3,A_SYM,"set",A_SYM,"progchg_rx_channel",A_LONG, channel);
+    qDebug() << "slotComposeAttributeListFromSetlist - settings serialized";
 
     //--------------------------------------  Keys  ------------------------------------//
     for (long k=1;k<11;k++)
@@ -272,6 +280,10 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     {
         QVariantMap preset = setlist.at(p);
         QString presetDisplayName = preset.value("preset_displayname").toString();
+        qDebug() << "slotComposeAttributeListFromSetlist - preset" << p
+                 << "name:" << preset.value("preset_name").toString()
+                 << "display:" << presetDisplayName
+                 << "field count:" << preset.size();
 
         attribute(x,2,A_SYM,"preset",A_LONG,p);
         attribute(x,3,A_SYM, "set", A_SYM, "Scene_Name", A_SYM, presetDisplayName.toUtf8().constData());
@@ -796,11 +808,14 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
 
         }
 
+        qDebug() << "slotComposeAttributeListFromSetlist - preset" << p << "serialized";
+
     }
 
     //=========================================================================================================//
     //================================================= Download ==============================================//
     //=========================================================================================================//
+    qDebug() << "slotComposeAttributeListFromSetlist - issuing download";
     attribute(x,1,A_SYM,"download"); // this command sends the image
 
     //qDebug() << "image" << image << "imageLength" << imageLength;
@@ -810,6 +825,7 @@ void SysExComposer::slotComposeAttributeListFromSetlist(QList<QVariantMap> setli
     //emit signalSendSysEx(QString("settings image"), settings, settingsLength, QString("SoftStep Control Surface"));
 
     //Send Settings
+    qDebug() << "slotComposeAttributeListFromSetlist - sending settings image";
     if (connected) emit signalSendSysEx(settings, settingsLength);
     slotSettingsSent();
 }

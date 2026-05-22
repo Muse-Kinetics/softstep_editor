@@ -182,6 +182,7 @@ signals:
 public slots:
 
     void slotEnableDisableToolTips();
+    void slotOpenLogDirectory();
 
     // ------ midi overhaul --------------------------------------------------------
     void slotMIDIPortChange(QString, uchar, uchar, int); // handles changes to MIDI i/o

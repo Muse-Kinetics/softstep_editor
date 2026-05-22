@@ -1,99 +1,19 @@
 {
   "version": "0.2.0",
-  "compounds": [
-    {
-      "name": "Choose And Launch SoftStep Editor",
-      "configurations": [],
-      "preLaunchTask": "Build SoftStep Editors",
-      "stopAll": true
-    }
-  ],
   "configurations": [
     {
       "name": "Launch SoftStep Basic Editor",
       "type": "node-terminal",
       "request": "launch",
-      "command": "& \"${workspaceFolder}\\.vscode\\launch-on-console.cmd\" \"${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug\\release\\SoftStep Basic Editor.exe\" \"${workspaceFolder}\"",
-      "preLaunchTask": "Build SoftStep Basic Editor"
-    },
-    {
-      "name": "Launch SoftStep Basic Editor (Remote Desktop + Log)",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "& \"${workspaceFolder}\\.vscode\\launch-on-console-log.cmd\" \"${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console\\release\\SoftStep Basic Editor.exe\" \"${workspaceFolder}\" \"${workspaceFolder}\\.vscode\\logs\\softstep-basic-console.log\"",
-      "preLaunchTask": "Build SoftStep Basic Editor (Console)"
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${workspaceFolder}\\.vscode\\launch-and-tail.ps1\" \"${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Release\\release\\SoftStep Basic Editor.exe\" \"${workspaceFolder}\" \"${env:APPDATA}\\Keith McMillen Instruments\\SoftStep Basic Editor\\logs\"",
+      "preLaunchTask": "Build SoftStep Basic Editor Release"
     },
     {
       "name": "Launch SoftStep Advanced Editor",
       "type": "node-terminal",
       "request": "launch",
-      "command": "& \"${workspaceFolder}\\.vscode\\launch-on-console.cmd\" \"${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug\\release\\SoftStep Advanced Editor.exe\" \"${workspaceFolder}\"",
-      "preLaunchTask": "Build SoftStep Advanced Editor"
-    },
-    {
-      "name": "Launch SoftStep Advanced Editor (Remote Desktop + Log)",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "& \"${workspaceFolder}\\.vscode\\launch-on-console-log.cmd\" \"${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console\\release\\SoftStep Advanced Editor.exe\" \"${workspaceFolder}\" \"${workspaceFolder}\\.vscode\\logs\\softstep-advanced-console.log\"",
-      "preLaunchTask": "Build SoftStep Advanced Editor (Console)"
-    },
-    {
-      "name": "Debug SoftStep Basic Editor (SSH Session)",
-      "type": "cppvsdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug\\release\\SoftStep Basic Editor.exe",
-      "args": [],
-      "stopAtEntry": false,
-      "cwd": "${workspaceFolder}",
-      "environment": [
-        {
-          "name": "PATH",
-          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\bin;C:\\qt6\\Tools\\OpenSSL\\Win_x64\\bin;${env:PATH}"
-        },
-        {
-          "name": "QT_PLUGIN_PATH",
-          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\plugins"
-        },
-        {
-          "name": "QML2_IMPORT_PATH",
-          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\qml"
-        },
-        {
-          "name": "QML_IMPORT_PATH",
-          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\qml"
-        }
-      ],
-      "console": "integratedTerminal",
-      "preLaunchTask": "Build SoftStep Basic Editor"
-    },
-    {
-      "name": "Debug SoftStep Advanced Editor (SSH Session)",
-      "type": "cppvsdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug\\release\\SoftStep Advanced Editor.exe",
-      "args": [],
-      "stopAtEntry": false,
-      "cwd": "${workspaceFolder}",
-      "environment": [
-        {
-          "name": "PATH",
-          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\bin;C:\\qt6\\Tools\\OpenSSL\\Win_x64\\bin;${env:PATH}"
-        },
-        {
-          "name": "QT_PLUGIN_PATH",
-          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\plugins"
-        },
-        {
-          "name": "QML2_IMPORT_PATH",
-          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\qml"
-        },
-        {
-          "name": "QML_IMPORT_PATH",
-          "value": "C:\\qt6\\6.3.2\\msvc2019_64\\qml"
-        }
-      ],
-      "console": "integratedTerminal",
-      "preLaunchTask": "Build SoftStep Advanced Editor"
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${workspaceFolder}\\.vscode\\launch-and-tail.ps1\" \"${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Release\\release\\SoftStep Advanced Editor.exe\" \"${workspaceFolder}\" \"${env:APPDATA}\\Keith McMillen Instruments\\SoftStep Advanced Editor\\logs\"",
+      "preLaunchTask": "Build SoftStep Advanced Editor Release"
     }
   ]
 }

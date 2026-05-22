@@ -84,10 +84,10 @@ void download_file_open(t_softstep *x,char *name)
 	
 	snprintf(fname,sizeof(fname),"%s/%s.c",homeDir,name);
 	x->fd_c = fopen(fname,"w+");
-	post("download_file_open[%s] [%p]\n",fname,x->fd_c);
+	LOG_DBG("download_file_open[%s] [%p]", fname, x->fd_c);
 	snprintf(fname,sizeof(fname),"%s/%s.syx",homeDir,name);
 	x->fd_syx = fopen(fname,"w+");
-	post("download_file_open[%s] [%p]\n",fname,x->fd_syx);
+	LOG_DBG("download_file_open[%s] [%p]", fname, x->fd_syx);
 	
 }
 void download_file_close(t_softstep *x)
@@ -269,7 +269,7 @@ void send_standalone_image(t_softstep *x)
 				if (!modline_reaarange(key,&list->preset_image))
 					break;
 			if (t==100)
-				post("******bizarre: can't rearange modlines for key[%d]",key);
+				LOG_WARN("******bizarre: can't rearange modlines for key[%d]", key);
 			
 			
 			list->preset_image.nm.key[key].modline_count = 0;

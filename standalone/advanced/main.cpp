@@ -3,8 +3,11 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include "mainwindow.h"
 #include <QApplication>
+#include <QCoreApplication>
 //#include <QQmlApplicationEngine>
 #include <QQuickWindow>
+
+#include "diagnosticlogger.h"
 
 int main(int argc, char *argv[])
 {
@@ -29,8 +32,13 @@ int main(int argc, char *argv[])
     qputenv("QT_SCALE_FACTOR_ROUNDING_POLICY", "Round");
 #endif
 
+    QCoreApplication::setApplicationName("SoftStep Advanced Editor");
+    QCoreApplication::setOrganizationName("Keith McMillen Instruments");
+    QCoreApplication::setOrganizationDomain("keithmcmillen.com");
+
 
     QApplication a(argc, argv);
+    DiagnosticLogger::initialize();
 
 
     // this sets the correct OpenGL api depending on which version of Qt we are using

@@ -10,6 +10,8 @@
 #include <QAction>
 #include <QOperatingSystemVersion>
 
+#include "diagnosticlogger.h"
+
 #include <KMI_FwVersions.h>
 #include <KMI_updates.h>
 
@@ -1655,6 +1657,11 @@ void MainWindow::slotInitMenuBar()
     actionList.append(doc);
     help->addAction(doc);
 
+    QAction* openLogLocation = new QAction("Open Log File Location", help);
+    connect(openLogLocation, SIGNAL(triggered()), this, SLOT(slotOpenLogDirectory()));
+    actionList.append(openLogLocation);
+    help->addAction(openLogLocation);
+
     help->addSeparator();
 
     //Tooltips
@@ -1717,6 +1724,18 @@ void MainWindow::slotOpenPresetDirectory()
 {
     QString presetDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     QDesktopServices::openUrl(QUrl::fromLocalFile(presetDir));
+}
+
+void MainWindow::slotOpenLogDirectory()
+{
+    QString logDir = DiagnosticLogger::logDirectoryPath();
+    if (logDir.isEmpty())
+    {
+        logDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/logs";
+    }
+
+    QDir().mkpath(logDir);
+    QDesktopServices::openUrl(QUrl::fromLocalFile(logDir));
 }
 
 void MainWindow::slotEnableDisableToolTips()
@@ -2662,8 +2681,26 @@ void MainWindow::slotUpdatePresets()
         //If there's somethingn in the slot
         if(string != "[EMPTY]")
         {
+            const int presetIndex = ui->presetmenu->findText(string);
+            if (presetIndex < 0)
+            {
+                qCritical() << "Setlist preset name not found in preset menu:" << string;
+                QMessageBox::warning(this, "Missing Preset",
+                    QString("Cannot send setlist because preset '%1' was not found.").arg(string));
+                return;
+            }
+
             //Get it's preset number, get preset map from number, add it to our list of maps (setlist)
-            setlistMapList.append(presetInterface->getPresetMap(ui->presetmenu->findText(string)));
+            const QVariantMap presetMap = presetInterface->getPresetMap(presetIndex);
+            if (presetMap.isEmpty())
+            {
+                qCritical() << "Setlist preset map was empty for preset:" << string << "index:" << presetIndex;
+                QMessageBox::warning(this, "Invalid Preset",
+                    QString("Cannot send setlist because preset '%1' could not be loaded.").arg(string));
+                return;
+            }
+
+            setlistMapList.append(presetMap);
         }
     }
 

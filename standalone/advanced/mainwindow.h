@@ -327,6 +327,7 @@ public slots:
     void slotOpenDoc();
     void slotOpenTroubleshooting();
     void slotOpenPresetDirectory();
+    void slotOpenLogDirectory();
     void slotEnableDisableToolTips();
     void slotResetSettings();
 

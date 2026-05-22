@@ -129,7 +129,7 @@ void send_debug_msg(t_softstep *x)
     Q_UNUSED(x);
 
     sysex_completion_flag_clear();
-	post("hw debug: %s",get_sysex_debug());
+	LOG_DBG("hw debug: %s", get_sysex_debug());
 }
 
 int fw_process_midi(int midiVal,int *buildNum,int *error,char *version)
@@ -161,7 +161,7 @@ void send_fw_status_msg(t_softstep *x,char *type,int buildNum,int error,char *ve
 	
 	t_atom vb[5];
     
-	post("%s version[%s] build[%d] error[%d] compatable[%d]\n",type,version,buildNum,error,compatable);
+	LOG_INFO("%s version[%s] build[%d] error[%d] compatable[%d]", type, version, buildNum, error, compatable);
     
     
 	vb[0].a_type = A_SYM;
@@ -197,7 +197,7 @@ void send_fw_query(t_softstep *x)
 	int buildNum,error;
 	char *version;
 	
-	post("send_fw_query");
+	LOG_DBG("send_fw_query");
 	
 	
 	if (fw_embedded_status(&buildNum,&error, &version))

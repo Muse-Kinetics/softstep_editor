@@ -4,6 +4,12 @@
 #include "sysexcomposer.h"
 #include "QDebug"
 #include "QApplication"
+#include <QDir>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonParseError>
+#include <QStandardPaths>
 #include <QTimer>
 #include "sysexmessages.h"
 
@@ -32,6 +38,45 @@ SysExComposer::SysExComposer(QWidget *parent) :
 SysExComposer::~SysExComposer()
 {
     //free(fwFile);
+}
+
+namespace
+{
+QVariantMap loadAdvancedGlobalSettings()
+{
+    QString basicAppDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    if (basicAppDataPath.isEmpty())
+    {
+        return QVariantMap();
+    }
+
+    QDir basicAppDataDir(basicAppDataPath);
+    if (!basicAppDataDir.cdUp())
+    {
+        return QVariantMap();
+    }
+
+    QFile advancedSettingsFile(basicAppDataDir.filePath("SoftStep Advanced Editor/settings.json"));
+    if (!advancedSettingsFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        return QVariantMap();
+    }
+
+    QJsonParseError parseError;
+    const QJsonDocument document = QJsonDocument::fromJson(advancedSettingsFile.readAll(), &parseError);
+    if (parseError.error != QJsonParseError::NoError || !document.isObject())
+    {
+        return QVariantMap();
+    }
+
+    return document.object().toVariantMap().value("Global").toMap();
+}
+
+qlonglong thresholdSetting(const QVariantMap &advancedSettings, const QString &key, qlonglong fallbackValue)
+{
+    const QVariant value = advancedSettings.value(key);
+    return value.isValid() ? value.toLongLong() : fallbackValue;
+}
 }
 
 void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, QVariantMap master, qlonglong presetNum)
@@ -77,6 +122,8 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
 
 
     //------------------------------------ Key Settings
+    const QVariantMap advancedSettings = loadAdvancedGlobalSettings();
+
     for (long k=1;k<11;k++)
     {
         //Key Number
@@ -88,8 +135,8 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
         attribute(x,3,A_SYM,"set",A_SYM,"Dead_Y",A_LONG,16l);
         //attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,preset.value(QString("%1_key_setting_yAccel").arg(k)).toLongLong());
         attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,85l);
-        attribute(x,3,A_SYM,"set",A_SYM,"On_Sens",A_LONG,30l);
-        attribute(x,3,A_SYM,"set",A_SYM,"Off_Sens",A_LONG,10l);
+        attribute(x,3,A_SYM,"set",A_SYM,"On_Sens",A_LONG,thresholdSetting(advancedSettings, QString("key%1_settings_onthresh").arg(k), 30l));
+        attribute(x,3,A_SYM,"set",A_SYM,"Off_Sens",A_LONG,thresholdSetting(advancedSettings, QString("key%1_settings_offthresh").arg(k), 10l));
     }
 
     //----------------------------------- Nav Settings
@@ -97,14 +144,14 @@ void SysExComposer::slotComposeAttributeListFromPreset(QVariantMap presetSent, Q
     attribute(x,3,A_SYM,"set",A_SYM,"key",A_SYM,"nav");
 
     //Nav Settings
-    attribute(x,3,A_SYM,"set",A_SYM,"North_On_Thresh",A_LONG,20l);
-    attribute(x,3,A_SYM,"set",A_SYM,"North_Off_Thresh",A_LONG,10l);
-    attribute(x,3,A_SYM,"set",A_SYM,"South_On_Thresh",A_LONG,20l);
-    attribute(x,3,A_SYM,"set",A_SYM,"South_Off_Thresh",A_LONG,10l);
-    attribute(x,3,A_SYM,"set",A_SYM,"East_On_Thresh",A_LONG,20l);
-    attribute(x,3,A_SYM,"set",A_SYM,"East_Off_Thresh",A_LONG,10l);
-    attribute(x,3,A_SYM,"set",A_SYM,"West_On_Thresh",A_LONG,20l);
-    attribute(x,3,A_SYM,"set",A_SYM,"West_Off_Thresh",A_LONG,10l);
+    attribute(x,3,A_SYM,"set",A_SYM,"North_On_Thresh",A_LONG,thresholdSetting(advancedSettings, "nav_north_settings_onthresh", 20l));
+    attribute(x,3,A_SYM,"set",A_SYM,"North_Off_Thresh",A_LONG,thresholdSetting(advancedSettings, "nav_north_settings_offthresh", 10l));
+    attribute(x,3,A_SYM,"set",A_SYM,"South_On_Thresh",A_LONG,thresholdSetting(advancedSettings, "nav_south_settings_onthresh", 20l));
+    attribute(x,3,A_SYM,"set",A_SYM,"South_Off_Thresh",A_LONG,thresholdSetting(advancedSettings, "nav_south_settings_offthresh", 10l));
+    attribute(x,3,A_SYM,"set",A_SYM,"East_On_Thresh",A_LONG,thresholdSetting(advancedSettings, "nav_east_settings_onthresh", 20l));
+    attribute(x,3,A_SYM,"set",A_SYM,"East_Off_Thresh",A_LONG,thresholdSetting(advancedSettings, "nav_east_settings_offthresh", 10l));
+    attribute(x,3,A_SYM,"set",A_SYM,"West_On_Thresh",A_LONG,thresholdSetting(advancedSettings, "nav_west_settings_onthresh", 20l));
+    attribute(x,3,A_SYM,"set",A_SYM,"West_Off_Thresh",A_LONG,thresholdSetting(advancedSettings, "nav_west_settings_offthresh", 10l));
     attribute(x,3,A_SYM,"set",A_SYM,"Accel_Y",A_LONG,85l);
 
     //=========================================================================================================//

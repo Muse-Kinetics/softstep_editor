@@ -11,39 +11,36 @@ This repository contains the released SoftStep desktop editors for Keith McMille
 
 Both apps are mature, shipping products and share a substantial amount of device, MIDI, firmware, and SysEx infrastructure.
 
-## Quick Start: Console Build and Run (Windows)
+## Quick Start: Release Build and Launch (Windows)
 
-Use this first when an AI/LLM needs live terminal logs (`qDebug`, `DM_OUT`, warnings, errors).
+Use this first when an AI/LLM needs to build and run the current Windows editor binaries with the active logging workflow.
 
-### 1) Build console target from VS Code tasks
+### 1) Build the Release target from VS Code tasks
 
-- Advanced: `Configure SoftStep Advanced Editor (Console)` then `Build SoftStep Advanced Editor (Console)`
-- Basic: `Configure SoftStep Basic Editor (Console)` then `Build SoftStep Basic Editor (Console)`
+- Advanced: `Build SoftStep Advanced Editor Release`
+- Basic: `Build SoftStep Basic Editor Release`
 
-### 2) Run from terminal with Qt in PATH
+### 2) Launch from VS Code
 
-PowerShell example for Advanced:
+Use the launch configurations in `.vscode/launch.json`:
 
-```powershell
-$env:PATH = "C:\qt6\6.3.2\msvc2019_64\bin;C:\qt6\Tools\OpenSSL\Win_x64\bin;$env:PATH"
-& "c:\Users\eric\KMI Dropbox\Eric Bateman\00_Editors\SoftStep\standalone\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console\release\SoftStep Advanced Editor.exe"
-```
+- `Launch SoftStep Advanced Editor`
+- `Launch SoftStep Basic Editor`
 
-PowerShell example for Basic:
+These launch the Release binaries, resolve the Qt runtime dynamically from `qmake`, inject Qt and OpenSSL paths, start the app from the executable directory, and then tail the newest application log.
 
-```powershell
-$env:PATH = "C:\qt6\6.3.2\msvc2019_64\bin;C:\qt6\Tools\OpenSSL\Win_x64\bin;$env:PATH"
-& "c:\Users\eric\KMI Dropbox\Eric Bateman\00_Editors\SoftStep\standalone\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console\release\SoftStep Basic Editor.exe"
-```
+### 3) Tail logs directly when needed
 
-### 2a) Preferred VS Code launch path for live logs on the remote desktop
+- `Tail SoftStep Advanced Editor Log`
+- `Tail SoftStep Basic Editor Log`
 
-If the goal is to watch console output while running the GUI on the visible Windows desktop, use the log-backed launch flow instead of starting the `.exe` manually.
+The current log source is the per-app `%APPDATA%\Keith McMillen Instruments\...\logs` directory, not the older `.vscode\logs` console-capture files.
 
-- Launch config: `Launch SoftStep Advanced Editor (Remote Desktop + Log)` or `Launch SoftStep Basic Editor (Remote Desktop + Log)`
-- Companion tail task: `Tail SoftStep Advanced Editor Log` or `Tail SoftStep Basic Editor Log`
+### 4) Console builds are transitional, not the primary launch path
 
-This uses `.vscode/launch-on-console-log.cmd` to start the console build in the interactive desktop session and write stdout/stderr to `.vscode/logs/*.log`, which can then be tailed from VS Code.
+Release-console tasks and installer packaging for `(... Debug Console).exe` still exist in the workspace, but they are now transitional support for diagnostics and packaging.
+
+The intended follow-up is to remove the installer and release dependency on the console variants once the shared `KMI_MDM` logger rollout is committed cleanly. That removal is explicitly a later commit, not the current one.
 
 ### 3) What to watch in terminal output
 
@@ -142,12 +139,17 @@ Important consequence:
 
 The working VS Code tasks do not build in arbitrary scratch folders.
 
-They use the existing Qt Creator-style build directory names already expected by the project:
+The currently validated Windows GUI launch flow is aligned with the Release build directories:
 
-- `standalone/build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug`
-- `standalone/build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug`
+- `standalone/build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Release`
+- `standalone/build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Release`
 
-This mattered because deployment logic and existing workflow assumptions were already aligned with those names.
+Release-console build directories also exist for transitional packaging and diagnostic use:
+
+- `standalone/build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Release-Console`
+- `standalone/build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Release-Console`
+
+Some older Debug GUI paths in tasks or historical notes may be stale on this machine and should not be treated as the authoritative launch target.
 
 ### Why The VS Code Tasks Use Wrapper Scripts
 
@@ -212,47 +214,32 @@ This is a general Windows remote-development constraint, not a SoftStep-specific
 
 ### Current VS Code Launch Model
 
-The current workspace intentionally separates launching from debugging.
+The current workspace uses a Release-first launch model.
 
-There are now two kinds of launch configurations in `.vscode/launch.json`:
+The validated launch configurations in `.vscode/launch.json` are:
 
 - `Launch SoftStep Basic Editor`
 - `Launch SoftStep Advanced Editor`
-- `Debug SoftStep Basic Editor (SSH Session)`
-- `Debug SoftStep Advanced Editor (SSH Session)`
 
-The meaning is different:
+These `Launch ...` entries are the current source of truth for starting the GUI on the visible Windows desktop from VS Code.
 
-- `Launch ...` means: run the GUI app on the remote machine's visible desktop.
-- `Debug ... (SSH Session)` means: run under the debugger inside the SSH-hosted session.
+The launch path is intentionally file-log-based rather than stdout-console-based. That shift is what allows the eventual removal of the packaged `(... Debug Console)` binaries.
 
-This distinction should be preserved if these configs are copied to other Windows GUI projects used over Remote SSH.
-
-### Why The Launch Config Uses A Console-Session Helper
+### Why The Launch Config Uses A Log-Tailing PowerShell Helper
 
 The normal `Launch ...` entries do not use `cppvsdbg`.
 
-They use `type: node-terminal` and call `.vscode/launch-on-console.cmd`.
+They use `type: node-terminal` and call `.vscode/launch-and-tail.ps1`.
 
 That helper:
 
-- creates a temporary helper batch file
-- sets Qt runtime environment variables
-- creates an interactive scheduled task with `schtasks.exe`
-- runs the program in the active interactive desktop session
+- resolves the Qt runtime from `qmake`
+- injects Qt and OpenSSL runtime paths into the launch environment
+- starts the Release executable from its own output directory
+- waits for the application to create a fresh log file
+- tails the newest log file through `.vscode/tail-log.ps1`
 
-This pattern was validated by launching GUI processes into Windows session `1`.
-
-Two details mattered:
-
-- `node-terminal` sends the command to the default shell, which was PowerShell in this environment
-- PowerShell required the call operator `&` before a quoted `.cmd` path
-
-So the working command form was:
-
-- `& "${workspaceFolder}\.vscode\launch-on-console.cmd" ...`
-
-Without the leading `&`, PowerShell treated the quoted path as a string instead of invoking it.
+The older `.vscode/launch-on-console.cmd` and `.vscode/launch-on-console-log.cmd` helpers still exist, but they are no longer the primary launch path described by this baseline.
 
 ### What This Means For Other Qt Projects
 
@@ -277,7 +264,6 @@ If another Windows Qt project needs equivalent VS Code support, the reusable pat
 6. Expect shell-specific quoting problems.
   - PowerShell and `cmd.exe` do not parse quoted commands the same way.
   - Test the exact invocation path that VS Code will use.
-
 ### Files That Encode The Working Pattern
 
 The current validated VS Code setup is primarily captured in:
@@ -285,6 +271,7 @@ The current validated VS Code setup is primarily captured in:
 - `.vscode/tasks.json`
 - `.vscode/launch.json`
 - `.vscode/run-msvc-qmake-task.cmd`
+- `.vscode/launch-and-tail.ps1`
 - `.vscode/launch-on-console.cmd`
 - `.vscode/launch-on-console-log.cmd`
 - `.vscode/tail-log.ps1`
@@ -437,6 +424,12 @@ Important conventions in the qmake files:
 - `DEPLOY` enables packaging/signing behavior.
 - The existing workflow assumes these are toggled intentionally rather than always on.
 
+Current packaging note:
+
+- The Windows installer workflow still stages both the normal Release binary and a `(... Debug Console).exe` companion.
+- That packaged console companion is now considered temporary.
+- The logger work in `shared/KMI_MDM` is intended to let us remove those console binaries from installer and release output in a follow-up commit.
+
 macOS deployment assets live under `Signing and Notarization/` and include:
 
 - app icon assets
@@ -444,25 +437,31 @@ macOS deployment assets live under `Signing and Notarization/` and include:
 - DMG staging assets
 - notarization/signing script
 
-## Running the Console Build for Debugging
+## Running Console Builds For Transitional Diagnostics
 
-Both editors have console build configurations (`/SUBSYSTEM:CONSOLE`) that write `qDebug()` and `DM_OUT` output to stdout. This is the primary way to observe MIDI traffic, retry behavior, and state machine transitions at the terminal level.
+Both editors still have console build configurations (`/SUBSYSTEM:CONSOLE`), but they are no longer the primary day-to-day launch path.
+
+The current direction is:
+
+- use Release GUI builds plus file logging for normal launch and validation
+- keep console builds available temporarily for targeted diagnostics and current installer packaging
+- remove packaged console variants in a later commit after the shared logger changes are fully landed
 
 ### Build the Console Version
 
-In VS Code, run the task **"Build SoftStep Advanced Editor (Console)"** (or the Basic equivalent). If you changed the `.pro` file (e.g. switched MIDI backend), run **"Configure SoftStep Advanced Editor (Console)"** first, then delete stale `.obj` files from the build directory before rebuilding.
+In VS Code, run the Release-console task for the editor you need. If you changed the `.pro` file (for example, switched MIDI backend defines), re-run the appropriate configure/build path and clean out stale objects if necessary.
 
 Build output location:
-- Advanced: `standalone/build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console/release/SoftStep Advanced Editor.exe`
-- Basic: `standalone/build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console/release/SoftStep Basic Editor.exe`
+- Advanced: `standalone/build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Release-Console/release/SoftStep Advanced Editor.exe`
+- Basic: `standalone/build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Release-Console/release/SoftStep Basic Editor.exe`
 
 ### Launch from Terminal
 
 Qt DLLs must be in `PATH` before running the exe:
 
 ```powershell
-$env:PATH = "C:\qt6\6.3.2\msvc2019_64\bin;$env:PATH"
-& "c:\Users\eric\KMI Dropbox\Eric Bateman\00_Editors\SoftStep\standalone\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug-Console\release\SoftStep Advanced Editor.exe"
+$env:PATH = "C:\qt6\6.3.2\msvc2019_64\bin;C:\Qt6\Tools\OpenSSL\Win_x64\bin;$env:PATH"
+& "c:\Users\eric\KMI Dropbox\Eric Bateman\00_Editors\SoftStep\standalone\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Release-Console\release\SoftStep Advanced Editor.exe"
 ```
 
 All `qDebug()`, `DM_OUT`, `qWarning()`, and `std::cerr` output appears directly in the terminal. Look for:
@@ -522,6 +521,7 @@ This summary is based on direct inspection of the workspace structure and repres
 - `.vscode/tasks.json`
 - `.vscode/launch.json`
 - `.vscode/run-msvc-qmake-task.cmd`
+- `.vscode/launch-and-tail.ps1`
 - `.vscode/launch-on-console.cmd`
 
 If this document and the code disagree, trust the code.

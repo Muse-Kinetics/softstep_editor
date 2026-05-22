@@ -67,25 +67,24 @@ void *outlet_anything(void *o, t_symbol *s, short ac, t_atom *av)
     Q_UNUSED(o);
     Q_UNUSED(s);
 
-    //printf("outlet_anything: %s",s->s_name);
-
+    char message[1024] = {0};
     int i;
     for (i=0;i<ac;i++)
     {
         switch(av[i].a_type)
         {
         case A_LONG:
-            printf(" %ld",av[i].a_w.w_long);
+            snprintf(message + strlen(message), sizeof(message) - strlen(message), " %ld", av[i].a_w.w_long);
             break;
         case A_SYM:
-            printf(" %s",av[i].a_w.w_sym->s_name);
+            snprintf(message + strlen(message), sizeof(message) - strlen(message), " %s", av[i].a_w.w_sym->s_name);
             break;
         default:
-            printf(" unknown type[%d]",av[i].a_type);
+            snprintf(message + strlen(message), sizeof(message) - strlen(message), " unknown type[%d]", av[i].a_type);
             break;
         }
     }
-    printf("\n");
+    LOG_DBG("%s", message);
     return 0;
 }
 

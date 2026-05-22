@@ -80,6 +80,7 @@ INCLUDEPATH +=  forms \
                 ../../shared/rtmidi
 
 SOURCES +=      main.cpp\
+    ../../shared/KMI_MDM/diagnosticlogger.cpp \
     ../../shared/KMI_MDM/KMI_SysexMessages.c \
     ../../shared/KMI_MDM/KMI_mdm.cpp \
     ../../shared/KMI_MDM/cvCal/cvCal.cpp \
@@ -132,6 +133,7 @@ SOURCES +=      main.cpp\
     hosted/oscinterface.cpp
 
 HEADERS  +=     mainwindow.h \
+    ../../shared/KMI_MDM/diagnosticlogger.h \
     ../../shared/KMI_MDM/KMI_DevData.h \
     ../../shared/KMI_MDM/KMI_FwVersions.h \
     ../../shared/KMI_MDM/KMI_SysexMessages.h \

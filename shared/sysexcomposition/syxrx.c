@@ -62,20 +62,18 @@ void misc_info_close(unsigned char success)
         switch (sysex_data.u.misc_info.hardware_type)
         {
             case 0:     // softstep 1
-            post("................... ss 1\n");
+            LOG_DBG("................... ss 1");
                 break;
             case 1:     // softstep 2
-            post("................... ss 2\n");
+            LOG_DBG("................... ss 2");
                 break;
         }
 
     }
     else
     {
-        post("success %i", success);
+        LOG_DBG("success %i", success);
     }
-
-    fflush(stdout);
 
 }
 
@@ -288,7 +286,7 @@ void sx_process(t_softstep *x,unsigned char sx_char) {
                                     core_sx_set_ignore();
                                 //lcd_putchar(packet_preamble.s.num+'0');
                             } else {
-                                post("bad crc");
+                                LOG_WARN("bad crc");
                                 // set state so rest of sx will not be processed
                                 core_sx_set_ignore();
                             }

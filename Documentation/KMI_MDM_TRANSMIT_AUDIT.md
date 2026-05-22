@@ -14,13 +14,17 @@ Current continuation priorities:
 - Hosted mode port access reliability and recovery behavior
 - Expression pedal calibration and runtime pedal behavior validation in Hosted mode
 - General bug fixing and regression validation around MIDI transport and state transitions
+- Keep the current commit scoped to launch/logging stabilization and firmware payload refresh where possible
+- Implement firmware-update packet chunking in the next commit using `Documentation/FIRMWARE_CHUNKING.md` as the execution plan
+- Remove packaged `(... Debug Console)` editor binaries only after the shared logger work is committed and validated across both editors
 
 Temporary fixtures under `shared/test_winmm/` are available for backend-specific investigation and controlled repro runs.
 
 Recommended validation path in the current VS Code workspace:
 
-- Launch `Launch SoftStep Advanced Editor (Remote Desktop + Log)` so the GUI runs on the visible Windows desktop while console output is captured to `.vscode/logs/softstep-advanced-console.log`
+- Launch `Launch SoftStep Advanced Editor` so the GUI runs on the visible Windows desktop through the Release launch helper
 - Run `Tail SoftStep Advanced Editor Log` in parallel when live log following is needed
+- Expect logs under `%APPDATA%\Keith McMillen Instruments\SoftStep Advanced Editor\logs`
 - When Hosted pedal behavior looks wrong, also verify the paired firmware state in `00_Firmware/SoftStep`, because the Hosted pedal path now depends on both the editor-side pedal state and the firmware-side calibrated pedal transmission fix
 
 ---

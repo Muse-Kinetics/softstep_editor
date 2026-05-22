@@ -4,6 +4,8 @@
 #ifndef SoftstepSyxDemo_maxapi_h
 #define SoftstepSyxDemo_maxapi_h
 
+#include "../KMI_MDM/diagnosticlogger.h"
+
 
 #define C74_CONST const
 
@@ -111,8 +113,7 @@ typedef struct maxclass
 
 
 void maxapi_init(void);
-#define post    printf
-//void post(C74_CONST char *fmt, ...);
+#define post    LOG_DBG
 t_symbol *gensym(char *s);
 void *outlet_anything(void *o, t_symbol *s, short ac, t_atom *av);
 

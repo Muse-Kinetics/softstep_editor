@@ -6,6 +6,8 @@
 #include <KMI_FwVersions.h>
 #include <KMI_updates.h>
 
+#include "diagnosticlogger.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -52,6 +54,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QDateTime current = QDateTime::currentDateTime();
     QString timestamp = current.toString("yyyy::MM::dd::hh:mm:ss");
+#ifdef Q_OS_WIN
+    qDebug().noquote() << MidiDeviceManager::windowsVersionString();
+#endif
     qDebug() << "SoftStep Basic Editor - Application Version: " << applicationVersion << " Firmware Version: " << thisFw;
     qDebug() << "System Locale: " << QLocale::system().name() << " Time: " << timestamp;
 
@@ -949,6 +954,11 @@ void MainWindow::slotInitMenuBar()
     connect(doc, SIGNAL(triggered()), this, SLOT(slotOpenDocumentation()));
     help->addAction(doc);
 
+    QAction* openLogLocation = new QAction("Open Log File Location", help);
+    actionList.append(openLogLocation);
+    connect(openLogLocation, SIGNAL(triggered()), this, SLOT(slotOpenLogDirectory()));
+    help->addAction(openLogLocation);
+
     //Tooltips
     if(settings->contains("toolTipsEnabled"))
     {
@@ -983,6 +993,18 @@ void MainWindow::slotOpenPresetDirectory()
 {
     QString presetDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     QDesktopServices::openUrl(QUrl::fromLocalFile(presetDir));
+}
+
+void MainWindow::slotOpenLogDirectory()
+{
+    QString logDir = DiagnosticLogger::logDirectoryPath();
+    if (logDir.isEmpty())
+    {
+        logDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/logs";
+    }
+
+    QDir().mkpath(logDir);
+    QDesktopServices::openUrl(QUrl::fromLocalFile(logDir));
 }
 
 void MainWindow::slotEnableDisableUseCustomPreset(bool enable)

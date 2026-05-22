@@ -74,12 +74,12 @@ int mainsysex(int argc, const char * argv[])
             
             
         } else
-            printf("Unable to open %s\n",argv[1]);
+            LOG_ERR("Unable to open %s", argv[1]);
         
         if (x->version_embedded.buildnum)
-            printf("Embedded version: %s build[%d]\n",x->version_embedded.version,x->version_embedded.buildnum);
+            LOG_INFO("Embedded version: %s build[%d]", x->version_embedded.version, x->version_embedded.buildnum);
     } else
-        printf("\nNo embedded sysex file present");
+        LOG_INFO("No embedded sysex file present");
     
     // query for the connected version
     send_fw_query(x);  // this sends the fw query sysex

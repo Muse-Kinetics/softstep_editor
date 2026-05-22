@@ -9,14 +9,15 @@ set "WORKDIR=%~2"
 set "TASK_NAME=SoftStep-ConsoleLaunch-%RANDOM%%RANDOM%"
 set "RUNNER=%TEMP%\softstep-console-launch-%RANDOM%%RANDOM%.cmd"
 set "QTBIN=C:\qt6\6.3.2\msvc2019_64\bin"
-set "OPENSSLBIN=C:\qt6\Tools\OpenSSL\Win_x64\bin"
+set "OPENSSLBIN_QT6=C:\Qt6\Tools\OpenSSL\Win_x64\bin"
+set "OPENSSLBIN_QT=C:\Qt\Tools\OpenSSL\Win_x64\bin"
 set "QTPLUGINS=C:\qt6\6.3.2\msvc2019_64\plugins"
 set "QTQML=C:\qt6\6.3.2\msvc2019_64\qml"
 
 for /f %%I in ('powershell -NoProfile -Command "(Get-Date).AddMinutes(5).ToString('HH:mm')"') do set "START_TIME=%%I"
 
 >"%RUNNER%" echo @echo off
->>"%RUNNER%" echo set "PATH=%QTBIN%;%OPENSSLBIN%;%%PATH%%"
+>>"%RUNNER%" echo set "PATH=%QTBIN%;%OPENSSLBIN_QT6%;%OPENSSLBIN_QT%;%%PATH%%"
 >>"%RUNNER%" echo set "QT_PLUGIN_PATH=%QTPLUGINS%"
 >>"%RUNNER%" echo set "QML2_IMPORT_PATH=%QTQML%"
 >>"%RUNNER%" echo set "QML_IMPORT_PATH=%QTQML%"

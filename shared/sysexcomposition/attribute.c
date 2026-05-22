@@ -62,10 +62,12 @@ int xlate_key_num(int in)
 	if (in >= 11)
 		out = 10;
 	
-    post("xlate key[%d] to key[%d]\n",in,out);
+    LOG_DBG("xlate key[%d] to key[%d]", in, out);
 	
 	return out;
 }
+
+static unsigned short append_current_string(PRESET_LIST *list, const char *value, const char *label);
 
 void attribute_process(t_softstep *x, short argc, t_atom *argv)
 {
@@ -103,14 +105,14 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         PRESET_LIST **list = &x->first;
         int i=0,just_created = false,count = (int) argv[1].a_w.w_long;
 
-        post("********************************** download preset[%d]************************************\n",count);
+        LOG_DBG("********************************** download preset[%d]************************************", count);
 
         for(;;) {
             if (*list) {
                 if (i++==count)
                 {
                     if (!just_created)
-                        post("--------------------  Error: Duplicate scene[%d] -------------------\n",count);
+                        LOG_WARN("--------------------  Error: Duplicate scene[%d] -------------------", count);
                     break;
                 }
                 else
@@ -154,13 +156,13 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Modline",A_LONG,0l,-1) )
     {
-        post("Modline matched");
+        LOG_DBG("Modline matched");
         x->mod_num_current = (int) argv[2].a_w.w_long - 1;
 
 
         x->current_modline = &x->current_image->modlines[x->key_num][x->mod_num_current];
 
-        post("--- %s key[%d] modline[%d]",x->current_list->strings.data + LE_short(x->current_image->nm.name_index),x->key_num,x->mod_num_current);
+        LOG_DBG("--- %s key[%d] modline[%d]", x->current_list->strings.data + LE_short(x->current_image->nm.name_index), x->key_num, x->mod_num_current);
         return;
     }
 
@@ -239,10 +241,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     }
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Key_Name",A_SYM,0,-1)){
-        x->current_image->nm.key[x->key_num].key_name_index = LE_short(x->current_list->strings.size);
-        strcpy(x->current_list->strings.data+x->current_list->strings.size,argv[2].a_w.w_sym->s_name);  // EB - what a cursed line of code, fixing this
-        //strcpy_s(x->current_list->strings.data + x->current_list->strings.size, strlen(argv[2].a_w.w_sym->s_name), argv[2].a_w.w_sym->s_name);  // EB - what a cursed line of code, fixing this
-        x->current_list->strings.size += (int)strlen(argv[2].a_w.w_sym->s_name) + 1;
+        x->current_image->nm.key[x->key_num].key_name_index = append_current_string(x->current_list, argv[2].a_w.w_sym->s_name, "Key_Name");
         //post("Key_Name[%s] key[%d] index[%d]",argv[2].a_w.w_sym->s_name,x->key_num,LE_short(x->current_image->nm.key[x->key_num].key_name_index));
         return;
     }
@@ -262,10 +261,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
         //			post("%d = %d",i,str[i]);
 
         if (len) {
-            x->current_image->nm.key[x->key_num].prefix_index = LE_short(x->current_list->strings.size);
-            strcpy(x->current_list->strings.data+x->current_list->strings.size,str);
-            //strcpy_s(x->current_list->strings.data + x->current_list->strings.size, strlen(str), str); // this broke things
-            x->current_list->strings.size += len + 1;
+            x->current_image->nm.key[x->key_num].prefix_index = append_current_string(x->current_list, str, "Prefix_Name");
         } else {
             //    x->current_image->nm.key[x->key_num].prefix_index;
         }
@@ -577,7 +573,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
             par_match(argc,argv,A_SYM,"set",A_SYM,"Bend_Device",A_SYM,0,-1)	)
     {
         x->current_modline->port = get_index(destination_list,NULL,argv + 2);   
-        post("Device [%s]",argv[2].a_w.w_sym->s_name);
+        LOG_DBG("Device [%s]", argv[2].a_w.w_sym->s_name);
         return;
     }
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Destination",A_SYM,0,-1))
@@ -608,9 +604,9 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
 
         float_fix(&x->current_modline->gain,fval);
 
-                post("set fixed point %f: %x:%x",oval,x->current_modline->gain.u.upper,x->current_modline->gain.u.lower);
+                LOG_DBG("set fixed point %f: %x:%x", oval, x->current_modline->gain.u.upper, x->current_modline->gain.u.lower);
 
-                //set_fixed_point(&x->current_image->gain,argv + 2);
+            LOG_DBG("gain [%f]", argv[2].a_w.w_float);
         post("gain [%f]\n", argv[2].a_w.w_float);
         return;
     }
@@ -656,10 +652,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Scene_Name",A_SYM,0,-1))
     {
         //post("setting scene name[%s] at name_index[%d]\n",argv[2].a_w.w_sym->s_name,x->current_list->strings.size);
-        x->current_image->nm.name_index = LE_short(x->current_list->strings.size);
-        strcpy(x->current_list->strings.data+x->current_list->strings.size,argv[2].a_w.w_sym->s_name);
-        //strcpy_s(x->current_list->strings.data + x->current_list->strings.size, strlen(argv[2].a_w.w_sym->s_name), argv[2].a_w.w_sym->s_name); // this broke things
-        x->current_list->strings.size += (int)strlen(argv[2].a_w.w_sym->s_name) + 1;
+        x->current_image->nm.name_index = append_current_string(x->current_list, argv[2].a_w.w_sym->s_name, "Scene_Name");
         //		post("new index[%d]",x->current_list->strings.size);
         return;
     }
@@ -709,8 +702,7 @@ void attribute(t_softstep *x,int count,...)
             argv[i].a_w.w_sym = gensym(va_arg(arguments,char *));
             break;
         default:
-            printf("attribute: unknown type %d",type);
-            fflush(stdout);
+            LOG_ERR("attribute: unknown type %d", type);
             va_end ( arguments );                  // Cleans up the list
             return;
 
@@ -780,8 +772,7 @@ void vpost_par_list(short argc,t_atom *argv, char *fmt,va_list a_list) {
     vsnprintf(emsg,sizeof(emsg),fmt,a_list);
 
     par_list_str(argc,argv,emsg+strlen(emsg),(int) (sizeof(emsg)-strlen(emsg)));
-    post("%s", emsg);
-    printf("\n");
+    LOG_DBG("%s", emsg);
 
 }
 void post_par_list(short argc,t_atom *argv, char *fmt,...) {
@@ -791,7 +782,6 @@ void post_par_list(short argc,t_atom *argv, char *fmt,...) {
     va_start( a_list, fmt);
 
     vpost_par_list(argc,argv,fmt,a_list);
-    printf("\n");
 
     va_end(a_list);
 }
@@ -858,7 +848,7 @@ int par_match(short argc,t_atom *argv,...) {
             }
             break;
         default:
-            post("unknown type %d",type);
+            LOG_ERR("unknown type %d", type);
             va_end (a_list); // added to prevent memory leaks
             return 0;
             break;
@@ -1191,6 +1181,44 @@ void par_error(t_softstep *x,short argc,t_atom *argv,char *msg)
 
 int get_index_verbose = 0;
 
+static unsigned short append_current_string(PRESET_LIST *list, const char *value, const char *label)
+{
+    size_t currentSize;
+    size_t capacity;
+    size_t available;
+    size_t copyLength;
+    unsigned short index;
+
+    if (!list || !value)
+        return 0;
+
+    currentSize = (size_t)list->strings.size;
+    capacity = sizeof(list->strings.data);
+    if (currentSize >= capacity)
+    {
+        LOG_WARN("string buffer full while writing %s", (char *)label);
+        list->strings.data[capacity - 1] = '\0';
+        list->strings.size = (int)capacity;
+        return (unsigned short)(capacity - 1);
+    }
+
+    index = LE_short(list->strings.size);
+    available = capacity - currentSize;
+    copyLength = strlen(value);
+
+    if (copyLength >= available)
+    {
+        LOG_WARN("truncating %s to fit preset string buffer", (char *)label);
+        copyLength = available - 1;
+    }
+
+    memcpy(list->strings.data + currentSize, value, copyLength);
+    list->strings.data[currentSize + copyLength] = '\0';
+    list->strings.size = (int)(currentSize + copyLength + 1);
+
+    return index;
+}
+
 int get_index(char *list[],char *listXlate[],t_atom *argv)
 {
     char source[200];
@@ -1215,7 +1243,7 @@ int get_index(char *list[],char *listXlate[],t_atom *argv)
     index = 0;
     while (*list) {
         if (get_index_verbose)
-            post("cmp [%s] [%s]\n",source,*list);
+            LOG_DBG("cmp [%s] [%s]", source, *list);
         if ( !str_space_cmp(*list,source) ) {
             //			post("matched %s",source);
             return index;

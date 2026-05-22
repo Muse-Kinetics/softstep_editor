@@ -143,7 +143,7 @@
         "Bypass",
         "-File",
         "${workspaceFolder}\\.vscode\\tail-log.ps1",
-        "${workspaceFolder}\\.vscode\\logs\\softstep-basic-console.log"
+        "${env:APPDATA}\\Keith McMillen Instruments\\SoftStep Basic Editor\\logs"
       ],
       "isBackground": true,
       "problemMatcher": []
@@ -216,7 +216,7 @@
         "Bypass",
         "-File",
         "${workspaceFolder}\\.vscode\\tail-log.ps1",
-        "${workspaceFolder}\\.vscode\\logs\\softstep-advanced-console.log"
+        "${env:APPDATA}\\Keith McMillen Instruments\\SoftStep Advanced Editor\\logs"
       ],
       "isBackground": true,
       "problemMatcher": []

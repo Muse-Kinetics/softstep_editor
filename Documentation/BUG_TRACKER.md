@@ -11,11 +11,13 @@ Current validation and bug-fix focus areas are:
 
 Notes for incoming AI/LLM sessions:
 
-- Prefer console editor builds for diagnostics so logs are visible in terminal output
-- Prefer the `Remote Desktop + Log` launch configurations plus the matching `Tail ... Log` task when GUI behavior must be correlated with live logs on the visible Windows desktop
+- Prefer the Release `Launch SoftStep ... Editor` configurations plus the matching `Tail ... Log` task when GUI behavior must be correlated with logs on the visible Windows desktop
+- Prefer file-based app logging over the older console-build launch path unless a task explicitly requires the console variant
 - Correlate observed behavior in editors with shared MIDI/transport code in `shared/`
 - Correlate pedal issues across both repositories: editor-side Hosted scaling/state in this repo, raw-vs-calibrated pedal transmission in `00_Firmware/SoftStep`
 - Use temporary fixtures in `shared/test_winmm/` for backend investigation when useful
+- The shared `KMI_MDM` logger rollout is intended to remove packaged `(... Debug Console)` editor binaries, but that packaging cleanup is a later commit
+- Firmware chunking is the next planned firmware-update commit; treat `Documentation/FIRMWARE_CHUNKING.md` as design baseline, not implemented behavior
 
 ## Open Bugs
 
