@@ -62,7 +62,7 @@ int xlate_key_num(int in)
 	if (in >= 11)
 		out = 10;
 	
-    LOG_DBG("xlate key[%d] to key[%d]", in, out);
+    //LOG_DBG("xlate key[%d] to key[%d]", in, out);
 	
 	return out;
 }
@@ -156,13 +156,13 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
 
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Modline",A_LONG,0l,-1) )
     {
-        LOG_DBG("Modline matched");
+        //LOG_DBG("Modline matched");
         x->mod_num_current = (int) argv[2].a_w.w_long - 1;
 
 
         x->current_modline = &x->current_image->modlines[x->key_num][x->mod_num_current];
 
-        LOG_DBG("--- %s key[%d] modline[%d]", x->current_list->strings.data + LE_short(x->current_image->nm.name_index), x->key_num, x->mod_num_current);
+        //LOG_DBG("--- %s key[%d] modline[%d]", x->current_list->strings.data + LE_short(x->current_image->nm.name_index), x->key_num, x->mod_num_current);
         return;
     }
 
@@ -573,7 +573,7 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
             par_match(argc,argv,A_SYM,"set",A_SYM,"Bend_Device",A_SYM,0,-1)	)
     {
         x->current_modline->port = get_index(destination_list,NULL,argv + 2);   
-        LOG_DBG("Device [%s]", argv[2].a_w.w_sym->s_name);
+        //LOG_DBG("Device [%s]", argv[2].a_w.w_sym->s_name);
         return;
     }
     if ( par_match(argc,argv,A_SYM,"set",A_SYM,"Destination",A_SYM,0,-1))
@@ -604,10 +604,10 @@ void attribute_process(t_softstep *x, short argc, t_atom *argv)
 
         float_fix(&x->current_modline->gain,fval);
 
-                LOG_DBG("set fixed point %f: %x:%x", oval, x->current_modline->gain.u.upper, x->current_modline->gain.u.lower);
+        //LOG_DBG("set fixed point %f: %x:%x", oval, x->current_modline->gain.u.upper, x->current_modline->gain.u.lower);
 
-            LOG_DBG("gain [%f]", argv[2].a_w.w_float);
-        post("gain [%f]\n", argv[2].a_w.w_float);
+        //LOG_DBG("gain [%f]", argv[2].a_w.w_float);
+        //post("gain [%f]\n", argv[2].a_w.w_float);
         return;
     }
 

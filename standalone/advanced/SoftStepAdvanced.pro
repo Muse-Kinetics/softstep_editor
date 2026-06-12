@@ -81,6 +81,7 @@ INCLUDEPATH +=  forms \
 
 SOURCES +=      main.cpp\
     ../../shared/KMI_MDM/diagnosticlogger.cpp \
+    ../../shared/KMI_MDM/KMI_fwupdate.cpp \
     ../../shared/KMI_MDM/KMI_SysexMessages.c \
     ../../shared/KMI_MDM/KMI_mdm.cpp \
     ../../shared/KMI_MDM/cvCal/cvCal.cpp \
@@ -136,6 +137,7 @@ HEADERS  +=     mainwindow.h \
     ../../shared/KMI_MDM/diagnosticlogger.h \
     ../../shared/KMI_MDM/KMI_DevData.h \
     ../../shared/KMI_MDM/KMI_FwVersions.h \
+    ../../shared/KMI_MDM/KMI_fwupdate.h \
     ../../shared/KMI_MDM/KMI_SysexMessages.h \
     ../../shared/KMI_MDM/KMI_mdm.h \
     ../../shared/KMI_MDM/cvCal/cvCal.h \

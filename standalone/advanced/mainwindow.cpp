@@ -157,7 +157,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 
-    QString thisFwFile = QString(":/firmware/Softstep_Firmware_v%1.%2.%3.syx")
+        QString thisFwFile = QString(":/firmware/Softstep_Firmware_v%1.%2.%3-cs512.syx")
             .arg(uchar(thisFw.at(0)))
             .arg(uchar(thisFw.at(1)))
             .arg(uchar(thisFw.at(2)));
