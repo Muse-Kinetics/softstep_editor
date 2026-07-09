@@ -19,6 +19,7 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 # this is to clear warnings from the OG softstep c files
 DEFINES += _CRT_SECURE_NO_WARNINGS
 CONFIG+=sdk_no_version_check
+CONFIG += c++17
 
 macx {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder
@@ -323,9 +324,44 @@ linux{
 }
 
 win32{
-    DEFINES += __WINDOWS_MM__=1
-    LIBS += -lwinmm
+    WMS_SDK_ROOT = C:/PROGRA~2/WI3CF2~1/10
+
+    WMS_SDK_VERSION = $$replace($$(WindowsSDKVersion), \\\\, /)
+    WMS_SDK_VERSION = $$replace(WMS_SDK_VERSION, /$, )
+    isEmpty(WMS_SDK_VERSION): WMS_SDK_VERSION = 10.0.26100.0
+
+    WMS_CPPWINRT = $${WMS_SDK_ROOT}/Include/$${WMS_SDK_VERSION}/cppwinrt
+    WMS_WINDOWS_WINMD = $${WMS_SDK_ROOT}/UnionMetadata/$${WMS_SDK_VERSION}/Windows.winmd
+    WMS_CPPWINRT_EXE = $${WMS_SDK_ROOT}/bin/$${WMS_SDK_VERSION}/x64/cppwinrt.exe
+    WMS_RUNTIME_WINMD = C:/Program Files/Windows MIDI Services/Desktop App SDK Runtime/Microsoft.Windows.Devices.Midi2.winmd
+    WMS_PROJECTION_DIR = $$OUT_PWD/generated/winrt
+    WMS_PROJECTION_HEADER = $${WMS_PROJECTION_DIR}/winrt/Microsoft.Windows.Devices.Midi2.h
+
+    !exists($$WMS_CPPWINRT): error(Windows SDK cppwinrt headers not found at $$WMS_CPPWINRT)
+    !exists($$WMS_WINDOWS_WINMD): error(Windows.winmd not found at $$WMS_WINDOWS_WINMD)
+    !exists($$WMS_CPPWINRT_EXE): error(cppwinrt.exe not found at $$WMS_CPPWINRT_EXE)
+    !exists($$WMS_RUNTIME_WINMD): error(Windows MIDI Services runtime winmd not found at $$WMS_RUNTIME_WINMD)
+
+    INCLUDEPATH += $$WMS_CPPWINRT $$WMS_PROJECTION_DIR
+    DEFINES += __WINDOWS_MIDI_SERVICES__=1
     LIBS += -lole32
+    LIBS += -lruntimeobject
+    LIBS += -lwindowsapp
+
+    wms_projection.target = $$WMS_PROJECTION_HEADER
+    export(wms_projection.target)
+
+    wms_projection.commands = if not exist $$shell_path(\"$$WMS_PROJECTION_DIR\") mkdir $$shell_path(\"$$WMS_PROJECTION_DIR\") $$escape_expand(\n\t) \
+                              $$shell_path(\"$$WMS_CPPWINRT_EXE\") -input $$shell_path(\"$$WMS_RUNTIME_WINMD\") -reference $$shell_path(\"$$WMS_WINDOWS_WINMD\") -output $$shell_path(\"$$WMS_PROJECTION_DIR\")
+    export(wms_projection.commands)
+
+    PRE_TARGETDEPS += $$WMS_PROJECTION_HEADER
+    export(PRE_TARGETDEPS)
+
+    first.depends += $(first) wms_projection
+    export(first.depends)
+
+    QMAKE_EXTRA_TARGETS += first wms_projection
 }
 # end rtmidi defines
 

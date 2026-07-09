@@ -1,0 +1,17 @@
+name: SoftStep Editor
+description: Cross-platform Qt6 Basic and Advanced editors for configuring SoftStep hardware, managing presets, and delivering firmware updates.
+repository: c:\Users\eric\KMI Dropbox\Eric Bateman\00_Editors\SoftStep
+status: active
+phase: firmware-transport-integration
+owner: Eric Bateman <eric@musekinetics.com>
+responsible_buddy: Windoze
+created: 2026-05-27
+last_updated: 2026-05-27T00:00:00Z
+peer_buddies:
+  - Windoze
+tags:
+  - qt
+  - midi
+  - firmware-update
+  - softstep
+  - desktop-editor
