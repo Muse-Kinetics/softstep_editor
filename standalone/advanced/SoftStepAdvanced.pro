@@ -13,7 +13,7 @@ QT       += core gui \
 
 TARGET = "SoftStep Advanced Editor"
 TEMPLATE = app
-VERSION = 3.0.6.B
+VERSION = 3.0.6.C
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # this is to clear warnings from the OG softstep c files
@@ -24,9 +24,6 @@ CONFIG += c++17
 macx {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-reorder
 }
-
-# Uncomment this to build a console version of the app.
-#BUILD_CONSOLE = 1
 
 # Packaging is handled by the VS Code installer tasks and .vscode/make-installer.ps1.
 
@@ -59,10 +56,6 @@ versionAtLeast(QT_VERSION, 6.9.0){
         QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
         QMAKE_LFLAGS += -Wl,-w  # suppress harmless alignment warnings in Universal builds
     }
-}
-
-!isEmpty(BUILD_CONSOLE) {
-    CONFIG += console
 }
 
 INCLUDEPATH +=  forms \
@@ -343,7 +336,10 @@ win32{
     !exists($$WMS_RUNTIME_WINMD): error(Windows MIDI Services runtime winmd not found at $$WMS_RUNTIME_WINMD)
 
     INCLUDEPATH += $$WMS_CPPWINRT $$WMS_PROJECTION_DIR
+    # Both WinMM and WMS compiled in — backend is selected at runtime based on SDK availability.
+    DEFINES += __WINDOWS_MM__=1
     DEFINES += __WINDOWS_MIDI_SERVICES__=1
+    LIBS += -lwinmm
     LIBS += -lole32
     LIBS += -lruntimeobject
     LIBS += -lwindowsapp

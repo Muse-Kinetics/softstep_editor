@@ -11,7 +11,7 @@ QT +=           core gui \
 
 TARGET =        "SoftStep Basic Editor"
 TEMPLATE =      app
-VERSION = 3.0.6.B
+VERSION = 3.0.6.C
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # this is to clear warnings from the OG softstep c files
@@ -21,9 +21,6 @@ CONFIG+=sdk_no_version_check
 macx{
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 12
 }
-
-# Uncomment this to build a console version of the app.
-#BUILD_CONSOLE = 1
 
 # Packaging is handled by the VS Code installer tasks and .vscode/make-installer.ps1.
 
@@ -55,10 +52,6 @@ versionAtLeast(QT_VERSION, 6.9.0){
         QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
         QMAKE_LFLAGS += -Wl,-w  # suppress harmless alignment warnings in Universal builds
     }
-}
-
-!isEmpty(BUILD_CONSOLE) {
-    CONFIG += console
 }
 
 INCLUDEPATH +=  forms \
@@ -185,8 +178,47 @@ macx{
 }
 
 win32{
+    WMS_SDK_ROOT = C:/PROGRA~2/WI3CF2~1/10
+
+    WMS_SDK_VERSION = $$replace($$(WindowsSDKVersion), \\\\, /)
+    WMS_SDK_VERSION = $$replace(WMS_SDK_VERSION, /$, )
+    isEmpty(WMS_SDK_VERSION): WMS_SDK_VERSION = 10.0.26100.0
+
+    WMS_CPPWINRT = $${WMS_SDK_ROOT}/Include/$${WMS_SDK_VERSION}/cppwinrt
+    WMS_WINDOWS_WINMD = $${WMS_SDK_ROOT}/UnionMetadata/$${WMS_SDK_VERSION}/Windows.winmd
+    WMS_CPPWINRT_EXE = $${WMS_SDK_ROOT}/bin/$${WMS_SDK_VERSION}/x64/cppwinrt.exe
+    WMS_RUNTIME_WINMD = C:/Program Files/Windows MIDI Services/Desktop App SDK Runtime/Microsoft.Windows.Devices.Midi2.winmd
+    WMS_PROJECTION_DIR = $$OUT_PWD/generated/winrt
+    WMS_PROJECTION_HEADER = $${WMS_PROJECTION_DIR}/winrt/Microsoft.Windows.Devices.Midi2.h
+
+    !exists($$WMS_CPPWINRT): error(Windows SDK cppwinrt headers not found at $$WMS_CPPWINRT)
+    !exists($$WMS_WINDOWS_WINMD): error(Windows.winmd not found at $$WMS_WINDOWS_WINMD)
+    !exists($$WMS_CPPWINRT_EXE): error(cppwinrt.exe not found at $$WMS_CPPWINRT_EXE)
+    !exists($$WMS_RUNTIME_WINMD): error(Windows MIDI Services runtime winmd not found at $$WMS_RUNTIME_WINMD)
+
+    INCLUDEPATH += $$WMS_CPPWINRT $$WMS_PROJECTION_DIR
+    # Both WinMM and WMS compiled in — backend is selected at runtime based on SDK availability.
     DEFINES += __WINDOWS_MM__=1
-        LIBS += -lwinmm
+    DEFINES += __WINDOWS_MIDI_SERVICES__=1
+    LIBS += -lwinmm
+    LIBS += -lole32
+    LIBS += -lruntimeobject
+    LIBS += -lwindowsapp
+
+    wms_projection.target = $$WMS_PROJECTION_HEADER
+    export(wms_projection.target)
+
+    wms_projection.commands = if not exist $$shell_path(\"$$WMS_PROJECTION_DIR\") mkdir $$shell_path(\"$$WMS_PROJECTION_DIR\") $$escape_expand(\n\t) \
+                              $$shell_path(\"$$WMS_CPPWINRT_EXE\") -input $$shell_path(\"$$WMS_RUNTIME_WINMD\") -reference $$shell_path(\"$$WMS_WINDOWS_WINMD\") -output $$shell_path(\"$$WMS_PROJECTION_DIR\")
+    export(wms_projection.commands)
+
+    PRE_TARGETDEPS += $$WMS_PROJECTION_HEADER
+    export(PRE_TARGETDEPS)
+
+    first.depends += $(first) wms_projection
+    export(first.depends)
+
+    QMAKE_EXTRA_TARGETS += first wms_projection
 }
 
 linux{
