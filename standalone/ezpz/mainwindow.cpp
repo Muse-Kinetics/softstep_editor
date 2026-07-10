@@ -400,8 +400,8 @@ bool MainWindow::slotCreateDialog(QString dialogText, bool twoButtons)
     int x = this->width();
     int y = this->height();
 
-    int dialogX = ((x / 2) - (DIALOG_WIDTH / 2));
-    int dialogY = ((y / 2) - (DIALOG_HEIGHT / 2));
+    int dialogX = (x / 2) - (DIALOG_WIDTH / 2);
+    int dialogY = (y / 2) - (DIALOG_HEIGHT / 2);
 
     msgBox->move(dialogX, dialogY);
 
@@ -1434,6 +1434,22 @@ void MainWindow::slotForceFirmwareUpdate()
 void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
 {
     qDebug() << "slotFirmwareDetected called";
+
+    // Devices running firmware < 1.0.0 are no longer supported by this editor.
+    // Show a blocking message and close the application.
+    if ((uchar)thisMDM->deviceFirmwareVersion.at(0) < 1)
+    {
+        QString versionStr = QString("%1.%2.%3")
+            .arg((uchar)thisMDM->deviceFirmwareVersion.at(0))
+            .arg((uchar)thisMDM->deviceFirmwareVersion.at(1))
+            .arg((uchar)thisMDM->deviceFirmwareVersion.at(2));
+        slotCreateDialog(
+            QString("Your device firmware %1 is no longer supported.").arg(versionStr),
+            false);
+        QDesktopServices::openUrl(QUrl("https://support.musekinetics.com"));
+        QApplication::quit();
+        return;
+    }
 
     troubleshootWindow->slotSetDevVersion(deviceFirmwareVersionString(), deviceBootloaderVersionString());
     if (forceFirmwareUpdate)
