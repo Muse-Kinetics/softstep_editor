@@ -130,7 +130,6 @@ function Copy-EditorPayload {
     param(
         [string]$PackageDir,
         [string]$ReleaseExe,
-        [string]$ConsoleExe,
         [string]$DisplayName,
         [string]$QtDeployTool,
         [string]$SslCrypto,
@@ -141,14 +140,11 @@ function Copy-EditorPayload {
     Ensure-Directory -Path $PackageDir
 
     $mainDest = Join-Path $PackageDir "$DisplayName.exe"
-    $consoleDest = Join-Path $PackageDir "$DisplayName (Debug Console).exe"
 
     Write-Step "Staging $DisplayName"
     Copy-RequiredFile -Source $ReleaseExe -Destination $mainDest
-    Copy-RequiredFile -Source $ConsoleExe -Destination $consoleDest
 
     Invoke-Signing -SignTool $SignTool -TimestampUrl 'http://timestamp.digicert.com' -FileToSign $mainDest -WorkingDirectory $PackageDir
-    Invoke-Signing -SignTool $SignTool -TimestampUrl 'http://timestamp.digicert.com' -FileToSign $consoleDest -WorkingDirectory $PackageDir
 
     Write-Step "Running windeployqt for $DisplayName"
     Invoke-External -FilePath $QtDeployTool -ArgumentList @(
@@ -181,18 +177,14 @@ $sslCrypto = Join-Path $workspaceRoot 'shared\KMI_MDM\ssl\libcrypto-1_1-x64.dll'
 $sslTls = Join-Path $workspaceRoot 'shared\KMI_MDM\ssl\libssl-1_1-x64.dll'
 
 $basicReleaseDir = Join-Path $standaloneRoot 'build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Release\release'
-$basicConsoleReleaseDir = Join-Path $standaloneRoot 'build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Release-Console\release'
 $advancedReleaseDir = Join-Path $standaloneRoot 'build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Release\release'
-$advancedConsoleReleaseDir = Join-Path $standaloneRoot 'build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Release-Console\release'
 
 $basicPackageDir = Join-Path $winDeployRoot 'packages\com.keithmcmillen.softstepeditors.basic\data\SoftStep Basic Editor'
 $advancedPackageDir = Join-Path $winDeployRoot 'packages\com.keithmcmillen.softstepeditors.advanced\data\SoftStep Advanced Editor'
 $contentDir = Join-Path $winDeployRoot 'packages\com.keithmcmillen.softstepeditors.content\data\Content'
 
 $basicReleaseExe = Join-Path $basicReleaseDir 'SoftStep Basic Editor.exe'
-$basicConsoleExe = Join-Path $basicConsoleReleaseDir 'SoftStep Basic Editor.exe'
 $advancedReleaseExe = Join-Path $advancedReleaseDir 'SoftStep Advanced Editor.exe'
-$advancedConsoleExe = Join-Path $advancedConsoleReleaseDir 'SoftStep Advanced Editor.exe'
 
 $contentSource = Join-Path $workspaceRoot 'Content'
 $changelogSource = Join-Path $workspaceRoot 'CHANGELOG.md'
@@ -214,8 +206,8 @@ Update-InstallerMetadata -InstallerVersion $installerVersion -ConfigFile $config
     $contentPackageMetaFile
 )
 
-Copy-EditorPayload -PackageDir $basicPackageDir -ReleaseExe $basicReleaseExe -ConsoleExe $basicConsoleExe -DisplayName 'SoftStep Basic Editor' -QtDeployTool $qtDeployTool -SslCrypto $sslCrypto -SslTls $sslTls -SignTool $signTool
-Copy-EditorPayload -PackageDir $advancedPackageDir -ReleaseExe $advancedReleaseExe -ConsoleExe $advancedConsoleExe -DisplayName 'SoftStep Advanced Editor' -QtDeployTool $qtDeployTool -SslCrypto $sslCrypto -SslTls $sslTls -SignTool $signTool
+Copy-EditorPayload -PackageDir $basicPackageDir -ReleaseExe $basicReleaseExe -DisplayName 'SoftStep Basic Editor' -QtDeployTool $qtDeployTool -SslCrypto $sslCrypto -SslTls $sslTls -SignTool $signTool
+Copy-EditorPayload -PackageDir $advancedPackageDir -ReleaseExe $advancedReleaseExe -DisplayName 'SoftStep Advanced Editor' -QtDeployTool $qtDeployTool -SslCrypto $sslCrypto -SslTls $sslTls -SignTool $signTool
 
 Write-Step 'Refreshing installer content package'
 if (Test-Path -LiteralPath $contentDir) {

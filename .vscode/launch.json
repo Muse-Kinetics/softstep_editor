@@ -9,10 +9,24 @@
       "preLaunchTask": "Build SoftStep Basic Editor Release"
     },
     {
+      "name": "Launch SoftStep Basic Editor (Force WinMM)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${workspaceFolder}\\.vscode\\launch-and-tail.ps1\" \"${workspaceFolder}\\standalone\\build-softstepezpz-Desktop_Qt_6_3_2_MSVC2019_64bit-Release\\release\\SoftStep Basic Editor.exe\" \"${workspaceFolder}\" \"${env:APPDATA}\\Keith McMillen Instruments\\SoftStep Basic Editor\\logs\" -MidiBackend winmm",
+      "preLaunchTask": "Build SoftStep Basic Editor Release"
+    },
+    {
       "name": "Launch SoftStep Advanced Editor",
       "type": "node-terminal",
       "request": "launch",
       "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${workspaceFolder}\\.vscode\\launch-and-tail.ps1\" \"${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Release\\release\\SoftStep Advanced Editor.exe\" \"${workspaceFolder}\" \"${env:APPDATA}\\Keith McMillen Instruments\\SoftStep Advanced Editor\\logs\"",
+      "preLaunchTask": "Build SoftStep Advanced Editor Release"
+    },
+    {
+      "name": "Launch SoftStep Advanced Editor (Force WinMM)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${workspaceFolder}\\.vscode\\launch-and-tail.ps1\" \"${workspaceFolder}\\standalone\\build-SoftStepAdvanced-Desktop_Qt_6_3_2_MSVC2019_64bit-Release\\release\\SoftStep Advanced Editor.exe\" \"${workspaceFolder}\" \"${env:APPDATA}\\Keith McMillen Instruments\\SoftStep Advanced Editor\\logs\" -MidiBackend winmm",
       "preLaunchTask": "Build SoftStep Advanced Editor Release"
     }
   ]

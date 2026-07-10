@@ -6,7 +6,10 @@ param(
     [string]$Workdir,
 
     [Parameter(Mandatory = $true)]
-    [string]$LogDirectory
+    [string]$LogDirectory,
+
+    [Parameter(Mandatory = $false)]
+    [string]$MidiBackend = ""
 )
 
 $programPath = [Environment]::ExpandEnvironmentVariables($Program)
@@ -103,6 +106,10 @@ if (-not [string]::IsNullOrWhiteSpace($qtRuntime.Plugins) -and (Test-Path $qtRun
 if (-not [string]::IsNullOrWhiteSpace($qtRuntime.Qml) -and (Test-Path $qtRuntime.Qml -PathType Container)) {
     $env:QML2_IMPORT_PATH = $qtRuntime.Qml
     $env:QML_IMPORT_PATH = $qtRuntime.Qml
+}
+
+if (-not [string]::IsNullOrWhiteSpace($MidiBackend)) {
+    $env:KMI_MIDI_BACKEND = $MidiBackend
 }
 
 try {
