@@ -2,7 +2,7 @@
 <Package>
     	<DisplayName>SoftStep Advanced Editor</DisplayName>
     	<Description>The Advanced Windows editor for the SoftStep floor controller.</Description>
-    	<Version>3.0.6.B</Version>
+    	<Version>3.0.6.C</Version>
     	<Default>true</Default>    
     	<ReleaseDate>2024-02-24</ReleaseDate>
 	<Script>installscript.qs</Script>
