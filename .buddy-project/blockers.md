@@ -1,13 +1,13 @@
 # Blockers
 
-## No active functional blockers
+## No active blockers
 
-All work from 2026-07 sessions is committed and pushed. Editors ship at v3.0.6.C.
+Hardware validation completed 2026-07-08. The packetized firmware updater works end-to-end on real hardware.
 
-## `shared/rtmidi` dirty working tree (cosmetic only)
+## Dropbox conflict files in `shared/rtmidi`
 
-Dropbox left conflict copies of android source files in `shared/rtmidi/android/` (e.g. `RtMidi (Eric Bateman's conflicted copy ...).cpp`). The originals are also staged as deleted. This makes the submodule appear dirty (`-dirty` suffix in `git submodule status`) but does not affect Windows or macOS builds. The conflict copies can be deleted manually when convenient; do not stage or commit them.
+Dropbox left conflict copies of the android source files (`RtMidi (Eric Bateman's conflicted copy ...).cpp` etc.) in the `shared/rtmidi` working tree. These are untracked and should not be staged or committed. They can be deleted manually when convenient.
 
-## macOS release build not recently re-validated
+## Release-runtime packaging remains a separate concern
 
-The macOS Qt 6.9.2 universal binary build has not been re-validated since the 2026-07 changes (dual-backend build, WM_DEVICECHANGE filter, timeout increase). macOS does not use WinMM so the behavioural risk is low, but a clean macOS build run is warranted before the next macOS release.
+Editor release builds and runtime DLL deployment have been a recurring source of friction. Do not conflate runtime packaging issues with MIDI transport behavior.

@@ -1,23 +1,27 @@
 # Current Task
 
-No active development task. The editors are stable and shipped at v3.0.6.C.
+The active work is the SoftStep packetized firmware-update integration and the editor-side switch to the chunk-safe embedded firmware payload.
+
+## Priority Order
+
+1. Validate the packetized SoftStep firmware updater on hardware end-to-end using the current editor builds.
+2. Use the new diagnostics to confirm packet phase transitions, identity replies, and raw SysEx packet numbering during update runs.
+3. Keep both editor targets wired to the same shared updater surfaces and firmware resource names.
+4. Separate releasable editor changes from any cleanup or follow-on work that is not required for the firmware-update path.
 
 ## Current State
 
-All major work from 2026-07 sessions is committed and pushed.
+Hardware-validated and committed (2026-07-08).
 
-- Packetized firmware updater: hardware-validated (2026-07-08), shipping.
-- WMS + WinMM dual-backend: both compile in; runtime selects WMS if available, else WinMM. `KMI_MIDI_BACKEND=winmm` forces WinMM.
-- WinMM hot-plug detection: `KmiDeviceChangeFilter` intercepts `WM_DEVICECHANGE`; debounced 400 ms to `slotPollDevices`. Tested on Win11 21H2 VM.
-- Bootloader wait timeout: increased to 90 s to accommodate slow VM MIDI driver registration.
-- Console debug builds removed from both editors and deployment tooling.
-- Pre-1.0.0 firmware: blocked at the UI with a support-URL dialog.
-- `shared/KMI_MDM`: branch `main`, commit `c5c549b`.
-- `shared/rtmidi`: branch `WMS`, commit `b79b83e` (merged with KMI_RtMIDI/WMS, pushed 2026-07-27).
-- Superproject: `e571c2c3` — deployment versions updated, rtmidi pointer updated.
+- Packetized firmware updater confirmed working on real hardware: 289 chunks, ~110 ms/chunk, per-packet ACKs, clean bootloader → firmware reboot.
+- `shared/KMI_MDM` (branch `main`, commit `2447556`): portNameFix WMS early return committed.
+- `shared/rtmidi` (branch `WMS`, commit `4c35e8d`): push-based watcher, openPort cache refresh, SysEx reassembly committed.
+- Superproject updated to correct submodule pointers.
+- Both editors build clean against `:/firmware/Softstep_Firmware_v%1.%2.%3-cs512.syx`.
 
-## Next Candidates
+## Immediate Next Step
 
-- macOS release build validation (Qt 6.9.2 universal binary).
-- Windows installer smoke-test with the current v3.0.6.C release exes.
-- Clean up Dropbox conflict files in `shared/rtmidi/android/` (see blockers.md).
+No urgent blockers. Candidates:
+- Release packaging and runtime DLL deployment for the Advanced Editor.
+- Basic Editor parity (firmware update UI, WMS MIDI backend).
+- Push `shared/KMI_MDM` and `shared/rtmidi` WMS branch commits to remote if desired.
