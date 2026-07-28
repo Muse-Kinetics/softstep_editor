@@ -4,3 +4,6 @@
 [submodule "shared/rtmidi"]
 	path = shared/rtmidi
 	url = git@github.com:Muse-Kinetics/rtmidi.git
+[submodule "shared/sendsysex"]
+	path = shared/sendsysex
+	url = https://github.com/Muse-Kinetics/sendsysex.git
