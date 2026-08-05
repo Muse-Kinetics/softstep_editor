@@ -1,5 +1,19 @@
 #### SoftStep Editor and Firmware Changelog
 
+### Editor 3.0.7, Firmware 2.0.7 (2026-08-01)
+- New Features/Changes:
+	- Migrated to Windows MIDI Services (WMS), with automatic fallback to WinMM on machines without the WMS runtime installed.
+	- Firmware updates now use a packetized, chunk-safe transfer with a per-packet identity handshake instead of sending the whole firmware image as one block.
+	- Devices running firmware older than 1.0.0 are no longer offered an in-editor update; the editor shows a support link instead.
+	- Updated firmware to 2.0.7:
+		- Adds a 1-second boot-time tare capture for key sensors (margined +25%, clamped) to reduce stuck-key false triggers. Confirmed on hardware to fix an occasional sticking-key issue.
+		- Enforces a minimum gap between on/off sensitivity (off threshold ≥ half the on threshold) for all keys and the nav pad.
+		- Firmware 2.0.6 (bundled into this release): Hosted mode's expression pedal now sends the device's already-calibrated value instead of raw pedal data.
+	- The Windows installer now detects an existing installation and offers to remove it before installing, instead of failing with no way forward.
+- Bug Fixes:
+	- Advanced Editor (Hosted mode): fixed expression pedal calibration not being applied immediately; fixed MIDI routing sending to invalid output targets and legacy SoftStep port aliases; fixed a startup/reconnect race where settings were sent before the MIDI port had stabilized; fixed nav program-change decade state not restoring immediately; hardened against empty-setlist transfers and invalid modline/nav-modline values.
+	- Basic Editor: fixed standalone-on startup SysEx timing so it waits for the MIDI port to stabilize and the full send cycle to complete before reporting the update finished.
+
 ### Editor 3.0.5, Firmware 2.0.5 (2025-03-05)
 - New Features:
 	- Hardware

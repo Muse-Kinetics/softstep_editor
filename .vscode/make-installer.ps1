@@ -117,11 +117,13 @@ function Invoke-Signing {
         return
     }
 
+    # /fd certHash is not a valid digest algorithm (only sha1/sha256 are) - this
+    # matches the proven-working manual command in sendsysex's RELEASING.md and
+    # the fix applied to 12 Step Editor's copy of this same script/template.
     Invoke-External -FilePath $SignTool -ArgumentList @(
-        'sign', '/v', '/debug', '/a',
+        'sign', '/fd', 'sha256', '/a',
         '/tr', $TimestampUrl,
         '/td', 'SHA256',
-        '/fd', 'certHash',
         $FileToSign
     ) -WorkingDirectory $WorkingDirectory
 }
@@ -214,7 +216,7 @@ if (Test-Path -LiteralPath $contentDir) {
     Remove-Item -LiteralPath $contentDir -Recurse -Force
 }
 Ensure-Directory -Path $contentDir
-Copy-Item -LiteralPath (Join-Path $contentSource '*') -Destination $contentDir -Recurse -Force
+Copy-Item -Path (Join-Path $contentSource '*') -Destination $contentDir -Recurse -Force
 Copy-RequiredFile -Source $changelogSource -Destination $contentDir
 
 Write-Step 'Creating installer'

@@ -7,6 +7,21 @@
     {
       "name": "SoftStep Firmware",
       "path": "..\\..\\00_Firmware\\SoftStep"
+    },
+    {
+      "path": "../12 Step"
+    },
+    {
+      "path": "../QuNexus"
+    },
+    {
+      "path": "../QuNeo"
+    },
+    {
+      "path": "../K-Board"
+    },
+    {
+      "path": "../malletStation"
     }
   ],
   "settings": {

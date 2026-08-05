@@ -959,6 +959,15 @@ void MainWindow::slotInitMenuBar()
     connect(openLogLocation, SIGNAL(triggered()), this, SLOT(slotOpenLogDirectory()));
     help->addAction(openLogLocation);
 
+#ifdef Q_OS_WIN
+    QAction* installWMS = new QAction("Install Windows MIDI Services", help);
+    connect(installWMS, &QAction::triggered, []() {
+        QDesktopServices::openUrl(QUrl("https://microsoft.github.io/MIDI/get-latest/"));
+    });
+    actionList.append(installWMS);
+    help->addAction(installWMS);
+#endif // Q_OS_WIN
+
     //Tooltips
     if(settings->contains("toolTipsEnabled"))
     {

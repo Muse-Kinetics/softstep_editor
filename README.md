@@ -7,10 +7,13 @@ A cross-platform Qt6 application suite for configuring the SoftStep MIDI foot co
 - **Dual Interface Options**: Basic editor for simple configurations, Advanced editor for complex setups
 - **MIDI Configuration**: Customize MIDI CC mappings, channels, and velocity curves for all SoftStep controls
 - **Preset Management**: Save, load, and organize custom presets
-- **Firmware Updates**: Update SoftStep firmware directly through the editor
+- **Firmware Updates**: Update SoftStep firmware directly through the editor, using a packetized, chunk-safe transfer
+- **Windows MIDI Services (WMS)**: Uses WMS when available, with automatic fallback to WinMM on machines without the WMS runtime installed
 - **Hardware Testing**: Test pad sensitivity and foot switch responsiveness
 - **Cross-Platform**: Supports Windows, macOS (Intel/Apple Silicon), and possibly Linux
 - **Template Library**: Includes templates for popular DAWs and performance setups
+
+Current version: **3.0.7** (Editor), **2.0.7** (Firmware). See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
 ## System Requirements
 
@@ -39,74 +42,46 @@ A cross-platform Qt6 application suite for configuring the SoftStep MIDI foot co
 ### Building
 ```bash
 # Build Basic Editor
-cd basic-editor-directory
-qmake SoftStep_Basic.pro
+cd standalone/ezpz
+qmake softstepezpz.pro
 make
 
-# Build Advanced Editor  
-cd advanced-editor-directory
-qmake SoftStep_Advanced.pro
+# Build Advanced Editor
+cd standalone/advanced
+qmake SoftStepAdvanced.pro
 make
-
-# For deployment builds (Windows installer creation)
-make deploy
 ```
 
-**Note**: The `make deploy` step is required for Windows deployment and installer creation when `DEPLOY=1` is set in the .pro files.
+Installer creation is handled separately by `.vscode/make-installer.ps1` (see Windows Deployment below) — the `.pro` files themselves have no deploy-related build steps.
 
 ### Qt Creator
-1. Open the Basic editor `.pro` file in Qt Creator
+1. Open the Basic editor `.pro` file (`standalone/ezpz/softstepezpz.pro`) in Qt Creator
 2. Configure your kit for the target platform
 3. Build the project
-4. Repeat for Advanced editor
+4. Repeat for the Advanced editor (`standalone/advanced/SoftStepAdvanced.pro`)
 
 ## Deployment
 
 ### Windows Deployment
 
-The project includes an automated Windows deployment system that creates signed installers for both Basic and Advanced editors.
+The project includes an automated Windows deployment system that creates signed installers for both Basic and Advanced editors. All deployment logic lives in `.vscode/make-installer.ps1`, driven by VS Code tasks — the `.pro` files have no deploy-related qmake targets.
 
 #### Prerequisites
 - Windows SDK (for signtool.exe)
 - Qt Installer Framework (QtIFW)
 - Code signing certificate configured in Windows certificate store
 
-#### Basic Editor Deployment (Do First)
-1. **Open Basic Editor project** (`softstepezpz.pro`) and update VERSION variable
-2. **Delete all executables** in the release build directory
-3. **Add deploy build step** in Qt Creator Projects tab:
-   - Add "Make" step with target: `deploy`
-4. **Build console version**:
-   - Comment `DEPLOY = 1` line
-   - Uncomment `BUILD_CONSOLE = 1` line
-   - Build project
-   - Rename executable from `"SoftStep Basic Editor.exe"` to `"SoftStep Basic Editor (debug console).exe"`
-5. **Build release version**:
-   - Comment `BUILD_CONSOLE = 1` line
-   - Uncomment `DEPLOY = 1` line
-   - Build project (triggers deployment process)
+#### Steps
+1. Build both editors in Release configuration (VS Code tasks "Build SoftStep Basic Editor Release" / "Build SoftStep Advanced Editor Release", or the qmake/make commands above).
+2. Run the VS Code task **"Deploy SoftStep Windows Installer"** (chains the Release builds → `make-installer.ps1`), or **"Deploy SoftStep Windows Installer (No Signing)"** for an unsigned dry run.
 
-#### Advanced Editor Deployment (Do Second)
-1. **Open Advanced Editor project** (`SoftStepAdvanced.pro`) and update VERSION variable
-2. **Delete all executables** in the release build directory
-3. **Add deploy build step** in Qt Creator Projects tab:
-   - Add "Make" step with target: `deploy`
-4. **Build console version**:
-   - Comment `DEPLOY = 1` line
-   - Uncomment `BUILD_CONSOLE = 1` line
-   - Build project
-   - Rename executable from `"SoftStep Advanced Editor.exe"` to `"SoftStep Advanced Editor (debug console).exe"`
-5. **Build release version**:
-   - Comment `BUILD_CONSOLE = 1` line
-   - Uncomment `DEPLOY = 1` line
-   - Build project (creates final installer)
+`make-installer.ps1` will:
+- Read the installer version from `SoftStepAdvanced.pro`'s `VERSION` line and sync it into `win-deploy/config/config.xml` and each package's `meta/package.xml`.
+- Copy both editor executables into their installer package staging directories, sign them, run `windeployqt`, and copy the OpenSSL runtime DLLs.
+- Refresh the installer's Content package from the repo's `Content/` directory and `CHANGELOG.md`.
+- Build the installer with `binarycreator.exe` and sign it.
 
-The Advanced editor deployment process will:
-- Copy both Basic and Advanced executables to installer package
-- Run `windeployqt` to include Qt dependencies
-- Sign both executables with your certificate
-- Copy changelog and Content directory to installer package
-- Create and sign the final installer using Qt Installer Framework
+The resulting installer detects an existing SoftStep Editors installation at the target directory and offers to remove it before proceeding, rather than failing outright.
 
 ### macOS Deployment
 
@@ -145,17 +120,19 @@ The script will:
 
 ```
 SoftStep/
-├── [Basic Editor Directory]/     # Basic SoftStep Editor Qt project
-├── [Advanced Editor Directory]/  # Advanced SoftStep Editor Qt project
-├── shared/                       # Shared libraries and components
-│   ├── KMI_Ports/               # KMI device communication (submodule)
+├── standalone/
+│   ├── ezpz/                    # Basic SoftStep Editor Qt project
+│   └── advanced/                # Advanced SoftStep Editor Qt project
+├── shared/                      # Shared libraries and components
 │   ├── KMI_MDM/                 # MIDI Device Manager (submodule)
 │   ├── rtmidi/                  # RtMidi library (submodule)
-│   └── KMI_Updates/             # Update system (submodule)
+│   ├── sendsysex/               # Standalone SysEx/firmware CLI tool (submodule)
+│   └── firmware/                # Firmware .syx assets embedded into both editors
 ├── Content/                     # Application content and resources
 │   ├── Documentation/           # User manuals and guides
 │   ├── Presets/                # Factory presets
 │   └── Templates/              # Performance templates
+├── win-deploy/                  # Windows installer configuration (QtIFW)
 └── Signing and Notarization/   # macOS deployment scripts
 ```
 

@@ -52,8 +52,33 @@ Copy-Item -LiteralPath "c:\Users\eric\KMI Dropbox\Eric Bateman\00_Firmware\SoftS
 $env:KMI_SYSEX_CAPTURE_FILE = "C:\temp\softstep-sysex-capture.log"
 ```
 
+## Force the WinMM Backend (test the fallback path on a WMS-equipped machine)
+
+```powershell
+# Editors: use the VS Code launch configs
+# "Launch SoftStep Basic Editor (Force WinMM)" / "Launch SoftStep Advanced Editor (Force WinMM)"
+# — these set KMI_MIDI_BACKEND=winmm via .vscode/launch-and-tail.ps1 -MidiBackend winmm.
+
+# Equivalent manual override for any editor or sendsysex invocation:
+$env:KMI_MIDI_BACKEND = "winmm"
+
+# sendsysex also accepts a direct CLI override:
+.\sendsysex.exe --midi-backend winmm ...
+```
+
+## sendsysex (standalone CLI validation tool, `shared/sendsysex`)
+
+```powershell
+Set-Location "c:\Users\eric\KMI Dropbox\Eric Bateman\00_Editors\SoftStep\shared\sendsysex"
+cmake -B build
+cmake --build build
+# Binary lands in build/ (or build/Debug|Release on MSVC). See README.md for --fw-update usage
+# and RELEASING.md for the packaged-release build/sign/zip flow.
+```
+
 ## Notes
 
 - Packetized firmware diagnostics live in `shared/KMI_MDM/KMI_mdm.cpp`.
 - Use `Documentation/FIRMWARE_CHUNKING.md` as the design baseline for expected runtime behavior.
-- Avoid changing `shared/rtmidi` during the current firmware-update work.
+- `shared/rtmidi`, `shared/KMI_MDM`, and `shared/sendsysex` each independently implement the WMS-probe/WinMM-fallback pattern — keep backend-selection changes consistent across all three (see decisions.md).
+- `.buddy-project/` has a `.gitignore` entry, but the files were already tracked when it was added, so they still show as `modified` in `git status` on every edit — check staging before any commit (see blockers.md).

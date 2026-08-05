@@ -48,6 +48,15 @@ Component.prototype.createOperations = function()
                                 uninstallShortcutPath,
                                 "workingDirectory=" + targetDir,
                                 "description=Uninstall " + displayName);
+
+        // Run the bundled VC++ Redistributable so MSVCP140/VCRUNTIME140 are
+        // actually registered on the target machine, not just sitting next
+        // to the exe (windeployqt bundles it but never executes it).
+        var vcRedistPath = workingDir + "/vc_redist.x64.exe";
+        component.addOperation("Execute",
+                                "{0,3010,1638,5100}",
+                                vcRedistPath,
+                                "/install", "/quiet", "/norestart");
     }
 
     console.log("createOperations completed.");

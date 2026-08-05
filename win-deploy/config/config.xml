@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Installer>
     	<Name>SoftStep Editors Installer</Name>
-    	<Version>3.0.6.C</Version>
+    	<Version>3.0.7</Version>
     	<Title>SoftStep Editor Installer</Title>
     	<Publisher>Keith McMillen Instruments</Publisher>
     	<StartMenuDir>Keith McMillen Instruments</StartMenuDir>
 		<TargetDir>@HomeDir@/KMI/SoftStep Editors</TargetDir>
 		<WizardStyle>Mac</WizardStyle>
 		<StyleSheet>style.qss</StyleSheet>
-		<!-- <ControlScript>pre-install2.qs</ControlScript> -->
+		<ControlScript>controller.qs</ControlScript>
 </Installer>
