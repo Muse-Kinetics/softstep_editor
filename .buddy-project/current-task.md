@@ -1,5 +1,19 @@
 # Current Task
 
+## macOS release — COMPLETE (2026-08-06)
+
+Windows was already published (v3.0.7). The macOS build is now **hardware-validated by Eric**, and the signed + notarized universal DMG is published to the GitHub release.
+
+- Built on macOS with **Qt 6.9.2** (universal x86_64+arm64) via the new `.vscode` **SoftStep Mac Build** task. One Qt-6.9.2/Apple-clang fix was required (`-Wno-error=implicit-function-declaration` for `qyieldcpu.h`), applied in `.vscode/run-qmake-task.sh`.
+- Packaged via **SoftStep Mac Make DMG**: macdeployqt → codesign (Developer ID: Kesumo, LLC) → create-dmg (Basic+Advanced apps + CHANGELOG + Content (15M) in a SoftStep folder, drag-to-Applications) → notarize (notarytool profile "Andrej") → staple.
+- Deployed via **SoftStep Mac Deploy**: `gh release upload v3.0.7` → `Muse-Kinetics/softstep_editor`. Asset: `SoftStep Mac v3.0.7.dmg`.
+
+The `.vscode` tooling now carries unified cross-platform tasks named `[Product] [OS] [Action]` (SoftStep Win Build / SoftStep Mac Build / SoftStep Mac Launch (Console) / SoftStep Mac Make DMG / SoftStep Mac Deploy). "Deploy" = attach the DMG to the matching GitHub release (moved off self-hosted webpage).
+
+**Status: shipped on both Windows and macOS.** Everything below predates this and is kept for history.
+
+---
+
 The packetized firmware-update work is complete and hardware-validated. Active work since then has been the WMS/WinMM dual-backend rollout across `KMI_MDM`, `rtmidi`, and the standalone `sendsysex` tool, editor-side hardening (pre-1.0.0 firmware blocking), and — most recently — the version 3.0.7 release prep: firmware 2.0.7, an installer fix ported from the 12 Step Editor project, and updated docs. **Editor version bumped from the beta `3.0.6.C` → non-beta `3.0.6` → `3.0.7`** (the second bump was an explicit user request after the first, made before anything was committed) — `3.0.7` is intended to be the actual public release, not another beta.
 
 ## Priority Order

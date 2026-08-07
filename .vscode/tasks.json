@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build SoftStep Basic Editor Debug",
+      "label": "SoftStep Basic Win Build (Debug)",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -28,12 +28,11 @@
         "$msCompile"
       ],
       "group": {
-        "kind": "build",
-        "isDefault": false
+        "kind": "build"
       }
     },
     {
-      "label": "Build SoftStep Basic Editor Release",
+      "label": "SoftStep Basic Win Build",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -61,7 +60,7 @@
       ]
     },
     {
-      "label": "Clean SoftStep Basic Editor Debug",
+      "label": "SoftStep Basic Win Clean",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -76,7 +75,7 @@
       ]
     },
     {
-      "label": "Tail SoftStep Basic Editor Log",
+      "label": "SoftStep Basic Win Tail Log",
       "type": "shell",
       "command": "powershell",
       "args": [
@@ -91,7 +90,7 @@
       "problemMatcher": []
     },
     {
-      "label": "Tail SoftStep Advanced Editor Log",
+      "label": "SoftStep Advanced Win Tail Log",
       "type": "shell",
       "command": "powershell",
       "args": [
@@ -106,7 +105,7 @@
       "problemMatcher": []
     },
     {
-      "label": "Build SoftStep Advanced Editor Debug",
+      "label": "SoftStep Advanced Win Build (Debug)",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -132,12 +131,11 @@
         "$msCompile"
       ],
       "group": {
-        "kind": "build",
-        "isDefault": false
+        "kind": "build"
       }
     },
     {
-      "label": "Build SoftStep Advanced Editor Release",
+      "label": "SoftStep Advanced Win Build",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -165,7 +163,7 @@
       ]
     },
     {
-      "label": "Clean SoftStep Advanced Editor Debug",
+      "label": "SoftStep Advanced Win Clean",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -180,20 +178,19 @@
       ]
     },
     {
-      "label": "Build SoftStep Editors Debug",
+      "label": "SoftStep Win Build (All, Debug)",
       "dependsOrder": "sequence",
       "dependsOn": [
-        "Build SoftStep Basic Editor Debug",
-        "Build SoftStep Advanced Editor Debug"
+        "SoftStep Basic Win Build (Debug)",
+        "SoftStep Advanced Win Build (Debug)"
       ],
       "problemMatcher": [],
       "group": {
-        "kind": "build",
-        "isDefault": true
+        "kind": "build"
       }
     },
     {
-      "label": "Make SoftStep Windows Installer",
+      "label": "SoftStep Win Installer",
       "type": "shell",
       "command": "powershell",
       "args": [
@@ -209,7 +206,7 @@
       "problemMatcher": []
     },
     {
-      "label": "Make SoftStep Windows Installer (No Signing)",
+      "label": "SoftStep Win Installer (No Signing)",
       "type": "shell",
       "command": "powershell",
       "args": [
@@ -226,23 +223,204 @@
       "problemMatcher": []
     },
     {
-      "label": "Deploy SoftStep Windows Installer",
+      "label": "SoftStep Win Deploy",
       "dependsOrder": "sequence",
       "dependsOn": [
-        "Build SoftStep Basic Editor Release",
-        "Build SoftStep Advanced Editor Release",
-        "Make SoftStep Windows Installer"
+        "SoftStep Basic Win Build",
+        "SoftStep Advanced Win Build",
+        "SoftStep Win Installer"
       ],
       "problemMatcher": []
     },
     {
-      "label": "Deploy SoftStep Windows Installer (No Signing)",
+      "label": "SoftStep Win Deploy (No Signing)",
       "dependsOrder": "sequence",
       "dependsOn": [
-        "Build SoftStep Basic Editor Release",
-        "Build SoftStep Advanced Editor Release",
-        "Make SoftStep Windows Installer (No Signing)"
+        "SoftStep Basic Win Build",
+        "SoftStep Advanced Win Build",
+        "SoftStep Win Installer (No Signing)"
       ],
+      "problemMatcher": []
+    },
+    {
+      "label": "SoftStep Basic Mac Build",
+      "type": "process",
+      "command": "${workspaceFolder}/.vscode/run-qmake-task.sh",
+      "args": [
+        "${workspaceFolder}/standalone/ezpz/softstepezpz.pro",
+        "build",
+        "${workspaceFolder}/build-macos-basic-release",
+        "CONFIG+=release"
+      ],
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "SoftStep Basic Mac Build (Debug)",
+      "type": "process",
+      "command": "${workspaceFolder}/.vscode/run-qmake-task.sh",
+      "args": [
+        "${workspaceFolder}/standalone/ezpz/softstepezpz.pro",
+        "build",
+        "${workspaceFolder}/build-macos-basic-debug",
+        "CONFIG+=debug"
+      ],
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "SoftStep Basic Mac Clean",
+      "type": "process",
+      "command": "${workspaceFolder}/.vscode/run-qmake-task.sh",
+      "args": [
+        "${workspaceFolder}/standalone/ezpz/softstepezpz.pro",
+        "clean",
+        "${workspaceFolder}/build-macos-basic-release"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "SoftStep Basic Mac Launch (Console)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/launch-on-console.sh",
+      "args": [
+        "${workspaceFolder}/build-macos-basic-release/SoftStep Basic Editor.app/Contents/MacOS/SoftStep Basic Editor"
+      ],
+      "dependsOn": [
+        "SoftStep Basic Mac Build"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      }
+    },
+    {
+      "label": "SoftStep Advanced Mac Build",
+      "type": "process",
+      "command": "${workspaceFolder}/.vscode/run-qmake-task.sh",
+      "args": [
+        "${workspaceFolder}/standalone/advanced/SoftStepAdvanced.pro",
+        "build",
+        "${workspaceFolder}/build-macos-advanced-release",
+        "CONFIG+=release"
+      ],
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "SoftStep Advanced Mac Build (Debug)",
+      "type": "process",
+      "command": "${workspaceFolder}/.vscode/run-qmake-task.sh",
+      "args": [
+        "${workspaceFolder}/standalone/advanced/SoftStepAdvanced.pro",
+        "build",
+        "${workspaceFolder}/build-macos-advanced-debug",
+        "CONFIG+=debug"
+      ],
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "SoftStep Advanced Mac Clean",
+      "type": "process",
+      "command": "${workspaceFolder}/.vscode/run-qmake-task.sh",
+      "args": [
+        "${workspaceFolder}/standalone/advanced/SoftStepAdvanced.pro",
+        "clean",
+        "${workspaceFolder}/build-macos-advanced-release"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "SoftStep Advanced Mac Launch (Console)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/launch-on-console.sh",
+      "args": [
+        "${workspaceFolder}/build-macos-advanced-release/SoftStep Advanced Editor.app/Contents/MacOS/SoftStep Advanced Editor"
+      ],
+      "dependsOn": [
+        "SoftStep Advanced Mac Build"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      }
+    },
+    {
+      "label": "SoftStep Mac Build (All)",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "SoftStep Basic Mac Build",
+        "SoftStep Advanced Mac Build"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "SoftStep Mac Make DMG",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/make-dmg-mac.sh",
+      "args": [
+        "SoftStep",
+        "${workspaceFolder}/build-macos-basic-release/SoftStep Basic Editor.app",
+        "${workspaceFolder}/build-macos-advanced-release/SoftStep Advanced Editor.app"
+      ],
+      "options": {
+        "env": {
+          "KMI_VERSION_PRO": "${workspaceFolder}/standalone/advanced/SoftStepAdvanced.pro"
+        }
+      },
+      "dependsOn": [
+        "SoftStep Mac Build (All)"
+      ],
+      "dependsOrder": "sequence",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "SoftStep Mac Deploy",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/release-github-mac.sh",
+      "args": [
+        "Muse-Kinetics/softstep_editor",
+        "SoftStep",
+        "${workspaceFolder}/build-macos-basic-release/SoftStep Basic Editor.app"
+      ],
+      "options": {
+        "env": {
+          "KMI_VERSION_PRO": "${workspaceFolder}/standalone/advanced/SoftStepAdvanced.pro"
+        }
+      },
+      "dependsOn": [
+        "SoftStep Mac Make DMG"
+      ],
+      "dependsOrder": "sequence",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      },
       "problemMatcher": []
     }
   ]

@@ -79,3 +79,6 @@ win-deploy/SoftStep Editors v* Windows Installer.exe.sha256
 win-deploy/packages/com.keithmcmillen.softstepeditors.basic/data/
 win-deploy/packages/com.keithmcmillen.softstepeditors.advanced/data/
 win-deploy/packages/com.keithmcmillen.softstepeditors.content/data/
+
+# macOS VS Code build output
+build-macos-*/
