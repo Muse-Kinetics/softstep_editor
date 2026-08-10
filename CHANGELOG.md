@@ -1,5 +1,11 @@
 #### SoftStep Editor and Firmware Changelog
 
+### Editor 3.0.8, Firmware 2.0.7 (2026-08-08)
+- Bug Fixes:
+	- Fixed both editors hanging indefinitely (Windows reports it as "Not Responding") when using File > Export Preset, File > Import Preset, or (Advanced Editor) File > Import All Presets from V1.21. The new Windows MIDI Services backend initializes the app's main thread into a COM apartment mode that conflicts with the native Windows Save/Open/Browse file dialogs, causing them to hang rather than crash. The editors now use Qt's own file dialogs instead of the native ones to avoid the conflict.
+	- Fixed the Advanced Editor's About screen (and startup update check) reporting version 3.0.6 instead of 3.0.7 - the 3.0.7 installer shipped with an Advanced Editor build from before the version was bumped.
+	- Preset import/export now shows a clear warning dialog instead of failing silently if a preset file can't be opened, written, or parsed as valid JSON.
+
 ### Editor 3.0.7, Firmware 2.0.7 (2026-08-01)
 - New Features/Changes:
 	- Migrated to Windows MIDI Services (WMS), with automatic fallback to WinMM on machines without the WMS runtime installed.

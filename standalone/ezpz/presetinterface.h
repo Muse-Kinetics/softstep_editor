@@ -9,6 +9,7 @@
 #include <QVariant>
 #include <QtGui>
 #include <QFileDialog>
+#include <QMessageBox>
 #include <QSpinBox>
 #include <QDoubleSpinBox>
 #include <QLineEdit>

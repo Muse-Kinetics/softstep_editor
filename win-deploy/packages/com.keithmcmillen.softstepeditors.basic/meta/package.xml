@@ -2,7 +2,7 @@
 <Package>
     	<DisplayName>SoftStep Basic Editor</DisplayName>
     	<Description>The Basic Windows editor for the SoftStep floor controller.</Description>
-    	<Version>3.0.7</Version>
+    	<Version>3.0.8</Version>
     	<Default>true</Default>    
     	<ReleaseDate>2024-02-24</ReleaseDate>
 	<Script>installscript.qs</Script>

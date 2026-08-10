@@ -23,7 +23,13 @@ void ImportOldPresetHandler::slotImportOldPreset()
 
     const QString DEFAULT_DIR_KEY("default_dir");
 
-    filepath = QFileDialog::getExistingDirectory(presetInterface, tr("Navigate to your SoftStep Editor Version 1.21 'Presets' Folder"), settings.value(DEFAULT_DIR_KEY).toString());
+    // DontUseNativeDialog: the native Windows folder-picker dialog requires an STA COM
+    // apartment on the calling thread, but the Windows MIDI Services backend
+    // initializes this (the main/UI) thread as MTA at startup (see
+    // shared/rtmidi/RtMidi.cpp WinMidi2Init / RtMidi::checkApiAvailability). Showing
+    // the native dialog from an MTA thread hangs indefinitely, so we force Qt's own
+    // dialog implementation here.
+    filepath = QFileDialog::getExistingDirectory(presetInterface, tr("Navigate to your SoftStep Editor Version 1.21 'Presets' Folder"), settings.value(DEFAULT_DIR_KEY).toString(), QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog);
 
     //If file is selected
     if(!filepath.isNull() && !filepath.isEmpty())

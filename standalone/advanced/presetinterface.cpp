@@ -2,6 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #include <QFileDialog>
+#include <QMessageBox>
 
 #include "presetinterface.h"
 
@@ -634,7 +635,13 @@ void PresetInterface::slotImportPreset()
 
     const QString DEFAULT_DIR_KEY("default_dir");
 
-    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), settings.value(DEFAULT_DIR_KEY).toString(), tr("SoftStep Advanced Editor Preset Files (*.softsteppreset)"));
+    // DontUseNativeDialog: the native Windows Save/Open dialog requires an STA COM
+    // apartment on the calling thread, but the Windows MIDI Services backend
+    // initializes this (the main/UI) thread as MTA at startup (see
+    // shared/rtmidi/RtMidi.cpp WinMidi2Init / RtMidi::checkApiAvailability). Showing
+    // the native dialog from an MTA thread hangs indefinitely (Windows reports it as
+    // an AppHang, not a crash), so we force Qt's own dialog implementation here.
+    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), settings.value(DEFAULT_DIR_KEY).toString(), tr("SoftStep Advanced Editor Preset Files (*.softsteppreset)"), nullptr, QFileDialog::DontUseNativeDialog);
 
     //If file is selected
     if(!filename.isEmpty() && !filename.isNull())
@@ -648,12 +655,28 @@ void PresetInterface::slotImportPreset()
 
         //open file
         QFile* presetFile = new QFile(filename);
-        presetFile->open(QIODevice::ReadOnly | QIODevice::Text);
+        if (!presetFile->open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            qWarning() << "Failed to open preset file for import:" << filename << presetFile->errorString();
+            QMessageBox::warning(this, tr("Import Preset"), tr("Could not open the preset file:\n%1\n\n%2").arg(filename, presetFile->errorString()));
+            delete presetFile;
+            return;
+        }
 
         // error object
         QJsonParseError JsonParseError;
         // convert file to QJsonDocument. this can be read/written to
-        QJsonDocument JsonDocument = QJsonDocument::fromJson(presetFile->readAll(), &JsonParseError);
+        QByteArray presetFileData = presetFile->readAll();
+        QJsonDocument JsonDocument = QJsonDocument::fromJson(presetFileData, &JsonParseError);
+
+        if (JsonDocument.isNull())
+        {
+            qWarning() << "Failed to parse preset file as JSON:" << filename << JsonParseError.errorString();
+            QMessageBox::warning(this, tr("Import Preset"), tr("This file is not a valid preset:\n%1\n\n%2").arg(filename, JsonParseError.errorString()));
+            presetFile->close();
+            delete presetFile;
+            return;
+        }
 
         // convert QJsonDocument to QJsonObject. this can be queried and modified in a human-readable way
         QJsonObject RootObject = JsonDocument.object();
@@ -789,7 +812,9 @@ void PresetInterface::slotExportPreset()
     const QString DEFAULT_DIR_KEY("default_dir");
 
     //set path and filename (default filename is the preset name
-    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("%1/%2").arg(settings.value(DEFAULT_DIR_KEY).toString()).arg(exportedPresetMap.value("preset_name").toString()), tr("SoftStep Advanced Editor Preset Files (*.softsteppreset)"));
+    // DontUseNativeDialog: see comment in slotImportPreset() - the native dialog
+    // hangs because the WMS backend leaves this thread's COM apartment as MTA.
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("%1/%2").arg(settings.value(DEFAULT_DIR_KEY).toString()).arg(exportedPresetMap.value("preset_name").toString()), tr("SoftStep Advanced Editor Preset Files (*.softsteppreset)"), nullptr, QFileDialog::DontUseNativeDialog);
 
     if(!filename.isEmpty() && !filename.isNull())
     {
@@ -814,7 +839,13 @@ void PresetInterface::slotExportPreset()
         qDebug() << "open";
 
         //------------------ Open, Write, and Close
-        presetFile->open(QIODevice::WriteOnly);
+        if (!presetFile->open(QIODevice::WriteOnly))
+        {
+            qWarning() << "Failed to open file for writing preset export:" << filename << presetFile->errorString();
+            QMessageBox::warning(this, tr("Export Preset"), tr("Could not save the preset to:\n%1\n\n%2").arg(filename, presetFile->errorString()));
+            delete presetFile;
+            return;
+        }
 
     //    QByteArray presetByteArray = serializer.serialize(exportedPresetMap);
 

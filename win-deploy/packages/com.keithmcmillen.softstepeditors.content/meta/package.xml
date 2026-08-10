@@ -2,7 +2,7 @@
 <Package>
     	<DisplayName>SoftStep Content</DisplayName>
     	<Description>DAW scripts, presets, and SysEx files for SoftStep.</Description>
-    	<Version>3.0.7</Version>
+    	<Version>3.0.8</Version>
     	<Default>true</Default>    
     	<ReleaseDate>2024-02-24</ReleaseDate>
 	<Script>installscript.qs</Script>
