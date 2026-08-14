@@ -267,6 +267,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QString corbelFont = ":/fonts/corbel/corbel.ttf";
     QString corbelBFont = ":/fonts/corbel/corbelb.ttf";
     QString sourceFont = ":/fonts/source-sans-pro/SourceSansPro-Regular.otf";
+    // "Futura PT" is referenced by stylesheets (e.g. the SAVE AS button). It must be
+    // bundled-loaded here, otherwise the app relies on the font being installed
+    // system-wide and falls back to a wider system font on machines without it —
+    // which elides "SAVE AS" to "SA...AS" (softstep issue #4).
+    QString futuraPTFont = ":/fonts/futura/FuturaPT-Book.otf";
 
 
     if (QFontDatabase::addApplicationFont(droidFont) == -1) qDebug() << "Could not load font: " << droidFont;
@@ -275,6 +280,7 @@ MainWindow::MainWindow(QWidget *parent) :
     if (QFontDatabase::addApplicationFont(corbelFont) == -1) qDebug() << "Could not load font: " << corbelFont;
     if (QFontDatabase::addApplicationFont(corbelBFont) == -1) qDebug() << "Could not load font: " << corbelBFont;
     if (QFontDatabase::addApplicationFont(sourceFont) == -1) qDebug() << "Could not load font: " << sourceFont;
+    if (QFontDatabase::addApplicationFont(futuraPTFont) == -1) qDebug() << "Could not load font: " << futuraPTFont;
 
     // ---- end FONTS -------------------------
 
@@ -1385,7 +1391,7 @@ void MainWindow::slotConfirmResetPresets()
         ui->presetmenu->clear();
         slotPopulatePresetMenu();
         setlist->slotPopulateSetlistMenus(ui->presetmenu); // updates setlist dropdowns
-        setlist->slotCompileSetlist(); // clears setlist and saves it
+        setlist->slotFillWithAllPresets(ui->presetmenu); // populate the setlist with the default presets (issue #5)
         presetInterface->slotRecallPreset(0);
         //relaunchApplication(); // the cowards way out
     }

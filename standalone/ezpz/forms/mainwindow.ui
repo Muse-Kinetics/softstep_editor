@@ -304,8 +304,8 @@ QComboBox QAbstractItemView
     min-width: 160px;
     min-height: 60;
 	color:white;
-	padding-left: -10px;
-	text-align:right;
+	padding-left: 6px;
+	text-align:left;
 	border:none;
 }
 
@@ -807,8 +807,8 @@ QCheckBox::indicator {
     min-width: 70px;
     min-height: 60;
 	color:white;
-	padding-left: -10px;
-	text-align:right;
+	padding-left: 6px;
+	text-align:left;
 	border:none;
 	icon-size:0px;
 }</string>

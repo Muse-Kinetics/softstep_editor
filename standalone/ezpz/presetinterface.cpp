@@ -256,13 +256,15 @@ void PresetInterface::slotImportPreset()
 
     const QString DEFAULT_DIR_KEY("default_dir");
 
-    // DontUseNativeDialog: the native Windows Save/Open dialog requires an STA COM
-    // apartment on the calling thread, but the Windows MIDI Services backend
-    // initializes this (the main/UI) thread as MTA at startup (see
-    // shared/rtmidi/RtMidi.cpp WinMidi2Init / RtMidi::checkApiAvailability). Showing
-    // the native dialog from an MTA thread hangs indefinitely (Windows reports it as
-    // an AppHang, not a crash), so we force Qt's own dialog implementation here.
-    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), settings.value(DEFAULT_DIR_KEY).toString(), tr("SoftStep Basic Editor Preset Files (*.softstepbasicpreset)"), nullptr, QFileDialog::DontUseNativeDialog);
+    // Windows only: force Qt's non-native dialog. The native Save/Open dialog needs
+    // an STA COM apartment, but the Windows MIDI Services backend leaves this (UI)
+    // thread as MTA at startup (see shared/rtmidi/RtMidi.cpp WinMidi2Init), so the
+    // native dialog hangs indefinitely (AppHang). macOS/Linux use the native dialog.
+    QFileDialog::Options dlgOpts;
+#ifdef Q_OS_WIN
+    dlgOpts |= QFileDialog::DontUseNativeDialog;
+#endif
+    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), settings.value(DEFAULT_DIR_KEY).toString(), tr("SoftStep Basic Editor Preset Files (*.softstepbasicpreset)"), nullptr, dlgOpts);
 
     //If file is selected
     if(!filename.isEmpty() && !filename.isNull())
@@ -365,12 +367,21 @@ void PresetInterface::slotExportPreset()
     const QString DEFAULT_DIR_KEY("default_dir");
 
     //set path and filename (default filename is the preset name
-    // DontUseNativeDialog: see comment in slotImportPreset() - the native dialog
-    // hangs because the WMS backend leaves this thread's COM apartment as MTA.
-    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("%1/%2").arg(settings.value(DEFAULT_DIR_KEY).toString()).arg(exportedPresetMap.value("displayName").toString()), tr("SoftStep Basic Editor Preset Files (*.softstepbasicpreset)"), nullptr, QFileDialog::DontUseNativeDialog);
+    // Windows only: force Qt's non-native dialog (WMS leaves this thread MTA, which
+    // hangs the native dialog — see slotImportPreset()). macOS/Linux use native.
+    QFileDialog::Options dlgOpts;
+#ifdef Q_OS_WIN
+    dlgOpts |= QFileDialog::DontUseNativeDialog;
+#endif
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("%1/%2").arg(settings.value(DEFAULT_DIR_KEY).toString()).arg(exportedPresetMap.value("displayName").toString()), tr("SoftStep Basic Editor Preset Files (*.softstepbasicpreset)"), nullptr, dlgOpts);
 
     if(!filename.isEmpty() && !filename.isNull())
     {
+        // Ensure the correct extension regardless of platform/dialog (the native
+        // macOS panel may not append the filter suffix when the user omits it).
+        if (!filename.endsWith(".softstepbasicpreset", Qt::CaseInsensitive))
+            filename += ".softstepbasicpreset";
+
         //this gets the filename without the path
         QFileInfo fileInfo(filename);
 

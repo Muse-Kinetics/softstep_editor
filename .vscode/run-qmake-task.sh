@@ -48,6 +48,18 @@ case "$ACTION" in
         ;;
     build)
         "$QMAKE_CMD" "$PROJECT_FILE" "${MAC_FIX[@]}" ${CONFIG_ARGS[@]+"${CONFIG_ARGS[@]}"}
+        # Keep APP_VERSION fresh. qmake injects -DAPP_VERSION="$$VERSION" into the
+        # Makefile, but make only recompiles a .cpp when its source/headers change,
+        # NOT when a -D flag changes — so bumping the .pro VERSION alone leaves the
+        # old version baked in and the About box shows the PREVIOUS version
+        # (softstep issue #2). When VERSION changes, touch the file(s) that embed
+        # APP_VERSION so they recompile. Stamp avoids doing this on every build.
+        PRO_VER="$(grep -E '^VERSION[[:space:]]*=' "$PROJECT_FILE" | head -1 | sed -E 's/^VERSION[[:space:]]*=[[:space:]]*//' | tr -d '[:space:]' || true)"
+        if [[ -n "$PRO_VER" && "$(cat .app_version_built 2>/dev/null || true)" != "$PRO_VER" ]]; then
+            while IFS= read -r vf; do [[ -n "$vf" ]] && touch "$vf"; done \
+                < <(grep -rl 'APP_VERSION' "$(dirname "$PROJECT_FILE")" --include='*.cpp' 2>/dev/null || true)
+            echo "$PRO_VER" > .app_version_built
+        fi
         make -j"$CPU"
         ;;
     clean)

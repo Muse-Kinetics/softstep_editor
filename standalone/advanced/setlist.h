@@ -64,6 +64,7 @@ public slots:
     void slotInitComponents();
     void slotShowSetlist();
     void slotPopulateSetlistMenus(QComboBox *presetMenu);
+    void slotFillWithAllPresets(QComboBox *presetMenu);
     void slotCompileSetlist();
     void slotRefreshSetlistMenus(QComboBox* presetMenu);
 

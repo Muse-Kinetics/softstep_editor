@@ -124,6 +124,14 @@ Key::Key(QWidget *parent, int keyInstanceNum) :
     //qDebug() << "key[" << keyInstance << "]: setWindowInstance - elapsed: " << eTimer.elapsed(); eTimer.start();
 
     keyWindowForm->keyWindowInstanceLabel->setText(QString("%1").arg((keyInstance + 1) % 10));
+    // The number and the blue circle graphic (keyWindowInstanceLabel_background) are
+    // overlapping SIBLINGS. Under Qt 6 the circle frame's border-image paints over the
+    // label's region, so the number is hidden and the circle looks empty. Re-parent
+    // the number INTO the circle frame so it always paints on top (a child widget is
+    // always drawn over its parent's background). Geometry becomes frame-relative.
+    //keyWindowForm->keyWindowInstanceLabel->setParent(keyWindowForm->keyWindowInstanceLabel_background);
+    //keyWindowForm->keyWindowInstanceLabel->move(5, 6); // was (430,16); frame is at (425,10)
+    keyWindowForm->keyWindowInstanceLabel->show();
     keyBoxForm->openWindow->setStyleSheet(stylesheets.keyBoxOpenButtonStyleSheet.at(keyInstance));
     //qDebug() << "key[" << keyInstance << "]: done - elapsed: " << eTimer.elapsed(); eTimer.start();
 

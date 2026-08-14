@@ -22,7 +22,11 @@
 
 namespace
 {
-QString slotResolveHostedSoftStepPortAlias(QComboBox *comboBox, const QString &presetDevice)
+// Resolve a saved output-port name from any era (SSCOM Port 1/2 on SoftStep 1/2,
+// pre/post-1.0.0 firmware names, and SoftStep 3 names) to whichever equivalent
+// port is actually present in the given combo. Used by both standalone and hosted
+// preset loading so port routing survives hardware/firmware/name changes.
+QString resolveSoftStepPortAlias(QComboBox *comboBox, const QString &presetDevice)
 {
     const QString normalizedDevice = presetDevice.trimmed();
     if (normalizedDevice.isEmpty() || comboBox == nullptr)
@@ -677,27 +681,36 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     // get the port name from the preset JSON
     QString presetDevice = preset.value(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1)).toString();
-    unsigned char destIndex = 0;
 
     if (mode == "standalone")
     {
-        QMap<QString, unsigned char> portMap;
+        // Select the output port by NAME, not by a fixed combo index. The combo is
+        // [None, <ports for the current hardware>], so any hard-coded index would be
+        // wrong (this was the 3.0.7 regression: presets shifted to the wrong port /
+        // "None"). Resolve any-era saved name to the equivalent port in the combo.
+        const QString resolvedDevice = resolveSoftStepPortAlias(modlineForm->dest_device, presetDevice);
 
-        // USB
-        portMap["SSCOM Port 1"] = 0;
-        portMap["SoftStep USB MIDI"] = 0;
-        portMap["SoftStep Control Surface"] = 0;
+        if (modlineForm->dest_device->findText(resolvedDevice) != -1)
+        {
+            modlineForm->dest_device->setCurrentText(resolvedDevice);
 
-        // MIDI
-        portMap["SSCOM Port 2"] = 1;
-        portMap["SoftStep Expander"] = 1;
-        portMap["SoftStep TRS MIDI Out"] = 1;
-
-        // CV
-        portMap["SoftStep CV Out"] = 2;
-
-        destIndex = portMap.value(presetDevice, 1); // default to USB port name index
-        modlineForm->dest_device->setCurrentIndex(destIndex);
+            // Normalize a legacy/aliased name to the current one so a later save
+            // persists a valid port. Only when a real equivalent exists in the combo.
+            if (resolvedDevice != presetDevice)
+            {
+                qDebug() << "Resolved standalone modline output alias:" << presetDevice << "->" << resolvedDevice
+                         << "key:" << keyInstance << "modline:" << modlineInstance;
+                emit signalStoreValue(QString("key%1_modline%2_device").arg(keyInstance+1).arg(modlineInstance+1), resolvedDevice, -1);
+                emit signalCheckSavedState();
+            }
+        }
+        else
+        {
+            // Port isn't available for the current hardware view (e.g. CV Out while a
+            // SoftStep 1/2 UI is shown). Show "None" but DON'T overwrite the JSON, so
+            // the routing is restored when the matching hardware is reconnected.
+            modlineForm->dest_device->setCurrentText("None");
+        }
     }
     else // hosted mode
     {
@@ -710,7 +723,7 @@ void Modline::slotRecallPreset(QVariantMap preset, QVariantMap)
         }
         else
         {
-            const QString resolvedDevice = slotResolveHostedSoftStepPortAlias(modlineForm->dest_device, presetDevice);
+            const QString resolvedDevice = resolveSoftStepPortAlias(modlineForm->dest_device, presetDevice);
             if (resolvedDevice != presetDevice)
             {
                 qDebug() << "Resolved hosted modline output alias:" << presetDevice << "->" << resolvedDevice

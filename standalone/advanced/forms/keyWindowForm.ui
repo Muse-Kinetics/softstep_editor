@@ -205,95 +205,6 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
 /* -------------------------------------------------------------------------------*/
 </string>
   </property>
-  <widget class="QFrame" name="keyWindowInstanceLabel_background">
-   <property name="geometry">
-    <rect>
-     <x>425</x>
-     <y>10</y>
-     <width>35</width>
-     <height>35</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>25</width>
-     <height>25</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>50</width>
-     <height>50</height>
-    </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QFrame
-{
-	border: none;
-	padding: none;
-	border-image: url(:/resources/modline_window_label_background.svg) 0 0 0 0 stretch stretch;
-}</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="keyWindowInstanceLabel">
-   <property name="geometry">
-    <rect>
-     <x>430</x>
-     <y>16</y>
-     <width>25</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>25</width>
-     <height>25</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>25</width>
-     <height>25</height>
-    </size>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>-1</pointsize>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="contextMenuPolicy">
-    <enum>Qt::NoContextMenu</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel
-{
-	font: 20px &quot;Futura-Normal&quot;;
-	border: none;
-	padding: none;
-	background-image: none;
-}</string>
-   </property>
-   <property name="lineWidth">
-    <number>0</number>
-   </property>
-   <property name="text">
-    <string>#</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="textInteractionFlags">
-    <set>Qt::LinksAccessibleByMouse</set>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -487,7 +398,7 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
     <string>Key Name</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
@@ -507,7 +418,7 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
     <string>Display Mode</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="label_6">
@@ -527,7 +438,7 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
     <string>Prefix</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
   <widget class="QToolButton" name="addmodline">
@@ -603,6 +514,7 @@ QToolButton:pressed
    </property>
    <property name="font">
     <font>
+     <family>Futura-Normal</family>
      <pointsize>9</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -612,7 +524,7 @@ QToolButton:pressed
     <string>Min</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="label_21">
@@ -626,6 +538,7 @@ QToolButton:pressed
    </property>
    <property name="font">
     <font>
+     <family>Futura-Normal</family>
      <pointsize>9</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -635,7 +548,7 @@ QToolButton:pressed
     <string>Max</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
   <widget class="QSpinBox" name="counterMax">
@@ -654,10 +567,10 @@ QToolButton:pressed
     <string notr="true"/>
    </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
    <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
+    <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
    </property>
    <property name="maximum">
     <number>127</number>
@@ -674,6 +587,7 @@ QToolButton:pressed
    </property>
    <property name="font">
     <font>
+     <family>Futura-Normal</family>
      <pointsize>9</pointsize>
      <italic>false</italic>
      <bold>false</bold>
@@ -683,7 +597,7 @@ QToolButton:pressed
     <string>Wrap</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
   <widget class="QCheckBox" name="counterWrap">
@@ -770,10 +684,10 @@ QCheckBox::indicator:checked:disabled
     <string notr="true"/>
    </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
    <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
+    <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
    </property>
    <property name="maximum">
     <number>127</number>
@@ -789,10 +703,10 @@ QCheckBox::indicator:checked:disabled
     </rect>
    </property>
    <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
+    <enum>QFrame::Shape::StyledPanel</enum>
    </property>
    <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
+    <enum>QFrame::Shadow::Raised</enum>
    </property>
    <widget class="QLabel" name="label_9">
     <property name="geometry">
@@ -820,7 +734,7 @@ QCheckBox::indicator:checked:disabled
      <string>Data Modifiers</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_10">
@@ -849,7 +763,7 @@ QCheckBox::indicator:checked:disabled
      <string>Data Sources</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_11">
@@ -878,7 +792,7 @@ QCheckBox::indicator:checked:disabled
      <string>Output Settings</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_12">
@@ -907,7 +821,7 @@ QCheckBox::indicator:checked:disabled
      <string>Inits</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QToolButton" name="ledDisplayCheckBox">
@@ -972,16 +886,44 @@ QToolTip
      <string>C O U N T</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
     </property>
     <property name="wordWrap">
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QLabel" name="keyWindowInstanceLabel">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>10</y>
+      <width>38</width>
+      <height>38</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background:		none;
+	color: 				white;
+	font:  20px &quot;Futura-Normal&quot;;
+	border:				none;
+	border-image: url(:/resources/modline_window_label_background.svg) 0 0 0 0 stretch stretch;
+
+}
+
+
+</string>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <zorder>frame</zorder>
-  <zorder>keyWindowInstanceLabel_background</zorder>
-  <zorder>keyWindowInstanceLabel</zorder>
   <zorder>label</zorder>
   <zorder>initsBracketLabel</zorder>
   <zorder>dataSourcesBracketLabel</zorder>

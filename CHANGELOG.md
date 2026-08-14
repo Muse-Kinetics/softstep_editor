@@ -1,5 +1,16 @@
 #### SoftStep Editor and Firmware Changelog
 
+### Editor 3.0.9, Firmware 2.0.7 (2026-08-14)
+- Bug Fixes:
+	- Advanced Editor (Standalone mode): fixed preset output ports loading incorrectly - presets saved in earlier editor versions could load pointing at the wrong output port (or "None"). Presets now map any era of SoftStep port name (SoftStep 1/2, pre/post-1.0.0 firmware, SoftStep 3) to the correct current port regardless of which hardware is connected, and legacy names are normalized when the preset is saved.
+	- macOS: File > Import Preset, Export Preset, and (Advanced) Import All Presets from V1.21 now use the native macOS file dialog again. The non-native dialog is only needed on Windows (where the MIDI Services backend conflicts with the native dialog).
+	- Export Preset now always adds the correct file extension when it is left off.
+	- Advanced Editor: fixed the key modulation window not showing the key number inside the blue circle.
+	- Advanced Editor: fixed the "SAVE AS" button label being clipped to "SA...AS" on Macs that don't have the Futura PT font installed - the font is now bundled with the app.
+	- Advanced Editor: File > Reset Presets to Default now fills the Setlist with the default presets instead of clearing it.
+	- Basic Editor: fixed the Current Preset dropdown list clipping the first character of each item (e.g. "Slot 1" showing as "lot 1").
+	- Advanced Editor: fixed the About screen showing the previous version number after a version change.
+
 ### Editor 3.0.8, Firmware 2.0.7 (2026-08-08)
 - Bug Fixes:
 	- Fixed both editors hanging indefinitely (Windows reports it as "Not Responding") when using File > Export Preset, File > Import Preset, or (Advanced Editor) File > Import All Presets from V1.21. The new Windows MIDI Services backend initializes the app's main thread into a COM apartment mode that conflicts with the native Windows Save/Open/Browse file dialogs, causing them to hang rather than crash. The editors now use Qt's own file dialogs instead of the native ones to avoid the conflict.

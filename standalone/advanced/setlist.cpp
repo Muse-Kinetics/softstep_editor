@@ -259,6 +259,29 @@ void Setlist::slotCompileSetlist()
     emit signalSetlistChanged(setlistEmpty);
 }
 
+void Setlist::slotFillWithAllPresets(QComboBox *presetMenu)
+{
+    // Fill the setlist slots with every preset, in order. Used by "Reset Presets to
+    // Default" so the default presets populate the setlist instead of clearing it.
+    // After slotPopulateSetlistMenus(), each menu holds "[EMPTY]" at index 0 followed
+    // by one item per preset, so setlist slot m maps to preset m at menu index m + 1.
+    repopulating = true; // suppress per-menu recompiles while we set them all
+    for(int m = 0; m < menus.size(); m++)
+    {
+        if(m < presetMenu->count())
+        {
+            menus.at(m)->setCurrentIndex(m + 1); // preset m
+        }
+        else
+        {
+            menus.at(m)->setCurrentIndex(0); // no preset for this slot -> [EMPTY]
+        }
+    }
+    repopulating = false;
+
+    slotCompileSetlist(); // build + write the setlist from the menus
+}
+
 void Setlist::slotPopulateSetlistMenus(QComboBox* presetMenu)
 {
     //-------- Adds items to setlist menu

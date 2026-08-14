@@ -41,7 +41,12 @@ resolve_version() {
     /usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$1/Contents/Info.plist" 2>/dev/null || echo 0.0.0
 }
 VERSION="$(resolve_version "${APPS[0]}")"
-mkdir -p "$DIST"; xattr -w com.dropbox.ignored 1 "$DIST" 2>/dev/null || true
+# Beta convention: the .pro carries the beta letter as a 4th dotted field
+# (e.g. 3.0.8.A) so the editor's split('.') parser reads it as betaVersion="A".
+# Collapse that trailing ".<letter>" for display (DMG name + plist) so it reads
+# "3.0.8A" — matching how the About window renders it. No-op for numeric versions.
+VERSION="$(printf '%s' "$VERSION" | sed -E 's/\.([A-Za-z]+)$/\1/')"
+mkdir -p "$DIST"
 OUT_DMG="$DIST/$VOLUME Mac v$VERSION.dmg"
 
 STAGE="$(mktemp -d)"
