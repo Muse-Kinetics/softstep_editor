@@ -82,3 +82,4 @@ win-deploy/packages/com.keithmcmillen.softstepeditors.content/data/
 
 # macOS VS Code build output
 build-macos-*/
+Signing and Notarization/dmg/
